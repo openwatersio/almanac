@@ -162,7 +162,7 @@ func earthHelioVector(_ tt: Double) -> Vec3 {
  *
  * Returns geocentric position in AU, J2000 mean equator (EQJ).
  */
-private func sunGeoVectorEqj(_ tt: Double) -> Vec3 {
+func sunGeoVectorEqj(_ tt: Double) -> Vec3 {
     var ltime = tt
     var dt = 0.0
     for _ in 0..<10 {

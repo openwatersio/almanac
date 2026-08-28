@@ -104,9 +104,15 @@ public func deltaTSeconds(decimalYear: Double) -> Double {
     return -20 + 32 * u * u
 }
 
-/// Days since J2000 (TT), fractional — the argument every translated function consumes.
-public func ttDays(_ d: Date) -> Double {
-    let ut = utDays(d)
+/// Days since J2000 (TT) for a UT-days value already in hand — factored out of
+/// `ttDays` so L2 transforms that compute `ut` once (sidereal time, topocentric
+/// parallax) can derive `tt` from it without re-deriving the ut→year→ΔT conversion.
+public func ttDaysFromUt(_ ut: Double) -> Double {
     let year = 2000 + ut / 365.25
     return ut + deltaTSeconds(decimalYear: year) / 86400
+}
+
+/// Days since J2000 (TT), fractional — the argument every translated function consumes.
+public func ttDays(_ d: Date) -> Double {
+    ttDaysFromUt(utDays(d))
 }

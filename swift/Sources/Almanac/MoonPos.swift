@@ -258,6 +258,33 @@ func calcMoon(_ tt: Double) -> MoonEcliptic {
 }
 
 /**
+ * UPSTREAM: `GeoMoon` (astronomy.ts 3049-3068) up to (not including) the
+ * `gyration(..., From2000)` that `Equator(ofdate=true)` (line 2803) applies.
+ *
+ * Returns geocentric position in AU, J2000 mean equator (EQJ) — the `mpos2`
+ * intermediate, exposed for the L2 topocentric path (Task 12), which needs
+ * the body vector in the same EQJ frame as the observer's geocentric
+ * position before subtracting the two.
+ */
+func moonGeoVectorEqj(_ tt: Double) -> Vec3 {
+    let moon = calcMoon(tt)
+
+    // Convert geocentric ecliptic spherical coords to cartesian coords.
+    let dist_cos_lat = moon.distanceAu * cos(moon.geoEclipLat)
+    let gepos = Vec3(
+        x: dist_cos_lat * cos(moon.geoEclipLon),
+        y: dist_cos_lat * sin(moon.geoEclipLon),
+        z: moon.distanceAu * sin(moon.geoEclipLat)
+    )
+
+    // Convert ecliptic coordinates to equatorial coordinates, both in mean equinox of date.
+    let mpos1 = eclipticToEquatorial(meanObliquityDeg(tt), gepos)
+
+    // Convert from mean equinox of date to J2000...
+    return precession(mpos1, tt, .into2000)
+}
+
+/**
  * UPSTREAM: `GeoMoon`, astronomy.ts lines 3049-3068, followed by the
  * `gyration(..., From2000)` that `Equator(ofdate=true)` (line 2803) applies.
  *
@@ -273,22 +300,6 @@ func calcMoon(_ tt: Double) -> MoonEcliptic {
  * Returns geocentric position in AU, true equator & equinox of date.
  */
 func moonGeoVector(_ tt: Double) -> Vec3 {
-    let moon = calcMoon(tt)
-
-    // Convert geocentric ecliptic spherical coords to cartesian coords.
-    let dist_cos_lat = moon.distanceAu * cos(moon.geoEclipLat)
-    let gepos = Vec3(
-        x: dist_cos_lat * cos(moon.geoEclipLon),
-        y: dist_cos_lat * sin(moon.geoEclipLon),
-        z: moon.distanceAu * sin(moon.geoEclipLat)
-    )
-
-    // Convert ecliptic coordinates to equatorial coordinates, both in mean equinox of date.
-    let mpos1 = eclipticToEquatorial(meanObliquityDeg(tt), gepos)
-
-    // Convert from mean equinox of date to J2000...
-    let mpos2 = precession(mpos1, tt, .into2000)
-
     // ...then out to the true equator and equinox of date (precession + nutation).
-    return gyration(mpos2, tt, .from2000)
+    gyration(moonGeoVectorEqj(tt), tt, .from2000)
 }
