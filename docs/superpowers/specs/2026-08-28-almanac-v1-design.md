@@ -70,7 +70,7 @@ trusted publishing; SwiftPM consumers pin the tag.
 
 - **L0 time** — Julian date; ΔT via the Espenak–Meeus piecewise polynomials.
 - **L1 positions** — sun: truncated VSOP87 (earth); moon: Montenbruck–Pfleger MOON2
-  (arcsecond-class, with distance); nutation (truncated IAU 1980) and aberration.
+  (arcsecond-class, with distance); nutation (IAU 2000B truncated, as translated from upstream `iau2000b`) and aberration.
 - **L2 transforms** — ecliptic↔equatorial (equator-of-date), equatorial→horizontal,
   topocentric parallax, atmospheric refraction.
 - **L3 event searches** — root-finding over L1/L2: rise/set/twilights, transit,
