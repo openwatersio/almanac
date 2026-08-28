@@ -201,7 +201,12 @@ retrieval date. Raw responses are committed, so git itself is their integrity ha
   present value for future dates while this library projects Espenak–Meeus
   (~205 s by 2100), so a UT-labeled comparison would measure that ΔT-model
   disagreement (~75″ of lunar motion), not astronomy. The 2026 dense files stay
-  UT-labeled and exercise the public UTC API, where the two ΔT models agree to ~1 s.
+  UT-labeled and exercise the public UTC API. Measured ΔT divergence (Espenak–Meeus
+  − Horizons): −40 s at 1950, **+5.9 s at 2026** (EM's 2005–2050 parabola over-predicts
+  the present; real ΔT ≈ 69 s), +45 s at 2060, +134 s at 2100. At 2026 that costs the
+  dense moon tests ~2–3″ of their 60″ budget, and it costs every UT-based event
+  comparison (USNO fixtures) ~6 s of its 60 s budget before any astronomy happens —
+  a known, bounded floor, not a bug to chase.
 - **Events** — USNO rise/set/twilight across a latitude grid including polar edge
   cases; USNO moon-phase catalog.
 - **Lunar eclipses** — Espenak Five Millennium catalog subset (1950–2100): types,
