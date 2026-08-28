@@ -1,0 +1,702 @@
+{
+  "apiversion": "4.0.1",
+  "day": 1,
+  "month": 1,
+  "numphases": 99,
+  "phasedata": [
+    {
+      "day": 4,
+      "month": 1,
+      "phase": "Last Quarter",
+      "time": "19:04",
+      "year": 1975
+    },
+    {
+      "day": 12,
+      "month": 1,
+      "phase": "New Moon",
+      "time": "10:20",
+      "year": 1975
+    },
+    {
+      "day": 20,
+      "month": 1,
+      "phase": "First Quarter",
+      "time": "15:14",
+      "year": 1975
+    },
+    {
+      "day": 27,
+      "month": 1,
+      "phase": "Full Moon",
+      "time": "15:09",
+      "year": 1975
+    },
+    {
+      "day": 3,
+      "month": 2,
+      "phase": "Last Quarter",
+      "time": "06:23",
+      "year": 1975
+    },
+    {
+      "day": 11,
+      "month": 2,
+      "phase": "New Moon",
+      "time": "05:17",
+      "year": 1975
+    },
+    {
+      "day": 19,
+      "month": 2,
+      "phase": "First Quarter",
+      "time": "07:38",
+      "year": 1975
+    },
+    {
+      "day": 26,
+      "month": 2,
+      "phase": "Full Moon",
+      "time": "01:15",
+      "year": 1975
+    },
+    {
+      "day": 4,
+      "month": 3,
+      "phase": "Last Quarter",
+      "time": "20:20",
+      "year": 1975
+    },
+    {
+      "day": 12,
+      "month": 3,
+      "phase": "New Moon",
+      "time": "23:47",
+      "year": 1975
+    },
+    {
+      "day": 20,
+      "month": 3,
+      "phase": "First Quarter",
+      "time": "20:05",
+      "year": 1975
+    },
+    {
+      "day": 27,
+      "month": 3,
+      "phase": "Full Moon",
+      "time": "10:36",
+      "year": 1975
+    },
+    {
+      "day": 3,
+      "month": 4,
+      "phase": "Last Quarter",
+      "time": "12:25",
+      "year": 1975
+    },
+    {
+      "day": 11,
+      "month": 4,
+      "phase": "New Moon",
+      "time": "16:39",
+      "year": 1975
+    },
+    {
+      "day": 19,
+      "month": 4,
+      "phase": "First Quarter",
+      "time": "04:41",
+      "year": 1975
+    },
+    {
+      "day": 25,
+      "month": 4,
+      "phase": "Full Moon",
+      "time": "19:55",
+      "year": 1975
+    },
+    {
+      "day": 3,
+      "month": 5,
+      "phase": "Last Quarter",
+      "time": "05:44",
+      "year": 1975
+    },
+    {
+      "day": 11,
+      "month": 5,
+      "phase": "New Moon",
+      "time": "07:05",
+      "year": 1975
+    },
+    {
+      "day": 18,
+      "month": 5,
+      "phase": "First Quarter",
+      "time": "10:29",
+      "year": 1975
+    },
+    {
+      "day": 25,
+      "month": 5,
+      "phase": "Full Moon",
+      "time": "05:51",
+      "year": 1975
+    },
+    {
+      "day": 1,
+      "month": 6,
+      "phase": "Last Quarter",
+      "time": "23:22",
+      "year": 1975
+    },
+    {
+      "day": 9,
+      "month": 6,
+      "phase": "New Moon",
+      "time": "18:49",
+      "year": 1975
+    },
+    {
+      "day": 16,
+      "month": 6,
+      "phase": "First Quarter",
+      "time": "14:58",
+      "year": 1975
+    },
+    {
+      "day": 23,
+      "month": 6,
+      "phase": "Full Moon",
+      "time": "16:54",
+      "year": 1975
+    },
+    {
+      "day": 1,
+      "month": 7,
+      "phase": "Last Quarter",
+      "time": "16:37",
+      "year": 1975
+    },
+    {
+      "day": 9,
+      "month": 7,
+      "phase": "New Moon",
+      "time": "04:10",
+      "year": 1975
+    },
+    {
+      "day": 15,
+      "month": 7,
+      "phase": "First Quarter",
+      "time": "19:47",
+      "year": 1975
+    },
+    {
+      "day": 23,
+      "month": 7,
+      "phase": "Full Moon",
+      "time": "05:28",
+      "year": 1975
+    },
+    {
+      "day": 31,
+      "month": 7,
+      "phase": "Last Quarter",
+      "time": "08:48",
+      "year": 1975
+    },
+    {
+      "day": 7,
+      "month": 8,
+      "phase": "New Moon",
+      "time": "11:57",
+      "year": 1975
+    },
+    {
+      "day": 14,
+      "month": 8,
+      "phase": "First Quarter",
+      "time": "02:24",
+      "year": 1975
+    },
+    {
+      "day": 21,
+      "month": 8,
+      "phase": "Full Moon",
+      "time": "19:48",
+      "year": 1975
+    },
+    {
+      "day": 29,
+      "month": 8,
+      "phase": "Last Quarter",
+      "time": "23:20",
+      "year": 1975
+    },
+    {
+      "day": 5,
+      "month": 9,
+      "phase": "New Moon",
+      "time": "19:19",
+      "year": 1975
+    },
+    {
+      "day": 12,
+      "month": 9,
+      "phase": "First Quarter",
+      "time": "11:59",
+      "year": 1975
+    },
+    {
+      "day": 20,
+      "month": 9,
+      "phase": "Full Moon",
+      "time": "11:50",
+      "year": 1975
+    },
+    {
+      "day": 28,
+      "month": 9,
+      "phase": "Last Quarter",
+      "time": "11:46",
+      "year": 1975
+    },
+    {
+      "day": 5,
+      "month": 10,
+      "phase": "New Moon",
+      "time": "03:23",
+      "year": 1975
+    },
+    {
+      "day": 12,
+      "month": 10,
+      "phase": "First Quarter",
+      "time": "01:15",
+      "year": 1975
+    },
+    {
+      "day": 20,
+      "month": 10,
+      "phase": "Full Moon",
+      "time": "05:06",
+      "year": 1975
+    },
+    {
+      "day": 27,
+      "month": 10,
+      "phase": "Last Quarter",
+      "time": "22:07",
+      "year": 1975
+    },
+    {
+      "day": 3,
+      "month": 11,
+      "phase": "New Moon",
+      "time": "13:05",
+      "year": 1975
+    },
+    {
+      "day": 10,
+      "month": 11,
+      "phase": "First Quarter",
+      "time": "18:21",
+      "year": 1975
+    },
+    {
+      "day": 18,
+      "month": 11,
+      "phase": "Full Moon",
+      "time": "22:28",
+      "year": 1975
+    },
+    {
+      "day": 26,
+      "month": 11,
+      "phase": "Last Quarter",
+      "time": "06:52",
+      "year": 1975
+    },
+    {
+      "day": 3,
+      "month": 12,
+      "phase": "New Moon",
+      "time": "00:50",
+      "year": 1975
+    },
+    {
+      "day": 10,
+      "month": 12,
+      "phase": "First Quarter",
+      "time": "14:39",
+      "year": 1975
+    },
+    {
+      "day": 18,
+      "month": 12,
+      "phase": "Full Moon",
+      "time": "14:39",
+      "year": 1975
+    },
+    {
+      "day": 25,
+      "month": 12,
+      "phase": "Last Quarter",
+      "time": "14:52",
+      "year": 1975
+    },
+    {
+      "day": 1,
+      "month": 1,
+      "phase": "New Moon",
+      "time": "14:40",
+      "year": 1976
+    },
+    {
+      "day": 9,
+      "month": 1,
+      "phase": "First Quarter",
+      "time": "12:40",
+      "year": 1976
+    },
+    {
+      "day": 17,
+      "month": 1,
+      "phase": "Full Moon",
+      "time": "04:47",
+      "year": 1976
+    },
+    {
+      "day": 23,
+      "month": 1,
+      "phase": "Last Quarter",
+      "time": "23:04",
+      "year": 1976
+    },
+    {
+      "day": 31,
+      "month": 1,
+      "phase": "New Moon",
+      "time": "06:20",
+      "year": 1976
+    },
+    {
+      "day": 8,
+      "month": 2,
+      "phase": "First Quarter",
+      "time": "10:05",
+      "year": 1976
+    },
+    {
+      "day": 15,
+      "month": 2,
+      "phase": "Full Moon",
+      "time": "16:43",
+      "year": 1976
+    },
+    {
+      "day": 22,
+      "month": 2,
+      "phase": "Last Quarter",
+      "time": "08:16",
+      "year": 1976
+    },
+    {
+      "day": 29,
+      "month": 2,
+      "phase": "New Moon",
+      "time": "23:25",
+      "year": 1976
+    },
+    {
+      "day": 9,
+      "month": 3,
+      "phase": "First Quarter",
+      "time": "04:38",
+      "year": 1976
+    },
+    {
+      "day": 16,
+      "month": 3,
+      "phase": "Full Moon",
+      "time": "02:53",
+      "year": 1976
+    },
+    {
+      "day": 22,
+      "month": 3,
+      "phase": "Last Quarter",
+      "time": "18:54",
+      "year": 1976
+    },
+    {
+      "day": 30,
+      "month": 3,
+      "phase": "New Moon",
+      "time": "17:08",
+      "year": 1976
+    },
+    {
+      "day": 7,
+      "month": 4,
+      "phase": "First Quarter",
+      "time": "19:02",
+      "year": 1976
+    },
+    {
+      "day": 14,
+      "month": 4,
+      "phase": "Full Moon",
+      "time": "11:49",
+      "year": 1976
+    },
+    {
+      "day": 21,
+      "month": 4,
+      "phase": "Last Quarter",
+      "time": "07:14",
+      "year": 1976
+    },
+    {
+      "day": 29,
+      "month": 4,
+      "phase": "New Moon",
+      "time": "10:20",
+      "year": 1976
+    },
+    {
+      "day": 7,
+      "month": 5,
+      "phase": "First Quarter",
+      "time": "05:17",
+      "year": 1976
+    },
+    {
+      "day": 13,
+      "month": 5,
+      "phase": "Full Moon",
+      "time": "20:04",
+      "year": 1976
+    },
+    {
+      "day": 20,
+      "month": 5,
+      "phase": "Last Quarter",
+      "time": "21:22",
+      "year": 1976
+    },
+    {
+      "day": 29,
+      "month": 5,
+      "phase": "New Moon",
+      "time": "01:47",
+      "year": 1976
+    },
+    {
+      "day": 5,
+      "month": 6,
+      "phase": "First Quarter",
+      "time": "12:20",
+      "year": 1976
+    },
+    {
+      "day": 12,
+      "month": 6,
+      "phase": "Full Moon",
+      "time": "04:15",
+      "year": 1976
+    },
+    {
+      "day": 19,
+      "month": 6,
+      "phase": "Last Quarter",
+      "time": "13:15",
+      "year": 1976
+    },
+    {
+      "day": 27,
+      "month": 6,
+      "phase": "New Moon",
+      "time": "14:50",
+      "year": 1976
+    },
+    {
+      "day": 4,
+      "month": 7,
+      "phase": "First Quarter",
+      "time": "17:28",
+      "year": 1976
+    },
+    {
+      "day": 11,
+      "month": 7,
+      "phase": "Full Moon",
+      "time": "13:09",
+      "year": 1976
+    },
+    {
+      "day": 19,
+      "month": 7,
+      "phase": "Last Quarter",
+      "time": "06:29",
+      "year": 1976
+    },
+    {
+      "day": 27,
+      "month": 7,
+      "phase": "New Moon",
+      "time": "01:39",
+      "year": 1976
+    },
+    {
+      "day": 2,
+      "month": 8,
+      "phase": "First Quarter",
+      "time": "22:06",
+      "year": 1976
+    },
+    {
+      "day": 9,
+      "month": 8,
+      "phase": "Full Moon",
+      "time": "23:43",
+      "year": 1976
+    },
+    {
+      "day": 18,
+      "month": 8,
+      "phase": "Last Quarter",
+      "time": "00:12",
+      "year": 1976
+    },
+    {
+      "day": 25,
+      "month": 8,
+      "phase": "New Moon",
+      "time": "11:01",
+      "year": 1976
+    },
+    {
+      "day": 1,
+      "month": 9,
+      "phase": "First Quarter",
+      "time": "03:35",
+      "year": 1976
+    },
+    {
+      "day": 8,
+      "month": 9,
+      "phase": "Full Moon",
+      "time": "12:52",
+      "year": 1976
+    },
+    {
+      "day": 16,
+      "month": 9,
+      "phase": "Last Quarter",
+      "time": "17:20",
+      "year": 1976
+    },
+    {
+      "day": 23,
+      "month": 9,
+      "phase": "New Moon",
+      "time": "19:55",
+      "year": 1976
+    },
+    {
+      "day": 30,
+      "month": 9,
+      "phase": "First Quarter",
+      "time": "11:12",
+      "year": 1976
+    },
+    {
+      "day": 8,
+      "month": 10,
+      "phase": "Full Moon",
+      "time": "04:55",
+      "year": 1976
+    },
+    {
+      "day": 16,
+      "month": 10,
+      "phase": "Last Quarter",
+      "time": "08:59",
+      "year": 1976
+    },
+    {
+      "day": 23,
+      "month": 10,
+      "phase": "New Moon",
+      "time": "05:10",
+      "year": 1976
+    },
+    {
+      "day": 29,
+      "month": 10,
+      "phase": "First Quarter",
+      "time": "22:05",
+      "year": 1976
+    },
+    {
+      "day": 6,
+      "month": 11,
+      "phase": "Full Moon",
+      "time": "23:15",
+      "year": 1976
+    },
+    {
+      "day": 14,
+      "month": 11,
+      "phase": "Last Quarter",
+      "time": "22:39",
+      "year": 1976
+    },
+    {
+      "day": 21,
+      "month": 11,
+      "phase": "New Moon",
+      "time": "15:11",
+      "year": 1976
+    },
+    {
+      "day": 28,
+      "month": 11,
+      "phase": "First Quarter",
+      "time": "12:59",
+      "year": 1976
+    },
+    {
+      "day": 6,
+      "month": 12,
+      "phase": "Full Moon",
+      "time": "18:15",
+      "year": 1976
+    },
+    {
+      "day": 14,
+      "month": 12,
+      "phase": "Last Quarter",
+      "time": "10:14",
+      "year": 1976
+    },
+    {
+      "day": 21,
+      "month": 12,
+      "phase": "New Moon",
+      "time": "02:08",
+      "year": 1976
+    },
+    {
+      "day": 28,
+      "month": 12,
+      "phase": "First Quarter",
+      "time": "07:48",
+      "year": 1976
+    }
+  ],
+  "year": 1975
+}

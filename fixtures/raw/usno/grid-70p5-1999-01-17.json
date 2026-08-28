@@ -1,0 +1,59 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -123.052,
+      70.5
+    ],
+    "type": "Point"
+  },
+  "properties": {
+    "data": {
+      "closestphase": {
+        "day": 17,
+        "month": 1,
+        "phase": "New Moon",
+        "time": "15:46",
+        "year": 1999
+      },
+      "curphase": "New Moon",
+      "day": 17,
+      "day_of_week": "Sunday",
+      "fracillum": "0%",
+      "isdst": false,
+      "label": null,
+      "month": 1,
+      "moondata": [
+        {
+          "phen": "Rise",
+          "time": "19:10"
+        },
+        {
+          "phen": "Upper Transit",
+          "time": "20:30"
+        },
+        {
+          "phen": "Set",
+          "time": "21:58"
+        }
+      ],
+      "sundata": [
+        {
+          "phen": "Object continuously below the Horizon",
+          "time": null
+        },
+        {
+          "phen": "Begin Civil Twilight",
+          "time": "17:31"
+        },
+        {
+          "phen": "End Civil Twilight",
+          "time": "23:14"
+        }
+      ],
+      "tz": 0,
+      "year": 1999
+    }
+  },
+  "type": "Feature"
+}

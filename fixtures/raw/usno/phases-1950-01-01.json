@@ -1,0 +1,702 @@
+{
+  "apiversion": "4.0.1",
+  "day": 1,
+  "month": 1,
+  "numphases": 99,
+  "phasedata": [
+    {
+      "day": 4,
+      "month": 1,
+      "phase": "Full Moon",
+      "time": "07:48",
+      "year": 1950
+    },
+    {
+      "day": 11,
+      "month": 1,
+      "phase": "Last Quarter",
+      "time": "10:31",
+      "year": 1950
+    },
+    {
+      "day": 18,
+      "month": 1,
+      "phase": "New Moon",
+      "time": "07:59",
+      "year": 1950
+    },
+    {
+      "day": 26,
+      "month": 1,
+      "phase": "First Quarter",
+      "time": "04:39",
+      "year": 1950
+    },
+    {
+      "day": 2,
+      "month": 2,
+      "phase": "Full Moon",
+      "time": "22:16",
+      "year": 1950
+    },
+    {
+      "day": 9,
+      "month": 2,
+      "phase": "Last Quarter",
+      "time": "18:32",
+      "year": 1950
+    },
+    {
+      "day": 16,
+      "month": 2,
+      "phase": "New Moon",
+      "time": "22:53",
+      "year": 1950
+    },
+    {
+      "day": 25,
+      "month": 2,
+      "phase": "First Quarter",
+      "time": "01:52",
+      "year": 1950
+    },
+    {
+      "day": 4,
+      "month": 3,
+      "phase": "Full Moon",
+      "time": "10:34",
+      "year": 1950
+    },
+    {
+      "day": 11,
+      "month": 3,
+      "phase": "Last Quarter",
+      "time": "02:38",
+      "year": 1950
+    },
+    {
+      "day": 18,
+      "month": 3,
+      "phase": "New Moon",
+      "time": "15:20",
+      "year": 1950
+    },
+    {
+      "day": 26,
+      "month": 3,
+      "phase": "First Quarter",
+      "time": "20:10",
+      "year": 1950
+    },
+    {
+      "day": 2,
+      "month": 4,
+      "phase": "Full Moon",
+      "time": "20:49",
+      "year": 1950
+    },
+    {
+      "day": 9,
+      "month": 4,
+      "phase": "Last Quarter",
+      "time": "11:42",
+      "year": 1950
+    },
+    {
+      "day": 17,
+      "month": 4,
+      "phase": "New Moon",
+      "time": "08:25",
+      "year": 1950
+    },
+    {
+      "day": 25,
+      "month": 4,
+      "phase": "First Quarter",
+      "time": "10:40",
+      "year": 1950
+    },
+    {
+      "day": 2,
+      "month": 5,
+      "phase": "Full Moon",
+      "time": "05:19",
+      "year": 1950
+    },
+    {
+      "day": 8,
+      "month": 5,
+      "phase": "Last Quarter",
+      "time": "22:32",
+      "year": 1950
+    },
+    {
+      "day": 17,
+      "month": 5,
+      "phase": "New Moon",
+      "time": "00:54",
+      "year": 1950
+    },
+    {
+      "day": 24,
+      "month": 5,
+      "phase": "First Quarter",
+      "time": "21:28",
+      "year": 1950
+    },
+    {
+      "day": 31,
+      "month": 5,
+      "phase": "Full Moon",
+      "time": "12:43",
+      "year": 1950
+    },
+    {
+      "day": 7,
+      "month": 6,
+      "phase": "Last Quarter",
+      "time": "11:35",
+      "year": 1950
+    },
+    {
+      "day": 15,
+      "month": 6,
+      "phase": "New Moon",
+      "time": "15:53",
+      "year": 1950
+    },
+    {
+      "day": 23,
+      "month": 6,
+      "phase": "First Quarter",
+      "time": "05:13",
+      "year": 1950
+    },
+    {
+      "day": 29,
+      "month": 6,
+      "phase": "Full Moon",
+      "time": "19:58",
+      "year": 1950
+    },
+    {
+      "day": 7,
+      "month": 7,
+      "phase": "Last Quarter",
+      "time": "02:53",
+      "year": 1950
+    },
+    {
+      "day": 15,
+      "month": 7,
+      "phase": "New Moon",
+      "time": "05:05",
+      "year": 1950
+    },
+    {
+      "day": 22,
+      "month": 7,
+      "phase": "First Quarter",
+      "time": "10:50",
+      "year": 1950
+    },
+    {
+      "day": 29,
+      "month": 7,
+      "phase": "Full Moon",
+      "time": "04:18",
+      "year": 1950
+    },
+    {
+      "day": 5,
+      "month": 8,
+      "phase": "Last Quarter",
+      "time": "19:56",
+      "year": 1950
+    },
+    {
+      "day": 13,
+      "month": 8,
+      "phase": "New Moon",
+      "time": "16:48",
+      "year": 1950
+    },
+    {
+      "day": 20,
+      "month": 8,
+      "phase": "First Quarter",
+      "time": "15:35",
+      "year": 1950
+    },
+    {
+      "day": 27,
+      "month": 8,
+      "phase": "Full Moon",
+      "time": "14:51",
+      "year": 1950
+    },
+    {
+      "day": 4,
+      "month": 9,
+      "phase": "Last Quarter",
+      "time": "13:53",
+      "year": 1950
+    },
+    {
+      "day": 12,
+      "month": 9,
+      "phase": "New Moon",
+      "time": "03:29",
+      "year": 1950
+    },
+    {
+      "day": 18,
+      "month": 9,
+      "phase": "First Quarter",
+      "time": "20:54",
+      "year": 1950
+    },
+    {
+      "day": 26,
+      "month": 9,
+      "phase": "Full Moon",
+      "time": "04:21",
+      "year": 1950
+    },
+    {
+      "day": 4,
+      "month": 10,
+      "phase": "Last Quarter",
+      "time": "07:53",
+      "year": 1950
+    },
+    {
+      "day": 11,
+      "month": 10,
+      "phase": "New Moon",
+      "time": "13:34",
+      "year": 1950
+    },
+    {
+      "day": 18,
+      "month": 10,
+      "phase": "First Quarter",
+      "time": "04:18",
+      "year": 1950
+    },
+    {
+      "day": 25,
+      "month": 10,
+      "phase": "Full Moon",
+      "time": "20:46",
+      "year": 1950
+    },
+    {
+      "day": 3,
+      "month": 11,
+      "phase": "Last Quarter",
+      "time": "01:00",
+      "year": 1950
+    },
+    {
+      "day": 9,
+      "month": 11,
+      "phase": "New Moon",
+      "time": "23:25",
+      "year": 1950
+    },
+    {
+      "day": 16,
+      "month": 11,
+      "phase": "First Quarter",
+      "time": "15:06",
+      "year": 1950
+    },
+    {
+      "day": 24,
+      "month": 11,
+      "phase": "Full Moon",
+      "time": "15:14",
+      "year": 1950
+    },
+    {
+      "day": 2,
+      "month": 12,
+      "phase": "Last Quarter",
+      "time": "16:22",
+      "year": 1950
+    },
+    {
+      "day": 9,
+      "month": 12,
+      "phase": "New Moon",
+      "time": "09:29",
+      "year": 1950
+    },
+    {
+      "day": 16,
+      "month": 12,
+      "phase": "First Quarter",
+      "time": "05:56",
+      "year": 1950
+    },
+    {
+      "day": 24,
+      "month": 12,
+      "phase": "Full Moon",
+      "time": "10:23",
+      "year": 1950
+    },
+    {
+      "day": 1,
+      "month": 1,
+      "phase": "Last Quarter",
+      "time": "05:11",
+      "year": 1951
+    },
+    {
+      "day": 7,
+      "month": 1,
+      "phase": "New Moon",
+      "time": "20:10",
+      "year": 1951
+    },
+    {
+      "day": 15,
+      "month": 1,
+      "phase": "First Quarter",
+      "time": "00:23",
+      "year": 1951
+    },
+    {
+      "day": 23,
+      "month": 1,
+      "phase": "Full Moon",
+      "time": "04:47",
+      "year": 1951
+    },
+    {
+      "day": 30,
+      "month": 1,
+      "phase": "Last Quarter",
+      "time": "15:14",
+      "year": 1951
+    },
+    {
+      "day": 6,
+      "month": 2,
+      "phase": "New Moon",
+      "time": "07:54",
+      "year": 1951
+    },
+    {
+      "day": 13,
+      "month": 2,
+      "phase": "First Quarter",
+      "time": "20:55",
+      "year": 1951
+    },
+    {
+      "day": 21,
+      "month": 2,
+      "phase": "Full Moon",
+      "time": "21:12",
+      "year": 1951
+    },
+    {
+      "day": 28,
+      "month": 2,
+      "phase": "Last Quarter",
+      "time": "22:59",
+      "year": 1951
+    },
+    {
+      "day": 7,
+      "month": 3,
+      "phase": "New Moon",
+      "time": "20:50",
+      "year": 1951
+    },
+    {
+      "day": 15,
+      "month": 3,
+      "phase": "First Quarter",
+      "time": "17:40",
+      "year": 1951
+    },
+    {
+      "day": 23,
+      "month": 3,
+      "phase": "Full Moon",
+      "time": "10:50",
+      "year": 1951
+    },
+    {
+      "day": 30,
+      "month": 3,
+      "phase": "Last Quarter",
+      "time": "05:35",
+      "year": 1951
+    },
+    {
+      "day": 6,
+      "month": 4,
+      "phase": "New Moon",
+      "time": "10:52",
+      "year": 1951
+    },
+    {
+      "day": 14,
+      "month": 4,
+      "phase": "First Quarter",
+      "time": "12:56",
+      "year": 1951
+    },
+    {
+      "day": 21,
+      "month": 4,
+      "phase": "Full Moon",
+      "time": "21:30",
+      "year": 1951
+    },
+    {
+      "day": 28,
+      "month": 4,
+      "phase": "Last Quarter",
+      "time": "12:18",
+      "year": 1951
+    },
+    {
+      "day": 6,
+      "month": 5,
+      "phase": "New Moon",
+      "time": "01:36",
+      "year": 1951
+    },
+    {
+      "day": 14,
+      "month": 5,
+      "phase": "First Quarter",
+      "time": "05:32",
+      "year": 1951
+    },
+    {
+      "day": 21,
+      "month": 5,
+      "phase": "Full Moon",
+      "time": "05:45",
+      "year": 1951
+    },
+    {
+      "day": 27,
+      "month": 5,
+      "phase": "Last Quarter",
+      "time": "20:17",
+      "year": 1951
+    },
+    {
+      "day": 4,
+      "month": 6,
+      "phase": "New Moon",
+      "time": "16:40",
+      "year": 1951
+    },
+    {
+      "day": 12,
+      "month": 6,
+      "phase": "First Quarter",
+      "time": "18:52",
+      "year": 1951
+    },
+    {
+      "day": 19,
+      "month": 6,
+      "phase": "Full Moon",
+      "time": "12:36",
+      "year": 1951
+    },
+    {
+      "day": 26,
+      "month": 6,
+      "phase": "Last Quarter",
+      "time": "06:21",
+      "year": 1951
+    },
+    {
+      "day": 4,
+      "month": 7,
+      "phase": "New Moon",
+      "time": "07:48",
+      "year": 1951
+    },
+    {
+      "day": 12,
+      "month": 7,
+      "phase": "First Quarter",
+      "time": "04:56",
+      "year": 1951
+    },
+    {
+      "day": 18,
+      "month": 7,
+      "phase": "Full Moon",
+      "time": "19:17",
+      "year": 1951
+    },
+    {
+      "day": 25,
+      "month": 7,
+      "phase": "Last Quarter",
+      "time": "18:59",
+      "year": 1951
+    },
+    {
+      "day": 2,
+      "month": 8,
+      "phase": "New Moon",
+      "time": "22:39",
+      "year": 1951
+    },
+    {
+      "day": 10,
+      "month": 8,
+      "phase": "First Quarter",
+      "time": "12:22",
+      "year": 1951
+    },
+    {
+      "day": 17,
+      "month": 8,
+      "phase": "Full Moon",
+      "time": "02:59",
+      "year": 1951
+    },
+    {
+      "day": 24,
+      "month": 8,
+      "phase": "Last Quarter",
+      "time": "10:20",
+      "year": 1951
+    },
+    {
+      "day": 1,
+      "month": 9,
+      "phase": "New Moon",
+      "time": "12:50",
+      "year": 1951
+    },
+    {
+      "day": 8,
+      "month": 9,
+      "phase": "First Quarter",
+      "time": "18:16",
+      "year": 1951
+    },
+    {
+      "day": 15,
+      "month": 9,
+      "phase": "Full Moon",
+      "time": "12:38",
+      "year": 1951
+    },
+    {
+      "day": 23,
+      "month": 9,
+      "phase": "Last Quarter",
+      "time": "04:13",
+      "year": 1951
+    },
+    {
+      "day": 1,
+      "month": 10,
+      "phase": "New Moon",
+      "time": "01:57",
+      "year": 1951
+    },
+    {
+      "day": 8,
+      "month": 10,
+      "phase": "First Quarter",
+      "time": "00:00",
+      "year": 1951
+    },
+    {
+      "day": 15,
+      "month": 10,
+      "phase": "Full Moon",
+      "time": "00:51",
+      "year": 1951
+    },
+    {
+      "day": 22,
+      "month": 10,
+      "phase": "Last Quarter",
+      "time": "23:55",
+      "year": 1951
+    },
+    {
+      "day": 30,
+      "month": 10,
+      "phase": "New Moon",
+      "time": "13:54",
+      "year": 1951
+    },
+    {
+      "day": 6,
+      "month": 11,
+      "phase": "First Quarter",
+      "time": "06:59",
+      "year": 1951
+    },
+    {
+      "day": 13,
+      "month": 11,
+      "phase": "Full Moon",
+      "time": "15:52",
+      "year": 1951
+    },
+    {
+      "day": 21,
+      "month": 11,
+      "phase": "Last Quarter",
+      "time": "20:01",
+      "year": 1951
+    },
+    {
+      "day": 29,
+      "month": 11,
+      "phase": "New Moon",
+      "time": "01:00",
+      "year": 1951
+    },
+    {
+      "day": 5,
+      "month": 12,
+      "phase": "First Quarter",
+      "time": "16:20",
+      "year": 1951
+    },
+    {
+      "day": 13,
+      "month": 12,
+      "phase": "Full Moon",
+      "time": "09:30",
+      "year": 1951
+    },
+    {
+      "day": 21,
+      "month": 12,
+      "phase": "Last Quarter",
+      "time": "14:37",
+      "year": 1951
+    },
+    {
+      "day": 28,
+      "month": 12,
+      "phase": "New Moon",
+      "time": "11:43",
+      "year": 1951
+    }
+  ],
+  "year": 1950
+}
