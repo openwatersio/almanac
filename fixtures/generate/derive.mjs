@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const RAW_DIR = new URL("../raw/horizons/", import.meta.url);
 const USNO_RAW_DIR = new URL("../raw/usno/", import.meta.url);
+const ESPENAK_RAW_DIR = new URL("../raw/espenak/", import.meta.url);
 const FIXTURES_DIR = new URL("../", import.meta.url);
 
 const AU_KM = 1.495978707e8;
@@ -167,6 +168,170 @@ function deriveUsnoPhases(retrieved, requests) {
       sourceVersion: rawUsno(`phases-${USNO_PHASE_STARTS[0]}`).apiversion,
       retrieved,
       requests: USNO_PHASE_STARTS.map((s) => requests[`phases-${s}`]),
+    }),
+  };
+}
+
+// --- Espenak lunar eclipse catalog + contacts -----------------------------
+
+function rawEspenak(name) {
+  return readFileSync(new URL(`${name}.html`, ESPENAK_RAW_DIR), "utf8");
+}
+
+const ESPENAK_KIND_MAP = { T: "total", P: "partial", N: "penumbral" };
+
+function espenakCatalogFile(name) {
+  const text = rawEspenak(name);
+  const statedMatch = text.match(/Earth (?:will experience|experienced)\s+(\d+)\s+lunar eclipses/);
+  assert.ok(statedMatch, `${name}: could not find the page's stated century total`);
+  const statedTotal = Number(statedMatch[1]);
+
+  const stripped = text.replace(/<[^>]+>/g, "");
+  const rows = [];
+  for (const line of stripped.split("\n")) {
+    const tokens = line.trim().split(/\s+/);
+    if (tokens.length !== 18 || !/^\d{5}$/.test(tokens[0])) continue;
+    rows.push(tokens);
+  }
+  // self-check: our fixed-width row parse must find exactly as many
+  // eclipses as the page's own intro prose states for this century.
+  assert.equal(rows.length, statedTotal, `${name}: parsed ${rows.length} rows, page states ${statedTotal}`);
+
+  return rows.map((tokens) => {
+    const [, year, monAbbr, day, time, deltaTStr, , , type, , , penMagStr, umMagStr] = tokens;
+    const month = MONTHS[monAbbr];
+    assert.ok(month, `${name}: unknown month abbreviation "${monAbbr}"`);
+    const [hh, mm, ss] = time.split(":").map(Number);
+    const tdMs = Date.UTC(Number(year), Number(month) - 1, Number(day), hh, mm, ss);
+    const peakUtc = new Date(tdMs - Number(deltaTStr) * 1000).toISOString().replace(/\.\d+Z$/, "Z");
+    const kind = ESPENAK_KIND_MAP[type[0]];
+    assert.ok(kind, `${name}: unmapped eclipse type "${type}"`);
+    const magUmbral = Number(umMagStr);
+    const magPenumbral = Number(penMagStr);
+    // kindFirm=false when the type-deciding (umbral) magnitude sits within
+    // 0.05 of either type boundary: 0 (penumbral<->partial) or 1 (partial<->total).
+    const kindFirm = Math.abs(magUmbral) > 0.05 && Math.abs(magUmbral - 1) > 0.05;
+    return { year: Number(year), peakUtc, kind, magPenumbral, magUmbral, kindFirm };
+  });
+}
+
+function deriveEspenakCatalog(retrieved, requests) {
+  const all = [...espenakCatalogFile("LE1901-2000"), ...espenakCatalogFile("LE2001-2100")];
+  const filtered = all
+    .filter((e) => e.year >= 1950 && e.year <= 2100)
+    .sort((a, b) => a.peakUtc.localeCompare(b.peakUtc))
+    .map(({ year, ...rest }) => rest);
+
+  // self-check: the 2026-08-28 regression case (just below the partial/total
+  // boundary) parses as partial with umbral magnitude ~0.93.
+  const aug28 = filtered.find((e) => e.peakUtc.startsWith("2026-08-28"));
+  assert.ok(aug28, "espenak catalog: missing 2026-08-28 eclipse");
+  assert.equal(aug28.kind, "partial", "espenak catalog: 2026-08-28 should be partial");
+  assert.ok(Math.abs(aug28.magUmbral - 0.93) < 0.01,
+    `espenak catalog: 2026-08-28 umbral magnitude should be ~0.93, got ${aug28.magUmbral}`);
+
+  const perKind = { penumbral: 0, partial: 0, total: 0 };
+  for (const e of filtered) perKind[e.kind]++;
+
+  return {
+    "eclipses/espenak-1950-2100.json": json(filtered),
+    filteredMeta: {
+      filteredCount: filtered.length,
+      perKind,
+      firstPeak: filtered[0].peakUtc,
+      lastPeak: filtered.at(-1).peakUtc,
+    },
+  };
+}
+
+const ESPENAK_CONTACTS_SPEC = [
+  { name: "contacts-2019", anchor: "LE2019Jan21T", eclipse: "2019-01-21" },
+  { name: "contacts-2025", anchor: "LE2025Sep07T", eclipse: "2025-09-07" },
+  { name: "contacts-2026", anchor: "LE2026Aug28P", eclipse: "2026-08-28" },
+  { name: "contacts-2020", anchor: "LE2020Nov30N", eclipse: "2020-11-30" },
+];
+const ESPENAK_CONTACT_LABELS = [
+  ["p1", "Penumbral Eclipse Begins"],
+  ["u1", "Partial Eclipse Begins"],
+  ["u2", "Total Eclipse Begins"],
+  ["peak", "Greatest Eclipse"],
+  ["u3", "Total Eclipse Ends"],
+  ["u4", "Partial Eclipse Ends"],
+  ["p4", "Penumbral Eclipse Ends"],
+];
+const ESPENAK_CONTACT_SHAPES = {
+  "2019-01-21": ["p1", "u1", "u2", "peak", "u3", "u4", "p4"],
+  "2025-09-07": ["p1", "u1", "u2", "peak", "u3", "u4", "p4"],
+  "2026-08-28": ["p1", "u1", "peak", "u4", "p4"],
+  "2020-11-30": ["p1", "peak", "p4"],
+};
+
+function deriveEspenakContacts(retrieved, requests) {
+  const contacts = ESPENAK_CONTACTS_SPEC.map(({ name, anchor, eclipse }) => {
+    const text = rawEspenak(name);
+    const idPos = text.indexOf(`id="${anchor}"`);
+    assert.ok(idPos !== -1, `${name}: anchor ${anchor} not found`);
+    const nextHr = text.indexOf('<hr class="blue"', idPos + 1);
+    const slice = nextHr === -1 ? text.slice(idPos) : text.slice(idPos, nextHr);
+
+    const found = {};
+    for (const [key, label] of ESPENAK_CONTACT_LABELS) {
+      const re = new RegExp(`${label}:\\s+(\\d{2}:\\d{2})\\s+UT`);
+      const m = slice.match(re);
+      found[key] = m ? m[1] : null;
+    }
+
+    // Build ISO instants from the catalog date, rolling the UTC day forward
+    // whenever a later-in-sequence contact's clock time is smaller than the
+    // one before it (none of these four eclipses actually cross midnight,
+    // but the eclipse can straddle it in general).
+    const [y, mo, d] = eclipse.split("-").map(Number);
+    let dayOffset = 0;
+    let prevMinutes = -1;
+    const record = { eclipse };
+    for (const [key] of ESPENAK_CONTACT_LABELS) {
+      const hhmm = found[key];
+      if (hhmm == null) { record[key] = null; continue; }
+      const [hh, mm] = hhmm.split(":").map(Number);
+      const minutes = hh * 60 + mm;
+      if (minutes < prevMinutes) dayOffset++;
+      prevMinutes = minutes;
+      record[key] = `${new Date(Date.UTC(y, mo - 1, d + dayOffset, hh, mm, 0)).toISOString().slice(0, 16)}Z`;
+    }
+    return record;
+  });
+
+  // self-check: each eclipse's contact keys are present/null exactly per
+  // its kind's contact shape (total: all 7; partial: no u2/u3; penumbral:
+  // only p1/peak/p4).
+  for (const c of contacts) {
+    const present = ESPENAK_CONTACT_SHAPES[c.eclipse];
+    assert.ok(present, `espenak contacts: unexpected eclipse ${c.eclipse}`);
+    for (const [key] of ESPENAK_CONTACT_LABELS) {
+      assert.equal(c[key] != null, present.includes(key),
+        `espenak contacts: ${c.eclipse} contact "${key}" presence mismatch`);
+    }
+  }
+
+  return {
+    "eclipses/contacts.json": json(contacts),
+  };
+}
+
+function deriveEspenak(retrieved, requests) {
+  const { "eclipses/espenak-1950-2100.json": catalogJson, filteredMeta } = deriveEspenakCatalog(retrieved, requests);
+  const { "eclipses/contacts.json": contactsJson } = deriveEspenakContacts(retrieved, requests);
+  return {
+    "eclipses/espenak-1950-2100.json": catalogJson,
+    "eclipses/contacts.json": contactsJson,
+    "eclipses/meta.json": json({
+      source: "NASA/GSFC Five Millennium Catalog of Lunar Eclipses (eclipse.gsfc.nasa.gov)",
+      retrieved,
+      requests: [
+        requests["LE1901-2000"], requests["LE2001-2100"],
+        ...ESPENAK_CONTACTS_SPEC.map((c) => requests[c.name]),
+      ],
+      ...filteredMeta,
     }),
   };
 }
@@ -330,12 +495,14 @@ function main() {
   const check = process.argv.includes("--check");
   const horizons = JSON.parse(readFileSync(new URL("retrieved.json", RAW_DIR), "utf8"));
   const usno = JSON.parse(readFileSync(new URL("retrieved.json", USNO_RAW_DIR), "utf8"));
+  const espenak = JSON.parse(readFileSync(new URL("retrieved.json", ESPENAK_RAW_DIR), "utf8"));
 
   const files = {
     ...derivePositions(horizons.retrieved, horizons.requests),
     ...deriveAltaz(horizons.retrieved, horizons.requests),
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
+    ...deriveEspenak(espenak.retrieved, espenak.requests),
   };
 
   let drift = false;

@@ -1,0 +1,20 @@
+{
+  "source": "NASA/GSFC Five Millennium Catalog of Lunar Eclipses (eclipse.gsfc.nasa.gov)",
+  "retrieved": "2026-08-28",
+  "requests": [
+    "https://eclipse.gsfc.nasa.gov/LEcat5/LE1901-2000.html",
+    "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html",
+    "https://eclipse.gsfc.nasa.gov/OH/OH2019.html",
+    "https://eclipse.gsfc.nasa.gov/OH/OH2025.html",
+    "https://eclipse.gsfc.nasa.gov/OH/OH2026.html",
+    "https://eclipse.gsfc.nasa.gov/OH/OH2020.html"
+  ],
+  "filteredCount": 344,
+  "perKind": {
+    "penumbral": 129,
+    "partial": 86,
+    "total": 129
+  },
+  "firstPeak": "1950-04-02T20:44:05Z",
+  "lastPeak": "2100-08-19T21:41:34Z"
+}

@@ -1,0 +1,2410 @@
+[
+  {
+    "peakUtc": "1950-04-02T20:44:05Z",
+    "kind": "total",
+    "magPenumbral": 1.9951,
+    "magUmbral": 1.0329,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1950-09-26T04:16:42Z",
+    "kind": "total",
+    "magPenumbral": 2.1331,
+    "magUmbral": 1.0783,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1951-03-23T10:37:03Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6418,
+    "magUmbral": -0.3661,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1951-08-17T03:14:09Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.1195,
+    "magUmbral": -0.8456,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1951-09-15T12:26:36Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8034,
+    "magUmbral": -0.1928,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1952-02-11T00:39:18Z",
+    "kind": "partial",
+    "magPenumbral": 1.1781,
+    "magUmbral": 0.0832,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1952-08-05T19:47:25Z",
+    "kind": "partial",
+    "magPenumbral": 1.4741,
+    "magUmbral": 0.5317,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1953-01-29T23:47:19Z",
+    "kind": "total",
+    "magPenumbral": 2.4291,
+    "magUmbral": 1.3314,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1953-07-26T12:20:40Z",
+    "kind": "total",
+    "magPenumbral": 2.8265,
+    "magUmbral": 1.8628,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1954-01-19T02:31:50Z",
+    "kind": "total",
+    "magPenumbral": 2.0853,
+    "magUmbral": 1.0322,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1954-07-16T00:20:20Z",
+    "kind": "partial",
+    "magPenumbral": 1.4202,
+    "magUmbral": 0.4054,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1955-01-08T12:32:49Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8555,
+    "magUmbral": -0.1421,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1955-06-05T14:22:52Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6218,
+    "magUmbral": -0.4498,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1955-11-29T16:59:29Z",
+    "kind": "partial",
+    "magPenumbral": 1.0917,
+    "magUmbral": 0.119,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1956-05-24T15:31:20Z",
+    "kind": "partial",
+    "magPenumbral": 2.0174,
+    "magUmbral": 0.9647,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1956-11-18T06:47:44Z",
+    "kind": "total",
+    "magPenumbral": 2.3285,
+    "magUmbral": 1.3172,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1957-05-13T22:30:56Z",
+    "kind": "total",
+    "magPenumbral": 2.3001,
+    "magUmbral": 1.2982,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1957-11-07T14:26:58Z",
+    "kind": "total",
+    "magPenumbral": 2.0963,
+    "magUmbral": 1.0305,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1958-04-04T03:59:43Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0135,
+    "magUmbral": -0.9422,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1958-05-03T12:12:57Z",
+    "kind": "partial",
+    "magPenumbral": 0.9676,
+    "magUmbral": 0.0092,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1958-10-27T15:27:17Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7825,
+    "magUmbral": -0.3118,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1959-03-24T20:11:24Z",
+    "kind": "partial",
+    "magPenumbral": 1.2379,
+    "magUmbral": 0.2643,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1959-09-17T01:03:04Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9874,
+    "magUmbral": -0.0496,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1960-03-13T08:27:48Z",
+    "kind": "total",
+    "magPenumbral": 2.5415,
+    "magUmbral": 1.5145,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1960-09-05T11:21:18Z",
+    "kind": "total",
+    "magPenumbral": 2.4031,
+    "magUmbral": 1.4239,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1961-03-02T13:28:06Z",
+    "kind": "partial",
+    "magPenumbral": 1.8828,
+    "magUmbral": 0.8006,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1961-08-26T03:08:17Z",
+    "kind": "partial",
+    "magPenumbral": 1.933,
+    "magUmbral": 0.9863,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1962-02-19T13:03:08Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.612,
+    "magUmbral": -0.4865,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1962-07-17T11:54:15Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.3924,
+    "magUmbral": -0.5835,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1962-08-15T19:56:56Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.5963,
+    "magUmbral": -0.3616,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1963-01-09T23:19:07Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.018,
+    "magUmbral": -0.0185,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1963-07-06T22:02:24Z",
+    "kind": "partial",
+    "magPenumbral": 1.736,
+    "magUmbral": 0.706,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1963-12-30T11:06:50Z",
+    "kind": "total",
+    "magPenumbral": 2.3206,
+    "magUmbral": 1.335,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1964-06-25T01:06:15Z",
+    "kind": "total",
+    "magPenumbral": 2.6238,
+    "magUmbral": 1.5565,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1964-12-19T02:37:18Z",
+    "kind": "total",
+    "magPenumbral": 2.1461,
+    "magUmbral": 1.1748,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1965-06-14T01:48:50Z",
+    "kind": "partial",
+    "magPenumbral": 1.2351,
+    "magUmbral": 0.1767,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1965-12-08T17:09:56Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.882,
+    "magUmbral": -0.1201,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1966-05-04T21:11:29Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9157,
+    "magUmbral": -0.0728,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1966-10-29T10:12:16Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9517,
+    "magUmbral": -0.1249,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1967-04-24T12:06:26Z",
+    "kind": "total",
+    "magPenumbral": 2.2892,
+    "magUmbral": 1.3356,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1967-10-18T10:15:10Z",
+    "kind": "total",
+    "magPenumbral": 2.2337,
+    "magUmbral": 1.1426,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1968-04-13T04:47:22Z",
+    "kind": "total",
+    "magPenumbral": 2.0725,
+    "magUmbral": 1.1116,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1968-10-06T11:41:56Z",
+    "kind": "total",
+    "magPenumbral": 2.2242,
+    "magUmbral": 1.1691,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1969-04-02T18:32:27Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7033,
+    "magUmbral": -0.3047,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1969-08-27T10:47:35Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0131,
+    "magUmbral": -0.9516,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1969-09-25T20:09:39Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9007,
+    "magUmbral": -0.0953,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1970-02-21T08:30:03Z",
+    "kind": "partial",
+    "magPenumbral": 1.1402,
+    "magUmbral": 0.0463,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1970-08-17T03:23:25Z",
+    "kind": "partial",
+    "magPenumbral": 1.3521,
+    "magUmbral": 0.4079,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1971-02-10T07:44:40Z",
+    "kind": "total",
+    "magPenumbral": 2.4026,
+    "magUmbral": 1.3082,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1971-08-06T19:43:10Z",
+    "kind": "total",
+    "magPenumbral": 2.6958,
+    "magUmbral": 1.7283,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1972-01-30T10:53:23Z",
+    "kind": "total",
+    "magPenumbral": 2.0987,
+    "magUmbral": 1.0497,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1972-07-26T07:15:39Z",
+    "kind": "partial",
+    "magPenumbral": 1.5618,
+    "magUmbral": 0.5427,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1973-01-18T21:17:15Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8655,
+    "magUmbral": -0.1293,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1973-06-15T20:49:57Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.4685,
+    "magUmbral": -0.602,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1973-07-15T11:38:35Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.1046,
+    "magUmbral": -0.9581,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1973-12-10T01:44:22Z",
+    "kind": "partial",
+    "magPenumbral": 1.076,
+    "magUmbral": 0.1007,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1974-06-04T22:15:59Z",
+    "kind": "partial",
+    "magPenumbral": 1.8752,
+    "magUmbral": 0.8269,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1974-11-29T15:13:22Z",
+    "kind": "total",
+    "magPenumbral": 2.3057,
+    "magUmbral": 1.2896,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1975-05-25T05:48:01Z",
+    "kind": "total",
+    "magPenumbral": 2.4218,
+    "magUmbral": 1.4253,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1975-11-18T22:23:26Z",
+    "kind": "total",
+    "magPenumbral": 2.1352,
+    "magUmbral": 1.0642,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1976-05-13T19:54:21Z",
+    "kind": "partial",
+    "magPenumbral": 1.0761,
+    "magUmbral": 0.1217,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1976-11-06T23:01:12Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8383,
+    "magUmbral": -0.2594,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1977-04-04T04:18:16Z",
+    "kind": "partial",
+    "magPenumbral": 1.1657,
+    "magUmbral": 0.1928,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1977-09-27T08:29:20Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9007,
+    "magUmbral": -0.1361,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1978-03-24T16:22:22Z",
+    "kind": "total",
+    "magPenumbral": 2.479,
+    "magUmbral": 1.4518,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1978-09-16T19:04:12Z",
+    "kind": "total",
+    "magPenumbral": 2.306,
+    "magUmbral": 1.3268,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1979-03-13T21:08:02Z",
+    "kind": "partial",
+    "magPenumbral": 1.935,
+    "magUmbral": 0.8538,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1979-09-06T10:54:12Z",
+    "kind": "total",
+    "magPenumbral": 2.0421,
+    "magUmbral": 1.0936,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1980-03-01T20:45:12Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6545,
+    "magUmbral": -0.4405,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1980-07-27T19:08:08Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.2535,
+    "magUmbral": -0.7264,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1980-08-26T03:30:29Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7089,
+    "magUmbral": -0.2531,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1981-01-20T07:49:57Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.0136,
+    "magUmbral": -0.0192,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1981-07-17T04:46:48Z",
+    "kind": "partial",
+    "magPenumbral": 1.5822,
+    "magUmbral": 0.5486,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1982-01-09T19:55:52Z",
+    "kind": "total",
+    "magPenumbral": 2.3147,
+    "magUmbral": 1.331,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1982-07-06T07:30:54Z",
+    "kind": "total",
+    "magPenumbral": 2.786,
+    "magUmbral": 1.7179,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1982-12-30T11:28:44Z",
+    "kind": "total",
+    "magPenumbral": 2.1545,
+    "magUmbral": 1.1822,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1983-06-25T08:22:18Z",
+    "kind": "partial",
+    "magPenumbral": 1.3901,
+    "magUmbral": 0.3348,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1983-12-20T01:49:03Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.889,
+    "magUmbral": -0.1167,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1984-05-15T04:40:09Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8071,
+    "magUmbral": -0.176,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1984-06-13T14:25:45Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0647,
+    "magUmbral": -0.9414,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1984-11-08T17:55:14Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8992,
+    "magUmbral": -0.1825,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1985-05-04T19:56:24Z",
+    "kind": "total",
+    "magPenumbral": 2.187,
+    "magUmbral": 1.2369,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1985-10-28T17:42:22Z",
+    "kind": "total",
+    "magPenumbral": 2.1673,
+    "magUmbral": 1.0736,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1986-04-24T12:42:35Z",
+    "kind": "total",
+    "magPenumbral": 2.162,
+    "magUmbral": 1.2022,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1986-10-17T19:17:59Z",
+    "kind": "total",
+    "magPenumbral": 2.3008,
+    "magUmbral": 1.2455,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1987-04-14T02:18:55Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7769,
+    "magUmbral": -0.2313,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1987-10-07T04:01:34Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9863,
+    "magUmbral": -0.0096,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1988-03-03T16:12:45Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.0907,
+    "magUmbral": -0.0017,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1988-08-27T11:04:33Z",
+    "kind": "partial",
+    "magPenumbral": 1.238,
+    "magUmbral": 0.2915,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1989-02-20T15:35:22Z",
+    "kind": "total",
+    "magPenumbral": 2.3651,
+    "magUmbral": 1.2747,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1989-08-17T03:08:10Z",
+    "kind": "total",
+    "magPenumbral": 2.5703,
+    "magUmbral": 1.5984,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1990-02-09T19:11:05Z",
+    "kind": "total",
+    "magPenumbral": 2.1191,
+    "magUmbral": 1.075,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1990-08-06T14:12:19Z",
+    "kind": "partial",
+    "magPenumbral": 1.7005,
+    "magUmbral": 0.6766,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1991-01-30T05:58:40Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8807,
+    "magUmbral": -0.1106,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1991-06-27T03:14:43Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.3126,
+    "magUmbral": -0.7572,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1991-07-26T18:07:52Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.2542,
+    "magUmbral": -0.811,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1991-12-21T10:33:02Z",
+    "kind": "partial",
+    "magPenumbral": 1.0651,
+    "magUmbral": 0.0876,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1992-06-15T04:56:58Z",
+    "kind": "partial",
+    "magPenumbral": 1.7264,
+    "magUmbral": 0.6822,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1992-12-09T23:44:06Z",
+    "kind": "total",
+    "magPenumbral": 2.2915,
+    "magUmbral": 1.2709,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1993-06-04T13:00:27Z",
+    "kind": "total",
+    "magPenumbral": 2.5532,
+    "magUmbral": 1.5617,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1993-11-29T06:26:06Z",
+    "kind": "total",
+    "magPenumbral": 2.1633,
+    "magUmbral": 1.0876,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1994-05-25T03:30:20Z",
+    "kind": "partial",
+    "magPenumbral": 1.1941,
+    "magUmbral": 0.2432,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1994-11-18T06:43:53Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8815,
+    "magUmbral": -0.2189,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1995-04-15T12:18:03Z",
+    "kind": "partial",
+    "magPenumbral": 1.0836,
+    "magUmbral": 0.1114,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1995-10-08T16:04:11Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8252,
+    "magUmbral": -0.2115,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1996-04-04T00:09:45Z",
+    "kind": "total",
+    "magPenumbral": 2.4068,
+    "magUmbral": 1.3795,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1996-09-27T02:54:22Z",
+    "kind": "total",
+    "magPenumbral": 2.2188,
+    "magUmbral": 1.2395,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1997-03-24T04:39:26Z",
+    "kind": "partial",
+    "magPenumbral": 1.9994,
+    "magUmbral": 0.9195,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1997-09-16T18:46:39Z",
+    "kind": "total",
+    "magPenumbral": 2.1417,
+    "magUmbral": 1.1909,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1998-03-13T04:20:05Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7086,
+    "magUmbral": -0.3824,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1998-08-08T02:24:54Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.1206,
+    "magUmbral": -0.8637,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1998-09-06T11:10:08Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8121,
+    "magUmbral": -0.1544,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "1999-01-31T16:17:32Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.0027,
+    "magUmbral": -0.0258,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "1999-07-28T11:33:42Z",
+    "kind": "partial",
+    "magPenumbral": 1.4342,
+    "magUmbral": 0.3966,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2000-01-21T04:43:30Z",
+    "kind": "total",
+    "magPenumbral": 2.306,
+    "magUmbral": 1.3246,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2000-07-16T13:55:35Z",
+    "kind": "total",
+    "magPenumbral": 2.8375,
+    "magUmbral": 1.7684,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2001-01-09T20:20:36Z",
+    "kind": "total",
+    "magPenumbral": 2.1618,
+    "magUmbral": 1.1889,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2001-07-05T14:55:19Z",
+    "kind": "partial",
+    "magPenumbral": 1.5475,
+    "magUmbral": 0.4947,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2001-12-30T10:29:18Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8933,
+    "magUmbral": -0.1155,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2002-05-26T12:03:22Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6893,
+    "magUmbral": -0.2888,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2002-06-24T21:27:09Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.2095,
+    "magUmbral": -0.7925,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2002-11-20T01:46:36Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.86,
+    "magUmbral": -0.2264,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2003-05-16T03:40:09Z",
+    "kind": "total",
+    "magPenumbral": 2.0747,
+    "magUmbral": 1.1276,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2003-11-09T01:18:34Z",
+    "kind": "total",
+    "magPenumbral": 2.1139,
+    "magUmbral": 1.0178,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2004-05-04T20:30:12Z",
+    "kind": "total",
+    "magPenumbral": 2.2627,
+    "magUmbral": 1.3035,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2004-10-28T03:04:06Z",
+    "kind": "total",
+    "magPenumbral": 2.3637,
+    "magUmbral": 1.3081,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2005-04-24T09:54:50Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.865,
+    "magUmbral": -0.1436,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2005-10-17T12:03:22Z",
+    "kind": "partial",
+    "magPenumbral": 1.0585,
+    "magUmbral": 0.0625,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2006-03-14T23:47:29Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.03,
+    "magUmbral": -0.0604,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2006-09-07T18:51:20Z",
+    "kind": "partial",
+    "magPenumbral": 1.1329,
+    "magUmbral": 0.1837,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2007-03-03T23:20:54Z",
+    "kind": "total",
+    "magPenumbral": 2.3188,
+    "magUmbral": 1.2328,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2007-08-28T10:37:21Z",
+    "kind": "total",
+    "magPenumbral": 2.4526,
+    "magUmbral": 1.4758,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2008-02-21T03:26:03Z",
+    "kind": "total",
+    "magPenumbral": 2.1451,
+    "magUmbral": 1.1062,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2008-08-16T21:10:06Z",
+    "kind": "partial",
+    "magPenumbral": 1.8366,
+    "magUmbral": 0.8076,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2009-02-09T14:38:16Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8994,
+    "magUmbral": -0.0882,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2009-07-07T09:38:37Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.1562,
+    "magUmbral": -0.9133,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2009-08-06T00:39:12Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.4019,
+    "magUmbral": -0.6661,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2009-12-31T19:22:39Z",
+    "kind": "partial",
+    "magPenumbral": 1.0556,
+    "magUmbral": 0.0763,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2010-06-26T11:38:27Z",
+    "kind": "partial",
+    "magPenumbral": 1.5773,
+    "magUmbral": 0.5368,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2010-12-21T08:16:57Z",
+    "kind": "total",
+    "magPenumbral": 2.2807,
+    "magUmbral": 1.2561,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2011-06-15T20:12:36Z",
+    "kind": "total",
+    "magPenumbral": 2.6868,
+    "magUmbral": 1.6999,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2011-12-10T14:31:48Z",
+    "kind": "total",
+    "magPenumbral": 2.186,
+    "magUmbral": 1.1061,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2012-06-04T11:03:12Z",
+    "kind": "partial",
+    "magPenumbral": 1.3183,
+    "magUmbral": 0.3704,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2012-11-28T14:32:59Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9155,
+    "magUmbral": -0.1873,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2013-04-25T20:07:30Z",
+    "kind": "partial",
+    "magPenumbral": 0.9866,
+    "magUmbral": 0.0148,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2013-05-25T04:09:58Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0157,
+    "magUmbral": -0.9335,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2013-10-18T23:50:17Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7649,
+    "magUmbral": -0.2718,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2014-04-15T07:45:39Z",
+    "kind": "total",
+    "magPenumbral": 2.3182,
+    "magUmbral": 1.2907,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2014-10-08T10:54:35Z",
+    "kind": "total",
+    "magPenumbral": 2.1456,
+    "magUmbral": 1.1659,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2015-04-04T12:00:15Z",
+    "kind": "total",
+    "magPenumbral": 2.0792,
+    "magUmbral": 1.0008,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2015-09-28T02:47:08Z",
+    "kind": "total",
+    "magPenumbral": 2.2296,
+    "magUmbral": 1.2764,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2016-03-23T11:47:11Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7747,
+    "magUmbral": -0.3118,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2016-09-16T18:54:17Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.908,
+    "magUmbral": -0.0635,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2017-02-11T00:43:53Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9884,
+    "magUmbral": -0.0354,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2017-08-07T18:20:28Z",
+    "kind": "partial",
+    "magPenumbral": 1.2886,
+    "magUmbral": 0.2464,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2018-01-31T13:29:49Z",
+    "kind": "total",
+    "magPenumbral": 2.2941,
+    "magUmbral": 1.3155,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2018-07-27T20:21:43Z",
+    "kind": "total",
+    "magPenumbral": 2.6792,
+    "magUmbral": 1.6087,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2019-01-21T05:12:16Z",
+    "kind": "total",
+    "magPenumbral": 2.1684,
+    "magUmbral": 1.1953,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2019-07-16T21:30:44Z",
+    "kind": "partial",
+    "magPenumbral": 1.7037,
+    "magUmbral": 0.6531,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2020-01-10T19:09:59Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8956,
+    "magUmbral": -0.116,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2020-06-05T19:25:02Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.5683,
+    "magUmbral": -0.4053,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2020-07-05T04:30:00Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.3546,
+    "magUmbral": -0.6436,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2020-11-30T09:42:49Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8285,
+    "magUmbral": -0.262,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2021-05-26T11:18:41Z",
+    "kind": "total",
+    "magPenumbral": 1.954,
+    "magUmbral": 1.0095,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2021-11-19T09:02:53Z",
+    "kind": "partial",
+    "magPenumbral": 2.072,
+    "magUmbral": 0.9742,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2022-05-16T04:11:29Z",
+    "kind": "total",
+    "magPenumbral": 2.3726,
+    "magUmbral": 1.4137,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2022-11-08T10:59:09Z",
+    "kind": "total",
+    "magPenumbral": 2.4143,
+    "magUmbral": 1.3589,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2023-05-05T17:22:52Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9636,
+    "magUmbral": -0.0457,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2023-10-28T20:14:04Z",
+    "kind": "partial",
+    "magPenumbral": 1.1181,
+    "magUmbral": 0.122,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2024-03-25T07:12:45Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9557,
+    "magUmbral": -0.1325,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2024-09-18T02:44:11Z",
+    "kind": "partial",
+    "magPenumbral": 1.0372,
+    "magUmbral": 0.0848,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2025-03-14T06:58:41Z",
+    "kind": "total",
+    "magPenumbral": 2.2595,
+    "magUmbral": 1.1784,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2025-09-07T18:11:43Z",
+    "kind": "total",
+    "magPenumbral": 2.344,
+    "magUmbral": 1.3619,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2026-03-03T11:33:37Z",
+    "kind": "total",
+    "magPenumbral": 2.1838,
+    "magUmbral": 1.1507,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2026-08-28T04:12:49Z",
+    "kind": "partial",
+    "magPenumbral": 1.9645,
+    "magUmbral": 0.9299,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2027-02-20T23:12:50Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9266,
+    "magUmbral": -0.0569,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2027-07-18T16:02:53Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0014,
+    "magUmbral": -1.068,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2027-08-17T07:13:43Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.5456,
+    "magUmbral": -0.5254,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2028-01-12T04:12:57Z",
+    "kind": "partial",
+    "magPenumbral": 1.0468,
+    "magUmbral": 0.0662,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2028-07-06T18:19:40Z",
+    "kind": "partial",
+    "magPenumbral": 1.4266,
+    "magUmbral": 0.3892,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2028-12-31T16:51:58Z",
+    "kind": "total",
+    "magPenumbral": 2.2742,
+    "magUmbral": 1.2463,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2029-06-26T03:22:05Z",
+    "kind": "total",
+    "magPenumbral": 2.8266,
+    "magUmbral": 1.8436,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2029-12-20T22:41:54Z",
+    "kind": "total",
+    "magPenumbral": 2.2008,
+    "magUmbral": 1.1174,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2030-06-15T18:33:16Z",
+    "kind": "partial",
+    "magPenumbral": 1.448,
+    "magUmbral": 0.5025,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2030-12-09T22:27:33Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9416,
+    "magUmbral": -0.1628,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2031-05-07T03:50:44Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8814,
+    "magUmbral": -0.0904,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2031-06-05T11:43:59Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.1292,
+    "magUmbral": -0.8199,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2031-10-30T07:45:26Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7161,
+    "magUmbral": -0.3204,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2032-04-25T15:13:32Z",
+    "kind": "total",
+    "magPenumbral": 2.2192,
+    "magUmbral": 1.1913,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2032-10-18T19:02:21Z",
+    "kind": "total",
+    "magPenumbral": 2.083,
+    "magUmbral": 1.1028,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2033-04-14T19:12:31Z",
+    "kind": "total",
+    "magPenumbral": 2.1711,
+    "magUmbral": 1.0944,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2033-10-08T10:55:03Z",
+    "kind": "total",
+    "magPenumbral": 2.3057,
+    "magUmbral": 1.3497,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2034-04-03T19:05:39Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8545,
+    "magUmbral": -0.2274,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2034-09-28T02:46:16Z",
+    "kind": "partial",
+    "magPenumbral": 0.9911,
+    "magUmbral": 0.0144,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2035-02-22T09:04:51Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9652,
+    "magUmbral": -0.0535,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2035-08-19T01:10:54Z",
+    "kind": "partial",
+    "magPenumbral": 1.1507,
+    "magUmbral": 0.1037,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2036-02-11T22:11:44Z",
+    "kind": "total",
+    "magPenumbral": 2.2751,
+    "magUmbral": 1.2995,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2036-08-07T02:51:10Z",
+    "kind": "total",
+    "magPenumbral": 2.5266,
+    "magUmbral": 1.4544,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2037-01-31T14:00:16Z",
+    "kind": "total",
+    "magPenumbral": 2.1803,
+    "magUmbral": 1.2074,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2037-07-27T04:08:30Z",
+    "kind": "partial",
+    "magPenumbral": 1.8584,
+    "magUmbral": 0.8095,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2038-01-21T03:48:29Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8996,
+    "magUmbral": -0.114,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2038-06-17T02:43:39Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.4422,
+    "magUmbral": -0.5275,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2038-07-16T11:34:32Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.4999,
+    "magUmbral": -0.4952,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2038-12-11T17:43:36Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8046,
+    "magUmbral": -0.2892,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2039-06-06T18:53:01Z",
+    "kind": "partial",
+    "magPenumbral": 1.8272,
+    "magUmbral": 0.8846,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2039-11-30T16:55:03Z",
+    "kind": "partial",
+    "magPenumbral": 2.0418,
+    "magUmbral": 0.9426,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2040-05-26T11:44:57Z",
+    "kind": "total",
+    "magPenumbral": 2.4938,
+    "magUmbral": 1.5348,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2040-11-18T19:03:15Z",
+    "kind": "total",
+    "magPenumbral": 2.4525,
+    "magUmbral": 1.3974,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2041-05-16T00:41:37Z",
+    "kind": "partial",
+    "magPenumbral": 1.0747,
+    "magUmbral": 0.0645,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2041-11-08T04:33:39Z",
+    "kind": "partial",
+    "magPenumbral": 1.1656,
+    "magUmbral": 0.1696,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2042-04-05T14:28:45Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.868,
+    "magUmbral": -0.2176,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2042-09-29T10:44:20Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9528,
+    "magUmbral": -0.0031,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2043-03-25T14:30:37Z",
+    "kind": "total",
+    "magPenumbral": 2.19,
+    "magUmbral": 1.1142,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2043-09-19T01:50:22Z",
+    "kind": "total",
+    "magPenumbral": 2.2433,
+    "magUmbral": 1.2556,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2044-03-13T19:37:05Z",
+    "kind": "total",
+    "magPenumbral": 2.2303,
+    "magUmbral": 1.2031,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2044-09-07T11:19:16Z",
+    "kind": "total",
+    "magPenumbral": 2.086,
+    "magUmbral": 1.0456,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2045-03-03T07:41:57Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9623,
+    "magUmbral": -0.0168,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2045-08-27T13:53:21Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6825,
+    "magUmbral": -0.3919,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2046-01-22T13:01:07Z",
+    "kind": "partial",
+    "magPenumbral": 1.0347,
+    "magUmbral": 0.0532,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2046-07-18T01:04:35Z",
+    "kind": "partial",
+    "magPenumbral": 1.2807,
+    "magUmbral": 0.2461,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2047-01-12T01:24:44Z",
+    "kind": "total",
+    "magPenumbral": 2.2649,
+    "magUmbral": 1.2341,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2047-07-07T10:34:14Z",
+    "kind": "total",
+    "magPenumbral": 2.731,
+    "magUmbral": 1.7513,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2048-01-01T06:52:24Z",
+    "kind": "total",
+    "magPenumbral": 2.2141,
+    "magUmbral": 1.128,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2048-06-26T02:00:56Z",
+    "kind": "partial",
+    "magPenumbral": 1.5825,
+    "magUmbral": 0.6388,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2048-12-20T06:26:16Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9617,
+    "magUmbral": -0.1436,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2049-05-17T11:25:07Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7638,
+    "magUmbral": -0.2085,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2049-06-15T19:12:40Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.2511,
+    "magUmbral": -0.6985,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2049-11-09T15:50:38Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6808,
+    "magUmbral": -0.3553,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2050-05-06T22:30:28Z",
+    "kind": "total",
+    "magPenumbral": 2.1052,
+    "magUmbral": 1.0767,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2050-10-30T03:20:12Z",
+    "kind": "total",
+    "magPenumbral": 2.0345,
+    "magUmbral": 1.0538,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2051-04-26T02:14:52Z",
+    "kind": "total",
+    "magPenumbral": 2.2773,
+    "magUmbral": 1.2022,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2051-10-19T19:10:13Z",
+    "kind": "total",
+    "magPenumbral": 2.3708,
+    "magUmbral": 1.4118,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2052-04-14T02:16:28Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9466,
+    "magUmbral": -0.1305,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2052-10-08T10:44:19Z",
+    "kind": "partial",
+    "magPenumbral": 1.0642,
+    "magUmbral": 0.0821,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2053-03-04T17:20:31Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9323,
+    "magUmbral": -0.0808,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2053-08-29T08:04:10Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.0191,
+    "magUmbral": -0.033,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2054-02-22T06:49:46Z",
+    "kind": "total",
+    "magPenumbral": 2.2491,
+    "magUmbral": 1.2769,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2054-08-18T09:24:48Z",
+    "kind": "total",
+    "magPenumbral": 2.3805,
+    "magUmbral": 1.3062,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2055-02-11T22:44:34Z",
+    "kind": "total",
+    "magPenumbral": 2.197,
+    "magUmbral": 1.2246,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2055-08-07T10:51:34Z",
+    "kind": "partial",
+    "magPenumbral": 2.0069,
+    "magUmbral": 0.9594,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2056-02-01T12:24:21Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9056,
+    "magUmbral": -0.1096,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2056-06-27T10:01:23Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.3143,
+    "magUmbral": -0.6519,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2056-07-26T18:41:38Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6435,
+    "magUmbral": -0.3489,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2056-12-22T01:47:09Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7857,
+    "magUmbral": -0.3109,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2057-06-17T02:24:32Z",
+    "kind": "partial",
+    "magPenumbral": 1.6967,
+    "magUmbral": 0.7555,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2057-12-11T00:51:49Z",
+    "kind": "partial",
+    "magPenumbral": 2.0178,
+    "magUmbral": 0.9181,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2058-06-06T19:13:58Z",
+    "kind": "total",
+    "magPenumbral": 2.621,
+    "magUmbral": 1.6611,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2058-11-30T03:14:27Z",
+    "kind": "total",
+    "magPenumbral": 2.4802,
+    "magUmbral": 1.426,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2059-05-27T07:53:43Z",
+    "kind": "partial",
+    "magPenumbral": 1.1946,
+    "magUmbral": 0.1829,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2059-11-19T12:59:43Z",
+    "kind": "partial",
+    "magPenumbral": 1.2037,
+    "magUmbral": 0.2079,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2060-04-15T21:35:10Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7674,
+    "magUmbral": -0.3156,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2060-10-09T18:51:37Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8796,
+    "magUmbral": -0.0799,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2060-11-08T04:02:20Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0266,
+    "magUmbral": -0.9375,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2061-04-04T21:52:09Z",
+    "kind": "total",
+    "magPenumbral": 2.1044,
+    "magUmbral": 1.0341,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2061-09-29T09:36:16Z",
+    "kind": "total",
+    "magPenumbral": 2.1556,
+    "magUmbral": 1.1621,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2062-03-25T03:31:52Z",
+    "kind": "total",
+    "magPenumbral": 2.2905,
+    "magUmbral": 1.2695,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2062-09-18T18:32:03Z",
+    "kind": "total",
+    "magPenumbral": 2.1959,
+    "magUmbral": 1.1496,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2063-03-14T16:03:49Z",
+    "kind": "partial",
+    "magPenumbral": 1.0088,
+    "magUmbral": 0.0342,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2063-09-07T20:39:11Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8101,
+    "magUmbral": -0.2678,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2064-02-02T21:46:55Z",
+    "kind": "partial",
+    "magPenumbral": 1.0197,
+    "magUmbral": 0.0377,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2064-07-28T07:50:45Z",
+    "kind": "partial",
+    "magPenumbral": 1.1361,
+    "magUmbral": 0.1038,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2065-01-22T09:56:54Z",
+    "kind": "total",
+    "magPenumbral": 2.2561,
+    "magUmbral": 1.2231,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2065-07-17T17:46:35Z",
+    "kind": "total",
+    "magPenumbral": 2.589,
+    "magUmbral": 1.6121,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2066-01-11T15:02:41Z",
+    "kind": "total",
+    "magPenumbral": 2.2259,
+    "magUmbral": 1.1378,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2066-07-07T09:28:22Z",
+    "kind": "partial",
+    "magPenumbral": 1.7179,
+    "magUmbral": 0.7753,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2066-12-31T14:28:02Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9773,
+    "magUmbral": -0.1281,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2067-05-28T18:53:59Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6403,
+    "magUmbral": -0.3329,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2067-06-27T02:38:57Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.3754,
+    "magUmbral": -0.5753,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2067-11-21T00:02:32Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6544,
+    "magUmbral": -0.3811,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2068-05-17T05:40:06Z",
+    "kind": "partial",
+    "magPenumbral": 1.9826,
+    "magUmbral": 0.9532,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2068-11-09T11:44:48Z",
+    "kind": "total",
+    "magPenumbral": 1.9962,
+    "magUmbral": 1.0149,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2069-05-06T09:07:44Z",
+    "kind": "total",
+    "magPenumbral": 2.3965,
+    "magUmbral": 1.3229,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2069-10-30T03:32:52Z",
+    "kind": "total",
+    "magPenumbral": 2.4235,
+    "magUmbral": 1.4616,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2070-04-25T09:19:09Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.0515,
+    "magUmbral": -0.0209,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2070-10-19T18:48:55Z",
+    "kind": "partial",
+    "magPenumbral": 1.1258,
+    "magUmbral": 0.1383,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2071-03-16T01:28:52Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8879,
+    "magUmbral": -0.1194,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2071-09-09T15:03:23Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8989,
+    "magUmbral": -0.1586,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2072-03-04T15:20:47Z",
+    "kind": "total",
+    "magPenumbral": 2.2127,
+    "magUmbral": 1.2441,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2072-08-28T16:03:21Z",
+    "kind": "total",
+    "magPenumbral": 2.2428,
+    "magUmbral": 1.1662,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2073-02-22T07:22:31Z",
+    "kind": "total",
+    "magPenumbral": 2.2218,
+    "magUmbral": 1.2503,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2073-08-17T17:40:18Z",
+    "kind": "total",
+    "magPenumbral": 2.1479,
+    "magUmbral": 1.1013,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2074-02-11T20:53:34Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9191,
+    "magUmbral": -0.0972,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2074-07-08T17:19:13Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.187,
+    "magUmbral": -0.7765,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2074-08-07T01:53:38Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7813,
+    "magUmbral": -0.2091,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2075-01-02T09:52:37Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7714,
+    "magUmbral": -0.3271,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2075-06-28T09:53:08Z",
+    "kind": "partial",
+    "magPenumbral": 1.5624,
+    "magUmbral": 0.622,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2075-12-22T08:53:27Z",
+    "kind": "partial",
+    "magPenumbral": 2.0008,
+    "magUmbral": 0.9013,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2076-06-17T02:37:18Z",
+    "kind": "total",
+    "magPenumbral": 2.7554,
+    "magUmbral": 1.7943,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2076-12-10T11:32:21Z",
+    "kind": "total",
+    "magPenumbral": 2.499,
+    "magUmbral": 1.446,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2077-06-06T14:57:21Z",
+    "kind": "partial",
+    "magPenumbral": 1.3257,
+    "magUmbral": 0.3123,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2077-11-29T21:33:21Z",
+    "kind": "partial",
+    "magPenumbral": 1.2309,
+    "magUmbral": 0.2356,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2078-04-27T04:33:11Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6558,
+    "magUmbral": -0.4246,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2078-10-21T03:05:29Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8171,
+    "magUmbral": -0.1462,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2078-11-19T12:37:30Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0615,
+    "magUmbral": -0.9047,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2079-04-16T05:08:10Z",
+    "kind": "partial",
+    "magPenumbral": 2.01,
+    "magUmbral": 0.9451,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2079-10-10T17:27:54Z",
+    "kind": "total",
+    "magPenumbral": 2.0786,
+    "magUmbral": 1.0791,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2080-04-04T11:21:01Z",
+    "kind": "total",
+    "magPenumbral": 2.3607,
+    "magUmbral": 1.346,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2080-09-29T01:50:04Z",
+    "kind": "total",
+    "magPenumbral": 2.2967,
+    "magUmbral": 1.2443,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2081-03-25T00:19:22Z",
+    "kind": "partial",
+    "magPenumbral": 1.0652,
+    "magUmbral": 0.0953,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2081-09-18T03:32:45Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.927,
+    "magUmbral": -0.1545,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2082-02-13T06:26:38Z",
+    "kind": "partial",
+    "magPenumbral": 0.9955,
+    "magUmbral": 0.0134,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2082-08-08T14:43:59Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.0011,
+    "magUmbral": -0.0294,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2083-02-02T18:24:02Z",
+    "kind": "total",
+    "magPenumbral": 2.24,
+    "magUmbral": 1.2052,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2083-07-29T01:02:49Z",
+    "kind": "total",
+    "magPenumbral": 2.452,
+    "magUmbral": 1.4773,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2084-01-22T23:10:14Z",
+    "kind": "total",
+    "magPenumbral": 2.2407,
+    "magUmbral": 1.1513,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2084-07-17T16:56:04Z",
+    "kind": "partial",
+    "magPenumbral": 1.854,
+    "magUmbral": 0.9119,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2085-01-10T22:29:41Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9927,
+    "magUmbral": -0.1119,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2085-06-08T02:14:47Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.5065,
+    "magUmbral": -0.4682,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2085-07-07T10:01:51Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.5047,
+    "magUmbral": -0.4478,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2085-12-01T08:22:45Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.6387,
+    "magUmbral": -0.3957,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2086-05-28T12:40:56Z",
+    "kind": "partial",
+    "magPenumbral": 1.8486,
+    "magUmbral": 0.818,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2086-11-20T20:16:50Z",
+    "kind": "partial",
+    "magPenumbral": 1.9679,
+    "magUmbral": 0.9865,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2087-05-17T15:52:27Z",
+    "kind": "total",
+    "magPenumbral": 2.5276,
+    "magUmbral": 1.4554,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2087-11-10T12:02:39Z",
+    "kind": "total",
+    "magPenumbral": 2.4654,
+    "magUmbral": 1.5006,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2088-05-05T16:13:55Z",
+    "kind": "partial",
+    "magPenumbral": 1.1695,
+    "magUmbral": 0.1019,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2088-10-30T03:00:23Z",
+    "kind": "partial",
+    "magPenumbral": 1.1761,
+    "magUmbral": 0.1831,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2089-03-26T09:31:16Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8332,
+    "magUmbral": -0.1681,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2089-09-19T22:08:18Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7893,
+    "magUmbral": -0.2737,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2090-03-15T23:45:31Z",
+    "kind": "total",
+    "magPenumbral": 2.1659,
+    "magUmbral": 1.2012,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2090-09-08T22:49:28Z",
+    "kind": "total",
+    "magPenumbral": 2.1167,
+    "magUmbral": 1.0377,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2091-03-05T15:55:20Z",
+    "kind": "total",
+    "magPenumbral": 2.2537,
+    "magUmbral": 1.2832,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2091-08-29T00:35:22Z",
+    "kind": "total",
+    "magPenumbral": 2.281,
+    "magUmbral": 1.2351,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2092-02-23T05:17:55Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9383,
+    "magUmbral": -0.0789,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2092-07-19T00:38:53Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.062,
+    "magUmbral": -0.8992,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2092-08-17T09:10:54Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9131,
+    "magUmbral": -0.0757,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2093-01-12T17:56:57Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7553,
+    "magUmbral": -0.3444,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2093-07-08T17:21:11Z",
+    "kind": "partial",
+    "magPenumbral": 1.4275,
+    "magUmbral": 0.4872,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2094-01-01T16:56:58Z",
+    "kind": "partial",
+    "magPenumbral": 1.9858,
+    "magUmbral": 0.8871,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2094-06-28T09:58:47Z",
+    "kind": "total",
+    "magPenumbral": 2.7865,
+    "magUmbral": 1.8234,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2094-12-21T19:53:21Z",
+    "kind": "total",
+    "magPenumbral": 2.5138,
+    "magUmbral": 1.4627,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2095-06-17T21:56:59Z",
+    "kind": "partial",
+    "magPenumbral": 1.4617,
+    "magUmbral": 0.4459,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2095-12-11T06:11:49Z",
+    "kind": "partial",
+    "magPenumbral": 1.251,
+    "magUmbral": 0.2565,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2096-05-07T11:21:28Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.5309,
+    "magUmbral": -0.5469,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2096-06-06T02:40:27Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0047,
+    "magUmbral": -1.0584,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2096-10-31T11:27:08Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.7666,
+    "magUmbral": -0.2006,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2096-11-29T21:19:07Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.0862,
+    "magUmbral": -0.8816,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2097-04-26T12:15:01Z",
+    "kind": "partial",
+    "magPenumbral": 1.9013,
+    "magUmbral": 0.842,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2097-10-21T01:27:38Z",
+    "kind": "total",
+    "magPenumbral": 2.0152,
+    "magUmbral": 1.0097,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2098-04-15T19:01:30Z",
+    "kind": "total",
+    "magPenumbral": 2.4454,
+    "magUmbral": 1.4369,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2098-10-10T09:16:38Z",
+    "kind": "total",
+    "magPenumbral": 2.3831,
+    "magUmbral": 1.3246,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2099-04-05T08:27:35Z",
+    "kind": "partial",
+    "magPenumbral": 1.1333,
+    "magUmbral": 0.168,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2099-09-29T10:33:16Z",
+    "kind": "penumbral",
+    "magPenumbral": 1.034,
+    "magUmbral": -0.0512,
+    "kindFirm": true
+  },
+  {
+    "peakUtc": "2100-02-24T15:01:48Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.9649,
+    "magUmbral": -0.017,
+    "kindFirm": false
+  },
+  {
+    "peakUtc": "2100-08-19T21:41:34Z",
+    "kind": "penumbral",
+    "magPenumbral": 0.8716,
+    "magUmbral": -0.1575,
+    "kindFirm": true
+  }
+]
