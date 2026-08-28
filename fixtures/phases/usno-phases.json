@@ -1,0 +1,2774 @@
+[
+  {
+    "phase": "full",
+    "utc": "1950-01-04T07:48Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-01-11T10:31Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-01-18T07:59Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-01-26T04:39Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-02-02T22:16Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-02-09T18:32Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-02-16T22:53Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-02-25T01:52Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-03-04T10:34Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-03-11T02:38Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-03-18T15:20Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-03-26T20:10Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-04-02T20:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-04-09T11:42Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-04-17T08:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-04-25T10:40Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-05-02T05:19Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-05-08T22:32Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-05-17T00:54Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-05-24T21:28Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-05-31T12:43Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-06-07T11:35Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-06-15T15:53Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-06-23T05:13Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-06-29T19:58Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-07-07T02:53Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-07-15T05:05Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-07-22T10:50Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-07-29T04:18Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-08-05T19:56Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-08-13T16:48Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-08-20T15:35Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-08-27T14:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-09-04T13:53Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-09-12T03:29Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-09-18T20:54Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-09-26T04:21Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-10-04T07:53Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-10-11T13:34Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-10-18T04:18Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-10-25T20:46Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-11-03T01:00Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-11-09T23:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-11-16T15:06Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-11-24T15:14Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1950-12-02T16:22Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1950-12-09T09:29Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1950-12-16T05:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1950-12-24T10:23Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-01-01T05:11Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-01-07T20:10Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-01-15T00:23Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-01-23T04:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-01-30T15:14Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-02-06T07:54Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-02-13T20:55Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-02-21T21:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-02-28T22:59Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-03-07T20:50Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-03-15T17:40Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-03-23T10:50Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-03-30T05:35Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-04-06T10:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-04-14T12:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-04-21T21:30Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-04-28T12:18Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-05-06T01:36Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-05-14T05:32Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-05-21T05:45Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-05-27T20:17Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-06-04T16:40Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-06-12T18:52Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-06-19T12:36Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-06-26T06:21Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-07-04T07:48Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-07-12T04:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-07-18T19:17Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-07-25T18:59Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-08-02T22:39Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-08-10T12:22Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-08-17T02:59Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-08-24T10:20Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-09-01T12:50Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-09-08T18:16Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-09-15T12:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-09-23T04:13Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-10-01T01:57Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-10-08T00:00Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-10-15T00:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-10-22T23:55Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-10-30T13:54Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-11-06T06:59Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-11-13T15:52Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-11-21T20:01Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-11-29T01:00Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1951-12-05T16:20Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1951-12-13T09:30Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1951-12-21T14:37Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1951-12-28T11:43Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-01-04T19:04Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-01-12T10:20Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-01-20T15:14Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-01-27T15:09Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-02-03T06:23Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-02-11T05:17Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-02-19T07:38Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-02-26T01:15Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-03-04T20:20Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-03-12T23:47Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-03-20T20:05Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-03-27T10:36Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-04-03T12:25Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-04-11T16:39Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-04-19T04:41Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-04-25T19:55Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-05-03T05:44Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-05-11T07:05Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-05-18T10:29Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-05-25T05:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-06-01T23:22Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-06-09T18:49Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-06-16T14:58Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-06-23T16:54Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-07-01T16:37Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-07-09T04:10Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-07-15T19:47Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-07-23T05:28Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-07-31T08:48Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-08-07T11:57Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-08-14T02:24Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-08-21T19:48Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-08-29T23:20Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-09-05T19:19Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-09-12T11:59Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-09-20T11:50Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-09-28T11:46Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-10-05T03:23Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-10-12T01:15Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-10-20T05:06Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-10-27T22:07Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-11-03T13:05Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-11-10T18:21Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-11-18T22:28Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-11-26T06:52Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1975-12-03T00:50Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1975-12-10T14:39Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1975-12-18T14:39Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1975-12-25T14:52Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-01-01T14:40Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-01-09T12:40Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-01-17T04:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-01-23T23:04Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-01-31T06:20Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-02-08T10:05Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-02-15T16:43Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-02-22T08:16Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-02-29T23:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-03-09T04:38Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-03-16T02:53Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-03-22T18:54Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-03-30T17:08Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-04-07T19:02Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-04-14T11:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-04-21T07:14Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-04-29T10:20Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-05-07T05:17Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-05-13T20:04Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-05-20T21:22Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-05-29T01:47Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-06-05T12:20Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-06-12T04:15Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-06-19T13:15Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-06-27T14:50Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-07-04T17:28Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-07-11T13:09Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-07-19T06:29Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-07-27T01:39Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-08-02T22:06Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-08-09T23:43Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-08-18T00:12Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-08-25T11:01Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-09-01T03:35Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-09-08T12:52Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-09-16T17:20Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-09-23T19:55Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-09-30T11:12Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-10-08T04:55Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-10-16T08:59Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-10-23T05:10Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-10-29T22:05Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-11-06T23:15Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-11-14T22:39Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-11-21T15:11Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-11-28T12:59Z"
+  },
+  {
+    "phase": "full",
+    "utc": "1976-12-06T18:15Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "1976-12-14T10:14Z"
+  },
+  {
+    "phase": "new",
+    "utc": "1976-12-21T02:08Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "1976-12-28T07:48Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-01-06T18:14Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-01-14T13:34Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-01-21T04:40Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-01-28T07:57Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-02-05T13:03Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-02-12T23:21Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-02-19T16:27Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-02-27T03:54Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-03-06T05:17Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-03-13T06:59Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-03-20T04:44Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-03-28T00:21Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-04-04T18:12Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-04-11T13:30Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-04-18T17:42Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-04-26T19:30Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-05-04T04:12Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-05-10T20:01Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-05-18T07:34Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-05-26T11:55Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-06-02T12:14Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-06-09T03:29Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-06-16T22:27Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-06-25T01:00Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-07-01T19:20Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-07-08T12:53Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-07-16T13:55Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-07-24T11:02Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-07-31T02:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-08-07T01:02Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-08-15T05:13Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-08-22T18:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-08-29T10:19Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-09-05T16:27Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-09-13T19:37Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-09-21T01:28Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-09-27T19:53Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-10-05T10:59Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-10-13T08:53Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-10-20T07:59Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-10-27T07:58Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-11-04T07:27Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-11-11T21:15Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-11-18T15:24Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-11-25T23:11Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2000-12-04T03:55Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2000-12-11T09:03Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2000-12-18T00:41Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2000-12-25T17:22Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-01-02T22:32Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-01-09T20:24Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-01-16T12:35Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-01-24T13:07Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-02-01T14:02Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-02-08T07:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-02-15T03:24Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-02-23T08:21Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-03-03T02:03Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-03-09T17:23Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-03-16T20:45Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-03-25T01:21Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-04-01T10:49Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-04-08T03:22Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-04-15T15:31Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-04-23T15:26Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-04-30T17:08Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-05-07T13:53Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-05-15T10:11Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-05-23T02:46Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-05-29T22:09Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-06-06T01:39Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-06-14T03:28Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-06-21T11:58Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-06-28T03:20Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-07-05T15:04Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-07-13T18:45Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-07-20T19:44Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-07-27T10:08Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-08-04T05:56Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-08-12T07:53Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-08-19T02:55Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-08-25T19:55Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-09-02T21:43Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-09-10T19:00Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-09-17T10:27Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-09-24T09:31Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-10-02T13:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-10-10T04:20Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-10-16T19:23Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-10-24T02:58Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-11-01T05:41Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-11-08T12:21Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-11-15T06:40Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-11-22T23:21Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-11-30T20:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2001-12-07T19:52Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2001-12-14T20:47Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2001-12-22T20:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2001-12-30T10:41Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-01-03T10:03Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-01-10T15:48Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-01-18T19:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-01-26T04:47Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-02-01T22:09Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-02-09T12:43Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-02-17T12:01Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-02-24T12:27Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-03-03T11:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-03-11T09:38Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-03-19T01:23Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-03-25T19:18Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-04-02T02:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-04-10T04:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-04-17T11:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-04-24T02:32Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-05-01T17:23Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-05-09T21:10Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-05-16T20:01Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-05-23T11:11Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-05-31T08:45Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-06-08T10:00Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-06-15T02:54Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-06-21T21:55Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-06-29T23:56Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-07-07T19:29Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-07-14T09:43Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-07-21T11:05Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-07-29T14:36Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-08-06T02:21Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-08-12T17:37Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-08-20T02:46Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-08-28T04:18Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-09-04T07:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-09-11T03:27Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-09-18T20:44Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-09-26T16:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-10-03T13:25Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-10-10T15:50Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-10-18T16:12Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-10-26T04:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-11-01T20:28Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-11-09T07:02Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-11-17T11:48Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-11-24T14:53Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-12-01T06:08Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2026-12-09T00:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2026-12-17T05:42Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2026-12-24T01:28Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2026-12-30T18:59Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-01-07T20:24Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-01-15T20:34Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-01-22T12:17Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-01-29T10:55Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-02-06T15:56Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-02-14T07:58Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-02-20T23:23Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-02-28T05:16Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-03-08T09:29Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-03-15T16:25Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-03-22T10:44Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-03-30T00:54Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-04-06T23:51Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-04-13T22:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-04-20T22:27Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-04-28T20:18Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-05-06T10:58Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-05-13T04:44Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-05-20T10:59Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-05-28T13:58Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-06-04T19:40Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-06-11T10:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-06-19T00:44Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-06-27T04:54Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-07-04T03:02Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-07-10T18:39Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-07-18T15:45Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-07-26T16:55Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-08-02T10:05Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-08-09T04:54Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-08-17T07:29Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-08-25T02:27Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-08-31T17:41Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-09-07T18:31Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-09-15T23:03Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-09-23T10:20Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-09-30T02:36Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-10-07T11:47Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-10-15T13:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-10-22T17:29Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-10-29T13:36Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-11-06T08:00Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-11-14T03:26Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-11-21T00:48Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-11-28T03:24Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2027-12-06T05:22Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2027-12-13T16:09Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2027-12-20T09:11Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2027-12-27T20:12Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-01-08T01:39Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-01-16T06:17Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-01-23T04:57Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-01-29T20:48Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-02-06T20:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-02-14T22:10Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-02-21T15:03Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-02-28T11:29Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-03-08T15:23Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-03-16T10:08Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-03-23T00:41Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-03-30T04:17Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-04-07T08:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-04-14T18:24Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-04-21T10:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-04-28T22:08Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-05-06T22:26Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-05-14T00:03Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-05-20T20:51Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-05-28T16:04Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-06-05T09:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-06-12T04:39Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-06-19T08:21Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-06-27T09:17Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-07-04T18:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-07-11T09:46Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-07-18T21:16Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-07-27T01:05Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-08-03T02:20Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-08-09T16:48Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-08-17T11:47Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-08-25T14:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-09-01T09:31Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-09-08T02:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-09-16T03:49Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-09-24T02:34Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-09-30T17:31Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-10-07T16:32Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-10-15T20:48Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-10-23T12:10Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-10-30T03:16Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-11-06T09:57Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-11-14T13:41Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-11-21T20:25Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-11-28T15:09Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2050-12-06T06:27Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2050-12-14T05:18Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2050-12-21T04:15Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2050-12-28T05:15Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-01-05T04:28Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-01-12T18:58Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-01-19T12:38Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-01-26T21:20Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-02-04T01:40Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-02-11T06:41Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-02-17T22:16Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-02-25T14:53Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-03-05T19:47Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-03-12T16:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-03-19T09:34Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-03-27T09:00Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-04-04T09:41Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-04-11T01:59Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-04-17T22:38Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-04-26T02:19Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-05-03T19:30Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-05-10T10:29Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-05-17T13:29Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-05-25T17:35Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-06-02T02:15Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-06-08T18:56Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-06-16T05:55Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-06-24T06:14Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-07-01T07:15Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-07-08T04:09Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-07-15T23:21Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-07-23T16:36Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-07-30T11:52Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-08-06T15:05Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-08-14T16:49Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-08-22T01:35Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-08-28T17:29Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-09-05T04:33Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-09-13T09:20Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-09-20T10:11Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-09-27T01:22Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-10-04T20:47Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-10-13T00:12Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-10-19T19:13Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-10-26T12:39Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-11-03T14:59Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-11-11T13:07Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-11-18T05:06Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-11-25T04:02Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2051-12-03T09:37Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2051-12-11T00:07Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2051-12-17T16:05Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2051-12-24T23:21Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2052-01-02T03:05Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-01-02T09:40Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-01-10T03:15Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-01-16T18:37Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-01-23T23:32Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-02-01T04:13Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-02-08T12:42Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-02-15T06:41Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-02-22T20:00Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-03-02T20:07Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-03-09T20:18Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-03-16T19:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-03-24T16:46Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-04-01T08:46Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-04-08T03:04Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-04-15T08:56Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-04-23T11:54Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-04-30T18:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-05-07T10:00Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-05-14T23:23Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-05-23T03:57Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-05-30T02:39Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-06-05T18:01Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-06-13T14:39Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-06-21T16:29Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-06-28T09:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-07-05T04:00Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-07-13T06:12Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-07-21T01:56Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-07-27T16:54Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-08-03T16:43Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-08-11T21:11Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-08-19T09:13Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-08-26T00:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-09-02T08:34Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-09-10T11:03Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-09-17T15:26Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-09-24T10:31Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-10-02T03:14Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-10-09T23:43Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-10-16T21:42Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-10-23T22:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-10-31T23:26Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-11-08T11:36Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-11-15T05:06Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-11-22T14:21Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-11-30T19:22Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2075-12-07T23:04Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2075-12-14T14:38Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2075-12-22T08:48Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2075-12-30T13:21Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-01-06T10:15Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-01-13T03:03Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-01-21T04:40Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-01-29T04:18Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-02-04T21:02Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-02-11T18:35Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-02-19T23:49Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-02-27T15:55Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-03-05T07:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-03-12T12:42Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-03-20T16:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-03-28T00:26Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-04-03T17:48Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-04-11T08:00Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-04-19T06:30Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-04-26T06:41Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-05-03T04:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-05-11T02:51Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-05-18T17:39Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-05-25T11:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-06-01T17:14Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-06-09T19:58Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-06-17T02:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-06-23T17:22Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-07-01T07:05Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-07-09T10:50Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-07-16T10:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-07-23T00:40Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-07-30T22:06Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-08-07T23:22Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-08-14T17:12Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-08-21T11:01Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-08-29T13:44Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-09-06T09:47Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-09-13T00:39Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-09-20T01:06Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-09-28T05:28Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-10-05T18:27Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-10-12T09:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-10-19T18:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-10-27T20:51Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-11-04T01:58Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-11-10T21:08Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-11-18T15:16Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-11-26T11:29Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2076-12-03T09:16Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2076-12-10T11:35Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2076-12-18T12:40Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2076-12-26T00:54Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-06-06T09:47Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-06-13T20:26Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-06-21T23:52Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-06-29T02:07Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-07-05T16:33Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-07-13T10:36Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-07-21T13:36Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-07-28T08:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-08-04T01:44Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-08-12T01:45Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-08-20T00:42Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-08-26T15:54Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-09-02T14:04Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-09-10T17:34Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-09-18T09:34Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-09-25T00:18Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-10-02T05:50Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-10-10T09:21Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-10-17T16:58Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-10-24T10:50Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-11-01T00:48Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-11-09T00:16Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-11-16T00:02Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-11-22T23:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-11-30T21:57Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2098-12-08T13:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2098-12-15T07:54Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2098-12-22T15:25Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2098-12-30T19:21Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-01-07T01:52Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-01-13T17:27Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-01-21T09:09Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-01-29T14:40Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-02-05T12:50Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-02-12T05:09Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-02-20T04:07Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-02-28T06:14Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-03-06T23:01Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-03-13T19:02Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-03-21T22:48Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-03-29T17:40Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-04-05T08:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-04-12T10:49Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-04-20T15:31Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-04-28T01:37Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-05-04T18:00Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-05-12T04:01Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-05-20T05:18Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-05-27T07:17Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-06-03T03:38Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-06-10T21:51Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-06-18T16:11Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-06-25T12:02Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-07-02T14:22Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-07-10T15:15Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-07-18T01:02Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-07-24T17:11Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-08-01T03:01Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-08-09T07:15Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-08-16T08:56Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-08-23T00:02Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-08-30T17:57Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-09-07T21:19Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-09-14T16:52Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-09-21T09:49Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-09-29T10:47Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-10-07T09:23Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-10-14T01:33Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-10-20T23:29Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-10-29T04:22Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-11-05T19:43Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-11-12T11:31Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-11-19T17:18Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-11-27T21:23Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2099-12-05T04:47Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2099-12-11T23:10Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2099-12-19T14:23Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2099-12-27T13:00Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2100-01-03T13:05Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2100-01-10T12:57Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2100-01-18T12:35Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2100-01-26T02:51Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2100-02-01T21:17Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2100-02-09T04:56Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2100-02-17T09:23Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2100-02-24T14:53Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2100-03-03T06:12Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2100-03-10T22:30Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2100-03-19T03:00Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2100-03-26T01:06Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2100-04-01T16:37Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2100-04-09T16:18Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2100-04-17T16:43Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2100-04-24T09:45Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2100-05-01T05:03Z"
+  },
+  {
+    "phase": "new",
+    "utc": "2100-05-09T08:55Z"
+  },
+  {
+    "phase": "firstQuarter",
+    "utc": "2100-05-17T02:43Z"
+  },
+  {
+    "phase": "full",
+    "utc": "2100-05-23T17:27Z"
+  },
+  {
+    "phase": "lastQuarter",
+    "utc": "2100-05-30T19:36Z"
+  }
+]

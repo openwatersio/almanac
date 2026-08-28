@@ -1,0 +1,697 @@
+[
+  {
+    "date": "1999-01-17",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "civilDawn": "17:31",
+      "civilDusk": "23:14"
+    },
+    "moon": {
+      "rise": "19:10",
+      "transit": "20:30",
+      "set": "21:58"
+    }
+  },
+  {
+    "date": "1999-01-17",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "civilDusk": "00:39",
+      "civilDawn": "16:05",
+      "rise": "16:57",
+      "transit": "20:22",
+      "set": "23:48"
+    },
+    "moon": {
+      "rise": "16:45",
+      "transit": "20:30"
+    }
+  },
+  {
+    "date": "1999-01-17",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "00:45",
+      "civilDusk": "01:21",
+      "civilDawn": "15:23",
+      "rise": "15:59",
+      "transit": "20:22"
+    },
+    "moon": {
+      "set": "00:13",
+      "rise": "15:51",
+      "transit": "20:30"
+    }
+  },
+  {
+    "date": "1999-01-17",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:26",
+      "civilDusk": "02:48",
+      "civilDawn": "13:57",
+      "rise": "14:19",
+      "transit": "20:22"
+    },
+    "moon": {
+      "set": "01:51",
+      "rise": "14:18",
+      "transit": "20:30"
+    }
+  },
+  {
+    "date": "1999-01-17",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "03:28",
+      "civilDusk": "03:57",
+      "civilDawn": "12:47",
+      "rise": "13:16",
+      "transit": "20:22"
+    },
+    "moon": {
+      "set": "02:49",
+      "rise": "13:21",
+      "transit": "20:30"
+    }
+  },
+  {
+    "date": "2026-03-20",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:27",
+      "civilDusk": "03:31",
+      "civilDawn": "13:07",
+      "rise": "14:10",
+      "transit": "20:20"
+    },
+    "moon": {
+      "set": "04:49",
+      "rise": "13:18",
+      "transit": "21:44"
+    }
+  },
+  {
+    "date": "2026-03-20",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:25",
+      "civilDusk": "03:07",
+      "civilDawn": "13:32",
+      "rise": "14:13",
+      "transit": "20:20"
+    },
+    "moon": {
+      "set": "04:07",
+      "rise": "14:11",
+      "transit": "21:44"
+    }
+  },
+  {
+    "date": "2026-03-20",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:24",
+      "civilDusk": "02:55",
+      "civilDawn": "13:43",
+      "rise": "14:15",
+      "transit": "20:20"
+    },
+    "moon": {
+      "set": "03:45",
+      "rise": "14:39",
+      "transit": "21:44"
+    }
+  },
+  {
+    "date": "2026-03-20",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:23",
+      "civilDusk": "02:44",
+      "civilDawn": "13:56",
+      "rise": "14:16",
+      "transit": "20:20"
+    },
+    "moon": {
+      "set": "03:06",
+      "rise": "15:32",
+      "transit": "21:44"
+    }
+  },
+  {
+    "date": "2026-03-20",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:24",
+      "civilDusk": "02:50",
+      "civilDawn": "13:50",
+      "rise": "14:16",
+      "transit": "20:20"
+    },
+    "moon": {
+      "set": "02:43",
+      "rise": "16:07",
+      "transit": "21:44"
+    }
+  },
+  {
+    "date": "2026-05-14",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "08:00",
+      "rise": "08:16",
+      "transit": "20:09"
+    },
+    "moon": {
+      "set": "01:15",
+      "rise": "09:41",
+      "transit": "18:09"
+    }
+  },
+  {
+    "date": "2026-05-15",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:09"
+    },
+    "moon": {
+      "set": "03:55",
+      "rise": "08:50",
+      "transit": "19:03"
+    }
+  },
+  {
+    "date": "2026-05-16",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "20:04"
+    }
+  },
+  {
+    "date": "2026-05-17",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "21:09"
+    }
+  },
+  {
+    "date": "2026-05-18",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "22:16"
+    }
+  },
+  {
+    "date": "2026-06-21",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:14"
+    },
+    "moon": {
+      "transit": "01:34",
+      "set": "07:56",
+      "rise": "20:33"
+    }
+  },
+  {
+    "date": "2026-06-21",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "05:40",
+      "civilDusk": "07:27",
+      "civilDawn": "09:01",
+      "rise": "10:48",
+      "transit": "20:14"
+    },
+    "moon": {
+      "transit": "01:34",
+      "set": "07:52",
+      "rise": "20:22"
+    }
+  },
+  {
+    "date": "2026-06-21",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "04:19",
+      "civilDusk": "05:01",
+      "civilDawn": "11:27",
+      "rise": "12:09",
+      "transit": "20:14"
+    },
+    "moon": {
+      "transit": "01:34",
+      "set": "07:50",
+      "rise": "20:17"
+    }
+  },
+  {
+    "date": "2026-06-21",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:18",
+      "civilDusk": "02:40",
+      "civilDawn": "13:48",
+      "rise": "14:10",
+      "transit": "20:14"
+    },
+    "moon": {
+      "transit": "01:34",
+      "set": "07:45",
+      "rise": "20:07"
+    }
+  },
+  {
+    "date": "2026-06-21",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "01:08",
+      "civilDusk": "01:36",
+      "civilDawn": "14:52",
+      "rise": "15:20",
+      "transit": "20:14"
+    },
+    "moon": {
+      "transit": "01:34",
+      "set": "07:41",
+      "rise": "20:02"
+    }
+  },
+  {
+    "date": "2026-07-27",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:19"
+    },
+    "moon": {}
+  },
+  {
+    "date": "2026-07-28",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:19"
+    },
+    "moon": {}
+  },
+  {
+    "date": "2026-07-29",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "transit": "20:19"
+    },
+    "moon": {}
+  },
+  {
+    "date": "2026-07-30",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "07:45",
+      "rise": "08:54",
+      "transit": "20:19"
+    },
+    "moon": {
+      "rise": "07:10",
+      "transit": "08:55",
+      "set": "11:01"
+    }
+  },
+  {
+    "date": "2026-07-31",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "07:28",
+      "rise": "09:10",
+      "transit": "20:19"
+    },
+    "moon": {
+      "rise": "06:15",
+      "transit": "09:39",
+      "set": "13:29"
+    }
+  },
+  {
+    "date": "2026-08-28",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "04:21",
+      "civilDusk": "05:46",
+      "civilDawn": "10:42",
+      "rise": "12:08",
+      "transit": "20:13"
+    },
+    "moon": {
+      "rise": "04:05",
+      "transit": "08:20",
+      "set": "13:04"
+    }
+  },
+  {
+    "date": "2026-08-28",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "03:30",
+      "civilDusk": "04:16",
+      "civilDawn": "12:12",
+      "rise": "12:58",
+      "transit": "20:13"
+    },
+    "moon": {
+      "rise": "03:20",
+      "transit": "08:20",
+      "set": "13:39"
+    }
+  },
+  {
+    "date": "2026-08-28",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "03:04",
+      "civilDusk": "03:37",
+      "civilDawn": "12:51",
+      "rise": "13:24",
+      "transit": "20:13"
+    },
+    "moon": {
+      "rise": "02:56",
+      "transit": "08:20",
+      "set": "13:57"
+    }
+  },
+  {
+    "date": "2026-08-28",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:17",
+      "civilDusk": "02:38",
+      "civilDawn": "13:49",
+      "rise": "14:10",
+      "transit": "20:13"
+    },
+    "moon": {
+      "rise": "02:10",
+      "transit": "08:20",
+      "set": "14:30"
+    }
+  },
+  {
+    "date": "2026-08-28",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "01:50",
+      "civilDusk": "02:16",
+      "civilDawn": "14:11",
+      "rise": "14:36",
+      "transit": "20:13"
+    },
+    "moon": {
+      "rise": "01:41",
+      "transit": "08:20",
+      "set": "14:50"
+    }
+  },
+  {
+    "date": "2026-09-23",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:14",
+      "civilDusk": "03:17",
+      "civilDawn": "12:54",
+      "rise": "13:57",
+      "transit": "20:04"
+    },
+    "moon": {
+      "rise": "03:19",
+      "transit": "05:29",
+      "set": "08:01"
+    }
+  },
+  {
+    "date": "2026-09-23",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:11",
+      "civilDusk": "02:53",
+      "civilDawn": "13:18",
+      "rise": "13:59",
+      "transit": "20:04"
+    },
+    "moon": {
+      "rise": "01:31",
+      "transit": "05:29",
+      "set": "09:42"
+    }
+  },
+  {
+    "date": "2026-09-23",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:10",
+      "civilDusk": "02:41",
+      "civilDawn": "13:29",
+      "rise": "14:01",
+      "transit": "20:04"
+    },
+    "moon": {
+      "rise": "00:44",
+      "transit": "05:29",
+      "set": "10:25"
+    }
+  },
+  {
+    "date": "2026-09-23",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:08",
+      "civilDusk": "02:29",
+      "civilDawn": "13:41",
+      "rise": "14:01",
+      "transit": "20:04"
+    },
+    "moon": {
+      "transit": "05:29",
+      "set": "11:40"
+    }
+  },
+  {
+    "date": "2026-09-23",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:09",
+      "civilDusk": "02:34",
+      "civilDawn": "13:35",
+      "rise": "14:00",
+      "transit": "20:04"
+    },
+    "moon": {
+      "transit": "05:29",
+      "set": "12:24",
+      "rise": "23:27"
+    }
+  },
+  {
+    "date": "2026-12-21",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "civilDawn": "18:18",
+      "civilDusk": "22:02"
+    },
+    "moon": {
+      "transit": "05:15"
+    }
+  },
+  {
+    "date": "2026-12-21",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "civilDusk": "00:04",
+      "civilDawn": "16:17",
+      "rise": "17:14",
+      "transit": "20:10",
+      "set": "23:07"
+    },
+    "moon": {
+      "transit": "05:15",
+      "set": "14:59",
+      "rise": "20:21"
+    }
+  },
+  {
+    "date": "2026-12-21",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "00:18",
+      "civilDusk": "00:55",
+      "civilDawn": "15:25",
+      "rise": "16:03",
+      "transit": "20:10"
+    },
+    "moon": {
+      "transit": "05:15",
+      "set": "13:35",
+      "rise": "21:48"
+    }
+  },
+  {
+    "date": "2026-12-21",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:14",
+      "civilDusk": "02:36",
+      "civilDawn": "13:44",
+      "rise": "14:07",
+      "transit": "20:10"
+    },
+    "moon": {
+      "transit": "05:15",
+      "set": "11:29"
+    }
+  },
+  {
+    "date": "2026-12-21",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "03:25",
+      "civilDusk": "03:55",
+      "civilDawn": "12:25",
+      "rise": "12:55",
+      "transit": "20:10"
+    },
+    "moon": {
+      "rise": "00:08",
+      "transit": "05:15",
+      "set": "10:16"
+    }
+  },
+  {
+    "date": "2085-05-05",
+    "latitudeDeg": 70.5,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "06:16",
+      "rise": "10:01",
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "04:40",
+      "set": "10:18"
+    }
+  },
+  {
+    "date": "2085-05-05",
+    "latitudeDeg": 60,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "04:20",
+      "civilDusk": "05:16",
+      "civilDawn": "11:01",
+      "rise": "11:57",
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "04:40",
+      "set": "10:30",
+      "rise": "23:52"
+    }
+  },
+  {
+    "date": "2085-05-05",
+    "latitudeDeg": 48.7621,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "03:33",
+      "civilDusk": "04:09",
+      "civilDawn": "12:08",
+      "rise": "12:44",
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "04:40",
+      "set": "10:37",
+      "rise": "23:38"
+    }
+  },
+  {
+    "date": "2085-05-05",
+    "latitudeDeg": 0,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "02:12",
+      "civilDusk": "02:34",
+      "civilDawn": "13:44",
+      "rise": "14:05",
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "04:40",
+      "set": "10:50",
+      "rise": "23:12"
+    }
+  },
+  {
+    "date": "2085-05-05",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "sun": {
+      "set": "01:26",
+      "civilDusk": "01:52",
+      "civilDawn": "14:26",
+      "rise": "14:53",
+      "transit": "20:09"
+    },
+    "moon": {
+      "transit": "04:40",
+      "set": "10:58",
+      "rise": "22:57"
+    }
+  }
+]
