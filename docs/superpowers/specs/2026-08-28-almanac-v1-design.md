@@ -96,7 +96,10 @@ trusted publishing; SwiftPM consumers pin the tag.
   diverge by an amount unknowable today — **future civil-UTC error from unknown DUT1
   is outside the accuracy promise**; results remain UT1-accurate. No leap-second or
   DUT1 table ships; caller-supplied DUT1 arrives only if a consumer needs exact
-  future civil time.
+  future civil time. ΔT itself is a projection past the present: Espenak–Meeus
+  reaches ~205 s at 2100 where JPL Horizons freezes ~69 s — far-future UT-labeled
+  positions inherit whichever projection is wrong, which is why position fixtures
+  compare in TT.
 - TT = UT1 + ΔT (Espenak–Meeus polynomials).
 - **Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z** — the
   intersection of the fixture evidence (Horizons positions 1950–2100, Espenak
@@ -193,7 +196,12 @@ retrieval date. Raw responses are committed, so git itself is their integrity ha
 
 - **Positions** — sun/moon RA/dec/distance across 1950–2100, from the JPL Horizons API
   (deliberately not generated from Astronomy Engine). Raw responses committed under
-  `fixtures/raw/`.
+  `fixtures/raw/`. The 151-year coarse files are **TT-labeled** (`TIME_TYPE='TT'`)
+  and compared through the models' TT entry points: Horizons freezes ΔT at its
+  present value for future dates while this library projects Espenak–Meeus
+  (~205 s by 2100), so a UT-labeled comparison would measure that ΔT-model
+  disagreement (~75″ of lunar motion), not astronomy. The 2026 dense files stay
+  UT-labeled and exercise the public UTC API, where the two ΔT models agree to ~1 s.
 - **Events** — USNO rise/set/twilight across a latitude grid including polar edge
   cases; USNO moon-phase catalog.
 - **Lunar eclipses** — Espenak Five Millennium catalog subset (1950–2100): types,
@@ -206,7 +214,10 @@ retrieval date. Raw responses are committed, so git itself is their integrity ha
   (U2/U3 present), a partial (U1/U4 but no U2/U3), and a penumbral (P1/P4 only), so
   absent-contact cases are asserted, not assumed.
 - **Tolerances are data**, in fixture metadata: sun ≤ 1′, moon ≤ 1′, event times
-  ≤ 60 s, eclipse peak and contact times ≤ 60 s, eclipse magnitudes ≤ 0.03.
+  ≤ 60 s, eclipse peak and contact times ≤ 60 s, eclipse magnitudes ≤ 0.03; moon
+  distance ≤ 70 km (the Montenbruck–Pfleger lunar theory runs ~27 ppm low on
+  distance versus JPL ephemerides — model-inherent, reproduced exactly by the
+  reference implementation; angular accuracy is unaffected).
 - `fixtures/generate/` scripts run **offline** from the committed raw responses;
   `--check` fails on drift between raw and derived. A separate explicit `refresh`
   command is the only thing that touches the network.
