@@ -3,3 +3,5 @@
 // table grows; do not export anything not in that table.
 export type { Observer } from './types.js';
 export { AlmanacOutOfRangeError } from './types.js';
+export type { SunPosition, MoonPosition } from './positions.js';
+export { sunPosition, moonPosition } from './positions.js';
