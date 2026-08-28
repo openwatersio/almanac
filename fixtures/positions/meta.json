@@ -3,10 +3,11 @@
   "sourceVersion": "1.2",
   "retrieved": "2026-08-28",
   "requests": [
-    "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%2710%27&CENTER=%27500%40399%27&QUANTITIES=%272%2C20%27&START_TIME=%271950-01-01%27&STOP_TIME=%272100-12-31%27&STEP_SIZE=%2730d%27",
-    "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%27301%27&CENTER=%27500%40399%27&QUANTITIES=%272%2C10%2C20%27&START_TIME=%271950-01-01%27&STOP_TIME=%272100-12-31%27&STEP_SIZE=%2730d%27",
+    "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%2710%27&CENTER=%27500%40399%27&QUANTITIES=%272%2C20%27&START_TIME=%271950-01-01%27&STOP_TIME=%272100-12-31%27&STEP_SIZE=%2730d%27&TIME_TYPE=%27TT%27",
+    "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%27301%27&CENTER=%27500%40399%27&QUANTITIES=%272%2C10%2C20%27&START_TIME=%271950-01-01%27&STOP_TIME=%272100-12-31%27&STEP_SIZE=%2730d%27&TIME_TYPE=%27TT%27",
     "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%2710%27&CENTER=%27500%40399%27&QUANTITIES=%272%2C20%27&START_TIME=%272026-01-01%27&STOP_TIME=%272026-02-01%27&STEP_SIZE=%271h%27",
     "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%27301%27&CENTER=%27500%40399%27&QUANTITIES=%272%2C10%2C20%27&START_TIME=%272026-01-01%27&STOP_TIME=%272026-02-01%27&STEP_SIZE=%271h%27"
   ],
-  "toleranceArcmin": 1
+  "toleranceArcmin": 1,
+  "note": "Coarse rows carry `tt` (Terrestrial Time-labeled instants, requested with TIME_TYPE='TT'); dense rows carry `utc`. Horizons applies real historical delta-T but holds it fixed at its present value for future dates, so UT-labeled rows over 1950-2100 disagree with any real delta-T model (e.g. Espenak-Meeus) by up to ~136 s at 2100 - ~75 arcsec of lunar motion, well past the 1 arcmin tolerance. TT labeling removes the timescale from the comparison; consumers feed `tt` straight to a TT entry point instead of converting from UTC."
 }

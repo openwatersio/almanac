@@ -349,7 +349,9 @@ function sourceVersion(text) {
   return text.match(/API VERSION:\s*(\S+)/)?.[1] ?? "unknown";
 }
 
-// Parses rows between $$SOE/$$EOE. Horizons' az/el output inserts a 2-char
+// Parses rows between $$SOE/$$EOE. The `time` field is whatever scale the
+// request asked for (TIME_TYPE): UT for most files, TT for the coarse position
+// runs -- callers label it. Horizons' az/el output inserts a 2-char
 // solar/lunar presence flag between the date and the numeric columns (e.g.
 // "*m", "Nm", " "); pulling floats out with a regex sidesteps that flag
 // entirely instead of column-counting around it.
@@ -365,9 +367,9 @@ function parseRawRows(text) {
     const [full, y, mon, d, hms] = m;
     const month = MONTHS[mon];
     assert.ok(month, `unknown month in row: ${line}`);
-    const utc = `${y}-${month}-${d}T${hms}Z`;
+    const time = `${y}-${month}-${d}T${hms}Z`;
     const nums = (line.slice(m.index + full.length).match(/-?\d+\.\d+/g) || []).map(Number);
-    rows.push({ utc, nums });
+    rows.push({ time, nums });
   }
   return rows;
 }
@@ -380,46 +382,62 @@ function byUtc(a, b) {
   return a.utc.localeCompare(b.utc);
 }
 
+function byTime(key) {
+  return (a, b) => a[key].localeCompare(b[key]);
+}
+
 function derivePositions(retrieved, requests) {
-  function sunFile(name, expectMin, expectExact) {
+  function sunFile(name, expectMin, expectExact, timeKey) {
     const rows = parseRawRows(raw(name))
-      .map(({ utc, nums }) => ({ utc, raDeg: nums[0], decDeg: nums[1], distanceAu: nums[2] }))
-      .sort(byUtc);
+      .map(({ time, nums }) => ({ [timeKey]: time, raDeg: nums[0], decDeg: nums[1], distanceAu: nums[2] }))
+      .sort(byTime(timeKey));
     for (const r of rows) {
-      assert.ok(r.decDeg >= -90 && r.decDeg <= 90, `${name}: decDeg out of range at ${r.utc}`);
-      assert.ok(r.raDeg >= 0 && r.raDeg <= 360, `${name}: raDeg out of range at ${r.utc}`);
-      assert.ok(r.distanceAu >= 0.98 && r.distanceAu <= 1.02, `${name}: distanceAu out of range at ${r.utc}: ${r.distanceAu}`);
+      const t = r[timeKey];
+      assert.ok(r.decDeg >= -90 && r.decDeg <= 90, `${name}: decDeg out of range at ${t}`);
+      assert.ok(r.raDeg >= 0 && r.raDeg <= 360, `${name}: raDeg out of range at ${t}`);
+      assert.ok(r.distanceAu >= 0.98 && r.distanceAu <= 1.02, `${name}: distanceAu out of range at ${t}: ${r.distanceAu}`);
     }
     if (expectExact != null) assert.equal(rows.length, expectExact, `${name}: expected ${expectExact} rows, got ${rows.length}`);
     if (expectMin != null) assert.ok(rows.length >= expectMin, `${name}: expected >=${expectMin} rows, got ${rows.length}`);
     return rows;
   }
 
-  function moonFile(name, expectMin, expectExact) {
+  function moonFile(name, expectMin, expectExact, timeKey) {
     const rows = parseRawRows(raw(name))
-      .map(({ utc, nums }) => ({
-        utc, raDeg: nums[0], decDeg: nums[1], distanceKm: nums[3] * AU_KM, illumFraction: nums[2] / 100,
+      .map(({ time, nums }) => ({
+        [timeKey]: time, raDeg: nums[0], decDeg: nums[1], distanceKm: nums[3] * AU_KM, illumFraction: nums[2] / 100,
       }))
-      .sort(byUtc);
+      .sort(byTime(timeKey));
     for (const r of rows) {
-      assert.ok(r.decDeg >= -90 && r.decDeg <= 90, `${name}: decDeg out of range at ${r.utc}`);
-      assert.ok(r.raDeg >= 0 && r.raDeg <= 360, `${name}: raDeg out of range at ${r.utc}`);
-      assert.ok(r.illumFraction >= 0 && r.illumFraction <= 1, `${name}: illumFraction out of range at ${r.utc}`);
-      assert.ok(r.distanceKm >= 356000 && r.distanceKm <= 407000, `${name}: distanceKm out of range at ${r.utc}: ${r.distanceKm}`);
+      const t = r[timeKey];
+      assert.ok(r.decDeg >= -90 && r.decDeg <= 90, `${name}: decDeg out of range at ${t}`);
+      assert.ok(r.raDeg >= 0 && r.raDeg <= 360, `${name}: raDeg out of range at ${t}`);
+      assert.ok(r.illumFraction >= 0 && r.illumFraction <= 1, `${name}: illumFraction out of range at ${t}`);
+      assert.ok(r.distanceKm >= 356000 && r.distanceKm <= 407000, `${name}: distanceKm out of range at ${t}: ${r.distanceKm}`);
     }
     if (expectExact != null) assert.equal(rows.length, expectExact, `${name}: expected ${expectExact} rows, got ${rows.length}`);
     if (expectMin != null) assert.ok(rows.length >= expectMin, `${name}: expected >=${expectMin} rows, got ${rows.length}`);
     return rows;
   }
 
-  const sunCoarse = sunFile("sun-coarse", 1830);
-  const moonCoarse = moonFile("moon-coarse", 1830);
-  const sunDense = sunFile("sun-dense", null, 745);
-  const moonDense = moonFile("moon-dense", null, 745);
+  // Coarse files are TT-labeled (`tt`), dense files UT-labeled (`utc`) -- see
+  // the note in positions/meta.json for why.
+  const sunCoarse = sunFile("sun-coarse", 1830, null, "tt");
+  const moonCoarse = moonFile("moon-coarse", 1830, null, "tt");
+  const sunDense = sunFile("sun-dense", null, 745, "utc");
+  const moonDense = moonFile("moon-dense", null, 745, "utc");
+
+  for (const name of ["sun-coarse", "moon-coarse"]) {
+    // self-check: the raw response really came back on the TT scale. A silently
+    // ignored TIME_TYPE would otherwise mislabel UT rows as `tt`.
+    assert.match(raw(name), /Date__\(TT\)__/, `${name}: raw response is not TT-labeled`);
+  }
+  assert.match(raw("sun-dense"), /Date__\(UT\)__/, "sun-dense: raw response is not UT-labeled");
+  assert.match(raw("moon-dense"), /Date__\(UT\)__/, "moon-dense: raw response is not UT-labeled");
 
   for (const [name, rows] of [["sun-coarse", sunCoarse], ["moon-coarse", moonCoarse]]) {
-    assert.equal(rows[0].utc.slice(0, 4), "1950", `${name}: does not start at 1950`);
-    assert.equal(rows.at(-1).utc.slice(0, 4), "2100", `${name}: does not end at 2100`);
+    assert.equal(rows[0].tt.slice(0, 4), "1950", `${name}: does not start at 1950`);
+    assert.equal(rows.at(-1).tt.slice(0, 4), "2100", `${name}: does not end at 2100`);
   }
 
   return {
@@ -433,6 +451,7 @@ function derivePositions(retrieved, requests) {
       retrieved,
       requests: ["sun-coarse", "moon-coarse", "sun-dense", "moon-dense"].map((n) => requests[n]),
       toleranceArcmin: TOLERANCE_ARCMIN,
+      note: "Coarse rows carry `tt` (Terrestrial Time-labeled instants, requested with TIME_TYPE='TT'); dense rows carry `utc`. Horizons applies real historical delta-T but holds it fixed at its present value for future dates, so UT-labeled rows over 1950-2100 disagree with any real delta-T model (e.g. Espenak-Meeus) by up to ~136 s at 2100 - ~75 arcsec of lunar motion, well past the 1 arcmin tolerance. TT labeling removes the timescale from the comparison; consumers feed `tt` straight to a TT entry point instead of converting from UTC.",
     }),
   };
 }
@@ -440,7 +459,7 @@ function derivePositions(retrieved, requests) {
 function deriveAltaz(retrieved, requests) {
   function altazFile(name, expectExact) {
     const rows = parseRawRows(raw(name))
-      .map(({ utc, nums }) => ({ utc, azDeg: nums[0], altDeg: nums[1] }))
+      .map(({ time, nums }) => ({ utc: time, azDeg: nums[0], altDeg: nums[1] }))
       .sort(byUtc);
     for (const r of rows) {
       assert.ok(r.azDeg >= 0 && r.azDeg <= 360, `${name}: azDeg out of range at ${r.utc}`);
@@ -460,8 +479,8 @@ function deriveAltaz(retrieved, requests) {
     ["sun-airless-twilight-n60-dec", N60],
   ];
   const twilightRows = twilightSpecs.flatMap(([name, s]) => {
-    const rows = parseRawRows(raw(name)).map(({ utc, nums }) => ({
-      utc, azDeg: nums[0], altDeg: nums[1], siteLatDeg: s.lat, siteLonDeg: s.lon,
+    const rows = parseRawRows(raw(name)).map(({ time, nums }) => ({
+      utc: time, azDeg: nums[0], altDeg: nums[1], siteLatDeg: s.lat, siteLonDeg: s.lon,
     }));
     assert.equal(rows.length, 2881, `${name}: expected 2881 rows, got ${rows.length}`);
     for (const r of rows) {

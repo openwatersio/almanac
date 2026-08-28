@@ -4,6 +4,7 @@
 // run it once, inspect the output, commit the raw .txt files. derive.mjs
 // never calls this.
 import { writeFile } from "node:fs/promises";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const RAW_DIR = new URL("../raw/horizons/", import.meta.url);
@@ -20,7 +21,14 @@ const common = {
   TIME_DIGITS: "'SECONDS'",
 };
 
-function geocentric(command, quantities, start, stop, step) {
+// `timeType` selects the Horizons time scale for both the requested interval
+// and the output date column. The coarse 1950-2100 position runs ask for TT:
+// Horizons applies real historical delta-T but holds it fixed at its present
+// value for future dates, so UT-labeled rows disagree with any real delta-T
+// model by up to ~136 s at 2100 (~75" of lunar motion). TT takes the timescale
+// out of the comparison. Everything else stays on UT, which is what an
+// observer-facing fixture wants.
+function geocentric(command, quantities, start, stop, step, timeType) {
   return {
     ...common,
     COMMAND: `'${command}'`,
@@ -29,6 +37,7 @@ function geocentric(command, quantities, start, stop, step) {
     START_TIME: `'${start}'`,
     STOP_TIME: `'${stop}'`,
     STEP_SIZE: `'${step}'`,
+    ...(timeType ? { TIME_TYPE: `'${timeType}'` } : {}),
   };
 }
 
@@ -48,8 +57,8 @@ function site(command, quantities, start, stop, step, site, apparent) {
 }
 
 const specs = [
-  { name: "sun-coarse", params: geocentric("10", "2,20", "1950-01-01", "2100-12-31", "30d") },
-  { name: "moon-coarse", params: geocentric("301", "2,10,20", "1950-01-01", "2100-12-31", "30d") },
+  { name: "sun-coarse", params: geocentric("10", "2,20", "1950-01-01", "2100-12-31", "30d", "TT") },
+  { name: "moon-coarse", params: geocentric("301", "2,10,20", "1950-01-01", "2100-12-31", "30d", "TT") },
   { name: "sun-dense", params: geocentric("10", "2,20", "2026-01-01", "2026-02-01", "1h") },
   { name: "moon-dense", params: geocentric("301", "2,10,20", "2026-01-01", "2026-02-01", "1h") },
   { name: "sun-altaz-victoria", params: site("10", "4,20", "2026-03-01", "2026-03-08", "1h", VIC, "REFRACTED") },
@@ -71,9 +80,21 @@ function sleep(ms) {
 }
 
 async function main() {
-  const requests = {};
-  for (let i = 0; i < specs.length; i++) {
-    const { name, params } = specs[i];
+  // Optional name arguments fetch a subset, e.g. `node refresh-horizons.mjs
+  // sun-coarse moon-coarse`. retrieved.json is merged, never overwritten, so a
+  // partial run leaves the other entries (and their derived fixtures) intact.
+  const only = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+  const todo = only.length ? specs.filter((s) => only.includes(s.name)) : specs;
+  const unknown = only.filter((n) => !specs.some((s) => s.name === n));
+  if (unknown.length) throw new Error(`unknown spec name(s): ${unknown.join(", ")}`);
+
+  const retrievedPath = new URL("retrieved.json", RAW_DIR);
+  const prior = existsSync(retrievedPath)
+    ? JSON.parse(readFileSync(retrievedPath, "utf8")).requests
+    : {};
+  const requests = { ...prior };
+  for (let i = 0; i < todo.length; i++) {
+    const { name, params } = todo[i];
     const url = buildUrl(params);
     console.log(`fetching ${name} ...`);
     const res = await fetch(url);
@@ -85,11 +106,11 @@ async function main() {
     }
     await writeFile(new URL(`${name}.txt`, RAW_DIR), body);
     requests[name] = url;
-    if (i < specs.length - 1) await sleep(1000); // be polite: ~1 req/s
+    if (i < todo.length - 1) await sleep(1000); // be polite: ~1 req/s
   }
   const retrieved = new Date().toISOString().slice(0, 10);
   await writeFile(
-    new URL("retrieved.json", RAW_DIR),
+    retrievedPath,
     JSON.stringify({ retrieved, requests }, null, 2) + "\n",
   );
   console.log(`done — retrieved ${retrieved}`);

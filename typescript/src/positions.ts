@@ -25,14 +25,31 @@ export interface SunPosition { raDeg: number; decDeg: number; distanceAu: number
 export interface MoonPosition { raDeg: number; decDeg: number; distanceKm: number; }
 
 /**
+ * INTERNAL: apparent Sun for a TT instant, expressed as days since the J2000
+ * epoch in Terrestrial Time. This is the entry point the TT-labeled position
+ * fixtures compare against — going through `sunPosition` would first convert
+ * UTC → TT with a ΔT model, putting a timescale approximation between the
+ * ephemeris and the reference data.
+ */
+export function sunApparentAtTT(tt: number): SunPosition {
+    const { raDeg, decDeg, distanceAu } = equatorialFromVector(sunGeoVector(tt));
+    return { raDeg, decDeg, distanceAu };
+}
+
+/** INTERNAL: apparent Moon for a TT instant. See {@link sunApparentAtTT}. */
+export function moonApparentAtTT(tt: number): MoonPosition {
+    const { raDeg, decDeg, distanceAu } = equatorialFromVector(moonGeoVector(tt));
+    return { raDeg, decDeg, distanceKm: distanceAu * KM_PER_AU };
+}
+
+/**
  * Apparent geocentric position of the Sun — right ascension and declination on
  * the true equator and equinox of date (precession, nutation and aberration
  * applied), plus the light-time-corrected distance in AU.
  */
 export function sunPosition(time: Date): SunPosition {
     assertSupported(time);
-    const { raDeg, decDeg, distanceAu } = equatorialFromVector(sunGeoVector(ttDays(time)));
-    return { raDeg, decDeg, distanceAu };
+    return sunApparentAtTT(ttDays(time));
 }
 
 /**
@@ -42,6 +59,5 @@ export function sunPosition(time: Date): SunPosition {
  */
 export function moonPosition(time: Date): MoonPosition {
     assertSupported(time);
-    const { raDeg, decDeg, distanceAu } = equatorialFromVector(moonGeoVector(ttDays(time)));
-    return { raDeg, decDeg, distanceKm: distanceAu * KM_PER_AU };
+    return moonApparentAtTT(ttDays(time));
 }
