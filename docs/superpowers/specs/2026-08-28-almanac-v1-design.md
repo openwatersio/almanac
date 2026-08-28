@@ -89,11 +89,14 @@ trusted publishing; SwiftPM consumers pin the tag.
 
 - API instants are platform dates (JS `Date`, Foundation `Date`) — UTC-shaped,
   millisecond precision.
-- Calculations treat UTC as UT1: |UT1−UTC| < 0.9 s in the leap-second era (1972+),
-  far inside the ±60 s event tolerance. No leap-second table ships (the
-  zero-runtime-data promise holds), so results are UT1-accurate, not
-  exact-UTC-accurate. Pre-1972 timestamps are proleptic civil labels interpreted as
-  UT1-like; the fixture tolerances are the accuracy promise for that period.
+- All timestamps are civil labels interpreted as **UT1-like**. In the leap-second
+  era (1972 – present) that costs |UT1−UTC| < 0.9 s, far inside the ±60 s event
+  tolerance. Pre-1972 labels are proleptic. Post-leap-second civil UTC (the 2026
+  CGPM draft makes UTC continuous from 2027, permitting DUT1 up to 3600 s) may
+  diverge by an amount unknowable today — **future civil-UTC error from unknown DUT1
+  is outside the accuracy promise**; results remain UT1-accurate. No leap-second or
+  DUT1 table ships; caller-supplied DUT1 arrives only if a consumer needs exact
+  future civil time.
 - TT = UT1 + ΔT (Espenak–Meeus polynomials).
 - **Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z** — the
   intersection of the fixture evidence (Horizons positions 1950–2100, Espenak
@@ -109,9 +112,12 @@ trusted publishing; SwiftPM consumers pin the tag.
   values are a validation error (TS: throw `RangeError`; Swift: throws).
 - **Angles** — degrees everywhere, `Double`. RA [0, 360) on the equator of date;
   dec [−90, 90]; azimuth [0, 360) from true north through east; altitude [−90, 90].
-- **Coordinate semantics** — geocentric RA/dec and ecliptic lon/lat are **apparent**:
-  true equator/equinox of date with nutation and aberration applied, exactly the
-  upstream `Equator(body, date, observer, ofdate: true, aberration: true)` transform.
+- **Coordinate semantics** — geocentric RA/dec are **apparent**: true equator/equinox
+  of date with nutation and aberration applied, exactly the upstream
+  `Equator(body, date, observer, ofdate: true, aberration: true)` transform.
+  Ecliptic-of-date quantities exist internally (phases, eclipses) but are not public:
+  no consumer needs them and no fixture independently checks them — public fields
+  without an external oracle don't ship.
 - **Distances** — moon in km; sun in AU.
 - **Refraction** — the translated upstream `Refraction('normal')` formula, including
   its below-horizon taper, at fixed sea-level standard atmosphere (no
@@ -139,8 +145,8 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 
 | Function | Arguments | Result |
 |---|---|---|
-| `sunPosition(time)` | instant | `raDeg, decDeg, distanceAu, eclipticLonDeg, eclipticLatDeg` — geocentric, equator/ecliptic of date |
-| `moonPosition(time)` | instant | `raDeg, decDeg, distanceKm, eclipticLonDeg, eclipticLatDeg` — geocentric, of date |
+| `sunPosition(time)` | instant | `raDeg, decDeg, distanceAu` — geocentric apparent, equator of date |
+| `moonPosition(time)` | instant | `raDeg, decDeg, distanceKm` — geocentric apparent, equator of date |
 | `sunAltAz(time, observer)` | instant, Observer | `azDeg, altDeg` — topocentric, refracted |
 | `moonAltAz(time, observer)` | instant, Observer | `azDeg, altDeg` — topocentric (parallax applied), refracted |
 | `moonIllumination(time)` | instant | `fraction` [0,1], `phaseAngleDeg` [0,180] (0 = full, 180 = new; `fraction = (1 + cos θ)/2`), `phase` [0,1) (0 new, 0.5 full), `waxing` |
@@ -148,17 +154,19 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 | `moonEvents(startUtc, endUtc, observer)` | half-open window, Observer | sorted `[{time, kind}]`, kind ∈ rise, set |
 | `searchMoonPhases(startUtc, endUtc)` | half-open window | sorted `[{time, phase}]`, phase ∈ new, firstQuarter, full, lastQuarter |
 | `nextLunarEclipse(after)` | instant | `LunarEclipse` (fields per the eclipse convention above) or the out-of-range outcome |
-| `lunarEclipseVisibility(eclipse, observer)` | LunarEclipse, Observer | `visibleAtPeak`, `moonAltAtPeakDeg`, per-contact visibility flags |
+| `lunarEclipseVisibility(eclipse, observer)` | LunarEclipse, Observer | `visibleAtPeak`, `moonGeometricAltAtPeakDeg` (unrefracted), per-contact visibility flags; the eclipse argument is structurally validated (finite times, contact chronology, kind ↔ contact shape) |
 
 **Cross-port contract** (identical in both ports):
 
 | Concern | Rule |
 |---|---|
-| Instant precision | Every input and returned instant is normalized to integer epoch milliseconds (floor). Foundation's sub-ms precision never reaches the math or the results. |
+| Instant precision | Every input and returned instant is normalized to integer epoch milliseconds by **truncation toward zero** (ECMAScript TimeClip — what JS `Date` already did to its input; Swift must match it, not floor, or negative sub-ms tails diverge). Foundation's sub-ms precision never reaches the math or the results. |
 | Non-finite input | Any NaN/±∞ number, or a TS invalid `Date`, is a validation error (invalid `Date` is TS-only; Swift `Date` cannot be invalid). |
 | Out-of-interval time | TS `AlmanacOutOfRangeError` ↔ Swift `AlmanacError.outOfRange`. |
 | Invalid observer/argument | TS `RangeError` ↔ Swift `AlmanacError.invalidObserver` / `.invalidArgument`. |
 | Reversed/empty window | `startUtc ≥ endUtc` → empty list, no error. |
+| Validation precedence | Arguments are validated (finite, observer ranges, interval containment) **before** the empty/reversed-window short-circuit — a garbage argument never returns a clean empty list. |
+| Window end | Instants validate on `[min, max)`; a **window end** validates on `[min, max]`, so the exact full-range window `[min, max)` is legal. |
 | Search anchor | `nextLunarEclipse(after)`: strictly `peak > after`. |
 
 **Window and search contracts:**
@@ -210,11 +218,15 @@ physical tolerances, symmetrically:
 
 - `fixtures/parity/` holds canonical inputs and quantized outputs (angles to 1e-6°,
   distances to 1e-3 km / 1e-9 AU, times to 1 ms) densely sampled across the interval.
-- **Both** suites compare their computed values to the canonical file, field-wise, at
-  tolerances stated in the file. Neither port is the oracle: on a mismatch, the
-  external fixtures arbitrate which port is wrong. Replacing the committed corpus
-  requires **both** ports to regenerate byte-identical quantized output — a corpus
-  only one port can reproduce is that port smuggled back in as the oracle.
+- The corpus format is canonical — fixed row order, quantized values stored as
+  scaled integers, provenance in a separate uncompared meta file — so both ports can
+  reproduce it exactly. CI compares **decoded structures**, not serializer bytes
+  (key order and float formatting can't fail a correct port), and runs both
+  emitters against the committed corpus and against each other. Neither port is
+  the oracle: external fixtures arbitrate any mismatch, and replacing the corpus
+  requires both ports to reproduce it — a corpus only one port can regenerate is
+  that port smuggled back in as the oracle. Every public function appears in the
+  corpus, including `searchMoonPhases` and `lunarEclipseVisibility`.
 
 ## Testing, CI & release verification
 
