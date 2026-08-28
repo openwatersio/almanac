@@ -1,0 +1,7 @@
+Almanac contains algorithms translated from Astronomy Engine
+(https://github.com/cosinekitty/astronomy), copyright (c) 2019+ Don Cross,
+released under the MIT License.
+
+Astronomy Engine's lunar theory derives from "Astronomy on the Personal
+Computer" by Oliver Montenbruck and Thomas Pfleger; its solar theory from
+the VSOP87 model by Bretagnon and Francou.
