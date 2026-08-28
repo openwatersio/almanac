@@ -1,7 +1,7 @@
 # Almanac
 
 Offline sun & moon engine for the Salish Sea and everywhere else — positions,
-rise/set/twilight, moon phase, and lunar & solar eclipses, computed from pure
+rise/set/twilight, moon phase, and lunar eclipses (solar planned), computed from pure
 geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
