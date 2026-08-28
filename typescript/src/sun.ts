@@ -162,7 +162,7 @@ export function earthHelioVector(tt: number): Vec3 {
  *
  * @returns geocentric position in AU, J2000 mean equator (EQJ).
  */
-function sunGeoVectorEqj(tt: number): Vec3 {
+export function sunGeoVectorEqj(tt: number): Vec3 {
     let ltime = tt;
     let dt = 0;
     for (let iter = 0; iter < 10; ++iter) {

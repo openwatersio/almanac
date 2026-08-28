@@ -315,9 +315,12 @@ export function calcMoon(tt: number): MoonEcliptic {
  * upstream's own composition and is kept so the Swift port can be a
  * line-for-line translation.
  *
- * @returns geocentric position in AU, true equator & equinox of date.
+ * @returns geocentric position in AU, J2000 mean equator (EQJ) — the `mpos2`
+ * intermediate below, exported for the L2 topocentric path (Task 11), which
+ * needs the body vector in the same EQJ frame as the observer's geocentric
+ * position before subtracting the two.
  */
-export function moonGeoVector(tt: number): Vec3 {
+export function moonGeoVectorEqj(tt: number): Vec3 {
     const moon = calcMoon(tt);
 
     // Convert geocentric ecliptic spherical coords to cartesian coords.
@@ -332,8 +335,16 @@ export function moonGeoVector(tt: number): Vec3 {
     const mpos1 = eclipticToEquatorial(meanObliquityDeg(tt), gepos);
 
     // Convert from mean equinox of date to J2000...
-    const mpos2 = precession(mpos1, tt, PrecessDirection.Into2000);
+    return precession(mpos1, tt, PrecessDirection.Into2000);
+}
 
-    // ...then out to the true equator and equinox of date (precession + nutation).
-    return gyration(mpos2, tt, PrecessDirection.From2000);
+/**
+ * UPSTREAM: `GeoMoon` (astronomy.ts 3049-3068) followed by the
+ * `gyration(..., From2000)` that `Equator(ofdate=true)` (line 2803) applies.
+ *
+ * @returns geocentric position in AU, true equator & equinox of date.
+ */
+export function moonGeoVector(tt: number): Vec3 {
+    // ...out to the true equator and equinox of date (precession + nutation).
+    return gyration(moonGeoVectorEqj(tt), tt, PrecessDirection.From2000);
 }

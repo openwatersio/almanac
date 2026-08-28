@@ -22,6 +22,9 @@ export const KM_PER_AU = 1.4959787069098932e8;
 export const C_AUDAY = 173.1446326846693;
 export const EARTH_EQUATORIAL_RADIUS_KM = 6378.1366;
 export const EARTH_EQUATORIAL_RADIUS_AU = EARTH_EQUATORIAL_RADIUS_KM / KM_PER_AU;
+/** UPSTREAM: WGS-84 flattening, astronomy.ts lines 137-138 (terra, geo_pos). */
+export const EARTH_FLATTENING = 0.996647180302104;
+export const EARTH_FLATTENING_SQUARED = EARTH_FLATTENING * EARTH_FLATTENING;
 
 /** A Cartesian position in AU. */
 export interface Vec3 { x: number; y: number; z: number; }
