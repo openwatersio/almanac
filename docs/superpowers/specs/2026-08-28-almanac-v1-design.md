@@ -135,8 +135,8 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 **Window and search contracts:**
 
 - Event windows are half-open `[startUtc, endUtc)`; an event at `endUtc` belongs to the
-  next window. Callers own all timezone/civil-day logic. Windows longer than 366 days
-  are a validation error.
+  next window. Callers own all timezone/civil-day logic. Any window inside the
+  supported interval is valid — searches are linear-time and cheap.
 - `nextLunarEclipse` scans forward at most 2 years (some lunar eclipse, penumbral
   included, always occurs within ~6 months); a scan crossing the supported-interval
   end returns the out-of-range outcome (TS: typed error; Swift: typed throw).
@@ -146,8 +146,8 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 ## Fixture corpus
 
 `fixtures/` is the authority both ports answer to. Every fixture directory carries
-`meta.json`: source name and version, the exact request (URL + parameters), retrieval
-date, and sha256 of the committed raw response.
+`meta.json`: source name and version, the exact request (URL + parameters), and the
+retrieval date. Raw responses are committed, so git itself is their integrity hash.
 
 - **Positions** — sun/moon RA/dec/distance across 1950–2100, from the JPL Horizons API
   (deliberately not generated from Astronomy Engine). Raw responses committed under
