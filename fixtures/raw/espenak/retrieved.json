@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-08-28",
+  "requests": {
+    "LE1901-2000": "https://eclipse.gsfc.nasa.gov/LEcat5/LE1901-2000.html",
+    "LE2001-2100": "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html",
+    "contacts-2019": "https://eclipse.gsfc.nasa.gov/OH/OH2019.html",
+    "contacts-2025": "https://eclipse.gsfc.nasa.gov/OH/OH2025.html",
+    "contacts-2026": "https://eclipse.gsfc.nasa.gov/OH/OH2026.html",
+    "contacts-2020": "https://eclipse.gsfc.nasa.gov/OH/OH2020.html"
+  },
+  "contacts": {
+    "contacts-2019": {
+      "eclipse": "2019-01-21",
+      "kind": "total"
+    },
+    "contacts-2025": {
+      "eclipse": "2025-09-07",
+      "kind": "total"
+    },
+    "contacts-2026": {
+      "eclipse": "2026-08-28",
+      "kind": "partial"
+    },
+    "contacts-2020": {
+      "eclipse": "2020-11-30",
+      "kind": "penumbral"
+    }
+  }
+}
