@@ -46,6 +46,8 @@ at its dedicated landing page.
 | `website/src/components/sky/moonPath.ts` | New. Pure terminator geometry. |
 | `website/src/components/sky/skyColor.ts` | New. Pure altitude → gradient stops. |
 | `website/src/components/sky/projection.ts` | New. Pure alt/az → viewBox coordinates. |
+| `website/src/components/sky/time.ts` | New. Civil-day boundaries in an arbitrary zone. |
+| `website/src/components/sky/sky.test.ts` | New. Unit tests for the pure modules. |
 | `website/src/components/layout/Header.astro` | Add `{ name: "Sky", href: "/sky" }`. |
 | `website/src/pages/index.astro` | Add the Sky card. |
 | `website/package.json` | Add `@openwaters/almanac`. |
@@ -55,7 +57,7 @@ The repository is not currently cloned locally; clone it to
 
 ## Architecture
 
-One React island, `client:load`, rendering inline SVG. The `.astro` file is a static
+One React island, `client:only="react"`, rendering inline SVG. The `.astro` file is a static
 shell around it — heading, lead paragraph, feature cards, code snippets, GitHub call to
 action — following the structure of `website/src/pages/tides/neaps.astro`.
 
@@ -121,18 +123,29 @@ through with no change to that component.
 
 ### Bundle
 
-`@openwaters/almanac` is pure ESM with zero runtime dependencies. Its modules
-cross-reference heavily, so assume the whole package ships: roughly 60 KB of source, an
-order of magnitude smaller than the `maplibre-gl` this site already loads elsewhere.
+`@openwaters/almanac` is pure ESM with zero runtime dependencies, and Rolldown
+tree-shakes it well: the built island, Almanac included, is **36 KB raw / 14 KB
+gzipped** — against 264 KB gzipped for the `maplibre-gl` chunk this site already
+serves on other pages.
+
+The island is `client:only` rather than `client:load` for two reasons. `astro dev`
+runs the site in workerd, so SSR would evaluate the astronomy in a worker for output
+that is discarded; and the page's initial state is `new Date()`, which cannot agree
+between a server render and hydration. The `.astro` shell supplies a fixed-height
+`slot="fallback"` skeleton, so there is no layout shift either way.
 
 ## The sky dome
 
 A single `viewBox="0 0 800 400"` panorama with the horizon at `y = 320`.
 
 **Horizontal — azimuth.** `x` maps azimuth across the full width, centered on the
-transit azimuth: 180° when `place.lat >= 0`, 0° otherwise. The sun then rises on the
-left and sets on the right at either hemisphere. Without the flip, a southern-hemisphere
-observer would watch the sun transit at the panorama's edge.
+transit azimuth: 180° when `place.lat >= 0`, 0° otherwise. That keeps the whole daily
+arc in one unbroken sweep with the seam behind the observer. Without the flip, a
+southern-hemisphere observer would watch the Sun transit at the panorama's edge with
+its arc split across both ends.
+
+The left/right sense therefore reverses with the hemisphere, which is correct rather
+than a bug: an observer facing north sees the Sun rise on their right.
 
 **Vertical — altitude.** `y` maps −18°…+90°. Bodies below the horizon are drawn and
 clipped against it, so a sunrise reads as a disc emerging rather than a fade-in.
@@ -206,9 +219,12 @@ library is explicit about this and the page must not be vaguer than the library.
 
 ## Code snippets
 
-Two stacked `CodeBlock.astro` blocks — TypeScript, then Swift — using the Shiki
-highlighter already wired up in `website/src/utils/shiki.ts`. Both are already
-dependencies.
+Two stacked `CodeBlock.astro` blocks — TypeScript, then Swift.
+
+Not Shiki-highlighted: `website/src/utils/shiki.ts` declares `SNIPPET_LANGS` as
+`js`/`python`/`go`/`rust`/`sh`, so TypeScript and Swift would each mean loading another
+grammar. `CodeBlock.astro` renders plain `<pre><code>`, which is exactly what the
+sibling `tides/neaps.astro` page uses for the same job.
 
 Stacked rather than tabbed: two blocks are less code than a tab component and let both
 languages be read at once. The TypeScript snippet is the same call sequence the island
@@ -260,6 +276,12 @@ module precisely so it can be tested without a DOM:
   −6°, −12°, and −18°.
 - `projection` — the azimuth-to-`x` mapping, including the southern-hemisphere flip and
   the wrap at 0°/360°.
+
+The runner is Node's built-in `node --test`, which strips the TypeScript natively on
+the repository's Node 22+ floor. That adds no dependency to a repository that has no
+test framework today; `website/package.json` gains a `test` script and `tsconfig.json`
+excludes `**/*.test.ts` so `astro check` ignores the `.ts` import specifiers Node
+requires.
 
 Everything else on the page is rendering. `astro check && astro build`, already the
 repository's `build` script, must pass.
