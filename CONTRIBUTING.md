@@ -24,7 +24,7 @@ One version number spans both ports. A release is a git tag; everything else is
 automated.
 
 1. Bump `version` in `typescript/package.json` (the tag-version guard fails the
-   release if tag and manifest disagree). Commit to `main`.
+   release if tag and manifest disagree). Land it via a pull request — `main` is protected; direct pushes are rejected and the CI checks must be green to merge.
 2. Tag and push:
 
    ```bash
