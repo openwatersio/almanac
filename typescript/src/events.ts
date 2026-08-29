@@ -52,10 +52,14 @@ const CIVIL_ALT_DEG = -6;
 const NAUTICAL_ALT_DEG = -12;
 const ASTRO_ALT_DEG = -18;
 
-/** Body radii, for the semidiameter that lowers each rise/set target. */
-const MOON_MEAN_RADIUS_KM = 1737.4;
-/** UPSTREAM: `SUN_RADIUS_KM`, astronomy.ts line 134. */
-const SUN_RADIUS_KM = 695700;
+/**
+ * Body radii, for the semidiameter that lowers each rise/set target — and, in
+ * the L3 eclipse layer, for the Earth's shadow cone and the Moon it falls on.
+ * INTERNAL: exported for `eclipse.ts`, not part of the public API.
+ */
+export const MOON_MEAN_RADIUS_KM = 1737.4;
+/** UPSTREAM: `SUN_RADIUS_KM`, astronomy.ts line 134. INTERNAL, see above. */
+export const SUN_RADIUS_KM = 695700;
 const HORIZON_REFRACTION_DEG = 34 / 60;
 
 /**
@@ -415,12 +419,13 @@ function quadInterp(tm: number, dt: number, fa: number, fm: number, fb: number):
  * acceleration for the ascending zero crossing of `f` in `[t1, t2]`. Times are
  * days since J2000 UT rather than upstream's `AstroTime`.
  */
-function search(
+export function search(
     f: (ut: number) => number,
     t1: number,
     t2: number,
     dtToleranceSeconds: number,
-    iterLimit = MOON_PHASE_ITER_CAP
+    iterLimit = MOON_PHASE_ITER_CAP,
+    what = 'moon-phase search'
 ): number | null {
     const dtDays = Math.abs(dtToleranceSeconds * SECOND_DAYS);
     let f1 = f(t1);
@@ -429,7 +434,7 @@ function search(
     let calcFmid = true;
 
     for (let iter = 0; ; iter++) {
-        assertReached(iter < iterLimit, 'moon-phase search');
+        assertReached(iter < iterLimit, what);
         const tmid = (t1 + t2) / 2;
         const dt = tmid - t1;
         if (Math.abs(dt) < dtDays) return tmid;
@@ -470,7 +475,7 @@ function search(
  * bracketed ±1.5 days: the Moon's eccentricity has been seen to move a quarter
  * more than 0.9 days off the simple prediction.
  */
-function searchMoonPhase(targetLonDeg: number, startUt: number, limitDays: number): number | null {
+export function searchMoonPhase(targetLonDeg: number, startUt: number, limitDays: number): number | null {
     const moonOffset = (ut: number) => angleOffset(moonPhaseDeg(ttDaysFromUt(ut)) - targetLonDeg);
     const uncertainty = 1.5;
     let ya = moonOffset(startUt);
