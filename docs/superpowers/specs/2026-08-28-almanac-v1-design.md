@@ -251,7 +251,9 @@ physical tolerances, symmetrically:
   scaled integers, provenance in a separate uncompared meta file — so both ports can
   reproduce it exactly. CI compares **decoded structures**, not serializer bytes
   (key order and float formatting can't fail a correct port), and runs both
-  emitters against the committed corpus and against each other. Neither port is
+  emitters against the committed corpus — which CI separately byte-checks against a
+  fresh TS regeneration, so the committed corpus IS the TS candidate and the two
+  legs together compare the ports against each other. Neither port is
   the oracle: external fixtures arbitrate any mismatch, and replacing the corpus
   requires both ports to reproduce it — a corpus only one port can regenerate is
   that port smuggled back in as the oracle. Every public function appears in the
