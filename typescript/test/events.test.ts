@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { sunEvents, moonEvents, searchMoonPhases, moonIllumination, AlmanacOutOfRangeError } from '../src/index.js';
 import { topoAltAzUnrefracted } from '../src/transforms.js';
 import { sunGeoVectorEqj } from '../src/sun.js';
+import { moonGeoVectorEqj } from '../src/moon.js';
 import { ttDaysFromUt, utDays } from '../src/time.js';
 import type { Observer } from '../src/types.js';
 import { SUPPORTED_MIN, SUPPORTED_MAX } from '../src/types.js';
@@ -100,6 +101,8 @@ it('USNO grid: rows after 2050 quarantine the DeltaT projection offset', () => {
   }
   expect(byDate.size, 'the grid carries at least one post-2050 date').toBeGreaterThan(0);
   for (const [date, diffs] of byDate) {
+    // A scatter rule over a single sample is vacuous — the mean is that sample.
+    expect(diffs.length, `${date}: the scatter rule needs more than one crossing`).toBeGreaterThan(1);
     const mean = diffs.reduce((a, d) => a + d.seconds, 0) / diffs.length;
     const scatter = Math.max(...diffs.map((d) => Math.abs(d.seconds - mean)));
     console.log(`USNO grid ${date}: DeltaT offset ${mean.toFixed(1)} s over ${diffs.length} crossings, scatter ${scatter.toFixed(1)} s`);
@@ -320,43 +323,99 @@ it('searched quarters are self-consistent with illumination', () => {
 // --------------------------------------------------- latitude sweep residual
 
 // No fixture reaches the latitudes where the daily cycle flattens and the
-// altitude extremum drifts hours off transit (the offset scales as 1/cos, so
-// the search widens its bracket at |lat| >= 89). The invariant that holds
-// everywhere: at a reported rise or set the Sun's unrefracted centre altitude
-// is exactly the target, which the public refracted alt/az reports as
-// -0.8333 + refraction(-0.8333). The residual is normalised by the local
-// altitude rate so the assertion is the algorithm's own contract — the root is
-// solved to under a second — at every latitude, from 15 deg/h at the equator to
-// a near-standstill at the pole.
-it('every sun rise/set sits on the target altitude, pole to equator', () => {
-  const sample = (t: Date, o: Observer) => {
-    const ut = utDays(t);
-    const p = topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, o);
-    const target = -34 / 60 - (180 / Math.PI) * Math.asin(695700 / (p.distanceAu * 1.4959787069098932e8));
-    return p.altDeg - target;
-  };
+// altitude extremum drifts hours off transit — the offset scales as 1/cos, and
+// the Moon's fast declination rate puts it 2.28 h off at 88N and 5.75 h at
+// 88.9N, which is why the search widens its bracket from |lat| >= 85 rather
+// than 89. Inside the old 89 threshold the 85-89 band converged to a bracket
+// edge and the monotonic-segment invariant failed, so this sweep covers it.
+//
+// The invariant that holds everywhere: at a reported rise or set the body's
+// unrefracted centre altitude is exactly -(34' + its true semidiameter at the
+// topocentric distance). The residual is normalised by the local altitude rate,
+// so the assertion is the algorithm's own contract — the root is solved to under
+// a second — at every latitude, from 15 deg/h at the equator to a near
+// standstill at the pole.
+const KM_PER_AU_TEST = 1.4959787069098932e8;
+const BODIES = [
+  { name: 'sun', vector: sunGeoVectorEqj, radiusKm: 695700, events: sunEvents },
+  { name: 'moon', vector: moonGeoVectorEqj, radiusKm: 1737.4, events: moonEvents },
+] as const;
+
+it('every rise/set sits on the target altitude, pole to equator, both bodies', () => {
   let worst = 0;
-  for (const latitudeDeg of [-89.5, -35, 0, 48.7621, 70.5, 89.5, 90]) {
-    const observer: Observer = { latitudeDeg, longitudeDeg: -123.052, elevationM: 0 };
-    const polar = Math.abs(latitudeDeg) >= 89;
-    const start = new Date('2026-01-01T00:00:00Z');
-    const end = new Date(start.getTime() + (polar ? 366 : 40) * DAY);
-    const events = sunEvents(start, end, observer);
-    const crossings = events.filter((e) => e.kind === 'rise' || e.kind === 'set');
-    expect(crossings.length, `lat ${latitudeDeg}: found a rise and a set`).toBeGreaterThan(1);
-    for (const e of crossings) {
-      const residual = Math.abs(sample(e.time, observer));
-      const ratePerSec = Math.abs(sample(new Date(e.time.getTime() + 30 * SEC), observer)
-        - sample(new Date(e.time.getTime() - 30 * SEC), observer)) / 60;
-      const seconds = residual / ratePerSec;
-      worst = Math.max(worst, seconds);
-      expect(seconds, `lat ${latitudeDeg} ${e.kind} @ ${e.time.toISOString()}`).toBeLessThan(1);
-    }
-    for (let i = 1; i < events.length; i++) {
-      expect(events[i].time.getTime(), `lat ${latitudeDeg}: sorted`).toBeGreaterThanOrEqual(events[i - 1].time.getTime());
+  let worstLabel = '';
+  for (const body of BODIES) {
+    const offset = (t: Date, o: Observer) => {
+      const ut = utDays(t);
+      const p = topoAltAzUnrefracted(body.vector(ttDaysFromUt(ut)), ut, o);
+      const target = -34 / 60 - (180 / Math.PI) * Math.asin(body.radiusKm / (p.distanceAu * KM_PER_AU_TEST));
+      return p.altDeg - target;
+    };
+    for (const latitudeDeg of [-89.5, -35, 0, 48.7621, 70.5, 86, 88, 88.9, 89.5, 90]) {
+      const observer: Observer = { latitudeDeg, longitudeDeg: -123.052, elevationM: 0 };
+      // Above the flattening threshold a crossing can be months away, so those
+      // latitudes get a whole year rather than a month.
+      const flat = Math.abs(latitudeDeg) >= 85;
+      const start = new Date('2026-01-01T00:00:00Z');
+      const end = new Date(start.getTime() + (flat ? 366 : 40) * DAY);
+      const events = body.events(start, end, observer);
+      const crossings = events.filter((e) => e.kind === 'rise' || e.kind === 'set');
+      expect(crossings.length, `${body.name} lat ${latitudeDeg}: found a rise and a set`).toBeGreaterThan(1);
+      for (const e of crossings) {
+        const residual = Math.abs(offset(e.time, observer));
+        const ratePerSec = Math.abs(offset(new Date(e.time.getTime() + 30 * SEC), observer)
+          - offset(new Date(e.time.getTime() - 30 * SEC), observer)) / 60;
+        const seconds = residual / ratePerSec;
+        if (seconds > worst) { worst = seconds; worstLabel = `${body.name} lat ${latitudeDeg}`; }
+        expect(seconds, `${body.name} lat ${latitudeDeg} ${e.kind} @ ${e.time.toISOString()}`).toBeLessThan(1);
+      }
+      for (let i = 1; i < events.length; i++) {
+        expect(events[i].time.getTime(), `${body.name} lat ${latitudeDeg}: sorted`)
+          .toBeGreaterThanOrEqual(events[i - 1].time.getTime());
+      }
     }
   }
-  console.log(`rise/set target residual: worst ${worst.toFixed(3)} s of time`);
+  console.log(`rise/set target residual: worst ${worst.toFixed(3)} s of time (${worstLabel})`);
+}, 120_000);
+
+// A residual test can only speak for the events that were found; a bracket that
+// misses one leaves nothing to measure. So the flattening band gets an
+// independent oracle: a 1-minute brute-force scan of the same unrefracted
+// altitude, every sign change of which must be matched one-for-one.
+//
+// This is the regression for the |lat| >= 85 threshold. At the old 89 the Moon
+// at -88.5 lost the 2026-09-26 rise and its set: the extremum sits 5.75 h off
+// transit there, past the +/-2 h bracket, so golden section returned a bracket
+// edge and the segment it produced was not monotonic.
+it('flattening band: every crossing a brute-force scan finds is reported', () => {
+  const observer: Observer = { latitudeDeg: -88.5, longitudeDeg: -123.052, elevationM: 0 };
+  const start = Date.parse('2026-09-10T00:00:00Z');
+  const end = start + 30 * DAY;
+  const offset = (ms: number) => {
+    const ut = utDays(new Date(ms));
+    const p = topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer);
+    return p.altDeg - (-34 / 60 - (180 / Math.PI) * Math.asin(1737.4 / (p.distanceAu * KM_PER_AU_TEST)));
+  };
+
+  const brute: { ms: number; kind: string }[] = [];
+  let prev = offset(start);
+  for (let ms = start + 60 * SEC; ms <= end; ms += 60 * SEC) {
+    const cur = offset(ms);
+    if (prev < 0 && cur >= 0) brute.push({ ms, kind: 'rise' });
+    if (prev >= 0 && cur < 0) brute.push({ ms, kind: 'set' });
+    prev = cur;
+  }
+  expect(brute.length, 'the scan window carries crossings to match').toBeGreaterThan(1);
+
+  const mine = moonEvents(new Date(start), new Date(end), observer);
+  expect(mine.length, `scan found ${brute.map((b) => `${b.kind} ${new Date(b.ms).toISOString()}`).join(', ')}`)
+    .toBe(brute.length);
+  for (let i = 0; i < brute.length; i++) {
+    expect(mine[i].kind, `crossing ${i}`).toBe(brute[i].kind);
+    // The scan brackets each crossing in the minute before its detection.
+    expect(Math.abs(mine[i].time.getTime() - brute[i].ms), `crossing ${i} within the scan step`)
+      .toBeLessThan(60 * SEC);
+  }
 }, 60_000);
 
 // ------------------------------------------------------ window / validation

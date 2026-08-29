@@ -84,10 +84,16 @@ const TANGENT_EPS_DEG = 1e-6;
 /** Initial half-bracket around the hour-angle estimate of an extremum. */
 const EXTREMUM_HALF_WIDTH_DAYS = 2 / 24;
 /**
- * Where the daily cycle flattens the extremum drifts hours off transit
- * (the offset scales as 1/cos φ), so there the bracket is the whole half-cycle.
+ * Where the daily cycle flattens the extremum drifts hours off transit — the
+ * offset scales as 1/cos φ — so there the bracket is the whole half-cycle
+ * instead. The threshold is 85°, not the 89° where the drift becomes dramatic:
+ * the Moon's fast declination rate already puts the extremum 2.28 h off transit
+ * at 88°N and 5.75 h at 88.9°N, past the ±2 h bracket, and golden section then
+ * converges to a bracket edge and the monotonic-segment invariant breaks. The
+ * cost of the wider threshold is a few extra golden-section steps at latitudes
+ * almost nobody queries.
  */
-const FLAT_CYCLE_LATITUDE_DEG = 89;
+const FLAT_CYCLE_LATITUDE_DEG = 85;
 
 const GOLDEN_SECTION_CAP = 100;
 const BISECTION_CAP = 60;
