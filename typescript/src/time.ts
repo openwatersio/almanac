@@ -119,3 +119,8 @@ export function ttDaysFromUt(ut: number): number {
 export function ttDays(d: Date): number {
   return ttDaysFromUt(utDays(d));
 }
+
+/** Inverse of {@link utDays} — the instant, truncated to integer epoch ms (TimeClip). */
+export function dateFromUt(ut: number): Date {
+  return new Date(ut * 86400000 + J2000_EPOCH_MS);
+}

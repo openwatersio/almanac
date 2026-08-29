@@ -16,7 +16,7 @@
 // sunAltAz/moonAltAz.
 
 import { Observer, assertObserver, assertSupported } from './types.js';
-import { ttDays, ttDaysFromUt, utDays } from './time.js';
+import { ttDaysFromUt, utDays } from './time.js';
 import {
     DEG2RAD, RAD2DEG, EARTH_EQUATORIAL_RADIUS_KM, EARTH_FLATTENING, EARTH_FLATTENING_SQUARED,
     KM_PER_AU, PrecessDirection, Vec3, earthTilt, equatorialFromVector, gyration
@@ -26,6 +26,14 @@ import { moonGeoVectorEqj } from './moon.js';
 
 /** Topocentric horizontal position: azimuth from true north through east, altitude above the horizon. */
 export interface AltAz { azDeg: number; altDeg: number; }
+
+/**
+ * INTERNAL: what {@link topoAltAzUnrefracted} already computes on the way to
+ * az/alt. The L3 event layer needs all four from a single evaluation — the
+ * local hour angle brackets each daily cycle's altitude extrema, and the
+ * topocentric distance sets the Moon's semidiameter, hence its rise/set target.
+ */
+export interface TopoUnrefracted extends AltAz { hourAngleDeg: number; distanceAu: number; }
 
 /** UPSTREAM: `era` (Earth Rotation Angle), astronomy.ts ~2014. */
 function earthRotationAngleDeg(ut: number): number {
@@ -64,12 +72,16 @@ export function siderealDeg(ut: number): number {
 /**
  * UPSTREAM: `terra` (astronomy.ts ~2147 — position only; its velocity output
  * is for observer diurnal aberration, which this parallax-only path doesn't
- * need) composed with `geo_pos`'s gyration into EQJ (astronomy.ts ~2236).
+ * need). Upstream's `geo_pos` (~2236) then gyrates this into EQJ so that
+ * `Equator` can subtract it from the body's EQJ vector and gyrate the
+ * difference back to date. Gyration is a rotation, so
+ * `R(body − observer) === R·body − R·observer`, and `R` applied to the
+ * observer's own inverse-gyration is the vector below: one precession and one
+ * nutation per evaluation drop out of the inner loop of every event search.
  *
- * @returns geocentric position of the observer, in AU, J2000 mean equator (EQJ).
+ * @returns geocentric position of the observer, in AU, true equator of date.
  */
-function observerGeoVectorEqj(ut: number, observer: Observer): Vec3 {
-    const tt = ttDaysFromUt(ut);
+function observerGeoVectorOfDate(gastDeg: number, observer: Observer): Vec3 {
     const phi = observer.latitudeDeg * DEG2RAD;
     const sinphi = Math.sin(phi);
     const cosphi = Math.cos(phi);
@@ -78,15 +90,14 @@ function observerGeoVectorEqj(ut: number, observer: Observer): Vec3 {
     const htKm = (observer.elevationM ?? 0) / 1000;
     const ach = EARTH_EQUATORIAL_RADIUS_KM * c + htKm;
     const ash = EARTH_EQUATORIAL_RADIUS_KM * s + htKm;
-    const stlocl = (siderealDeg(ut) + observer.longitudeDeg) * DEG2RAD;
+    const stlocl = (gastDeg + observer.longitudeDeg) * DEG2RAD;
     const sinst = Math.sin(stlocl);
     const cosst = Math.cos(stlocl);
-    const posOfDate: Vec3 = {
+    return {
         x: ach * cosphi * cosst / KM_PER_AU,
         y: ach * cosphi * sinst / KM_PER_AU,
         z: ash * sinphi / KM_PER_AU
     };
-    return gyration(posOfDate, tt, PrecessDirection.Into2000);
 }
 
 /** UPSTREAM: `spin`, astronomy.ts ~2518 — rotate a horizontal-frame unit vector by sidereal angle. */
@@ -108,20 +119,23 @@ function spin(angleDeg: number, pos: Vec3): Vec3 {
  *      (EQJ) — i.e. `GeoVector`'s return, matching {@link sunGeoVectorEqj} /
  *      {@link moonGeoVectorEqj}, NOT the already-of-date vector
  *      {@link sunApparentAtTT}/{@link moonApparentAtTT} consume.
- * @returns unrefracted topocentric azimuth/altitude.
+ * @param ut days since J2000 in UT — the event layer iterates in days, and
+ *      `Date` round-trips are pure overhead on a search's inner loop.
+ * @returns unrefracted topocentric azimuth/altitude, plus the local hour angle
+ *      and topocentric distance the same evaluation already produced.
  */
-export function topoAltAzUnrefracted(bodyEqj: Vec3, time: Date, observer: Observer): AltAz {
-    const ut = utDays(time);
+export function topoAltAzUnrefracted(bodyEqj: Vec3, ut: number, observer: Observer): TopoUnrefracted {
     const tt = ttDaysFromUt(ut);
+    const gast = siderealDeg(ut);
 
-    const gcObserver = observerGeoVectorEqj(ut, observer);
-    const j2000: Vec3 = {
-        x: bodyEqj.x - gcObserver.x,
-        y: bodyEqj.y - gcObserver.y,
-        z: bodyEqj.z - gcObserver.z
+    const gcObserver = observerGeoVectorOfDate(gast, observer);
+    const bodyOfDate = gyration(bodyEqj, tt, PrecessDirection.From2000);
+    const datevect: Vec3 = {
+        x: bodyOfDate.x - gcObserver.x,
+        y: bodyOfDate.y - gcObserver.y,
+        z: bodyOfDate.z - gcObserver.z
     };
-    const datevect = gyration(j2000, tt, PrecessDirection.From2000);
-    const { raDeg, decDeg } = equatorialFromVector(datevect);
+    const { raDeg, decDeg, distanceAu } = equatorialFromVector(datevect);
 
     const sinlat = Math.sin(observer.latitudeDeg * DEG2RAD);
     const coslat = Math.cos(observer.latitudeDeg * DEG2RAD);
@@ -137,7 +151,7 @@ export function topoAltAzUnrefracted(bodyEqj: Vec3, time: Date, observer: Observ
     const une: Vec3 = { x: -sinlat * coslon, y: -sinlat * sinlon, z: coslat };
     const uwe: Vec3 = { x: sinlon, y: -coslon, z: 0 };
 
-    const spinAngle = -siderealDeg(ut);
+    const spinAngle = -gast;
     const uz = spin(spinAngle, uze);
     const un = spin(spinAngle, une);
     const uw = spin(spinAngle, uwe);
@@ -158,7 +172,12 @@ export function topoAltAzUnrefracted(bodyEqj: Vec3, time: Date, observer: Observ
         az = 0;
     }
     const zd = RAD2DEG * Math.atan2(proj, pz);
-    return { azDeg: az, altDeg: 90 - zd };
+
+    let hourAngleDeg = (gast + observer.longitudeDeg - raDeg) % 360;
+    if (hourAngleDeg < 0)
+        hourAngleDeg += 360;
+
+    return { azDeg: az, altDeg: 90 - zd, hourAngleDeg, distanceAu };
 }
 
 /**
@@ -198,7 +217,8 @@ function refract(unrefracted: AltAz): AltAz {
 export function sunAltAz(time: Date, observer: Observer): AltAz {
     assertSupported(time);
     assertObserver(observer);
-    return refract(topoAltAzUnrefracted(sunGeoVectorEqj(ttDays(time)), time, observer));
+    const ut = utDays(time);
+    return refract(topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer));
 }
 
 /**
@@ -209,5 +229,6 @@ export function sunAltAz(time: Date, observer: Observer): AltAz {
 export function moonAltAz(time: Date, observer: Observer): AltAz {
     assertSupported(time);
     assertObserver(observer);
-    return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDays(time)), time, observer));
+    const ut = utDays(time);
+    return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer));
 }

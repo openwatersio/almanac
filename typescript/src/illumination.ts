@@ -28,13 +28,15 @@ function angleBetweenDeg(a: Vec3, b: Vec3): number {
 }
 
 /**
+ * INTERNAL: also the L3 phase search's longitude source.
+ *
  * UPSTREAM: the `elon` half of `Ecliptic()` (astronomy.ts lines 3013-3030),
  * applied to a J2000 mean-equator (EQJ) vector: `gyration(..., From2000)`
  * reproduces `Ecliptic`'s precession+nutation-to-EQD step exactly, and
  * `eclipticToEquatorial` called with the negated obliquity performs the same
  * rotation as upstream's `RotateEquatorialToEcliptic` (its inverse).
  */
-function eclipticLonOfDateDeg(eqj: Vec3, tt: number): number {
+export function eclipticLonOfDateDeg(eqj: Vec3, tt: number): number {
     const eqd = gyration(eqj, tt, PrecessDirection.From2000);
     const tobl = earthTilt(tt).tobl;
     const ecl = eclipticToEquatorial(-tobl, eqd);

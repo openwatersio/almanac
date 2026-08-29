@@ -9,3 +9,7 @@ export type { AltAz } from './transforms.js';
 export { sunAltAz, moonAltAz } from './transforms.js';
 export type { MoonIllumination } from './illumination.js';
 export { moonIllumination } from './illumination.js';
+export type {
+  SunEvent, SunEventKind, MoonEvent, MoonEventKind, MoonPhaseEvent, MoonPhaseName
+} from './events.js';
+export { sunEvents, moonEvents, searchMoonPhases } from './events.js';
