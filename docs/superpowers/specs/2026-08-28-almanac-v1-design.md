@@ -67,7 +67,7 @@ and the eclipse answer is always consistent with the moon position the caller dr
 almanac/
   Package.swift      # at the ROOT — Git-URL SwiftPM consumers resolve the manifest here
   swift/             #   targets point into swift/Sources and swift/Tests via path:
-  typescript/        # npm @openwatersio/almanac (ESM, zero dependencies)
+  typescript/        # npm @openwaters/almanac (ESM, zero dependencies)
   fixtures/          # shared corpus: raw sources, derived fixtures, parity corpus
   docs/
 ```

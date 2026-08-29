@@ -7,7 +7,7 @@ geometry with zero network and zero runtime data files.
 Twin implementations, one behavior:
 
 - `swift/` — SwiftPM package `Almanac`
-- `typescript/` — npm `@openwatersio/almanac`
+- `typescript/` — npm `@openwaters/almanac`
 - `fixtures/` — the shared test corpus (JPL Horizons, USNO, Espenak) both suites
   must pass; the contract that keeps the ports identical
 
@@ -25,11 +25,11 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 ### TypeScript
 
 ```bash
-npm install @openwatersio/almanac
+npm install @openwaters/almanac
 ```
 
 ```ts
-import { nextLunarEclipse, lunarEclipseVisibility, sunEvents } from '@openwatersio/almanac';
+import { nextLunarEclipse, lunarEclipseVisibility, sunEvents } from '@openwaters/almanac';
 
 const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
 

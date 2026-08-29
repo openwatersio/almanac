@@ -93,7 +93,7 @@ jobs:
           cd "$tmpdir"
           npm init -y >/dev/null
           npm install "$tarball"
-          node -e "import('@openwatersio/almanac').then(m => { console.log(m.moonIllumination(new Date())); })"
+          node -e "import('@openwaters/almanac').then(m => { console.log(m.moonIllumination(new Date())); })"
       - uses: actions/upload-artifact@v4
         with:
           name: almanac-npm-tarball

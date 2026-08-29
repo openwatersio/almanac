@@ -1,5 +1,5 @@
 {
-  "name": "@openwatersio/almanac",
+  "name": "@openwaters/almanac",
   "version": "0.1.0",
   "description": "Offline sun & moon engine: positions, rise/set, moon phase, lunar eclipses.",
   "license": "MIT",
