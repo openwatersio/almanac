@@ -131,12 +131,6 @@ export function earthTilt(tt: number): EarthTilt {
     return cacheETilt;
 }
 
-/** Nutation in longitude and obliquity, in **degrees** (Tasks 12/14/16 consume this shape). */
-export function nutation(tt: number): { dpsiDeg: number; depsDeg: number } {
-    const tilt = earthTilt(tt);
-    return { dpsiDeg: tilt.dpsi / 3600, depsDeg: tilt.deps / 3600 };
-}
-
 /** UPSTREAM: `obl_ecl2equ_vec`, astronomy.ts lines 1477-1486. */
 export function eclipticToEquatorial(oblDegrees: number, pos: Vec3): Vec3 {
     const obl = oblDegrees * DEG2RAD;

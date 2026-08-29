@@ -10,7 +10,7 @@ import Foundation
 // the TS port (typescript/src/illumination.ts).
 
 /// Moon illumination at an instant. `phase` is 0 at new moon, 0.5 at full.
-public struct MoonIllumination {
+public struct MoonIllumination: Sendable {
     public let fraction: Double
     public let phaseAngleDeg: Double
     public let phase: Double
@@ -93,6 +93,7 @@ func moonIlluminationAtTT(_ tt: Double) -> MoonIllumination {
  * phase (0 = new, 0.5 = full, `waxing` = phase < 0.5).
  */
 public func moonIllumination(_ time: Date) throws -> MoonIllumination {
+    let time = try normalized(time)
     try assertSupported(time)
     return moonIlluminationAtTT(ttDays(time))
 }

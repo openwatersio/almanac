@@ -317,10 +317,11 @@ final class ParityTests: XCTestCase {
     // ------------------------------------------------------ reproduction
 
     /// The spec's corpus-replacement rule enforced in CI: writes Swift's
-    /// corpus to a temp path, decodes it back, and requires EXACT equality
-    /// (on the scaled integers -- decoded structures, never serializer
-    /// bytes) against the committed fixtures. A corpus only one port can
-    /// reproduce this exactly is that port smuggled back in as the oracle.
+    /// corpus to a temp path, decodes it back, and requires NEAR-EXACT
+    /// equality (on the scaled integers -- decoded structures, never
+    /// serializer bytes -- within reproScaleTol/reproTimeMs, see the class
+    /// doc) against the committed fixtures. A corpus only one port can
+    /// reproduce this closely is that port smuggled back in as the oracle.
     func testExactReproduction() throws {
         // Fixed well above the measured max drift (4 scaled-int units / one
         // 100 ms quantum -- see the type doc) and well below the spec's

@@ -172,7 +172,7 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 | Reversed/empty window | `startUtc ≥ endUtc` → empty list, no error. |
 | Validation precedence | Arguments are validated (finite, observer ranges, interval containment) **before** the empty/reversed-window short-circuit — a garbage argument never returns a clean empty list. |
 | Window end | Instants validate on `[min, max)`; a **window end** validates on `[min, max]`, so the exact full-range window `[min, max)` is legal. |
-| Search anchor | `nextLunarEclipse(after)`: strictly `peak > after`. |
+| Search anchor | `nextLunarEclipse(after)`: strictly `peak > after`, with a 100 ms same-eclipse band — a candidate peak within 100 ms of `after` is treated as the eclipse the caller already has and is skipped, never returned again; the ceiling is documented in both ports and can never skip a distinct real eclipse (minimum catalog gap 29 d). |
 
 **Window and search contracts:**
 
@@ -184,10 +184,15 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
   a guess (measured: full-range phases ~0.6 s; full-range sun+moon events ~68 s,
   smoke bound 120 s). `startUtc ≥ endUtc` returns an empty list. Windows must lie inside the
   supported interval; any overlap outside is the out-of-range outcome.
-- `nextLunarEclipse` is strictly after its argument (`peak > after`) and scans
-  forward at most 2 years (some lunar eclipse, penumbral
-  included, always occurs within ~6 months); a scan crossing the supported-interval
-  end returns the out-of-range outcome (TS: typed error; Swift: typed throw).
+- `nextLunarEclipse` is strictly after its argument (`peak > after`), with a 100 ms
+  same-eclipse band: a candidate peak landing within 100 ms of `after` is judged the
+  same eclipse the caller already has and is skipped rather than returned again — the
+  band is documented in both ports' source and cannot skip a distinct real eclipse
+  (the catalog's minimum gap between consecutive lunar eclipses over 1950–2100 is 29
+  days, ~25 million times the band). It scans forward at most 2 years (some lunar
+  eclipse, penumbral included, always occurs within ~6 months); a scan crossing the
+  supported-interval end returns the out-of-range outcome (TS: typed error; Swift:
+  typed throw).
 - Internal iteration caps exist on every root-finder; hitting one is a bug, asserted
   never to occur across the whole fixture corpus.
 
@@ -231,11 +236,18 @@ retrieval date. Raw responses are committed, so git itself is their integrity ha
 - **Contact shapes** — the contact fixtures span all three kinds: a total eclipse
   (U2/U3 present), a partial (U1/U4 but no U2/U3), and a penumbral (P1/P4 only), so
   absent-contact cases are asserted, not assumed.
-- **Tolerances are data**, in fixture metadata: sun ≤ 1′, moon ≤ 1′, event times
-  ≤ 60 s, eclipse peak and contact times ≤ 60 s, eclipse magnitudes ≤ 0.03; moon
-  distance ≤ 70 km (the Montenbruck–Pfleger lunar theory runs ~27 ppm low on
-  distance versus JPL ephemerides — model-inherent, reproduced exactly by the
-  reference implementation; angular accuracy is unaffected).
+- **Tolerances are normative values, enforced by both test suites**: sun position
+  ≤ 1′, sun distance ≤ 1e-4 AU, moon position ≤ 1′, moon distance ≤ 70 km (the
+  Montenbruck–Pfleger lunar theory shows a measured mean −27.3 ppm scale bias
+  versus JPL ephemerides plus a periodic residual up to ~−139 ppm, max |Δ| 53.3 km
+  — model-inherent, reproduced by the reference implementation; angular accuracy
+  is unaffected), event times ≤ 60 s, eclipse peak and contact times ≤ 60 s,
+  eclipse magnitudes ≤ 0.03. Only the positions/altaz fixtures carry their angular
+  tolerance in `meta.json` (`toleranceArcmin`); the rest of this list is pinned as
+  constants in the test suites, not read from fixture metadata. The parity
+  corpus's own tolerances (`fixtures/parity/meta.json`) are a separate, tighter
+  concern — they bound cross-port drift below these physical values and are read
+  by both ports' parity tests.
 - `fixtures/generate/` scripts run **offline** from the committed raw responses;
   `--check` fails on drift between raw and derived. A separate explicit `refresh`
   command is the only thing that touches the network.

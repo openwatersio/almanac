@@ -175,6 +175,9 @@ func sunGeoVectorEqj(_ tt: Double) -> Vec3 {
         // because that would cause convergence problems and inaccurate
         // values for stellar aberration angles.
         if lt > 1.0 {
+            // Unreachable inside the supported interval: the Sun is ~8 light-minutes
+            // away, so `lt` never approaches a light-day at any `tt` assertSupported
+            // admits — an internal invariant, like Events.swift's assertReached.
             fatalError("Object is too distant for light-travel solver.")
         }
 
@@ -188,6 +191,10 @@ func sunGeoVectorEqj(_ tt: Double) -> Vec3 {
         }
         ltime = ltime2
     }
+    // Unreachable inside the supported interval: 10 iterations converges the
+    // Sun's ~8-light-minute retardation to well under 1e-9 days at every `tt`
+    // assertSupported admits — an internal invariant, like Events.swift's
+    // assertReached.
     fatalError("Light-travel time solver did not converge: dt = \(dt)")
 }
 

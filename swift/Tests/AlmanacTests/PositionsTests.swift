@@ -75,4 +75,13 @@ final class PositionsTests: XCTestCase {
     func testOutOfRangeThrows() {
         XCTAssertThrowsError(try sunPosition(utc("1949-12-31T23:59:59Z")))
     }
+
+    /// -631_152_000.0005 s truncates toward zero (TimeClip) to exactly
+    /// supportedMin's -631_152_000 s -- landing IN range, not 0.5 ms below it.
+    /// Every public entry point normalizes its Date input before validating,
+    /// so this must be accepted, matching what TS's Date already guarantees
+    /// by construction.
+    func testSubMillisecondBoundaryIsAccepted() throws {
+        XCTAssertNoThrow(try sunPosition(Date(timeIntervalSince1970: -631_152_000.0005)))
+    }
 }

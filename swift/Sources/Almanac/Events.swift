@@ -40,10 +40,10 @@ public enum MoonEventKind: String, Sendable { case rise, set }
 public struct MoonEvent: Sendable { public let time: Date; public let kind: MoonEventKind }
 
 /// A quarter lunar phase kind.
-public enum MoonPhaseKind: String, Sendable { case new, firstQuarter, full, lastQuarter }
+public enum MoonPhaseName: String, Sendable { case new, firstQuarter, full, lastQuarter }
 
 /// A quarter lunar phase event.
-public struct PhaseEvent: Sendable { public let time: Date; public let phase: MoonPhaseKind }
+public struct MoonPhaseEvent: Sendable { public let time: Date; public let phase: MoonPhaseName }
 
 // ---------------------------------------------------------------- constants
 
@@ -104,9 +104,32 @@ private let invPhi = 0.6180339887498949
 private let minUt = utDays(supportedMin)
 private let maxUt = utDays(supportedMax)
 
-/** Probes never leave the supported interval (spec: no degraded answer outside it). */
+/**
+ * Clamps a probe into the supported interval. The altitude-search chain
+ * (searchAltitudeEvents) applies this to every probe it samples, so it never
+ * evaluates the model outside [minUt, maxUt]. The phase-search walk
+ * (searchMoonPhases) only clamps its first probe — later quarter-to-quarter
+ * probes can land past maxUt and evaluate the model there harmlessly; it is
+ * the half-open window filter on emitted results, not this clamp, that keeps
+ * reported answers inside the interval.
+ */
 private func clampUt(_ ut: Double) -> Double {
     ut < minUt ? minUt : (ut > maxUt ? maxUt : ut)
+}
+
+/**
+ * Truncates a ut-days root to the same integer-ms precision `dateFromUt` +
+ * `normalized` report it at (TimeClip). A root finder's raw `ut` carries
+ * sub-ms precision; comparing that raw value against a half-open window
+ * bound can pass while the truncated instant it is actually reported as
+ * lands exactly on the excluded end (a pre-1970 negative offset truncates
+ * UP, toward the boundary). The half-open filter must judge the reported
+ * instant, not the root. Bypasses `normalized`'s finite check since a
+ * root-finder result is always finite.
+ */
+func quantizedUt(_ ut: Double) -> Double {
+    let ms = (dateFromUt(ut).timeIntervalSince1970 * 1000).rounded(.towardZero)
+    return utDays(Date(timeIntervalSince1970: ms / 1000))
 }
 
 /**
@@ -270,7 +293,8 @@ private func searchAltitudeEvents<K>(
 ) throws -> [(time: Date, kind: K)] {
     var found: [(ut: Double, kind: K)] = []
     func emit(_ ut: Double, _ kind: K) {
-        if ut >= startUt && ut < endUt { found.append((ut, kind)) }   // half-open [start, end)
+        let q = quantizedUt(ut)
+        if q >= startUt && q < endUt { found.append((ut, kind)) }   // half-open [start, end), judged on the reported instant
     }
 
     // The chain's first point need not be an extremum: between any instant and
@@ -340,6 +364,8 @@ private func extremumHalfWidth(_ observer: Observer, _ cycleDays: Double) -> Dou
  * above the horizon when it happens.
  */
 public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [SunEvent] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
     try assertSupported(startUtc)
     try assertSupportedWindowEnd(endUtc)
     if startUtc >= endUtc { return [] }
@@ -360,6 +386,8 @@ public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer) 
  * An empty list is a valid answer.
  */
 public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [MoonEvent] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
     try assertSupported(startUtc)
     try assertSupportedWindowEnd(endUtc)
     if startUtc >= endUtc { return [] }
@@ -381,7 +409,7 @@ public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer)
  * geometric longitudes, which sit a flat ~40 s off the USNO catalogue.
  */
 private let meanSynodicMonth = 29.530588
-private let phaseNames: [MoonPhaseKind] = [.new, .firstQuarter, .full, .lastQuarter]
+private let phaseNames: [MoonPhaseName] = [.new, .firstQuarter, .full, .lastQuarter]
 
 private struct QuadRoot { let t: Double; let dfdt: Double }
 
@@ -497,14 +525,16 @@ func searchMoonPhase(_ targetLonDeg: Double, _ startUt: Double, _ limitDays: Dou
  * A phase is the instant the Moon's geocentric ecliptic longitude leads the
  * Sun's by 0° (new), 90° (first quarter), 180° (full) or 270° (last quarter).
  */
-public func searchMoonPhases(from startUtc: Date, to endUtc: Date) throws -> [PhaseEvent] {
+public func searchMoonPhases(from startUtc: Date, to endUtc: Date) throws -> [MoonPhaseEvent] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
     try assertSupported(startUtc)
     try assertSupportedWindowEnd(endUtc)
     if startUtc >= endUtc { return [] }
 
     let startUt = utDays(startUtc)
     let endUt = utDays(endUtc)
-    var events: [PhaseEvent] = []
+    var events: [MoonPhaseEvent] = []
 
     // UPSTREAM `SearchMoonQuarter` finds the first quarter strictly after its
     // argument, so the walk starts a day early: a phase landing exactly on
@@ -515,9 +545,11 @@ public func searchMoonPhases(from startUtc: Date, to endUtc: Date) throws -> [Ph
     while true {
         let result = searchMoonPhase(90 * Double(quarter), probeUt, 10)
         assertReached(result != nil, "moon quarter search")
-        guard let ut = result, ut < endUt else { break }
-        if ut >= startUt {
-            events.append(PhaseEvent(time: try normalized(dateFromUt(ut)), phase: phaseNames[quarter]))
+        guard let ut = result else { break }
+        let q = quantizedUt(ut)   // judge the half-open bounds on the reported instant, not the raw root
+        if q >= endUt { break }
+        if q >= startUt {
+            events.append(MoonPhaseEvent(time: try normalized(dateFromUt(ut)), phase: phaseNames[quarter]))
         }
         // UPSTREAM `NextMoonQuarter`: skip 6 days, under the smallest observed
         // quarter-to-quarter interval, so the next search cannot re-find this one.

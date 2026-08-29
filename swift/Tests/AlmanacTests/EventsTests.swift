@@ -509,6 +509,20 @@ final class EventsTests: XCTestCase {
         XCTAssertEqual(after.first?.time, at)
     }
 
+    /// The 1 ms pre-1970 window leak: a root a fraction of a microsecond
+    /// before an integer-ms boundary truncates UP onto it (TimeClip, not
+    /// floor) once reported. `quantizedUt` -- what the half-open filter now
+    /// compares instead of the raw root -- must reflect that truncation, or
+    /// an event just inside `endUtc` on paper gets reported exactly AT it,
+    /// which belongs to the next window.
+    func testQuantizedUtTruncatesLikeReportedInstant() {
+        let boundary = supportedMin   // an exact-ms, pre-1970 (negative epoch) instant
+        let boundaryUt = utDays(boundary)
+        let hairBefore = boundaryUt - (0.0000003 / 86400.0)   // 0.3 microsecond earlier, in ut-days
+        XCTAssertLessThan(hairBefore, boundaryUt)
+        XCTAssertEqual(quantizedUt(hairBefore), boundaryUt, accuracy: 1e-9)
+    }
+
     // -------------------------------------------------------------------- perf
 
     func testPerfFullRangeSearchMoonPhases() throws {

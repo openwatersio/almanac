@@ -250,6 +250,7 @@ private func moonEclipticLatitudeDeg(_ ut: Double) -> Double {
  *   the next eclipse falls at or past the end of it.
  */
 public func nextLunarEclipse(after: Date) throws -> LunarEclipse {
+    let after = try normalized(after)
     try assertSupported(after)
     let startUt = utDays(after)
     var fmUt = startUt

@@ -15,11 +15,6 @@ final class PublicSurfaceTests: XCTestCase {
 
         let cases: [AlmanacError] = [.outOfRange, .invalidObserver("x"), .invalidArgument("y")]
         XCTAssertEqual(cases.count, 3)
-
-        XCTAssertLessThan(supportedMin, supportedMax)
-        try assertSupported(supportedMin)
-        try assertSupportedWindowEnd(supportedMax)
-        XCTAssertNoThrow(try normalized(Date()))
     }
 
     func testPositions() throws {
@@ -70,10 +65,10 @@ final class PublicSurfaceTests: XCTestCase {
         let moonKinds: [MoonEventKind] = [.rise, .set]
         XCTAssertEqual(moonKinds.map { $0.rawValue }, ["rise", "set"])
 
-        let phases: [PhaseEvent] = try searchMoonPhases(from: start, to: start.addingTimeInterval(60 * 86400))
+        let phases: [MoonPhaseEvent] = try searchMoonPhases(from: start, to: start.addingTimeInterval(60 * 86400))
         XCTAssertFalse(phases.isEmpty)
         for e in phases { _ = (e.time, e.phase) }
-        let phaseKinds: [MoonPhaseKind] = [.new, .firstQuarter, .full, .lastQuarter]
+        let phaseKinds: [MoonPhaseName] = [.new, .firstQuarter, .full, .lastQuarter]
         XCTAssertEqual(phaseKinds.map { $0.rawValue }, ["new", "firstQuarter", "full", "lastQuarter"])
     }
 

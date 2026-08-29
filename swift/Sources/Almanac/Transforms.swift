@@ -19,7 +19,7 @@ import Foundation
 // sunAltAz/moonAltAz.
 
 /// Topocentric horizontal position: azimuth from true north through east, altitude above the horizon.
-public struct AltAz { public let azDeg: Double; public let altDeg: Double }
+public struct AltAz: Sendable { public let azDeg: Double; public let altDeg: Double }
 
 /**
  * INTERNAL: what `topoAltAzUnrefracted` already computes on the way to
@@ -205,6 +205,7 @@ private func refract(_ unrefracted: TopoUnrefracted) -> AltAz {
  * refraction (upstream `'normal'` model) both applied.
  */
 public func sunAltAz(_ time: Date, observer: Observer) throws -> AltAz {
+    let time = try normalized(time)
     try assertSupported(time)
     let ut = utDays(time)
     return refract(topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer))
@@ -216,6 +217,7 @@ public func sunAltAz(_ time: Date, observer: Observer) throws -> AltAz {
  * refraction (upstream `'normal'` model) both applied.
  */
 public func moonAltAz(_ time: Date, observer: Observer) throws -> AltAz {
+    let time = try normalized(time)
     try assertSupported(time)
     let ut = utDays(time)
     return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer))

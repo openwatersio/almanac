@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { sunEvents, moonEvents, searchMoonPhases, moonIllumination, AlmanacOutOfRangeError } from '../src/index.js';
+import { quantizedUt } from '../src/events.js';
 import { topoAltAzUnrefracted } from '../src/transforms.js';
 import { sunGeoVectorEqj } from '../src/sun.js';
 import { moonGeoVectorEqj } from '../src/moon.js';
@@ -477,6 +478,19 @@ describe('window contract', () => {
     const at = phase.time.getTime();
     expect(searchMoonPhases(new Date('2026-08-01T00:00:00Z'), new Date(at)).some((e) => e.time.getTime() === at)).toBe(false);
     expect(searchMoonPhases(new Date(at), new Date('2026-09-01T00:00:00Z'))[0].time.getTime()).toBe(at);
+  });
+
+  // The 1 ms pre-1970 window leak: a root a fraction of a microsecond before
+  // an integer-ms boundary truncates UP onto it (TimeClip, not floor) once
+  // reported. `quantizedUt` -- what the half-open filter now compares
+  // instead of the raw root -- must reflect that truncation, or an event
+  // just inside `endUtc` on paper gets reported exactly AT it, which
+  // belongs to the next window.
+  it('quantizedUt truncates a pre-1970 root like the reported instant (TimeClip, not floor)', () => {
+    const boundaryUt = utDays(new Date(SUPPORTED_MIN));   // an exact-ms, pre-1970 (negative epoch) instant
+    const hairBefore = boundaryUt - (0.0000003 / 86400);   // 0.3 microsecond earlier, in ut-days
+    expect(hairBefore).toBeLessThan(boundaryUt);
+    expect(quantizedUt(hairBefore)).toBeCloseTo(boundaryUt, 9);
   });
 });
 

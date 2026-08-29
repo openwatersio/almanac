@@ -12,6 +12,7 @@
 // compare to committed" half of the parity contract; the Swift side's half
 // is ParityTests.swift's reproduction check.
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import {
     sunPosition, moonPosition, sunAltAz, moonAltAz, moonIllumination,
     sunEvents, moonEvents, searchMoonPhases,
@@ -237,4 +238,4 @@ function main() {
     }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();

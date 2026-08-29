@@ -108,9 +108,32 @@ const INV_PHI = 0.6180339887498949;
 const MIN_UT = utDays(new Date(SUPPORTED_MIN));
 const MAX_UT = utDays(new Date(SUPPORTED_MAX));
 
-/** Probes never leave the supported interval (spec: no degraded answer outside it). */
+/**
+ * Clamps a probe into the supported interval. The altitude-search chain
+ * (searchAltitudeEvents) applies this to every probe it samples, so it never
+ * evaluates the model outside [MIN_UT, MAX_UT]. The phase-search walk
+ * (searchMoonPhases) only clamps its first probe — later quarter-to-quarter
+ * probes can land past MAX_UT and evaluate the model there harmlessly; it is
+ * the half-open window filter on emitted results, not this clamp, that keeps
+ * reported answers inside the interval.
+ */
 function clampUt(ut: number): number {
     return ut < MIN_UT ? MIN_UT : (ut > MAX_UT ? MAX_UT : ut);
+}
+
+/**
+ * Truncates a ut-days root to the same integer-ms precision `dateFromUt`
+ * reports it at (TimeClip). A root finder's raw `ut` carries sub-ms
+ * precision; comparing that raw value against a half-open window bound can
+ * pass while the truncated instant it is actually reported as lands exactly
+ * on the excluded end (a pre-1970 negative offset truncates UP, toward the
+ * boundary). The half-open filter must judge the reported instant, not the
+ * root. Exported for its direct micro-test, mirroring the Swift port's
+ * (which relaxes the same function to `internal` for the same reason);
+ * no other module consumes it.
+ */
+export function quantizedUt(ut: number): number {
+    return utDays(dateFromUt(ut));
 }
 
 /** Hitting an iteration cap is a bug, not a runtime condition — see the spec. */
@@ -272,7 +295,8 @@ function searchAltitudeEvents<K extends string>(
 ): { time: Date; kind: K }[] {
     const found: { ut: number; kind: K }[] = [];
     const emit = (ut: number, kind: K) => {
-        if (ut >= startUt && ut < endUt) found.push({ ut, kind });   // half-open [start, end)
+        const q = quantizedUt(ut);
+        if (q >= startUt && q < endUt) found.push({ ut, kind });   // half-open [start, end), judged on the reported instant
     };
 
     // The chain's first point need not be an extremum: between any instant and
@@ -512,8 +536,10 @@ export function searchMoonPhases(startUtc: Date, endUtc: Date): MoonPhaseEvent[]
     for (;;) {
         const ut = searchMoonPhase(90 * quarter, probeUt, 10);
         assertReached(ut !== null, 'moon quarter search');
-        if (ut === null || ut >= endUt) break;
-        if (ut >= startUt) events.push({ time: dateFromUt(ut), phase: PHASE_NAMES[quarter] });
+        if (ut === null) break;
+        const q = quantizedUt(ut);   // judge the half-open bounds on the reported instant, not the raw root
+        if (q >= endUt) break;
+        if (q >= startUt) events.push({ time: dateFromUt(ut), phase: PHASE_NAMES[quarter] });
         // UPSTREAM `NextMoonQuarter`: skip 6 days, under the smallest observed
         // quarter-to-quarter interval, so the next search cannot re-find this one.
         probeUt = ut + 6;

@@ -16,10 +16,10 @@ import Foundation
 // parallax subtraction) is zero and drops out.
 
 /// Apparent geocentric position of the Sun: equator of date, RA in [0, 360).
-public struct SunPosition { public let raDeg: Double; public let decDeg: Double; public let distanceAu: Double }
+public struct SunPosition: Sendable { public let raDeg: Double; public let decDeg: Double; public let distanceAu: Double }
 
 /// Apparent geocentric position of the Moon: equator of date, RA in [0, 360).
-public struct MoonPosition { public let raDeg: Double; public let decDeg: Double; public let distanceKm: Double }
+public struct MoonPosition: Sendable { public let raDeg: Double; public let decDeg: Double; public let distanceKm: Double }
 
 /**
  * INTERNAL: apparent Sun for a TT instant, expressed as days since the J2000
@@ -45,6 +45,7 @@ func moonApparentAtTT(_ tt: Double) -> MoonPosition {
  * applied), plus the light-time-corrected distance in AU.
  */
 public func sunPosition(_ time: Date) throws -> SunPosition {
+    let time = try normalized(time)
     try assertSupported(time)
     return sunApparentAtTT(ttDays(time))
 }
@@ -55,6 +56,7 @@ public func sunPosition(_ time: Date) throws -> SunPosition {
  * the Earth-Moon centre distance in kilometres.
  */
 public func moonPosition(_ time: Date) throws -> MoonPosition {
+    let time = try normalized(time)
     try assertSupported(time)
     return moonApparentAtTT(ttDays(time))
 }

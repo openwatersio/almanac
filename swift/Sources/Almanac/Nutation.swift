@@ -134,12 +134,6 @@ func earthTilt(_ tt: Double) -> EarthTilt {
     )
 }
 
-/** Nutation in longitude and obliquity, in **degrees** (Tasks 12/14/16 consume this shape). */
-func nutation(_ tt: Double) -> (dpsiDeg: Double, depsDeg: Double) {
-    let tilt = earthTilt(tt)
-    return (tilt.dpsi / 3600, tilt.deps / 3600)
-}
-
 /** UPSTREAM: `obl_ecl2equ_vec`, astronomy.ts lines 1477-1486. */
 func eclipticToEquatorial(_ oblDegrees: Double, _ pos: Vec3) -> Vec3 {
     let obl = oblDegrees * DEG2RAD
