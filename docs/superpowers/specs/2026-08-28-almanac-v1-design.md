@@ -126,9 +126,11 @@ trusted publishing; SwiftPM consumers pin the tag.
   its below-horizon taper, at fixed sea-level standard atmosphere (no
   pressure/temperature inputs in v1). It yields ≈ 34′ at the horizon; that constant
   by itself is only the folded rise/set threshold, not the refraction function.
-- **Sun rise/set** — geometric center altitude −0.8333° (34′ refraction + 16′
-  semidiameter: the upper-limb convention). Twilights: center altitude −6°/−12°/−18°,
-  no refraction term.
+- **Sun rise/set** — unrefracted geometric center altitude at −(34′ + true solar
+  semidiameter at distance): the upper-limb convention with the actual disc, symmetric
+  with the moon's rule and matching USNO practice (a fixed 16′ SD sits ~10″ off USNO
+  near aphelion/perihelion — measurable on high-latitude grazes). Twilights: center
+  altitude −6°/−12°/−18°, no refraction term.
 - **Moonrise/set** — apparent topocentric upper limb crosses altitude 0: refraction,
   topocentric parallax, and true semidiameter at distance all included.
 - **Lunar eclipse** — shadow model as translated from the pinned Astronomy Engine
@@ -179,7 +181,8 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
   supported interval is valid; cost is linear in window length (extrema-bracketed
   search, a few dozen position evaluations per day), and the suite carries a
   whole-range performance smoke so a full 151-year call stays a measured cost, not
-  a guess. `startUtc ≥ endUtc` returns an empty list. Windows must lie inside the
+  a guess (measured: full-range phases ~0.6 s; full-range sun+moon events ~68 s,
+  smoke bound 120 s). `startUtc ≥ endUtc` returns an empty list. Windows must lie inside the
   supported interval; any overlap outside is the out-of-range outcome.
 - `nextLunarEclipse` is strictly after its argument (`peak > after`) and scans
   forward at most 2 years (some lunar eclipse, penumbral
@@ -215,6 +218,16 @@ retrieval date. Raw responses are committed, so git itself is their integrity ha
   astronomical crossings are checked against a dedicated Horizons airless-altitude
   fine grid (1-minute steps around twilight), an independent ephemeris rather than
   self-consistency.
+- **Far-future event rows** — USNO fixtures are UT-based, so grid rows after 2050
+  measure ΔT-projection disagreement (Espenak–Meeus vs USNO's model: ~43 s at 2075,
+  ~85 s at 2098) on top of astronomy. Rows ≤ 2050 assert absolute ≤ 60 s; later rows
+  assert scatter about their per-date mean offset ≤ 60 s, with the mean itself
+  bounded as documented ΔT divergence — the same quarantine the TT position fixtures
+  apply, adapted to a UT-only source.
+- **Moon-phase definition** — phase events and `moonIllumination.phase` both use
+  **apparent** geocentric ecliptic longitudes (aberration + nutation), matching the
+  USNO/almanac definition of syzygy; upstream Astronomy Engine's geometric-sun
+  elongation is a deliberate, documented departure (it sits a flat ~40 s off USNO).
 - **Contact shapes** — the contact fixtures span all three kinds: a total eclipse
   (U2/U3 present), a partial (U1/U4 but no U2/U3), and a penumbral (P1/P4 only), so
   absent-contact cases are asserted, not assumed.
