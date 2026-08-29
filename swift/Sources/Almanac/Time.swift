@@ -8,12 +8,12 @@ import Foundation
 private let j2000Epoch = Date(timeIntervalSince1970: 946_728_000) // 2000-01-01T12:00:00Z
 
 /// Days since J2000 (UT), fractional.
-public func utDays(_ d: Date) -> Double {
+func utDays(_ d: Date) -> Double {
     d.timeIntervalSince(j2000Epoch) / 86400.0
 }
 
 /// Julian day (UT).
-public func julianDay(_ d: Date) -> Double {
+func julianDay(_ d: Date) -> Double {
     utDays(d) + 2451545.0
 }
 
@@ -27,7 +27,7 @@ public func julianDay(_ d: Date) -> Double {
 /// ut→year conversion) and translates the piecewise polynomial verbatim,
 /// coefficient-for-coefficient, including branches outside the 1950-2100
 /// interval this package supports.
-public func deltaTSeconds(decimalYear: Double) -> Double {
+func deltaTSeconds(decimalYear: Double) -> Double {
     let y = decimalYear
     var u: Double, u2: Double, u3: Double, u4: Double, u5: Double, u6: Double, u7: Double
 
@@ -107,13 +107,13 @@ public func deltaTSeconds(decimalYear: Double) -> Double {
 /// Days since J2000 (TT) for a UT-days value already in hand — factored out of
 /// `ttDays` so L2 transforms that compute `ut` once (sidereal time, topocentric
 /// parallax) can derive `tt` from it without re-deriving the ut→year→ΔT conversion.
-public func ttDaysFromUt(_ ut: Double) -> Double {
+func ttDaysFromUt(_ ut: Double) -> Double {
     let year = 2000 + ut / 365.25
     return ut + deltaTSeconds(decimalYear: year) / 86400
 }
 
 /// Days since J2000 (TT), fractional — the argument every translated function consumes.
-public func ttDays(_ d: Date) -> Double {
+func ttDays(_ d: Date) -> Double {
     ttDaysFromUt(utDays(d))
 }
 
