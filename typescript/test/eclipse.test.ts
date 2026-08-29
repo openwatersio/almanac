@@ -55,6 +55,9 @@ const walk: LunarEclipse[] = (() => {
 
 describe('nextLunarEclipse vs the Espenak catalog', () => {
   it('walks 1950-2100 finding every catalog eclipse exactly once, and nothing else', () => {
+    // Count plus strict ascent is only half the claim; the "same eclipses, in
+    // order" half is the peak-time test below, which compares index-for-index
+    // and so fails loudly if the walk ever swapped an eclipse for another.
     expect(walk.length).toBe(catalog.length);
     // Strictly ascending: the walk never re-finds an eclipse it just returned.
     for (let i = 1; i < walk.length; i++)
@@ -220,6 +223,20 @@ describe('lunarEclipseVisibility rejects malformed eclipses', () => {
   it('duplicate contact instants', () => {
     expect(() => lunarEclipseVisibility(bad({ u3: new Date(total.peak.getTime()) }), VICTORIA)).toThrow(RangeError);
   });
+  it('an undefined contact is treated as absent, not as a Date', () => {
+    // `undefined` where `null` was meant is what a JSON round-trip or a
+    // hand-built object produces. The validator counts it absent, so the kind
+    // check must reject it for a total eclipse...
+    expect(() => lunarEclipseVisibility(bad({ u2: undefined as unknown as null }), VICTORIA)).toThrow(RangeError);
+    // ...an always-present contact must be rejected outright...
+    expect(() => lunarEclipseVisibility(bad({ p1: undefined as unknown as Date }), VICTORIA)).toThrow(RangeError);
+    // ...and where it IS legitimately absent, the reader must agree and report
+    // null rather than handing `undefined` to the ephemeris.
+    const penum = walk.find(x => x.peak.toISOString().startsWith('2020-11-30'))!;
+    const loose = { ...penum, u1: undefined as unknown as null, u4: undefined as unknown as null };
+    const v = lunarEclipseVisibility(loose, VICTORIA);
+    expect([v.contactsVisible.u1, v.contactsVisible.u4]).toEqual([null, null]);
+  });
   it('NaN time', () => {
     expect(() => lunarEclipseVisibility(bad({ p4: new Date(NaN) }), VICTORIA)).toThrow(RangeError);
     expect(() => lunarEclipseVisibility(bad({ peak: new Date(NaN) }), VICTORIA)).toThrow(RangeError);
@@ -244,8 +261,18 @@ describe('nextLunarEclipse range handling', () => {
     const second = nextLunarEclipse(first.peak);
     expect(second.peak.getTime()).toBeGreaterThan(first.peak.getTime());
     // and a query just before a peak still returns that peak
-    const again = nextLunarEclipse(new Date(first.peak.getTime() - 5000));
+    const again = nextLunarEclipse(new Date(first.peak.getTime() - 1000));
     expect(again.peak.getTime()).toBe(first.peak.getTime());
+  });
+
+  it('pins the same-eclipse band at 100 ms either side of the boundary', () => {
+    const e = nextLunarEclipse(new Date('2026-01-01T00:00:00Z'));
+    const peak = e.peak.getTime();
+    // Inside the band: judged the caller's own previous result, so the search
+    // moves on to the next eclipse. This is the band's accepted cost.
+    expect(nextLunarEclipse(new Date(peak - 100)).peak.getTime()).toBeGreaterThan(peak);
+    // One millisecond outside it: the same eclipse, exactly.
+    expect(nextLunarEclipse(new Date(peak - 101)).peak.getTime()).toBe(peak);
   });
 
   it('returns integer-millisecond instants', () => {

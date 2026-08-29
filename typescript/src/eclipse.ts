@@ -4,7 +4,7 @@
 //
 // Translated from the cosinekitty/astronomy upstream, pinned sha
 // 865d3da7d8112bbc7911238052c6af4aaf877181, source/js/astronomy.ts:
-//   CalcShadow (~8457), EarthShadow (~8470), ShadowDistanceSlope (~8531),
+//   CalcShadow (~8458), EarthShadow (~8470), ShadowDistanceSlope (~8535),
 //   PeakEarthShadow (~8553), ShadowSemiDurationMinutes (~8603),
 //   MoonEclipticLatitudeDegrees (~8616) and SearchLunarEclipse (~8710).
 // Constants and operation order are preserved so the Swift port can be a
@@ -103,11 +103,18 @@ const SHADOW_ITER_CAP = 20;
  * same eclipse from different starting times, which moves the interpolated root
  * by an observed ≤1 ms. A caller walking the catalog by feeding each peak back
  * in would otherwise re-find that eclipse whenever the second evaluation landed
- * a millisecond later. Consecutive lunar eclipses are never less than a month
- * apart, so a full second of slack cannot swallow a real one — and the peak
- * model itself only agrees with the catalog to ~15 s.
+ * a millisecond later.
+ *
+ * The band cuts both ways, and both are bounded:
+ *   - it can never swallow a real eclipse — consecutive lunar eclipses are
+ *     never less than a month apart, 25 million times this window;
+ *   - it *can* skip an eclipse the caller genuinely wanted: `after` set inside
+ *     the 100 ms before a peak returns the eclipse after it, not that one.
+ *     That is the accepted cost, and 100 ms is its ceiling — against a peak
+ *     model that agrees with the Espenak catalog to ~15 s, a caller cannot have
+ *     meant a boundary that sharp.
  */
-const SAME_ECLIPSE_MS = 1000;
+const SAME_ECLIPSE_MS = 100;
 
 /**
  * UPSTREAM: `ShadowInfo` (astronomy.ts ~8445), reduced to what the lunar case
@@ -128,7 +135,7 @@ interface ShadowInfo {
     p: number;
 }
 
-/** UPSTREAM: `CalcShadow`, astronomy.ts ~8457. */
+/** UPSTREAM: `CalcShadow`, astronomy.ts ~8458. */
 function calcShadow(bodyRadiusKm: number, ut: number, target: Vec3, dir: Vec3): ShadowInfo {
     const u = (dir.x*target.x + dir.y*target.y + dir.z*target.z) / (dir.x*dir.x + dir.y*dir.y + dir.z*dir.z);
     const dx = (u * dir.x) - target.x;
@@ -156,7 +163,7 @@ function earthShadow(ut: number): ShadowInfo {
     return calcShadow(EARTH_ECLIPSE_RADIUS_KM, ut, m, e);
 }
 
-/** UPSTREAM: `ShadowDistanceSlope`, astronomy.ts ~8531, bound to `EarthShadow`. */
+/** UPSTREAM: `ShadowDistanceSlope`, astronomy.ts ~8535, bound to `EarthShadow`. */
 function earthShadowSlope(ut: number): number {
     const dt = 1.0 / 86400.0;
     return (earthShadow(ut + dt).r - earthShadow(ut - dt).r) / dt;
@@ -239,6 +246,10 @@ export function nextLunarEclipse(after: Date): LunarEclipse {
 
         return buildEclipse(shadow, peak);
     }
+    // Not an AlmanacOutOfRangeError: the interval is fine, the sky is not. The
+    // longest real gap over 1950-2100 is 178 days, so exhausting 730 means the
+    // shadow model is broken — an internal invariant, like every other
+    // `almanac internal:` throw in this package.
     throw new Error(`almanac internal: no lunar eclipse within ${SCAN_LIMIT_DAYS} days of ${after.toISOString()}`);
 }
 
@@ -308,16 +319,21 @@ function assertLunarEclipse(e: LunarEclipse): void {
             throw new RangeError(`${e.kind} lunar eclipse must ${expected[key] ? '' : 'not '}have ${key}`);
     }
 
-    // Strictly ascending, skipping the absent ones (p1, peak and p4 are always
-    // present). Strict is safe: the closest two contacts of any eclipse over
-    // 1950-2100 are five minutes apart.
-    const ordered: [string, Date | null][] = [
-        ['p1', e.p1], ['u1', e.u1], ['u2', e.u2], ['peak', e.peak], ['u3', e.u3], ['u4', e.u4], ['p4', e.p4]
+    // Strictly ascending, skipping the absent ones. Strict is safe: the closest
+    // two contacts of any eclipse over 1950-2100 are five minutes apart. The
+    // third element marks the contacts every eclipse has, whatever its kind —
+    // absent, they would otherwise slip through as `null` past a `boolean` type.
+    const ordered: [string, Date | null, boolean][] = [
+        ['p1', e.p1, true], ['u1', e.u1, false], ['u2', e.u2, false], ['peak', e.peak, true],
+        ['u3', e.u3, false], ['u4', e.u4, false], ['p4', e.p4, true]
     ];
     let prevName = '';
     let prevMs = -Infinity;
-    for (const [name, d] of ordered) {
-        if (d === null || d === undefined) continue;
+    for (const [name, d, required] of ordered) {
+        if (d == null) {
+            if (required) throw new RangeError(`lunar eclipse ${name} is required`);
+            continue;
+        }
         const ms = d instanceof Date ? d.getTime() : NaN;
         if (!Number.isFinite(ms)) throw new RangeError(`lunar eclipse ${name} is not a valid Date`);
         if (ms <= prevMs) throw new RangeError(`lunar eclipse contacts out of order: ${prevName} not before ${name}`);
@@ -345,7 +361,9 @@ export function lunarEclipseVisibility(eclipse: LunarEclipse, observer: Observer
         const ut = utDays(d);
         return topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer).altDeg;
     };
-    const up = (d: Date | null): boolean | null => (d === null ? null : altAt(d) > 0);
+    // `== null` deliberately: the validator counts `undefined` as absent too,
+    // so the reader must, or an `undefined` contact would reach `utDays` raw.
+    const up = (d: Date | null): boolean | null => (d == null ? null : altAt(d) > 0);
 
     const peakAltDeg = altAt(eclipse.peak);
     return {
