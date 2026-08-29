@@ -1,0 +1,113 @@
+name: release
+on:
+  push: { tags: ['v*'] }
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assert tag matches package.json version
+        run: |
+          pkg_version="$(node -p "require('./typescript/package.json').version")"
+          tag="${GITHUB_REF_NAME}"
+          if [ "$tag" != "v${pkg_version}" ]; then
+            echo "tag ${tag} does not match typescript/package.json version v${pkg_version}" >&2
+            exit 1
+          fi
+  fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node fixtures/generate/derive.mjs --check
+  typescript:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: typescript } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
+  swift:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift test -c release
+  smoke-swiftpm:
+    needs: [tag-version, fixtures, typescript, swift]
+    runs-on: macos-15
+    steps:
+      - name: build a scratch package depending on this tag
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p /tmp/almanac-smoke/Sources/almanac-smoke
+          cd /tmp/almanac-smoke
+          cat > Package.swift <<EOF
+          // swift-tools-version: 5.9
+          import PackageDescription
+          let package = Package(
+              name: "almanac-smoke",
+              dependencies: [
+                  .package(url: "https://github.com/openwatersio/almanac.git", exact: "${version}")
+              ],
+              targets: [
+                  .executableTarget(name: "almanac-smoke", dependencies: [.product(name: "Almanac", package: "almanac")])
+              ]
+          )
+          EOF
+          cat > Sources/almanac-smoke/main.swift <<'EOF'
+          import Almanac
+          import Foundation
+
+          let illum = try moonIllumination(Date())
+          print("moon illumination fraction: \(illum.fraction)")
+          EOF
+          swift run
+  smoke-npm:
+    needs: [tag-version, fixtures, typescript, swift]
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: typescript } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm ci
+      - run: npm pack
+      - name: assert tarball contents
+        run: |
+          tarball="$(ls ./*.tgz)"
+          for entry in package/NOTICE package/LICENSE package/README.md package/dist/index.js package/dist/index.d.ts; do
+            if ! tar -tf "$tarball" | grep -qx "$entry"; then
+              echo "tarball missing $entry" >&2
+              exit 1
+            fi
+          done
+      - name: install tarball into a temp dir and smoke-import it
+        run: |
+          tarball="$(pwd)/$(ls ./*.tgz)"
+          tmpdir="$(mktemp -d)"
+          cd "$tmpdir"
+          npm init -y >/dev/null
+          npm install "$tarball"
+          node -e "import('@openwatersio/almanac').then(m => { console.log(m.moonIllumination(new Date())); })"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: almanac-npm-tarball
+          path: typescript/*.tgz
+  publish:
+    needs: [smoke-swiftpm, smoke-npm]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm install -g npm@latest   # trusted publishing needs npm >= 11.5.1
+      - uses: actions/download-artifact@v4
+        with:
+          name: almanac-npm-tarball
+      - run: npm publish ./*.tgz --provenance --access public
