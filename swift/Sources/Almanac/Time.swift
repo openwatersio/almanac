@@ -116,3 +116,10 @@ public func ttDaysFromUt(_ ut: Double) -> Double {
 public func ttDays(_ d: Date) -> Double {
     ttDaysFromUt(utDays(d))
 }
+
+/// Inverse of `utDays` — the instant, still carrying Foundation's sub-ms
+/// precision. Callers on the public API boundary (Task 15's event search)
+/// pass this through `normalized()` (Types.swift) before returning it.
+func dateFromUt(_ ut: Double) -> Date {
+    j2000Epoch.addingTimeInterval(ut * 86400.0)
+}

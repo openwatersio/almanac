@@ -49,6 +49,29 @@ private func normalizeLongitude(_ lon: Double) -> Double {
     (lon.truncatingRemainder(dividingBy: 360) + 360).truncatingRemainder(dividingBy: 360)
 }
 
+/**
+ * INTERNAL: the Moon's apparent ecliptic longitude ahead of the Sun's, [0, 360)
+ * — 0 at new moon, 180 at full. The single definition of lunar phase in this
+ * package: `moonIllumination.phase` is this over 360, and `searchMoonPhases`
+ * (Events.swift) roots this against 0/90/180/270.
+ *
+ * UPSTREAM: `MoonPhase` = `PairLongitude(Moon, Sun)` (astronomy.ts ~5221,
+ * ~4831) takes both longitudes from `GeoVector(body, t, aberration=false)`,
+ * i.e. geometric directions. The spec's moon-phase definition is **apparent**
+ * on both sides, matching the USNO/almanac definition of syzygy, so the Sun
+ * here is the aberrated vector `sunPosition` returns. The Moon needs no such
+ * change: aberration follows the observer's velocity *relative to the body* —
+ * 30 km/s for the Sun (20.5″) against 1 km/s for the Moon (0.7″). That 20.5″ is
+ * 40 s of elongation rate, and upstream's geometric convention sits exactly
+ * that far off the USNO catalogue.
+ *
+ * Takes TT days, not UT — a caller passing UT compiles silently and costs
+ * ~35″ of elongation.
+ */
+func moonPhaseDeg(_ tt: Double) -> Double {
+    normalizeLongitude(eclipticLonOfDateDeg(moonGeoVectorEqj(tt), tt) - eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt))
+}
+
 /** INTERNAL: moon illumination for a TT instant. See `moonIllumination`. */
 func moonIlluminationAtTT(_ tt: Double) -> MoonIllumination {
     // UPSTREAM `Illumination`, Body.Moon branch: gc = GeoMoon(time) (no
@@ -60,17 +83,7 @@ func moonIlluminationAtTT(_ tt: Double) -> MoonIllumination {
     let phaseAngleDeg = angleBetweenDeg(gc, hc)
     let fraction = (1 + cos(DEG2RAD * phaseAngleDeg)) / 2
 
-    // UPSTREAM `MoonPhase` = `PairLongitude(Moon, Sun)` / 360.
-    // `GeoVector(body, time, aberration: false)`: the Moon is unaffected by
-    // the flag (moonGeoVectorEqj above); the Sun reduces to
-    // -earthHelioVector(tt) because HelioVector(Sun, t) is always the origin,
-    // so BackdatePosition's aberration=false branch (a fixed, non-backdated
-    // observer position) never iterates.
-    let sunEqj = Vec3(x: -earth.x, y: -earth.y, z: -earth.z)
-    let moonLonDeg = eclipticLonOfDateDeg(gc, tt)
-    let sunLonDeg = eclipticLonOfDateDeg(sunEqj, tt)
-    let phase = normalizeLongitude(moonLonDeg - sunLonDeg) / 360
-
+    let phase = moonPhaseDeg(tt) / 360
     return MoonIllumination(fraction: fraction, phaseAngleDeg: phaseAngleDeg, phase: phase, waxing: phase < 0.5)
 }
 

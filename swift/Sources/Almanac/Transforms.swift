@@ -21,6 +21,15 @@ import Foundation
 /// Topocentric horizontal position: azimuth from true north through east, altitude above the horizon.
 public struct AltAz { public let azDeg: Double; public let altDeg: Double }
 
+/**
+ * INTERNAL: what `topoAltAzUnrefracted` already computes on the way to
+ * az/alt. The L3 event layer (Events.swift) needs all four from a single
+ * evaluation — the local hour angle brackets each daily cycle's altitude
+ * extrema, and the topocentric distance sets the Moon's semidiameter, hence
+ * its rise/set target.
+ */
+struct TopoUnrefracted { let azDeg: Double; let altDeg: Double; let hourAngleDeg: Double; let distanceAu: Double }
+
 /** UPSTREAM: `era` (Earth Rotation Angle), astronomy.ts ~2014. */
 private func earthRotationAngleDeg(_ ut: Double) -> Double {
     let thet1 = 0.7790572732640 + 0.00273781191135448 * ut
@@ -56,12 +65,16 @@ func siderealDeg(_ ut: Double) -> Double {
 /**
  * UPSTREAM: `terra` (astronomy.ts ~2147 — position only; its velocity output
  * is for observer diurnal aberration, which this parallax-only path doesn't
- * need) composed with `geo_pos`'s gyration into EQJ (astronomy.ts ~2236).
+ * need). Upstream's `geo_pos` (~2236) then gyrates this into EQJ so that
+ * `Equator` can subtract it from the body's EQJ vector and gyrate the
+ * difference back to date. Gyration is a rotation, so
+ * `R(body − observer) === R·body − R·observer`, and `R` applied to the
+ * observer's own inverse-gyration is the vector below: one precession and one
+ * nutation per evaluation drop out of the inner loop of every event search.
  *
- * Returns geocentric position of the observer, in AU, J2000 mean equator (EQJ).
+ * Returns geocentric position of the observer, in AU, true equator of date.
  */
-private func observerGeoVectorEqj(_ ut: Double, _ observer: Observer) -> Vec3 {
-    let tt = ttDaysFromUt(ut)
+private func observerGeoVectorOfDate(_ gastDeg: Double, _ observer: Observer) -> Vec3 {
     let phi = observer.latitudeDeg * DEG2RAD
     let sinphi = sin(phi)
     let cosphi = cos(phi)
@@ -70,15 +83,14 @@ private func observerGeoVectorEqj(_ ut: Double, _ observer: Observer) -> Vec3 {
     let htKm = observer.elevationM / 1000
     let ach = EARTH_EQUATORIAL_RADIUS_KM * c + htKm
     let ash = EARTH_EQUATORIAL_RADIUS_KM * s + htKm
-    let stlocl = (siderealDeg(ut) + observer.longitudeDeg) * DEG2RAD
+    let stlocl = (gastDeg + observer.longitudeDeg) * DEG2RAD
     let sinst = sin(stlocl)
     let cosst = cos(stlocl)
-    let posOfDate = Vec3(
+    return Vec3(
         x: ach * cosphi * cosst / KM_PER_AU,
         y: ach * cosphi * sinst / KM_PER_AU,
         z: ash * sinphi / KM_PER_AU
     )
-    return gyration(posOfDate, tt, .into2000)
 }
 
 /** UPSTREAM: `spin`, astronomy.ts ~2518 — rotate a horizontal-frame unit vector by sidereal angle. */
@@ -99,21 +111,24 @@ private func spin(_ angleDeg: Double, _ pos: Vec3) -> Vec3 {
  * `bodyEqj` is the geocentric position of the body in AU, J2000 mean equator
  * (EQJ) — i.e. `GeoVector`'s return, matching `sunGeoVectorEqj` /
  * `moonGeoVectorEqj`, NOT the already-of-date vector `sunApparentAtTT`/
- * `moonApparentAtTT` consume.
+ * `moonApparentAtTT` consume. `ut` is days since J2000 in UT — the event
+ * layer iterates in days, and `Date` round-trips are pure overhead on a
+ * search's inner loop.
  *
- * Returns unrefracted topocentric azimuth/altitude.
+ * Returns unrefracted topocentric azimuth/altitude, plus the local hour angle
+ * and topocentric distance the same evaluation already produced.
  */
-func topoAltAzUnrefracted(_ bodyEqj: Vec3, _ time: Date, _ observer: Observer) -> AltAz {
-    let ut = utDays(time)
+func topoAltAzUnrefracted(_ bodyEqj: Vec3, _ ut: Double, _ observer: Observer) -> TopoUnrefracted {
     let tt = ttDaysFromUt(ut)
+    let gast = siderealDeg(ut)
 
-    let gcObserver = observerGeoVectorEqj(ut, observer)
-    let j2000 = Vec3(
-        x: bodyEqj.x - gcObserver.x,
-        y: bodyEqj.y - gcObserver.y,
-        z: bodyEqj.z - gcObserver.z
+    let gcObserver = observerGeoVectorOfDate(gast, observer)
+    let bodyOfDate = gyration(bodyEqj, tt, .from2000)
+    let datevect = Vec3(
+        x: bodyOfDate.x - gcObserver.x,
+        y: bodyOfDate.y - gcObserver.y,
+        z: bodyOfDate.z - gcObserver.z
     )
-    let datevect = gyration(j2000, tt, .from2000)
     let radec = equatorialFromVector(datevect)
 
     let sinlat = sin(observer.latitudeDeg * DEG2RAD)
@@ -130,7 +145,7 @@ func topoAltAzUnrefracted(_ bodyEqj: Vec3, _ time: Date, _ observer: Observer) -
     let une = Vec3(x: -sinlat*coslon, y: -sinlat*sinlon, z: coslat)
     let uwe = Vec3(x: sinlon, y: -coslon, z: 0)
 
-    let spinAngle = -siderealDeg(ut)
+    let spinAngle = -gast
     let uz = spin(spinAngle, uze)
     let un = spin(spinAngle, une)
     let uw = spin(spinAngle, uwe)
@@ -150,7 +165,11 @@ func topoAltAzUnrefracted(_ bodyEqj: Vec3, _ time: Date, _ observer: Observer) -
         az = 0
     }
     let zd = RAD2DEG * atan2(proj, pz)
-    return AltAz(azDeg: az, altDeg: 90 - zd)
+
+    var hourAngleDeg = (gast + observer.longitudeDeg - radec.raDeg).truncatingRemainder(dividingBy: 360)
+    if hourAngleDeg < 0 { hourAngleDeg += 360 }
+
+    return TopoUnrefracted(azDeg: az, altDeg: 90 - zd, hourAngleDeg: hourAngleDeg, distanceAu: radec.distanceAu)
 }
 
 /**
@@ -176,7 +195,7 @@ func refractionDeg(_ altitudeDeg: Double) -> Double {
     return refr
 }
 
-private func refract(_ unrefracted: AltAz) -> AltAz {
+private func refract(_ unrefracted: TopoUnrefracted) -> AltAz {
     AltAz(azDeg: unrefracted.azDeg, altDeg: unrefracted.altDeg + refractionDeg(unrefracted.altDeg))
 }
 
@@ -187,7 +206,8 @@ private func refract(_ unrefracted: AltAz) -> AltAz {
  */
 public func sunAltAz(_ time: Date, observer: Observer) throws -> AltAz {
     try assertSupported(time)
-    return refract(topoAltAzUnrefracted(sunGeoVectorEqj(ttDays(time)), time, observer))
+    let ut = utDays(time)
+    return refract(topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer))
 }
 
 /**
@@ -197,5 +217,6 @@ public func sunAltAz(_ time: Date, observer: Observer) throws -> AltAz {
  */
 public func moonAltAz(_ time: Date, observer: Observer) throws -> AltAz {
     try assertSupported(time)
-    return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDays(time)), time, observer))
+    let ut = utDays(time)
+    return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer))
 }

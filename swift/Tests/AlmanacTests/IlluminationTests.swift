@@ -32,13 +32,6 @@ final class IlluminationTests: XCTestCase {
         (utc(tt).timeIntervalSince1970 - utc("2000-01-01T12:00:00Z").timeIntervalSince1970) / 86400.0
     }
 
-    // usno-phases.json timestamps are minute-precision ("...T04:39Z", no
-    // seconds) — ISO8601DateFormatter's default options require seconds, so
-    // pad them before parsing.
-    static func usnoUtc(_ s: String) -> Date {
-        utc(s.replacingOccurrences(of: "Z", with: ":00Z"))
-    }
-
     func testMoonCoarseIllumFractionWithin001() throws {
         for row in try Self.load("moon-coarse.json") {
             let m = moonIlluminationAtTT(Self.ttDaysOf(row.tt!))
@@ -61,7 +54,7 @@ final class IlluminationTests: XCTestCase {
 
     func testUsnoFirstQuarterPhaseWaxing() throws {
         let row = try Self.loadPhases().first { $0.phase == "firstQuarter" }!
-        let m = try moonIllumination(Self.usnoUtc(row.utc))
+        let m = try moonIllumination(usnoUtc(row.utc))
         XCTAssertGreaterThan(m.phase, 0.23)
         XCTAssertLessThan(m.phase, 0.27)
         XCTAssertTrue(m.waxing)
@@ -69,7 +62,7 @@ final class IlluminationTests: XCTestCase {
 
     func testUsnoLastQuarterPhaseNotWaxing() throws {
         let row = try Self.loadPhases().first { $0.phase == "lastQuarter" }!
-        let m = try moonIllumination(Self.usnoUtc(row.utc))
+        let m = try moonIllumination(usnoUtc(row.utc))
         XCTAssertGreaterThan(m.phase, 0.73)
         XCTAssertLessThan(m.phase, 0.77)
         XCTAssertFalse(m.waxing)
