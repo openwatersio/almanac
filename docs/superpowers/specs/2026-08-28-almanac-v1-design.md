@@ -261,11 +261,14 @@ physical tolerances, symmetrically:
   distances to 1e-3 km / 1e-9 AU, times to 1 ms) densely sampled across the interval.
 - The corpus format is canonical — fixed row order, quantized values stored as
   scaled integers, provenance in a separate uncompared meta file — so both ports can
-  reproduce it exactly. CI compares **decoded structures**, not serializer bytes
-  (key order and float formatting can't fail a correct port), and runs both
-  emitters against the committed corpus — which CI separately byte-checks against a
-  fresh TS regeneration, so the committed corpus IS the TS candidate and the two
-  legs together compare the ports against each other. Neither port is
+  reproduce it near-exactly. CI compares **decoded structures**, not serializer bytes
+  (key order and float formatting can't fail a correct port; serializer bytes are
+  never compared anywhere in this check), and runs both emitters against the
+  committed corpus — which CI separately verifies with a near-exact reproduction
+  check (same epsilons both ports: 5 scaled units, 1 time quantum — see
+  fixtures/generate/parity.mjs and swift/Tests/AlmanacTests/ParityTests.swift)
+  against a fresh TS regeneration, so the committed corpus IS the TS candidate and
+  the two legs together compare the ports against each other. Neither port is
   the oracle: external fixtures arbitrate any mismatch, and replacing the corpus
   requires both ports to reproduce it — a corpus only one port can regenerate is
   that port smuggled back in as the oracle. Every public function appears in the

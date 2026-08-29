@@ -7,10 +7,12 @@
 // generating commit shas, passed as argv -- never exec'd, never compared)
 // lands only in the uncompared meta.json.
 //
-// `--check` regenerates and byte-compares against the committed files (same
-// pattern as derive.mjs) -- this is the TS side's "regenerate candidate,
-// compare to committed" half of the parity contract; the Swift side's half
-// is ParityTests.swift's reproduction check.
+// `--check` regenerates and compares against the committed files via a
+// NEAR-EXACT structural (decoded, not byte) check -- this is the TS side's
+// "regenerate candidate, compare to committed" half of the parity contract;
+// the Swift side's half is ParityTests.swift's reproduction check. Same
+// epsilons both sides: see the near-exact block below for why byte-exact
+// doesn't hold even within one language.
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
@@ -196,46 +198,180 @@ export function buildCorpus() {
     return { positions, altaz, illumination, events, eclipses };
 }
 
+// ------------------------------------------------------- near-exact check
+//
+// `--check` decodes the committed and freshly-computed corpora and compares
+// them field-by-field, not byte-for-byte -- and not even at strict integer
+// equality. The eclipse rows come from an iterative root search
+// (nextLunarEclipse's bisection walk), which amplifies ULP-level Math.*
+// differences across V8 versions/platforms (this repo generates locally on
+// macOS; CI's `typescript` job runs Node 22 on ubuntu) into an occasional
+// rounding-boundary flip in the least-significant scaled-integer digit or a
+// single 100 ms time quantum. This is the same phenomenon the Swift port's
+// ParityTests.swift already ratified an epsilon for in its
+// `testExactReproduction` (reproScaleTol = 5 scaled units, reproTimeMs =
+// 100 ms = one time quantum) -- measured there at 13 of ~50,000+ compared
+// scaled ints (max drift 4 of 1e6 == 4e-6 deg) and 1 of ~2,000 compared
+// event times (drift exactly one 100 ms quantum). REPRO_SCALE_TOL /
+// REPRO_TIME_MS below reuse that same ratified value: 5 scaled units is
+// ~5e-6 deg on the angle-scaled fields, ~2500x under the spec's physical
+// parity tolerance of 1e-5 deg (`fixtures/parity/meta.json`'s
+// `tolerances.angleDeg`), and 100 ms has no headroom to tighten further
+// since event/eclipse instants are themselves quantized to
+// EVENT_TIME_QUANTUM_MS. Exact-input sample times (`tMs` on
+// positions/altaz/illumination) are never computed -- they're the loop
+// index in `sampleTimesMs()` -- so they get no slack and must match
+// exactly; row counts, shapes, kinds, and booleans are likewise exact.
+const REPRO_SCALE_TOL = 5;
+const REPRO_TIME_MS = 100;
+const EXACT = "exact", SCALED = "scaled", TIME = "time";
+
+const OBSERVER_SCHEMA = { latitudeDeg: EXACT, longitudeDeg: EXACT };
+const ROW_SCHEMAS = {
+    positions: {
+        tMs: EXACT,
+        sun: { raDeg: SCALED, decDeg: SCALED, distanceAu: SCALED },
+        moon: { raDeg: SCALED, decDeg: SCALED, distanceKm: SCALED },
+    },
+    altaz: {
+        tMs: EXACT,
+        sun: { azDeg: SCALED, altDeg: SCALED },
+        moon: { azDeg: SCALED, altDeg: SCALED },
+    },
+    illumination: { tMs: EXACT, fraction: SCALED, phaseAngleDeg: SCALED, phase: SCALED, waxing: EXACT },
+    sunEvent: { observerIdx: EXACT, tMs: TIME, kind: EXACT },
+    moonEvent: { observerIdx: EXACT, tMs: TIME, kind: EXACT },
+    moonPhase: { tMs: TIME, phase: EXACT },
+    eclipse: {
+        kind: EXACT, peakMs: TIME, magUmbral: SCALED, magPenumbral: SCALED,
+        p1Ms: TIME, u1Ms: TIME, u2Ms: TIME, u3Ms: TIME, u4Ms: TIME, p4Ms: TIME,
+        visibility: [{
+            visibleAtPeak: EXACT, moonGeometricAltAtPeakDeg: SCALED,
+            contactsVisible: { p1: EXACT, u1: EXACT, u2: EXACT, u3: EXACT, u4: EXACT, p4: EXACT },
+        }],
+    },
+};
+
+/** Recursively compares `a` vs `b` against `schema` (object/array of schema,
+ *  or a leaf kind), reporting into `ctx` -- never throws, records instead. */
+function compareNode(path, schema, a, b, ctx) {
+    if (Array.isArray(schema)) {
+        if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) {
+            ctx.fail(path, `row count ${a?.length} vs ${b?.length}`);
+            return;
+        }
+        for (let i = 0; i < a.length; i++) compareNode(`${path}[${i}]`, schema[0], a[i], b[i], ctx);
+        return;
+    }
+    if (schema && typeof schema === "object") {
+        for (const key of Object.keys(schema)) compareNode(`${path}.${key}`, schema[key], a?.[key], b?.[key], ctx);
+        return;
+    }
+    // Leaf: schema is EXACT | SCALED | TIME.
+    if (a === null || b === null) {
+        if (a !== b) ctx.fail(path, `null-ness: ${a} vs ${b}`);
+        return;
+    }
+    if (schema === EXACT) {
+        if (a !== b) ctx.fail(path, `${a} vs ${b}`);
+        return;
+    }
+    const tol = schema === SCALED ? REPRO_SCALE_TOL : REPRO_TIME_MS;
+    const drift = Math.abs(a - b);
+    ctx.trackDrift(schema, path, drift);
+    if (drift > tol) ctx.fail(path, `drift ${drift} > ${tol} (${a} vs ${b})`);
+}
+
+function newCheckCtx() {
+    const drift = new Map();
+    const failures = [];
+    return {
+        drift, failures,
+        fail: (path, msg) => failures.push({ path, msg }),
+        trackDrift: (kind, path, amount) => {
+            const field = path.replace(/\[\d+\]/g, "");
+            const cur = drift.get(field);
+            if (!cur || amount > cur.max) drift.set(field, { kind, max: amount });
+        },
+    };
+}
+
+/** Near-exact structural compare of one corpus file's fresh vs. committed
+ *  (already-decoded) content. Returns a ctx with `.failures` (empty = pass)
+ *  and `.drift` (per-field max drift, for diagnostics on failure). */
+function checkFile(rel, fresh, committed) {
+    const ctx = newCheckCtx();
+    switch (rel) {
+        case "positions.json": compareNode("positions", [ROW_SCHEMAS.positions], fresh, committed, ctx); break;
+        case "altaz.json": compareNode("altaz", [ROW_SCHEMAS.altaz], fresh, committed, ctx); break;
+        case "illumination.json": compareNode("illumination", [ROW_SCHEMAS.illumination], fresh, committed, ctx); break;
+        case "events.json":
+            compareNode("events.observers", [OBSERVER_SCHEMA], fresh.observers, committed.observers, ctx);
+            compareNode("events.sunEvents", [ROW_SCHEMAS.sunEvent], fresh.sunEvents, committed.sunEvents, ctx);
+            compareNode("events.moonEvents", [ROW_SCHEMAS.moonEvent], fresh.moonEvents, committed.moonEvents, ctx);
+            compareNode("events.moonPhases", [ROW_SCHEMAS.moonPhase], fresh.moonPhases, committed.moonPhases, ctx);
+            break;
+        case "eclipses.json":
+            compareNode("eclipses.observers", [OBSERVER_SCHEMA], fresh.observers, committed.observers, ctx);
+            compareNode("eclipses.eclipses", [ROW_SCHEMAS.eclipse], fresh.eclipses, committed.eclipses, ctx);
+            break;
+        default: throw new Error(`checkFile: no schema for ${rel}`);
+    }
+    return ctx;
+}
+
+function reportDrift(rel, ctx) {
+    console.error(`DRIFT: ${rel}`);
+    if (ctx.drift.size) {
+        console.error("  max drift by field:");
+        for (const [field, info] of [...ctx.drift.entries()].sort((a, b) => b[1].max - a[1].max)) {
+            console.error(`    ${field}: ${info.max} ${info.kind === TIME ? "ms" : "units"}`);
+        }
+    }
+    console.error(`  first offending paths (${ctx.failures.length} total):`);
+    for (const f of ctx.failures.slice(0, 5)) console.error(`    ${f.path}: ${f.msg}`);
+}
+
 function main() {
     const check = process.argv.includes("--check");
     const positionalArgs = process.argv.slice(2).filter((a) => a !== "--check");
     const [tsCommit = "unknown", swiftCommit = "unknown"] = positionalArgs;
 
     const files = buildCorpus();
-    const out = {
-        "positions.json": json(files.positions),
-        "altaz.json": json(files.altaz),
-        "illumination.json": json(files.illumination),
-        "events.json": json(files.events),
-        "eclipses.json": json(files.eclipses),
-        "meta.json": buildMeta(tsCommit, swiftCommit, files),
+    const raw = {
+        "positions.json": files.positions,
+        "altaz.json": files.altaz,
+        "illumination.json": files.illumination,
+        "events.json": files.events,
+        "eclipses.json": files.eclipses,
     };
+    const metaDest = new URL("meta.json", FIXTURES_DIR);
+
+    if (!check) {
+        for (const [rel, data] of Object.entries(raw)) writeFileSync(new URL(rel, FIXTURES_DIR), json(data));
+        writeFileSync(metaDest, buildMeta(tsCommit, swiftCommit, files));
+        console.log(`parity.mjs: wrote ${Object.keys(raw).length + 1} files`);
+        return;
+    }
 
     let drift = false;
-    for (const [rel, content] of Object.entries(out)) {
+
+    // Provenance is never compared -- only ensure it exists.
+    if (!existsSync(metaDest)) { console.error("DRIFT: meta.json (missing)"); drift = true; }
+
+    for (const [rel, fresh] of Object.entries(raw)) {
         const dest = new URL(rel, FIXTURES_DIR);
-        if (rel === "meta.json") {
-            // Provenance is never compared -- only ensure it exists.
-            if (!check) writeFileSync(dest, content);
-            else if (!existsSync(dest)) { console.error(`DRIFT: ${rel} (missing)`); drift = true; }
-            continue;
-        }
-        if (!check) { writeFileSync(dest, content); continue; }
-        if (!existsSync(dest) || readFileSync(dest, "utf8") !== content) {
-            console.error(`DRIFT: ${rel}`);
-            drift = true;
-        }
+        if (!existsSync(dest)) { console.error(`DRIFT: ${rel} (missing)`); drift = true; continue; }
+        const committed = JSON.parse(readFileSync(dest, "utf8"));
+        const ctx = checkFile(rel, fresh, committed);
+        if (ctx.failures.length) { reportDrift(rel, ctx); drift = true; }
     }
 
-    if (check) {
-        if (drift) {
-            console.error("parity.mjs --check: drift between the TS-computed candidate and the committed parity corpus");
-            process.exit(1);
-        }
-        console.log(`parity.mjs --check: clean (${Object.keys(out).length} files)`);
-    } else {
-        console.log(`parity.mjs: wrote ${Object.keys(out).length} files`);
+    if (drift) {
+        console.error("parity.mjs --check: drift between the TS-computed candidate and the committed parity corpus");
+        process.exit(1);
     }
+    console.log(`parity.mjs --check: clean (${Object.keys(raw).length + 1} files, near-exact within ${REPRO_SCALE_TOL} scaled units / ${REPRO_TIME_MS} ms)`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) main();
