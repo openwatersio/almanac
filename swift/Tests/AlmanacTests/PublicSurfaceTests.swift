@@ -76,4 +76,19 @@ final class PublicSurfaceTests: XCTestCase {
         let phaseKinds: [MoonPhaseKind] = [.new, .firstQuarter, .full, .lastQuarter]
         XCTAssertEqual(phaseKinds.map { $0.rawValue }, ["new", "firstQuarter", "full", "lastQuarter"])
     }
+
+    func testEclipse() throws {
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        let e: LunarEclipse = try nextLunarEclipse(after: Date(timeIntervalSince1970: 1_756_339_200))
+        _ = (e.peak, e.magUmbral, e.magPenumbral, e.p1, e.u1, e.u2, e.u3, e.u4, e.p4)
+        let kinds: [LunarEclipseKind] = [.penumbral, .partial, .total]
+        XCTAssertEqual(kinds.map { $0.rawValue }, ["penumbral", "partial", "total"])
+        XCTAssertTrue([.penumbral, .partial, .total].contains(e.kind))
+
+        let v: LunarEclipseVisibility = try lunarEclipseVisibility(e, observer: observer)
+        XCTAssertFalse(v.moonGeometricAltAtPeakDeg.isNaN)
+        _ = v.visibleAtPeak
+        let c: LunarEclipseContactsVisible = v.contactsVisible
+        _ = (c.p1, c.u1, c.u2, c.u3, c.u4, c.p4)
+    }
 }

@@ -51,10 +51,11 @@ private let civilAltDeg = -6.0
 private let nauticalAltDeg = -12.0
 private let astroAltDeg = -18.0
 
-/** Body radii, for the semidiameter that lowers each rise/set target. */
-private let moonMeanRadiusKm = 1737.4
-/** UPSTREAM: `SUN_RADIUS_KM`, astronomy.ts line 134. */
-private let sunRadiusKm = 695700.0
+/** Body radii, for the semidiameter that lowers each rise/set target.
+ *  INTERNAL, shared with Eclipse.swift's shadow geometry — not `private`. */
+let moonMeanRadiusKm = 1737.4
+/** UPSTREAM: `SUN_RADIUS_KM`, astronomy.ts line 134. INTERNAL, see above. */
+let sunRadiusKm = 695700.0
 private let horizonRefractionDeg = 34.0 / 60.0
 
 /**
@@ -417,10 +418,14 @@ private func quadInterp(_ tm: Double, _ dt: Double, _ fa: Double, _ fm: Double, 
  * UPSTREAM: `Search`, astronomy.ts ~4634 — bisection with quadratic
  * acceleration for the ascending zero crossing of `f` in `[t1, t2]`. Times are
  * days since J2000 UT rather than upstream's `AstroTime`.
+ *
+ * INTERNAL, shared with Eclipse.swift's shadow searches — not `private`. `what`
+ * labels a non-convergence failure so an eclipse-side search doesn't report
+ * itself as a moon-phase one.
  */
-private func search(
+func search(
     _ f: (Double) -> Double, _ t1In: Double, _ t2In: Double, _ dtToleranceSeconds: Double,
-    iterLimit: Int = moonPhaseIterCap
+    iterLimit: Int = moonPhaseIterCap, what: String = "moon-phase search"
 ) -> Double? {
     let dtDays = abs(dtToleranceSeconds * secondDays)
     var t1 = t1In, t2 = t2In
@@ -431,7 +436,7 @@ private func search(
 
     var iter = 0
     while true {
-        assertReached(iter < iterLimit, "moon-phase search")
+        assertReached(iter < iterLimit, what)
         iter += 1
         let tmid = (t1 + t2) / 2
         let dt = tmid - t1
@@ -470,8 +475,10 @@ private func search(
  * time of the next occurrence is predicted from the current offset and then
  * bracketed ±1.5 days: the Moon's eccentricity has been seen to move a quarter
  * more than 0.9 days off the simple prediction.
+ *
+ * INTERNAL, shared with Eclipse.swift's full-moon probe — not `private`.
  */
-private func searchMoonPhase(_ targetLonDeg: Double, _ startUt: Double, _ limitDays: Double) -> Double? {
+func searchMoonPhase(_ targetLonDeg: Double, _ startUt: Double, _ limitDays: Double) -> Double? {
     let moonOffset: (Double) -> Double = { ut in angleOffset(moonPhaseDeg(ttDaysFromUt(ut)) - targetLonDeg) }
     let uncertainty = 1.5
     var ya = moonOffset(startUt)
