@@ -30,7 +30,7 @@ import { KM_PER_AU, RAD2DEG } from './nutation.js';
 import { topoAltAzUnrefracted } from './transforms.js';
 import { sunGeoVectorEqj } from './sun.js';
 import { moonGeoVectorEqj } from './moon.js';
-import { eclipticLonOfDateDeg } from './illumination.js';
+import { moonPhaseDeg } from './illumination.js';
 
 /** A Sun event: a horizon or twilight crossing, or upper transit. */
 export type SunEventKind =
@@ -48,15 +48,26 @@ export interface MoonPhaseEvent { time: Date; phase: MoonPhaseName; }
 
 // ---------------------------------------------------------------- constants
 
-/** Geometric center altitude at sunrise/sunset: 34′ refraction + 16′ semidiameter. */
-const SUN_RISE_SET_ALT_DEG = -0.8333;
 const CIVIL_ALT_DEG = -6;
 const NAUTICAL_ALT_DEG = -12;
 const ASTRO_ALT_DEG = -18;
 
-/** Moon mean radius, for the semidiameter that lowers its rise/set target. */
+/** Body radii, for the semidiameter that lowers each rise/set target. */
 const MOON_MEAN_RADIUS_KM = 1737.4;
+/** UPSTREAM: `SUN_RADIUS_KM`, astronomy.ts line 134. */
+const SUN_RADIUS_KM = 695700;
 const HORIZON_REFRACTION_DEG = 34 / 60;
+
+/**
+ * The upper-limb rise/set target: unrefracted centre altitude at
+ * −(34′ + the body's true semidiameter at the distance the observer sees).
+ * Spec, Conventions: the same rule for both bodies — a fixed 16′ for the Sun
+ * sits ~10″ off USNO near aphelion and perihelion, which a high-latitude graze
+ * turns into a minute.
+ */
+function upperLimbTargetDeg(radiusKm: number, distanceAu: number): number {
+    return -HORIZON_REFRACTION_DEG - RAD2DEG * Math.asin(radiusKm / (distanceAu * KM_PER_AU));
+}
 
 /** Mean hour-angle advance. The Sun's is a mean solar day by definition. */
 const SUN_HA_RATE_DEG_PER_DAY = 360;
@@ -110,19 +121,19 @@ type Sampler = (ut: number) => Sample;
 function sunSampler(observer: Observer): Sampler {
     return (ut) => {
         const p = topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer);
-        return { ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg, riseSetAltDeg: SUN_RISE_SET_ALT_DEG };
+        return {
+            ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
+            riseSetAltDeg: upperLimbTargetDeg(SUN_RADIUS_KM, p.distanceAu)
+        };
     };
 }
 
 function moonSampler(observer: Observer): Sampler {
     return (ut) => {
         const p = topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer);
-        // Upper limb at the refracted horizon == center at -34′ - semidiameter,
-        // the semidiameter taken at the topocentric distance the observer sees.
-        const semiDiameterDeg = RAD2DEG * Math.asin(MOON_MEAN_RADIUS_KM / (p.distanceAu * KM_PER_AU));
         return {
             ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
-            riseSetAltDeg: -HORIZON_REFRACTION_DEG - semiDiameterDeg
+            riseSetAltDeg: upperLimbTargetDeg(MOON_MEAN_RADIUS_KM, p.distanceAu)
         };
     };
 }
@@ -313,10 +324,11 @@ function extremumHalfWidth(observer: Observer, cycleDays: number): number {
  * Sun rise, set, the three twilights and upper transit within the half-open
  * window `[startUtc, endUtc)`, sorted ascending.
  *
- * Rise and set are the geometric center altitude −0.8333° (the upper-limb
- * convention: 34′ refraction plus 16′ semidiameter); the twilights are center
- * altitude −6°, −12° and −18° with no refraction term; transit is local hour
- * angle zero. An empty list is a valid answer — polar day and polar night drop
+ * Rise and set are the unrefracted geometric centre altitude at −(34′ + the
+ * Sun's true semidiameter at distance) — the upper-limb convention with the
+ * actual disc, the same rule the Moon gets; the twilights are centre altitude
+ * −6°, −12° and −18° with no refraction term; transit is local hour angle
+ * zero. An empty list is a valid answer — polar day and polar night drop
  * the crossings — while transit is reported regardless of whether the Sun is
  * above the horizon when it happens.
  */
@@ -336,7 +348,7 @@ export function sunEvents(startUtc: Date, endUtc: Date, observer: Observer): Sun
  * Moonrise and moonset within the half-open window `[startUtc, endUtc)`,
  * sorted ascending — the apparent topocentric upper limb crossing the horizon,
  * so refraction (34′), topocentric parallax and the true semidiameter at the
- * Moon's distance are all included. An empty list is a valid answer.
+ * Moon's distance are all included — the same upper-limb rule as the Sun's. An empty list is a valid answer.
  */
 export function moonEvents(startUtc: Date, endUtc: Date, observer: Observer): MoonEvent[] {
     assertSupported(startUtc);
@@ -352,30 +364,14 @@ export function moonEvents(startUtc: Date, endUtc: Date, observer: Observer): Mo
 
 // -------------------------------------------------------------- moon phases
 
-/** UPSTREAM: `MEAN_SYNODIC_MONTH`, astronomy.ts line 129. */
+/**
+ * UPSTREAM: `MEAN_SYNODIC_MONTH`, astronomy.ts line 129. The elongation it
+ * searches is {@link moonPhaseDeg}, apparent on both sides per the spec's
+ * moon-phase definition — upstream's `PairLongitude` uses geometric longitudes,
+ * which sit a flat ~40 s off the USNO catalogue.
+ */
 const MEAN_SYNODIC_MONTH = 29.530588;
 const PHASE_NAMES: readonly MoonPhaseName[] = ['new', 'firstQuarter', 'full', 'lastQuarter'];
-
-/**
- * The Moon's apparent ecliptic longitude ahead of the Sun's, [0, 360) — 0 at
- * new moon, 180 at full.
- *
- * UPSTREAM: `MoonPhase` = `PairLongitude(Moon, Sun)` (astronomy.ts ~5221,
- * ~4831) takes both longitudes from `GeoVector(body, t, aberration=false)`,
- * i.e. geometric directions. The Sun here is instead the **apparent** vector —
- * the one {@link sunPosition} returns and the one every phase catalogue
- * (USNO's included) defines a phase on, matching this package's stated
- * coordinate semantics ("geocentric RA/dec are apparent"). The Moon needs no
- * such change: aberration follows the observer's velocity *relative to the
- * body*, 30 km/s for the Sun (20.5″) against 1 km/s for the Moon (0.7″). The
- * 20.5″ is 40 s of elongation rate — two thirds of the 60 s event budget, and
- * plainly visible as a constant bias against the USNO phase fixture.
- */
-function moonPhaseDeg(ut: number): number {
-    const tt = ttDaysFromUt(ut);
-    const diff = eclipticLonOfDateDeg(moonGeoVectorEqj(tt), tt) - eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt);
-    return ((diff % 360) + 360) % 360;
-}
 
 interface QuadRoot { t: number; dfdt: number; }
 
@@ -469,7 +465,7 @@ function search(
  * more than 0.9 days off the simple prediction.
  */
 function searchMoonPhase(targetLonDeg: number, startUt: number, limitDays: number): number | null {
-    const moonOffset = (ut: number) => angleOffset(moonPhaseDeg(ut) - targetLonDeg);
+    const moonOffset = (ut: number) => angleOffset(moonPhaseDeg(ttDaysFromUt(ut)) - targetLonDeg);
     const uncertainty = 1.5;
     let ya = moonOffset(startUt);
     if (ya > 0) ya -= 360;
@@ -500,7 +496,7 @@ export function searchMoonPhases(startUtc: Date, endUtc: Date): MoonPhaseEvent[]
     // argument, so the walk starts a day early: a phase landing exactly on
     // startUtc belongs to this half-open window.
     let probeUt = clampUt(startUt - 1);
-    let quarter = (Math.floor(moonPhaseDeg(probeUt) / 90) + 1) % 4;
+    let quarter = (Math.floor(moonPhaseDeg(ttDaysFromUt(probeUt)) / 90) + 1) % 4;
 
     for (;;) {
         const ut = searchMoonPhase(90 * quarter, probeUt, 10);
