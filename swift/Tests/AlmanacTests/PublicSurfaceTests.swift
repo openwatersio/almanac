@@ -90,5 +90,21 @@ final class PublicSurfaceTests: XCTestCase {
         _ = v.visibleAtPeak
         let c: LunarEclipseContactsVisible = v.contactsVisible
         _ = (c.p1, c.u1, c.u2, c.u3, c.u4, c.p4)
+
+        // Construct all three via their public inits — proves the inits
+        // themselves are public, which a `@testable` test (EclipseTests)
+        // would not catch if they accidentally went internal.
+        let hand = LunarEclipse(
+            kind: e.kind, peak: e.peak, magUmbral: e.magUmbral, magPenumbral: e.magPenumbral,
+            p1: e.p1, u1: e.u1, u2: e.u2, u3: e.u3, u4: e.u4, p4: e.p4
+        )
+        _ = hand.kind
+        let handContacts = LunarEclipseContactsVisible(p1: true, u1: nil, u2: nil, u3: nil, u4: nil, p4: false)
+        let handVisibility = LunarEclipseVisibility(
+            visibleAtPeak: true, moonGeometricAltAtPeakDeg: 10.0, contactsVisible: handContacts
+        )
+        XCTAssertTrue(handVisibility.visibleAtPeak)
+        XCTAssertEqual(handVisibility.contactsVisible.p1, true)
+        XCTAssertNil(handVisibility.contactsVisible.u1)
     }
 }
