@@ -3,6 +3,40 @@ on:
   push: { branches: [main] }
   pull_request:
 jobs:
+  # Which suites a pull request actually needs.
+  #
+  # NOT an `on.paths` filter: `typescript`, `swift` and `fixtures` are required
+  # status checks on main, and a workflow skipped by path filtering never
+  # reports them at all — the pull request then waits on a status that can
+  # never arrive. Skipping at the job level instead leaves a `skipped`
+  # conclusion, which does satisfy a required check.
+  #
+  # Pushes to main are never filtered: that is once per merge, and it keeps
+  # this job off the `github.event.before` edge cases (new branch, force push).
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: filter
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != pull_request ]; then
+            echo 'code=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed=$(git diff --name-only "$BASE...HEAD")
+          echo "$changed"
+          # ci.yml is in the list so a change to CI still tests itself.
+          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures)/|^Package\.swift$|^\.github/workflows/ci\.yml$'; then
+            echo 'code=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'code=false' >> "$GITHUB_OUTPUT"
+          fi
+  # Unconditional: 7 seconds, cheaper to run than to reason about skipping.
   fixtures:
     runs-on: ubuntu-latest
     steps:
@@ -11,6 +45,8 @@ jobs:
         with: { node-version: 22 }
       - run: node fixtures/generate/derive.mjs --check
   typescript:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
@@ -22,6 +58,8 @@ jobs:
       - run: npm test
       - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
   swift:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
