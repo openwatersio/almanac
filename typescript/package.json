@@ -4,6 +4,7 @@
   "description": "Offline sun & moon engine: positions, rise/set, moon phase, lunar eclipses.",
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/openwatersio/almanac.git", "directory": "typescript" },
+  "homepage": "https://openwaters.io/sky",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
