@@ -1,0 +1,28 @@
+{
+  "source": "fixtures/generate/parity.mjs -- cross-port parity corpus, computed values only (no external reference)",
+  "generatedAt": "2026-08-29T04:27:24.707Z",
+  "tsCommit": "cf64b384636ecdfdd82cb171bd8abc90104b5c86",
+  "swiftCommit": "cf64b384636ecdfdd82cb171bd8abc90104b5c86",
+  "note": "Provenance only -- never compared. Scales/tolerances below are read by both ports' parity tests; changing them is a spec change, not a fixture regen.",
+  "scales": {
+    "angleDeg": 1000000,
+    "distanceKm": 1000,
+    "distanceAu": 1000000000,
+    "fraction": 1000000
+  },
+  "tolerances": {
+    "angleDeg": 0.00001,
+    "distanceKm": 0.01,
+    "distanceAu": 1e-8,
+    "fraction": 0.00001,
+    "timeMs": 100
+  },
+  "eventTimeQuantumMs": 100,
+  "counts": {
+    "samples": 6894,
+    "sunEvents": 9449,
+    "moonEvents": 2115,
+    "moonPhases": 50,
+    "eclipses": 344
+  }
+}
