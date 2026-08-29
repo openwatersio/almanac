@@ -15,7 +15,9 @@ Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside
 raise a typed error. All instants are UT1-accurate, not civil-UTC-accurate in the far
 future — see the design spec's Conventions section for what that means and why.
 
-Design: [`docs/superpowers/specs/2026-08-28-almanac-v1-design.md`](docs/superpowers/specs/2026-08-28-almanac-v1-design.md)
+- Design: [`docs/superpowers/specs/2026-08-28-almanac-v1-design.md`](docs/superpowers/specs/2026-08-28-almanac-v1-design.md)
+- Roadmap: [`docs/ROADMAP.md`](docs/ROADMAP.md) — what ships next, and what will not.
+- Landing page: [openwaters.io/sky](https://openwaters.io/sky) — the library running live in a browser.
 
 Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/astronomy)
 (MIT, Don Cross) — see [NOTICE](NOTICE). MIT licensed.
