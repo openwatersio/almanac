@@ -319,11 +319,26 @@ function searchAltitudeEvents<K extends string>(
             : refineExtremum(sample, nextEst, nextIsMax, extremumHalfWidthDays, s0.ut);
         assertReached(s1.ut > s0.ut, 'extremum chain ordering');
 
-        for (const spec of levels) {
-            const g0 = crossingSign(s0, spec.level);
-            const g1 = crossingSign(s1, spec.level);
-            if (g0 * g1 >= 0) continue;      // no crossing, or a graze that only touches
-            emit(bisectCrossing(sample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
+        // Earlier extrema still establish the chain, but their crossings cannot be emitted.
+        if (quantizedUt(s1.ut) >= startUt) {
+            let crossingSample = sample;
+            if (levels.length > 1) {
+                // Twilight levels share midpoint probes; retain them only for this segment.
+                const samples = new Map<number, Sample>();
+                crossingSample = (ut) => {
+                    const previous = samples.get(ut);
+                    if (previous) return previous;
+                    const current = sample(ut);
+                    samples.set(ut, current);
+                    return current;
+                };
+            }
+            for (const spec of levels) {
+                const g0 = crossingSign(s0, spec.level);
+                const g1 = crossingSign(s1, spec.level);
+                if (g0 * g1 >= 0) continue;      // no crossing, or a graze that only touches
+                emit(bisectCrossing(crossingSample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
+            }
         }
         if (nextIsMax && transitKind !== null && !atRangeEnd) emit(nextEst, transitKind);
 
