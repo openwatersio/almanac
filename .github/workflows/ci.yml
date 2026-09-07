@@ -31,7 +31,7 @@ jobs:
           changed=$(git diff --name-only "$BASE...HEAD")
           echo "$changed"
           # ci.yml is in the list so a change to CI still tests itself.
-          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures)/|^Package\.swift$|^\.github/workflows/ci\.yml$'; then
+          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures|benchmarks)/|^Package\.swift$|^\.github/workflows/ci\.yml$'; then
             echo 'code=true' >> "$GITHUB_OUTPUT"
           else
             echo 'code=false' >> "$GITHUB_OUTPUT"
@@ -64,3 +64,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: swift test -c release
+  performance:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    permissions: { contents: read }
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { port: typescript, os: ubuntu-latest }
+          - { port: swift, os: macos-15 }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - if: matrix.port == 'typescript'
+        run: npm ci --prefix typescript
+      - run: node --test benchmarks/compare.test.mjs
+      - name: Compare base and candidate on the same runner
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          PORT: ${{ matrix.port }}
+        run: node benchmarks/run.mjs --base "$BASE" --port "$PORT" --output benchmark-results
+      - name: Publish timing table
+        if: always()
+        run: |
+          if [ -f benchmark-results/summary.md ]; then
+            cat benchmark-results/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-${{ matrix.port }}
+          path: benchmark-results
+          retention-days: 30

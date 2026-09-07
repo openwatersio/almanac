@@ -2,3 +2,4 @@ node_modules/
 typescript/dist/
 .build/
 .superpowers/
+.benchmarks/

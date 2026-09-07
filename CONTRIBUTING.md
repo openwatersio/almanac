@@ -15,8 +15,61 @@ cd .. && swift test -c release
 node fixtures/generate/derive.mjs --check
 ```
 
-CI runs the same four jobs (node, swift release, fixture check, parity check) on
-every push and PR.
+CI runs these checks plus performance comparisons on code changes in PRs and
+every push to main.
+
+## Performance
+
+From the repository root, with Node 22+ and the TypeScript dev dependencies
+installed (`npm ci --prefix typescript`):
+
+```bash
+node benchmarks/run.mjs --base origin/main
+```
+
+This benchmarks the current working tree (including uncommitted edits) against
+the selected Git revision. Omit `--base` to compare against `HEAD`. Use
+`--port typescript` or `--port swift` to run one port; Swift requires Swift 5.9+
+and always builds in release mode. No extra benchmark dependencies are needed.
+
+Both revisions use the **current harness, inputs, compiler and machine**. The
+baseline is exported to a temporary directory, so it can predate the harness
+and your checkout is never switched. Builds, fixture loading, date parsing and
+process startup are outside the measurements. Each workload warms up for 300 ms,
+calibrates a batch to 100 ms or longer, then records seven samples in milliseconds
+per workload. Results are consumed and checked for consistency.
+
+The table shows median latency and percentage change for every workload.
+**Any median slowdown over 20% fails the command/CI job**; customize the limit
+locally with `--threshold 10`. Small deltas can be timing noise: keep the machine
+idle and repeat a suspicious run. Sequential base/candidate runs cannot eliminate
+thermal drift or noisy neighbors. The margin is a policy, not a statistical
+significance claim; correctness and parity tests remain the accuracy gates.
+
+The shared inputs in [`benchmarks/cases.json`](benchmarks/cases.json) cover
+positions, a 228-hour sky track, short/year/polar event windows, full-range phases,
+and lunar eclipses. For [#6](https://github.com/openwatersio/almanac/issues/6),
+the eclipse cases measure next search, occupied/empty 228-hour windows, the
+current 400-day forward walk to find the previous eclipse, and a 1950–2100 catalog
+walk. They measure the existing consumer workaround; add the native backward/range
+calls to **both** runners when those APIs land.
+
+Raw samples, iteration counts, output checksums, Git revisions, harness hash and
+machine/toolchain metadata are saved under `.benchmarks/<timestamp>/`, alongside
+`summary.md`. Set `--output directory` for a predictable location. Saved reports
+from the same environment/harness can also be compared directly:
+
+```bash
+node benchmarks/compare.mjs base-typescript.json candidate-typescript.json 20
+node --test benchmarks/compare.test.mjs
+```
+
+CI compares the PR merge result with its target branch's base SHA, or a main push
+with the previous main SHA. Each port builds and runs both revisions sequentially
+in one job, publishes a timing table in the Actions summary, and retains JSON and
+Markdown artifacts for 30 days, including on regressions. This gives each merge
+a recorded comparison; it is not a permanent trend dashboard. Missing workloads,
+invalid timings, changed outputs, and incompatible reports fail closed.
 
 ## Releasing
 
