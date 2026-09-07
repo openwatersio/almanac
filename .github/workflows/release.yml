@@ -6,10 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: node
       - name: assert tag matches package.json version
         run: |
           pkg_version="$(node -p "require('./typescript/package.json').version")"
@@ -22,20 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: node
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
       - run: node fixtures/generate/derive.mjs --check
   typescript:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: node
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
       - run: npm ci
       - run: npm run build
       - run: npm test
@@ -44,20 +36,11 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: swift
       - run: swift test -c release
   smoke-swiftpm:
     needs: [tag-version, fixtures, typescript, swift]
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: swift
       - name: build a scratch package depending on this tag
         run: |
           version="${GITHUB_REF_NAME#v}"
@@ -90,10 +73,8 @@ jobs:
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: node
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
       - run: npm ci
       - run: npm pack
       - name: assert tarball contents
@@ -121,14 +102,11 @@ jobs:
     needs: [smoke-swiftpm, smoke-npm]
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.1
-          install_args: node
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm install -g npm@latest   # trusted publishing needs npm >= 11.5.1
       - uses: actions/download-artifact@v4
         with:
           name: almanac-npm-tarball

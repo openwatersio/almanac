@@ -1,6 +1,6 @@
 # Scope
 
-Almanac provides the same offline Sun, Moon, and fixed-star calculations in TypeScript and Swift. The [v1 design spec](superpowers/specs/2026-08-28-almanac-v1-design.md) defines the binding behavior, and [GitHub issues](https://github.com/openwatersio/almanac/issues) track proposed work.
+Almanac provides the same offline Sun, Moon, and fixed-star calculations in TypeScript and Swift. The [public contract](CONTRACT.md) defines the binding behavior, and [GitHub issues](https://github.com/openwatersio/almanac/issues) track proposed work.
 
 ## Included
 

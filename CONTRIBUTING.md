@@ -1,6 +1,6 @@
 # Contributing
 
-Almanac is a twin-port library with one behavior implemented by hand in TypeScript and Swift. The [design spec](docs/superpowers/specs/2026-08-28-almanac-v1-design.md) is the binding contract, and the fixture corpus is the authority both ports answer to. Read the spec before changing public behavior.
+Almanac is a twin-port library with one behavior implemented by hand in TypeScript and Swift. The [public contract](docs/CONTRACT.md) defines that behavior, and the fixture corpus is the authority both ports answer to. Read the contract before changing public behavior.
 
 ## Repository status
 
@@ -14,7 +14,8 @@ The shared organization guidance is in the [repository standards](https://github
 - `swift/` contains the SwiftPM package and mirrors the TypeScript implementation.
 - `fixtures/` contains raw upstream evidence, derived fixtures, and the parity corpus used by both ports.
 - `benchmarks/` contains the shared correctness-preserving performance harness.
-- `docs/` contains the design contract and scope.
+- `docs/` contains the public contract and scope.
+- `Package.swift` is the root manifest used by Git URL SwiftPM consumers.
 - `.github/workflows/ci.yml` runs pull request and main-branch checks.
 - `.github/workflows/release.yml` tests, smoke-tests, and publishes tagged releases.
 
@@ -22,7 +23,7 @@ The shared organization guidance is in the [repository standards](https://github
 
 - Every behavior change lands in both ports in the same change series. TypeScript leads, and Swift follows function by function with the same structure and operation order. The parity corpus compares the implementations near exactly at about `1e-5°`.
 - Astronomy algorithms are translated from Astronomy Engine at pinned commit `865d3da7d8112bbc7911238052c6af4aaf877181`. Copy coefficient tables from that source and cite the upstream function above each translation.
-- The public API is the table in the design spec. TypeScript exports only through the curated allow-list in `typescript/src/index.ts`. Swift access control is the export gate, and `PublicSurfaceTests.swift` must construct or call every public symbol using plain `import Almanac`. A public-surface change updates the spec table, both ports, that test, and usually the parity corpus.
+- The public API is the table in [the contract](docs/CONTRACT.md#public-api). TypeScript exports only through the curated allow-list in `typescript/src/index.ts`. Swift access control is the export gate, and `PublicSurfaceTests.swift` must construct or call every public symbol using plain `import Almanac`. A public-surface change updates the contract table, both ports, that test, and usually the parity corpus.
 - Test tolerances are normative. Do not loosen a tolerance to make a test pass. A resistant fixture means the implementations differ in operation order, a constant, or TT/UT handling, or that the fixture design needs a spec decision.
 - Regenerate parity data with `fixtures/generate/parity.mjs`. The Swift reproduction test must still pass. Comparisons decode values with a tolerance of 5 scaled units or 1 time quantum to accommodate cross-platform `libm` ULP noise; they do not compare serialized bytes.
 
@@ -37,11 +38,15 @@ The shared organization guidance is in the [repository standards](https://github
 
 ## Development checks
 
-The repository requires mise 2026.9.1 or newer because that release includes the core Swift backend. `mise.toml` pins Node 24.20.0 and Swift 6.3.3. Install those exact versions before running checks:
+CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `macos-15` supplies Swift (6.1.2 in the current runner image). Local `mise.toml` mirrors those versions. Update it when CI changes; workflows do not read it. The npm packaging and publishing jobs use Node 24 for trusted publishing.
+
+For local setup, mise 2026.9.1 or newer provides the core Swift backend:
 
 ```bash
 mise install
 ```
+
+Swift also needs the matching Xcode SDK. The `macos-15` runner uses Xcode 16.4 and the macOS 15.5 SDK. Select that Xcode installation with `DEVELOPER_DIR` when reproducing CI locally, for example `export DEVELOPER_DIR=/Applications/Xcode_16.4.app/Contents/Developer`. Mise installs the compiler, not Xcode or its SDK; Swift 6.1.2 cannot compile against the Xcode 26.5 SDK.
 
 Run the correctness, dependency, and package checks from the repository root:
 

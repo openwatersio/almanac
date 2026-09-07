@@ -1,5 +1,5 @@
 min_version = "2026.9.1"
 
 [tools]
-node = "24.20.0"
-swift = "6.3.3"
+node = "22"
+swift = "6.1.2"
