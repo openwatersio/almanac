@@ -23,61 +23,25 @@ export interface MoonEcliptic { geoEclipLon: number; geoEclipLat: number; distan
 export function calcMoon(tt: number): MoonEcliptic {
     const T = tt / 36525;
 
-    interface PascalArray1 {
-        min: number;
-        array: number[];
-    }
-
-    interface PascalArray2 {
-        min: number;
-        array: PascalArray1[];
-    }
-
-    function DeclareArray1(xmin: number, xmax: number): PascalArray1 {
-        const array = [];
-        let i: number;
-        for (i=0; i <= xmax-xmin; ++i) {
-            array.push(0);
-        }
-        return {min:xmin, array:array};
-    }
-
-    function DeclareArray2(xmin: number, xmax: number, ymin: number, ymax: number): PascalArray2 {
-        const array = [];
-        for (let i=0; i <= xmax-xmin; ++i) {
-            array.push(DeclareArray1(ymin, ymax));
-        }
-        return {min:xmin, array:array};
-    }
-
-    function ArrayGet2(a: PascalArray2, x: number, y: number) {
-        const m = a.array[x - a.min];
-        return m.array[y - m.min];
-    }
-
-    function ArraySet2(a: PascalArray2, x: number, y: number, v: number) {
-        const m = a.array[x - a.min];
-        m.array[y - m.min] = v;
-    }
-
     let S: number, MAX: number, ARG: number, FAC: number, I: number, J: number, T2: number, DGAM: number, DLAM: number, N: number, GAM1C: number, SINPI: number, L0: number, L: number, LS: number, F: number, D: number, DL0: number, DL: number, DLS: number, DF: number, DD: number, DS: number;
-    let coArray = DeclareArray2(-6, 6, 1, 4);
-    let siArray = DeclareArray2(-6, 6, 1, 4);
+    // CO/SI tables: x in -6...6, y in 1...4, stored in flat 13x4 arrays.
+    const coArray = new Array<number>(52).fill(0);
+    const siArray = new Array<number>(52).fill(0);
 
     function CO(x: number, y: number) {
-        return ArrayGet2(coArray, x, y);
+        return coArray[(x + 6) * 4 + y - 1];
     }
 
     function SI(x: number, y: number) {
-        return ArrayGet2(siArray, x, y);
+        return siArray[(x + 6) * 4 + y - 1];
     }
 
     function SetCO(x: number, y: number, v: number) {
-        return ArraySet2(coArray, x, y, v);
+        coArray[(x + 6) * 4 + y - 1] = v;
     }
 
     function SetSI(x: number, y: number, v: number) {
-        return ArraySet2(siArray, x, y, v);
+        siArray[(x + 6) * 4 + y - 1] = v;
     }
 
     type ThetaFunc = (real:number, imag:number) => void;

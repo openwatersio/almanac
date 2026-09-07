@@ -255,13 +255,26 @@ function refineExtremum(
 }
 
 /**
- * Bisection for the single crossing of `level` on the monotonic segment
- * between two consecutive extrema.
+ * Quadratically accelerated search for the single crossing of `level` on a
+ * monotonic segment, with bisection if the estimate cannot be verified.
  */
 function bisectCrossing(sample: Sampler, level: Level, s0: Sample, s1: Sample): number {
     let a = s0.ut;
     let b = s1.ut;
-    let belowAtA = offsetDeg(s0, level) < 0;
+    const belowAtA = offsetDeg(s0, level) < 0;
+    // Reuse the phase search's quadratic acceleration, normalized to an
+    // ascending crossing. Endpoint geometry has already been evaluated.
+    const f = (ut: number) => (belowAtA ? 1 : -1) * offsetDeg(
+        ut === s0.ut ? s0 : ut === s1.ut ? s1 : sample(ut), level
+    );
+    const root = search(f, a, b, 0.25, BISECTION_CAP, 'altitude crossing');
+    if (root !== null) {
+        // A derivative-based estimate alone does not establish a time bound.
+        // Accept only a verified half-second bracket, including near grazes.
+        const left = Math.max(a, root - TIME_TOL_DAYS / 4);
+        const right = Math.min(b, root + TIME_TOL_DAYS / 4);
+        if (f(left) < 0 && f(right) >= 0) return (left + right) / 2;
+    }
     for (let i = 0; i < BISECTION_CAP; i++) {
         if (b - a < TIME_TOL_DAYS) return (a + b) / 2;
         const mid = (a + b) / 2;
@@ -319,11 +332,26 @@ function searchAltitudeEvents<K extends string>(
             : refineExtremum(sample, nextEst, nextIsMax, extremumHalfWidthDays, s0.ut);
         assertReached(s1.ut > s0.ut, 'extremum chain ordering');
 
-        for (const spec of levels) {
-            const g0 = crossingSign(s0, spec.level);
-            const g1 = crossingSign(s1, spec.level);
-            if (g0 * g1 >= 0) continue;      // no crossing, or a graze that only touches
-            emit(bisectCrossing(sample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
+        // Earlier extrema still establish the chain, but their crossings cannot be emitted.
+        if (quantizedUt(s1.ut) >= startUt) {
+            let crossingSample = sample;
+            if (levels.length > 1) {
+                // Twilight levels share midpoint probes; retain them only for this segment.
+                const samples = new Map<number, Sample>();
+                crossingSample = (ut) => {
+                    const previous = samples.get(ut);
+                    if (previous) return previous;
+                    const current = sample(ut);
+                    samples.set(ut, current);
+                    return current;
+                };
+            }
+            for (const spec of levels) {
+                const g0 = crossingSign(s0, spec.level);
+                const g1 = crossingSign(s1, spec.level);
+                if (g0 * g1 >= 0) continue;      // no crossing, or a graze that only touches
+                emit(bisectCrossing(crossingSample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
+            }
         }
         if (nextIsMax && transitKind !== null && !atRangeEnd) emit(nextEst, transitKind);
 

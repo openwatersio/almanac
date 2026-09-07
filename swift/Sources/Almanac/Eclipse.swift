@@ -213,12 +213,15 @@ private func peakEarthShadow(_ centerUt: Double) -> ShadowInfo {
  * then averages the two halves, so the contacts this package reports are
  * symmetric about the peak by construction (as upstream's are).
  */
-private func shadowSemiDurationMinutes(_ centerUt: Double, _ radiusLimitKm: Double, _ windowMinutes: Double) -> Double {
+private func shadowSemiDurationMinutes(_ shadow: ShadowInfo, _ radiusLimitKm: Double, _ windowMinutes: Double) -> Double {
+    let centerUt = shadow.ut
+    // Both contact searches sample the peak, whose geometry is already known.
+    func distance(_ ut: Double) -> Double { ut == centerUt ? shadow.r : earthShadow(ut).r }
     let window = windowMinutes / minutesPerDay
     guard
-        let t1 = search({ ut in -(earthShadow(ut).r - radiusLimitKm) }, centerUt - window, centerUt,
+        let t1 = search({ ut in -(distance(ut) - radiusLimitKm) }, centerUt - window, centerUt,
                          shadowTolSeconds, iterLimit: shadowIterCap, what: "shadow semiduration (before)"),
-        let t2 = search({ ut in +(earthShadow(ut).r - radiusLimitKm) }, centerUt, centerUt + window,
+        let t2 = search({ ut in +(distance(ut) - radiusLimitKm) }, centerUt, centerUt + window,
                          shadowTolSeconds, iterLimit: shadowIterCap, what: "shadow semiduration (after)")
     else {
         fatalError("almanac internal: failed to find shadow semiduration")
@@ -327,17 +330,17 @@ private func buildEclipse(_ shadow: ShadowInfo, _ peak: Date) throws -> LunarEcl
     var kind: LunarEclipseKind = .penumbral
     var sdTotal = 0.0
     var sdPartial = 0.0
-    let sdPenum = shadowSemiDurationMinutes(shadow.ut, shadow.p + moonMeanRadiusKm, penumbralWindowMinutes)
+    let sdPenum = shadowSemiDurationMinutes(shadow, shadow.p + moonMeanRadiusKm, penumbralWindowMinutes)
 
     if shadow.r < shadow.k + moonMeanRadiusKm {
         // This is at least a partial eclipse.
         kind = .partial
-        sdPartial = shadowSemiDurationMinutes(shadow.ut, shadow.k + moonMeanRadiusKm, sdPenum)
+        sdPartial = shadowSemiDurationMinutes(shadow, shadow.k + moonMeanRadiusKm, sdPenum)
 
         if shadow.r + moonMeanRadiusKm < shadow.k {
             // This is a total eclipse.
             kind = .total
-            sdTotal = shadowSemiDurationMinutes(shadow.ut, shadow.k - moonMeanRadiusKm, sdPartial)
+            sdTotal = shadowSemiDurationMinutes(shadow, shadow.k - moonMeanRadiusKm, sdPartial)
         }
     }
 

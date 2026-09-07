@@ -17,22 +17,18 @@ struct MoonEcliptic { let geoEclipLon: Double; let geoEclipLat: Double; let dist
 /**
  * UPSTREAM: `CalcMoon`, astronomy.ts lines 1494-1793 — the full MOON2 series.
  * Returns ecliptic longitude/latitude of date (radians) and distance (AU).
- *
- * TS represents the CO/SI term tables as 1-based Pascal-style arrays (x in
- * -6...6, y in 1...4) via a small helper wrapper; this port hardcodes the same
- * bounds as a 13x4 Swift array with an x+6 / y-1 index shift — same storage,
- * same math, no generic array-of-arrays wrapper needed for one fixed shape.
  */
 func calcMoon(_ tt: Double) -> MoonEcliptic {
     let T = tt / 36525
 
-    var co = Array(repeating: Array(repeating: 0.0, count: 4), count: 13)   // co[x+6][y-1], x: -6...6, y: 1...4
-    var si = Array(repeating: Array(repeating: 0.0, count: 4), count: 13)
+    // CO/SI tables: x in -6...6, y in 1...4, stored in flat 13x4 arrays.
+    var co = Array(repeating: 0.0, count: 52)
+    var si = Array(repeating: 0.0, count: 52)
 
-    func CO(_ x: Int, _ y: Int) -> Double { co[x + 6][y - 1] }
-    func SI(_ x: Int, _ y: Int) -> Double { si[x + 6][y - 1] }
-    func SetCO(_ x: Int, _ y: Int, _ v: Double) { co[x + 6][y - 1] = v }
-    func SetSI(_ x: Int, _ y: Int, _ v: Double) { si[x + 6][y - 1] = v }
+    func CO(_ x: Int, _ y: Int) -> Double { co[(x + 6) * 4 + y - 1] }
+    func SI(_ x: Int, _ y: Int) -> Double { si[(x + 6) * 4 + y - 1] }
+    func SetCO(_ x: Int, _ y: Int, _ v: Double) { co[(x + 6) * 4 + y - 1] = v }
+    func SetSI(_ x: Int, _ y: Int, _ v: Double) { si[(x + 6) * 4 + y - 1] = v }
 
     /** UPSTREAM: `AddThe` — complex multiply (c1+i*s1)*(c2+i*s2). */
     func AddThe(_ c1: Double, _ s1: Double, _ c2: Double, _ s2: Double) -> (Double, Double) {

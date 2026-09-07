@@ -69,7 +69,11 @@ private func normalizeLongitude(_ lon: Double) -> Double {
  * ~35″ of elongation.
  */
 func moonPhaseDeg(_ tt: Double) -> Double {
-    normalizeLongitude(eclipticLonOfDateDeg(moonGeoVectorEqj(tt), tt) - eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt))
+    moonPhaseFromVector(tt, moonGeoVectorEqj(tt))
+}
+
+private func moonPhaseFromVector(_ tt: Double, _ moon: Vec3) -> Double {
+    normalizeLongitude(eclipticLonOfDateDeg(moon, tt) - eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt))
 }
 
 /** INTERNAL: moon illumination for a TT instant. See `moonIllumination`. */
@@ -83,7 +87,7 @@ func moonIlluminationAtTT(_ tt: Double) -> MoonIllumination {
     let phaseAngleDeg = angleBetweenDeg(gc, hc)
     let fraction = (1 + cos(DEG2RAD * phaseAngleDeg)) / 2
 
-    let phase = moonPhaseDeg(tt) / 360
+    let phase = moonPhaseFromVector(tt, gc) / 360
     return MoonIllumination(fraction: fraction, phaseAngleDeg: phaseAngleDeg, phase: phase, waxing: phase < 0.5)
 }
 

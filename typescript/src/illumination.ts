@@ -67,8 +67,12 @@ function normalizeLongitude(lon: number): number {
  * that far off the USNO catalogue.
  */
 export function moonPhaseDeg(tt: number): number {
+    return moonPhaseFromVector(tt, moonGeoVectorEqj(tt));
+}
+
+function moonPhaseFromVector(tt: number, moon: Vec3): number {
     return normalizeLongitude(
-        eclipticLonOfDateDeg(moonGeoVectorEqj(tt), tt) - eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt)
+        eclipticLonOfDateDeg(moon, tt) - eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt)
     );
 }
 
@@ -83,7 +87,7 @@ export function moonIlluminationAtTT(tt: number): MoonIllumination {
     const phaseAngleDeg = angleBetweenDeg(gc, hc);
     const fraction = (1 + Math.cos(DEG2RAD * phaseAngleDeg)) / 2;
 
-    const phase = moonPhaseDeg(tt) / 360;
+    const phase = moonPhaseFromVector(tt, gc) / 360;
     return { fraction, phaseAngleDeg, phase, waxing: phase < 0.5 };
 }
 
