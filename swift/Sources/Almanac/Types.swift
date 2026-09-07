@@ -12,6 +12,10 @@ public enum AlmanacError: Error, Equatable {
 func normalized(_ d: Date) throws -> Date {
     let ms = d.timeIntervalSince1970 * 1000
     guard ms.isFinite else { throw AlmanacError.invalidArgument("non-finite Date") }
+    // Foundation stores seconds since 2001. Converting an already clipped
+    // Date back to epoch milliseconds can leave a fractional ULP, so preserve
+    // Dates that exactly equal the representation of an integer millisecond.
+    if d == Date(timeIntervalSince1970: ms.rounded() / 1000) { return d }
     return Date(timeIntervalSince1970: ms.rounded(.towardZero) / 1000)
 }
 /// Point in time: [min, max). Window ends use assertSupportedWindowEnd ([min, max]).

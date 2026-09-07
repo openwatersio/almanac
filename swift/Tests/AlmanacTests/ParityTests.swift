@@ -179,17 +179,8 @@ final class ParityTests: XCTestCase {
         let observerRows = observers.map { ObserverRow(latitudeDeg: $0.latitudeDeg, longitudeDeg: $0.longitudeDeg) }
         let events = EventsFile(observers: observerRows, sunEvents: sunRows, moonEvents: moonRows, moonPhases: phaseRows)
 
-        var found: [LunarEclipse] = []
-        var cursor = dateFromMs(minMs)
-        while true {
-            do {
-                let e = try nextLunarEclipse(after: cursor)
-                found.append(e)
-                cursor = e.peak
-            } catch AlmanacError.outOfRange {
-                break
-            }
-        }
+        // EclipseTests proves next/previous walks reproduce this range exactly.
+        let found = try lunarEclipses(from: dateFromMs(minMs), to: dateFromMs(maxMs))
         let eclipseRows: [EclipseRow] = try found.map { e in
             let visibility: [VisibilityRow] = try observers.map { observer in
                 let v = try lunarEclipseVisibility(e, observer: observer)

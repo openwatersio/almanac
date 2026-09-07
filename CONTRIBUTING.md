@@ -51,10 +51,12 @@ significance claim; correctness and parity tests remain the accuracy gates.
 The shared inputs in [`benchmarks/cases.json`](benchmarks/cases.json) cover
 positions, a 228-hour sky track, short/year/polar event windows, full-range phases,
 and lunar eclipses. For [#6](https://github.com/openwatersio/almanac/issues/6),
-the eclipse cases measure next search, occupied/empty 228-hour windows, the
-current 400-day forward walk to find the previous eclipse, and a 1950–2100 catalog
-walk. They measure the existing consumer workaround; add the native backward/range
-calls to **both** runners when those APIs land.
+the eclipse cases measure next/previous search, occupied/empty 228-hour windows,
+and the full 1950–2100 range. Both runners use the native backward/range APIs when
+available. Older revisions fall back to the original forward loops (including
+the 400-day lookback), so the same workloads measure the improvement from #6.
+Swift detects API availability from the public declaration in `Eclipse.swift`;
+keep that detection current if the declaration moves or is reformatted.
 
 Raw samples, iteration counts, output checksums, Git revisions, harness hash and
 machine/toolchain metadata are saved under `.benchmarks/<timestamp>/`, alongside

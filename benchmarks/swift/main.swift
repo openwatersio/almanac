@@ -63,14 +63,22 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
         return { Double(try searchMoonPhases(from: from, to: to).count) }
     case "nextLunarEclipse":
         return { try nextLunarEclipse(after: from).peak.timeIntervalSince1970 }
-    case "eclipseWalk":
+    case "lunarEclipses":
+        #if ALMANAC_ECLIPSE_SEARCHES
+        return { Double(try lunarEclipses(from: from, to: to).count) }
+        #else
         return { Double(try eclipseWalk(from, to).count) }
-    case "previousViaWalk":
+        #endif
+    case "previousLunarEclipse":
+        #if ALMANAC_ECLIPSE_SEARCHES
+        return { try previousLunarEclipse(before: to).peak.timeIntervalSince1970 }
+        #else
         return {
             let last = try eclipseWalk(from, to).last
             try require(last != nil, "No previous eclipse in workload")
             return last!.peak.timeIntervalSince1970
         }
+        #endif
     default:
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unknown operation: \(spec.operation)"])
     }

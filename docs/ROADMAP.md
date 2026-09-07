@@ -21,19 +21,19 @@ Both ports, one behavior, validated against the shared fixture corpus.
 Supported interval: `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it
 raise a typed error rather than returning a wrong answer.
 
+## Implemented — awaiting release
+
+**Backward and range lunar eclipse searches** ([#6](https://github.com/openwatersio/almanac/issues/6)).
+`previousLunarEclipse` searches directly backward; `lunarEclipses` returns peaks
+in a half-open window. Consumers no longer need a fixed lookback or a forward
+loop. The performance harness compares both APIs against those original loops.
+
 ## Next — v1.1
 
 **Solar eclipse search and local circumstances.** The shadow-geometry architecture
 already generalizes to it. It has waited because local solar circumstances add geoid
 intersection, path classification, obscuration, and safe-viewing semantics, and no
 consumer has needed them yet. It ships when an app flow does.
-
-**`previousLunarEclipse`.** `nextLunarEclipse` searches strictly forward. The
-[Sky page](https://openwaters.io/sky) is the first consumer that wanted the most recent
-eclipse rather than the coming one, and had to walk forward from a year back to find
-it. That workaround is sound — the longest real gap between lunar eclipses over the
-supported interval is 178 days — but the search belongs in the library, not in every
-caller.
 
 ## Not planned
 

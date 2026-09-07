@@ -461,7 +461,9 @@ export function search(
         assertReached(iter < iterLimit, what);
         const tmid = (t1 + t2) / 2;
         const dt = tmid - t1;
-        if (Math.abs(dt) < dtDays) return tmid;
+        // A caller may clip the initial bracket to a short range. Small
+        // width alone does not prove that it contains an ascending root.
+        if (Math.abs(dt) < dtDays) return f1 <= 0 && f2 >= 0 ? tmid : null;
 
         if (calcFmid) fmid = f(tmid);
         else calcFmid = true;
@@ -493,8 +495,8 @@ export function search(
 }
 
 /**
- * UPSTREAM: `SearchMoonPhase`, astronomy.ts ~5260 — forward search only, which
- * is all the quarter walk needs. The phase repeats every synodic month, so the
+ * UPSTREAM: `SearchMoonPhase`, astronomy.ts ~5260 — a negative limit searches
+ * backward. The phase repeats every synodic month, so the
  * time of the next occurrence is predicted from the current offset and then
  * bracketed ±1.5 days: the Moon's eccentricity has been seen to move a quarter
  * more than 0.9 days off the simple prediction.
@@ -503,11 +505,20 @@ export function searchMoonPhase(targetLonDeg: number, startUt: number, limitDays
     const moonOffset = (ut: number) => angleOffset(moonPhaseDeg(ttDaysFromUt(ut)) - targetLonDeg);
     const uncertainty = 1.5;
     let ya = moonOffset(startUt);
-    if (ya > 0) ya -= 360;
-    const estDt = -(MEAN_SYNODIC_MONTH * ya) / 360;
-    const dt1 = estDt - uncertainty;
-    if (dt1 > limitDays) return null;
-    const dt2 = Math.min(limitDays, estDt + uncertainty);
+    let dt1: number, dt2: number;
+    if (limitDays < 0) {
+        if (ya < 0) ya += 360;
+        const estDt = -(MEAN_SYNODIC_MONTH * ya) / 360;
+        dt2 = estDt + uncertainty;
+        if (dt2 < limitDays) return null;
+        dt1 = Math.max(limitDays, estDt - uncertainty);
+    } else {
+        if (ya > 0) ya -= 360;
+        const estDt = -(MEAN_SYNODIC_MONTH * ya) / 360;
+        dt1 = estDt - uncertainty;
+        if (dt1 > limitDays) return null;
+        dt2 = Math.min(limitDays, estDt + uncertainty);
+    }
     return search(moonOffset, startUt + dt1, startUt + dt2, 0.1);
 }
 

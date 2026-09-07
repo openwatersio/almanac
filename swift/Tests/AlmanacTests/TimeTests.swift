@@ -11,4 +11,17 @@ final class TimeTests: XCTestCase {
         let d = utc("2026-08-28T00:00:00Z")
         XCTAssertEqual((ttDays(d) - utDays(d)) * 86400, deltaTSeconds(decimalYear: 2026.65), accuracy: 0.1)
     }
+
+    func testTimeClipPreservesIntegerMillisecondsAndTruncatesFractionalOnes() throws {
+        for ms in [-607981402149.0, 352801962137.0, 1767225600123.0] {
+            let at = Date(timeIntervalSince1970: ms / 1000)
+            XCTAssertEqual(try normalized(at), at)
+            for fraction in [-0.25, 0.25] {
+                let raw = ms + fraction
+                let clipped = try normalized(Date(timeIntervalSince1970: raw / 1000))
+                XCTAssertEqual(clipped, Date(timeIntervalSince1970: raw.rounded(.towardZero) / 1000))
+                XCTAssertEqual(try normalized(clipped), clipped)
+            }
+        }
+    }
 }

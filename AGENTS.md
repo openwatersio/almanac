@@ -39,9 +39,9 @@ the authority the code answers to. Read the spec before changing any public beha
 - **`FLAT_CYCLE_LATITUDE_DEG = 85` is load-bearing and fails silently** — a too-narrow
   extremum bracket *drops* rise/set events. The brute-force flattening-band oracle
   test is the only thing that catches a regression there; keep it in both ports.
-- **`SAME_ECLIPSE_MS = 100`** — `nextLunarEclipse` is strictly-after with a 100 ms
-  same-eclipse band (peaks reproduce to ~1 ms across seeds). Both directions are
-  documented at the constant.
+- **`SAME_ECLIPSE_MS = 100`** — next/previous lunar eclipse searches are strictly
+  after/before with a 100 ms same-eclipse band. Range searches use exact half-open
+  bounds; keep the fixed full-moon seed so adjacent ranges agree on the peak.
 - **Instants are TimeClip-truncated** (toward zero, integer ms) at every public entry
   in both ports; Swift must not floor.
 - **Swift tests run release** (`swift test -c release`): debug-build perf smokes

@@ -343,4 +343,91 @@ final class EclipseTests: XCTestCase {
             XCTAssertEqual(ms, ms.rounded(), accuracy: 1e-6)
         }
     }
+
+    func testBackwardAndRangeSearchFindEntireCatalogIncludingContacts() throws {
+        var backward: [LunarEclipse] = []
+        var cursor = supportedMax.addingTimeInterval(-0.001)
+        for _ in 0...Self.catalog.count {
+            do {
+                let e = try previousLunarEclipse(before: cursor)
+                XCTAssertLessThan(e.peak, cursor)
+                backward.append(e)
+                cursor = e.peak
+            } catch AlmanacError.outOfRange { break }
+        }
+        let range = try lunarEclipses(from: supportedMin, to: supportedMax)
+        for found in [Array(backward.reversed()), range] {
+            XCTAssertEqual(found.count, Self.catalog.count)
+            for (e, want) in zip(found, Self.walk) {
+                XCTAssertEqual(e.kind, want.kind)
+                XCTAssertEqual(e.magUmbral, want.magUmbral)
+                XCTAssertEqual(e.magPenumbral, want.magPenumbral)
+                let pairs: [(Date?, Date?)] = [
+                    (e.peak, want.peak), (e.p1, want.p1), (e.u1, want.u1),
+                    (e.u2, want.u2), (e.u3, want.u3), (e.u4, want.u4), (e.p4, want.p4)
+                ]
+                for (got, expected) in pairs {
+                    XCTAssertEqual(got, expected)
+                }
+            }
+        }
+    }
+
+    func testEmptyRangeEndingNearPhaseEstimate() throws {
+        let end = utc("2021-01-26T11:00:04Z").addingTimeInterval(0.846)
+        XCTAssertTrue(try lunarEclipses(from: utc("2021-01-13T00:00:00Z"), to: end).isEmpty)
+    }
+
+    func testRangeIncludesEachReturnedPeakAtStartAndExcludesItAtEnd() throws {
+        for e in Self.walk {
+            let at = e.peak
+            // Construct the same integer epoch-ms inputs as TS. Adding a
+            // fractional second to Foundation's 2001 epoch can land just
+            // below the intended millisecond, which TimeClip must truncate.
+            let ms = (at.timeIntervalSince1970 * 1000).rounded()
+            XCTAssertEqual(try normalized(at), at)
+            XCTAssertEqual(try lunarEclipses(from: at, to: Date(timeIntervalSince1970: (ms + 1) / 1000)).map(\.peak), [at], "\(at)")
+            XCTAssertTrue(try lunarEclipses(from: Date(timeIntervalSince1970: (ms - 1) / 1000), to: at).isEmpty, "\(at)")
+        }
+    }
+
+    func testCanApproachEveryPeakFromEitherSideOfItsFullMoon() throws {
+        for e in Self.walk {
+            let ms = (e.peak.timeIntervalSince1970 * 1000).rounded()
+            XCTAssertEqual(try nextLunarEclipse(after: Date(timeIntervalSince1970: (ms - 101) / 1000)).peak, e.peak, "\(e.peak)")
+            XCTAssertEqual(try previousLunarEclipse(before: Date(timeIntervalSince1970: (ms + 101) / 1000)).peak, e.peak, "\(e.peak)")
+        }
+    }
+
+    func testPreviousMirrorsStrictlyAfter100MsBand() throws {
+        let e = try nextLunarEclipse(after: utc("2026-01-01T00:00:00Z"))
+        let ms = (e.peak.timeIntervalSince1970 * 1000).rounded()
+        XCTAssertLessThan(try previousLunarEclipse(before: e.peak).peak, e.peak)
+        XCTAssertLessThan(try previousLunarEclipse(before: Date(timeIntervalSince1970: (ms + 100) / 1000)).peak, e.peak)
+        XCTAssertEqual(try previousLunarEclipse(before: Date(timeIntervalSince1970: (ms + 101) / 1000)).peak, e.peak)
+    }
+
+    func testNewSearchesValidateBeforeEmptyWindowAndHandleSupportedLimits() throws {
+        let from = utc("2026-09-01T00:00:00Z"), to = utc("2026-09-10T12:00:00Z")
+        XCTAssertTrue(try lunarEclipses(from: from, to: to).isEmpty)
+        XCTAssertTrue(try lunarEclipses(from: from, to: from).isEmpty)
+        XCTAssertTrue(try lunarEclipses(from: to, to: from).isEmpty)
+        XCTAssertTrue(try lunarEclipses(from: utc("2100-11-01T00:00:00Z"), to: supportedMax).isEmpty)
+        for invalid in [supportedMin, supportedMax] {
+            XCTAssertThrowsError(try previousLunarEclipse(before: invalid)) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
+        }
+        let nan = Date(timeIntervalSince1970: .nan)
+        for query in [
+            { _ = try previousLunarEclipse(before: nan) },
+            { _ = try lunarEclipses(from: nan, to: to) },
+            { _ = try lunarEclipses(from: from, to: nan) }
+        ] {
+            XCTAssertThrowsError(try query()) { error in
+                guard case AlmanacError.invalidArgument = error else { return XCTFail("expected invalidArgument, got \(error)") }
+            }
+        }
+        for (start, end) in [(supportedMin.addingTimeInterval(-0.001), to), (from, supportedMax.addingTimeInterval(0.001)), (supportedMax, from)] {
+            XCTAssertThrowsError(try lunarEclipses(from: start, to: end)) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
+        }
+    }
 }
