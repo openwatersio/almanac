@@ -184,11 +184,14 @@ function peakEarthShadow(centerUt: number): ShadowInfo {
  * then averages the two halves, so the contacts this package reports are
  * symmetric about the peak by construction (as upstream's are).
  */
-function shadowSemiDurationMinutes(centerUt: number, radiusLimitKm: number, windowMinutes: number): number {
+function shadowSemiDurationMinutes(shadow: ShadowInfo, radiusLimitKm: number, windowMinutes: number): number {
+    const centerUt = shadow.ut;
+    // Both contact searches sample the peak, whose geometry is already known.
+    const distance = (ut: number) => ut === centerUt ? shadow.r : earthShadow(ut).r;
     const window = windowMinutes / MINUTES_PER_DAY;
-    const t1 = search(ut => -(earthShadow(ut).r - radiusLimitKm), centerUt - window, centerUt,
+    const t1 = search(ut => -(distance(ut) - radiusLimitKm), centerUt - window, centerUt,
                       SHADOW_TOL_SECONDS, SHADOW_ITER_CAP, 'shadow semiduration (before)');
-    const t2 = search(ut => +(earthShadow(ut).r - radiusLimitKm), centerUt, centerUt + window,
+    const t2 = search(ut => +(distance(ut) - radiusLimitKm), centerUt, centerUt + window,
                       SHADOW_TOL_SECONDS, SHADOW_ITER_CAP, 'shadow semiduration (after)');
     if (t1 === null || t2 === null) throw new Error('almanac internal: failed to find shadow semiduration');
     return (t2 - t1) * (MINUTES_PER_DAY / 2.0);   // convert days to minutes and average the semi-durations
@@ -288,17 +291,17 @@ function buildEclipse(shadow: ShadowInfo, peak: Date): LunarEclipse {
     let kind: LunarEclipse['kind'] = 'penumbral';
     let sdTotal = 0.0;
     let sdPartial = 0.0;
-    const sdPenum = shadowSemiDurationMinutes(shadow.ut, shadow.p + MOON_MEAN_RADIUS_KM, PENUMBRAL_WINDOW_MINUTES);
+    const sdPenum = shadowSemiDurationMinutes(shadow, shadow.p + MOON_MEAN_RADIUS_KM, PENUMBRAL_WINDOW_MINUTES);
 
     if (shadow.r < shadow.k + MOON_MEAN_RADIUS_KM) {
         // This is at least a partial eclipse.
         kind = 'partial';
-        sdPartial = shadowSemiDurationMinutes(shadow.ut, shadow.k + MOON_MEAN_RADIUS_KM, sdPenum);
+        sdPartial = shadowSemiDurationMinutes(shadow, shadow.k + MOON_MEAN_RADIUS_KM, sdPenum);
 
         if (shadow.r + MOON_MEAN_RADIUS_KM < shadow.k) {
             // This is a total eclipse.
             kind = 'total';
-            sdTotal = shadowSemiDurationMinutes(shadow.ut, shadow.k - MOON_MEAN_RADIUS_KM, sdPartial);
+            sdTotal = shadowSemiDurationMinutes(shadow, shadow.k - MOON_MEAN_RADIUS_KM, sdPartial);
         }
     }
 

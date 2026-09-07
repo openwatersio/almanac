@@ -16,6 +16,7 @@
     { "name": "eclipse/next", "operation": "nextLunarEclipse", "from": "2026-01-01T00:00:00Z" },
     { "name": "eclipse/range-228-hours-hit", "operation": "lunarEclipses", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z", "expected": 1 },
     { "name": "eclipse/range-228-hours-empty", "operation": "lunarEclipses", "from": "2026-09-01T00:00:00Z", "to": "2026-09-10T12:00:00Z", "expected": 0 },
+    { "name": "eclipse/range-228-hours-pruned", "operation": "lunarEclipses", "from": "2026-09-22T00:00:00Z", "to": "2026-10-01T12:00:00Z", "expected": 0 },
     { "name": "eclipse/previous", "operation": "previousLunarEclipse", "from": "2025-07-28T00:00:00Z", "to": "2026-09-01T00:00:00Z" },
     { "name": "eclipse/range-1950-2100", "operation": "lunarEclipses", "from": "1950-01-01T00:00:00Z", "to": "2101-01-01T00:00:00Z", "expected": 344 }
   ]
