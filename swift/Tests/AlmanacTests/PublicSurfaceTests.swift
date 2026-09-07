@@ -39,6 +39,9 @@ final class PublicSurfaceTests: XCTestCase {
         let moonAA: AltAz = try moonAltAz(time, observer: observer)
         XCTAssertFalse(moonAA.azDeg.isNaN)
         XCTAssertFalse(moonAA.altDeg.isNaN)
+        let starAA: AltAz = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: time, observer: observer)
+        XCTAssertFalse(starAA.azDeg.isNaN)
+        XCTAssertFalse(starAA.altDeg.isNaN)
     }
 
     func testIllumination() throws {

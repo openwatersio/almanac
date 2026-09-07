@@ -47,4 +47,34 @@ final class TransformsTests: XCTestCase {
             XCTAssertLessThan(abs(Self.azDiffDeg(p.azDeg, row.azDeg)) * cosAlt * 60, 1, "moon az @ \(row.utc)")
         }
     }
+
+    struct StarRow: Decodable {
+        let utc: String; let latitudeDeg: Double; let longitudeDeg: Double; let star: String
+        let raDeg: Double; let decDeg: Double; let azDeg: Double; let altDeg: Double
+    }
+
+    // USNO celestial-navigation apparent alt/az (NOVAS) of the navigational
+    // stars above the horizon at two sites, computed here from each star's
+    // SIMBAD J2000 position. Same 1 arcmin / altDeg > 10° rule as the sun and
+    // moon; derive.mjs keeps only stars whose proper motion stays under that
+    // through 2050.
+    func testStarsUsnoWithinOneArcmin() throws {
+        let url = fixturesURL().appendingPathComponent("altaz").appendingPathComponent("stars-usno.json")
+        let rows = try JSONDecoder().decode([StarRow].self, from: Data(contentsOf: url))
+        XCTAssertGreaterThan(rows.count, 100)
+        for row in rows where row.altDeg > 10 {
+            let observer = try Observer(latitudeDeg: row.latitudeDeg, longitudeDeg: row.longitudeDeg, elevationM: 0)
+            let p = try starAltAz(raDeg: row.raDeg, decDeg: row.decDeg, at: utc(row.utc), observer: observer)
+            XCTAssertLessThan(abs(p.altDeg - row.altDeg) * 60, 1, "\(row.star) alt @ \(row.utc)")
+            let cosAlt = cos(row.altDeg * Double.pi / 180)
+            XCTAssertLessThan(abs(Self.azDiffDeg(p.azDeg, row.azDeg)) * cosAlt * 60, 1, "\(row.star) az @ \(row.utc)")
+        }
+    }
+
+    func testStarAltAzRejectsPositionsOffTheSphere() {
+        let t = utc("2026-03-20T06:00:00Z")
+        for (ra, dec) in [(360.0, 0.0), (-1.0, 0.0), (0.0, 90.5), (Double.nan, 0.0)] {
+            XCTAssertThrowsError(try starAltAz(raDeg: ra, decDeg: dec, at: t, observer: Self.victoria), "\(ra), \(dec)")
+        }
+    }
 }
