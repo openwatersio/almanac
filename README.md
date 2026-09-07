@@ -95,7 +95,7 @@ const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 ### Swift
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.2.1")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.3.0")
 ```
 
 ```swift
