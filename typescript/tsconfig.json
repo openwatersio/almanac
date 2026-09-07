@@ -5,6 +5,7 @@
     "moduleResolution": "NodeNext",
     "target": "ES2022",
     "declaration": true,
+    "rootDir": "src",
     "outDir": "dist"
   },
   "include": ["src"]
