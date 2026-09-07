@@ -64,30 +64,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: swift test -c release
-  performance:
+  performance-typescript:
+    name: performance (typescript, ubuntu-latest)
     needs: changes
     if: needs.changes.outputs.code == 'true'
     permissions: { contents: read }
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { port: typescript, os: ubuntu-latest }
-          - { port: swift, os: macos-15 }
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     timeout-minutes: 15
-    steps:
+    env: { PORT: typescript }
+    steps: &performance-steps
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - if: matrix.port == 'typescript'
+      - if: env.PORT == 'typescript'
         run: npm ci --prefix typescript
       - run: node --test benchmarks/compare.test.mjs
       - name: Compare base and candidate on the same runner
         env:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-          PORT: ${{ matrix.port }}
         run: node benchmarks/run.mjs --base "$BASE" --port "$PORT" --output benchmark-results
       - name: Publish timing table
         if: always()
@@ -98,6 +93,15 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: performance-${{ matrix.port }}
+          name: performance-${{ env.PORT }}
           path: benchmark-results
           retention-days: 30
+  performance-swift:
+    name: performance (swift, macos-15)
+    # A failed/skipped TypeScript benchmark skips this job before allocating a Mac.
+    needs: performance-typescript
+    permissions: { contents: read }
+    runs-on: macos-15
+    timeout-minutes: 15
+    env: { PORT: swift }
+    steps: *performance-steps

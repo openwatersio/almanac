@@ -73,6 +73,9 @@ Markdown artifacts for 30 days, including on regressions. This gives each merge
 a recorded comparison; it is not a permanent trend dashboard. Missing workloads,
 invalid timings, changed outputs, and incompatible reports fail closed.
 
+The macOS performance job starts only after the TypeScript performance job
+passes. If TypeScript fails or is skipped, the macOS benchmark is skipped too.
+
 ## Releasing
 
 One version number spans both ports. A release is a git tag; everything else is
