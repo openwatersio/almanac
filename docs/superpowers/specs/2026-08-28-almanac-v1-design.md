@@ -159,6 +159,8 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 | `moonEvents(startUtc, endUtc, observer)` | half-open window, Observer | sorted `[{time, kind}]`, kind ∈ rise, set |
 | `searchMoonPhases(startUtc, endUtc)` | half-open window | sorted `[{time, phase}]`, phase ∈ new, firstQuarter, full, lastQuarter |
 | `nextLunarEclipse(after)` | instant | `LunarEclipse` (fields per the eclipse convention above) or the out-of-range outcome |
+| `previousLunarEclipse(before)` | instant | `LunarEclipse` strictly before the anchor, with the same 100 ms band, or the out-of-range outcome |
+| `lunarEclipses(startUtc, endUtc)` | half-open window | sorted `[LunarEclipse]`, selected by peak; contacts may extend outside the window |
 | `lunarEclipseVisibility(eclipse, observer)` | LunarEclipse, Observer | `visibleAtPeak`, `moonGeometricAltAtPeakDeg` (unrefracted), per-contact visibility flags; the eclipse argument is structurally validated (finite times, contact chronology, kind ↔ contact shape) |
 
 **Cross-port contract** (identical in both ports):
@@ -172,7 +174,7 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 | Reversed/empty window | `startUtc ≥ endUtc` → empty list, no error. |
 | Validation precedence | Arguments are validated (finite, observer ranges, interval containment) **before** the empty/reversed-window short-circuit — a garbage argument never returns a clean empty list. |
 | Window end | Instants validate on `[min, max)`; a **window end** validates on `[min, max]`, so the exact full-range window `[min, max)` is legal. |
-| Search anchor | `nextLunarEclipse(after)`: strictly `peak > after`, with a 100 ms same-eclipse band — a candidate peak within 100 ms of `after` is treated as the eclipse the caller already has and is skipped, never returned again; the ceiling is documented in both ports and can never skip a distinct real eclipse (minimum catalog gap 29 d). |
+| Search anchor | `nextLunarEclipse(after)` / `previousLunarEclipse(before)`: strictly after / before, skipping candidate peaks within 100 ms of the anchor. The band is not applied to range bounds. It can never skip a distinct real eclipse (minimum catalog gap 29 d). |
 
 **Window and search contracts:**
 
@@ -184,15 +186,25 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
   a guess (measured: full-range phases ~0.6 s; full-range sun+moon events ~68 s,
   smoke bound 120 s). `startUtc ≥ endUtc` returns an empty list. Windows must lie inside the
   supported interval; any overlap outside is the out-of-range outcome.
-- `nextLunarEclipse` is strictly after its argument (`peak > after`), with a 100 ms
-  same-eclipse band: a candidate peak landing within 100 ms of `after` is judged the
+- `nextLunarEclipse` is strictly after its argument (`peak > after`), and
+  `previousLunarEclipse` strictly before (`peak < before`), with a 100 ms
+  same-eclipse band: a candidate peak landing within 100 ms of the anchor is judged the
   same eclipse the caller already has and is skipped rather than returned again — the
   band is documented in both ports' source and cannot skip a distinct real eclipse
   (the catalog's minimum gap between consecutive lunar eclipses over 1950–2100 is 29
-  days, ~25 million times the band). It scans forward at most 2 years (some lunar
-  eclipse, penumbral included, always occurs within ~6 months); a scan crossing the
-  supported-interval end returns the out-of-range outcome (TS: typed error; Swift:
-  typed throw).
+  days, ~25 million times the band). Each scans in its direction at most 2 years
+  (some lunar eclipse, penumbral included, always occurs within ~6 months). If no
+  eclipse exists before reaching the supported boundary, it returns the
+  out-of-range outcome (TS: typed error; Swift: typed throw).
+- `lunarEclipses` returns every peak in `[startUtc, endUtc)`, including penumbral
+  eclipses, with no visibility filter. The full-moon scan stops at the window's
+  end plus the peak-search margin; contacts are computed only for included peaks.
+  Every candidate that survives latitude pruning is re-probed from a fixed whole
+  UT day before the shadow search, making its reported peak independent of the
+  caller's direction and window within a runtime. Adjacent ranges can therefore
+  split at a returned peak without losing or duplicating it. Swift normalization
+  preserves an already representable integer-millisecond Date before truncating
+  fractional inputs, avoiding a one-millisecond drift on reuse.
 - Internal iteration caps exist on every root-finder; hitting one is a bug, asserted
   never to occur across the whole fixture corpus.
 

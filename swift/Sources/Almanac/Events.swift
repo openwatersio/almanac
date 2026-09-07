@@ -468,7 +468,9 @@ func search(
         iter += 1
         let tmid = (t1 + t2) / 2
         let dt = tmid - t1
-        if abs(dt) < dtDays { return tmid }
+        // A caller may clip the initial bracket to a short range. Small
+        // width alone does not prove that it contains an ascending root.
+        if abs(dt) < dtDays { return f1 <= 0 && f2 >= 0 ? tmid : nil }
 
         if calcFmid { fmid = f(tmid) } else { calcFmid = true }
 
@@ -498,8 +500,8 @@ func search(
 }
 
 /**
- * UPSTREAM: `SearchMoonPhase`, astronomy.ts ~5260 — forward search only, which
- * is all the quarter walk needs. The phase repeats every synodic month, so the
+ * UPSTREAM: `SearchMoonPhase`, astronomy.ts ~5260 — a negative limit searches
+ * backward. The phase repeats every synodic month, so the
  * time of the next occurrence is predicted from the current offset and then
  * bracketed ±1.5 days: the Moon's eccentricity has been seen to move a quarter
  * more than 0.9 days off the simple prediction.
@@ -510,11 +512,20 @@ func searchMoonPhase(_ targetLonDeg: Double, _ startUt: Double, _ limitDays: Dou
     let moonOffset: (Double) -> Double = { ut in angleOffset(moonPhaseDeg(ttDaysFromUt(ut)) - targetLonDeg) }
     let uncertainty = 1.5
     var ya = moonOffset(startUt)
-    if ya > 0 { ya -= 360 }
-    let estDt = -(meanSynodicMonth * ya) / 360
-    let dt1 = estDt - uncertainty
-    if dt1 > limitDays { return nil }
-    let dt2 = min(limitDays, estDt + uncertainty)
+    let dt1: Double, dt2: Double
+    if limitDays < 0 {
+        if ya < 0 { ya += 360 }
+        let estDt = -(meanSynodicMonth * ya) / 360
+        dt2 = estDt + uncertainty
+        if dt2 < limitDays { return nil }
+        dt1 = max(limitDays, estDt - uncertainty)
+    } else {
+        if ya > 0 { ya -= 360 }
+        let estDt = -(meanSynodicMonth * ya) / 360
+        dt1 = estDt - uncertainty
+        if dt1 > limitDays { return nil }
+        dt2 = min(limitDays, estDt + uncertainty)
+    }
     return search(moonOffset, startUt + dt1, startUt + dt2, 0.1)
 }
 

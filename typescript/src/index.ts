@@ -14,4 +14,4 @@ export type {
 } from './events.js';
 export { sunEvents, moonEvents, searchMoonPhases } from './events.js';
 export type { LunarEclipse, LunarEclipseVisibility } from './eclipse.js';
-export { nextLunarEclipse, lunarEclipseVisibility } from './eclipse.js';
+export { nextLunarEclipse, previousLunarEclipse, lunarEclipses, lunarEclipseVisibility } from './eclipse.js';

@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 import {
     sunPosition, moonPosition, sunAltAz, moonAltAz, moonIllumination,
     sunEvents, moonEvents, searchMoonPhases,
-    nextLunarEclipse, lunarEclipseVisibility, AlmanacOutOfRangeError,
+    lunarEclipses, lunarEclipseVisibility,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -129,19 +129,9 @@ function buildEvents() {
 }
 
 function buildEclipses() {
-    const found = [];
-    let cursor = new Date(MIN_MS);
-    for (;;) {
-        let e;
-        try {
-            e = nextLunarEclipse(cursor);
-        } catch (err) {
-            if (err instanceof AlmanacOutOfRangeError) break;
-            throw err;
-        }
-        found.push(e);
-        cursor = e.peak;
-    }
+    // Eclipse tests prove next/previous walks reproduce this range exactly;
+    // one corpus therefore gates all three search paths without duplicate data.
+    const found = lunarEclipses(new Date(MIN_MS), new Date(MAX_MS));
 
     const eclipses = found.map((e) => ({
         kind: e.kind,

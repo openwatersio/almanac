@@ -69,6 +69,25 @@ for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
 }
 ```
 
+### Eclipse searches (unreleased)
+
+The development branch also supports previous eclipses and ranges:
+
+```ts
+import { previousLunarEclipse, lunarEclipses } from '@openwaters/almanac';
+const last = previousLunarEclipse(new Date());
+const eclipses = lunarEclipses(new Date('2026-08-24T00:00:00Z'), new Date('2026-09-02T12:00:00Z'));
+```
+
+```swift
+let last = try previousLunarEclipse(before: Date())
+let eclipses = try lunarEclipses(from: today, to: tomorrow)
+```
+
+Ranges include peaks at the start and exclude peaks at the end. Contacts may
+extend outside the range. Previous/next searches skip peaks within 100 ms of the
+anchor. Search results are global; apply `lunarEclipseVisibility` for an observer.
+
 ### Performance
 
 Event searches (`sunEvents`/`moonEvents`) are linear in window length. The full

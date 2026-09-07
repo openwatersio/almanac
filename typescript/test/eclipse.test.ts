@@ -1,11 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
-  nextLunarEclipse, lunarEclipseVisibility, moonAltAz, sunAltAz, AlmanacOutOfRangeError
+  nextLunarEclipse, previousLunarEclipse, lunarEclipses,
+  lunarEclipseVisibility, moonAltAz, sunAltAz, AlmanacOutOfRangeError
 } from '../src/index.js';
 import type { LunarEclipse } from '../src/index.js';
 import { refractionDeg } from '../src/transforms.js';
 import type { Observer } from '../src/types.js';
+import { SUPPORTED_MIN, SUPPORTED_MAX } from '../src/types.js';
 
 const load = (p: string) => JSON.parse(readFileSync(new URL(`../../fixtures/${p}`, import.meta.url), 'utf8'));
 
@@ -279,5 +281,75 @@ describe('nextLunarEclipse range handling', () => {
     const e = nextLunarEclipse(new Date('2026-01-01T00:00:00Z'));
     for (const t of [e.peak, e.p1, e.p4, e.u1, e.u4])
       if (t) expect(Number.isInteger(t.getTime())).toBe(true);
+  });
+});
+
+describe('backward and range eclipse searches', () => {
+  it('returns an empty range when its end nearly coincides with a phase estimate', () => {
+    expect(lunarEclipses(new Date('2021-01-13T00:00:00.000Z'), new Date('2021-01-26T11:00:04.846Z'))).toEqual([]);
+  });
+
+  it('finds the entire catalog backward and in one range, including contacts', () => {
+    const backward: LunarEclipse[] = [];
+    let cursor = new Date(SUPPORTED_MAX - 1);
+    for (let i = 0; i <= catalog.length; i++) {
+      try {
+        const e = previousLunarEclipse(cursor);
+        expect(e.peak.getTime()).toBeLessThan(cursor.getTime());
+        backward.push(e);
+        cursor = e.peak;
+      } catch (error) {
+        if (error instanceof AlmanacOutOfRangeError) break;
+        throw error;
+      }
+    }
+    const range = lunarEclipses(new Date(SUPPORTED_MIN), new Date(SUPPORTED_MAX));
+    for (const found of [backward.reverse(), range]) {
+      expect(found.length).toBe(catalog.length);
+      // Reuse the forward walk's catalog and cross-port parity gates. The
+      // new searches must return exactly the same circumstances, not merely
+      // peaks that land within the physical fixture tolerance.
+      expect(found).toEqual(walk);
+    }
+  });
+
+  it('includes each returned peak at the range start and excludes it at the end', () => {
+    for (const e of walk) {
+      const at = e.peak.getTime();
+      expect(lunarEclipses(new Date(at), new Date(at + 1)).map(x => x.peak.getTime()), e.peak.toISOString()).toEqual([at]);
+      expect(lunarEclipses(new Date(at - 1), new Date(at)), e.peak.toISOString()).toEqual([]);
+    }
+  });
+
+  it('can approach a peak from either side, regardless of which side its full moon is on', () => {
+    for (const e of walk) {
+      const at = e.peak.getTime();
+      expect(nextLunarEclipse(new Date(at - 101)).peak.getTime()).toBe(at);
+      expect(previousLunarEclipse(new Date(at + 101)).peak.getTime()).toBe(at);
+    }
+  });
+
+  it('mirrors the strictly-after 100 ms band for previous eclipses', () => {
+    const e = nextLunarEclipse(new Date('2026-01-01T00:00:00Z'));
+    const at = e.peak.getTime();
+    expect(previousLunarEclipse(e.peak).peak.getTime()).toBeLessThan(at);
+    expect(previousLunarEclipse(new Date(at + 100)).peak.getTime()).toBeLessThan(at);
+    expect(previousLunarEclipse(new Date(at + 101)).peak.getTime()).toBe(at);
+  });
+
+  it('validates inputs before returning an empty window and handles supported limits', () => {
+    const from = new Date('2026-09-01T00:00:00Z'), to = new Date('2026-09-10T12:00:00Z');
+    expect(lunarEclipses(from, to)).toEqual([]);
+    expect(lunarEclipses(from, from)).toEqual([]);
+    expect(lunarEclipses(to, from)).toEqual([]);
+    expect(lunarEclipses(new Date('2100-11-01T00:00:00Z'), new Date(SUPPORTED_MAX))).toEqual([]);
+    expect(() => previousLunarEclipse(new Date(SUPPORTED_MIN))).toThrow(AlmanacOutOfRangeError);
+    expect(() => previousLunarEclipse(new Date(SUPPORTED_MAX))).toThrow(AlmanacOutOfRangeError);
+    expect(() => previousLunarEclipse(new Date(NaN))).toThrow(RangeError);
+    expect(() => lunarEclipses(new Date(NaN), to)).toThrow(RangeError);
+    expect(() => lunarEclipses(from, new Date(NaN))).toThrow(RangeError);
+    expect(() => lunarEclipses(new Date(SUPPORTED_MIN - 1), to)).toThrow(AlmanacOutOfRangeError);
+    expect(() => lunarEclipses(from, new Date(SUPPORTED_MAX + 1))).toThrow(AlmanacOutOfRangeError);
+    expect(() => lunarEclipses(new Date(SUPPORTED_MAX), from)).toThrow(AlmanacOutOfRangeError);
   });
 });

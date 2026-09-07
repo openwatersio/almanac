@@ -75,6 +75,9 @@ final class PublicSurfaceTests: XCTestCase {
     func testEclipse() throws {
         let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
         let e: LunarEclipse = try nextLunarEclipse(after: Date(timeIntervalSince1970: 1_756_339_200))
+        let previous: LunarEclipse = try previousLunarEclipse(before: e.peak)
+        let range: [LunarEclipse] = try lunarEclipses(from: previous.peak, to: e.peak)
+        XCTAssertEqual(range.map(\.peak), [previous.peak])
         _ = (e.peak, e.magUmbral, e.magPenumbral, e.p1, e.u1, e.u2, e.u3, e.u4, e.p4)
         let kinds: [LunarEclipseKind] = [.penumbral, .partial, .total]
         XCTAssertEqual(kinds.map { $0.rawValue }, ["penumbral", "partial", "total"])

@@ -122,25 +122,13 @@ private let shadowTolSeconds = 1.0
 private let shadowIterCap = 20
 
 /**
- * How close a candidate peak may sit to `after` and still be judged the same
- * eclipse, milliseconds.
+ * Peaks within 100 ms of a next/previous search anchor count as the same
+ * eclipse. The fixed full-moon seed below removes within-runtime drift; keep
+ * the band for peaks saved by older versions or computed on another runtime.
  *
- * A peak is only reproducible to about a millisecond: the full-moon seed comes
- * from a root finder with a 0.1 s tolerance, and the ±0.03 d peak-shadow window
- * built around it therefore differs slightly between two calls that reach the
- * same eclipse from different starting times, which moves the interpolated root
- * by an observed ≤1 ms. A caller walking the catalog by feeding each peak back
- * in would otherwise re-find that eclipse whenever the second evaluation landed
- * a millisecond later.
- *
- * The band cuts both ways, and both are bounded:
- *   - it can never swallow a real eclipse — consecutive lunar eclipses are
- *     never less than a month apart, 25 million times this window;
- *   - it *can* skip an eclipse the caller genuinely wanted: `after` set inside
- *     the 100 ms before a peak returns the eclipse after it, not that one.
- *     That is the accepted cost, and 100 ms is its ceiling — against a peak
- *     model that agrees with the Espenak catalog to ~15 s, a caller cannot have
- *     meant a boundary that sharp.
+ * This can skip a wanted peak when the anchor is within 100 ms of it, but
+ * cannot skip a distinct eclipse (the catalog's minimum gap is 29 days).
+ * Range searches use exact half-open bounds without this band.
  */
 private let sameEclipseMs = 100.0
 
@@ -203,8 +191,15 @@ private func earthShadowSlope(_ ut: Double) -> Double {
  * time derivative.
  */
 private func peakEarthShadow(_ centerUt: Double) -> ShadowInfo {
+    // Use the same full-moon seed regardless of search direction or window.
+    // Otherwise a ~1 ms root shift can lose/duplicate a peak when a caller
+    // splits a range at a previously returned peak. Only unpruned moons pay
+    // for this second phase search; its start is a fixed whole UT day.
+    guard let fullmoon = searchMoonPhase(180, floor(centerUt) - 1, 4) else {
+        fatalError("almanac internal: cannot refine full moon")
+    }
     guard let ut = search(
-        earthShadowSlope, centerUt - peakWindowDays, centerUt + peakWindowDays,
+        earthShadowSlope, fullmoon - peakWindowDays, fullmoon + peakWindowDays,
         shadowTolSeconds, iterLimit: shadowIterCap, what: "peak earth shadow"
     ) else {
         fatalError("almanac internal: failed to find peak Earth shadow time")
@@ -250,19 +245,63 @@ private func moonEclipticLatitudeDeg(_ ut: Double) -> Double {
  *   the next eclipse falls at or past the end of it.
  */
 public func nextLunarEclipse(after: Date) throws -> LunarEclipse {
-    let after = try normalized(after)
-    try assertSupported(after)
-    let startUt = utDays(after)
-    var fmUt = startUt
+    try nearestLunarEclipse(after, 1)
+}
 
-    while fmUt <= startUt + scanLimitDays {
-        // Search for the next full moon. Any eclipse will be near it.
-        guard let fullmoon = searchMoonPhase(180, fmUt, 40) else {
-            fatalError("almanac internal: cannot find full moon")
-        }
+/**
+ * The last lunar eclipse whose peak falls strictly before `before`, skipping
+ * peaks within 100 ms of it, just as `nextLunarEclipse` does on the other side.
+ *
+ * - Throws: `AlmanacError.invalidArgument` if `before` is non-finite,
+ *   `AlmanacError.outOfRange` if `before` is outside the supported interval or
+ *   the previous eclipse falls before its beginning.
+ */
+public func previousLunarEclipse(before: Date) throws -> LunarEclipse {
+    try nearestLunarEclipse(before, -1)
+}
+
+/// Lunar eclipses with peaks in `[from, to)`, sorted ascending.
+/// Contacts may fall outside the window. Visibility is observer-dependent;
+/// use `lunarEclipseVisibility` on each result to check it.
+public func lunarEclipses(from startUtc: Date, to endUtc: Date) throws -> [LunarEclipse] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    return try scanLunarEclipses((startUtc.timeIntervalSince1970 * 1000).rounded(), (endUtc.timeIntervalSince1970 * 1000).rounded(), 1, firstOnly: false)
+}
+
+private func nearestLunarEclipse(_ anchor: Date, _ direction: Double) throws -> LunarEclipse {
+    let anchor = try normalized(anchor)
+    try assertSupported(anchor)
+    let ms = (anchor.timeIntervalSince1970 * 1000).rounded()
+    let minMs = supportedMin.timeIntervalSince1970 * 1000
+    let maxMs = supportedMax.timeIntervalSince1970 * 1000
+    let startMs = direction > 0 ? ms + sameEclipseMs + 1 : max(minMs, ms - scanLimitDays * 86400000)
+    let endMs = direction > 0 ? min(maxMs, ms + scanLimitDays * 86400000) : ms - sameEclipseMs
+    let found = try scanLunarEclipses(startMs, endMs, direction, firstOnly: true)
+    if let first = found.first { return first }
+    if direction > 0 ? endMs == maxMs : startMs == minMs { throw AlmanacError.outOfRange }
+    // The longest catalog gap is 178 days: exhausting 730 inside the supported
+    // interval is a broken shadow model, not a normal out-of-range result.
+    fatalError("almanac internal: no lunar eclipse within \(Int(scanLimitDays)) days of \(anchor)")
+}
+
+private func scanLunarEclipses(_ startMs: Double, _ endMs: Double, _ direction: Double, firstOnly: Bool) throws -> [LunarEclipse] {
+    var found: [LunarEclipse] = []
+    if startMs >= endMs { return found }
+    // Peak and full moon differ. Include the entire peak-search margin at
+    // both ends, then apply the caller's bounds to the reported peak below.
+    let startUt = utDays(Date(timeIntervalSince1970: startMs / 1000)) - peakWindowDays
+    let endUt = utDays(Date(timeIntervalSince1970: endMs / 1000)) + peakWindowDays
+    var fmUt = direction > 0 ? startUt : endUt
+    let limitUt = direction > 0 ? endUt : startUt
+
+    while direction * (limitUt - fmUt) > 0 {
+        guard let fullmoon = searchMoonPhase(180, fmUt, direction * min(40, abs(limitUt - fmUt))) else { break }
         // UPSTREAM `SearchLunarEclipse`: step past this full moon before the
         // next probe, so the same one cannot be found twice.
-        fmUt = fullmoon + 10
+        fmUt = fullmoon + direction * 10
 
         // Pruning: if the full Moon's ecliptic latitude is too large, a lunar
         // eclipse is not possible. Avoid needless work searching for the
@@ -273,19 +312,13 @@ public func nextLunarEclipse(after: Date) throws -> LunarEclipse {
         // is closest to the line passing through the centers of the Sun and Earth.
         let shadow = peakEarthShadow(fullmoon)
         if shadow.r >= shadow.p + moonMeanRadiusKm { continue }   // not even penumbral
-        // A full moon before `after` can still carry the eclipse the caller
-        // already has; the spec's contract is strictly-later peaks.
         let peak = try normalized(dateFromUt(shadow.ut))
-        if peak <= after.addingTimeInterval(sameEclipseMs / 1000.0) { continue }
-        if peak >= supportedMax { throw AlmanacError.outOfRange }
-
-        return try buildEclipse(shadow, peak)
+        let peakMs = (peak.timeIntervalSince1970 * 1000).rounded()
+        if peakMs < startMs || peakMs >= endMs { continue }
+        found.append(try buildEclipse(shadow, peak))
+        if firstOnly { break }
     }
-    // Not an AlmanacError.outOfRange: the interval is fine, the sky is not. The
-    // longest real gap over 1950-2100 is 178 days, so exhausting 730 means the
-    // shadow model is broken — an internal invariant, like every other
-    // `almanac internal:` crash in this package.
-    fatalError("almanac internal: no lunar eclipse within \(Int(scanLimitDays)) days of \(after)")
+    return found
 }
 
 /** UPSTREAM: the classification and semi-duration block of `SearchLunarEclipse`, astronomy.ts ~8730-8755. */

@@ -19,7 +19,8 @@
 //     the contact instants themselves, and `obscuration` is not in it.
 
 import {
-    Observer, assertObserver, assertSupported, AlmanacOutOfRangeError, SUPPORTED_MAX
+    Observer, assertObserver, assertSupported, assertSupportedWindowEnd,
+    AlmanacOutOfRangeError, SUPPORTED_MIN, SUPPORTED_MAX
 } from './types.js';
 import { dateFromUt, ttDaysFromUt, utDays } from './time.js';
 import { KM_PER_AU, RAD2DEG, Vec3 } from './nutation.js';
@@ -94,25 +95,13 @@ const SHADOW_TOL_SECONDS = 1;
 const SHADOW_ITER_CAP = 20;
 
 /**
- * How close a candidate peak may sit to `after` and still be judged the same
- * eclipse, milliseconds.
+ * Peaks within 100 ms of a next/previous search anchor count as the same
+ * eclipse. The fixed full-moon seed below removes within-runtime drift; keep
+ * the band for peaks saved by older versions or computed on another runtime.
  *
- * A peak is only reproducible to about a millisecond: the full-moon seed comes
- * from a root finder with a 0.1 s tolerance, and the ±0.03 d peak-shadow window
- * built around it therefore differs slightly between two calls that reach the
- * same eclipse from different starting times, which moves the interpolated root
- * by an observed ≤1 ms. A caller walking the catalog by feeding each peak back
- * in would otherwise re-find that eclipse whenever the second evaluation landed
- * a millisecond later.
- *
- * The band cuts both ways, and both are bounded:
- *   - it can never swallow a real eclipse — consecutive lunar eclipses are
- *     never less than a month apart, 25 million times this window;
- *   - it *can* skip an eclipse the caller genuinely wanted: `after` set inside
- *     the 100 ms before a peak returns the eclipse after it, not that one.
- *     That is the accepted cost, and 100 ms is its ceiling — against a peak
- *     model that agrees with the Espenak catalog to ~15 s, a caller cannot have
- *     meant a boundary that sharp.
+ * This can skip a wanted peak when the anchor is within 100 ms of it, but
+ * cannot skip a distinct eclipse (the catalog's minimum gap is 29 days).
+ * Range searches use exact half-open bounds without this band.
  */
 const SAME_ECLIPSE_MS = 100;
 
@@ -175,8 +164,14 @@ function earthShadowSlope(ut: number): number {
  * time derivative.
  */
 function peakEarthShadow(centerUt: number): ShadowInfo {
+    // Use the same full-moon seed regardless of search direction or window.
+    // Otherwise a ~1 ms root shift can lose/duplicate a peak when a caller
+    // splits a range at a previously returned peak. Only unpruned moons pay
+    // for this second phase search; its start is a fixed whole UT day.
+    const fullmoon = searchMoonPhase(180, Math.floor(centerUt) - 1, 4);
+    if (fullmoon === null) throw new Error('almanac internal: cannot refine full moon');
     const ut = search(
-        earthShadowSlope, centerUt - PEAK_WINDOW_DAYS, centerUt + PEAK_WINDOW_DAYS,
+        earthShadowSlope, fullmoon - PEAK_WINDOW_DAYS, fullmoon + PEAK_WINDOW_DAYS,
         SHADOW_TOL_SECONDS, SHADOW_ITER_CAP, 'peak earth shadow'
     );
     if (ut === null) throw new Error('almanac internal: failed to find peak Earth shadow time');
@@ -217,17 +212,58 @@ function moonEclipticLatitudeDeg(ut: number): number {
  *      interval, or if the next eclipse falls at or past the end of it.
  */
 export function nextLunarEclipse(after: Date): LunarEclipse {
-    assertSupported(after);
-    const startUt = utDays(after);
-    let fmUt = startUt;
+    return nearestLunarEclipse(after, 1);
+}
 
-    while (fmUt <= startUt + SCAN_LIMIT_DAYS) {
-        // Search for the next full moon. Any eclipse will be near it.
-        const fullmoon = searchMoonPhase(180, fmUt, 40);
-        if (fullmoon === null) throw new Error('almanac internal: cannot find full moon');
+/**
+ * The last lunar eclipse whose peak falls strictly before `before`, skipping
+ * peaks within 100 ms of it, just as `nextLunarEclipse` does on the other side.
+ *
+ * @throws {AlmanacOutOfRangeError} if `before` is outside the supported
+ *      interval, or if the previous eclipse falls before its beginning.
+ */
+export function previousLunarEclipse(before: Date): LunarEclipse {
+    return nearestLunarEclipse(before, -1);
+}
+
+/** Lunar eclipses with peaks in `[startUtc, endUtc)`, sorted ascending.
+ *  Contacts may fall outside the window. Visibility is observer-dependent;
+ *  use `lunarEclipseVisibility` on each result to check it. */
+export function lunarEclipses(startUtc: Date, endUtc: Date): LunarEclipse[] {
+    assertSupported(startUtc);
+    assertSupportedWindowEnd(endUtc);
+    return scanLunarEclipses(startUtc.getTime(), endUtc.getTime(), 1, false);
+}
+
+function nearestLunarEclipse(anchor: Date, direction: 1 | -1): LunarEclipse {
+    assertSupported(anchor);
+    const ms = anchor.getTime();
+    const startMs = direction > 0 ? ms + SAME_ECLIPSE_MS + 1 : Math.max(SUPPORTED_MIN, ms - SCAN_LIMIT_DAYS * 86400000);
+    const endMs = direction > 0 ? Math.min(SUPPORTED_MAX, ms + SCAN_LIMIT_DAYS * 86400000) : ms - SAME_ECLIPSE_MS;
+    const found = scanLunarEclipses(startMs, endMs, direction, true);
+    if (found.length) return found[0];
+    if (direction > 0 ? endMs === SUPPORTED_MAX : startMs === SUPPORTED_MIN) throw new AlmanacOutOfRangeError();
+    // The longest catalog gap is 178 days: exhausting 730 inside the supported
+    // interval is a broken shadow model, not a normal out-of-range result.
+    throw new Error(`almanac internal: no lunar eclipse within ${SCAN_LIMIT_DAYS} days of ${anchor.toISOString()}`);
+}
+
+function scanLunarEclipses(startMs: number, endMs: number, direction: 1 | -1, firstOnly: boolean): LunarEclipse[] {
+    const found: LunarEclipse[] = [];
+    if (startMs >= endMs) return found;
+    // Peak and full moon differ. Include the entire peak-search margin at
+    // both ends, then apply the caller's bounds to the reported peak below.
+    const startUt = utDays(new Date(startMs)) - PEAK_WINDOW_DAYS;
+    const endUt = utDays(new Date(endMs)) + PEAK_WINDOW_DAYS;
+    let fmUt = direction > 0 ? startUt : endUt;
+    const limitUt = direction > 0 ? endUt : startUt;
+
+    while (direction * (limitUt - fmUt) > 0) {
+        const fullmoon = searchMoonPhase(180, fmUt, direction * Math.min(40, Math.abs(limitUt - fmUt)));
+        if (fullmoon === null) break;
         // UPSTREAM `SearchLunarEclipse`: step past this full moon before the
         // next probe, so the same one cannot be found twice.
-        fmUt = fullmoon + 10;
+        fmUt = fullmoon + direction * 10;
 
         // Pruning: if the full Moon's ecliptic latitude is too large, a lunar
         // eclipse is not possible. Avoid needless work searching for the
@@ -238,19 +274,12 @@ export function nextLunarEclipse(after: Date): LunarEclipse {
         // is closest to the line passing through the centers of the Sun and Earth.
         const shadow = peakEarthShadow(fullmoon);
         if (shadow.r >= shadow.p + MOON_MEAN_RADIUS_KM) continue;   // not even penumbral
-        // A full moon before `after` can still carry the eclipse the caller
-        // already has; the spec's contract is strictly-later peaks.
         const peak = dateFromUt(shadow.ut);
-        if (peak.getTime() <= after.getTime() + SAME_ECLIPSE_MS) continue;
-        if (peak.getTime() >= SUPPORTED_MAX) throw new AlmanacOutOfRangeError();
-
-        return buildEclipse(shadow, peak);
+        if (peak.getTime() < startMs || peak.getTime() >= endMs) continue;
+        found.push(buildEclipse(shadow, peak));
+        if (firstOnly) break;
     }
-    // Not an AlmanacOutOfRangeError: the interval is fine, the sky is not. The
-    // longest real gap over 1950-2100 is 178 days, so exhausting 730 means the
-    // shadow model is broken — an internal invariant, like every other
-    // `almanac internal:` throw in this package.
-    throw new Error(`almanac internal: no lunar eclipse within ${SCAN_LIMIT_DAYS} days of ${after.toISOString()}`);
+    return found;
 }
 
 /** UPSTREAM: the classification and semi-duration block of `SearchLunarEclipse`, astronomy.ts ~8730-8755. */

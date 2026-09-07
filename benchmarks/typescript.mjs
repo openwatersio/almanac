@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 const api = await import(pathToFileURL(process.argv[2]));
 const suite = JSON.parse(readFileSync(new URL('./cases.json', import.meta.url)));
 
-// The consumer loops in #6 are intentional baselines until those APIs exist.
+// Baseline for revisions predating #6; newer revisions use their native APIs.
 function eclipseWalk(from, to) {
     const eclipses = [];
     let cursor = from;
@@ -45,10 +45,11 @@ function workload(spec) {
             return () => api.searchMoonPhases(from, to).length;
         case 'nextLunarEclipse':
             return () => api.nextLunarEclipse(from).peak.getTime() / 1000;
-        case 'eclipseWalk':
-            return () => eclipseWalk(from, to).length;
-        case 'previousViaWalk':
-            return () => eclipseWalk(from, to).at(-1).peak.getTime() / 1000;
+        case 'lunarEclipses':
+            return api.lunarEclipses ? () => api.lunarEclipses(from, to).length : () => eclipseWalk(from, to).length;
+        case 'previousLunarEclipse':
+            return api.previousLunarEclipse ? () => api.previousLunarEclipse(to).peak.getTime() / 1000
+                : () => eclipseWalk(from, to).at(-1).peak.getTime() / 1000;
         default:
             throw new Error('Unknown benchmark operation: ' + spec.operation);
     }
