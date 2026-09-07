@@ -4,7 +4,7 @@ What Almanac does today, what it will do next, and what it will not do. The bind
 detail lives in the [v1 design spec](superpowers/specs/2026-08-28-almanac-v1-design.md);
 this page is the short version.
 
-## Shipped — v0.2.0
+## Shipped — v0.3.0
 
 Both ports, one behavior, validated against the shared fixture corpus.
 
@@ -12,7 +12,7 @@ Both ports, one behavior, validated against the shared fixture corpus.
   declination, altitude and azimuth.
 - **Stars** — altitude and azimuth of any fixed star from its J2000 catalog
   position, precessed and nutated to date and refracted, checked against USNO's
-  navigational-star almanac. Lands in the next release.
+  navigational-star almanac.
 - **Sun events** — rise and set, civil / nautical / astronomical twilight, and upper
   transit.
 - **Moon events** — moonrise and moonset on the upper-limb convention.
@@ -23,6 +23,15 @@ Both ports, one behavior, validated against the shared fixture corpus.
 
 Supported interval: `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it
 raise a typed error rather than returning a wrong answer.
+
+## New in v0.3.0
+
+**A fixed star's altitude and azimuth** ([#12](https://github.com/openwatersio/almanac/issues/12)).
+`starAltAz(raDeg, decDeg, time, observer)` takes a J2000 catalog position and
+returns where the star stands, precessed and nutated to date and refracted,
+through the same topocentric path as the Sun and Moon. Checked against USNO's
+celestial-navigation almanac within an arcminute. Consumers drawing a sky no
+longer carry their own sidereal time.
 
 ## New in v0.2.0
 
