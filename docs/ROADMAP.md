@@ -15,8 +15,8 @@ Both ports, one behavior, validated against the shared fixture corpus.
 - **Moon events** — moonrise and moonset on the upper-limb convention.
 - **Moon illumination** — illuminated fraction, phase angle, phase, waxing or waning,
   and the four quarter-phase events.
-- **Lunar eclipses** — search, kind, penumbral and umbral magnitude, the six contact
-  times, and geometric local visibility per contact.
+- **Lunar eclipses** — next, previous, and range searches; kind, penumbral and umbral
+  magnitude, the six contact times, and geometric local visibility per contact.
 
 Supported interval: `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it
 raise a typed error rather than returning a wrong answer.
@@ -26,9 +26,15 @@ raise a typed error rather than returning a wrong answer.
 **Backward and range lunar eclipse searches** ([#6](https://github.com/openwatersio/almanac/issues/6)).
 `previousLunarEclipse` searches directly backward; `lunarEclipses` returns peaks
 in a half-open window. Consumers no longer need a fixed lookback or a forward
-loop. The performance harness compares both APIs against those original loops.
+loop.
 
-## Next — v1.1
+**Performance regression harness** ([#7](https://github.com/openwatersio/almanac/pull/7)).
+Shared workloads compare TypeScript and Swift release builds against the base
+revision in CI, including the original consumer loops for eclipse searches.
+A median slowdown above 20% fails the check. The macOS performance job runs only
+after the cheaper TypeScript performance job passes.
+
+## Next
 
 **Solar eclipse search and local circumstances.** The shadow-geometry architecture
 already generalizes to it. It has waited because local solar circumstances add geoid
