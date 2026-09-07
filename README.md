@@ -22,6 +22,48 @@ future — see the design spec's Conventions section for what that means and why
 Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/astronomy)
 (MIT, Don Cross) — see [NOTICE](NOTICE). MIT licensed.
 
+## Performance
+
+Almanac includes a shared performance harness for both ports: **15 workloads**
+cover positions, a 228-hour sky track, short/year/polar event windows, full-range
+moon phases, and next/previous/range eclipse searches, including empty windows.
+
+The v0.2.1 optimizations reuse Moon and shadow geometry, flatten scratch arrays,
+and refine altitude crossings with fewer position evaluations. In the
+[hosted CI comparison](https://github.com/openwatersio/almanac/actions/runs/34119038860),
+median query time fell relative to the v0.2.0 astronomy code:
+
+| Workload | TypeScript: less time | Swift: less time |
+| --- | ---: | ---: |
+| Moon positions / 1,024 hours | 29.8% | 22.1% |
+| Sky track / 228 hours | 40.0% | 42.4% |
+| Sun events / 228 hours | 39.3% | 40.2% |
+| Moon events / 228 hours | 39.1% | 35.1% |
+| Previous lunar eclipse | 26.0% | 36.6% |
+| Lunar eclipses / 1950–2100 | 26.4% | 23.4% |
+
+TypeScript was measured on Ubuntu with Node 22; Swift used release builds on
+macOS 15. Each comparison builds both revisions with the same harness and
+toolchain, then takes seven interleaved process pairs with 300 ms warmup per
+process. Build and startup time are excluded. Timings vary by machine; the shared
+correctness fixtures and parity tolerances remain the accuracy gates.
+
+Reproduce the comparison locally from the repository root (Node 22+ and Swift
+5.9+):
+
+```bash
+npm ci --prefix typescript
+node benchmarks/run.mjs --base v0.2.0
+```
+
+CI runs the harness on code changes and fails on **median regressions over 20%**.
+Results include timing tables, raw samples, checksums, and revision/toolchain
+metadata. See [the harness guide](CONTRIBUTING.md#performance) for choosing a
+baseline, running one port, and inspecting reports.
+
+Event searches scale with window length. Run a full 151-year sweep in a worker or
+background task; use shorter windows for interactive queries.
+
 ## Usage
 
 ### TypeScript
@@ -49,7 +91,7 @@ for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
 ### Swift
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.2.0")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.2.1")
 ```
 
 ```swift
@@ -87,15 +129,3 @@ let eclipses = try lunarEclipses(from: today, to: tomorrow)
 Ranges include peaks at the start and exclude peaks at the end. Contacts may
 extend outside the range. Previous/next searches skip peaks within 100 ms of the
 anchor. Search results are global; apply `lunarEclipseVisibility` for an observer.
-
-### Performance
-
-Event searches (`sunEvents`/`moonEvents`) are linear in window length. The full
-151-year supported interval is a measured cost, not a guess: ~68 s in TypeScript,
-~44 s in Swift release builds. Chunk or worker a full-range call rather than
-running it inline.
-
-Run `node benchmarks/run.mjs --base origin/main` from the repository root to
-compare both ports against a baseline. CI reports timings and fails on median
-regressions over 20%; see [the performance harness](CONTRIBUTING.md#performance)
-for workloads, results and local options.
