@@ -254,13 +254,27 @@ private func refineExtremum(
 }
 
 /**
- * Bisection for the single crossing of `level` on the monotonic segment
- * between two consecutive extrema.
+ * Quadratically accelerated search for the single crossing of `level` on a
+ * monotonic segment, with bisection if the estimate cannot be verified.
  */
 private func bisectCrossing(_ sample: Sampler, _ level: Level, _ s0: Sample, _ s1: Sample) -> Double {
     var a = s0.ut
     var b = s1.ut
     let belowAtA = offsetDeg(s0, level) < 0
+    // Reuse the phase search's quadratic acceleration, normalized to an
+    // ascending crossing. Endpoint geometry has already been evaluated.
+    func f(_ ut: Double) -> Double {
+        (belowAtA ? 1 : -1) * offsetDeg(
+            ut == s0.ut ? s0 : ut == s1.ut ? s1 : sample(ut), level
+        )
+    }
+    if let root = search(f, a, b, 0.25, iterLimit: bisectionCap, what: "altitude crossing") {
+        // A derivative-based estimate alone does not establish a time bound.
+        // Accept only a verified half-second bracket, including near grazes.
+        let left = max(a, root - timeTolDays / 4)
+        let right = min(b, root + timeTolDays / 4)
+        if f(left) < 0 && f(right) >= 0 { return (left + right) / 2 }
+    }
     for _ in 0..<bisectionCap {
         if b - a < timeTolDays { return (a + b) / 2 }
         let mid = (a + b) / 2
