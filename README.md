@@ -16,8 +16,9 @@ raise a typed error. All instants are UT1-accurate, not civil-UTC-accurate in th
 future — see the design spec's Conventions section for what that means and why.
 
 - Design: [`docs/superpowers/specs/2026-08-28-almanac-v1-design.md`](docs/superpowers/specs/2026-08-28-almanac-v1-design.md)
-- Roadmap: [`docs/ROADMAP.md`](docs/ROADMAP.md) — what ships next, and what will not.
-- Landing page: [openwaters.io/sky](https://openwaters.io/sky) — the library running live in a browser.
+- Scope: [`docs/ROADMAP.md`](docs/ROADMAP.md), including supported behavior and deliberate boundaries.
+- Development and releases: [`CONTRIBUTING.md`](CONTRIBUTING.md), including pinned tools and required checks.
+- Landing page: [openwaters.io/sky](https://openwaters.io/sky), with the library running live in a browser.
 
 Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/astronomy)
 (MIT, Don Cross) — see [NOTICE](NOTICE). MIT licensed.
@@ -42,18 +43,14 @@ median query time fell relative to the v0.2.0 astronomy code:
 | Previous lunar eclipse | 26.0% | 36.6% |
 | Lunar eclipses / 1950–2100 | 26.4% | 23.4% |
 
-TypeScript was measured on Ubuntu with Node 22; Swift used release builds on
-macOS 15. Each comparison builds both revisions with the same harness and
-toolchain, then takes seven interleaved process pairs with 300 ms warmup per
-process. Build and startup time are excluded. Timings vary by machine; the shared
-correctness fixtures and parity tolerances remain the accuracy gates.
+TypeScript was measured on Ubuntu; Swift used release builds on macOS. Each comparison builds both revisions with the same harness and toolchain, then takes seven interleaved process pairs with 300 ms warmup per process. Build and startup time are excluded. Timings vary by machine; the shared correctness fixtures and parity tolerances remain the accuracy gates.
 
-Reproduce the comparison locally from the repository root (Node 22+ and Swift
-5.9+):
+Reproduce the comparison locally from the repository root with mise 2026.9.1 or newer after installing the exact Node and Swift versions in `mise.toml`:
 
 ```bash
-npm ci --prefix typescript
-node benchmarks/run.mjs --base v0.2.0
+mise install
+mise exec -- npm ci --prefix typescript
+mise exec -- node benchmarks/run.mjs --base v0.2.0
 ```
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.

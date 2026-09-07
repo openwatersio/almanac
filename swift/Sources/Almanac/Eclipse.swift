@@ -20,12 +20,9 @@ import Foundation
 //   - upstream reports semi-durations in minutes; the spec's public shape is
 //     the contact instants themselves, and `obscuration` is not in it.
 //
-// One departure from the TS port, not upstream: Swift's type system makes
-// `p1`/`peak`/`p4` non-optional Dates and `kind` a closed enum, so the
-// TS validator's "unknown kind" and "undefined vs null" cases (see
-// eclipse.test.ts's fix-round note) cannot occur here — there is nothing to
-// guard. What remains meaningful, and is ported, is contact chronology among
-// whichever contacts are present and kind↔contact-shape agreement.
+// Swift's non-optional dates and closed eclipse-kind enum prevent invalid
+// values that the TypeScript trust boundary must reject. Swift validation
+// checks contact chronology and agreement between kind and contact shape.
 
 /// A lunar eclipse: peak circumstances plus the contact instants around them.
 public enum LunarEclipseKind: String, Sendable {

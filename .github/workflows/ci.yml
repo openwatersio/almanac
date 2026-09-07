@@ -30,8 +30,8 @@ jobs:
           fi
           changed=$(git diff --name-only "$BASE...HEAD")
           echo "$changed"
-          # ci.yml is in the list so a change to CI still tests itself.
-          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures|benchmarks)/|^Package\.swift$|^\.github/workflows/ci\.yml$'; then
+          # Toolchain, workflow, and packaged-document changes must run the suites.
+          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures|benchmarks)/|^(Package\.swift|mise\.toml|README\.md|LICENSE|NOTICE)$|^\.github/workflows/'; then
             echo 'code=true' >> "$GITHUB_OUTPUT"
           else
             echo 'code=false' >> "$GITHUB_OUTPUT"
@@ -41,8 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.1
+          install_args: node
       - run: node fixtures/generate/derive.mjs --check
   typescript:
     needs: changes
@@ -51,11 +53,14 @@ jobs:
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.1
+          install_args: node
       - run: npm ci
       - run: npm run build
       - run: npm test
+      - run: npm pack --dry-run
       - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
   swift:
     needs: changes
@@ -63,6 +68,10 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.1
+          install_args: swift
       - run: swift test -c release
   performance-typescript:
     name: performance (typescript, ubuntu-latest)
@@ -75,8 +84,10 @@ jobs:
     steps: &performance-steps
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.1
+          install_args: ${{ env.PORT == 'swift' && 'node swift' || 'node' }}
       - if: env.PORT == 'typescript'
         run: npm ci --prefix typescript
       - run: node --test benchmarks/compare.test.mjs
