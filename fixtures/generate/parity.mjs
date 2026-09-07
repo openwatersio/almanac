@@ -16,7 +16,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
-    sunPosition, moonPosition, sunAltAz, moonAltAz, moonIllumination,
+    sunPosition, moonPosition, sunAltAz, moonAltAz, starAltAz, moonIllumination,
     sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
 } from "../../typescript/dist/index.js";
@@ -41,6 +41,8 @@ export const VICTORIA = { latitudeDeg: 48.4284, longitudeDeg: -123.3656 };
 const N60 = { latitudeDeg: 60, longitudeDeg: -123.052 };
 const EQUATOR = { latitudeDeg: 0, longitudeDeg: -123.052 };
 export const OBSERVERS = [VICTORIA, N60, EQUATOR];
+/** Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the altaz rows' fixed star. */
+export const BETELGEUSE = { raDeg: 88.792939, decDeg: 7.407064 };
 
 /** The 12 calendar-month windows of 2026, half-open. */
 export function monthWindows2026() {
@@ -89,10 +91,12 @@ function buildPositionsAltazIllumination() {
 
         const sunAa = sunAltAz(t, VICTORIA);
         const moonAa = moonAltAz(t, VICTORIA);
+        const starAa = starAltAz(BETELGEUSE.raDeg, BETELGEUSE.decDeg, t, VICTORIA);
         altaz.push({
             tMs,
             sun: { azDeg: qAngle(sunAa.azDeg), altDeg: qAngle(sunAa.altDeg) },
             moon: { azDeg: qAngle(moonAa.azDeg), altDeg: qAngle(moonAa.altDeg) },
+            star: { azDeg: qAngle(starAa.azDeg), altDeg: qAngle(starAa.altDeg) },
         });
 
         const illum = moonIllumination(t);
@@ -227,6 +231,7 @@ const ROW_SCHEMAS = {
         tMs: EXACT,
         sun: { azDeg: SCALED, altDeg: SCALED },
         moon: { azDeg: SCALED, altDeg: SCALED },
+        star: { azDeg: SCALED, altDeg: SCALED },
     },
     illumination: { tMs: EXACT, fraction: SCALED, phaseAngleDeg: SCALED, phase: SCALED, waxing: EXACT },
     sunEvent: { observerIdx: EXACT, tMs: TIME, kind: EXACT },

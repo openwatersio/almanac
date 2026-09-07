@@ -50,7 +50,7 @@ final class ParityTests: XCTestCase {
     struct PositionEntry: Codable { let tMs: Int64; let sun: SunPosRow; let moon: MoonPosRow }
 
     struct AltAzRow: Codable, Equatable { let azDeg: Int; let altDeg: Int }
-    struct AltazEntry: Codable { let tMs: Int64; let sun: AltAzRow; let moon: AltAzRow }
+    struct AltazEntry: Codable { let tMs: Int64; let sun: AltAzRow; let moon: AltAzRow; let star: AltAzRow }
 
     struct IlluminationEntry: Codable { let tMs: Int64; let fraction: Int; let phaseAngleDeg: Int; let phase: Int; let waxing: Bool }
 
@@ -116,6 +116,8 @@ final class ParityTests: XCTestCase {
     static let n60 = try! Observer(latitudeDeg: 60, longitudeDeg: -123.052)
     static let equator = try! Observer(latitudeDeg: 0, longitudeDeg: -123.052)
     static let observers = [victoria, n60, equator]
+    /// Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the altaz rows' fixed star.
+    static let betelgeuse = (raDeg: 88.792939, decDeg: 7.407064)
 
     // ------------------------------------------------------------- quantize
 
@@ -147,10 +149,12 @@ final class ParityTests: XCTestCase {
 
             let sunAa = try sunAltAz(t, observer: victoria)
             let moonAa = try moonAltAz(t, observer: victoria)
+            let starAa = try starAltAz(raDeg: betelgeuse.raDeg, decDeg: betelgeuse.decDeg, at: t, observer: victoria)
             altaz.append(AltazEntry(
                 tMs: tMs,
                 sun: AltAzRow(azDeg: qScaled(sunAa.azDeg, scales.angleDeg), altDeg: qScaled(sunAa.altDeg, scales.angleDeg)),
-                moon: AltAzRow(azDeg: qScaled(moonAa.azDeg, scales.angleDeg), altDeg: qScaled(moonAa.altDeg, scales.angleDeg))))
+                moon: AltAzRow(azDeg: qScaled(moonAa.azDeg, scales.angleDeg), altDeg: qScaled(moonAa.altDeg, scales.angleDeg)),
+                star: AltAzRow(azDeg: qScaled(starAa.azDeg, scales.angleDeg), altDeg: qScaled(starAa.altDeg, scales.angleDeg))))
 
             let illum = try moonIllumination(t)
             illumination.append(IlluminationEntry(

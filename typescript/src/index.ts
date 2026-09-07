@@ -4,7 +4,7 @@ export { AlmanacOutOfRangeError } from './types.js';
 export type { SunPosition, MoonPosition } from './positions.js';
 export { sunPosition, moonPosition } from './positions.js';
 export type { AltAz } from './transforms.js';
-export { sunAltAz, moonAltAz } from './transforms.js';
+export { sunAltAz, moonAltAz, starAltAz } from './transforms.js';
 export type { MoonIllumination } from './illumination.js';
 export { moonIllumination } from './illumination.js';
 export type {

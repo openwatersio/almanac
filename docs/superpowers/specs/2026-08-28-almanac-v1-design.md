@@ -19,7 +19,9 @@ solar circumstances add geoid intersection, path classification, obscuration, an
 safe-viewing semantics that no current consumer requires.
 
 **Out of scope:** planets, transits of Mercury/Venus, libration, apparent magnitudes,
-constellations, weather/terrain in visibility, dates outside the supported interval.
+constellations and star catalogs (a consumer brings its own catalog coordinates to
+`starAltAz`), annual aberration and proper motion of stars, weather/terrain in
+visibility, dates outside the supported interval.
 
 **Consumers & retirement.** Almanac is the shared replacement for slackwater-ios's
 `SunMoon.swift` and slackwater-web's suncalc — three astronomy implementations is the
@@ -154,6 +156,7 @@ idiomatic (TS object / Swift struct). All time arguments and results are UTC ins
 | `moonPosition(time)` | instant | `raDeg, decDeg, distanceKm` — geocentric apparent, equator of date |
 | `sunAltAz(time, observer)` | instant, Observer | `azDeg, altDeg` — topocentric, refracted |
 | `moonAltAz(time, observer)` | instant, Observer | `azDeg, altDeg` — topocentric (parallax applied), refracted |
+| `starAltAz(raDeg, decDeg, time, observer)` | J2000 (ICRS) catalog RA/dec in degrees (RA ∈ [0, 360), dec ∈ [−90, 90], else a validation error), instant, Observer | `azDeg, altDeg` — precessed and nutated to date, refracted; no annual aberration (≤ 20.5″), no proper motion, no parallax |
 | `moonIllumination(time)` | instant | `fraction` [0,1], `phaseAngleDeg` [0,180] (0 = full, 180 = new; `fraction = (1 + cos θ)/2`), `phase` [0,1) (0 new, 0.5 full), `waxing` |
 | `sunEvents(startUtc, endUtc, observer)` | half-open window, Observer | sorted `[{time, kind}]`, kind ∈ rise, set, civilDawn/Dusk, nauticalDawn/Dusk, astroDawn/Dusk, transit; empty list is valid (polar day/night drops crossings; transit still reported) |
 | `moonEvents(startUtc, endUtc, observer)` | half-open window, Observer | sorted `[{time, kind}]`, kind ∈ rise, set |
