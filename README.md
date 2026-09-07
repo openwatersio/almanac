@@ -75,3 +75,8 @@ Event searches (`sunEvents`/`moonEvents`) are linear in window length. The full
 151-year supported interval is a measured cost, not a guess: ~68 s in TypeScript,
 ~44 s in Swift release builds. Chunk or worker a full-range call rather than
 running it inline.
+
+Run `node benchmarks/run.mjs --base origin/main` from the repository root to
+compare both ports against a baseline. CI reports timings and fails on median
+regressions over 20%; see [the performance harness](CONTRIBUTING.md#performance)
+for workloads, results and local options.

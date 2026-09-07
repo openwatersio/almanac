@@ -1,0 +1,22 @@
+{
+  "warmupMs": 300,
+  "sampleMs": 100,
+  "samples": 7,
+  "observer": { "latitudeDeg": 48.7621, "longitudeDeg": -123.052 },
+  "cases": [
+    { "name": "sunPosition/1024-hours", "operation": "sunPosition", "from": "2026-01-01T00:00:00Z", "count": 1024 },
+    { "name": "moonPosition/1024-hours", "operation": "moonPosition", "from": "2026-01-01T00:00:00Z", "count": 1024 },
+    { "name": "sky/228-hours", "operation": "sky", "from": "2026-08-24T00:00:00Z", "count": 228 },
+    { "name": "sunEvents/228-hours", "operation": "sunEvents", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z" },
+    { "name": "moonEvents/228-hours", "operation": "moonEvents", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z" },
+    { "name": "sunEvents/year", "operation": "sunEvents", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z", "expected": 3255 },
+    { "name": "moonEvents/year", "operation": "moonEvents", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z", "expected": 705 },
+    { "name": "sunEvents/polar-month", "operation": "sunEvents", "from": "2026-05-01T00:00:00Z", "to": "2026-06-01T00:00:00Z", "latitudeDeg": 85.5 },
+    { "name": "moonPhases/1950-2100", "operation": "searchMoonPhases", "from": "1950-01-01T00:00:00Z", "to": "2101-01-01T00:00:00Z", "expected": 7471 },
+    { "name": "eclipse/next", "operation": "nextLunarEclipse", "from": "2026-01-01T00:00:00Z" },
+    { "name": "eclipse/walk-228-hours-hit", "operation": "eclipseWalk", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z", "expected": 1 },
+    { "name": "eclipse/walk-228-hours-empty", "operation": "eclipseWalk", "from": "2026-09-01T00:00:00Z", "to": "2026-09-10T12:00:00Z", "expected": 0 },
+    { "name": "eclipse/previous-via-400-days", "operation": "previousViaWalk", "from": "2025-07-28T00:00:00Z", "to": "2026-09-01T00:00:00Z" },
+    { "name": "eclipse/walk-1950-2100", "operation": "eclipseWalk", "from": "1950-01-01T00:00:00Z", "to": "2101-01-01T00:00:00Z", "expected": 344 }
+  ]
+}
