@@ -56,7 +56,7 @@ const summary = [
     '# Almanac performance', '',
     'Base: ' + baseRevision + '; candidate: ' + revision + (dirty ? ' (working tree)' : '') + '.',
     '',
-    'Same runner and harness, ' + suite.warmupMs + ' ms warmup, ' + suite.samples + ' samples using batches calibrated to '
+    'Same runner and harness, ' + suite.warmupMs + ' ms warmup per process, ' + suite.samples + ' interleaved process pairs using batches calibrated to '
         + suite.sampleMs + ' ms per workload. Build/startup time excluded.', '',
 ];
 let regressed = false;
@@ -85,23 +85,40 @@ try {
                 commands[label] = [join(bin, 'AlmanacBenchmarks'), [join(bench, 'cases.json')]];
             }
         }
-        const reports = {};
-        // ponytail: sequential medians tolerate ordinary noise with a 20% margin;
-        // use interleaved process runs if runner/thermal drift exceeds that margin.
-        for (const label of ['base', 'candidate']) {
-            console.error('Measuring ' + port + ' ' + label + '...');
-            const [command, args] = commands[label];
-            const report = {
+        const reports = Object.fromEntries(['base', 'candidate'].map((label) => [label, {
                 port, harness, environment: { ...machine, runtime },
                 revision: label === 'base' ? baseRevision : revision,
                 dirty: label === 'candidate' && dirty,
                 recordedAt: new Date().toISOString(), settings: suite,
-                results: JSON.parse(capture(command, args)),
-            };
+                results: [],
+        }]));
+        // Keep paired measurements close and alternate which revision runs first.
+        // A whole-suite base-then-candidate run drifted 42% on unchanged CI code.
+        for (const [index, spec] of suite.cases.entries()) {
+            console.error('Measuring ' + port + ' ' + spec.name + '...');
+            for (let round = 0; round < suite.samples; round++) {
+                const order = round % 2 === 0 ? ['base', 'candidate'] : ['candidate', 'base'];
+                for (const label of order) {
+                    const [command, args] = commands[label];
+                    const previous = reports[label].results[index];
+                    const fixedIterations = previous ? [String(previous.iterations)] : [];
+                    const sample = JSON.parse(capture(command, [...args, String(index), ...fixedIterations]));
+                    assert.equal(sample.name, spec.name, 'Runner skipped workload');
+                    assert.equal(sample.samplesMs.length, 1, 'Runner must emit one sample per process');
+                    if (previous) {
+                        assert.equal(sample.iterations, previous.iterations, 'Batch size changed');
+                        assert.ok(Math.abs(sample.checksum - previous.checksum) <= Math.max(1, Math.abs(previous.checksum)) * 1e-9,
+                            'Output changed between processes: ' + spec.name);
+                        previous.samplesMs.push(sample.samplesMs[0]);
+                    } else {
+                        reports[label].results.push(sample);
+                    }
+                }
+            }
+        }
+        for (const [label, report] of Object.entries(reports)) {
             validate(report);
-            assert.deepEqual(report.results.map((r) => r.name), suite.cases.map((c) => c.name), 'Runner skipped workloads');
             writeFileSync(join(output, label + '-' + port + '.json'), JSON.stringify(report, null, 2) + '\n');
-            reports[label] = report;
         }
         const result = compare(reports.base, reports.candidate, threshold);
         regressed ||= result.regressed;

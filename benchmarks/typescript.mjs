@@ -54,8 +54,7 @@ function workload(spec) {
     }
 }
 
-const results = [];
-for (const spec of suite.cases) {
+function measure(spec, fixedIterations) {
     const work = workload(spec);
     const checksum = work();
     assert.ok(Number.isFinite(checksum), spec.name + ': invalid output');
@@ -72,10 +71,16 @@ for (const spec of suite.cases) {
     };
     const warmup = performance.now();
     do { batch(1); } while (performance.now() - warmup < suite.warmupMs);
-    let iterations = 1;
-    while (batch(iterations) < suite.sampleMs) iterations *= 2;
-    const samplesMs = Array.from({ length: suite.samples }, () => batch(iterations) / iterations);
-    results.push({ name: spec.name, iterations, checksum, samplesMs });
-    console.error('  ' + spec.name);
+    let iterations = fixedIterations ?? 1;
+    if (fixedIterations === undefined) {
+        while (batch(iterations) < suite.sampleMs) iterations *= 2;
+    }
+    return { name: spec.name, iterations, checksum, samplesMs: [batch(iterations) / iterations] };
 }
-console.log(JSON.stringify(results));
+
+// One warmed sample per process. The parent interleaves the two revisions.
+const spec = suite.cases[Number(process.argv[3])];
+assert.ok(spec, 'Missing workload index');
+const iterations = process.argv[4] === undefined ? undefined : Number(process.argv[4]);
+assert.ok(iterations === undefined || (Number.isSafeInteger(iterations) && iterations > 0), 'Invalid iteration count');
+console.log(JSON.stringify(measure(spec, iterations)));

@@ -35,15 +35,17 @@ and always builds in release mode. No extra benchmark dependencies are needed.
 Both revisions use the **current harness, inputs, compiler and machine**. The
 baseline is exported to a temporary directory, so it can predate the harness
 and your checkout is never switched. Builds, fixture loading, date parsing and
-process startup are outside the measurements. Each workload warms up for 300 ms,
-calibrates a batch to 100 ms or longer, then records seven samples in milliseconds
-per workload. Results are consumed and checked for consistency.
+process startup are outside the measurements. Each workload gets seven pairs of
+base/candidate processes, alternating which revision runs first. Every process
+warms up for 300 ms; the first pair calibrates batch sizes to 100 ms or longer and
+later pairs reuse them. Samples are milliseconds per workload, with results
+consumed and checked for consistency.
 
 The table shows median latency and percentage change for every workload.
 **Any median slowdown over 20% fails the command/CI job**; customize the limit
 locally with `--threshold 10`. Small deltas can be timing noise: keep the machine
-idle and repeat a suspicious run. Sequential base/candidate runs cannot eliminate
-thermal drift or noisy neighbors. The margin is a policy, not a statistical
+idle and repeat a suspicious run. Interleaving reduces runner drift, but cannot
+eliminate noisy neighbors. The margin is a policy, not a statistical
 significance claim; correctness and parity tests remain the accuracy gates.
 
 The shared inputs in [`benchmarks/cases.json`](benchmarks/cases.json) cover
@@ -65,8 +67,8 @@ node --test benchmarks/compare.test.mjs
 ```
 
 CI compares the PR merge result with its target branch's base SHA, or a main push
-with the previous main SHA. Each port builds and runs both revisions sequentially
-in one job, publishes a timing table in the Actions summary, and retains JSON and
+with the previous main SHA. Each port builds both revisions and interleaves their
+measurements in one job, publishes a timing table in the Actions summary, and retains JSON and
 Markdown artifacts for 30 days, including on regressions. This gives each merge
 a recorded comparison; it is not a permanent trend dashboard. Missing workloads,
 invalid timings, changed outputs, and incompatible reports fail closed.

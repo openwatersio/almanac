@@ -78,9 +78,7 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
 
 func nowMs() -> Double { Double(DispatchTime.now().uptimeNanoseconds) / 1_000_000 }
 
-let suite = try JSONDecoder().decode(Suite.self, from: Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[1])))
-var results: [Result] = []
-for spec in suite.cases {
+func measure(_ spec: Workload, _ suite: Suite, _ fixedIterations: Int?) throws -> Result {
     let work = try workload(spec, suite)
     let checksum = try work()
     try require(checksum.isFinite, spec.name + ": invalid output")
@@ -96,10 +94,19 @@ for spec in suite.cases {
     }
     let warmup = nowMs()
     repeat { _ = try batch(1) } while nowMs() - warmup < suite.warmupMs
-    var iterations = 1
-    while try batch(iterations) < suite.sampleMs { iterations *= 2 }
-    let samplesMs = try (0..<suite.samples).map { _ in try batch(iterations) / Double(iterations) }
-    results.append(Result(name: spec.name, iterations: iterations, checksum: checksum, samplesMs: samplesMs))
-    FileHandle.standardError.write(Data("  \(spec.name)\n".utf8))
+    var iterations = fixedIterations ?? 1
+    if fixedIterations == nil {
+        while try batch(iterations) < suite.sampleMs { iterations *= 2 }
+    }
+    let samplesMs = [try batch(iterations) / Double(iterations)]
+    return Result(name: spec.name, iterations: iterations, checksum: checksum, samplesMs: samplesMs)
 }
-print(String(decoding: try JSONEncoder().encode(results), as: UTF8.self))
+
+// Same single-sample process contract as typescript.mjs.
+let suite = try JSONDecoder().decode(Suite.self, from: Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[1])))
+let index = Int(CommandLine.arguments[2]) ?? -1
+try require(suite.cases.indices.contains(index), "Invalid workload index")
+let iterations = CommandLine.arguments.count > 3 ? Int(CommandLine.arguments[3]) : nil
+try require(CommandLine.arguments.count <= 3 || (iterations ?? 0) > 0, "Invalid iteration count")
+let result = try measure(suite.cases[index], suite, iterations)
+print(String(decoding: try JSONEncoder().encode(result), as: UTF8.self))
