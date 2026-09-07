@@ -49,7 +49,7 @@ for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
 ### Swift
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.1.0")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.2.0")
 ```
 
 ```swift
@@ -69,9 +69,9 @@ for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
 }
 ```
 
-### Eclipse searches (unreleased)
+### Eclipse searches
 
-The development branch also supports previous eclipses and ranges:
+Search for a previous eclipse or all eclipses in a time window:
 
 ```ts
 import { previousLunarEclipse, lunarEclipses } from '@openwaters/almanac';
