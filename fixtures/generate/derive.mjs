@@ -4,11 +4,13 @@
 // refresh-horizons.mjs for that. `--check` re-derives and byte-compares
 // against the committed derived files, failing loudly on drift.
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { SITES as STAR_SITES, DATES as STAR_DATES, TIME as STAR_TIME, STAR_IDS } from "./refresh-stars.mjs";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 
 const RAW_DIR = new URL("../raw/horizons/", import.meta.url);
 const USNO_RAW_DIR = new URL("../raw/usno/", import.meta.url);
+const STARS_RAW_DIR = new URL("../raw/stars/", import.meta.url);
 const ESPENAK_RAW_DIR = new URL("../raw/espenak/", import.meta.url);
 const FIXTURES_DIR = new URL("../", import.meta.url);
 
@@ -510,11 +512,88 @@ function deriveAltaz(retrieved, requests) {
   };
 }
 
+// --- USNO celestial-navigation star alt/az + SIMBAD J2000 positions --------
+
+// A star whose proper motion moves it more than this drifts past the 1 arcmin
+// tolerance before 2050 from its J2000 catalog position, which is the
+// no-proper-motion contract `starAltAz` makes; those stars are dropped here,
+// not asserted loosely.
+const STAR_MAX_PM_MAS_PER_YEAR = 300;
+
+function rawStars(name) {
+  return readFileSync(new URL(name, STARS_RAW_DIR), "utf8");
+}
+
+// SIMBAD's ASCII card: "Coordinates(ICRS,ep=J2000,eq=2000): 05 55 10.30536  +07 24 25.4304 ..."
+// and "Proper motions: 27.54 11.30 ..." (mas/yr, RA already times cos dec).
+function parseSimbad(id) {
+  const text = rawStars(`simbad-${id.replace(/\s+/g, "-")}.txt`);
+  const c = text.match(/Coordinates\(ICRS,ep=J2000,eq=2000\):\s+(\d+) (\d+) ([\d.]+)\s+([+-])(\d+) (\d+) ([\d.]+)/);
+  assert.ok(c, `${id}: no ICRS J2000 coordinates`);
+  const raDeg = 15 * (Number(c[1]) + Number(c[2]) / 60 + Number(c[3]) / 3600);
+  const decDeg = (c[4] === "-" ? -1 : 1) * (Number(c[5]) + Number(c[6]) / 60 + Number(c[7]) / 3600);
+  const pm = text.match(/Proper motions:\s+(-?[\d.]+) (-?[\d.]+)/);
+  assert.ok(pm, `${id}: no proper motion`);
+  const pmMasPerYear = Math.hypot(Number(pm[1]), Number(pm[2]));
+  return { raDeg: Number(raDeg.toFixed(6)), decDeg: Number(decDeg.toFixed(6)), pmMasPerYear };
+}
+
+function deriveStars(retrieved, requests) {
+  const catalog = Object.fromEntries(Object.entries(STAR_IDS).map(([label, id]) => [label, { id, ...parseSimbad(id) }]));
+  const kept = Object.keys(catalog).filter((l) => catalog[l].pmMasPerYear <= STAR_MAX_PM_MAS_PER_YEAR);
+  const dropped = Object.keys(catalog).filter((l) => !kept.includes(l));
+  assert.ok(dropped.includes("ARCTURUS") && dropped.includes("SIRIUS"), "stars: the fast movers should be dropped");
+
+  const rows = [];
+  let apiversion;
+  for (const site of STAR_SITES) {
+    for (const date of STAR_DATES) {
+      const name = `celnav-${site.slug}-${date}`;
+      const raw = JSON.parse(rawStars(`${name}.json`));
+      apiversion ??= raw.apiversion;
+      const utc = `${date}T${STAR_TIME}Z`;
+      for (const entry of raw.properties.data) {
+        const star = catalog[entry.object];
+        if (!star) continue; // Sun, Moon, planets, and the first point of Aries
+        // A resolver mistake would put SIMBAD's star a sky away from USNO's.
+        assert.ok(Math.abs(star.decDeg - entry.almanac_data.dec) < 1,
+          `${name}: ${entry.object} dec ${entry.almanac_data.dec} vs SIMBAD ${star.id} ${star.decDeg}`);
+        if (!kept.includes(entry.object)) continue;
+        const { hc, zn } = entry.almanac_data;
+        const refr = entry.altitude_corrections.refr; // sextant correction, negative: apparent = hc - refr
+        assert.ok(refr <= 0 && refr > -1, `${name}: ${entry.object} refraction ${refr}`);
+        rows.push({
+          utc, latitudeDeg: site.lat, longitudeDeg: site.lon, star: entry.object,
+          raDeg: star.raDeg, decDeg: star.decDeg,
+          azDeg: zn, altDeg: Number((hc - refr).toFixed(6)),
+        });
+      }
+    }
+  }
+  rows.sort((a, b) => a.utc.localeCompare(b.utc) || a.latitudeDeg - b.latitudeDeg || a.star.localeCompare(b.star));
+  assert.ok(rows.length > 100, `stars: expected well over 100 rows, got ${rows.length}`);
+
+  return {
+    "altaz/stars-usno.json": json(rows),
+    "altaz/stars-meta.json": json({
+      source: "USNO Astronomical Applications API (aa.usno.navy.mil/api/celnav) apparent altitude/azimuth; SIMBAD ICRS J2000 positions and proper motions",
+      sourceVersion: apiversion,
+      retrieved,
+      requests: Object.values(requests),
+      toleranceArcmin: 1,
+      altDeg: "USNO hc (unrefracted computed altitude) minus its refr sextant correction, i.e. refracted apparent altitude",
+      maxProperMotionMasPerYear: STAR_MAX_PM_MAS_PER_YEAR,
+      droppedForProperMotion: dropped,
+    }),
+  };
+}
+
 function main() {
   const check = process.argv.includes("--check");
   const horizons = JSON.parse(readFileSync(new URL("retrieved.json", RAW_DIR), "utf8"));
   const usno = JSON.parse(readFileSync(new URL("retrieved.json", USNO_RAW_DIR), "utf8"));
   const espenak = JSON.parse(readFileSync(new URL("retrieved.json", ESPENAK_RAW_DIR), "utf8"));
+  const stars = JSON.parse(readFileSync(new URL("retrieved.json", STARS_RAW_DIR), "utf8"));
 
   const files = {
     ...derivePositions(horizons.retrieved, horizons.requests),
@@ -522,6 +601,7 @@ function main() {
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
     ...deriveEspenak(espenak.retrieved, espenak.requests),
+    ...deriveStars(stars.retrieved, stars.requests),
   };
 
   let drift = false;

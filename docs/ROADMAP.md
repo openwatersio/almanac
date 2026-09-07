@@ -10,6 +10,9 @@ Both ports, one behavior, validated against the shared fixture corpus.
 
 - **Positions** — geocentric and topocentric Sun and Moon, right ascension and
   declination, altitude and azimuth.
+- **Stars** — altitude and azimuth of any fixed star from its J2000 catalog
+  position, precessed and nutated to date and refracted, checked against USNO's
+  navigational-star almanac. Lands in the next release.
 - **Sun events** — rise and set, civil / nautical / astronomical twilight, and upper
   transit.
 - **Moon events** — moonrise and moonset on the upper-limb convention.
@@ -49,8 +52,13 @@ Each of these was considered and left out on purpose:
   consumer.
 - **Libration and apparent magnitudes** — presentation detail beyond what marine and
   timeline use cases read.
-- **Constellations** — a catalog dependency, which is exactly what "zero runtime data
-  files" rules out.
+- **Constellations and star catalogs** — a catalog dependency, which is exactly what
+  "zero runtime data files" rules out. `starAltAz` takes the coordinates a consumer
+  already carries.
+- **Annual aberration and proper motion for stars** — at most 20.5″ and, for all but
+  a few fast movers, a few arcseconds a decade: under the arcminute a sky drawing
+  or a sight reduction reads. Aberration is a translation of upstream's VSOP
+  velocity when a consumer needs it.
 - **Weather and terrain in visibility** — visibility here is geometric, meaning whether
   a body is above your horizon. Cloud and topography are a different problem with
   different data.

@@ -222,3 +222,41 @@ public func moonAltAz(_ time: Date, observer: Observer) throws -> AltAz {
     let ut = utDays(time)
     return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer))
 }
+
+/**
+ * UPSTREAM: the user-defined star path — `HelioVector` for a `DefineStar`
+ * body (astronomy.ts ~4097: `VectorFromSphere(Spherical(dec, 15*ra, dist))`)
+ * into `Equator(body, date, observer, ofdate=true, aberration=false)` (~2803)
+ * and `Horizon` (~2565): the same topocentric path sunAltAz/moonAltAz take.
+ * Upstream floors a star's distance at 1 light-year and suggests 1000 when
+ * unknown; the star sits at 1000 ly here (`AU_PER_LY`, astronomy.ts line 52).
+ * Upstream's geocentric step (star vector minus Earth's heliocentric
+ * position) is skipped: at 1000 ly it moves the star 0.003″.
+ */
+private let STAR_DISTANCE_AU = 1000 * 63241.07708807546
+
+/**
+ * Topocentric azimuth/altitude of a fixed star from its J2000 (ICRS)
+ * catalog right ascension and declination, both in degrees.
+ *
+ * Applied: precession and nutation to the equator of date, Greenwich
+ * apparent sidereal time, and atmospheric refraction (upstream `'normal'`
+ * model, the same as sunAltAz/moonAltAz). Not applied: annual aberration
+ * (at most 20.5″ — see the roadmap), proper motion (pass catalog
+ * coordinates; fast movers such as Arcturus drift ~1′ in 26 years), and
+ * stellar parallax (negligible at the 1000 ly the star is placed at).
+ */
+public func starAltAz(raDeg: Double, decDeg: Double, at time: Date, observer: Observer) throws -> AltAz {
+    let time = try normalized(time)
+    try assertSupported(time)
+    guard raDeg >= 0, raDeg < 360 else { throw AlmanacError.invalidArgument("raDeg out of range: \(raDeg)") }
+    guard decDeg >= -90, decDeg <= 90 else { throw AlmanacError.invalidArgument("decDeg out of range: \(decDeg)") }
+    let ut = utDays(time)
+    let rCosDec = STAR_DISTANCE_AU * cos(decDeg * DEG2RAD)
+    let eqj = Vec3(
+        x: rCosDec * cos(raDeg * DEG2RAD),
+        y: rCosDec * sin(raDeg * DEG2RAD),
+        z: STAR_DISTANCE_AU * sin(decDeg * DEG2RAD)
+    )
+    return refract(topoAltAzUnrefracted(eqj, ut, observer))
+}

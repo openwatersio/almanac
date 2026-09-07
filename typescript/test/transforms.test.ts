@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { sunAltAz, moonAltAz } from '../src/index.js';
+import { sunAltAz, moonAltAz, starAltAz } from '../src/index.js';
 import { siderealDeg, refractionDeg } from '../src/transforms.js';
 import type { Observer } from '../src/types.js';
 
@@ -32,3 +32,28 @@ for (const [file, fn] of [
     }
   });
 }
+
+// USNO celestial-navigation apparent alt/az (NOVAS) of the navigational stars
+// above the horizon at two sites, computed here from each star's SIMBAD J2000
+// position. Same 1 arcmin / altDeg > 10° rule as the sun and moon; derive.mjs
+// keeps only stars whose proper motion stays under that through 2050.
+it('altaz/stars-usno.json within 1 arcmin (altDeg > 10°)', () => {
+  const rows = load('altaz/stars-usno.json');
+  expect(rows.length).toBeGreaterThan(100);
+  for (const row of rows) {
+    if (row.altDeg <= 10) continue;
+    const observer: Observer = { latitudeDeg: row.latitudeDeg, longitudeDeg: row.longitudeDeg, elevationM: 0 };
+    const p = starAltAz(row.raDeg, row.decDeg, new Date(row.utc), observer);
+    expect(Math.abs(p.altDeg - row.altDeg) * 60, `${row.star} alt @ ${row.utc}`).toBeLessThan(1);
+    const cosAlt = Math.cos(row.altDeg * Math.PI / 180);
+    expect(Math.abs(azDiffDeg(p.azDeg, row.azDeg)) * cosAlt * 60, `${row.star} az @ ${row.utc}`).toBeLessThan(1);
+  }
+});
+
+it('starAltAz rejects a catalog position off the sphere', () => {
+  const t = new Date('2026-03-20T06:00:00Z');
+  expect(() => starAltAz(360, 0, t, VICTORIA)).toThrow(RangeError);
+  expect(() => starAltAz(-1, 0, t, VICTORIA)).toThrow(RangeError);
+  expect(() => starAltAz(0, 90.5, t, VICTORIA)).toThrow(RangeError);
+  expect(() => starAltAz(NaN, 0, t, VICTORIA)).toThrow(RangeError);
+});

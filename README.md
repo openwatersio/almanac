@@ -1,8 +1,9 @@
 # Almanac
 
 Offline sun & moon engine for the Salish Sea and everywhere else — positions,
-rise/set/twilight, moon phase, and lunar eclipses (solar planned), computed from pure
-geometry with zero network and zero runtime data files.
+rise/set/twilight, moon phase, lunar eclipses (solar planned), and where any fixed
+star stands from a catalog position, computed from pure geometry with zero network
+and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -73,7 +74,7 @@ npm install @openwaters/almanac
 ```
 
 ```ts
-import { nextLunarEclipse, lunarEclipseVisibility, sunEvents } from '@openwaters/almanac';
+import { nextLunarEclipse, lunarEclipseVisibility, sunEvents, starAltAz } from '@openwaters/almanac';
 
 const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
 
@@ -86,6 +87,9 @@ const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
   console.log(kind, time.toISOString());
 }
+
+// Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
+const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 ```
 
 ### Swift
@@ -109,6 +113,9 @@ let tomorrow = today.addingTimeInterval(24 * 60 * 60)
 for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
   print(event.kind, event.time)
 }
+
+// Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
+let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer: observer)
 ```
 
 ### Eclipse searches

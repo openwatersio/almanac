@@ -1,0 +1,2422 @@
+[
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Acamar",
+    "raDeg": 44.565318,
+    "decDeg": -40.304678,
+    "azDeg": 248.416054,
+    "altDeg": 59.230913
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Adhara",
+    "raDeg": 104.656453,
+    "decDeg": -28.972086,
+    "azDeg": 77.65509,
+    "altDeg": 70.860001
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 342.927182,
+    "altDeg": 36.780629
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alnilam",
+    "raDeg": 84.053389,
+    "decDeg": -1.201919,
+    "azDeg": 1.572346,
+    "altDeg": 56.207095
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 78.548711,
+    "altDeg": 30.479328
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Atria",
+    "raDeg": 252.166229,
+    "decDeg": -69.027712,
+    "azDeg": 175.940848,
+    "altDeg": 14.404464
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Avior",
+    "raDeg": 125.62848,
+    "decDeg": -59.509484,
+    "azDeg": 145.102968,
+    "altDeg": 53.225424
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Bellatrix",
+    "raDeg": 81.282764,
+    "decDeg": 6.349703,
+    "azDeg": 357.148059,
+    "altDeg": 48.630015
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "BETELGEUSE",
+    "raDeg": 88.792939,
+    "decDeg": 7.407064,
+    "azDeg": 8.218667,
+    "altDeg": 47.28128
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "CANOPUS",
+    "raDeg": 95.987958,
+    "decDeg": -52.695661,
+    "azDeg": 156.72789,
+    "altDeg": 70.105876
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Diphda",
+    "raDeg": 10.897379,
+    "decDeg": -17.986606,
+    "azDeg": 264.507827,
+    "altDeg": 24.506813
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 358.42386,
+    "altDeg": 26.410076
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gacrux",
+    "raDeg": 187.791498,
+    "decDeg": -57.113213,
+    "azDeg": 145.558877,
+    "altDeg": 21.716984
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 110.434311,
+    "altDeg": 1.853491
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 312.393712,
+    "altDeg": 13.986827
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Menkar",
+    "raDeg": 45.569888,
+    "decDeg": 4.089739,
+    "azDeg": 310.040287,
+    "altDeg": 37.352419
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Miaplacidus",
+    "raDeg": 138.299906,
+    "decDeg": -69.717208,
+    "azDeg": 156.509022,
+    "altDeg": 44.468533
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Peacock",
+    "raDeg": 306.411904,
+    "decDeg": -56.73509,
+    "azDeg": 202.329265,
+    "altDeg": 8.852224
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 67.838568,
+    "altDeg": 9.841131
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "RIGEL",
+    "raDeg": 78.634467,
+    "decDeg": -8.201638,
+    "azDeg": 350.094518,
+    "altDeg": 62.892947
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Suhail",
+    "raDeg": 136.998991,
+    "decDeg": -43.432591,
+    "azDeg": 118.422111,
+    "altDeg": 48.209631
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Adhara",
+    "raDeg": 104.656453,
+    "decDeg": -28.972086,
+    "azDeg": 160.729583,
+    "altDeg": 10.259515
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 204.378033,
+    "altDeg": 56.126453
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alioth",
+    "raDeg": 193.50729,
+    "decDeg": 55.959823,
+    "azDeg": 36.908395,
+    "altDeg": 29.306037
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 34.850091,
+    "altDeg": 19.032182
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alnilam",
+    "raDeg": 84.053389,
+    "decDeg": -1.201919,
+    "azDeg": 178.440651,
+    "altDeg": 40.37451
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 119.541911,
+    "altDeg": 13.069495
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 284.167658,
+    "altDeg": 27.202848
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Bellatrix",
+    "raDeg": 81.282764,
+    "decDeg": 6.349703,
+    "azDeg": 182.346941,
+    "altDeg": 47.910969
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "BETELGEUSE",
+    "raDeg": 88.792939,
+    "decDeg": 7.407064,
+    "azDeg": 171.079322,
+    "altDeg": 48.684063
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 327.911426,
+    "altDeg": 12.548881
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Dubhe",
+    "raDeg": 165.931965,
+    "decDeg": 61.751035,
+    "azDeg": 40.931836,
+    "altDeg": 44.200935
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 183.349543,
+    "altDeg": 70.157456
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Eltanin",
+    "raDeg": 269.151541,
+    "decDeg": 51.488896,
+    "azDeg": 356.032521,
+    "altDeg": 10.149872
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 256.826051,
+    "altDeg": 42.880951
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Kochab",
+    "raDeg": 222.676358,
+    "decDeg": 74.155504,
+    "azDeg": 12.505319,
+    "altDeg": 35.566246
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Markab",
+    "raDeg": 346.190223,
+    "decDeg": 15.205267,
+    "azDeg": 285.06506,
+    "altDeg": 7.108922
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Menkar",
+    "raDeg": 45.569888,
+    "decDeg": 4.089739,
+    "azDeg": 227.887941,
+    "altDeg": 35.45849
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 285.988868,
+    "altDeg": 69.318115
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "POLARIS",
+    "raDeg": 37.954561,
+    "decDeg": 89.264109,
+    "azDeg": 359.207042,
+    "altDeg": 48.961202
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 97.594227,
+    "altDeg": 22.70717
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "RIGEL",
+    "raDeg": 78.634467,
+    "decDeg": -8.201638,
+    "azDeg": 185.007634,
+    "altDeg": 33.267634
+  },
+  {
+    "utc": "1999-01-17T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Schedar",
+    "raDeg": 10.126846,
+    "decDeg": 56.537329,
+    "azDeg": 309.309741,
+    "altDeg": 47.123956
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Acamar",
+    "raDeg": 44.565318,
+    "decDeg": -40.304678,
+    "azDeg": 231.228892,
+    "altDeg": 15.271888
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Adhara",
+    "raDeg": 104.656453,
+    "decDeg": -28.972086,
+    "azDeg": 268.770808,
+    "altDeg": 55.944255
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 291.86887,
+    "altDeg": 2.270413
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alnilam",
+    "raDeg": 84.053389,
+    "decDeg": -1.201919,
+    "azDeg": 287.064923,
+    "altDeg": 24.68313
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 354.392542,
+    "altDeg": 63.682591
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ANTARES",
+    "raDeg": 247.351915,
+    "decDeg": -26.432003,
+    "azDeg": 118.883681,
+    "altDeg": 5.357113
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Atria",
+    "raDeg": 252.166229,
+    "decDeg": -69.027712,
+    "azDeg": 157.727867,
+    "altDeg": 26.434627
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Avior",
+    "raDeg": 125.62848,
+    "decDeg": -59.509484,
+    "azDeg": 200.847545,
+    "altDeg": 62.47478
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Bellatrix",
+    "raDeg": 81.282764,
+    "decDeg": 6.349703,
+    "azDeg": 291.482054,
+    "altDeg": 17.787541
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "BETELGEUSE",
+    "raDeg": 88.792939,
+    "decDeg": 7.407064,
+    "azDeg": 297.567488,
+    "altDeg": 22.688779
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "CANOPUS",
+    "raDeg": 95.987958,
+    "decDeg": -52.695661,
+    "azDeg": 227.121814,
+    "altDeg": 51.687782
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 308.605208,
+    "altDeg": 3.340453
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gacrux",
+    "raDeg": 187.791498,
+    "decDeg": -57.113213,
+    "azDeg": 141.281395,
+    "altDeg": 53.5436
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 74.139388,
+    "altDeg": 50.90698
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Miaplacidus",
+    "raDeg": 138.299906,
+    "decDeg": -69.717208,
+    "azDeg": 183.819225,
+    "altDeg": 55.009273
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Peacock",
+    "raDeg": 306.411904,
+    "decDeg": -56.73509,
+    "azDeg": 170.305595,
+    "altDeg": 3.118793
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 10.276088,
+    "altDeg": 42.614279
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "RIGEL",
+    "raDeg": 78.634467,
+    "decDeg": -8.201638,
+    "azDeg": 277.346442,
+    "altDeg": 24.498444
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Shaula",
+    "raDeg": 263.402167,
+    "decDeg": -37.103824,
+    "azDeg": 135.820958,
+    "altDeg": 1.934735
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "SPICA",
+    "raDeg": 201.298247,
+    "decDeg": -11.161319,
+    "azDeg": 79.887809,
+    "altDeg": 33.454517
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Suhail",
+    "raDeg": 136.998991,
+    "decDeg": -43.432591,
+    "azDeg": 211.858816,
+    "altDeg": 79.687777
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Adhara",
+    "raDeg": 104.656453,
+    "decDeg": -28.972086,
+    "azDeg": 213.942688,
+    "altDeg": 5.03365
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 270.269645,
+    "altDeg": 22.197424
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alioth",
+    "raDeg": 193.50729,
+    "decDeg": 55.959823,
+    "azDeg": 57.162937,
+    "altDeg": 59.503942
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 64.426738,
+    "altDeg": 49.911117
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alnilam",
+    "raDeg": 84.053389,
+    "decDeg": -1.201919,
+    "azDeg": 245.90724,
+    "altDeg": 18.460773
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 182.585115,
+    "altDeg": 32.78918
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alphecca",
+    "raDeg": 233.671952,
+    "decDeg": 26.714685,
+    "azDeg": 71.918867,
+    "altDeg": 19.927169
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Bellatrix",
+    "raDeg": 81.282764,
+    "decDeg": 6.349703,
+    "azDeg": 253.229538,
+    "altDeg": 22.657668
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "BETELGEUSE",
+    "raDeg": 88.792939,
+    "decDeg": 7.407064,
+    "azDeg": 247.534005,
+    "altDeg": 28.151682
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 9.711353,
+    "altDeg": 4.747516
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Dubhe",
+    "raDeg": 165.931965,
+    "decDeg": 61.751035,
+    "azDeg": 34.979002,
+    "altDeg": 71.964973
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 271.03621,
+    "altDeg": 38.922378
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Eltanin",
+    "raDeg": 269.151541,
+    "decDeg": 51.488896,
+    "azDeg": 33.037676,
+    "altDeg": 20.468976
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 140.792044,
+    "altDeg": 15.003026
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 301.770589,
+    "altDeg": 4.144125
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Kochab",
+    "raDeg": 222.676358,
+    "decDeg": 74.155504,
+    "azDeg": 24.301399,
+    "altDeg": 49.163469
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 309.630001,
+    "altDeg": 33.481996
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "POLARIS",
+    "raDeg": 37.954561,
+    "decDeg": 89.264109,
+    "azDeg": 359.074766,
+    "altDeg": 48.349812
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 166.938941,
+    "altDeg": 52.814175
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "RIGEL",
+    "raDeg": 78.634467,
+    "decDeg": -8.201638,
+    "azDeg": 245.957239,
+    "altDeg": 9.664959
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Schedar",
+    "raDeg": 10.126846,
+    "decDeg": 56.537329,
+    "azDeg": 334.772357,
+    "altDeg": 21.896826
+  },
+  {
+    "utc": "2026-03-20T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "SPICA",
+    "raDeg": 201.298247,
+    "decDeg": -11.161319,
+    "azDeg": 122.592591,
+    "altDeg": 11.941993
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 341.364049,
+    "altDeg": 2.18428
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 260.422973,
+    "altDeg": 1.938617
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphecca",
+    "raDeg": 233.671952,
+    "decDeg": 26.714685,
+    "azDeg": 357.518636,
+    "altDeg": 28.360958
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ANTARES",
+    "raDeg": 247.351915,
+    "decDeg": -26.432003,
+    "azDeg": 51.97717,
+    "altDeg": 77.068197
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Atria",
+    "raDeg": 252.166229,
+    "decDeg": -69.027712,
+    "azDeg": 169.895016,
+    "altDeg": 54.724468
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Avior",
+    "raDeg": 125.62848,
+    "decDeg": -59.509484,
+    "azDeg": 210.347481,
+    "altDeg": 20.440082
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "CANOPUS",
+    "raDeg": 95.987958,
+    "decDeg": -52.695661,
+    "azDeg": 202.847148,
+    "altDeg": 4.458786
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gacrux",
+    "raDeg": 187.791498,
+    "decDeg": -57.113213,
+    "azDeg": 219.893767,
+    "altDeg": 51.045106
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 276.576572,
+    "altDeg": 40.833535
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Miaplacidus",
+    "raDeg": 138.299906,
+    "decDeg": -69.717208,
+    "azDeg": 203.199526,
+    "altDeg": 29.953054
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Nunki",
+    "raDeg": 283.81636,
+    "decDeg": -26.296724,
+    "azDeg": 91.47927,
+    "altDeg": 48.340659
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Peacock",
+    "raDeg": 306.411904,
+    "decDeg": -56.73509,
+    "azDeg": 138.169104,
+    "altDeg": 39.006902
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Rasalhague",
+    "raDeg": 263.733623,
+    "decDeg": 12.560037,
+    "azDeg": 33.907748,
+    "altDeg": 35.739821
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Sabik",
+    "raDeg": 257.594529,
+    "decDeg": -15.724907,
+    "azDeg": 50.588894,
+    "altDeg": 62.741023
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Shaula",
+    "raDeg": 263.402167,
+    "decDeg": -37.103824,
+    "azDeg": 103.54396,
+    "altDeg": 67.78599
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "SPICA",
+    "raDeg": 201.298247,
+    "decDeg": -11.161319,
+    "azDeg": 298.350254,
+    "altDeg": 50.583086
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Suhail",
+    "raDeg": 136.998991,
+    "decDeg": -43.432591,
+    "azDeg": 228.616281,
+    "altDeg": 17.542456
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alioth",
+    "raDeg": 193.50729,
+    "decDeg": 55.959823,
+    "azDeg": 302.196915,
+    "altDeg": 63.477169
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 283.209846,
+    "altDeg": 71.049284
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alphecca",
+    "raDeg": 233.671952,
+    "decDeg": 26.714685,
+    "azDeg": 185.117521,
+    "altDeg": 68.141398
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 44.666692,
+    "altDeg": 1.60733
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "ANTARES",
+    "raDeg": 247.351915,
+    "decDeg": -26.432003,
+    "azDeg": 169.223347,
+    "altDeg": 14.414816
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 63.888816,
+    "altDeg": 41.090562
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Dubhe",
+    "raDeg": 165.931965,
+    "decDeg": 61.751035,
+    "azDeg": 315.922893,
+    "altDeg": 50.130369
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Eltanin",
+    "raDeg": 269.151541,
+    "decDeg": 51.488896,
+    "azDeg": 69.220087,
+    "altDeg": 68.601476
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Enif",
+    "raDeg": 326.046484,
+    "decDeg": 9.875009,
+    "azDeg": 83.117436,
+    "altDeg": 7.390928
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 229.364354,
+    "altDeg": 9.512226
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Kochab",
+    "raDeg": 222.676358,
+    "decDeg": 74.155504,
+    "azDeg": 351.723552,
+    "altDeg": 63.736765
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 2.95032,
+    "altDeg": 8.562238
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Nunki",
+    "raDeg": 283.81636,
+    "decDeg": -26.296724,
+    "azDeg": 137.97798,
+    "altDeg": 3.981095
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "POLARIS",
+    "raDeg": 37.954561,
+    "decDeg": 89.264109,
+    "azDeg": 0.160371,
+    "altDeg": 47.824153
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Rasalhague",
+    "raDeg": 263.733623,
+    "decDeg": 12.560037,
+    "azDeg": 137.586579,
+    "altDeg": 47.285802
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 273.240673,
+    "altDeg": 13.093546
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Sabik",
+    "raDeg": 257.594529,
+    "decDeg": -15.724907,
+    "azDeg": 157.069633,
+    "altDeg": 22.95533
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Schedar",
+    "raDeg": 10.126846,
+    "decDeg": 56.537329,
+    "azDeg": 24.984141,
+    "altDeg": 21.758915
+  },
+  {
+    "utc": "2026-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "SPICA",
+    "raDeg": 201.298247,
+    "decDeg": -11.161319,
+    "azDeg": 217.030862,
+    "altDeg": 22.995783
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Acamar",
+    "raDeg": 44.565318,
+    "decDeg": -40.304678,
+    "azDeg": 119.619038,
+    "altDeg": 31.624328
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 30.419884,
+    "altDeg": 18.504206
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ANTARES",
+    "raDeg": 247.351915,
+    "decDeg": -26.432003,
+    "azDeg": 251.987116,
+    "altDeg": 21.563497
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Atria",
+    "raDeg": 252.166229,
+    "decDeg": -69.027712,
+    "azDeg": 205.832966,
+    "altDeg": 37.297588
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Avior",
+    "raDeg": 125.62848,
+    "decDeg": -59.509484,
+    "azDeg": 168.375382,
+    "altDeg": 6.665663
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "CANOPUS",
+    "raDeg": 95.987958,
+    "decDeg": -52.695661,
+    "azDeg": 150.694166,
+    "altDeg": 9.130675
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 347.021682,
+    "altDeg": 8.012847
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Diphda",
+    "raDeg": 10.897379,
+    "decDeg": -17.986606,
+    "azDeg": 76.484148,
+    "altDeg": 48.90662
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Enif",
+    "raDeg": 326.046484,
+    "decDeg": 9.875009,
+    "azDeg": 356.280305,
+    "altDeg": 44.94457
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gacrux",
+    "raDeg": 187.791498,
+    "decDeg": -57.113213,
+    "azDeg": 200.145113,
+    "altDeg": 8.082115
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 55.327447,
+    "altDeg": 6.43807
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Markab",
+    "raDeg": 346.190223,
+    "decDeg": 15.205267,
+    "azDeg": 21.256163,
+    "altDeg": 37.006623
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Menkar",
+    "raDeg": 45.569888,
+    "decDeg": 4.089739,
+    "azDeg": 78.938051,
+    "altDeg": 8.360712
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Miaplacidus",
+    "raDeg": 138.299906,
+    "decDeg": -69.717208,
+    "azDeg": 176.196845,
+    "altDeg": 15.173791
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Nunki",
+    "raDeg": 283.81636,
+    "decDeg": -26.296724,
+    "azDeg": 270.216021,
+    "altDeg": 50.807051
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Peacock",
+    "raDeg": 306.411904,
+    "decDeg": -56.73509,
+    "azDeg": 207.816654,
+    "altDeg": 63.689992
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Rasalhague",
+    "raDeg": 263.733623,
+    "decDeg": 12.560037,
+    "azDeg": 295.100152,
+    "altDeg": 12.385847
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Sabik",
+    "raDeg": 257.594529,
+    "decDeg": -15.724907,
+    "azDeg": 267.269953,
+    "altDeg": 24.332906
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Shaula",
+    "raDeg": 263.402167,
+    "decDeg": -37.103824,
+    "azDeg": 247.315018,
+    "altDeg": 38.350365
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 71.16054,
+    "altDeg": 5.656456
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alioth",
+    "raDeg": 193.50729,
+    "decDeg": 55.959823,
+    "azDeg": 334.819777,
+    "altDeg": 20.867539
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 323.71569,
+    "altDeg": 19.856931
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alphecca",
+    "raDeg": 233.671952,
+    "decDeg": 26.714685,
+    "azDeg": 291.627877,
+    "altDeg": 16.66157
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 114.323451,
+    "altDeg": 57.907137
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 262.957531,
+    "altDeg": 77.267519
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Diphda",
+    "raDeg": 10.897379,
+    "decDeg": -17.986606,
+    "azDeg": 138.554542,
+    "altDeg": 13.749347
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Dubhe",
+    "raDeg": 165.931965,
+    "decDeg": 61.751035,
+    "azDeg": 351.146788,
+    "altDeg": 20.979832
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 54.403892,
+    "altDeg": 7.497735
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Eltanin",
+    "raDeg": 269.151541,
+    "decDeg": 51.488896,
+    "azDeg": 297.772403,
+    "altDeg": 52.71726
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Enif",
+    "raDeg": 326.046484,
+    "decDeg": 9.875009,
+    "azDeg": 183.736272,
+    "altDeg": 51.53466
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 92.865436,
+    "altDeg": 34.866385
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Kochab",
+    "raDeg": 222.676358,
+    "decDeg": 74.155504,
+    "azDeg": 339.194132,
+    "altDeg": 41.992196
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Markab",
+    "raDeg": 346.190223,
+    "decDeg": 15.205267,
+    "azDeg": 150.046084,
+    "altDeg": 53.850066
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Menkar",
+    "raDeg": 45.569888,
+    "decDeg": 4.089739,
+    "azDeg": 96.855759,
+    "altDeg": 11.704127
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 54.946104,
+    "altDeg": 38.777941
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Nunki",
+    "raDeg": 283.81636,
+    "decDeg": -26.296724,
+    "azDeg": 219.151819,
+    "altDeg": 5.507806
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "POLARIS",
+    "raDeg": 37.954561,
+    "decDeg": 89.264109,
+    "azDeg": 0.927637,
+    "altDeg": 48.566657
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Rasalhague",
+    "raDeg": 263.733623,
+    "decDeg": 12.560037,
+    "azDeg": 259.219255,
+    "altDeg": 26.095141
+  },
+  {
+    "utc": "2026-09-23T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Schedar",
+    "raDeg": 10.126846,
+    "decDeg": 56.537329,
+    "azDeg": 55.863393,
+    "altDeg": 63.770101
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Acamar",
+    "raDeg": 44.565318,
+    "decDeg": -40.304678,
+    "azDeg": 237.665752,
+    "altDeg": 79.217187
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Adhara",
+    "raDeg": 104.656453,
+    "decDeg": -28.972086,
+    "azDeg": 95.486783,
+    "altDeg": 49.134547
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 15.190015,
+    "altDeg": 37.087826
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alnilam",
+    "raDeg": 84.053389,
+    "decDeg": -1.201919,
+    "azDeg": 43.34922,
+    "altDeg": 47.530724
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 94.646772,
+    "altDeg": 8.822451
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 314.312168,
+    "altDeg": 7.96194
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Atria",
+    "raDeg": 252.166229,
+    "decDeg": -69.027712,
+    "azDeg": 185.877907,
+    "altDeg": 14.813544
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Avior",
+    "raDeg": 125.62848,
+    "decDeg": -59.509484,
+    "azDeg": 141.891359,
+    "altDeg": 40.056437
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Bellatrix",
+    "raDeg": 81.282764,
+    "decDeg": 6.349703,
+    "azDeg": 34.508649,
+    "altDeg": 42.462841
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "BETELGEUSE",
+    "raDeg": 88.792939,
+    "decDeg": 7.407064,
+    "azDeg": 42.193574,
+    "altDeg": 37.751378
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "CANOPUS",
+    "raDeg": 95.987958,
+    "decDeg": -52.695661,
+    "azDeg": 134.904876,
+    "altDeg": 57.148818
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Diphda",
+    "raDeg": 10.897379,
+    "decDeg": -17.986606,
+    "azDeg": 280.954154,
+    "altDeg": 46.227336
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 23.811098,
+    "altDeg": 22.099667
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gacrux",
+    "raDeg": 187.791498,
+    "decDeg": -57.113213,
+    "azDeg": 155.592587,
+    "altDeg": 11.007721
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 334.668679,
+    "altDeg": 26.96909
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Markab",
+    "raDeg": 346.190223,
+    "decDeg": 15.205267,
+    "azDeg": 293.984439,
+    "altDeg": 6.735878
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Menkar",
+    "raDeg": 45.569888,
+    "decDeg": 4.089739,
+    "azDeg": 343.20297,
+    "altDeg": 49.512609
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Miaplacidus",
+    "raDeg": 138.299906,
+    "decDeg": -69.717208,
+    "azDeg": 155.24589,
+    "altDeg": 35.448674
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 356.643777,
+    "altDeg": 5.078067
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Peacock",
+    "raDeg": 306.411904,
+    "decDeg": -56.73509,
+    "azDeg": 213.166088,
+    "altDeg": 19.09108
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "RIGEL",
+    "raDeg": 78.634467,
+    "decDeg": -8.201638,
+    "azDeg": 42.408952,
+    "altDeg": 56.346802
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Suhail",
+    "raDeg": 136.998991,
+    "decDeg": -43.432591,
+    "azDeg": 124.724272,
+    "altDeg": 29.590443
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Adhara",
+    "raDeg": 104.656453,
+    "decDeg": -28.972086,
+    "azDeg": 139.094177,
+    "altDeg": 1.598548
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "ALDEBARAN",
+    "raDeg": 68.980163,
+    "decDeg": 16.509302,
+    "azDeg": 157.209184,
+    "altDeg": 56.441478
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alioth",
+    "raDeg": 193.50729,
+    "decDeg": 55.959823,
+    "azDeg": 23.932217,
+    "altDeg": 20.201213
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 19.018655,
+    "altDeg": 10.909472
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alnilam",
+    "raDeg": 84.053389,
+    "decDeg": -1.201919,
+    "azDeg": 145.218968,
+    "altDeg": 34.816652
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 265.190792,
+    "altDeg": 44.900711
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Bellatrix",
+    "raDeg": 81.282764,
+    "decDeg": 6.349703,
+    "azDeg": 144.77782,
+    "altDeg": 42.845631
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "BETELGEUSE",
+    "raDeg": 88.792939,
+    "decDeg": 7.407064,
+    "azDeg": 135.154647,
+    "altDeg": 40.576789
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 312.362828,
+    "altDeg": 23.925746
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Diphda",
+    "raDeg": 10.897379,
+    "decDeg": -17.986606,
+    "azDeg": 223.790435,
+    "altDeg": 12.52957
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Dubhe",
+    "raDeg": 165.931965,
+    "decDeg": 61.751035,
+    "azDeg": 32.401364,
+    "altDeg": 33.441566
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Elnath",
+    "raDeg": 81.572971,
+    "decDeg": 28.607452,
+    "azDeg": 125.95188,
+    "altDeg": 62.13162
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Eltanin",
+    "raDeg": 269.151541,
+    "decDeg": 51.488896,
+    "azDeg": 339.654709,
+    "altDeg": 13.844747
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Enif",
+    "raDeg": 326.046484,
+    "decDeg": 9.875009,
+    "azDeg": 276.737798,
+    "altDeg": 7.524119
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Hamal",
+    "raDeg": 31.793357,
+    "decDeg": 23.462418,
+    "azDeg": 226.361915,
+    "altDeg": 58.628164
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Kochab",
+    "raDeg": 222.676358,
+    "decDeg": 74.155504,
+    "azDeg": 4.479753,
+    "altDeg": 32.851955
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Markab",
+    "raDeg": 346.190223,
+    "decDeg": 15.205267,
+    "azDeg": 265.466982,
+    "altDeg": 24.718753
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Menkar",
+    "raDeg": 45.569888,
+    "decDeg": 4.089739,
+    "azDeg": 194.904558,
+    "altDeg": 44.875906
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 297.446824,
+    "altDeg": 86.459352
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "POLARIS",
+    "raDeg": 37.954561,
+    "decDeg": 89.264109,
+    "azDeg": 359.848214,
+    "altDeg": 49.053458
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 77.683467,
+    "altDeg": 5.073155
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "RIGEL",
+    "raDeg": 78.634467,
+    "decDeg": -8.201638,
+    "azDeg": 154.048653,
+    "altDeg": 30.060442
+  },
+  {
+    "utc": "2026-12-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Schedar",
+    "raDeg": 10.126846,
+    "decDeg": 56.537329,
+    "azDeg": 304.265544,
+    "altDeg": 61.482386
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 341.344761,
+    "altDeg": 2.296172
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphard",
+    "raDeg": 141.896845,
+    "decDeg": -8.6586,
+    "azDeg": 260.397089,
+    "altDeg": 2.079139
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Alphecca",
+    "raDeg": 233.671952,
+    "decDeg": 26.714685,
+    "azDeg": 357.584325,
+    "altDeg": 28.439273
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "ANTARES",
+    "raDeg": 247.351915,
+    "decDeg": -26.432003,
+    "azDeg": 52.63749,
+    "altDeg": 76.980319
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Atria",
+    "raDeg": 252.166229,
+    "decDeg": -69.027712,
+    "azDeg": 169.659225,
+    "altDeg": 54.625188
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Avior",
+    "raDeg": 125.62848,
+    "decDeg": -59.509484,
+    "azDeg": 210.25781,
+    "altDeg": 20.462466
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "CANOPUS",
+    "raDeg": 95.987958,
+    "decDeg": -52.695661,
+    "azDeg": 202.810735,
+    "altDeg": 4.457936
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gacrux",
+    "raDeg": 187.791498,
+    "decDeg": -57.113213,
+    "azDeg": 219.654017,
+    "altDeg": 51.096644
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 276.508393,
+    "altDeg": 41.005378
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Miaplacidus",
+    "raDeg": 138.299906,
+    "decDeg": -69.717208,
+    "azDeg": 203.072941,
+    "altDeg": 29.951972
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Nunki",
+    "raDeg": 283.81636,
+    "decDeg": -26.296724,
+    "azDeg": 91.531038,
+    "altDeg": 48.173056
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Peacock",
+    "raDeg": 306.411904,
+    "decDeg": -56.73509,
+    "azDeg": 138.085116,
+    "altDeg": 38.843588
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Rasalhague",
+    "raDeg": 263.733623,
+    "decDeg": 12.560037,
+    "azDeg": 34.013615,
+    "altDeg": 35.706798
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Sabik",
+    "raDeg": 257.594529,
+    "decDeg": -15.724907,
+    "azDeg": 50.874809,
+    "altDeg": 62.65669
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Shaula",
+    "raDeg": 263.402167,
+    "decDeg": -37.103824,
+    "azDeg": 103.594094,
+    "altDeg": 67.608201
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "SPICA",
+    "raDeg": 201.298247,
+    "decDeg": -11.161319,
+    "azDeg": 298.346772,
+    "altDeg": 50.762591
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": -35,
+    "longitudeDeg": -123.052,
+    "star": "Suhail",
+    "raDeg": 136.998991,
+    "decDeg": -43.432591,
+    "azDeg": 228.541731,
+    "altDeg": 17.619685
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alioth",
+    "raDeg": 193.50729,
+    "decDeg": 55.959823,
+    "azDeg": 301.904295,
+    "altDeg": 63.512677
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alkaid",
+    "raDeg": 206.885157,
+    "decDeg": 49.313267,
+    "azDeg": 282.837697,
+    "altDeg": 71.060984
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alphecca",
+    "raDeg": 233.671952,
+    "decDeg": 26.714685,
+    "azDeg": 184.941531,
+    "altDeg": 68.06945
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Alpheratz",
+    "raDeg": 2.096916,
+    "decDeg": 29.090431,
+    "azDeg": 44.500352,
+    "altDeg": 1.654862
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "ANTARES",
+    "raDeg": 247.351915,
+    "decDeg": -26.432003,
+    "azDeg": 169.06054,
+    "altDeg": 14.345567
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "DENEB",
+    "raDeg": 310.35798,
+    "decDeg": 45.280339,
+    "azDeg": 63.776022,
+    "altDeg": 41.125309
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Dubhe",
+    "raDeg": 165.931965,
+    "decDeg": 61.751035,
+    "azDeg": 315.692888,
+    "altDeg": 50.178036
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Eltanin",
+    "raDeg": 269.151541,
+    "decDeg": 51.488896,
+    "azDeg": 69.220355,
+    "altDeg": 68.630263
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Enif",
+    "raDeg": 326.046484,
+    "decDeg": 9.875009,
+    "azDeg": 82.959041,
+    "altDeg": 7.40293
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Gienah",
+    "raDeg": 183.951545,
+    "decDeg": -17.54193,
+    "azDeg": 229.189537,
+    "altDeg": 9.462898
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Kochab",
+    "raDeg": 222.676358,
+    "decDeg": 74.155504,
+    "azDeg": 351.527461,
+    "altDeg": 63.806686
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Mirfak",
+    "raDeg": 51.080709,
+    "decDeg": 49.861179,
+    "azDeg": 2.782918,
+    "altDeg": 8.632757
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Nunki",
+    "raDeg": 283.81636,
+    "decDeg": -26.296724,
+    "azDeg": 137.814154,
+    "altDeg": 3.932051
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "POLARIS",
+    "raDeg": 37.954561,
+    "decDeg": 89.264109,
+    "azDeg": 359.988802,
+    "altDeg": 47.895344
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Rasalhague",
+    "raDeg": 263.733623,
+    "decDeg": 12.560037,
+    "azDeg": 137.474427,
+    "altDeg": 47.233995
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "REGULUS",
+    "raDeg": 152.092962,
+    "decDeg": 11.967209,
+    "azDeg": 273.058166,
+    "altDeg": 13.09271
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Sabik",
+    "raDeg": 257.594529,
+    "decDeg": -15.724907,
+    "azDeg": 156.915113,
+    "altDeg": 22.891737
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "Schedar",
+    "raDeg": 10.126846,
+    "decDeg": 56.537329,
+    "azDeg": 24.827381,
+    "altDeg": 21.824716
+  },
+  {
+    "utc": "2050-06-21T06:00:00Z",
+    "latitudeDeg": 48.4284,
+    "longitudeDeg": -123.3656,
+    "star": "SPICA",
+    "raDeg": 201.298247,
+    "decDeg": -11.161319,
+    "azDeg": 216.846888,
+    "altDeg": 22.936328
+  }
+]
