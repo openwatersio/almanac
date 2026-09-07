@@ -3,14 +3,47 @@
   "version": "0.3.0",
   "description": "Offline sun & moon engine: positions, rise/set, moon phase, lunar eclipses.",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/openwatersio/almanac.git", "directory": "typescript" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openwatersio/almanac.git",
+    "directory": "typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/openwatersio/almanac/issues"
+  },
+  "keywords": [
+    "astronomy",
+    "sun",
+    "moon",
+    "ephemeris",
+    "lunar-eclipse",
+    "marine"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://openwaters.io/sky",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
-  "files": ["dist", "NOTICE"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "NOTICE"
+  ],
   "//": "index.ts is a curated allow-list: ONLY the spec's public API table is exported — no guards, no L0/L1 internals",
-  "scripts": { "build": "tsc -p tsconfig.json", "test": "vitest run", "prepack": "npm run build && cp ../NOTICE ../LICENSE ../README.md ." },
-  "devDependencies": { "typescript": "^5.5.0", "vitest": "^2.0.0" }
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "prepack": "npm run build && cp ../NOTICE ../LICENSE ../README.md ."
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.11"
+  }
 }

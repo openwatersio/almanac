@@ -1,9 +1,6 @@
 # Almanac
 
-Offline sun & moon engine for the Salish Sea and everywhere else — positions,
-rise/set/twilight, moon phase, lunar eclipses (solar planned), and where any fixed
-star stands from a catalog position, computed from pure geometry with zero network
-and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun and Moon positions, rise, set, twilight, Moon phase, lunar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -12,13 +9,12 @@ Twin implementations, one behavior:
 - `fixtures/` — the shared test corpus (JPL Horizons, USNO, Espenak) both suites
   must pass; the contract that keeps the ports identical
 
-Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside it
-raise a typed error. All instants are UT1-accurate, not civil-UTC-accurate in the far
-future — see the design spec's Conventions section for what that means and why.
+Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside it raise a typed error. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
 
-- Design: [`docs/superpowers/specs/2026-08-28-almanac-v1-design.md`](docs/superpowers/specs/2026-08-28-almanac-v1-design.md)
-- Roadmap: [`docs/ROADMAP.md`](docs/ROADMAP.md) — what ships next, and what will not.
-- Landing page: [openwaters.io/sky](https://openwaters.io/sky) — the library running live in a browser.
+- Contract: [`docs/CONTRACT.md`](docs/CONTRACT.md), including coordinates, public behavior, accuracy, and fixture evidence.
+- Scope: [`docs/ROADMAP.md`](docs/ROADMAP.md), including supported behavior and deliberate boundaries.
+- Development and releases: [`CONTRIBUTING.md`](CONTRIBUTING.md), including pinned tools and required checks.
+- Landing page: [openwaters.io/sky](https://openwaters.io/sky), with the library running live in a browser.
 
 Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/astronomy)
 (MIT, Don Cross) — see [NOTICE](NOTICE). MIT licensed.
@@ -43,18 +39,14 @@ median query time fell relative to the v0.2.0 astronomy code:
 | Previous lunar eclipse | 26.0% | 36.6% |
 | Lunar eclipses / 1950–2100 | 26.4% | 23.4% |
 
-TypeScript was measured on Ubuntu with Node 22; Swift used release builds on
-macOS 15. Each comparison builds both revisions with the same harness and
-toolchain, then takes seven interleaved process pairs with 300 ms warmup per
-process. Build and startup time are excluded. Timings vary by machine; the shared
-correctness fixtures and parity tolerances remain the accuracy gates.
+TypeScript was measured on Ubuntu; Swift used release builds on macOS. Each comparison builds both revisions with the same harness and toolchain, then takes seven interleaved process pairs with 300 ms warmup per process. Build and startup time are excluded. Timings vary by machine; the shared correctness fixtures and parity tolerances remain the accuracy gates.
 
-Reproduce the comparison locally from the repository root (Node 22+ and Swift
-5.9+):
+Reproduce the comparison locally from the repository root with mise 2026.9.1 or newer after installing the configured Node and Swift versions in `mise.toml`:
 
 ```bash
-npm ci --prefix typescript
-node benchmarks/run.mjs --base v0.2.0
+mise install
+mise exec -- npm ci --prefix typescript
+mise exec -- node benchmarks/run.mjs --base v0.2.0
 ```
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.

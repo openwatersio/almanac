@@ -30,8 +30,8 @@ jobs:
           fi
           changed=$(git diff --name-only "$BASE...HEAD")
           echo "$changed"
-          # ci.yml is in the list so a change to CI still tests itself.
-          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures|benchmarks)/|^Package\.swift$|^\.github/workflows/ci\.yml$'; then
+          # Toolchain, workflow, and packaged-document changes must run the suites.
+          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures|benchmarks)/|^(Package\.swift|mise\.toml|README\.md|LICENSE|NOTICE)$|^\.github/workflows/'; then
             echo 'code=true' >> "$GITHUB_OUTPUT"
           else
             echo 'code=false' >> "$GITHUB_OUTPUT"
@@ -56,6 +56,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
+      - run: npm pack --dry-run
       - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
   swift:
     needs: changes

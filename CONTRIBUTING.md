@@ -1,118 +1,119 @@
 # Contributing
 
-## Development
+Almanac is a twin-port library with one behavior implemented by hand in TypeScript and Swift. The [public contract](docs/CONTRACT.md) defines that behavior, and the fixture corpus is the authority both ports answer to. Read the contract before changing public behavior.
 
-Two implementations, one behavior. Any change to computed results lands in both
-`typescript/` and `swift/` in the same change series, with the TypeScript port
-leading and the Swift port mirroring its structure. See [AGENTS.md](AGENTS.md) for
-the invariants and gotchas; the design spec in `docs/` is the binding contract.
+## Repository status
 
-Run everything before pushing:
+Almanac follows the Open Waters Tier 3 repository baseline for a maintained public utility. Tier 3 requires pull requests and the `typescript`, `swift`, and `fixtures` status checks, with no approving review required. Almanac is listed in the organization profile because external Swift and npm consumers use it; that profile listing is a visibility exception rather than a recorded tier promotion. Promotion to another tier requires an explicit organization decision.
+
+The shared organization guidance is in the [repository standards](https://github.com/openwatersio/.github/blob/main/REPOSITORY_STANDARDS.md), [agent instructions](https://github.com/openwatersio/.github/blob/main/docs/agents/agent-instructions.md), [npm release conventions](https://github.com/openwatersio/.github/blob/main/docs/agents/npm-releases.md), and [writing conventions](https://github.com/openwatersio/.github/blob/main/docs/agents/writing-style.md).
+
+## Layout
+
+- `typescript/` contains the npm package and the leading implementation.
+- `swift/` contains the SwiftPM package and mirrors the TypeScript implementation.
+- `fixtures/` contains raw upstream evidence, derived fixtures, and the parity corpus used by both ports.
+- `benchmarks/` contains the shared correctness-preserving performance harness.
+- `docs/` contains the public contract and scope.
+- `Package.swift` is the root manifest used by Git URL SwiftPM consumers.
+- `.github/workflows/ci.yml` runs pull request and main-branch checks.
+- `.github/workflows/release.yml` tests, smoke-tests, and publishes tagged releases.
+
+## Twin-port contract
+
+- Every behavior change lands in both ports in the same change series. TypeScript leads, and Swift follows function by function with the same structure and operation order. The parity corpus compares the implementations near exactly at about `1e-5°`.
+- Astronomy algorithms are translated from Astronomy Engine at pinned commit `865d3da7d8112bbc7911238052c6af4aaf877181`. Copy coefficient tables from that source and cite the upstream function above each translation.
+- The public API is the table in [the contract](docs/CONTRACT.md#public-api). TypeScript exports only through the curated allow-list in `typescript/src/index.ts`. Swift access control is the export gate, and `PublicSurfaceTests.swift` must construct or call every public symbol using plain `import Almanac`. A public-surface change updates the contract table, both ports, that test, and usually the parity corpus.
+- Test tolerances are normative. Do not loosen a tolerance to make a test pass. A resistant fixture means the implementations differ in operation order, a constant, or TT/UT handling, or that the fixture design needs a spec decision.
+- Regenerate parity data with `fixtures/generate/parity.mjs`. The Swift reproduction test must still pass. Comparisons decode values with a tolerance of 5 scaled units or 1 time quantum to accommodate cross-platform `libm` ULP noise; they do not compare serialized bytes.
+
+## Astronomy constraints
+
+- Coarse position fixtures carry TT values. Delta-T projections differ between Espenak–Meeus and the frozen Horizons values by about 5.9 seconds today and 134 seconds at 2100. Roughly 6 seconds in a current UT event comparison is the Delta-T model floor. USNO grid rows after 2050 assert scatter about a per-date mean for the same reason.
+- `moonPhaseDeg` takes TT days. Passing UT compiles and shifts the result by about 35 arcseconds.
+- `FLAT_CYCLE_LATITUDE_DEG = 85` prevents rise and set events from disappearing when the altitude cycle flattens. Keep the brute-force flattening-band oracle test in both ports.
+- `SAME_ECLIPSE_MS = 100` makes next and previous eclipse searches strict around the anchor. Range searches use exact half-open bounds. Keep the fixed full-moon seed so adjacent ranges agree on the peak.
+- Every public entry point applies TimeClip truncation toward zero to integer milliseconds. Swift must not use floor.
+- Swift tests run in release mode because debug builds exceed the performance smoke limits. The tests do not use `assert()` or `precondition()`, so release builds retain their test semantics.
+
+## Development checks
+
+CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `macos-15` supplies Swift (6.1.2 in the current runner image). Local `mise.toml` mirrors those versions. Update it when CI changes; workflows do not read it. The npm packaging and publishing jobs use Node 24 for trusted publishing.
+
+For local setup, mise 2026.9.1 or newer provides the core Swift backend:
 
 ```bash
-cd typescript && npm ci && npm test && npm run build
-cd .. && swift test -c release
-node fixtures/generate/derive.mjs --check
+mise install
 ```
 
-CI runs these checks plus performance comparisons on code changes in PRs and
-every push to main.
+Swift also needs the matching Xcode SDK. The `macos-15` runner uses Xcode 16.4 and the macOS 15.5 SDK. Select that Xcode installation with `DEVELOPER_DIR` when reproducing CI locally, for example `export DEVELOPER_DIR=/Applications/Xcode_16.4.app/Contents/Developer`. Mise installs the compiler, not Xcode or its SDK; Swift 6.1.2 cannot compile against the Xcode 26.5 SDK.
+
+Run the correctness, dependency, and package checks from the repository root:
+
+```bash
+(
+  cd typescript
+  mise exec -- npm ci
+  mise exec -- npm run build
+  mise exec -- npm test
+  mise exec -- npm audit
+  mise exec -- npm pack --dry-run
+)
+mise exec -- swift test -c release
+mise exec -- node fixtures/generate/derive.mjs --check
+mise exec -- node fixtures/generate/parity.mjs --check HEAD HEAD
+mise exec -- node --test benchmarks/compare.test.mjs
+```
+
+The TypeScript suite includes the full-range performance smokes. `npm pack --dry-run` runs `prepack`, which stages `README.md`, `LICENSE`, and `NOTICE` inside `typescript/`; these generated copies are not repository files and must not be committed.
+
+Fixture refresh scripts named `refresh-*.mjs` are the only fixture scripts that use the network. Run them manually, commit raw responses, derived fixtures, and metadata together, and record request URLs in the metadata files.
 
 ## Performance
 
-From the repository root, with Node 22+ and the TypeScript dev dependencies
-installed (`npm ci --prefix typescript`):
+Install the pinned tools and TypeScript dependencies, then run the shared benchmark from the repository root:
 
 ```bash
-node benchmarks/run.mjs --base origin/main
+mise install
+mise exec -- npm ci --prefix typescript
+mise exec -- node benchmarks/run.mjs --base origin/main
 ```
 
-This benchmarks the current working tree (including uncommitted edits) against
-the selected Git revision. Omit `--base` to compare against `HEAD`. Use
-`--port typescript` or `--port swift` to run one port; Swift requires Swift 5.9+
-and always builds in release mode. No extra benchmark dependencies are needed.
+The command benchmarks the current working tree, including uncommitted edits, against the selected Git revision. Omit `--base` to compare against `HEAD`. Use `--port typescript` or `--port swift` to run one port. Swift always builds in release mode, and no extra benchmark dependencies are needed.
 
-Both revisions use the **current harness, inputs, compiler and machine**. The
-baseline is exported to a temporary directory, so it can predate the harness
-and your checkout is never switched. Builds, fixture loading, date parsing and
-process startup are outside the measurements. Each workload gets seven pairs of
-base/candidate processes, alternating which revision runs first. Every process
-warms up for 300 ms; the first pair calibrates batch sizes to 100 ms or longer and
-later pairs reuse them. Samples are milliseconds per workload, with results
-consumed and checked for consistency.
+Both revisions use the current harness, inputs, compiler, and machine. The baseline is exported to a temporary directory, so it can predate the harness and the command never switches your checkout. Builds, fixture loading, date parsing, and process startup are outside the measurements. Each workload gets seven pairs of base and candidate processes, alternating which revision runs first. Every process warms up for 300 milliseconds; the first pair calibrates batch sizes to at least 100 milliseconds and later pairs reuse them.
 
-The table shows median latency and percentage change for every workload.
-**Any median slowdown over 20% fails the command/CI job**; customize the limit
-locally with `--threshold 10`. Small deltas can be timing noise: keep the machine
-idle and repeat a suspicious run. Interleaving reduces runner drift, but cannot
-eliminate noisy neighbors. The margin is a policy, not a statistical
-significance claim; correctness and parity tests remain the accuracy gates.
+The table reports median latency and percentage change for every workload. A median slowdown above 20 percent fails the command and CI job; use `--threshold 10` to test another limit locally. Small changes can be timing noise, so keep the machine idle and repeat a suspicious run. The threshold is a policy limit, while correctness and parity tests remain the accuracy gates.
 
-The shared inputs in [`benchmarks/cases.json`](benchmarks/cases.json) cover
-positions, a 228-hour sky track, short/year/polar event windows, full-range phases,
-and lunar eclipses. For [#6](https://github.com/openwatersio/almanac/issues/6),
-the eclipse cases measure next/previous search, occupied/empty 228-hour windows,
-and the full 1950–2100 range. Both runners use the native backward/range APIs when
-available. Older revisions fall back to the original forward loops (including
-the 400-day lookback), so the same workloads measure the improvement from #6.
-Swift detects API availability from the public declaration in `Eclipse.swift`;
-keep that detection current if the declaration moves or is reformatted.
+The shared inputs in [`benchmarks/cases.json`](benchmarks/cases.json) cover positions, a 228-hour sky track, short, year, and polar event windows, full-range phases, and lunar eclipses. Eclipse workloads measure next and previous search, occupied and empty 228-hour windows, and the full 1950 through 2100 range. Both runners use native backward and range APIs when available. Older revisions fall back to forward loops with a 400-day lookback so the workloads remain comparable. Swift detects API availability from the public declaration in `Eclipse.swift`; keep that detection current if the declaration moves or changes format.
 
-Raw samples, iteration counts, output checksums, Git revisions, harness hash and
-machine/toolchain metadata are saved under `.benchmarks/<timestamp>/`, alongside
-`summary.md`. Set `--output directory` for a predictable location. Saved reports
-from the same environment/harness can also be compared directly:
+Raw samples, iteration counts, output checksums, Git revisions, harness hash, and machine and toolchain metadata are saved under `.benchmarks/<timestamp>/` with `summary.md`. Set `--output directory` for a predictable location. Compare saved reports from the same environment and harness with:
 
 ```bash
-node benchmarks/compare.mjs base-typescript.json candidate-typescript.json 20
-node --test benchmarks/compare.test.mjs
+mise exec -- node benchmarks/compare.mjs base-typescript.json candidate-typescript.json 20
+mise exec -- node --test benchmarks/compare.test.mjs
 ```
 
-CI compares the PR merge result with its target branch's base SHA, or a main push
-with the previous main SHA. Each port builds both revisions and interleaves their
-measurements in one job, publishes a timing table in the Actions summary, and retains JSON and
-Markdown artifacts for 30 days, including on regressions. This gives each merge
-a recorded comparison; it is not a permanent trend dashboard. Missing workloads,
-invalid timings, changed outputs, and incompatible reports fail closed.
-
-The macOS performance job starts only after the TypeScript performance job
-passes. If TypeScript fails or is skipped, the macOS benchmark is skipped too.
+CI compares a pull request merge result with its target branch base SHA, or a main push with the previous main SHA. Each port builds both revisions and interleaves their measurements in one job. CI publishes a timing table in the Actions summary and retains JSON and Markdown artifacts for 30 days, including on regressions. Missing workloads, invalid timings, changed outputs, and incompatible reports fail the comparison. The macOS performance job starts after the TypeScript performance job passes.
 
 ## Releasing
 
-One version number spans both ports. A release is a git tag; everything else is
-automated.
+One version number spans both ports. A release starts with a Git tag, and the workflow handles the remaining steps.
 
-1. Bump `version` in `typescript/package.json` (the tag-version guard fails the
-   release if tag and manifest disagree). Land it via a pull request — `main` is protected; direct pushes are rejected and the CI checks must be green to merge.
-2. Tag and push:
+1. Bump `version` in `typescript/package.json`. The release fails if the tag and manifest versions differ. Land the bump through a pull request because `main` is protected and its required checks must pass.
+2. Create and push the version tag:
 
    ```bash
-   git tag vX.Y.Z && git push origin vX.Y.Z
+   git tag vX.Y.Z
+   git push origin vX.Y.Z
    ```
 
-3. `release.yml` then runs, in order:
-   - the full test matrix (TS suite, Swift release suite, fixture + parity checks);
-   - **smoke-swiftpm** — a clean temp package resolves this repo at
-     `exact: "X.Y.Z"` (leading `v` stripped) and builds a program that calls the API;
-   - **smoke-npm** — `npm pack`, asserts the tarball contains
-     `NOTICE`/`LICENSE`/`README.md`/`dist/index.js`/`dist/index.d.ts`, installs it
-     into a clean project, imports and calls it, then uploads the exact tarball;
-   - **publish** — downloads that same tarball and runs
-     `npm publish --provenance --access public` via OIDC. The tarball that was
-     smoked is the tarball published.
+3. [The release workflow](.github/workflows/release.yml) runs the full test matrix, builds a clean SwiftPM consumer for the tag, packs and smoke-tests the npm tarball, and publishes that same tarball with provenance.
 
-npm publishing uses a **trusted publisher** bound to `openwatersio/almanac` +
-`release.yml` — no tokens in the repo, and renaming the workflow file breaks the
-binding, so don't. Swift consumers pin the `vX.Y.Z` tag; npm consumers get
-`@openwaters/almanac` from the registry.
+npm publishing uses a trusted publisher bound to `openwatersio/almanac` and the workflow filename `release.yml`. Renaming that file breaks the binding. The repository contains no npm publishing token. Swift consumers pin the `vX.Y.Z` tag, and npm consumers install `@openwaters/almanac` from the registry.
+
+Release tags matching `v*` reject updates and deletion. Repository administrators can bypass that rule for recovery. Do not move or recreate a published version tag during a normal release.
 
 ## Refreshing fixtures
 
-`fixtures/raw/` holds verbatim upstream responses (JPL Horizons, USNO, NASA/Espenak);
-derived JSON is regenerated offline from them. To refresh: run the relevant
-`fixtures/generate/refresh-*.mjs` (network, ~1 req/s), then
-`node fixtures/generate/derive.mjs`, commit raw + derived + meta together, and make
-sure `--check` is clean. Widening the supported interval (1950–2100) requires new
-boundary fixtures first — the interval is the fixture-evidence intersection, not a
-constant to edit.
+`fixtures/raw/` holds verbatim responses from JPL Horizons, USNO, and NASA/Espenak. Derived JSON is regenerated offline from those responses. Run the relevant `fixtures/generate/refresh-*.mjs` script, then `node fixtures/generate/derive.mjs`, and commit the raw responses, derived data, and metadata together. Widening the supported interval from 1950 through 2100 requires boundary fixtures first because the interval is defined by the available evidence.
