@@ -18,7 +18,7 @@ jobs:
     outputs:
       code: ${{ steps.filter.outputs.code }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - id: filter
         env:
@@ -40,7 +40,7 @@ jobs:
   fixtures:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node fixtures/generate/derive.mjs --check
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: npm ci
@@ -63,7 +63,7 @@ jobs:
     if: needs.changes.outputs.code == 'true'
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: swift test -c release
   performance-typescript:
     name: performance (typescript, ubuntu-latest)
@@ -74,7 +74,7 @@ jobs:
     timeout-minutes: 15
     env: { PORT: typescript }
     steps: &performance-steps
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4
         with: { node-version: 22 }

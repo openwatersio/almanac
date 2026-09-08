@@ -5,7 +5,7 @@ jobs:
   tag-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: assert tag matches package.json version
         run: |
           pkg_version="$(node -p "require('./typescript/package.json').version")"
@@ -17,7 +17,7 @@ jobs:
   fixtures:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node fixtures/generate/derive.mjs --check
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: npm ci
@@ -35,7 +35,7 @@ jobs:
   swift:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: swift test -c release
   smoke-swiftpm:
     needs: [tag-version, fixtures, typescript, swift]
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 24 }
       - run: npm ci
