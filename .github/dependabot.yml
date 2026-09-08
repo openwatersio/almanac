@@ -4,7 +4,13 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
   - package-ecosystem: npm
     directory: /typescript
     schedule:
       interval: weekly
+    groups:
+      npm:
+        patterns: ["*"]
