@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 22 }
       - run: node fixtures/generate/derive.mjs --check
   typescript:
@@ -51,7 +51,7 @@ jobs:
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 22 }
       - run: npm ci
       - run: npm run build
@@ -76,7 +76,7 @@ jobs:
     steps: &performance-steps
       - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 22 }
       - if: env.PORT == 'typescript'
         run: npm ci --prefix typescript
