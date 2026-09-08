@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 22 }
       - run: node fixtures/generate/derive.mjs --check
   typescript:
@@ -26,7 +26,7 @@ jobs:
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 22 }
       - run: npm ci
       - run: npm run build
@@ -73,7 +73,7 @@ jobs:
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 24 }
       - run: npm ci
       - run: npm pack
@@ -104,7 +104,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: { node-version: 24 }
       - run: npm install -g npm@latest   # trusted publishing needs npm >= 11.5.1
       - uses: actions/download-artifact@v4
