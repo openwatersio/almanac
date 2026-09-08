@@ -43,7 +43,7 @@
     "prepack": "npm run build && cp ../NOTICE ../LICENSE ../README.md ."
   },
   "devDependencies": {
-    "typescript": "^5.5.0",
+    "typescript": "^7.0.2",
     "vitest": "^5.0.0"
   }
 }
