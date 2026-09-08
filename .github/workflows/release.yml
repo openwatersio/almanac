@@ -94,7 +94,7 @@ jobs:
           npm init -y >/dev/null
           npm install "$tarball"
           node -e "import('@openwaters/almanac').then(m => { console.log(m.moonIllumination(new Date())); })"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: almanac-npm-tarball
           path: typescript/*.tgz
