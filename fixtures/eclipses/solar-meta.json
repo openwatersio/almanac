@@ -1,0 +1,37 @@
+{
+  "local": {
+    "source": "USNO Astronomical Applications API (aa.usno.navy.mil/api/eclipses/solar/date)",
+    "sourceVersion": "4.0.1",
+    "retrieved": "2026-09-13",
+    "requests": [
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2017-08-21&coords=44.94,-123.03&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2024-04-08&coords=48.43,-123.37&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2023-10-14&coords=35.08,-106.65&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2012-05-20&coords=40.59,-122.39&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2001-06-21&coords=-15.4,28.3&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2021-06-10&coords=43.65,-79.38&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2020-12-14&coords=-39.28,-71.95&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2026-08-12&coords=39.47,-0.38&height=0",
+      "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2024-04-08&coords=-31.95,115.86&height=0"
+    ],
+    "servedYears": "2001-2026: the endpoint answers HTTP 500 for other eclipses despite advertising 1800-2050"
+  },
+  "catalog": {
+    "source": "NASA/GSFC Five Millennium Catalog of Solar Eclipses (eclipse.gsfc.nasa.gov)",
+    "retrieved": "2026-09-13",
+    "requests": [
+      "https://eclipse.gsfc.nasa.gov/SEcat5/SE1901-2000.html",
+      "https://eclipse.gsfc.nasa.gov/SEcat5/SE2001-2100.html"
+    ],
+    "filteredCount": 337,
+    "perKind": {
+      "partial": 115,
+      "annular": 109,
+      "total": 104,
+      "hybrid": 9
+    },
+    "firstPeak": "1950-03-18T15:31:32Z",
+    "lastPeak": "2100-09-04T08:45:56Z",
+    "note": "peakUtc is the catalog's TD of greatest eclipse minus its Delta-T column. latitudeDeg/longitudeDeg are the whole-degree coordinates of greatest eclipse, so an observer placed there sits up to ~80 km off the shadow axis. central is false when the type flag is + or -."
+  }
+}

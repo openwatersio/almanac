@@ -1,0 +1,69 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -123.03,
+      44.94
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 21,
+    "delta_t": "69.4s",
+    "description": "Sun in Total Eclipse at this Location",
+    "duration": "2h 32m 22.8s",
+    "duration_of_totality": "1m 56.9s",
+    "event": "Solar Eclipse of 2017 Aug. 21",
+    "local_data": [
+      {
+        "altitude": "27.8",
+        "azimuth": "101.3",
+        "day": "21",
+        "phenomenon": "Eclipse Begins",
+        "position_angle": "284.2",
+        "time": "16:05:25.8",
+        "vertex_angle": "329.4"
+      },
+      {
+        "altitude": "39.8",
+        "azimuth": "116.9",
+        "day": "21",
+        "phenomenon": "Totality Begins",
+        "position_angle": "88.4",
+        "time": "17:17:18.6",
+        "vertex_angle": "128.6"
+      },
+      {
+        "altitude": "39.9",
+        "azimuth": "117.1",
+        "day": "21",
+        "phenomenon": "Maximum Eclipse",
+        "time": "17:18:16.0"
+      },
+      {
+        "altitude": "40.1",
+        "azimuth": "117.4",
+        "day": "21",
+        "phenomenon": "Totality Ends",
+        "position_angle": "303.1",
+        "time": "17:19:15.5",
+        "vertex_angle": "343.1"
+      },
+      {
+        "altitude": "50.9",
+        "azimuth": "140.2",
+        "day": "21",
+        "phenomenon": "Eclipse Ends",
+        "position_angle": "107.5",
+        "time": "18:37:48.6",
+        "vertex_angle": "135.1"
+      }
+    ],
+    "magnitude": "1.009",
+    "month": 8,
+    "obscuration": "100.0%",
+    "year": 2017
+  },
+  "type": "Feature"
+}

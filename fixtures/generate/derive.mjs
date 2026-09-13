@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-// Offline derive pipeline: parses the committed raw Horizons responses into
-// the JSON fixtures Tasks 10-13 consume. Never touches the network — see
-// refresh-horizons.mjs for that. `--check` re-derives and byte-compares
-// against the committed derived files, failing loudly on drift.
+// Offline derive pipeline: parses the committed raw Horizons, USNO, and
+// Espenak responses into the JSON fixtures Tasks 10-13 consume. Never
+// touches the network — see refresh-horizons.mjs for that. `--check`
+// re-derives and byte-compares against the committed derived files, failing
+// loudly on drift.
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { SITES as STAR_SITES, DATES as STAR_DATES, TIME as STAR_TIME, STAR_IDS } from "./refresh-stars.mjs";
+import { SOLAR_CASES, solarName } from "./refresh-usno.mjs";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 
@@ -174,6 +176,84 @@ function deriveUsnoPhases(retrieved, requests) {
   };
 }
 
+// --- USNO solar eclipse local circumstances --------------------------------
+
+// Contact labels USNO uses. "Sunrise"/"Sunset" stand in for a contact below
+// the horizon: that contact is absent from the fixture, and the test asserts
+// the Sun is below the horizon at the contact the search computes.
+const USNO_SOLAR_PHEN = {
+  "Eclipse Begins": "c1",
+  "Totality Begins": "c2",
+  "Annularity Begins": "c2",
+  "Maximum Eclipse": "peak",
+  "Totality Ends": "c3",
+  "Annularity Ends": "c3",
+  "Eclipse Ends": "c4",
+};
+const USNO_SOLAR_HORIZON = new Set(["Sunrise", "Sunset"]);
+const USNO_SOLAR_KIND = { Total: "total", Annular: "annular", Partial: "partial" };
+const SOLAR_CONTACT_KEYS = ["c1", "c2", "peak", "c3", "c4"];
+
+function deriveUsnoSolar(retrieved, requests) {
+  const rows = SOLAR_CASES.map((c) => {
+    const name = solarName(c);
+    const data = rawUsno(name);
+    const base = { eclipse: c.date, place: c.place, latitudeDeg: c.lat, longitudeDeg: c.lon };
+    if (c.notVisible) {
+      assert.match(data.error ?? "", /not visible/i, `${name}: expected USNO's not-visible error`);
+      return { ...base, visible: false };
+    }
+    const p = data.properties;
+    const kindMatch = p.description.match(/Sun in (Total|Annular|Partial) Eclipse/);
+    assert.ok(kindMatch, `${name}: unrecognized description "${p.description}"`);
+    const kind = USNO_SOLAR_KIND[kindMatch[1]];
+    const obscMatch = p.obscuration.match(/^([\d.]+)%$/);
+    assert.ok(obscMatch, `${name}: unrecognized obscuration "${p.obscuration}"`);
+
+    const contacts = Object.fromEntries(SOLAR_CONTACT_KEYS.map((k) => [k, null]));
+    for (const entry of p.local_data) {
+      if (USNO_SOLAR_HORIZON.has(entry.phenomenon)) continue;
+      const key = USNO_SOLAR_PHEN[entry.phenomenon];
+      assert.ok(key, `${name}: unmapped USNO phenomenon "${entry.phenomenon}"`);
+      // Entries carry their own UTC day: the Redding contacts fall on the day
+      // after the requested date.
+      const utc = new Date(`${p.year}-${pad2(p.month)}-${pad2(Number(entry.day))}T${entry.time}Z`);
+      assert.ok(Number.isFinite(utc.getTime()), `${name}: unparseable time "${entry.time}"`);
+      const sunAltDeg = entry.altitude === "----" ? null : Number(entry.altitude);
+      contacts[key] = { utc: utc.toISOString(), sunAltDeg };
+    }
+    assert.ok(contacts.peak, `${name}: no Maximum Eclipse entry`);
+    assert.equal(contacts.c2 !== null, kind !== "partial", `${name}: c2 presence disagrees with kind ${kind}`);
+    assert.equal(contacts.c3 !== null, kind !== "partial", `${name}: c3 presence disagrees with kind ${kind}`);
+    return {
+      ...base, visible: true, kind,
+      magnitude: Number(p.magnitude), obscuration: Number(obscMatch[1]) / 100,
+      ...contacts,
+    };
+  });
+
+  // self-checks: the shapes the tests rely on.
+  const byName = Object.fromEntries(rows.map((r, i) => [SOLAR_CASES[i].slug, r]));
+  assert.equal(byName.salem.kind, "total");
+  assert.ok(byName.salem.c2 && byName.salem.c3, "salem: total eclipse needs c2 and c3");
+  assert.equal(byName.toronto.c1, null, "toronto: USNO lists a sunrise in place of c1");
+  assert.ok(byName.toronto.c4, "toronto: c4 present");
+  assert.ok(byName.redding.peak.utc.startsWith("2012-05-21"), "redding: contacts fall on 2012-05-21 UTC");
+  assert.equal(byName.perth.visible, false);
+  assert.equal(byName.victoria.kind, "partial");
+
+  return {
+    "eclipses/solar-local.json": json(rows),
+    solarLocalMeta: {
+      source: "USNO Astronomical Applications API (aa.usno.navy.mil/api/eclipses/solar/date)",
+      sourceVersion: rawUsno(solarName(SOLAR_CASES[0])).apiversion,
+      retrieved,
+      requests: SOLAR_CASES.map((c) => requests[solarName(c)]),
+      servedYears: "2001-2026: the endpoint answers HTTP 500 for other eclipses despite advertising 1800-2050",
+    },
+  };
+}
+
 // --- Espenak lunar eclipse catalog + contacts -----------------------------
 
 function rawEspenak(name) {
@@ -317,6 +397,110 @@ function deriveEspenakContacts(retrieved, requests) {
 
   return {
     "eclipses/contacts.json": json(contacts),
+  };
+}
+
+// --- Espenak solar eclipse catalog ----------------------------------------
+
+const ESPENAK_SOLAR_KIND_MAP = { T: "total", A: "annular", H: "hybrid", P: "partial" };
+// Second character of the type column, per the catalog key: m middle of the
+// Saros series, n/s central with no northern/southern limit, +/- NON-central
+// with a northern/southern limit, 2/3 hybrid sub-types, b/e Saros begins/ends.
+const ESPENAK_SOLAR_TYPE_FLAGS = new Set(["m", "n", "s", "+", "-", "2", "3", "b", "e"]);
+
+function signedDeg(str, negativeLetter, name) {
+  const m = str.match(/^(\d+)([NSEW])?$/);
+  assert.ok(m, `${name}: unrecognized coordinate "${str}"`);
+  return Number(m[1]) * (m[2] === negativeLetter ? -1 : 1);
+}
+
+function espenakSolarCatalogFile(name) {
+  const text = rawEspenak(name);
+  const statedMatch = text.match(/Earth (?:will experience|experienced)\s+(\d+)\s+solar eclipses/);
+  assert.ok(statedMatch, `${name}: could not find the page's stated century total`);
+  const statedTotal = Number(statedMatch[1]);
+
+  const stripped = text.replace(/<[^>]+>/g, "");
+  const rows = [];
+  for (const line of stripped.split("\n")) {
+    const tokens = line.trim().split(/\s+/);
+    if (!/^\d{5}$/.test(tokens[0])) continue;
+    // Total, annular and hybrid rows end with path width and central
+    // duration; partial rows end at the Sun's altitude.
+    if (tokens.length !== 17 && tokens.length !== 15) continue;
+    rows.push(tokens);
+  }
+  assert.equal(rows.length, statedTotal, `${name}: parsed ${rows.length} rows, page states ${statedTotal}`);
+
+  return rows.map((tokens) => {
+    const [, year, monAbbr, day, time, deltaTStr, , , type, , gammaStr, magStr, latStr, lonStr, altStr, widthStr] = tokens;
+    const month = MONTHS[monAbbr];
+    assert.ok(month, `${name}: unknown month abbreviation "${monAbbr}"`);
+    const [hh, mm, ss] = time.split(":").map(Number);
+    const tdMs = Date.UTC(Number(year), Number(month) - 1, Number(day), hh, mm, ss);
+    const peakUtc = new Date(tdMs - Number(deltaTStr) * 1000).toISOString().replace(/\.\d+Z$/, "Z");
+    const kind = ESPENAK_SOLAR_KIND_MAP[type[0]];
+    assert.ok(kind, `${name}: unmapped eclipse type "${type}"`);
+    assert.ok(type.length === 1 || ESPENAK_SOLAR_TYPE_FLAGS.has(type[1]), `${name}: unknown type flag "${type}"`);
+    const central = !/[+-]$/.test(type);
+    // Non-central total/annular/hybrid rows (type ends in + or -) omit the
+    // path width and central duration columns entirely — their umbral path
+    // only grazes the Earth — so they share partial rows' 15-token shape.
+    assert.equal(tokens.length, kind === "partial" || !central ? 15 : 17, `${name}: ${type} row at ${peakUtc} has ${tokens.length} tokens`);
+    const pathWidthKm = kind === "partial" || !central || widthStr === "-" ? null : Number(widthStr);
+    return {
+      year: Number(year), peakUtc, kind, central,
+      gamma: Number(gammaStr), magnitude: Number(magStr),
+      latitudeDeg: signedDeg(latStr, "S", name), longitudeDeg: signedDeg(lonStr, "W", name),
+      sunAltDeg: Number(altStr), pathWidthKm,
+    };
+  });
+}
+
+function deriveEspenakSolarCatalog(retrieved, requests) {
+  const all = [...espenakSolarCatalogFile("SE1901-2000"), ...espenakSolarCatalogFile("SE2001-2100")];
+  const filtered = all
+    .filter((e) => e.year >= 1950 && e.year <= 2100)
+    .sort((a, b) => a.peakUtc.localeCompare(b.peakUtc))
+    .map(({ year, ...rest }) => rest);
+
+  // self-checks against rows the tests lean on.
+  const aug2017 = filtered.find((e) => e.peakUtc.startsWith("2017-08-21"));
+  assert.ok(aug2017, "solar catalog: missing 2017-08-21");
+  assert.deepEqual(
+    [aug2017.kind, aug2017.central, aug2017.latitudeDeg, aug2017.longitudeDeg, aug2017.pathWidthKm],
+    ["total", true, 37, -88, 115], "solar catalog: 2017-08-21 row");
+  const apr2024 = filtered.find((e) => e.peakUtc.startsWith("2024-04-08"));
+  assert.ok(apr2024 && apr2024.kind === "total" && apr2024.pathWidthKm === 198, "solar catalog: 2024-04-08 row");
+  const mar1950 = filtered[0];
+  assert.ok(mar1950.peakUtc.startsWith("1950-03-18") && mar1950.kind === "annular" && !mar1950.central, "solar catalog: 1950-03-18 is a non-central annular");
+  assert.ok(filtered.length > 300, `solar catalog: expected over 300 rows, got ${filtered.length}`);
+
+  const perKind = { partial: 0, annular: 0, total: 0, hybrid: 0 };
+  for (const e of filtered) perKind[e.kind]++;
+
+  return {
+    "eclipses/solar-catalog.json": json(filtered),
+    solarCatalogMeta: {
+      source: "NASA/GSFC Five Millennium Catalog of Solar Eclipses (eclipse.gsfc.nasa.gov)",
+      retrieved,
+      requests: [requests["SE1901-2000"], requests["SE2001-2100"]],
+      filteredCount: filtered.length,
+      perKind,
+      firstPeak: filtered[0].peakUtc,
+      lastPeak: filtered.at(-1).peakUtc,
+      note: "peakUtc is the catalog's TD of greatest eclipse minus its Delta-T column. latitudeDeg/longitudeDeg are the whole-degree coordinates of greatest eclipse, so an observer placed there sits up to ~80 km off the shadow axis. central is false when the type flag is + or -.",
+    },
+  };
+}
+
+function deriveSolar(usno, espenak) {
+  const { "eclipses/solar-local.json": localJson, solarLocalMeta } = deriveUsnoSolar(usno.retrieved, usno.requests);
+  const { "eclipses/solar-catalog.json": catalogJson, solarCatalogMeta } = deriveEspenakSolarCatalog(espenak.retrieved, espenak.requests);
+  return {
+    "eclipses/solar-local.json": localJson,
+    "eclipses/solar-catalog.json": catalogJson,
+    "eclipses/solar-meta.json": json({ local: solarLocalMeta, catalog: solarCatalogMeta }),
   };
 }
 
@@ -601,6 +785,7 @@ function main() {
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
     ...deriveEspenak(espenak.retrieved, espenak.requests),
+    ...deriveSolar(usno, espenak),
     ...deriveStars(stars.retrieved, stars.requests),
   };
 

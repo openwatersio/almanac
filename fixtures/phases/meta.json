@@ -1,7 +1,7 @@
 {
   "source": "USNO Astronomical Applications API (aa.usno.navy.mil/api/moon/phases/date)",
   "sourceVersion": "4.0.1",
-  "retrieved": "2026-08-28",
+  "retrieved": "2026-09-13",
   "requests": [
     "https://aa.usno.navy.mil/api/moon/phases/date?date=1950-01-01&nump=99",
     "https://aa.usno.navy.mil/api/moon/phases/date?date=1975-01-01&nump=99",

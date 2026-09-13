@@ -1,0 +1,231 @@
+[
+  {
+    "eclipse": "2017-08-21",
+    "place": "Salem, Oregon",
+    "latitudeDeg": 44.94,
+    "longitudeDeg": -123.03,
+    "visible": true,
+    "kind": "total",
+    "magnitude": 1.009,
+    "obscuration": 1,
+    "c1": {
+      "utc": "2017-08-21T16:05:25.800Z",
+      "sunAltDeg": 27.8
+    },
+    "c2": {
+      "utc": "2017-08-21T17:17:18.600Z",
+      "sunAltDeg": 39.8
+    },
+    "peak": {
+      "utc": "2017-08-21T17:18:16.000Z",
+      "sunAltDeg": 39.9
+    },
+    "c3": {
+      "utc": "2017-08-21T17:19:15.500Z",
+      "sunAltDeg": 40.1
+    },
+    "c4": {
+      "utc": "2017-08-21T18:37:48.600Z",
+      "sunAltDeg": 50.9
+    }
+  },
+  {
+    "eclipse": "2024-04-08",
+    "place": "Victoria, British Columbia",
+    "latitudeDeg": 48.43,
+    "longitudeDeg": -123.37,
+    "visible": true,
+    "kind": "partial",
+    "magnitude": 0.285,
+    "obscuration": 0.177,
+    "c1": {
+      "utc": "2024-04-08T17:41:00.800Z",
+      "sunAltDeg": 37.8
+    },
+    "c2": null,
+    "peak": {
+      "utc": "2024-04-08T18:29:16.800Z",
+      "sunAltDeg": 43.4
+    },
+    "c3": null,
+    "c4": {
+      "utc": "2024-04-08T19:19:07.600Z",
+      "sunAltDeg": 47.5
+    }
+  },
+  {
+    "eclipse": "2023-10-14",
+    "place": "Albuquerque, New Mexico",
+    "latitudeDeg": 35.08,
+    "longitudeDeg": -106.65,
+    "visible": true,
+    "kind": "annular",
+    "magnitude": 0.97,
+    "obscuration": 0.897,
+    "c1": {
+      "utc": "2023-10-14T15:13:13.600Z",
+      "sunAltDeg": 22.6
+    },
+    "c2": {
+      "utc": "2023-10-14T16:34:32.000Z",
+      "sunAltDeg": 35.8
+    },
+    "peak": {
+      "utc": "2023-10-14T16:36:54.500Z",
+      "sunAltDeg": 36.1
+    },
+    "c3": {
+      "utc": "2023-10-14T16:39:18.800Z",
+      "sunAltDeg": 36.5
+    },
+    "c4": {
+      "utc": "2023-10-14T18:09:23.800Z",
+      "sunAltDeg": 45.5
+    }
+  },
+  {
+    "eclipse": "2012-05-20",
+    "place": "Redding, California",
+    "latitudeDeg": 40.59,
+    "longitudeDeg": -122.39,
+    "visible": true,
+    "kind": "annular",
+    "magnitude": 0.96,
+    "obscuration": 0.877,
+    "c1": {
+      "utc": "2012-05-21T00:11:32.000Z",
+      "sunAltDeg": 34.5
+    },
+    "c2": {
+      "utc": "2012-05-21T01:26:21.200Z",
+      "sunAltDeg": 20.4
+    },
+    "peak": {
+      "utc": "2012-05-21T01:28:37.100Z",
+      "sunAltDeg": 19.9
+    },
+    "c3": {
+      "utc": "2012-05-21T01:30:55.100Z",
+      "sunAltDeg": 19.5
+    },
+    "c4": {
+      "utc": "2012-05-21T02:36:28.600Z",
+      "sunAltDeg": 7.5
+    }
+  },
+  {
+    "eclipse": "2001-06-21",
+    "place": "Lusaka, Zambia",
+    "latitudeDeg": -15.4,
+    "longitudeDeg": 28.3,
+    "visible": true,
+    "kind": "total",
+    "magnitude": 1.014,
+    "obscuration": 1,
+    "c1": {
+      "utc": "2001-06-21T11:41:37.600Z",
+      "sunAltDeg": 45
+    },
+    "c2": {
+      "utc": "2001-06-21T13:09:18.000Z",
+      "sunAltDeg": 31.2
+    },
+    "peak": {
+      "utc": "2001-06-21T13:10:57.100Z",
+      "sunAltDeg": 30.9
+    },
+    "c3": {
+      "utc": "2001-06-21T13:12:37.400Z",
+      "sunAltDeg": 30.6
+    },
+    "c4": {
+      "utc": "2001-06-21T14:26:59.800Z",
+      "sunAltDeg": 15.9
+    }
+  },
+  {
+    "eclipse": "2021-06-10",
+    "place": "Toronto, Ontario",
+    "latitudeDeg": 43.65,
+    "longitudeDeg": -79.38,
+    "visible": true,
+    "kind": "partial",
+    "magnitude": 0.861,
+    "obscuration": 0.8009999999999999,
+    "c1": null,
+    "c2": null,
+    "peak": {
+      "utc": "2021-06-10T09:39:57.600Z",
+      "sunAltDeg": -0.2
+    },
+    "c3": null,
+    "c4": {
+      "utc": "2021-06-10T10:37:54.900Z",
+      "sunAltDeg": 9
+    }
+  },
+  {
+    "eclipse": "2020-12-14",
+    "place": "Pucón, Chile",
+    "latitudeDeg": -39.28,
+    "longitudeDeg": -71.95,
+    "visible": true,
+    "kind": "total",
+    "magnitude": 1.011,
+    "obscuration": 1,
+    "c1": {
+      "utc": "2020-12-14T14:41:29.700Z",
+      "sunAltDeg": 59.8
+    },
+    "c2": {
+      "utc": "2020-12-14T16:03:19.700Z",
+      "sunAltDeg": 71.9
+    },
+    "peak": {
+      "utc": "2020-12-14T16:04:23.700Z",
+      "sunAltDeg": 72
+    },
+    "c3": {
+      "utc": "2020-12-14T16:05:29.700Z",
+      "sunAltDeg": 72.1
+    },
+    "c4": {
+      "utc": "2020-12-14T17:31:34.500Z",
+      "sunAltDeg": 70.9
+    }
+  },
+  {
+    "eclipse": "2026-08-12",
+    "place": "Valencia, Spain",
+    "latitudeDeg": 39.47,
+    "longitudeDeg": -0.38,
+    "visible": true,
+    "kind": "total",
+    "magnitude": 1.003,
+    "obscuration": 1,
+    "c1": {
+      "utc": "2026-08-12T17:38:21.500Z",
+      "sunAltDeg": 14.7
+    },
+    "c2": {
+      "utc": "2026-08-12T18:32:25.700Z",
+      "sunAltDeg": 4.5
+    },
+    "peak": {
+      "utc": "2026-08-12T18:32:55.200Z",
+      "sunAltDeg": 4.4
+    },
+    "c3": {
+      "utc": "2026-08-12T18:33:26.700Z",
+      "sunAltDeg": 4.3
+    },
+    "c4": null
+  },
+  {
+    "eclipse": "2024-04-08",
+    "place": "Perth, Australia",
+    "latitudeDeg": -31.95,
+    "longitudeDeg": 115.86,
+    "visible": false
+  }
+]

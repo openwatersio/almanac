@@ -1,0 +1,69 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -106.65,
+      35.08
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 14,
+    "delta_t": "72.5s",
+    "description": "Sun in Annular Eclipse at this Location",
+    "duration": "2h 56m 10.2s",
+    "duration_of_annularity": "4m 46.9s",
+    "event": "Solar Eclipse of 2023 Oct. 14",
+    "local_data": [
+      {
+        "altitude": "22.6",
+        "azimuth": "118.8",
+        "day": "14",
+        "phenomenon": "Eclipse Begins",
+        "position_angle": "310.9",
+        "time": "15:13:13.6",
+        "vertex_angle": "357.4"
+      },
+      {
+        "altitude": "35.8",
+        "azimuth": "136.2",
+        "day": "14",
+        "phenomenon": "Annularity Begins",
+        "position_angle": "139.6",
+        "time": "16:34:32.0",
+        "vertex_angle": "174.6"
+      },
+      {
+        "altitude": "36.1",
+        "azimuth": "136.8",
+        "day": "14",
+        "phenomenon": "Maximum Eclipse",
+        "time": "16:36:54.5"
+      },
+      {
+        "altitude": "36.5",
+        "azimuth": "137.4",
+        "day": "14",
+        "phenomenon": "Annularity Ends",
+        "position_angle": "305.8",
+        "time": "16:39:18.8",
+        "vertex_angle": "339.9"
+      },
+      {
+        "altitude": "45.5",
+        "azimuth": "164.7",
+        "day": "14",
+        "phenomenon": "Eclipse Ends",
+        "position_angle": "133.9",
+        "time": "18:09:23.8",
+        "vertex_angle": "146.7"
+      }
+    ],
+    "magnitude": "0.970",
+    "month": 10,
+    "obscuration": "89.7%",
+    "year": 2023
+  },
+  "type": "Feature"
+}

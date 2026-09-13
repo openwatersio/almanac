@@ -1,0 +1,69 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -71.95,
+      -39.28
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 14,
+    "delta_t": "71.2s",
+    "description": "Sun in Total Eclipse at this Location",
+    "duration": "2h 50m 04.9s",
+    "duration_of_totality": "2m 10.0s",
+    "event": "Solar Eclipse of 2020 Dec. 14",
+    "local_data": [
+      {
+        "altitude": "59.8",
+        "azimuth": "67.0",
+        "day": "14",
+        "phenomenon": "Eclipse Begins",
+        "position_angle": "286.8",
+        "time": "14:41:29.7",
+        "vertex_angle": "55.8"
+      },
+      {
+        "altitude": "71.9",
+        "azimuth": "30.5",
+        "day": "14",
+        "phenomenon": "Totality Begins",
+        "position_angle": "97.5",
+        "time": "16:03:19.7",
+        "vertex_angle": "251.6"
+      },
+      {
+        "altitude": "72.0",
+        "azimuth": "29.7",
+        "day": "14",
+        "phenomenon": "Maximum Eclipse",
+        "time": "16:04:23.7"
+      },
+      {
+        "altitude": "72.1",
+        "azimuth": "29.0",
+        "day": "14",
+        "phenomenon": "Totality Ends",
+        "position_angle": "293.0",
+        "time": "16:05:29.7",
+        "vertex_angle": "88.3"
+      },
+      {
+        "altitude": "70.9",
+        "azimuth": "323.5",
+        "day": "14",
+        "phenomenon": "Eclipse Ends",
+        "position_angle": "103.1",
+        "time": "17:31:34.5",
+        "vertex_angle": "312.5"
+      }
+    ],
+    "magnitude": "1.011",
+    "month": 12,
+    "obscuration": "100.0%",
+    "year": 2020
+  },
+  "type": "Feature"
+}

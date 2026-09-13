@@ -29,6 +29,28 @@ const PHASE_STARTS = [
   "2050-01-01", "2075-01-01", "2098-06-01",
 ];
 
+// Solar eclipse local circumstances: contacts, Sun altitudes, magnitude and
+// obscuration for one place. The endpoint advertises 1800-2050 but answers
+// HTTP 500 outside the eclipses of 2001-2026; every case sits inside that
+// window. Perth is deliberately outside the 2024-04-08 visibility region:
+// the API answers HTTP 400 with an error body, which is evidence the search
+// must return nothing there.
+export const SOLAR_CASES = [
+  { date: "2017-08-21", slug: "salem", place: "Salem, Oregon", lat: 44.94, lon: -123.03 },
+  { date: "2024-04-08", slug: "victoria", place: "Victoria, British Columbia", lat: 48.43, lon: -123.37 },
+  { date: "2023-10-14", slug: "albuquerque", place: "Albuquerque, New Mexico", lat: 35.08, lon: -106.65 },
+  { date: "2012-05-20", slug: "redding", place: "Redding, California", lat: 40.59, lon: -122.39 },
+  { date: "2001-06-21", slug: "lusaka", place: "Lusaka, Zambia", lat: -15.4, lon: 28.3 },
+  { date: "2021-06-10", slug: "toronto", place: "Toronto, Ontario", lat: 43.65, lon: -79.38 },
+  { date: "2020-12-14", slug: "pucon", place: "Pucón, Chile", lat: -39.28, lon: -71.95 },
+  { date: "2026-08-12", slug: "valencia", place: "Valencia, Spain", lat: 39.47, lon: -0.38 },
+  { date: "2024-04-08", slug: "perth", place: "Perth, Australia", lat: -31.95, lon: 115.86, notVisible: true },
+];
+
+export function solarName(c) {
+  return `solar-${c.date}-${c.slug}`;
+}
+
 function latSlug(lat) {
   return (lat < 0 ? `neg${-lat}` : `${lat}`).replace(".", "p");
 }
@@ -37,12 +59,14 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-async function fetchJson(name, url) {
+async function fetchJson(name, url, { allowError = false } = {}) {
   console.log(`fetching ${name} ...`);
   const res = await fetch(url);
   const body = await res.text();
-  if (!res.ok) throw new Error(`USNO request failed for ${name} (HTTP ${res.status}):\n${body.slice(0, 2000)}`);
   const parsed = JSON.parse(body); // throws loudly on unexpected shape
+  if (!res.ok && !(allowError && parsed.error)) {
+    throw new Error(`USNO request failed for ${name} (HTTP ${res.status}):\n${body.slice(0, 2000)}`);
+  }
   await writeFile(new URL(`${name}.json`, RAW_DIR), JSON.stringify(parsed, null, 2) + "\n");
   return url;
 }
@@ -69,10 +93,14 @@ async function main() {
     const url = `https://aa.usno.navy.mil/api/moon/phases/date?date=${start}&nump=99`;
     jobs.push({ name, url });
   }
+  for (const c of SOLAR_CASES) {
+    const url = `https://aa.usno.navy.mil/api/eclipses/solar/date?date=${c.date}&coords=${c.lat},${c.lon}&height=0`;
+    jobs.push({ name: solarName(c), url, allowError: Boolean(c.notVisible) });
+  }
 
   for (let i = 0; i < jobs.length; i++) {
-    const { name, url } = jobs[i];
-    requests[name] = await fetchJson(name, url);
+    const { name, url, allowError } = jobs[i];
+    requests[name] = await fetchJson(name, url, { allowError });
     if (i < jobs.length - 1) await sleep(1000); // be polite: ~1 req/s
   }
 

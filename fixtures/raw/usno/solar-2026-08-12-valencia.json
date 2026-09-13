@@ -1,0 +1,67 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -0.38,
+      39.47
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 12,
+    "delta_t": "74.0s",
+    "description": "Sun in Total Eclipse at this Location",
+    "duration": "1h 22m 56.2s",
+    "duration_of_totality": "1m 01.0s",
+    "event": "Solar Eclipse of 2026 Aug. 12",
+    "local_data": [
+      {
+        "altitude": "14.7",
+        "azimuth": "277.2",
+        "day": "12",
+        "phenomenon": "Eclipse Begins",
+        "position_angle": "299.3",
+        "time": "17:38:21.5",
+        "vertex_angle": "246.9"
+      },
+      {
+        "altitude": "4.5",
+        "azimuth": "285.5",
+        "day": "12",
+        "phenomenon": "Totality Begins",
+        "position_angle": "170.2",
+        "time": "18:32:25.7",
+        "vertex_angle": "119.9"
+      },
+      {
+        "altitude": "4.4",
+        "azimuth": "285.6",
+        "day": "12",
+        "phenomenon": "Maximum Eclipse",
+        "time": "18:32:55.2"
+      },
+      {
+        "altitude": "4.3",
+        "azimuth": "285.7",
+        "day": "12",
+        "phenomenon": "Totality Ends",
+        "position_angle": "244.6",
+        "time": "18:33:26.7",
+        "vertex_angle": "194.3"
+      },
+      {
+        "altitude": "----",
+        "azimuth": "290.0",
+        "day": "12",
+        "phenomenon": "Sunset",
+        "time": "19:01"
+      }
+    ],
+    "magnitude": "1.003",
+    "month": 8,
+    "obscuration": "100.0%",
+    "year": 2026
+  },
+  "type": "Feature"
+}
