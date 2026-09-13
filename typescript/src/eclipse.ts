@@ -73,8 +73,9 @@ export interface LunarEclipseVisibility {
 const EARTH_ECLIPSE_RADIUS_KM = 6371.0 + 88.0;
 
 /** UPSTREAM: `PruneLatitude`, inside `SearchLunarEclipse` — full-Moon ecliptic
- *  latitude above which no eclipse is possible. */
-const PRUNE_LATITUDE_DEG = 1.8;
+ *  latitude above which no eclipse is possible.
+ *  INTERNAL: shared with solar.ts. */
+export const PRUNE_LATITUDE_DEG = 1.8;
 
 /** Spec: the search gives up after two years. The catalog's longest gap between
  *  consecutive lunar eclipses over 1950-2100 is under a year. */
@@ -88,11 +89,13 @@ const PENUMBRAL_WINDOW_MINUTES = 200.0;
 
 const MINUTES_PER_DAY = 24.0 * 60.0;
 
-/** Root-finder tolerance for every shadow search, seconds — upstream's `Search` default. */
-const SHADOW_TOL_SECONDS = 1;
+/** Root-finder tolerance for every shadow search, seconds — upstream's `Search` default.
+ *  INTERNAL: shared with solar.ts. */
+export const SHADOW_TOL_SECONDS = 1;
 
-/** UPSTREAM: `Search`'s default `iter_limit`. */
-const SHADOW_ITER_CAP = 20;
+/** UPSTREAM: `Search`'s default `iter_limit`.
+ *  INTERNAL: shared with solar.ts. */
+export const SHADOW_ITER_CAP = 20;
 
 /**
  * Peaks within 100 ms of a next/previous search anchor count as the same
@@ -102,30 +105,38 @@ const SHADOW_ITER_CAP = 20;
  * This can skip a wanted peak when the anchor is within 100 ms of it, but
  * cannot skip a distinct eclipse (the catalog's minimum gap is 29 days).
  * Range searches use exact half-open bounds without this band.
+ * INTERNAL: shared with solar.ts.
  */
-const SAME_ECLIPSE_MS = 100;
+export const SAME_ECLIPSE_MS = 100;
 
 /**
- * UPSTREAM: `ShadowInfo` (astronomy.ts ~8445), reduced to what the lunar case
- * reads. Upstream's `target`/`dir` vectors are inputs kept for the solar-eclipse
- * paths this package does not implement, and its `time` is an `AstroTime`;
- * here the instant travels as days since J2000 UT, as everywhere in L3.
+ * UPSTREAM: `ShadowInfo` (astronomy.ts ~8445). `target` and `dir` are the
+ * inputs `CalcShadow` measured from: the lunar case passes the geocentric
+ * Moon against the Sun-to-Earth line, the solar case (solar.ts) the
+ * lunacentric observer against the heliocentric Moon, and the obscuration
+ * path reads them back. Upstream's `time` is an `AstroTime`; here the instant
+ * travels as days since J2000 UT, as everywhere in L3.
+ * INTERNAL: exported for `solar.ts`, not part of the public API.
  */
-interface ShadowInfo {
+export interface ShadowInfo {
     /** Days since J2000 (UT). */
     ut: number;
     /** Shadow-axis parameter: distance to the shadow plane over the casting body's distance. */
     u: number;
-    /** Distance from the Moon's centre to the shadow axis, km. */
+    /** Distance from `target` to the shadow axis, km. */
     r: number;
     /** Umbra radius at the shadow plane, km. */
     k: number;
     /** Penumbra radius at the shadow plane, km. */
     p: number;
+    /** The point measured from, AU. */
+    target: Vec3;
+    /** The shadow axis, AU. */
+    dir: Vec3;
 }
 
-/** UPSTREAM: `CalcShadow`, astronomy.ts ~8458. */
-function calcShadow(bodyRadiusKm: number, ut: number, target: Vec3, dir: Vec3): ShadowInfo {
+/** UPSTREAM: `CalcShadow`, astronomy.ts ~8458. INTERNAL, shared with solar.ts. */
+export function calcShadow(bodyRadiusKm: number, ut: number, target: Vec3, dir: Vec3): ShadowInfo {
     const u = (dir.x*target.x + dir.y*target.y + dir.z*target.z) / (dir.x*dir.x + dir.y*dir.y + dir.z*dir.z);
     const dx = (u * dir.x) - target.x;
     const dy = (u * dir.y) - target.y;
@@ -133,7 +144,7 @@ function calcShadow(bodyRadiusKm: number, ut: number, target: Vec3, dir: Vec3): 
     const r = KM_PER_AU * Math.hypot(dx, dy, dz);
     const k = +SUN_RADIUS_KM - (1.0 + u)*(SUN_RADIUS_KM - bodyRadiusKm);
     const p = -SUN_RADIUS_KM + (1.0 + u)*(SUN_RADIUS_KM + bodyRadiusKm);
-    return { ut, u, r, k, p };
+    return { ut, u, r, k, p, target, dir };
 }
 
 /**
@@ -197,8 +208,9 @@ function shadowSemiDurationMinutes(shadow: ShadowInfo, radiusLimitKm: number, wi
     return (t2 - t1) * (MINUTES_PER_DAY / 2.0);   // convert days to minutes and average the semi-durations
 }
 
-/** UPSTREAM: `MoonEclipticLatitudeDegrees`, astronomy.ts ~8616. */
-function moonEclipticLatitudeDeg(ut: number): number {
+/** UPSTREAM: `MoonEclipticLatitudeDegrees`, astronomy.ts ~8616.
+ *  INTERNAL: shared with solar.ts. */
+export function moonEclipticLatitudeDeg(ut: number): number {
     return RAD2DEG * calcMoon(ttDaysFromUt(ut)).geoEclipLat;
 }
 
