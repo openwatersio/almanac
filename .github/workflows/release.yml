@@ -33,13 +33,13 @@ jobs:
       - run: npm test
       - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
   swift:
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - run: swift test -c release
   smoke-swiftpm:
     needs: [tag-version, fixtures, typescript, swift]
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     steps:
       - name: build a scratch package depending on this tag
         run: |

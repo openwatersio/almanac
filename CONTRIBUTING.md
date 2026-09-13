@@ -38,7 +38,7 @@ The shared organization guidance is in the [repository standards](https://github
 
 ## Development checks
 
-CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `macos-15` supplies Swift (6.1.2 in the current runner image). Local `mise.toml` mirrors those versions. Update it when CI changes; workflows do not read it. The npm packaging and publishing jobs use Node 24 for trusted publishing.
+CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `ubuntu-latest` supplies Swift (6.3.3 in the current Ubuntu 24.04 runner image). Local `mise.toml` mirrors those versions. Update it when CI changes; workflows do not read it. The npm packaging and publishing jobs use Node 24 for trusted publishing.
 
 For local setup, mise 2026.9.1 or newer provides the core Swift backend:
 
@@ -46,7 +46,7 @@ For local setup, mise 2026.9.1 or newer provides the core Swift backend:
 mise install
 ```
 
-Swift also needs the matching Xcode SDK. The `macos-15` runner uses Xcode 16.4 and the macOS 15.5 SDK. Select that Xcode installation with `DEVELOPER_DIR` when reproducing CI locally, for example `export DEVELOPER_DIR=/Applications/Xcode_16.4.app/Contents/Developer`. Mise installs the compiler, not Xcode or its SDK; Swift 6.1.2 cannot compile against the Xcode 26.5 SDK.
+CI runs SwiftPM on Linux without Xcode. For local macOS checks, select an Xcode SDK compatible with the Swift version in `mise.toml`; mise installs the compiler, not Apple's SDK.
 
 Run the correctness, dependency, and package checks from the repository root:
 
@@ -94,7 +94,7 @@ mise exec -- node benchmarks/compare.mjs base-typescript.json candidate-typescri
 mise exec -- node --test benchmarks/compare.test.mjs
 ```
 
-CI compares a pull request merge result with its target branch base SHA, or a main push with the previous main SHA. Each port builds both revisions and interleaves their measurements in one job. CI publishes a timing table in the Actions summary and retains JSON and Markdown artifacts for 30 days, including on regressions. Missing workloads, invalid timings, changed outputs, and incompatible reports fail the comparison. The macOS performance job starts after the TypeScript performance job passes.
+CI compares a pull request merge result with its target branch base SHA, or a main push with the previous main SHA. Each port builds both revisions and interleaves their measurements in one job. CI publishes a timing table in the Actions summary and retains JSON and Markdown artifacts for 30 days, including on regressions. Missing workloads, invalid timings, changed outputs, and incompatible reports fail the comparison. The Swift performance job starts after the TypeScript performance job passes.
 
 ## Releasing
 
