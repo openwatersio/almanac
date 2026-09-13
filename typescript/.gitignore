@@ -1,0 +1,5 @@
+# prepack copies these in from the repository root for the npm tarball; the
+# root copies are the source, so a local `npm pack` must not leave them here.
+LICENSE
+NOTICE
+README.md
