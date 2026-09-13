@@ -196,3 +196,220 @@ public func solarObscuration(at time: Date, observer: Observer) throws -> Double
     let shadow = localMoonShadow(utDays(time), observer)
     return discObscuration(shadow.dir, shadow.target)
 }
+
+/**
+ * UPSTREAM: `SolarEclipseObscuration`, astronomy.ts ~8670, with its clamp:
+ * "in marginal cases, we need to clamp obscuration to less than 1.0. This
+ * function is never called for total eclipses, so it should never return 1.0."
+ */
+private func solarEclipseObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
+    min(0.9999, discObscuration(hm, lo))
+}
+
+/** UPSTREAM: `ShadowDistanceSlope`, astronomy.ts ~8535, bound to `localMoonShadow`. */
+private func localShadowSlope(_ ut: Double, _ observer: Observer) -> Double {
+    let dt = 1.0 / 86400.0
+    return (localMoonShadow(ut + dt, observer).r - localMoonShadow(ut - dt, observer).r) / dt
+}
+
+/**
+ * UPSTREAM: `PeakLocalMoonShadow`, astronomy.ts ~8587 — the time near the
+ * new moon when the Moon's shadow axis comes closest to the observer, i.e.
+ * the ascending zero of the axis distance's time derivative.
+ */
+private func peakLocalMoonShadow(_ centerUt: Double, _ observer: Observer) -> ShadowInfo {
+    // Use the same new-moon seed regardless of search direction or window.
+    // Otherwise a ~1 ms root shift can lose/duplicate a peak when a caller
+    // splits a range at a previously returned peak. Only unpruned moons pay
+    // for this second phase search; its start is a fixed whole UT day.
+    guard let newmoon = searchMoonPhase(0, floor(centerUt) - 1, 4) else {
+        fatalError("almanac internal: cannot refine new moon")
+    }
+    guard let ut = search(
+        { u in localShadowSlope(u, observer) }, newmoon - peakWindowDays, newmoon + peakWindowDays,
+        shadowTolSeconds, iterLimit: shadowIterCap, what: "peak local moon shadow"
+    ) else {
+        fatalError("almanac internal: failed to find peak local Moon shadow time")
+    }
+    return localMoonShadow(ut, observer)
+}
+
+/**
+ * UPSTREAM: `EclipseKindFromUmbra`, astronomy.ts ~8834 — a positive umbra
+ * radius at the observer is a total eclipse, otherwise annular. The 14 m
+ * bias is upstream's, added to match Espenak's classifications.
+ */
+private func eclipseKindFromUmbra(_ k: Double) -> SolarEclipseKind {
+    (k > 0.014) ? .total : .annular
+}
+
+/** UPSTREAM: `local_partial_distance`, astronomy.ts ~9126. */
+private func localPartialDistance(_ shadow: ShadowInfo) -> Double {
+    shadow.p - shadow.r
+}
+
+/** UPSTREAM: `local_total_distance`, astronomy.ts ~9130 — `|k|`, because the umbra radius is negative for an annular eclipse. */
+private func localTotalDistance(_ shadow: ShadowInfo) -> Double {
+    abs(shadow.k) - shadow.r
+}
+
+/** UPSTREAM: `LocalEclipseTransition`, astronomy.ts ~9165 — the instant `f` crosses zero in `direction` inside `[t1, t2]`. */
+private func localEclipseTransition(
+    _ observer: Observer, _ direction: Double, _ f: (ShadowInfo) -> Double, _ t1: Double, _ t2: Double
+) -> Double {
+    guard let ut = search(
+        { u in direction * f(localMoonShadow(u, observer)) }, t1, t2,
+        shadowTolSeconds, iterLimit: shadowIterCap, what: "local eclipse transition"
+    ) else {
+        fatalError("almanac internal: local eclipse transition search failed")
+    }
+    return ut
+}
+
+/**
+ * UPSTREAM: `SunAltitude`, astronomy.ts ~9181 — the refracted topocentric
+ * altitude `sunAltAz` reports, without its interval assertion: a contact can
+ * fall just outside the supported interval while its peak is inside.
+ */
+private func sunAltDegAt(_ d: Date, _ observer: Observer) -> Double {
+    let ut = utDays(d)
+    let alt = topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer).altDeg
+    return alt + refractionDeg(alt)
+}
+
+/** UPSTREAM: `LocalEclipse`, astronomy.ts ~9137 — contacts and kind around a peak the observer is inside the penumbra for. */
+private func buildSolarEclipse(_ shadow: ShadowInfo, _ observer: Observer) throws -> SolarEclipse {
+    let peakUt = shadow.ut
+    let c1Ut = localEclipseTransition(observer, +1.0, localPartialDistance, peakUt - partialWindowDays, peakUt)
+    let c4Ut = localEclipseTransition(observer, -1.0, localPartialDistance, peakUt, peakUt + partialWindowDays)
+    var c2Ut: Double? = nil
+    var c3Ut: Double? = nil
+    let kind: SolarEclipseKind
+
+    if shadow.r < abs(shadow.k) {     // take absolute value of 'k' to handle annular eclipses too.
+        c2Ut = localEclipseTransition(observer, +1.0, localTotalDistance, peakUt - totalWindowDays, peakUt)
+        c3Ut = localEclipseTransition(observer, -1.0, localTotalDistance, peakUt, peakUt + totalWindowDays)
+        kind = eclipseKindFromUmbra(shadow.k)
+    } else {
+        kind = .partial
+    }
+
+    let obscuration = (kind == .total) ? 1.0 : solarEclipseObscuration(shadow.dir, shadow.target)
+
+    // Altitudes come from the reported (TimeClip-truncated) instants, so
+    // `sunAltAz(e.c1, observer: observer).altDeg == e.sunAltDeg.c1` exactly.
+    let c1 = try normalized(dateFromUt(c1Ut))
+    let c2 = try c2Ut.map { try normalized(dateFromUt($0)) }
+    let peak = try normalized(dateFromUt(peakUt))
+    let c3 = try c3Ut.map { try normalized(dateFromUt($0)) }
+    let c4 = try normalized(dateFromUt(c4Ut))
+    return SolarEclipse(
+        kind: kind, obscuration: obscuration, c1: c1, c2: c2, peak: peak, c3: c3, c4: c4,
+        sunAltDeg: SolarEclipseSunAltitudes(
+            c1: sunAltDegAt(c1, observer), c2: c2.map { sunAltDegAt($0, observer) }, peak: sunAltDegAt(peak, observer),
+            c3: c3.map { sunAltDegAt($0, observer) }, c4: sunAltDegAt(c4, observer))
+    )
+}
+
+/**
+ * The night filter: the Sun's centre must be above the horizon at C1, the
+ * peak, or C4. Upstream tests only C1 and C4; the peak keeps a short polar day
+ * inside the eclipse.
+ * ponytail: three samples, not a sunrise search — a day that starts after C1
+ * and ends before the peak still drops. Upgrade path: sunEvents over [c1, c4].
+ */
+private func seesAnyOfIt(_ e: SolarEclipse) -> Bool {
+    e.sunAltDeg.c1 > 0.0 || e.sunAltDeg.peak > 0.0 || e.sunAltDeg.c4 > 0.0
+}
+
+/**
+ * The first solar eclipse `observer` can see whose peak falls strictly after
+ * `after`.
+ *
+ * Every new moon up to the end of the supported interval is tested: the
+ * Moon's ecliptic latitude prunes the ones no shadow can reach, and the rest
+ * get a peak-shadow search from the observer. An eclipse whose Sun is below
+ * the horizon at C1, the peak, and C4 is skipped.
+ *
+ * - Throws: `AlmanacError.invalidArgument` if `after` is non-finite,
+ *   `AlmanacError.outOfRange` if `after` is outside the supported interval or
+ *   no visible eclipse remains before the end of it.
+ */
+public func nextSolarEclipse(after: Date, observer: Observer) throws -> SolarEclipse {
+    try nearestSolarEclipse(after, 1, observer)
+}
+
+/**
+ * The last solar eclipse `observer` can see whose peak falls strictly before
+ * `before`, skipping peaks within 100 ms of it, just as `nextSolarEclipse`
+ * does on the other side.
+ *
+ * - Throws: `AlmanacError.invalidArgument` if `before` is non-finite,
+ *   `AlmanacError.outOfRange` if `before` is outside the supported interval or
+ *   no visible eclipse remains after the start of it.
+ */
+public func previousSolarEclipse(before: Date, observer: Observer) throws -> SolarEclipse {
+    try nearestSolarEclipse(before, -1, observer)
+}
+
+/// Solar eclipses `observer` can see with peaks in `[from, to)`, sorted ascending. Contacts may fall outside the window.
+public func solarEclipses(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [SolarEclipse] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    return try scanSolarEclipses((startUtc.timeIntervalSince1970 * 1000).rounded(), (endUtc.timeIntervalSince1970 * 1000).rounded(), 1, firstOnly: false, observer)
+}
+
+private func nearestSolarEclipse(_ anchor: Date, _ direction: Double, _ observer: Observer) throws -> SolarEclipse {
+    let anchor = try normalized(anchor)
+    try assertSupported(anchor)
+    let ms = (anchor.timeIntervalSince1970 * 1000).rounded()
+    let minMs = supportedMin.timeIntervalSince1970 * 1000
+    let maxMs = supportedMax.timeIntervalSince1970 * 1000
+    // No scan limit: walk to the supported boundary. A place can go years
+    // without a visible solar eclipse, and a pruned new moon is cheap.
+    let startMs = direction > 0 ? ms + sameEclipseMs + 1 : minMs
+    let endMs = direction > 0 ? maxMs : ms - sameEclipseMs
+    let found = try scanSolarEclipses(startMs, endMs, direction, firstOnly: true, observer)
+    if let first = found.first { return first }
+    throw AlmanacError.outOfRange
+}
+
+private func scanSolarEclipses(_ startMs: Double, _ endMs: Double, _ direction: Double, firstOnly: Bool, _ observer: Observer) throws -> [SolarEclipse] {
+    var found: [SolarEclipse] = []
+    if startMs >= endMs { return found }
+    // Peak and new moon differ by up to the peak window. Include the entire
+    // margin at both ends, then apply the caller's bounds to the reported peak.
+    let startUt = utDays(Date(timeIntervalSince1970: startMs / 1000)) - peakWindowDays
+    let endUt = utDays(Date(timeIntervalSince1970: endMs / 1000)) + peakWindowDays
+    var nmUt = direction > 0 ? startUt : endUt
+    let limitUt = direction > 0 ? endUt : startUt
+
+    while direction * (limitUt - nmUt) > 0 {
+        guard let newmoon = searchMoonPhase(0, nmUt, direction * min(40, abs(limitUt - nmUt))) else { break }
+        // UPSTREAM `SearchLocalSolarEclipse`: step past this new moon before
+        // the next probe, so the same one cannot be found twice.
+        nmUt = newmoon + direction * 10
+
+        // Pruning: if the new moon's ecliptic latitude is too large, a solar
+        // eclipse is not possible.
+        if abs(moonEclipticLatitudeDeg(newmoon)) >= pruneLatitudeDeg { continue }
+
+        // Search near the new moon for the time when the observer is closest
+        // to the line passing through the centers of the Sun and Moon.
+        let shadow = peakLocalMoonShadow(newmoon, observer)
+        if shadow.r >= shadow.p { continue }   // the observer never enters the penumbra
+        let peak = try normalized(dateFromUt(shadow.ut))
+        let peakMs = (peak.timeIntervalSince1970 * 1000).rounded()
+        if peakMs < startMs || peakMs >= endMs { continue }
+
+        // This is at least a partial solar eclipse for the observer.
+        let eclipse = try buildSolarEclipse(shadow, observer)
+        // Ignore any eclipse that happens completely at night.
+        if !seesAnyOfIt(eclipse) { continue }
+        found.append(eclipse)
+        if firstOnly { break }
+    }
+    return found
+}
