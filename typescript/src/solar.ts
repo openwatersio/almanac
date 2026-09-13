@@ -191,3 +191,213 @@ export function solarObscuration(time: Date, observer: Observer): number {
     const shadow = localMoonShadow(utDays(time), observer);
     return discObscuration(shadow.dir, shadow.target);
 }
+
+/**
+ * UPSTREAM: `SolarEclipseObscuration`, astronomy.ts ~8670, with its clamp:
+ * "in marginal cases, we need to clamp obscuration to less than 1.0. This
+ * function is never called for total eclipses, so it should never return 1.0."
+ */
+function solarEclipseObscuration(hm: Vec3, lo: Vec3): number {
+    return Math.min(0.9999, discObscuration(hm, lo));
+}
+
+/** UPSTREAM: `ShadowDistanceSlope`, astronomy.ts ~8535, bound to `localMoonShadow`. */
+function localShadowSlope(ut: number, observer: Observer): number {
+    const dt = 1.0 / 86400.0;
+    return (localMoonShadow(ut + dt, observer).r - localMoonShadow(ut - dt, observer).r) / dt;
+}
+
+/**
+ * UPSTREAM: `PeakLocalMoonShadow`, astronomy.ts ~8587 — the time near the
+ * new moon when the Moon's shadow axis comes closest to the observer, i.e.
+ * the ascending zero of the axis distance's time derivative.
+ */
+function peakLocalMoonShadow(centerUt: number, observer: Observer): ShadowInfo {
+    // Use the same new-moon seed regardless of search direction or window.
+    // Otherwise a ~1 ms root shift can lose/duplicate a peak when a caller
+    // splits a range at a previously returned peak. Only unpruned moons pay
+    // for this second phase search; its start is a fixed whole UT day.
+    const newmoon = searchMoonPhase(0, Math.floor(centerUt) - 1, 4);
+    if (newmoon === null) throw new Error('almanac internal: cannot refine new moon');
+    const ut = search(
+        u => localShadowSlope(u, observer), newmoon - PEAK_WINDOW_DAYS, newmoon + PEAK_WINDOW_DAYS,
+        SHADOW_TOL_SECONDS, SHADOW_ITER_CAP, 'peak local moon shadow'
+    );
+    if (ut === null) throw new Error('almanac internal: failed to find peak local Moon shadow time');
+    return localMoonShadow(ut, observer);
+}
+
+/**
+ * UPSTREAM: `EclipseKindFromUmbra`, astronomy.ts ~8834 — a positive umbra
+ * radius at the observer is a total eclipse, otherwise annular. The 14 m
+ * bias is upstream's, added to match Espenak's classifications.
+ */
+function eclipseKindFromUmbra(k: number): SolarEclipseKind {
+    return (k > 0.014) ? 'total' : 'annular';
+}
+
+/** UPSTREAM: `local_partial_distance`, astronomy.ts ~9126. */
+function localPartialDistance(shadow: ShadowInfo): number {
+    return shadow.p - shadow.r;
+}
+
+/** UPSTREAM: `local_total_distance`, astronomy.ts ~9130 — `|k|`, because the umbra radius is negative for an annular eclipse. */
+function localTotalDistance(shadow: ShadowInfo): number {
+    return Math.abs(shadow.k) - shadow.r;
+}
+
+/** UPSTREAM: `LocalEclipseTransition`, astronomy.ts ~9165 — the instant `func` crosses zero in `direction` inside `[t1, t2]`. */
+function localEclipseTransition(
+    observer: Observer, direction: 1 | -1, func: (shadow: ShadowInfo) => number, t1: number, t2: number
+): number {
+    const ut = search(
+        u => direction * func(localMoonShadow(u, observer)), t1, t2,
+        SHADOW_TOL_SECONDS, SHADOW_ITER_CAP, 'local eclipse transition'
+    );
+    if (ut === null) throw new Error('almanac internal: local eclipse transition search failed');
+    return ut;
+}
+
+/**
+ * UPSTREAM: `SunAltitude`, astronomy.ts ~9181 — the refracted topocentric
+ * altitude `sunAltAz` reports, without its interval assertion: a contact can
+ * fall just outside the supported interval while its peak is inside.
+ */
+function sunAltDegAt(d: Date, observer: Observer): number {
+    const ut = utDays(d);
+    const alt = topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer).altDeg;
+    return alt + refractionDeg(alt);
+}
+
+/** UPSTREAM: `LocalEclipse`, astronomy.ts ~9137 — contacts and kind around a peak the observer is inside the penumbra for. */
+function buildSolarEclipse(shadow: ShadowInfo, observer: Observer): SolarEclipse {
+    const peakUt = shadow.ut;
+    const c1Ut = localEclipseTransition(observer, 1, localPartialDistance, peakUt - PARTIAL_WINDOW_DAYS, peakUt);
+    const c4Ut = localEclipseTransition(observer, -1, localPartialDistance, peakUt, peakUt + PARTIAL_WINDOW_DAYS);
+    let c2Ut: number | null = null;
+    let c3Ut: number | null = null;
+    let kind: SolarEclipseKind;
+
+    if (shadow.r < Math.abs(shadow.k)) {     // take absolute value of 'k' to handle annular eclipses too.
+        c2Ut = localEclipseTransition(observer, 1, localTotalDistance, peakUt - TOTAL_WINDOW_DAYS, peakUt);
+        c3Ut = localEclipseTransition(observer, -1, localTotalDistance, peakUt, peakUt + TOTAL_WINDOW_DAYS);
+        kind = eclipseKindFromUmbra(shadow.k);
+    } else {
+        kind = 'partial';
+    }
+
+    const obscuration = (kind === 'total') ? 1.0 : solarEclipseObscuration(shadow.dir, shadow.target);
+
+    // Altitudes come from the reported (TimeClip-truncated) instants, so
+    // `sunAltAz(e.c1, observer).altDeg === e.sunAltDeg.c1` exactly.
+    const c1 = dateFromUt(c1Ut);
+    const c2 = c2Ut === null ? null : dateFromUt(c2Ut);
+    const peak = dateFromUt(peakUt);
+    const c3 = c3Ut === null ? null : dateFromUt(c3Ut);
+    const c4 = dateFromUt(c4Ut);
+    const alt = (d: Date | null): number | null => (d === null ? null : sunAltDegAt(d, observer));
+    return {
+        kind, obscuration, c1, c2, peak, c3, c4,
+        sunAltDeg: { c1: alt(c1) as number, c2: alt(c2), peak: alt(peak) as number, c3: alt(c3), c4: alt(c4) as number }
+    };
+}
+
+/**
+ * The night filter: the Sun's centre must be above the horizon at C1, the
+ * peak, or C4. Upstream tests only C1 and C4; the peak keeps a short polar day
+ * inside the eclipse.
+ * ponytail: three samples, not a sunrise search — a day that starts after C1
+ * and ends before the peak still drops. Upgrade path: sunEvents over [c1, c4].
+ */
+function seesAnyOfIt(e: SolarEclipse): boolean {
+    return e.sunAltDeg.c1 > 0.0 || e.sunAltDeg.peak > 0.0 || e.sunAltDeg.c4 > 0.0;
+}
+
+/**
+ * The first solar eclipse `observer` can see whose peak falls strictly after
+ * `after`.
+ *
+ * Every new moon up to the end of the supported interval is tested: the
+ * Moon's ecliptic latitude prunes the ones no shadow can reach, and the rest
+ * get a peak-shadow search from the observer. An eclipse whose Sun is below
+ * the horizon at C1, the peak, and C4 is skipped.
+ *
+ * @throws {AlmanacOutOfRangeError} if `after` is outside the supported
+ *      interval, or if no visible eclipse remains before the end of it.
+ * @throws {RangeError} if `after` is invalid or `observer` is out of range.
+ */
+export function nextSolarEclipse(after: Date, observer: Observer): SolarEclipse {
+    return nearestSolarEclipse(after, 1, observer);
+}
+
+/**
+ * The last solar eclipse `observer` can see whose peak falls strictly before
+ * `before`, skipping peaks within 100 ms of it, just as `nextSolarEclipse`
+ * does on the other side.
+ *
+ * @throws {AlmanacOutOfRangeError} if `before` is outside the supported
+ *      interval, or if no visible eclipse remains after the start of it.
+ * @throws {RangeError} if `before` is invalid or `observer` is out of range.
+ */
+export function previousSolarEclipse(before: Date, observer: Observer): SolarEclipse {
+    return nearestSolarEclipse(before, -1, observer);
+}
+
+/** Solar eclipses `observer` can see with peaks in `[startUtc, endUtc)`, sorted ascending. Contacts may fall outside the window. */
+export function solarEclipses(startUtc: Date, endUtc: Date, observer: Observer): SolarEclipse[] {
+    assertSupported(startUtc);
+    assertSupportedWindowEnd(endUtc);
+    assertObserver(observer);
+    return scanSolarEclipses(startUtc.getTime(), endUtc.getTime(), 1, false, observer);
+}
+
+function nearestSolarEclipse(anchor: Date, direction: 1 | -1, observer: Observer): SolarEclipse {
+    assertSupported(anchor);
+    assertObserver(observer);
+    const ms = anchor.getTime();
+    // No scan limit: walk to the supported boundary. A place can go years
+    // without a visible solar eclipse, and a pruned new moon is cheap.
+    const startMs = direction > 0 ? ms + SAME_ECLIPSE_MS + 1 : SUPPORTED_MIN;
+    const endMs = direction > 0 ? SUPPORTED_MAX : ms - SAME_ECLIPSE_MS;
+    const found = scanSolarEclipses(startMs, endMs, direction, true, observer);
+    if (found.length) return found[0];
+    throw new AlmanacOutOfRangeError();
+}
+
+function scanSolarEclipses(startMs: number, endMs: number, direction: 1 | -1, firstOnly: boolean, observer: Observer): SolarEclipse[] {
+    const found: SolarEclipse[] = [];
+    if (startMs >= endMs) return found;
+    // Peak and new moon differ by up to the peak window. Include the entire
+    // margin at both ends, then apply the caller's bounds to the reported peak.
+    const startUt = utDays(new Date(startMs)) - PEAK_WINDOW_DAYS;
+    const endUt = utDays(new Date(endMs)) + PEAK_WINDOW_DAYS;
+    let nmUt = direction > 0 ? startUt : endUt;
+    const limitUt = direction > 0 ? endUt : startUt;
+
+    while (direction * (limitUt - nmUt) > 0) {
+        const newmoon = searchMoonPhase(0, nmUt, direction * Math.min(40, Math.abs(limitUt - nmUt)));
+        if (newmoon === null) break;
+        // UPSTREAM `SearchLocalSolarEclipse`: step past this new moon before
+        // the next probe, so the same one cannot be found twice.
+        nmUt = newmoon + direction * 10;
+
+        // Pruning: if the new moon's ecliptic latitude is too large, a solar
+        // eclipse is not possible.
+        if (Math.abs(moonEclipticLatitudeDeg(newmoon)) >= PRUNE_LATITUDE_DEG) continue;
+
+        // Search near the new moon for the time when the observer is closest
+        // to the line passing through the centers of the Sun and Moon.
+        const shadow = peakLocalMoonShadow(newmoon, observer);
+        if (shadow.r >= shadow.p) continue;   // the observer never enters the penumbra
+        const peak = dateFromUt(shadow.ut);
+        if (peak.getTime() < startMs || peak.getTime() >= endMs) continue;
+
+        // This is at least a partial solar eclipse for the observer.
+        const eclipse = buildSolarEclipse(shadow, observer);
+        // Ignore any eclipse that happens completely at night.
+        if (!seesAnyOfIt(eclipse)) continue;
+        found.push(eclipse);
+        if (firstOnly) break;
+    }
+    return found;
+}
