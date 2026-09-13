@@ -90,20 +90,21 @@ Departures from upstream, all documented in the file header as the lunar port do
 
 Two sources, both already in use. Their refresh scripts gain the new requests; raw responses, derived JSON, and metadata are committed together.
 
-**USNO local circumstances** (`aa.usno.navy.mil/api/eclipses/solar/date`, coverage 1800 through 2050) for these eclipse-and-place pairs. The derive script reads what USNO reports; the labels here are expectations, not inputs.
+**USNO local circumstances** (`aa.usno.navy.mil/api/eclipses/solar/date`) for these eclipse-and-place pairs. The endpoint advertises 1800 through 2050 but answers with an HTTP 500 outside the eclipses of 2001 through 2026, so every case sits inside that window and the catalog carries the rest of the interval. The derive script reads what USNO reports; the labels here are expectations, not inputs.
 
 | Eclipse | Place | Coordinates | Why |
 | --- | --- | --- | --- |
 | 2017-08-21 | Salem, Oregon | 44.94, -123.03 | Total, the Slackwater home latitude |
 | 2024-04-08 | Victoria, British Columbia | 48.43, -123.37 | Partial, the Slackwater home waters |
 | 2023-10-14 | Albuquerque, New Mexico | 35.08, -106.65 | Annular |
-| 2012-05-20 | Redding, California | 40.59, -122.39 | Annular, late afternoon |
-| 1979-02-26 | Goldendale, Washington | 45.82, -120.82 | Total, an earlier Delta-T polynomial piece |
-| 2021-06-10 | Toronto, Ontario | 43.65, -79.38 | Partial already underway at sunrise: C1 below the horizon |
+| 2012-05-20 | Redding, California | 40.59, -122.39 | Annular, late afternoon; the contacts fall on 2012-05-21 UTC |
+| 2001-06-21 | Lusaka, Zambia | -15.4, 28.3 | Total, the earliest eclipse USNO serves |
+| 2021-06-10 | Toronto, Ontario | 43.65, -79.38 | Partial already underway at sunrise: USNO lists a sunrise in place of C1 |
 | 2020-12-14 | Pucón, Chile | -39.28, -71.95 | Total, southern hemisphere |
-| 2044-08-23 | Calgary, Alberta | 51.05, -114.07 | Total near sunset, close to the USNO coverage limit |
+| 2026-08-12 | Valencia, Spain | 39.47, -0.38 | Total near sunset, the latest eclipse USNO serves |
+| 2024-04-08 | Perth, Australia | -31.95, 115.86 | Not visible: USNO answers HTTP 400 with an error body, and the search must return nothing |
 
-Each case checks kind, every contact time, the altitude at every contact, and peak obscuration.
+Each visible case checks kind, every contact time, the altitude at every contact, and peak obscuration. When USNO replaces a contact with a sunrise or sunset, the fixture leaves that contact absent and the test asserts the Sun is below the horizon at ours.
 
 **Espenak solar catalog** (`SE1901-2000.html` and `SE2001-2100.html`) for every eclipse from 1950 through 2100. UT is TD minus the catalog's Delta-T, as the lunar fixture does. The observer is the catalog's whole-degree greatest-eclipse coordinates, which put it up to about 80 km off the axis. Per-row checks:
 
@@ -111,7 +112,7 @@ Each case checks kind, every contact time, the altitude at every contact, and pe
 - For central total, annular, and hybrid rows the search must find the eclipse with a peak inside tolerance and the peak altitude within 2° of the catalog's Sun altitude.
 - Kind must match the catalog when the path is at least 200 km wide. Narrower paths also accept partial, because the coordinate rounding can place the observer outside the path. Hybrid rows accept total or annular.
 - Partial rows and non-central rows (second type letter `+` or `-`) skip the search checks. Their greatest-eclipse point is on the terminator, where the night filter's answer is not evidence of anything.
-- Night filter: for each central row with `|gamma|` below 0.25, the antipode of the greatest-eclipse point lies inside the penumbra geometrically (its axis distance is about twice gamma times the Earth's radius) but has the Sun below the horizon throughout. `solarObscuration` there is above zero, and the search must return no eclipse for that new moon. Rows with larger gamma put the antipode outside the penumbra, where a miss proves nothing about the filter.
+- Night filter: for each central row with `|gamma|` below 0.2, the antipode of the greatest-eclipse point lies inside the penumbra geometrically (its axis distance is twice gamma times the Earth's radius, under 2,550 km against a penumbra radius of about 3,500 km at that distance) but has the Sun below the horizon throughout. `solarObscuration` there is above zero, and the search must return no eclipse for that new moon. Rows with larger gamma put the antipode outside the penumbra, where a miss proves nothing about the filter.
 
 **Parity corpus** gains solar cases: several observers and windows for the range search, next and previous anchors, and obscuration samples through an eclipse. Both suites compare decoded values under the existing 5-scaled-unit and 1-time-quantum rule.
 
@@ -122,9 +123,10 @@ New contract tolerance rows:
 | Solar eclipse contacts (C1 to C4) | 60 seconds |
 | Solar eclipse peak | 5 minutes |
 | Solar eclipse obscuration | 0.01 |
-| Sun altitude at a contact | 0.5° |
+| Sun altitude at C1 to C4 | 0.5° |
+| Sun altitude at the peak | 1.5° |
 
-The peak is looser than the contacts because the axis-distance curve is flat at its minimum, so the root of its derivative is ill-conditioned while the contacts are steep crossings. Upstream's own test allows 7.7 minutes for the local peak, and the whole-degree catalog coordinates alone are worth about 3 minutes at the shadow's ground speed. Altitude gets 0.5° because 60 seconds of contact error is at most 0.25° of altitude.
+The peak is looser than the contacts because the axis-distance curve is flat at its minimum, so the root of its derivative is ill-conditioned while the contacts are steep crossings. Upstream's own test allows 7.7 minutes for the local peak, and the whole-degree catalog coordinates alone are worth about 3 minutes at the shadow's ground speed. Altitude at a contact gets 0.5° because 60 seconds of contact error is at most 0.25° of altitude; at the peak it gets 1.5° because 5 minutes of peak error is up to 1.25°.
 
 The residuals are measured before these rows are fixed in the contract. If the model is worse than a row, that is a finding to report with numbers, not a tolerance to loosen.
 
