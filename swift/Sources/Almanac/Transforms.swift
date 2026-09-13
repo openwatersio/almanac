@@ -93,6 +93,18 @@ private func observerGeoVectorOfDate(_ gastDeg: Double, _ observer: Observer) ->
     )
 }
 
+/**
+ * UPSTREAM: `geo_pos`, astronomy.ts ~2236 — the observer's geocentric
+ * position in AU on the J2000 mean equator: `terra`'s of-date vector
+ * gyrated into J2000. The topocentric path below avoids this rotation; the
+ * solar-eclipse layer needs it because it subtracts the observer from a
+ * geocentric Moon that stays in EQJ.
+ * INTERNAL, shared with Solar.swift — not `private`.
+ */
+func observerGeoVectorEqj(_ ut: Double, _ observer: Observer) -> Vec3 {
+    gyration(observerGeoVectorOfDate(siderealDeg(ut), observer), ttDaysFromUt(ut), .into2000)
+}
+
 /** UPSTREAM: `spin`, astronomy.ts ~2518 — rotate a horizontal-frame unit vector by sidereal angle. */
 private func spin(_ angleDeg: Double, _ pos: Vec3) -> Vec3 {
     let angr = angleDeg * DEG2RAD

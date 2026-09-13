@@ -97,8 +97,9 @@ public struct LunarEclipseVisibility: Sendable {
 private let earthEclipseRadiusKm = 6371.0 + 88.0
 
 /** UPSTREAM: `PruneLatitude`, inside `SearchLunarEclipse` — full-Moon ecliptic
- *  latitude above which no eclipse is possible. */
-private let pruneLatitudeDeg = 1.8
+ *  latitude above which no eclipse is possible.
+ *  INTERNAL, shared with Solar.swift — not `private`. */
+let pruneLatitudeDeg = 1.8
 
 /** Spec: the search gives up after two years. The catalog's longest gap between
  *  consecutive lunar eclipses over 1950-2100 is under a year. */
@@ -112,11 +113,12 @@ private let penumbralWindowMinutes = 200.0
 
 private let minutesPerDay = 24.0 * 60.0
 
-/** Root-finder tolerance for every shadow search, seconds — upstream's `Search` default. */
-private let shadowTolSeconds = 1.0
+/** Root-finder tolerance for every shadow search, seconds — upstream's `Search` default.
+ *  INTERNAL, shared with Solar.swift — not `private`. */
+let shadowTolSeconds = 1.0
 
-/** UPSTREAM: `Search`'s default `iter_limit`. */
-private let shadowIterCap = 20
+/** UPSTREAM: `Search`'s default `iter_limit`. INTERNAL, shared with Solar.swift — not `private`. */
+let shadowIterCap = 20
 
 /**
  * Peaks within 100 ms of a next/previous search anchor count as the same
@@ -126,30 +128,38 @@ private let shadowIterCap = 20
  * This can skip a wanted peak when the anchor is within 100 ms of it, but
  * cannot skip a distinct eclipse (the catalog's minimum gap is 29 days).
  * Range searches use exact half-open bounds without this band.
+ * INTERNAL, shared with Solar.swift — not `private`.
  */
-private let sameEclipseMs = 100.0
+let sameEclipseMs = 100.0
 
 /**
- * UPSTREAM: `ShadowInfo` (astronomy.ts ~8445), reduced to what the lunar case
- * reads. Upstream's `target`/`dir` vectors are inputs kept for the solar-eclipse
- * paths this package does not implement, and its `time` is an `AstroTime`;
- * here the instant travels as days since J2000 UT, as everywhere in L3.
+ * UPSTREAM: `ShadowInfo` (astronomy.ts ~8445). `target` and `dir` are the
+ * inputs `CalcShadow` measured from: the lunar case passes the geocentric
+ * Moon against the Sun-to-Earth line, the solar case (Solar.swift) the
+ * lunacentric observer against the heliocentric Moon, and the obscuration
+ * path reads them back. Upstream's `time` is an `AstroTime`; here the instant
+ * travels as days since J2000 UT, as everywhere in L3.
+ * INTERNAL, shared with Solar.swift — not `private`.
  */
-private struct ShadowInfo {
+struct ShadowInfo {
     /** Days since J2000 (UT). */
     let ut: Double
     /** Shadow-axis parameter: distance to the shadow plane over the casting body's distance. */
     let u: Double
-    /** Distance from the Moon's centre to the shadow axis, km. */
+    /** Distance from `target` to the shadow axis, km. */
     let r: Double
     /** Umbra radius at the shadow plane, km. */
     let k: Double
     /** Penumbra radius at the shadow plane, km. */
     let p: Double
+    /** The point measured from, AU. */
+    let target: Vec3
+    /** The shadow axis, AU. */
+    let dir: Vec3
 }
 
-/** UPSTREAM: `CalcShadow`, astronomy.ts ~8458. */
-private func calcShadow(_ bodyRadiusKm: Double, _ ut: Double, _ target: Vec3, _ dir: Vec3) -> ShadowInfo {
+/** UPSTREAM: `CalcShadow`, astronomy.ts ~8458. INTERNAL, shared with Solar.swift. */
+func calcShadow(_ bodyRadiusKm: Double, _ ut: Double, _ target: Vec3, _ dir: Vec3) -> ShadowInfo {
     let u = (dir.x*target.x + dir.y*target.y + dir.z*target.z) / (dir.x*dir.x + dir.y*dir.y + dir.z*dir.z)
     let dx = (u * dir.x) - target.x
     let dy = (u * dir.y) - target.y
@@ -157,7 +167,7 @@ private func calcShadow(_ bodyRadiusKm: Double, _ ut: Double, _ target: Vec3, _ 
     let r = KM_PER_AU * (dx*dx + dy*dy + dz*dz).squareRoot()
     let k = sunRadiusKm - (1.0 + u)*(sunRadiusKm - bodyRadiusKm)
     let p = -sunRadiusKm + (1.0 + u)*(sunRadiusKm + bodyRadiusKm)
-    return ShadowInfo(ut: ut, u: u, r: r, k: k, p: p)
+    return ShadowInfo(ut: ut, u: u, r: r, k: k, p: p, target: target, dir: dir)
 }
 
 /**
@@ -226,8 +236,8 @@ private func shadowSemiDurationMinutes(_ shadow: ShadowInfo, _ radiusLimitKm: Do
     return (t2 - t1) * (minutesPerDay / 2.0)   // convert days to minutes and average the semi-durations
 }
 
-/** UPSTREAM: `MoonEclipticLatitudeDegrees`, astronomy.ts ~8616. */
-private func moonEclipticLatitudeDeg(_ ut: Double) -> Double {
+/** UPSTREAM: `MoonEclipticLatitudeDegrees`, astronomy.ts ~8616. INTERNAL, shared with Solar.swift — not `private`. */
+func moonEclipticLatitudeDeg(_ ut: Double) -> Double {
     RAD2DEG * calcMoon(ttDaysFromUt(ut)).geoEclipLat
 }
 
