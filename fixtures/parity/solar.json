@@ -1,0 +1,3833 @@
+{
+  "observers": [
+    {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    {
+      "latitudeDeg": 60,
+      "longitudeDeg": -123.052
+    },
+    {
+      "latitudeDeg": 0,
+      "longitudeDeg": -123.052
+    }
+  ],
+  "eclipses": [
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 3452,
+      "c1Ms": -519942814200,
+      "c2Ms": null,
+      "peakMs": -519942144400,
+      "c3Ms": null,
+      "c4Ms": -519941474400,
+      "sunAltDeg": {
+        "c1": 6073427,
+        "c2": null,
+        "peak": 4477068,
+        "c3": null,
+        "c4": 2935376
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 69780,
+      "c1Ms": -399941882700,
+      "c2Ms": null,
+      "peakMs": -399939672700,
+      "c3Ms": null,
+      "c4Ms": -399937571000,
+      "sunAltDeg": {
+        "c1": 22296110,
+        "c2": null,
+        "peak": 16210908,
+        "c3": null,
+        "c4": 10484152
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 255669,
+      "c1Ms": -292814944300,
+      "c2Ms": null,
+      "peakMs": -292811238300,
+      "c3Ms": null,
+      "c4Ms": -292807791300,
+      "sunAltDeg": {
+        "c1": 33186970,
+        "c2": null,
+        "peak": 25084451,
+        "c3": null,
+        "c4": 16400935
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 153924,
+      "c1Ms": -249433329000,
+      "c2Ms": null,
+      "peakMs": -249430940600,
+      "c3Ms": null,
+      "c4Ms": -249428662500,
+      "sunAltDeg": {
+        "c1": 2302392,
+        "c2": null,
+        "peak": -3395727,
+        "c3": null,
+        "c4": -9471095
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 569340,
+      "c1Ms": -203575366800,
+      "c2Ms": null,
+      "peakMs": -203570557000,
+      "c3Ms": null,
+      "c4Ms": -203565844400,
+      "sunAltDeg": {
+        "c1": 59571257,
+        "c2": null,
+        "peak": 62036988,
+        "c3": null,
+        "c4": 56216045
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 468842,
+      "c1Ms": -83588175800,
+      "c2Ms": null,
+      "peakMs": -83584874100,
+      "c3Ms": null,
+      "c4Ms": -83581343700,
+      "sunAltDeg": {
+        "c1": 2644165,
+        "c2": null,
+        "peak": 11116626,
+        "c3": null,
+        "c4": 20730176
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 361892,
+      "c1Ms": -9613246300,
+      "c2Ms": null,
+      "peakMs": -9608932200,
+      "c3Ms": null,
+      "c4Ms": -9604477200,
+      "sunAltDeg": {
+        "c1": 35563594,
+        "c2": null,
+        "peak": 42889629,
+        "c3": null,
+        "c4": 45969939
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 74586,
+      "c1Ms": 5677513300,
+      "c2Ms": null,
+      "peakMs": 5679801700,
+      "c3Ms": null,
+      "c4Ms": 5682151200,
+      "sunAltDeg": {
+        "c1": 21004487,
+        "c2": null,
+        "peak": 25861263,
+        "c3": null,
+        "c4": 30104671
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 354040,
+      "c1Ms": 79639825500,
+      "c2Ms": null,
+      "peakMs": 79643917200,
+      "c3Ms": null,
+      "c4Ms": 79648079900,
+      "sunAltDeg": {
+        "c1": 53409532,
+        "c2": null,
+        "peak": 61124123,
+        "c3": null,
+        "c4": 63661015
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 314416,
+      "c1Ms": 156175806600,
+      "c2Ms": null,
+      "peakMs": 156179192600,
+      "c3Ms": null,
+      "c4Ms": 156182877900,
+      "sunAltDeg": {
+        "c1": -16169702,
+        "c2": null,
+        "peak": -7392623,
+        "c3": null,
+        "c4": 1064629
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 145574,
+      "c1Ms": 245530864700,
+      "c2Ms": null,
+      "peakMs": 245534065100,
+      "c3Ms": null,
+      "c4Ms": 245537298100,
+      "sunAltDeg": {
+        "c1": 32549479,
+        "c2": null,
+        "peak": 33998251,
+        "c3": null,
+        "c4": 32994095
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 984613,
+      "c1Ms": 288890169900,
+      "c2Ms": null,
+      "peakMs": 288893921400,
+      "c3Ms": null,
+      "c4Ms": 288897981300,
+      "sunAltDeg": {
+        "c1": 1853087,
+        "c2": null,
+        "peak": 11291928,
+        "c3": null,
+        "c4": 20515670
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 299584,
+      "c1Ms": 365399312800,
+      "c2Ms": null,
+      "peakMs": 365401784700,
+      "c3Ms": null,
+      "c4Ms": 365404173300,
+      "sunAltDeg": {
+        "c1": 337143,
+        "c2": null,
+        "peak": -5333418,
+        "c3": null,
+        "c4": -10402623
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 115867,
+      "c1Ms": 454778580400,
+      "c2Ms": null,
+      "peakMs": 454781105100,
+      "c3Ms": null,
+      "c4Ms": 454783768400,
+      "sunAltDeg": {
+        "c1": 27992943,
+        "c2": null,
+        "peak": 34958747,
+        "c3": null,
+        "c4": 42188076
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 54565,
+      "c1Ms": 528744299200,
+      "c2Ms": null,
+      "peakMs": 528746532500,
+      "c3Ms": null,
+      "c4Ms": 528748811900,
+      "sunAltDeg": {
+        "c1": 27347566,
+        "c2": null,
+        "peak": 31355059,
+        "c3": null,
+        "c4": 34542678
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 489798,
+      "c1Ms": 605293699300,
+      "c2Ms": null,
+      "peakMs": 605297396800,
+      "c3Ms": null,
+      "c4Ms": 605301247900,
+      "sunAltDeg": {
+        "c1": 21566705,
+        "c2": null,
+        "peak": 28987820,
+        "c3": null,
+        "c4": 34367017
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 622924,
+      "c1Ms": 648615016900,
+      "c2Ms": null,
+      "peakMs": 648617979800,
+      "c3Ms": null,
+      "c4Ms": 648620811200,
+      "sunAltDeg": {
+        "c1": 10328786,
+        "c2": null,
+        "peak": 2976853,
+        "c3": null,
+        "c4": -3240780
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 171256,
+      "c1Ms": 679253599400,
+      "c2Ms": null,
+      "peakMs": 679256496400,
+      "c3Ms": null,
+      "c4Ms": 679259483100,
+      "sunAltDeg": {
+        "c1": 47977886,
+        "c2": null,
+        "peak": 54845537,
+        "c3": null,
+        "c4": 60437619
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 420874,
+      "c1Ms": 694567605300,
+      "c2Ms": null,
+      "peakMs": 694571949400,
+      "c3Ms": null,
+      "c4Ms": 694575870200,
+      "sunAltDeg": {
+        "c1": 7456069,
+        "c2": null,
+        "peak": -1197057,
+        "c3": null,
+        "c4": -10884462
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 306707,
+      "c1Ms": 737987219600,
+      "c2Ms": null,
+      "peakMs": 737989968300,
+      "c3Ms": null,
+      "c4Ms": 737992868900,
+      "sunAltDeg": {
+        "c1": -77556,
+        "c2": null,
+        "peak": 6175348,
+        "c3": null,
+        "c4": 13655965
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 370772,
+      "c1Ms": 768583035100,
+      "c2Ms": null,
+      "peakMs": 768587011300,
+      "c3Ms": null,
+      "c4Ms": 768591398600,
+      "sunAltDeg": {
+        "c1": 24264827,
+        "c2": null,
+        "peak": 35153389,
+        "c3": null,
+        "c4": 46360241
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 203461,
+      "c1Ms": 965010733400,
+      "c2Ms": null,
+      "peakMs": 965012948000,
+      "c3Ms": null,
+      "c4Ms": 965015081500,
+      "sunAltDeg": {
+        "c1": 11600452,
+        "c2": null,
+        "peak": 5836887,
+        "c3": null,
+        "c4": 756548
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 251207,
+      "c1Ms": 977758049300,
+      "c2Ms": null,
+      "peakMs": 977761769000,
+      "c3Ms": null,
+      "c4Ms": 977765849500,
+      "sunAltDeg": {
+        "c1": -5376961,
+        "c2": null,
+        "peak": 2723384,
+        "c3": null,
+        "c4": 10226406
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 6443,
+      "c1Ms": 1008361264300,
+      "c2Ms": null,
+      "peakMs": 1008362704100,
+      "c3Ms": null,
+      "c4Ms": 1008364145700,
+      "sunAltDeg": {
+        "c1": 18313260,
+        "c2": null,
+        "peak": 17899649,
+        "c3": null,
+        "c4": 17091822
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 357417,
+      "c1Ms": 1023753662600,
+      "c2Ms": null,
+      "peakMs": 1023757331100,
+      "c3Ms": null,
+      "c4Ms": 1023760708900,
+      "sunAltDeg": {
+        "c1": 38721184,
+        "c2": null,
+        "peak": 28618582,
+        "c3": null,
+        "c4": 19409294
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 749943,
+      "c1Ms": 1337558375900,
+      "c2Ms": null,
+      "peakMs": 1337562972900,
+      "c3Ms": null,
+      "c4Ms": 1337567085700,
+      "sunAltDeg": {
+        "c1": 36473569,
+        "c2": null,
+        "peak": 23840256,
+        "c3": null,
+        "c4": 12714217
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 551584,
+      "c1Ms": 1414096336800,
+      "c2Ms": null,
+      "peakMs": 1414101448500,
+      "c3Ms": null,
+      "c4Ms": 1414106234300,
+      "sunAltDeg": {
+        "c1": 29518487,
+        "c2": null,
+        "peak": 24405507,
+        "c3": null,
+        "c4": 15600155
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 890684,
+      "c1Ms": 1503331735900,
+      "c2Ms": null,
+      "peakMs": 1503336012700,
+      "c3Ms": null,
+      "c4Ms": 1503340638800,
+      "sunAltDeg": {
+        "c1": 27423538,
+        "c2": null,
+        "peak": 38374357,
+        "c3": null,
+        "c4": 48026381
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 785257,
+      "c1Ms": 1697296066500,
+      "c2Ms": null,
+      "peakMs": 1697300387200,
+      "c3Ms": null,
+      "c4Ms": 1697305099700,
+      "sunAltDeg": {
+        "c1": 5100447,
+        "c2": null,
+        "peak": 15749410,
+        "c3": null,
+        "c4": 25429315
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 177078,
+      "c1Ms": 1712598063700,
+      "c2Ms": null,
+      "peakMs": 1712600963900,
+      "c3Ms": null,
+      "c4Ms": 1712603950600,
+      "sunAltDeg": {
+        "c1": 37856105,
+        "c2": null,
+        "peak": 43480012,
+        "c3": null,
+        "c4": 47514577
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 714924,
+      "c1Ms": 1863098683900,
+      "c2Ms": null,
+      "peakMs": 1863103138100,
+      "c3Ms": null,
+      "c4Ms": 1863108066600,
+      "sunAltDeg": {
+        "c1": -5400942,
+        "c2": null,
+        "peak": 4566599,
+        "c3": null,
+        "c4": 13626417
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 613233,
+      "c1Ms": 1995813397200,
+      "c2Ms": null,
+      "peakMs": 1995817184400,
+      "c3Ms": null,
+      "c4Ms": 1995821217200,
+      "sunAltDeg": {
+        "c1": 25504945,
+        "c2": null,
+        "peak": 34359494,
+        "c3": null,
+        "c4": 41638288
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 3109,
+      "c1Ms": 2072312879000,
+      "c2Ms": null,
+      "peakMs": 2072313532400,
+      "c3Ms": null,
+      "c4Ms": 2072314187300,
+      "sunAltDeg": {
+        "c1": 3774478,
+        "c2": null,
+        "peak": 2080626,
+        "c3": null,
+        "c4": 486889
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 491750,
+      "c1Ms": 2192281050700,
+      "c2Ms": null,
+      "peakMs": 2192285068800,
+      "c3Ms": null,
+      "c4Ms": 2192289546600,
+      "sunAltDeg": {
+        "c1": 24178745,
+        "c2": null,
+        "peak": 35239968,
+        "c3": null,
+        "c4": 47328390
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 128679,
+      "c1Ms": 2235662322100,
+      "c2Ms": null,
+      "peakMs": 2235665278300,
+      "c3Ms": null,
+      "c4Ms": 2235668350900,
+      "sunAltDeg": {
+        "c1": 16895761,
+        "c2": null,
+        "peak": 21453553,
+        "c3": null,
+        "c4": 24594572
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 700813,
+      "c1Ms": 2281575406500,
+      "c2Ms": null,
+      "peakMs": 2281578424500,
+      "c3Ms": null,
+      "c4Ms": 2281581298100,
+      "sunAltDeg": {
+        "c1": 1728553,
+        "c2": null,
+        "peak": -5782201,
+        "c3": null,
+        "c4": -12680148
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 268112,
+      "c1Ms": 2312215667300,
+      "c2Ms": null,
+      "peakMs": 2312218935600,
+      "c3Ms": null,
+      "c4Ms": 2312222310800,
+      "sunAltDeg": {
+        "c1": 41280816,
+        "c2": null,
+        "peak": 46531052,
+        "c3": null,
+        "c4": 49203022
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 957005,
+      "c1Ms": 2355525967600,
+      "c2Ms": null,
+      "peakMs": 2355529494400,
+      "c3Ms": null,
+      "c4Ms": 2355532805400,
+      "sunAltDeg": {
+        "c1": 23312511,
+        "c2": null,
+        "peak": 13615130,
+        "c3": null,
+        "c4": 4634627
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 726175,
+      "c1Ms": 2386164030800,
+      "c2Ms": null,
+      "peakMs": 2386167654100,
+      "c3Ms": null,
+      "c4Ms": 2386171526300,
+      "sunAltDeg": {
+        "c1": 21241548,
+        "c2": null,
+        "peak": 31134256,
+        "c3": null,
+        "c4": 41100907
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 688555,
+      "c1Ms": 2401486419200,
+      "c2Ms": null,
+      "peakMs": 2401491005200,
+      "c3Ms": null,
+      "c4Ms": 2401495172900,
+      "sunAltDeg": {
+        "c1": 13815695,
+        "c2": null,
+        "peak": 3749321,
+        "c3": null,
+        "c4": -6507609
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 577565,
+      "c1Ms": 2475485972400,
+      "c2Ms": null,
+      "peakMs": 2475489104500,
+      "c3Ms": null,
+      "c4Ms": 2475492400600,
+      "sunAltDeg": {
+        "c1": -8772881,
+        "c2": null,
+        "peak": -2776829,
+        "c3": null,
+        "c4": 4135676
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 92353,
+      "c1Ms": 2595433480200,
+      "c2Ms": null,
+      "peakMs": 2595436007400,
+      "c3Ms": null,
+      "c4Ms": 2595438605400,
+      "sunAltDeg": {
+        "c1": 35130559,
+        "c2": null,
+        "peak": 39912682,
+        "c3": null,
+        "c4": 43557692
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 720321,
+      "c1Ms": 2671923423400,
+      "c2Ms": null,
+      "peakMs": 2671926739400,
+      "c3Ms": null,
+      "c4Ms": 2671929851800,
+      "sunAltDeg": {
+        "c1": 18539817,
+        "c2": null,
+        "peak": 9438923,
+        "c3": null,
+        "c4": 1170395
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 439466,
+      "c1Ms": 2684678256200,
+      "c2Ms": null,
+      "peakMs": 2684682728300,
+      "c3Ms": null,
+      "c4Ms": 2684687677600,
+      "sunAltDeg": {
+        "c1": 943237,
+        "c2": null,
+        "peak": 10574455,
+        "c3": null,
+        "c4": 18813398
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 161560,
+      "c1Ms": 2715287066100,
+      "c2Ms": null,
+      "peakMs": 2715290463600,
+      "c3Ms": null,
+      "c4Ms": 2715293627800,
+      "sunAltDeg": {
+        "c1": 15671217,
+        "c2": null,
+        "peak": 10252854,
+        "c3": null,
+        "c4": 3972710
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 45677,
+      "c1Ms": 2730655955200,
+      "c2Ms": null,
+      "peakMs": 2730658468900,
+      "c3Ms": null,
+      "c4Ms": 2730660978800,
+      "sunAltDeg": {
+        "c1": 61756466,
+        "c2": null,
+        "peak": 63321073,
+        "c3": null,
+        "c4": 62330409
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 597310,
+      "c1Ms": 2761256407300,
+      "c2Ms": null,
+      "peakMs": 2761260971500,
+      "c3Ms": null,
+      "c4Ms": 2761265048900,
+      "sunAltDeg": {
+        "c1": 42850685,
+        "c2": null,
+        "peak": 30349394,
+        "c3": null,
+        "c4": 19208720
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 289499,
+      "c1Ms": 3044453306900,
+      "c2Ms": null,
+      "peakMs": 3044458050500,
+      "c3Ms": null,
+      "c4Ms": 3044463092900,
+      "sunAltDeg": {
+        "c1": 48703626,
+        "c2": null,
+        "peak": 59515566,
+        "c3": null,
+        "c4": 64984138
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 69481,
+      "c1Ms": 3075047852900,
+      "c2Ms": null,
+      "peakMs": 3075050862600,
+      "c3Ms": null,
+      "c4Ms": 3075053829300,
+      "sunAltDeg": {
+        "c1": 64510362,
+        "c2": null,
+        "peak": 63803204,
+        "c3": null,
+        "c4": 59748736
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 722702,
+      "c1Ms": 3121014249000,
+      "c2Ms": null,
+      "peakMs": 3121019837800,
+      "c3Ms": null,
+      "c4Ms": 3121024992300,
+      "sunAltDeg": {
+        "c1": 20587187,
+        "c2": null,
+        "peak": 16027743,
+        "c3": null,
+        "c4": 7392367
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 404469,
+      "c1Ms": 3210245834900,
+      "c2Ms": null,
+      "peakMs": 3210249134100,
+      "c3Ms": null,
+      "c4Ms": 3210252673500,
+      "sunAltDeg": {
+        "c1": 8391290,
+        "c2": null,
+        "peak": 17116464,
+        "c3": null,
+        "c4": 25785411
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 802366,
+      "c1Ms": 3404211429600,
+      "c2Ms": null,
+      "peakMs": 3404215513400,
+      "c3Ms": null,
+      "c4Ms": 3404220006100,
+      "sunAltDeg": {
+        "c1": -10266834,
+        "c2": null,
+        "peak": 129323,
+        "c3": null,
+        "c4": 9731679
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 48002,
+      "c1Ms": 3419514798200,
+      "c2Ms": null,
+      "peakMs": 3419516660800,
+      "c3Ms": null,
+      "c4Ms": 3419518573200,
+      "sunAltDeg": {
+        "c1": 43260405,
+        "c2": null,
+        "peak": 47774006,
+        "c3": null,
+        "c4": 51950838
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 758808,
+      "c1Ms": 3570021952100,
+      "c2Ms": null,
+      "peakMs": 3570026698000,
+      "c3Ms": null,
+      "c4Ms": 3570031733800,
+      "sunAltDeg": {
+        "c1": 12306153,
+        "c2": null,
+        "peak": 21821543,
+        "c3": null,
+        "c4": 28170574
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "annular",
+      "obscuration": 877717,
+      "c1Ms": 3613426992000,
+      "c2Ms": 3613430792500,
+      "peakMs": 3613430885800,
+      "c3Ms": 3613430979800,
+      "c4Ms": 3613434486600,
+      "sunAltDeg": {
+        "c1": 22573269,
+        "c2": 12475703,
+        "peak": 12235848,
+        "c3": 11994552,
+        "c4": 3453113
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 11866,
+      "c1Ms": 3659383516500,
+      "c2Ms": null,
+      "peakMs": 3659384847700,
+      "c3Ms": null,
+      "c4Ms": 3659386145400,
+      "sunAltDeg": {
+        "c1": 6079556,
+        "c2": null,
+        "peak": 3494445,
+        "c3": null,
+        "c4": 925713
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 66708,
+      "c1Ms": 3702732613000,
+      "c2Ms": null,
+      "peakMs": 3702734667000,
+      "c3Ms": null,
+      "c4Ms": 3702736797100,
+      "sunAltDeg": {
+        "c1": 37709156,
+        "c2": null,
+        "peak": 42845749,
+        "c3": null,
+        "c4": 47702970
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 157947,
+      "c1Ms": 3809861445900,
+      "c2Ms": null,
+      "peakMs": 3809863859400,
+      "c3Ms": null,
+      "c4Ms": 3809866393300,
+      "sunAltDeg": {
+        "c1": 7248556,
+        "c2": null,
+        "peak": 13693641,
+        "c3": null,
+        "c4": 20204155
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 431739,
+      "c1Ms": 3942584403100,
+      "c2Ms": null,
+      "peakMs": 3942588954200,
+      "c3Ms": null,
+      "c4Ms": 3942593646600,
+      "sunAltDeg": {
+        "c1": 15138089,
+        "c2": null,
+        "peak": 18605881,
+        "c3": null,
+        "c4": 18061476
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 146876,
+      "c1Ms": 3988491649800,
+      "c2Ms": null,
+      "peakMs": 3988493763500,
+      "c3Ms": null,
+      "c4Ms": 3988495799200,
+      "sunAltDeg": {
+        "c1": 13613347,
+        "c2": null,
+        "peak": 8134502,
+        "c3": null,
+        "c4": 3165527
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 444972,
+      "c1Ms": 4019130862400,
+      "c2Ms": null,
+      "peakMs": 4019134481900,
+      "c3Ms": null,
+      "c4Ms": 4019138318800,
+      "sunAltDeg": {
+        "c1": 43498020,
+        "c2": null,
+        "peak": 51849383,
+        "c3": null,
+        "c4": 58072614
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 648007,
+      "c1Ms": 4062440878700,
+      "c2Ms": null,
+      "peakMs": 4062444501700,
+      "c3Ms": null,
+      "c4Ms": 4062447901300,
+      "sunAltDeg": {
+        "c1": 21192048,
+        "c2": null,
+        "peak": 11900208,
+        "c3": null,
+        "c4": 2810336
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 906547,
+      "c1Ms": 4093079015700,
+      "c2Ms": null,
+      "peakMs": 4093082484000,
+      "c3Ms": null,
+      "c4Ms": 4093086187400,
+      "sunAltDeg": {
+        "c1": 4932861,
+        "c2": null,
+        "peak": 14340665,
+        "c3": null,
+        "c4": 24026156
+      }
+    },
+    {
+      "observerIdx": 0,
+      "kind": "partial",
+      "obscuration": 717489,
+      "c1Ms": 4108401957300,
+      "c2Ms": null,
+      "peakMs": 4108406810600,
+      "c3Ms": null,
+      "c4Ms": 4108411251000,
+      "sunAltDeg": {
+        "c1": 29291197,
+        "c2": null,
+        "peak": 18868935,
+        "c3": null,
+        "c4": 7571982
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 774311,
+      "c1Ms": -609196611600,
+      "c2Ms": null,
+      "peakMs": -609193367800,
+      "c3Ms": null,
+      "c4Ms": -609190248800,
+      "sunAltDeg": {
+        "c1": 122406,
+        "c2": null,
+        "peak": -6336665,
+        "c3": null,
+        "c4": -12154536
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 32292,
+      "c1Ms": -519944727800,
+      "c2Ms": null,
+      "peakMs": -519943266500,
+      "c3Ms": null,
+      "c4Ms": -519941828900,
+      "sunAltDeg": {
+        "c1": 14670729,
+        "c2": null,
+        "peak": 11855320,
+        "c3": null,
+        "c4": 9198355
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 479007,
+      "c1Ms": -489330449200,
+      "c2Ms": null,
+      "peakMs": -489327739000,
+      "c3Ms": null,
+      "c4Ms": -489324943300,
+      "sunAltDeg": {
+        "c1": -233738,
+        "c2": null,
+        "peak": 3035634,
+        "c3": null,
+        "c4": 7382330
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 296582,
+      "c1Ms": -399944113500,
+      "c2Ms": null,
+      "peakMs": -399940740600,
+      "c3Ms": null,
+      "c4Ms": -399937560400,
+      "sunAltDeg": {
+        "c1": 25632577,
+        "c2": null,
+        "peak": 18735143,
+        "c3": null,
+        "c4": 12163631
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 375457,
+      "c1Ms": -292816494100,
+      "c2Ms": null,
+      "peakMs": -292812569300,
+      "c3Ms": null,
+      "c4Ms": -292808848500,
+      "sunAltDeg": {
+        "c1": 26506135,
+        "c2": null,
+        "peak": 21004743,
+        "c3": null,
+        "c4": 14441025
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 955762,
+      "c1Ms": -203575452000,
+      "c2Ms": null,
+      "peakMs": -203570865700,
+      "c3Ms": null,
+      "c4Ms": -203566325300,
+      "sunAltDeg": {
+        "c1": 49161339,
+        "c2": null,
+        "peak": 50620314,
+        "c3": null,
+        "c4": 47607187
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 116180,
+      "c1Ms": -172935998000,
+      "c2Ms": null,
+      "peakMs": -172934310900,
+      "c3Ms": null,
+      "c4Ms": -172932602000,
+      "sunAltDeg": {
+        "c1": -3701175,
+        "c2": null,
+        "peak": -1940703,
+        "c3": null,
+        "c4": 78315
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 523914,
+      "c1Ms": -83587053500,
+      "c2Ms": null,
+      "peakMs": -83583530600,
+      "c3Ms": null,
+      "c4Ms": -83579798200,
+      "sunAltDeg": {
+        "c1": 9385936,
+        "c2": null,
+        "peak": 16510360,
+        "c3": null,
+        "c4": 24259320
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 129896,
+      "c1Ms": -9612097900,
+      "c2Ms": null,
+      "peakMs": -9609047800,
+      "c3Ms": null,
+      "c4Ms": -9605945200,
+      "sunAltDeg": {
+        "c1": 29161594,
+        "c2": null,
+        "peak": 32399366,
+        "c3": null,
+        "c4": 34169632
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 40918,
+      "c1Ms": 5679016800,
+      "c2Ms": null,
+      "peakMs": 5680822700,
+      "c3Ms": null,
+      "c4Ms": 5682650900,
+      "sunAltDeg": {
+        "c1": 16524747,
+        "c2": null,
+        "peak": 19025368,
+        "c3": null,
+        "c4": 21162073
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 749102,
+      "c1Ms": 79639577000,
+      "c2Ms": null,
+      "peakMs": 79643856400,
+      "c3Ms": null,
+      "c4Ms": 79648194000,
+      "sunAltDeg": {
+        "c1": 45724904,
+        "c2": null,
+        "peak": 50717075,
+        "c3": null,
+        "c4": 52094774
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 28074,
+      "c1Ms": 245532198900,
+      "c2Ms": null,
+      "peakMs": 245533960700,
+      "c3Ms": null,
+      "c4Ms": 245535727700,
+      "sunAltDeg": {
+        "c1": 22099718,
+        "c2": null,
+        "peak": 22444962,
+        "c3": null,
+        "c4": 22286997
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 843151,
+      "c1Ms": 288891436000,
+      "c2Ms": null,
+      "peakMs": 288895118400,
+      "c3Ms": null,
+      "c4Ms": 288899001700,
+      "sunAltDeg": {
+        "c1": 1527843,
+        "c2": null,
+        "peak": 8145810,
+        "c3": null,
+        "c4": 14207131
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 198060,
+      "c1Ms": 365398612600,
+      "c2Ms": null,
+      "peakMs": 365400915400,
+      "c3Ms": null,
+      "c4Ms": 365403159000,
+      "sunAltDeg": {
+        "c1": 6612182,
+        "c2": null,
+        "peak": 2580610,
+        "c3": null,
+        "c4": -726002
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 25767,
+      "c1Ms": 454780763000,
+      "c2Ms": null,
+      "peakMs": 454782352600,
+      "c3Ms": null,
+      "c4Ms": 454783972300,
+      "sunAltDeg": {
+        "c1": 32445465,
+        "c2": null,
+        "peak": 35630578,
+        "c3": null,
+        "c4": 38750488
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 19051,
+      "c1Ms": 485387477000,
+      "c2Ms": null,
+      "peakMs": 485389350800,
+      "c3Ms": null,
+      "c4Ms": 485391195100,
+      "sunAltDeg": {
+        "c1": 45954190,
+        "c2": null,
+        "peak": 43415374,
+        "c3": null,
+        "c4": 40480223
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 267580,
+      "c1Ms": 528743055800,
+      "c2Ms": null,
+      "peakMs": 528746371600,
+      "c3Ms": null,
+      "c4Ms": 528749775800,
+      "sunAltDeg": {
+        "c1": 17288705,
+        "c2": null,
+        "peak": 21686601,
+        "c3": null,
+        "c4": 24706972
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 569555,
+      "c1Ms": 605294808400,
+      "c2Ms": null,
+      "peakMs": 605298468300,
+      "c3Ms": null,
+      "c4Ms": 605302221500,
+      "sunAltDeg": {
+        "c1": 16366868,
+        "c2": null,
+        "peak": 21123588,
+        "c3": null,
+        "c4": 24152558
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 548354,
+      "c1Ms": 648613955300,
+      "c2Ms": null,
+      "peakMs": 648616953100,
+      "c3Ms": null,
+      "c4Ms": 648619840900,
+      "sunAltDeg": {
+        "c1": 15875114,
+        "c2": null,
+        "peak": 9991326,
+        "c3": null,
+        "c4": 4800637
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 430731,
+      "c1Ms": 737987991100,
+      "c2Ms": null,
+      "peakMs": 737991109700,
+      "c3Ms": null,
+      "c4Ms": 737994389000,
+      "sunAltDeg": {
+        "c1": 7144528,
+        "c2": null,
+        "peak": 13045886,
+        "c3": null,
+        "c4": 19688207
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 205977,
+      "c1Ms": 768584919700,
+      "c2Ms": null,
+      "peakMs": 768588326900,
+      "c3Ms": null,
+      "c4Ms": 768591930100,
+      "sunAltDeg": {
+        "c1": 27703464,
+        "c2": null,
+        "peak": 34375182,
+        "c3": null,
+        "c4": 40539910
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 441790,
+      "c1Ms": 857872196000,
+      "c2Ms": null,
+      "peakMs": 857875154600,
+      "c3Ms": null,
+      "c4Ms": 857877991800,
+      "sunAltDeg": {
+        "c1": 622656,
+        "c2": null,
+        "peak": -5355715,
+        "c3": null,
+        "c4": -11253621
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 327873,
+      "c1Ms": 965009259800,
+      "c2Ms": null,
+      "peakMs": 965011868400,
+      "c3Ms": null,
+      "c4Ms": 965014382700,
+      "sunAltDeg": {
+        "c1": 17111454,
+        "c2": null,
+        "peak": 11810906,
+        "c3": null,
+        "c4": 6953090
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 415953,
+      "c1Ms": 977758531700,
+      "c2Ms": null,
+      "peakMs": 977762651800,
+      "c3Ms": null,
+      "c4Ms": 977767080100,
+      "sunAltDeg": {
+        "c1": -9850008,
+        "c2": null,
+        "peak": -2902199,
+        "c3": null,
+        "c4": 2477533
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 113212,
+      "c1Ms": 1023753784000,
+      "c2Ms": null,
+      "peakMs": 1023756352600,
+      "c3Ms": null,
+      "c4Ms": 1023758818100,
+      "sunAltDeg": {
+        "c1": 35753803,
+        "c2": null,
+        "peak": 30520249,
+        "c3": null,
+        "c4": 25400697
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 573647,
+      "c1Ms": 1054354904200,
+      "c2Ms": null,
+      "peakMs": 1054358202600,
+      "c3Ms": null,
+      "c4Ms": 1054361382600,
+      "sunAltDeg": {
+        "c1": 4179188,
+        "c2": null,
+        "peak": -263578,
+        "c3": null,
+        "c4": -3931733
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 490717,
+      "c1Ms": 1337557602700,
+      "c2Ms": null,
+      "peakMs": 1337561803600,
+      "c3Ms": null,
+      "c4Ms": 1337565702500,
+      "sunAltDeg": {
+        "c1": 34905039,
+        "c2": null,
+        "peak": 26426662,
+        "c3": null,
+        "c4": 18353509
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 672935,
+      "c1Ms": 1414095709200,
+      "c2Ms": null,
+      "peakMs": 1414100538700,
+      "c3Ms": null,
+      "c4Ms": 1414105182600,
+      "sunAltDeg": {
+        "c1": 18275389,
+        "c2": null,
+        "peak": 15375156,
+        "c3": null,
+        "c4": 9692728
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 505829,
+      "c1Ms": 1503332847500,
+      "c2Ms": null,
+      "peakMs": 1503336591100,
+      "c3Ms": null,
+      "c4Ms": 1503340507300,
+      "sunAltDeg": {
+        "c1": 26473040,
+        "c2": null,
+        "peak": 33085751,
+        "c3": null,
+        "c4": 38435815
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 775781,
+      "c1Ms": 1623317720200,
+      "c2Ms": null,
+      "peakMs": 1623320935900,
+      "c3Ms": null,
+      "c4Ms": 1623324227800,
+      "sunAltDeg": {
+        "c1": -4599945,
+        "c2": null,
+        "peak": -1719863,
+        "c3": null,
+        "c4": 2086933
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 457657,
+      "c1Ms": 1697296941500,
+      "c2Ms": null,
+      "peakMs": 1697300831900,
+      "c3Ms": null,
+      "c4Ms": 1697304950000,
+      "sunAltDeg": {
+        "c1": 3319029,
+        "c2": null,
+        "peak": 10205370,
+        "c3": null,
+        "c4": 16213697
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 73700,
+      "c1Ms": 1712599742100,
+      "c2Ms": null,
+      "peakMs": 1712601867600,
+      "c3Ms": null,
+      "c4Ms": 1712604019700,
+      "sunAltDeg": {
+        "c1": 32592865,
+        "c2": null,
+        "peak": 34975920,
+        "c3": null,
+        "c4": 36662631
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 205319,
+      "c1Ms": 1786549565200,
+      "c2Ms": null,
+      "peakMs": 1786552398800,
+      "c3Ms": null,
+      "c4Ms": 1786555341300,
+      "sunAltDeg": {
+        "c1": 23884938,
+        "c2": null,
+        "peak": 29493454,
+        "c3": null,
+        "c4": 34820486
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 800895,
+      "c1Ms": 1863099932200,
+      "c2Ms": null,
+      "peakMs": 1863104350500,
+      "c3Ms": null,
+      "c4Ms": 1863109067800,
+      "sunAltDeg": {
+        "c1": -7771689,
+        "c2": null,
+        "peak": -306926,
+        "c3": null,
+        "c4": 5183304
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 220574,
+      "c1Ms": 1875931604300,
+      "c2Ms": null,
+      "peakMs": 1875934103700,
+      "c3Ms": null,
+      "c4Ms": 1875936534700,
+      "sunAltDeg": {
+        "c1": 7021529,
+        "c2": null,
+        "peak": 3145855,
+        "c3": null,
+        "c4": 126587
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 800212,
+      "c1Ms": 1995814489300,
+      "c2Ms": null,
+      "peakMs": 1995818301300,
+      "c3Ms": null,
+      "c4Ms": 1995822271200,
+      "sunAltDeg": {
+        "c1": 22332432,
+        "c2": null,
+        "peak": 28238395,
+        "c3": null,
+        "c4": 32466970
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 104422,
+      "c1Ms": 2102946236900,
+      "c2Ms": null,
+      "peakMs": 2102948424100,
+      "c3Ms": null,
+      "c4Ms": 2102950679300,
+      "sunAltDeg": {
+        "c1": 21227298,
+        "c2": null,
+        "peak": 25548456,
+        "c3": null,
+        "c4": 29731405
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 702288,
+      "c1Ms": 2192282230000,
+      "c2Ms": null,
+      "peakMs": 2192286525100,
+      "c3Ms": null,
+      "c4Ms": 2192291180700,
+      "sunAltDeg": {
+        "c1": 28009570,
+        "c2": null,
+        "peak": 36802676,
+        "c3": null,
+        "c4": 45341301
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 304429,
+      "c1Ms": 2235661782700,
+      "c2Ms": null,
+      "peakMs": 2235665310200,
+      "c3Ms": null,
+      "c4Ms": 2235668958600,
+      "sunAltDeg": {
+        "c1": 7353803,
+        "c2": null,
+        "peak": 11317905,
+        "c3": null,
+        "c4": 13750659
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 357884,
+      "c1Ms": 2281575189100,
+      "c2Ms": null,
+      "peakMs": 2281577854200,
+      "c3Ms": null,
+      "c4Ms": 2281580432600,
+      "sunAltDeg": {
+        "c1": 4974720,
+        "c2": null,
+        "peak": 137960,
+        "c3": null,
+        "c4": -4473234
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 439334,
+      "c1Ms": 2312216494000,
+      "c2Ms": null,
+      "peakMs": 2312220011700,
+      "c3Ms": null,
+      "c4Ms": 2312223599600,
+      "sunAltDeg": {
+        "c1": 33660441,
+        "c2": null,
+        "peak": 36808980,
+        "c3": null,
+        "c4": 37779541
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "total",
+      "obscuration": 1000000,
+      "c1Ms": 2355524642300,
+      "c2Ms": 2355528155300,
+      "peakMs": 2355528207200,
+      "c3Ms": 2355528258600,
+      "c4Ms": 2355531600900,
+      "sunAltDeg": {
+        "c1": 23445746,
+        "c2": 16312351,
+        "peak": 16204949,
+        "c3": 16098467,
+        "c4": 9177241
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 307740,
+      "c1Ms": 2386165244800,
+      "c2Ms": null,
+      "peakMs": 2386168168900,
+      "c3Ms": null,
+      "c4Ms": 2386171200700,
+      "sunAltDeg": {
+        "c1": 23131973,
+        "c2": null,
+        "peak": 28949248,
+        "c3": null,
+        "c4": 34474681
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 394825,
+      "c1Ms": 2401486334800,
+      "c2Ms": null,
+      "peakMs": 2401490356300,
+      "c3Ms": null,
+      "c4Ms": 2401494128700,
+      "sunAltDeg": {
+        "c1": 5760671,
+        "c2": null,
+        "peak": -320045,
+        "c3": null,
+        "c4": -7519771
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 452908,
+      "c1Ms": 2475486762900,
+      "c2Ms": null,
+      "peakMs": 2475489925300,
+      "c3Ms": null,
+      "c4Ms": 2475493226200,
+      "sunAltDeg": {
+        "c1": 1294563,
+        "c2": null,
+        "peak": 5828521,
+        "c3": null,
+        "c4": 11557498
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 312119,
+      "c1Ms": 2564793618500,
+      "c2Ms": null,
+      "peakMs": 2564796197600,
+      "c3Ms": null,
+      "c4Ms": 2564798688000,
+      "sunAltDeg": {
+        "c1": 4002251,
+        "c2": null,
+        "peak": -735376,
+        "c3": null,
+        "c4": -5503836
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 2216,
+      "c1Ms": 2595436105100,
+      "c2Ms": null,
+      "peakMs": 2595436829600,
+      "c3Ms": null,
+      "c4Ms": 2595437552100,
+      "sunAltDeg": {
+        "c1": 30597645,
+        "c2": null,
+        "peak": 31355063,
+        "c3": null,
+        "c4": 32031407
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 869294,
+      "c1Ms": 2671922099300,
+      "c2Ms": null,
+      "peakMs": 2671925523300,
+      "c3Ms": null,
+      "c4Ms": 2671928779200,
+      "sunAltDeg": {
+        "c1": 18852016,
+        "c2": null,
+        "peak": 11878982,
+        "c3": null,
+        "c4": 5179269
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 556929,
+      "c1Ms": 2684679292200,
+      "c2Ms": null,
+      "peakMs": 2684683831100,
+      "c3Ms": null,
+      "c4Ms": 2684688682800,
+      "sunAltDeg": {
+        "c1": -2431067,
+        "c2": null,
+        "peak": 4281010,
+        "c3": null,
+        "c4": 9509342
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 48076,
+      "c1Ms": 2715287348600,
+      "c2Ms": null,
+      "peakMs": 2715289544000,
+      "c3Ms": null,
+      "c4Ms": 2715291675800,
+      "sunAltDeg": {
+        "c1": 5262327,
+        "c2": null,
+        "peak": 2819341,
+        "c3": null,
+        "c4": 164341
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 842894,
+      "c1Ms": 2761254990000,
+      "c2Ms": null,
+      "peakMs": 2761259643000,
+      "c3Ms": null,
+      "c4Ms": 2761263923600,
+      "sunAltDeg": {
+        "c1": 41602569,
+        "c2": null,
+        "peak": 32515730,
+        "c3": null,
+        "c4": 23641723
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 262562,
+      "c1Ms": 2881193893100,
+      "c2Ms": null,
+      "peakMs": 2881196291400,
+      "c3Ms": null,
+      "c4Ms": 2881198622100,
+      "sunAltDeg": {
+        "c1": 168525,
+        "c2": null,
+        "peak": -4112407,
+        "c3": null,
+        "c4": -7969789
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 623548,
+      "c1Ms": 3044453508600,
+      "c2Ms": null,
+      "peakMs": 3044458527900,
+      "c3Ms": null,
+      "c4Ms": 3044463733800,
+      "sunAltDeg": {
+        "c1": 43824804,
+        "c2": null,
+        "peak": 50910796,
+        "c3": null,
+        "c4": 53405356
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 829085,
+      "c1Ms": 3121014006000,
+      "c2Ms": null,
+      "peakMs": 3121019128900,
+      "c3Ms": null,
+      "c4Ms": 3121024013300,
+      "sunAltDeg": {
+        "c1": 9160448,
+        "c2": null,
+        "peak": 6442885,
+        "c3": null,
+        "c4": 1028409
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 237092,
+      "c1Ms": 3164411057300,
+      "c2Ms": null,
+      "peakMs": 3164413458900,
+      "c3Ms": null,
+      "c4Ms": 3164415787800,
+      "sunAltDeg": {
+        "c1": 1362497,
+        "c2": null,
+        "peak": -3074838,
+        "c3": null,
+        "c4": -7368339
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 111630,
+      "c1Ms": 3210247550300,
+      "c2Ms": null,
+      "peakMs": 3210249851300,
+      "c3Ms": null,
+      "c4Ms": 3210252230700,
+      "sunAltDeg": {
+        "c1": 9841172,
+        "c2": null,
+        "peak": 14238008,
+        "c3": null,
+        "c4": 18446669
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 504593,
+      "c1Ms": 3404212385000,
+      "c2Ms": null,
+      "peakMs": 3404216238200,
+      "c3Ms": null,
+      "c4Ms": 3404220357500,
+      "sunAltDeg": {
+        "c1": -11181173,
+        "c2": null,
+        "peak": -3818080,
+        "c3": null,
+        "c4": 2554376
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 813327,
+      "c1Ms": 3570023244500,
+      "c2Ms": null,
+      "peakMs": 3570027791400,
+      "c3Ms": null,
+      "c4Ms": 3570032497800,
+      "sunAltDeg": {
+        "c1": 7867979,
+        "c2": null,
+        "peak": 13900751,
+        "c3": null,
+        "c4": 17444650
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 799915,
+      "c1Ms": 3613425642000,
+      "c2Ms": null,
+      "peakMs": 3613429633600,
+      "c3Ms": null,
+      "c4Ms": 3613433374700,
+      "sunAltDeg": {
+        "c1": 26657786,
+        "c2": null,
+        "peak": 18440816,
+        "c3": null,
+        "c4": 11184436
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 244301,
+      "c1Ms": 3702732976400,
+      "c2Ms": null,
+      "peakMs": 3702735880200,
+      "c3Ms": null,
+      "c4Ms": 3702738889700,
+      "sunAltDeg": {
+        "c1": 33636182,
+        "c2": null,
+        "peak": 38472456,
+        "c3": null,
+        "c4": 42423048
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 484462,
+      "c1Ms": 3809861373500,
+      "c2Ms": null,
+      "peakMs": 3809864547000,
+      "c3Ms": null,
+      "c4Ms": 3809867874900,
+      "sunAltDeg": {
+        "c1": 5393538,
+        "c2": null,
+        "peak": 11654030,
+        "c3": null,
+        "c4": 17715567
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 334274,
+      "c1Ms": 3899184341700,
+      "c2Ms": null,
+      "peakMs": 3899187230000,
+      "c3Ms": null,
+      "c4Ms": 3899190218200,
+      "sunAltDeg": {
+        "c1": -4153148,
+        "c2": null,
+        "peak": -304086,
+        "c3": null,
+        "c4": 4035731
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 97362,
+      "c1Ms": 3929773588700,
+      "c2Ms": null,
+      "peakMs": 3929775638800,
+      "c3Ms": null,
+      "c4Ms": 3929777747100,
+      "sunAltDeg": {
+        "c1": 2386650,
+        "c2": null,
+        "peak": 5565387,
+        "c3": null,
+        "c4": 9230971
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 534782,
+      "c1Ms": 3942584582600,
+      "c2Ms": null,
+      "peakMs": 3942588959900,
+      "c3Ms": null,
+      "c4Ms": 3942593422300,
+      "sunAltDeg": {
+        "c1": 4928479,
+        "c2": null,
+        "peak": 7210536,
+        "c3": null,
+        "c4": 6861280
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 681913,
+      "c1Ms": 4019131878400,
+      "c2Ms": null,
+      "peakMs": 4019135670800,
+      "c3Ms": null,
+      "c4Ms": 4019139606900,
+      "sunAltDeg": {
+        "c1": 39665863,
+        "c2": null,
+        "peak": 44948949,
+        "c3": null,
+        "c4": 47936929
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 695895,
+      "c1Ms": 4062439577200,
+      "c2Ms": null,
+      "peakMs": 4062443196100,
+      "c3Ms": null,
+      "c4Ms": 4062446650400,
+      "sunAltDeg": {
+        "c1": 17651756,
+        "c2": null,
+        "peak": 11074322,
+        "c3": null,
+        "c4": 4242004
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 740975,
+      "c1Ms": 4093079617100,
+      "c2Ms": null,
+      "peakMs": 4093082969300,
+      "c3Ms": null,
+      "c4Ms": 4093086476700,
+      "sunAltDeg": {
+        "c1": 6082264,
+        "c2": null,
+        "peak": 12861890,
+        "c3": null,
+        "c4": 19532123
+      }
+    },
+    {
+      "observerIdx": 1,
+      "kind": "partial",
+      "obscuration": 393064,
+      "c1Ms": 4108402289700,
+      "c2Ms": null,
+      "peakMs": 4108406404900,
+      "c3Ms": null,
+      "c4Ms": 4108410295200,
+      "sunAltDeg": {
+        "c1": 19895806,
+        "c2": null,
+        "peak": 13543272,
+        "c3": null,
+        "c4": 6359547
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 572588,
+      "c1Ms": -593927718400,
+      "c2Ms": null,
+      "peakMs": -593922306200,
+      "c3Ms": null,
+      "c4Ms": -593917298600,
+      "sunAltDeg": {
+        "c1": 82899157,
+        "c2": null,
+        "peak": 71375209,
+        "c3": null,
+        "c4": 50961114
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 473559,
+      "c1Ms": -547989937100,
+      "c2Ms": null,
+      "peakMs": -547986616100,
+      "c3Ms": null,
+      "c4Ms": -547982905500,
+      "sunAltDeg": {
+        "c1": -24178122,
+        "c2": null,
+        "peak": -10599008,
+        "c3": null,
+        "c4": 4121132
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 7650,
+      "c1Ms": -354078647600,
+      "c2Ms": null,
+      "peakMs": -354077179200,
+      "c3Ms": null,
+      "c4Ms": -354075721100,
+      "sunAltDeg": {
+        "c1": 75381338,
+        "c2": null,
+        "peak": 69888477,
+        "c3": null,
+        "c4": 64163150
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 210918,
+      "c1Ms": -249433031800,
+      "c2Ms": null,
+      "peakMs": -249430340800,
+      "c3Ms": null,
+      "c4Ms": -249427852900,
+      "sunAltDeg": {
+        "c1": 20044557,
+        "c2": null,
+        "peak": 9357239,
+        "c3": null,
+        "c4": -100445
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "total",
+      "obscuration": 1000000,
+      "c1Ms": -144819999200,
+      "c2Ms": -144814182400,
+      "peakMs": -144814074500,
+      "c3Ms": -144813968500,
+      "c4Ms": -144808670100,
+      "sunAltDeg": {
+        "c1": 68155966,
+        "c2": 57167368,
+        "peak": 56838742,
+        "c3": 56514041,
+        "c4": 38304136
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 363856,
+      "c1Ms": -9608958300,
+      "c2Ms": null,
+      "peakMs": -9603556900,
+      "c3Ms": null,
+      "c4Ms": -9598399900,
+      "sunAltDeg": {
+        "c1": 70018471,
+        "c2": null,
+        "peak": 84685948,
+        "c3": null,
+        "c4": 65152584
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "total",
+      "obscuration": 1000000,
+      "c1Ms": 5670808200,
+      "c2Ms": 5674795000,
+      "peakMs": 5674814600,
+      "c3Ms": 5674834600,
+      "c4Ms": 5679322800,
+      "sunAltDeg": {
+        "c1": 12549851,
+        "c2": 29041383,
+        "peak": 29122644,
+        "c3": 29205271,
+        "c4": 47765177
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 150677,
+      "c1Ms": 95000367800,
+      "c2Ms": null,
+      "peakMs": 95002873600,
+      "c3Ms": null,
+      "c4Ms": 95005606100,
+      "sunAltDeg": {
+        "c1": -17364546,
+        "c2": null,
+        "peak": -7714846,
+        "c3": null,
+        "c4": 2457119
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 549533,
+      "c1Ms": 245531856900,
+      "c2Ms": null,
+      "peakMs": 245537368400,
+      "c3Ms": null,
+      "c4Ms": 245542638500,
+      "sunAltDeg": {
+        "c1": 77274956,
+        "c2": null,
+        "peak": 75229597,
+        "c3": null,
+        "c4": 54614399
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 668694,
+      "c1Ms": 334773775200,
+      "c2Ms": null,
+      "peakMs": 334779920500,
+      "c3Ms": null,
+      "c4Ms": 334787088500,
+      "sunAltDeg": {
+        "c1": 34896557,
+        "c2": null,
+        "peak": 58356648,
+        "c3": null,
+        "c4": 74560041
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 18443,
+      "c1Ms": 350176676000,
+      "c2Ms": null,
+      "peakMs": 350178388400,
+      "c3Ms": null,
+      "c4Ms": 350180015200,
+      "sunAltDeg": {
+        "c1": 44747065,
+        "c2": null,
+        "peak": 38120902,
+        "c3": null,
+        "c4": 31745685
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 748634,
+      "c1Ms": 454773354100,
+      "c2Ms": null,
+      "peakMs": 454776861000,
+      "c3Ms": null,
+      "c4Ms": 454780810600,
+      "sunAltDeg": {
+        "c1": -2579339,
+        "c2": null,
+        "peak": 10428265,
+        "c3": null,
+        "c4": 25507529
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 810690,
+      "c1Ms": 663986129200,
+      "c2Ms": null,
+      "peakMs": 663990439700,
+      "c3Ms": null,
+      "c4Ms": 663994218500,
+      "sunAltDeg": {
+        "c1": 24686771,
+        "c2": null,
+        "peak": 8124066,
+        "c3": null,
+        "c4": -6064284
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 99868,
+      "c1Ms": 679253811600,
+      "c2Ms": null,
+      "peakMs": 679257052000,
+      "c3Ms": null,
+      "c4Ms": 679260499500,
+      "sunAltDeg": {
+        "c1": 45063363,
+        "c2": null,
+        "peak": 55880202,
+        "c3": null,
+        "c4": 64855115
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 97042,
+      "c1Ms": 694568929300,
+      "c2Ms": null,
+      "peakMs": 694572047800,
+      "c3Ms": null,
+      "c4Ms": 694574852600,
+      "sunAltDeg": {
+        "c1": 33810238,
+        "c2": null,
+        "peak": 22153925,
+        "c3": null,
+        "c4": 11505906
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 287022,
+      "c1Ms": 768579234700,
+      "c2Ms": null,
+      "peakMs": 768582590200,
+      "c3Ms": null,
+      "c4Ms": 768586417400,
+      "sunAltDeg": {
+        "c1": 1606296,
+        "c2": null,
+        "peak": 14637653,
+        "c3": null,
+        "c4": 29661437
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 117518,
+      "c1Ms": 799168089500,
+      "c2Ms": null,
+      "peakMs": 799171072800,
+      "c3Ms": null,
+      "c4Ms": 799174423000,
+      "sunAltDeg": {
+        "c1": 14229356,
+        "c2": null,
+        "peak": 26179647,
+        "c3": null,
+        "c4": 39487374
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 850759,
+      "c1Ms": 888504860200,
+      "c2Ms": null,
+      "peakMs": 888508704800,
+      "c3Ms": null,
+      "c4Ms": 888513128600,
+      "sunAltDeg": {
+        "c1": 7340642,
+        "c2": null,
+        "peak": 23085493,
+        "c3": null,
+        "c4": 41206222
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 935686,
+      "c1Ms": 1008357697200,
+      "c2Ms": null,
+      "peakMs": 1008364820100,
+      "c3Ms": null,
+      "c4Ms": 1008371297000,
+      "sunAltDeg": {
+        "c1": 64271134,
+        "c2": null,
+        "peak": 60732616,
+        "c3": null,
+        "c4": 40289904
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 117597,
+      "c1Ms": 1023757063900,
+      "c2Ms": null,
+      "peakMs": 1023759713200,
+      "c3Ms": null,
+      "c4Ms": 1023762124800,
+      "sunAltDeg": {
+        "c1": 17016148,
+        "c2": null,
+        "peak": 6975714,
+        "c3": null,
+        "c4": -1753932
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 616785,
+      "c1Ms": 1112988073100,
+      "c2Ms": null,
+      "peakMs": 1112993459600,
+      "c3Ms": null,
+      "c4Ms": 1112998788800,
+      "sunAltDeg": {
+        "c1": 74891812,
+        "c2": null,
+        "peak": 78111115,
+        "c3": null,
+        "c4": 57738779
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 420613,
+      "c1Ms": 1278870662300,
+      "c2Ms": null,
+      "peakMs": 1278875415200,
+      "c3Ms": null,
+      "c4Ms": 1278880363800,
+      "sunAltDeg": {
+        "c1": 48034085,
+        "c2": null,
+        "peak": 62509088,
+        "c3": null,
+        "c4": 67675098
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 703076,
+      "c1Ms": 1368148159900,
+      "c2Ms": null,
+      "peakMs": 1368152314400,
+      "c3Ms": null,
+      "c4Ms": 1368155935100,
+      "sunAltDeg": {
+        "c1": 14168598,
+        "c2": null,
+        "peak": -1743981,
+        "c3": null,
+        "c4": -16200287
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 347664,
+      "c1Ms": 1562088668500,
+      "c2Ms": null,
+      "peakMs": 1562093136100,
+      "c3Ms": null,
+      "c4Ms": 1562098061000,
+      "sunAltDeg": {
+        "c1": 43774968,
+        "c2": null,
+        "peak": 58144652,
+        "c3": null,
+        "c4": 66903207
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 595735,
+      "c1Ms": 1607952884200,
+      "c2Ms": null,
+      "peakMs": 1607955943400,
+      "c3Ms": null,
+      "c4Ms": 1607959316500,
+      "sunAltDeg": {
+        "c1": -6831763,
+        "c2": null,
+        "peak": 4452168,
+        "c3": null,
+        "c4": 17184706
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 853893,
+      "c1Ms": 1712591810700,
+      "c2Ms": null,
+      "peakMs": 1712595807900,
+      "c3Ms": null,
+      "c4Ms": 1712600246100,
+      "sunAltDeg": {
+        "c1": 25538155,
+        "c2": null,
+        "peak": 41965360,
+        "c3": null,
+        "c4": 60017631
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 682922,
+      "c1Ms": 1727885183700,
+      "c2Ms": null,
+      "peakMs": 1727890509400,
+      "c3Ms": null,
+      "c4Ms": 1727896590300,
+      "sunAltDeg": {
+        "c1": 31211463,
+        "c2": null,
+        "peak": 53289852,
+        "c3": null,
+        "c4": 78126777
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 612184,
+      "c1Ms": 1832502182000,
+      "c2Ms": null,
+      "peakMs": 1832505605500,
+      "c3Ms": null,
+      "c4Ms": 1832509445300,
+      "sunAltDeg": {
+        "c1": -28184455,
+        "c2": null,
+        "peak": -14716726,
+        "c3": null,
+        "c4": 369897
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 911286,
+      "c1Ms": 1952453246600,
+      "c2Ms": null,
+      "peakMs": 1952459594600,
+      "c3Ms": null,
+      "c4Ms": 1952465114100,
+      "sunAltDeg": {
+        "c1": 71486588,
+        "c2": null,
+        "peak": 56001520,
+        "c3": null,
+        "c4": 35641371
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 765579,
+      "c1Ms": 2041680503400,
+      "c2Ms": null,
+      "peakMs": 2041684221400,
+      "c3Ms": null,
+      "c4Ms": 2041688497200,
+      "sunAltDeg": {
+        "c1": -9410372,
+        "c2": null,
+        "peak": 5616509,
+        "c3": null,
+        "c4": 23278985
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 546665,
+      "c1Ms": 2057095800300,
+      "c2Ms": null,
+      "peakMs": 2057100191400,
+      "c3Ms": null,
+      "c4Ms": 2057104012400,
+      "sunAltDeg": {
+        "c1": 43021588,
+        "c2": null,
+        "peak": 24815796,
+        "c3": null,
+        "c4": 9004017
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 344028,
+      "c1Ms": 2176941714300,
+      "c2Ms": null,
+      "peakMs": 2176944490400,
+      "c3Ms": null,
+      "c4Ms": 2176947061300,
+      "sunAltDeg": {
+        "c1": 2694834,
+        "c2": null,
+        "peak": -7576286,
+        "c3": null,
+        "c4": -17425687
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 746196,
+      "c1Ms": 2370903859500,
+      "c2Ms": null,
+      "peakMs": 2370908353000,
+      "c3Ms": null,
+      "c4Ms": 2370912290700,
+      "sunAltDeg": {
+        "c1": 29759862,
+        "c2": null,
+        "peak": 11553102,
+        "c3": null,
+        "c4": -3958004
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 236466,
+      "c1Ms": 2490786396300,
+      "c2Ms": null,
+      "peakMs": 2490788706200,
+      "c3Ms": null,
+      "c4Ms": 2490791178900,
+      "sunAltDeg": {
+        "c1": -12461526,
+        "c2": null,
+        "peak": -3525788,
+        "c3": null,
+        "c4": 5518229
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 18355,
+      "c1Ms": 2536691316900,
+      "c2Ms": null,
+      "peakMs": 2536693494000,
+      "c3Ms": null,
+      "c4Ms": 2536695633600,
+      "sunAltDeg": {
+        "c1": 69282166,
+        "c2": null,
+        "peak": 65623159,
+        "c3": null,
+        "c4": 59837561
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 644853,
+      "c1Ms": 2595427524300,
+      "c2Ms": null,
+      "peakMs": 2595431692800,
+      "c3Ms": null,
+      "c4Ms": 2595436434600,
+      "sunAltDeg": {
+        "c1": 27203401,
+        "c2": null,
+        "peak": 44486543,
+        "c3": null,
+        "c4": 64065858
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 420881,
+      "c1Ms": 2715286111700,
+      "c2Ms": null,
+      "peakMs": 2715291174400,
+      "c3Ms": null,
+      "c4Ms": 2715295464000,
+      "sunAltDeg": {
+        "c1": 56654172,
+        "c2": null,
+        "peak": 38962466,
+        "c3": null,
+        "c4": 22744624
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 290512,
+      "c1Ms": 2730653327600,
+      "c2Ms": null,
+      "peakMs": 2730659548900,
+      "c3Ms": null,
+      "c4Ms": 2730665444500,
+      "sunAltDeg": {
+        "c1": 59226414,
+        "c2": null,
+        "peak": 67966387,
+        "c3": null,
+        "c4": 54980511
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 187766,
+      "c1Ms": 2819900733200,
+      "c2Ms": null,
+      "peakMs": 2819904444000,
+      "c3Ms": null,
+      "c4Ms": 2819908449900,
+      "sunAltDeg": {
+        "c1": 50507175,
+        "c2": null,
+        "peak": 63105572,
+        "c3": null,
+        "c4": 71615615
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 587493,
+      "c1Ms": 2955146422200,
+      "c2Ms": null,
+      "peakMs": 2955149337600,
+      "c3Ms": null,
+      "c4Ms": 2955152060800,
+      "sunAltDeg": {
+        "c1": 3725780,
+        "c2": null,
+        "peak": -7808252,
+        "c3": null,
+        "c4": -19011839
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "total",
+      "obscuration": 1000000,
+      "c1Ms": 2985779848000,
+      "c2Ms": 2985784067200,
+      "peakMs": 2985784162300,
+      "c3Ms": 2985784256900,
+      "c4Ms": 2985789119100,
+      "sunAltDeg": {
+        "c1": 14644527,
+        "c2": 31514819,
+        "peak": 31893391,
+        "c3": 32269351,
+        "c4": 51293619
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 259901,
+      "c1Ms": 3059774853600,
+      "c2Ms": null,
+      "peakMs": 3059777448600,
+      "c3Ms": null,
+      "c4Ms": 3059779861900,
+      "sunAltDeg": {
+        "c1": 9401368,
+        "c2": null,
+        "peak": -30563,
+        "c3": null,
+        "c4": -9247709
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 282704,
+      "c1Ms": 3075046303000,
+      "c2Ms": null,
+      "peakMs": 3075052921000,
+      "c3Ms": null,
+      "c4Ms": 3075058549700,
+      "sunAltDeg": {
+        "c1": 64888567,
+        "c2": null,
+        "peak": 61309210,
+        "c3": null,
+        "c4": 44023931
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 1331,
+      "c1Ms": 3210248489300,
+      "c2Ms": null,
+      "peakMs": 3210249144300,
+      "c3Ms": null,
+      "c4Ms": 3210249794800,
+      "sunAltDeg": {
+        "c1": 24280601,
+        "c2": null,
+        "peak": 27006271,
+        "c3": null,
+        "c4": 29714056
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 909213,
+      "c1Ms": 3419508305700,
+      "c2Ms": null,
+      "peakMs": 3419512025600,
+      "c3Ms": null,
+      "c4Ms": 3419516207700,
+      "sunAltDeg": {
+        "c1": 18179157,
+        "c2": null,
+        "peak": 32697942,
+        "c3": null,
+        "c4": 48542779
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 755616,
+      "c1Ms": 3434795916200,
+      "c2Ms": null,
+      "peakMs": 3434800026900,
+      "c3Ms": null,
+      "c4Ms": 3434804776300,
+      "sunAltDeg": {
+        "c1": 1086097,
+        "c2": null,
+        "peak": 17220086,
+        "c3": null,
+        "c4": 36041980
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 967,
+      "c1Ms": 3570021061200,
+      "c2Ms": null,
+      "peakMs": 3570021731600,
+      "c3Ms": null,
+      "c4Ms": 3570022394300,
+      "sunAltDeg": {
+        "c1": 30486359,
+        "c2": null,
+        "peak": 33191044,
+        "c3": null,
+        "c4": 35859570
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 672964,
+      "c1Ms": 3659381211100,
+      "c2Ms": null,
+      "peakMs": 3659385983900,
+      "c3Ms": null,
+      "c4Ms": 3659390043200,
+      "sunAltDeg": {
+        "c1": 44992122,
+        "c2": null,
+        "peak": 27770744,
+        "c3": null,
+        "c4": 12499526
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 940026,
+      "c1Ms": 3764011311700,
+      "c2Ms": null,
+      "peakMs": 3764016685700,
+      "c3Ms": null,
+      "c4Ms": 3764021184600,
+      "sunAltDeg": {
+        "c1": 52026504,
+        "c2": null,
+        "peak": 30096522,
+        "c3": null,
+        "c4": 11636485
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 877570,
+      "c1Ms": 3779229405900,
+      "c2Ms": null,
+      "peakMs": 3779232722600,
+      "c3Ms": null,
+      "c4Ms": 3779235755700,
+      "sunAltDeg": {
+        "c1": 1374763,
+        "c2": null,
+        "peak": -12202557,
+        "c3": null,
+        "c4": -24887678
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 345043,
+      "c1Ms": 3973196942700,
+      "c2Ms": null,
+      "peakMs": 3973200353000,
+      "c3Ms": null,
+      "c4Ms": 3973203425000,
+      "sunAltDeg": {
+        "c1": 2723133,
+        "c2": null,
+        "peak": -10195824,
+        "c3": null,
+        "c4": -22131278
+      }
+    },
+    {
+      "observerIdx": 2,
+      "kind": "partial",
+      "obscuration": 852610,
+      "c1Ms": 4077816403200,
+      "c2Ms": null,
+      "peakMs": 4077822010900,
+      "c3Ms": null,
+      "c4Ms": 4077826786400,
+      "sunAltDeg": {
+        "c1": 53101307,
+        "c2": null,
+        "peak": 29749617,
+        "c3": null,
+        "c4": 9911315
+      }
+    }
+  ],
+  "obscuration": [
+    {
+      "observerIdx": 0,
+      "tMs": 1712597400000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712597520000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712597640000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712597760000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712597880000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598000000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598120000,
+      "value": 1072
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598240000,
+      "value": 6110
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598360000,
+      "value": 13141
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598480000,
+      "value": 21467
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598600000,
+      "value": 30707
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598720000,
+      "value": 40594
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598840000,
+      "value": 50920
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712598960000,
+      "value": 61512
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599080000,
+      "value": 72218
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599200000,
+      "value": 82906
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599320000,
+      "value": 93452
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599440000,
+      "value": 103744
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599560000,
+      "value": 113679
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599680000,
+      "value": 123161
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599800000,
+      "value": 132098
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712599920000,
+      "value": 140409
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600040000,
+      "value": 148018
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600160000,
+      "value": 154855
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600280000,
+      "value": 160860
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600400000,
+      "value": 165979
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600520000,
+      "value": 170167
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600640000,
+      "value": 173388
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600760000,
+      "value": 175616
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712600880000,
+      "value": 176832
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601000000,
+      "value": 177030
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601120000,
+      "value": 176210
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601240000,
+      "value": 174385
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601360000,
+      "value": 171575
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601480000,
+      "value": 167810
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601600000,
+      "value": 163129
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601720000,
+      "value": 157577
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601840000,
+      "value": 151209
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712601960000,
+      "value": 144086
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602080000,
+      "value": 136274
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602200000,
+      "value": 127846
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602320000,
+      "value": 118881
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602440000,
+      "value": 109461
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602560000,
+      "value": 99674
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602680000,
+      "value": 89614
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602800000,
+      "value": 79378
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712602920000,
+      "value": 69072
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603040000,
+      "value": 58806
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603160000,
+      "value": 48704
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603280000,
+      "value": 38900
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603400000,
+      "value": 29546
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603520000,
+      "value": 20825
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603640000,
+      "value": 12969
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603760000,
+      "value": 6301
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712603880000,
+      "value": 1392
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712604000000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712604120000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712604240000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712604360000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712604480000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1712604600000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331200000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331320000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331440000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331560000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331680000,
+      "value": 0
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331800000,
+      "value": 2272
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503331920000,
+      "value": 11275
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332040000,
+      "value": 23909
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332160000,
+      "value": 39210
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332280000,
+      "value": 56676
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332400000,
+      "value": 75978
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332520000,
+      "value": 96878
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332640000,
+      "value": 119188
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332760000,
+      "value": 142756
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503332880000,
+      "value": 167455
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333000000,
+      "value": 193172
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333120000,
+      "value": 219812
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333240000,
+      "value": 247287
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333360000,
+      "value": 275518
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333480000,
+      "value": 304431
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333600000,
+      "value": 333958
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333720000,
+      "value": 364034
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333840000,
+      "value": 394598
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503333960000,
+      "value": 425587
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334080000,
+      "value": 456942
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334200000,
+      "value": 488601
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334320000,
+      "value": 520500
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334440000,
+      "value": 552571
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334560000,
+      "value": 584739
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334680000,
+      "value": 616917
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334800000,
+      "value": 649004
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503334920000,
+      "value": 680874
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335040000,
+      "value": 712368
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335160000,
+      "value": 743268
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335280000,
+      "value": 773275
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335400000,
+      "value": 801953
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335520000,
+      "value": 828660
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335640000,
+      "value": 852435
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335760000,
+      "value": 871888
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503335880000,
+      "value": 885215
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336000000,
+      "value": 890625
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336120000,
+      "value": 887242
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336240000,
+      "value": 875723
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336360000,
+      "value": 857802
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336480000,
+      "value": 835353
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336600000,
+      "value": 809866
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336720000,
+      "value": 782378
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336840000,
+      "value": 753585
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503336960000,
+      "value": 723952
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337080000,
+      "value": 693795
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337200000,
+      "value": 663338
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337320000,
+      "value": 632746
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337440000,
+      "value": 602142
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337560000,
+      "value": 571622
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337680000,
+      "value": 541267
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337800000,
+      "value": 511142
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503337920000,
+      "value": 481305
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338040000,
+      "value": 451809
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338160000,
+      "value": 422699
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338280000,
+      "value": 394022
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338400000,
+      "value": 365820
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338520000,
+      "value": 338136
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338640000,
+      "value": 311012
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338760000,
+      "value": 284490
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503338880000,
+      "value": 258615
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339000000,
+      "value": 233433
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339120000,
+      "value": 208992
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339240000,
+      "value": 185344
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339360000,
+      "value": 162547
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339480000,
+      "value": 140661
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339600000,
+      "value": 119756
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339720000,
+      "value": 99912
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339840000,
+      "value": 81220
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503339960000,
+      "value": 63788
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503340080000,
+      "value": 47753
+    },
+    {
+      "observerIdx": 0,
+      "tMs": 1503340200000,
+      "value": 33287
+    }
+  ]
+}

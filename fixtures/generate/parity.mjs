@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 // Cross-port parity corpus: canonical inputs + quantized outputs that catch
-// port drift below physical tolerances. Consumes the BUILT TS package
-// (public API only -- `npm run build` in typescript/ first) and writes
-// scaled-integer JSON under fixtures/parity/. Row order is fixed (ascending
-// sample time / observer index / eclipse peak); provenance (the two ports'
-// generating commit shas, passed as argv -- never exec'd, never compared)
-// lands only in the uncompared meta.json.
+// port drift below physical tolerances. Covers positions/altaz/illumination
+// every 8 days 1950-2100, monthly sun/moon events and phases over 2026,
+// every lunar eclipse 1950-2100, every solar eclipse each observer can see
+// 1950-2100, and obscuration through two Victoria partials. Consumes the
+// BUILT TS package (public API only -- `npm run build` in typescript/
+// first) and writes scaled-integer JSON under fixtures/parity/. Row order
+// is fixed (ascending sample time / observer index / eclipse peak);
+// provenance (the two ports' generating commit shas, passed as argv --
+// never exec'd, never compared) lands only in the uncompared meta.json.
 //
 // `--check` regenerates and compares against the committed files via a
 // NEAR-EXACT structural (decoded, not byte) check -- this is the TS side's
@@ -19,6 +22,7 @@ import {
     sunPosition, moonPosition, sunAltAz, moonAltAz, starAltAz, moonIllumination,
     sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
+    solarEclipses, solarObscuration,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -54,6 +58,12 @@ export function monthWindows2026() {
 }
 
 export const PHASE_WINDOW_2026 = { startMs: Date.UTC(2026, 0, 1), endMs: Date.UTC(2027, 0, 1) };
+
+/** solarObscuration sampled every two minutes through two Victoria partials: 2024-04-08 (17%) and 2017-08-21 (deep). */
+export const OBSCURATION_TRACKS = [
+    { observerIdx: 0, startMs: Date.UTC(2024, 3, 8, 17, 30), endMs: Date.UTC(2024, 3, 8, 19, 30), stepMs: 120000 },
+    { observerIdx: 0, startMs: Date.UTC(2017, 7, 21, 16, 0), endMs: Date.UTC(2017, 7, 21, 18, 30), stepMs: 120000 },
+];
 
 // -------------------------------------------------------------- quantizing
 
@@ -161,6 +171,40 @@ function buildEclipses() {
     return { observers: OBSERVERS, eclipses };
 }
 
+function buildSolar() {
+    // Solar eclipses are observer-bound: every observer gets the full range.
+    // The solar tests prove next/previous walks reproduce it exactly.
+    const eclipses = [];
+    for (let observerIdx = 0; observerIdx < OBSERVERS.length; observerIdx++) {
+        for (const e of solarEclipses(new Date(MIN_MS), new Date(MAX_MS), OBSERVERS[observerIdx])) {
+            eclipses.push({
+                observerIdx,
+                kind: e.kind,
+                obscuration: qFrac(e.obscuration),
+                c1Ms: qEventMs(e.c1),
+                c2Ms: qNullableEventMs(e.c2),
+                peakMs: qEventMs(e.peak),
+                c3Ms: qNullableEventMs(e.c3),
+                c4Ms: qEventMs(e.c4),
+                sunAltDeg: {
+                    c1: qAngle(e.sunAltDeg.c1),
+                    c2: e.sunAltDeg.c2 === null ? null : qAngle(e.sunAltDeg.c2),
+                    peak: qAngle(e.sunAltDeg.peak),
+                    c3: e.sunAltDeg.c3 === null ? null : qAngle(e.sunAltDeg.c3),
+                    c4: qAngle(e.sunAltDeg.c4),
+                },
+            });
+        }
+    }
+    const obscuration = [];
+    for (const { observerIdx, startMs, endMs, stepMs } of OBSCURATION_TRACKS) {
+        for (let tMs = startMs; tMs <= endMs; tMs += stepMs) {
+            obscuration.push({ observerIdx, tMs, value: qFrac(solarObscuration(new Date(tMs), OBSERVERS[observerIdx])) });
+        }
+    }
+    return { observers: OBSERVERS, eclipses, obscuration };
+}
+
 function json(obj) {
     return JSON.stringify(obj, null, 2) + "\n";
 }
@@ -181,6 +225,8 @@ function buildMeta(tsCommit, swiftCommit, files) {
             moonEvents: files.events.moonEvents.length,
             moonPhases: files.events.moonPhases.length,
             eclipses: files.eclipses.eclipses.length,
+            solarEclipses: files.solar.eclipses.length,
+            obscurationSamples: files.solar.obscuration.length,
         },
     });
 }
@@ -189,7 +235,8 @@ export function buildCorpus() {
     const { positions, altaz, illumination } = buildPositionsAltazIllumination();
     const events = buildEvents();
     const eclipses = buildEclipses();
-    return { positions, altaz, illumination, events, eclipses };
+    const solar = buildSolar();
+    return { positions, altaz, illumination, events, eclipses, solar };
 }
 
 // ------------------------------------------------------- near-exact check
@@ -245,6 +292,12 @@ const ROW_SCHEMAS = {
             contactsVisible: { p1: EXACT, u1: EXACT, u2: EXACT, u3: EXACT, u4: EXACT, p4: EXACT },
         }],
     },
+    solarEclipse: {
+        observerIdx: EXACT, kind: EXACT, obscuration: SCALED,
+        c1Ms: TIME, c2Ms: TIME, peakMs: TIME, c3Ms: TIME, c4Ms: TIME,
+        sunAltDeg: { c1: SCALED, c2: SCALED, peak: SCALED, c3: SCALED, c4: SCALED },
+    },
+    obscuration: { observerIdx: EXACT, tMs: EXACT, value: SCALED },
 };
 
 /** Recursively compares `a` vs `b` against `schema` (object/array of schema,
@@ -310,6 +363,11 @@ function checkFile(rel, fresh, committed) {
             compareNode("eclipses.observers", [OBSERVER_SCHEMA], fresh.observers, committed.observers, ctx);
             compareNode("eclipses.eclipses", [ROW_SCHEMAS.eclipse], fresh.eclipses, committed.eclipses, ctx);
             break;
+        case "solar.json":
+            compareNode("solar.observers", [OBSERVER_SCHEMA], fresh.observers, committed.observers, ctx);
+            compareNode("solar.eclipses", [ROW_SCHEMAS.solarEclipse], fresh.eclipses, committed.eclipses, ctx);
+            compareNode("solar.obscuration", [ROW_SCHEMAS.obscuration], fresh.obscuration, committed.obscuration, ctx);
+            break;
         default: throw new Error(`checkFile: no schema for ${rel}`);
     }
     return ctx;
@@ -339,6 +397,7 @@ function main() {
         "illumination.json": files.illumination,
         "events.json": files.events,
         "eclipses.json": files.eclipses,
+        "solar.json": files.solar,
     };
     const metaDest = new URL("meta.json", FIXTURES_DIR);
 

@@ -72,12 +72,22 @@ final class ParityTests: XCTestCase {
     }
     struct EclipsesFile: Codable { let observers: [ObserverRow]; let eclipses: [EclipseRow] }
 
+    struct SolarAltRow: Codable, Equatable { let c1: Int; let c2: Int?; let peak: Int; let c3: Int?; let c4: Int }
+    struct SolarEclipseRow: Codable {
+        let observerIdx: Int; let kind: String; let obscuration: Int
+        let c1Ms: Int64; let c2Ms: Int64?; let peakMs: Int64; let c3Ms: Int64?; let c4Ms: Int64
+        let sunAltDeg: SolarAltRow
+    }
+    struct ObscurationRow: Codable { let observerIdx: Int; let tMs: Int64; let value: Int }
+    struct SolarFile: Codable { let observers: [ObserverRow]; let eclipses: [SolarEclipseRow]; let obscuration: [ObscurationRow] }
+
     struct Corpus {
         let positions: [PositionEntry]
         let altaz: [AltazEntry]
         let illumination: [IlluminationEntry]
         let events: EventsFile
         let eclipses: EclipsesFile
+        let solar: SolarFile
     }
 
     static func parityURL(_ name: String) -> URL {
@@ -118,6 +128,11 @@ final class ParityTests: XCTestCase {
     static let observers = [victoria, n60, equator]
     /// Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the altaz rows' fixed star.
     static let betelgeuse = (raDeg: 88.792939, decDeg: 7.407064)
+    /// solarObscuration sampled every two minutes through two Victoria partials: 2024-04-08 (17%) and 2017-08-21 (deep).
+    static let obscurationTracks: [(observerIdx: Int, startMs: Int64, endMs: Int64, stepMs: Int64)] = [
+        (0, 1_712_597_400_000, 1_712_604_600_000, 120_000),   // 2024-04-08T17:30Z ... 19:30Z
+        (0, 1_503_331_200_000, 1_503_340_200_000, 120_000),   // 2017-08-21T16:00Z ... 18:30Z
+    ]
 
     // ------------------------------------------------------------- quantize
 
@@ -204,7 +219,31 @@ final class ParityTests: XCTestCase {
         }
         let eclipses = EclipsesFile(observers: observerRows, eclipses: eclipseRows)
 
-        return Corpus(positions: positions, altaz: altaz, illumination: illumination, events: events, eclipses: eclipses)
+        // Solar eclipses are observer-bound: every observer gets the full range.
+        var solarRows: [SolarEclipseRow] = []
+        for (idx, observer) in observers.enumerated() {
+            for e in try solarEclipses(from: dateFromMs(minMs), to: dateFromMs(maxMs), observer: observer) {
+                solarRows.append(SolarEclipseRow(
+                    observerIdx: idx, kind: e.kind.rawValue, obscuration: qScaled(e.obscuration, scales.fraction),
+                    c1Ms: qEventMs(e.c1), c2Ms: qEventMsOpt(e.c2), peakMs: qEventMs(e.peak), c3Ms: qEventMsOpt(e.c3), c4Ms: qEventMs(e.c4),
+                    sunAltDeg: SolarAltRow(
+                        c1: qScaled(e.sunAltDeg.c1, scales.angleDeg), c2: e.sunAltDeg.c2.map { qScaled($0, scales.angleDeg) },
+                        peak: qScaled(e.sunAltDeg.peak, scales.angleDeg), c3: e.sunAltDeg.c3.map { qScaled($0, scales.angleDeg) },
+                        c4: qScaled(e.sunAltDeg.c4, scales.angleDeg))))
+            }
+        }
+        var obscurationRows: [ObscurationRow] = []
+        for track in obscurationTracks {
+            var tMs = track.startMs
+            while tMs <= track.endMs {
+                let value = try solarObscuration(at: dateFromMs(tMs), observer: observers[track.observerIdx])
+                obscurationRows.append(ObscurationRow(observerIdx: track.observerIdx, tMs: tMs, value: qScaled(value, scales.fraction)))
+                tMs += track.stepMs
+            }
+        }
+        let solar = SolarFile(observers: observerRows, eclipses: solarRows, obscuration: obscurationRows)
+
+        return Corpus(positions: positions, altaz: altaz, illumination: illumination, events: events, eclipses: eclipses, solar: solar)
     }
 
     // One recompute for the whole test class -- see the type doc for why.
@@ -216,6 +255,7 @@ final class ParityTests: XCTestCase {
     static let committedIllumination: [IlluminationEntry] = try! load([IlluminationEntry].self, "illumination.json")
     static let committedEvents: EventsFile = try! load(EventsFile.self, "events.json")
     static let committedEclipses: EclipsesFile = try! load(EclipsesFile.self, "eclipses.json")
+    static let committedSolar: SolarFile = try! load(SolarFile.self, "solar.json")
 
     // ---------------------------------------------------------- tolerant
 
@@ -237,6 +277,10 @@ final class ParityTests: XCTestCase {
         func nearMsOpt(_ a: Int64?, _ b: Int64?, _ what: String, file: StaticString = #filePath, line: UInt = #line) {
             XCTAssertEqual(a == nil, b == nil, "\(what): null-ness", file: file, line: line)
             if let a, let b { nearMs(a, b, what, file: file, line: line) }
+        }
+        func nearOpt(_ a: Int?, _ b: Int?, _ t: Int, _ what: String, file: StaticString = #filePath, line: UInt = #line) {
+            XCTAssertEqual(a == nil, b == nil, "\(what): null-ness", file: file, line: line)
+            if let a, let b { near(a, b, t, what, file: file, line: line) }
         }
 
         let fresh = Self.fresh
@@ -307,6 +351,30 @@ final class ParityTests: XCTestCase {
                 XCTAssertEqual(va.contactsVisible, vb.contactsVisible, "contactsVisible @\(a.peakMs)")
             }
         }
+
+        XCTAssertEqual(fresh.solar.observers, Self.committedSolar.observers)
+        XCTAssertEqual(fresh.solar.eclipses.count, Self.committedSolar.eclipses.count)
+        for (a, b) in zip(fresh.solar.eclipses, Self.committedSolar.eclipses) {
+            XCTAssertEqual(a.observerIdx, b.observerIdx, "solar observerIdx @\(a.peakMs)")
+            XCTAssertEqual(a.kind, b.kind, "solar kind @\(a.peakMs)")
+            near(a.obscuration, b.obscuration, tolFrac, "solar obscuration @\(a.peakMs)")
+            nearMs(a.c1Ms, b.c1Ms, "solar c1Ms @\(a.peakMs)")
+            nearMsOpt(a.c2Ms, b.c2Ms, "solar c2Ms @\(a.peakMs)")
+            nearMs(a.peakMs, b.peakMs, "solar peakMs @\(a.peakMs)")
+            nearMsOpt(a.c3Ms, b.c3Ms, "solar c3Ms @\(a.peakMs)")
+            nearMs(a.c4Ms, b.c4Ms, "solar c4Ms @\(a.peakMs)")
+            near(a.sunAltDeg.c1, b.sunAltDeg.c1, tolAngle, "solar sunAltDeg.c1 @\(a.peakMs)")
+            nearOpt(a.sunAltDeg.c2, b.sunAltDeg.c2, tolAngle, "solar sunAltDeg.c2 @\(a.peakMs)")
+            near(a.sunAltDeg.peak, b.sunAltDeg.peak, tolAngle, "solar sunAltDeg.peak @\(a.peakMs)")
+            nearOpt(a.sunAltDeg.c3, b.sunAltDeg.c3, tolAngle, "solar sunAltDeg.c3 @\(a.peakMs)")
+            near(a.sunAltDeg.c4, b.sunAltDeg.c4, tolAngle, "solar sunAltDeg.c4 @\(a.peakMs)")
+        }
+        XCTAssertEqual(fresh.solar.obscuration.count, Self.committedSolar.obscuration.count)
+        for (a, b) in zip(fresh.solar.obscuration, Self.committedSolar.obscuration) {
+            XCTAssertEqual(a.observerIdx, b.observerIdx)
+            XCTAssertEqual(a.tMs, b.tMs)
+            near(a.value, b.value, tolFrac, "obscuration @\(a.tMs)")
+        }
     }
 
     // ------------------------------------------------------ reproduction
@@ -336,6 +404,10 @@ final class ParityTests: XCTestCase {
             XCTAssertEqual(a == nil, b == nil, "\(what): null-ness", file: file, line: line)
             if let a, let b { nearMs(a, b, what, file: file, line: line) }
         }
+        func nearOpt(_ a: Int?, _ b: Int?, _ what: String, file: StaticString = #filePath, line: UInt = #line) {
+            XCTAssertEqual(a == nil, b == nil, "\(what): null-ness", file: file, line: line)
+            if let a, let b { near(a, b, what, file: file, line: line) }
+        }
 
         let encoder = JSONEncoder()
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -354,6 +426,7 @@ final class ParityTests: XCTestCase {
         let illumination = try roundTrip(fresh.illumination, "illumination.json")
         let events = try roundTrip(fresh.events, "events.json")
         let eclipses = try roundTrip(fresh.eclipses, "eclipses.json")
+        let solar = try roundTrip(fresh.solar, "solar.json")
 
         XCTAssertEqual(positions.count, Self.committedPositions.count)
         for (a, b) in zip(positions, Self.committedPositions) {
@@ -417,6 +490,30 @@ final class ParityTests: XCTestCase {
                 near(va.moonGeometricAltAtPeakDeg, vb.moonGeometricAltAtPeakDeg, "moonGeometricAltAtPeakDeg @\(a.peakMs)")
                 XCTAssertEqual(va.contactsVisible, vb.contactsVisible, "contactsVisible @\(a.peakMs)")
             }
+        }
+
+        XCTAssertEqual(solar.observers, Self.committedSolar.observers)
+        XCTAssertEqual(solar.eclipses.count, Self.committedSolar.eclipses.count)
+        for (a, b) in zip(solar.eclipses, Self.committedSolar.eclipses) {
+            XCTAssertEqual(a.observerIdx, b.observerIdx, "solar observerIdx @\(a.peakMs)")
+            XCTAssertEqual(a.kind, b.kind, "solar kind @\(a.peakMs)")
+            near(a.obscuration, b.obscuration, "solar obscuration @\(a.peakMs)")
+            nearMs(a.c1Ms, b.c1Ms, "solar c1Ms @\(a.peakMs)")
+            nearMsOpt(a.c2Ms, b.c2Ms, "solar c2Ms @\(a.peakMs)")
+            nearMs(a.peakMs, b.peakMs, "solar peakMs @\(a.peakMs)")
+            nearMsOpt(a.c3Ms, b.c3Ms, "solar c3Ms @\(a.peakMs)")
+            nearMs(a.c4Ms, b.c4Ms, "solar c4Ms @\(a.peakMs)")
+            near(a.sunAltDeg.c1, b.sunAltDeg.c1, "solar sunAltDeg.c1 @\(a.peakMs)")
+            nearOpt(a.sunAltDeg.c2, b.sunAltDeg.c2, "solar sunAltDeg.c2 @\(a.peakMs)")
+            near(a.sunAltDeg.peak, b.sunAltDeg.peak, "solar sunAltDeg.peak @\(a.peakMs)")
+            nearOpt(a.sunAltDeg.c3, b.sunAltDeg.c3, "solar sunAltDeg.c3 @\(a.peakMs)")
+            near(a.sunAltDeg.c4, b.sunAltDeg.c4, "solar sunAltDeg.c4 @\(a.peakMs)")
+        }
+        XCTAssertEqual(solar.obscuration.count, Self.committedSolar.obscuration.count)
+        for (a, b) in zip(solar.obscuration, Self.committedSolar.obscuration) {
+            XCTAssertEqual(a.observerIdx, b.observerIdx)
+            XCTAssertEqual(a.tMs, b.tMs)
+            near(a.value, b.value, "obscuration @\(a.tMs)")
         }
     }
 }
