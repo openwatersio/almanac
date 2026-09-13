@@ -61,7 +61,7 @@ jobs:
   swift:
     needs: changes
     if: needs.changes.outputs.code == 'true'
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - run: swift test -c release
@@ -98,11 +98,11 @@ jobs:
           path: benchmark-results
           retention-days: 30
   performance-swift:
-    name: performance (swift, macos-15)
-    # A failed/skipped TypeScript benchmark skips this job before allocating a Mac.
+    name: performance (swift, ubuntu-latest)
+    # A failed/skipped TypeScript benchmark skips this job before allocating a runner.
     needs: performance-typescript
     permissions: { contents: read }
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     env: { PORT: swift }
     steps: *performance-steps
