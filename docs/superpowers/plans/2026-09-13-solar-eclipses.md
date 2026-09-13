@@ -19,7 +19,7 @@
 - Every returned instant is TimeClip-truncated to integer milliseconds. Swift must not use `floor`.
 - Same-eclipse band 100 ms; new-moon prune 1.8° ecliptic latitude; peak window ±0.2 day; partial contact window ±0.2 day; total contact window ±0.01 day; kind bias 0.014 km.
 - Root finders keep upstream's 1 s tolerance and 20-iteration cap; exhaustion throws an internal error.
-- Prose in docs and comments is never hard-wrapped; durable docs describe current state only.
+- Prose in docs is never hard-wrapped, and durable docs describe current state only. Code comments follow the surrounding file's style: the existing sources wrap block comments at about 80 columns, and new files match their siblings.
 - Commit messages: imperative plain-language subject, body explains why, and end with `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`. No session links.
 - Run every command from the worktree root `/Users/clarkbw/src/openwaters/almanac-wt-solar-eclipses`. TypeScript commands run inside `typescript/` with `mise exec --`. Swift tests run in release mode: `mise exec -- swift test -c release`. If a Swift build appears to hang with no output, it is the keychain prompt on a fresh worktree; report it rather than waiting.
 
