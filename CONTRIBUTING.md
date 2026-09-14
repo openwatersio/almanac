@@ -98,7 +98,7 @@ CI compares a pull request merge result with its target branch base SHA, or a ma
 
 ## Releasing
 
-One version number spans both ports. A release starts with a Git tag, and the workflow handles the remaining steps.
+One version number spans both ports. Every release is a Git tag and a GitHub release for that tag: the tag starts the publishing workflow, and the GitHub release carries the notes.
 
 1. Bump `version` in `typescript/package.json`. The release fails if the tag and manifest versions differ. Land the bump through a pull request because `main` is protected and its required checks must pass.
 2. Create and push the version tag:
@@ -108,7 +108,16 @@ One version number spans both ports. A release starts with a Git tag, and the wo
    git push origin vX.Y.Z
    ```
 
-3. [The release workflow](.github/workflows/release.yml) runs the full test matrix, builds a clean SwiftPM consumer for the tag, packs and smoke-tests the npm tarball, and publishes that same tarball with provenance.
+3. [The release workflow](.github/workflows/release.yml) runs the full test matrix, builds a clean SwiftPM consumer for the tag, packs and smoke-tests the npm tarball, and publishes that same tarball with provenance. After publishing, it creates a GitHub release with generated notes only if the tag has none.
+4. Write the GitHub release while the workflow runs:
+
+   ```bash
+   gh release create vX.Y.Z --verify-tag --title vX.Y.Z --latest --notes-file notes.md
+   ```
+
+   Follow the earlier releases: a summary sentence, the user-facing changes as bullets, measured evidence where accuracy or performance changed, install snippets for npm and SwiftPM, the pull requests, and a full-changelog link. If the workflow's generated notes were published first, replace them with `gh release edit vX.Y.Z --notes-file notes.md`.
+
+A release is finished when npm lists the version and `gh release view vX.Y.Z` shows the written notes.
 
 npm publishing uses a trusted publisher bound to `openwatersio/almanac` and the workflow filename `release.yml`. Renaming that file breaks the binding. The repository contains no npm publishing token. Swift consumers pin the `vX.Y.Z` tag, and npm consumers install `@openwaters/almanac` from the registry.
 

@@ -111,3 +111,14 @@ jobs:
         with:
           name: almanac-npm-tarball
       - run: npm publish ./*.tgz --provenance --access public
+  github-release:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # gh release create
+    steps:
+      # A hand-written release for the tag wins; this only guarantees one exists.
+      - run: gh release view "$GITHUB_REF_NAME" || gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
