@@ -5,6 +5,7 @@ import {
 } from '../src/index.js';
 import type { Observer, SolarEclipse } from '../src/index.js';
 import { SUPPORTED_MIN, SUPPORTED_MAX } from '../src/types.js';
+import { refractionDeg } from '../src/transforms.js';
 
 const load = (p: string) => JSON.parse(readFileSync(new URL(`../../fixtures/${p}`, import.meta.url), 'utf8'));
 
@@ -53,7 +54,7 @@ describe('solarObscuration at the point of greatest eclipse', () => {
     expect(catalog[catalog.length - 1].peakUtc.startsWith('2100')).toBe(true);
   });
 
-  it('matches every catalog row\'s kind', () => {
+  it('obscuration at greatest eclipse matches every catalog row\'s kind and magnitude', () => {
     const bad: string[] = [];
     for (const row of catalog) {
       const obs = solarObscuration(new Date(row.peakUtc), observerOf(row));
@@ -110,7 +111,8 @@ describe('local circumstances vs USNO', () => {
         const err = Math.abs(got!.getTime() - Date.parse(want.utc)) / SEC;
         expect(err, `${k} off by ${err.toFixed(1)} s`).toBeLessThanOrEqual(k === 'peak' ? 300 : 60);
         if (want.sunAltDeg !== null) {
-          const altErr = Math.abs(e.sunAltDeg[k]! - want.sunAltDeg);
+          // USNO reports the geometric altitude; refract it with the port's own model to compare like with like.
+          const altErr = Math.abs(e.sunAltDeg[k]! - (want.sunAltDeg + refractionDeg(want.sunAltDeg)));
           expect(altErr, `${k} altitude off by ${altErr.toFixed(2)}°`).toBeLessThanOrEqual(k === 'peak' ? 1.5 : 0.5);
         }
       }
@@ -264,5 +266,19 @@ describe('search semantics from Victoria', () => {
     expect(() => nextSolarEclipse(new Date(Date.parse(catalog[catalog.length - 1].peakUtc) + DAY), VICTORIA)).toThrow(AlmanacOutOfRangeError);
     expect(() => previousSolarEclipse(new Date(Date.parse(catalog[0].peakUtc) - DAY), VICTORIA)).toThrow(AlmanacOutOfRangeError);
     expect(() => previousSolarEclipse(new Date(SUPPORTED_MAX), VICTORIA)).toThrow(AlmanacOutOfRangeError);
+  });
+});
+
+describe('the night filter keeps an eclipse the Sun is up for only at its peak', () => {
+  it('keeps an eclipse the Sun is up for only at its peak', () => {
+    // 68°N in early December: the Sun clears the horizon for minutes around
+    // noon, and on 1956-12-02 the local peak falls inside them while C1 and
+    // C4 do not. Upstream would drop this eclipse; the peak clause keeps it.
+    const polar: Observer = { latitudeDeg: 68, longitudeDeg: 60 };
+    const found = solarEclipses(new Date('1956-12-01T00:00:00Z'), new Date('1956-12-04T00:00:00Z'), polar);
+    expect(found).toHaveLength(1);
+    expect(found[0].sunAltDeg.c1).toBeLessThan(0);
+    expect(found[0].sunAltDeg.peak).toBeGreaterThan(0);
+    expect(found[0].sunAltDeg.c4).toBeLessThan(0);
   });
 });

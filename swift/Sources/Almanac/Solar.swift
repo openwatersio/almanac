@@ -93,7 +93,7 @@ private let totalWindowDays = 0.01
  * heliocentric Moon. All three vectors are EQJ, and `calcShadow` only ever
  * takes dot products and norms of them, so the frame cancels.
  */
-func localMoonShadow(_ ut: Double, _ observer: Observer) -> ShadowInfo {
+private func localMoonShadow(_ ut: Double, _ observer: Observer) -> ShadowInfo {
     let tt = ttDaysFromUt(ut)
     // Observer's geocentric position.
     let pos = observerGeoVectorEqj(ut, observer)
@@ -167,7 +167,7 @@ private func discOverlap(_ a: Double, _ b: Double, _ c: Double) -> Double {
  * its clamp — the fraction of the Sun's apparent disc the Moon covers for an
  * observer, from the heliocentric Moon `hm` and the lunacentric observer `lo`.
  */
-func discObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
+private func discObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
     // Find heliocentric observer.
     let ho = Vec3(x: hm.x + lo.x, y: hm.y + lo.y, z: hm.z + lo.z)
     // Calculate the apparent angular radius of the Sun for the observer.

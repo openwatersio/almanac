@@ -215,6 +215,8 @@ function deriveUsnoSolar(retrieved, requests) {
       if (USNO_SOLAR_HORIZON.has(entry.phenomenon)) continue;
       const key = USNO_SOLAR_PHEN[entry.phenomenon];
       assert.ok(key, `${name}: unmapped USNO phenomenon "${entry.phenomenon}"`);
+      assert.ok(Number(entry.day) === p.day || Number(entry.day) === p.day + 1,
+        `${name}: contact day ${entry.day} is not the eclipse day or the day after`);
       // Entries carry their own UTC day: the Redding contacts fall on the day
       // after the requested date.
       const utc = new Date(`${p.year}-${pad2(p.month)}-${pad2(Number(entry.day))}T${entry.time}Z`);

@@ -135,7 +135,8 @@ final class SolarTests: XCTestCase {
                 let err = abs(got.timeIntervalSince(utcMs(want.utc)))
                 XCTAssertLessThanOrEqual(err, k == "peak" ? 300 : 60, "\(label) \(k) off by \(err) s")
                 if let wantAlt = want.sunAltDeg {
-                    XCTAssertLessThanOrEqual(abs(gotAlt - wantAlt), k == "peak" ? 1.5 : 0.5, "\(label) \(k) altitude")
+                    // USNO reports the geometric altitude; refract it with the port's own model to compare like with like.
+                    XCTAssertLessThanOrEqual(abs(gotAlt - (wantAlt + refractionDeg(wantAlt))), k == "peak" ? 1.5 : 0.5, "\(label) \(k) altitude")
                 }
             }
             XCTAssertLessThanOrEqual(abs(e.obscuration - row.obscuration!), 0.01, "\(label) obscuration")
@@ -282,5 +283,18 @@ final class SolarTests: XCTestCase {
         ] {
             XCTAssertThrowsError(try query()) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
         }
+    }
+
+    func testNightFilterKeepsAnEclipseTheSunIsUpForOnlyAtItsPeak() throws {
+        // 68°N in early December: the Sun clears the horizon for minutes around
+        // noon, and on 1956-12-02 the local peak falls inside them while C1 and
+        // C4 do not. Upstream would drop this eclipse; the peak clause keeps it.
+        let polar = try Observer(latitudeDeg: 68, longitudeDeg: 60)
+        let found = try solarEclipses(from: utc("1956-12-01T00:00:00Z"), to: utc("1956-12-04T00:00:00Z"), observer: polar)
+        XCTAssertEqual(found.count, 1)
+        guard let e = found.first else { return }
+        XCTAssertLessThan(e.sunAltDeg.c1, 0)
+        XCTAssertGreaterThan(e.sunAltDeg.peak, 0)
+        XCTAssertLessThan(e.sunAltDeg.c4, 0)
     }
 }

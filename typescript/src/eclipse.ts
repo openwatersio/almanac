@@ -72,8 +72,8 @@ export interface LunarEclipseVisibility {
  *  magnitudes; it is not the geometric Earth radius. */
 const EARTH_ECLIPSE_RADIUS_KM = 6371.0 + 88.0;
 
-/** UPSTREAM: `PruneLatitude`, inside `SearchLunarEclipse` — full-Moon ecliptic
- *  latitude above which no eclipse is possible.
+/** UPSTREAM: `PruneLatitude`, inside `SearchLunarEclipse` — full- or new-Moon
+ *  ecliptic latitude above which no eclipse is possible.
  *  INTERNAL: shared with solar.ts. */
 export const PRUNE_LATITUDE_DEG = 1.8;
 

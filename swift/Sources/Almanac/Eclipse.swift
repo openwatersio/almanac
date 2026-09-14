@@ -96,8 +96,8 @@ public struct LunarEclipseVisibility: Sendable {
  *  magnitudes; it is not the geometric Earth radius. */
 private let earthEclipseRadiusKm = 6371.0 + 88.0
 
-/** UPSTREAM: `PruneLatitude`, inside `SearchLunarEclipse` — full-Moon ecliptic
- *  latitude above which no eclipse is possible.
+/** UPSTREAM: `PruneLatitude`, inside `SearchLunarEclipse` — full- or new-Moon
+ *  ecliptic latitude above which no eclipse is possible.
  *  INTERNAL, shared with Solar.swift — not `private`. */
 let pruneLatitudeDeg = 1.8
 
