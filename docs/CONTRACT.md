@@ -87,7 +87,7 @@ Next and previous lunar eclipse searches are strict and scan at most two years i
 
 `lunarEclipses` returns every penumbral, partial, and total eclipse whose peak is in `[startUtc, endUtc)`, with no visibility filter. Candidate peaks use a fixed whole-UT-day seed so search direction and window boundaries do not shift the returned millisecond. Adjacent ranges can split at a returned peak without losing or duplicating it. Every root finder has a bounded iteration count; exhausting one is an implementation failure.
 
-`solarEclipses` returns every eclipse the observer can see whose peak is in `[startUtc, endUtc)`. Candidate peaks use a fixed whole-UT-day new-moon seed, so adjacent ranges can split at a returned peak without losing or duplicating it. The same-eclipse band and the bounded root finders apply as for lunar eclipses.
+`solarEclipses` returns every eclipse the observer can see whose peak is in `[startUtc, endUtc)`. Candidate peaks use a fixed whole-UT-day new-moon seed, so adjacent ranges can split at a returned peak without losing or duplicating it. The same-eclipse band and the bounded root finders apply as for lunar eclipses. Contacts are located to the root finder's one-second tolerance, and a grazing eclipse can have a total or annular phase shorter than that, so C2 and C3 may be a second apart.
 
 ## Fixture and parity evidence
 
@@ -98,7 +98,7 @@ External fixtures determine physical correctness. Committed raw responses preser
 - Rise, set, twilight, and phase events use USNO data. Nautical and astronomical twilight also use a dedicated one-minute Horizons altitude grid because the USNO daily service reports only civil twilight.
 - Lunar eclipse types, peaks, magnitudes, and selected contacts use the Espenak Five Millennium catalog.
 - Contact fixtures cover total, partial, and penumbral shapes, including absent umbral contacts.
-- Solar eclipse local circumstances (kind, contacts, Sun altitudes, obscuration) use the USNO Astronomical Applications API for eclipses from 2001 through 2026, the years that endpoint serves.
+- Solar eclipse local circumstances (kind, contacts, Sun altitudes, obscuration) use the USNO Astronomical Applications API for eclipses from 2001 through 2026, the years that endpoint serves. USNO reports unrefracted Sun altitudes; the tests refract them with the port's own model before comparing.
 - Solar eclipse kinds, peaks, and obscuration at the point of greatest eclipse use the Espenak Five Millennium Catalog of Solar Eclipses across the supported interval, with the observer placed at the catalog's whole-degree coordinates.
 
 The test suites enforce these physical tolerances:

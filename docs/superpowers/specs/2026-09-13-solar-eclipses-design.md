@@ -104,7 +104,7 @@ Two sources, both already in use. Their refresh scripts gain the new requests; r
 | 2026-08-12 | Valencia, Spain | 39.47, -0.38 | Total near sunset, the latest eclipse USNO serves |
 | 2024-04-08 | Perth, Australia | -31.95, 115.86 | Not visible: USNO answers HTTP 400 with an error body, and the search must return nothing |
 
-Each visible case checks kind, every contact time, the altitude at every contact, and peak obscuration. When USNO replaces a contact with a sunrise or sunset, the fixture leaves that contact absent and the test asserts the Sun is below the horizon at ours.
+Each visible case checks kind, every contact time, the altitude at every contact, and peak obscuration. USNO reports unrefracted Sun altitudes, so the tests add the port's own refraction to each before comparing. When USNO replaces a contact with a sunrise or sunset, the fixture leaves that contact absent and the test asserts the Sun is below the horizon at ours.
 
 **Espenak solar catalog** (`SE1901-2000.html` and `SE2001-2100.html`) for every eclipse from 1950 through 2100. UT is TD minus the catalog's Delta-T, as the lunar fixture does. The observer is the catalog's whole-degree greatest-eclipse coordinates, which put it up to about 80 km off the axis. Per-row checks:
 
@@ -137,7 +137,7 @@ Both suites, in the same structure:
 - Every USNO case and every catalog row, with the rules above.
 - Seed determinism: splitting a range at a returned peak yields the same peaks, no more and no fewer.
 - The same-eclipse band: next from a returned peak skips it; next from 101 ms before it returns it.
-- Night filter: an eclipse whose Sun is below the horizon at C1, peak, and C4 is not returned; one with the Sun up only at C4 is.
+- Night filter: an eclipse whose Sun is below the horizon at C1, peak, and C4 is not returned; one with the Sun up only at its peak is.
 - Boundary: next from late 2100 and previous from early 1950 throw out-of-range once the boundary is reached without an eclipse.
 - `solarObscuration` is 0 a day away from any eclipse, 1 between C2 and C3 of a total eclipse, and between 0 and 1 at a partial peak.
 - Validation order: an invalid observer with an empty window throws rather than returning an empty list.

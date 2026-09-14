@@ -137,4 +137,4 @@ Ranges include peaks at the start and exclude peaks at the end. Contacts may
 extend outside the range. Previous/next searches skip peaks within 100 ms of the
 anchor. Search results are global; apply `lunarEclipseVisibility` for an observer.
 
-Solar eclipses are searched for an observer, because their contacts only exist for a place: `nextSolarEclipse(after, observer)`, `previousSolarEclipse(before, observer)`, and `solarEclipses(startUtc, endUtc, observer)`. Eclipses the Sun is below the horizon for throughout are not returned.
+Solar eclipses are searched for an observer, because their contacts only exist for a place: `nextSolarEclipse(after, observer)`, `previousSolarEclipse(before, observer)`, and `solarEclipses(startUtc, endUtc, observer)`. An eclipse whose Sun is below the horizon at C1, the peak, and C4 is not returned.
