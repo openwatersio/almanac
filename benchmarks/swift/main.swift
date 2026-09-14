@@ -79,6 +79,23 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
             return last!.peak.timeIntervalSince1970
         }
         #endif
+    case "nextSolarEclipse", "previousSolarEclipse", "solarEclipses", "solarObscuration":
+        #if ALMANAC_SOLAR_ECLIPSES
+        switch spec.operation {
+        case "nextSolarEclipse":
+            return { try nextSolarEclipse(after: from, observer: observer).peak.timeIntervalSince1970 }
+        case "previousSolarEclipse":
+            return { try previousSolarEclipse(before: to, observer: observer).peak.timeIntervalSince1970 }
+        case "solarEclipses":
+            return { Double(try solarEclipses(from: from, to: to, observer: observer).count) }
+        default:
+            return { try times.reduce(0) { try $0 + solarObscuration(at: $1, observer: observer) } }
+        }
+        #else
+        // Solar eclipses have no consumer-loop fallback on revisions before 0.4.0;
+        // `--skip '^solar/'` leaves them out of a historical comparison.
+        throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: spec.name + " needs Almanac 0.4.0 or later"])
+        #endif
     default:
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unknown operation: \(spec.operation)"])
     }

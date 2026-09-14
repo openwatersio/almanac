@@ -26,6 +26,13 @@ function eclipseWalk(from, to) {
     return eclipses;
 }
 
+// Solar eclipses have no consumer-loop fallback on revisions before 0.4.0;
+// `--skip '^solar/'` leaves them out of a historical comparison.
+function solar(operation) {
+    assert.ok(api[operation], operation + ' needs Almanac 0.4.0 or later');
+    return api[operation];
+}
+
 function workload(spec) {
     const from = new Date(spec.from);
     const to = new Date(spec.to ?? spec.from);
@@ -50,6 +57,22 @@ function workload(spec) {
         case 'previousLunarEclipse':
             return api.previousLunarEclipse ? () => api.previousLunarEclipse(to).peak.getTime() / 1000
                 : () => eclipseWalk(from, to).at(-1).peak.getTime() / 1000;
+        case 'nextSolarEclipse': {
+            const next = solar(spec.operation);
+            return () => next(from, observer).peak.getTime() / 1000;
+        }
+        case 'previousSolarEclipse': {
+            const previous = solar(spec.operation);
+            return () => previous(to, observer).peak.getTime() / 1000;
+        }
+        case 'solarEclipses': {
+            const range = solar(spec.operation);
+            return () => range(from, to, observer).length;
+        }
+        case 'solarObscuration': {
+            const obscuration = solar(spec.operation);
+            return () => times.reduce((sum, t) => sum + obscuration(t, observer), 0);
+        }
         default:
             throw new Error('Unknown benchmark operation: ' + spec.operation);
     }
