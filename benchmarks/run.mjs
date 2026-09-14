@@ -16,10 +16,11 @@ const { values } = parseArgs({ options: {
     port: { type: 'string', default: 'both' },
     output: { type: 'string' },
     threshold: { type: 'string', default: '20' },
+    skip: { type: 'string' },
     help: { type: 'boolean', short: 'h' },
 } });
 if (values.help) {
-    console.log('Usage: node benchmarks/run.mjs [--base git-ref] [--port typescript|swift|both] [--output directory] [--threshold percent]');
+    console.log('Usage: node benchmarks/run.mjs [--base git-ref] [--port typescript|swift|both] [--output directory] [--threshold percent] [--skip name-regex]');
     process.exit(0);
 }
 assert.ok(['typescript', 'swift', 'both'].includes(values.port), 'Unknown port');
@@ -33,6 +34,10 @@ for (const spec of suite.cases) {
     assert.ok(Number.isFinite(Date.parse(spec.from)) && Number.isFinite(Date.parse(spec.to ?? spec.from)), 'Invalid workload dates');
     assert.ok(Number.isSafeInteger(spec.count ?? 1) && (spec.count ?? 1) > 0, 'Invalid workload count');
 }
+// A base without an API has nothing to compare; runners still index the full list.
+const skip = values.skip === undefined ? null : new RegExp(values.skip);
+const selected = suite.cases.map((spec, index) => ({ spec, index })).filter(({ spec }) => !skip?.test(spec.name));
+assert.ok(selected.length > 0, 'Every workload was skipped');
 
 const capture = (command, args, options = {}) => execFileSync(command, args,
     { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], ...options }).trim();
@@ -59,6 +64,10 @@ const summary = [
     'Same runner and harness, ' + suite.warmupMs + ' ms warmup per process, ' + suite.samples + ' interleaved process pairs using batches calibrated to '
         + suite.sampleMs + ' ms per workload. Build/startup time excluded.', '',
 ];
+if (selected.length < suite.cases.length) {
+    summary.push('Skipped workloads matching /' + values.skip + '/: '
+        + suite.cases.filter((spec) => skip.test(spec.name)).map((spec) => spec.name).join(', ') + '.', '');
+}
 let regressed = false;
 try {
     // Export code without checking out or modifying the developer's working tree.
@@ -94,13 +103,13 @@ try {
         }]));
         // Keep paired measurements close and alternate which revision runs first.
         // A whole-suite base-then-candidate run drifted 42% on unchanged CI code.
-        for (const [index, spec] of suite.cases.entries()) {
+        for (const [position, { spec, index }] of selected.entries()) {
             console.error('Measuring ' + port + ' ' + spec.name + '...');
             for (let round = 0; round < suite.samples; round++) {
                 const order = round % 2 === 0 ? ['base', 'candidate'] : ['candidate', 'base'];
                 for (const label of order) {
                     const [command, args] = commands[label];
-                    const previous = reports[label].results[index];
+                    const previous = reports[label].results[position];
                     const fixedIterations = previous ? [String(previous.iterations)] : [];
                     const sample = JSON.parse(capture(command, [...args, String(index), ...fixedIterations]));
                     assert.equal(sample.name, spec.name, 'Runner skipped workload');

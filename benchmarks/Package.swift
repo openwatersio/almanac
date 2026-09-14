@@ -10,10 +10,12 @@ let source = ProcessInfo.processInfo.environment["ALMANAC_SOURCE"]
 let eclipses = try String(contentsOfFile: "\(source)/swift/Sources/Almanac/Eclipse.swift", encoding: .utf8)
 // ponytail: declaration detection assumes Eclipse.swift; update if the API moves.
 let eclipseSearches: [SwiftSetting] = eclipses.contains("public func lunarEclipses(") ? [.define("ALMANAC_ECLIPSE_SEARCHES")] : []
+// Solar eclipses arrived in 0.4.0 in their own file, so its presence is the test.
+let solarEclipses: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(source)/swift/Sources/Almanac/Solar.swift") ? [.define("ALMANAC_SOLAR_ECLIPSES")] : []
 let package = Package(
     name: "AlmanacBenchmarks",
     dependencies: [.package(name: "Almanac", path: source)],
     targets: [
-        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches),
+        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses),
     ]
 )
