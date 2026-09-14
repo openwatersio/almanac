@@ -21,9 +21,10 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 
 ## Performance
 
-Almanac includes a shared performance harness for both ports: **15 workloads**
+Almanac includes a shared performance harness for both ports: **22 workloads**
 cover positions, a 228-hour sky track, short/year/polar event windows, full-range
-moon phases, and next/previous/range eclipse searches, including empty windows.
+moon phases, next/previous/range lunar and solar eclipse searches, including empty
+windows, and solar obscuration over a 228-hour track.
 
 The v0.2.1 optimizations reuse Moon and shadow geometry, flatten scratch arrays,
 and refine altitude crossings with fewer position evaluations. In the
@@ -46,8 +47,10 @@ Reproduce the comparison locally from the repository root with mise 2026.9.1 or 
 ```bash
 mise install
 mise exec -- npm ci --prefix typescript
-mise exec -- node benchmarks/run.mjs --base v0.2.0
+mise exec -- node benchmarks/run.mjs --base v0.2.0 --skip '^solar/'
 ```
+
+The `--skip` pattern leaves out the solar eclipse workloads, which need a base of 0.4.0 or later.
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.
 Results include timing tables, raw samples, checksums, and revision/toolchain
@@ -91,7 +94,7 @@ const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 ### Swift
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.3.0")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.4.0")
 ```
 
 ```swift
