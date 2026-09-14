@@ -1,6 +1,6 @@
 # Almanac
 
-Offline sky engine for the Salish Sea and everywhere else: Sun and Moon positions, rise, set, twilight, Moon phase, lunar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun and Moon positions, rise, set, twilight, Moon phase, lunar eclipses, solar eclipses for an observer, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -66,13 +66,17 @@ npm install @openwaters/almanac
 ```
 
 ```ts
-import { nextLunarEclipse, lunarEclipseVisibility, sunEvents, starAltAz } from '@openwaters/almanac';
+import { nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, sunEvents, starAltAz } from '@openwaters/almanac';
 
 const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
 
 const eclipse = nextLunarEclipse(new Date());
 const visibility = lunarEclipseVisibility(eclipse, observer);
 console.log(eclipse.kind, eclipse.peak, visibility.visibleAtPeak);
+
+const solar = nextSolarEclipse(new Date(), observer);
+console.log(solar.kind, solar.peak, solar.obscuration, solar.sunAltDeg.peak);
+console.log(solarObscuration(solar.peak, observer));   // fraction of the Sun's disc covered, 0 to 1
 
 const today = new Date();
 const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
@@ -99,6 +103,10 @@ let observer = try Observer(latitudeDeg: 48.5, longitudeDeg: -123.0)
 let eclipse = try nextLunarEclipse(after: Date())
 let visibility = try lunarEclipseVisibility(eclipse, observer: observer)
 print(eclipse.kind, eclipse.peak, visibility.visibleAtPeak)
+
+let solar = try nextSolarEclipse(after: Date(), observer: observer)
+print(solar.kind, solar.peak, solar.obscuration, solar.sunAltDeg.peak)
+print(try solarObscuration(at: solar.peak, observer: observer))   // fraction of the Sun's disc covered, 0 to 1
 
 let today = Date()
 let tomorrow = today.addingTimeInterval(24 * 60 * 60)
@@ -128,3 +136,5 @@ let eclipses = try lunarEclipses(from: today, to: tomorrow)
 Ranges include peaks at the start and exclude peaks at the end. Contacts may
 extend outside the range. Previous/next searches skip peaks within 100 ms of the
 anchor. Search results are global; apply `lunarEclipseVisibility` for an observer.
+
+Solar eclipses are searched for an observer, because their contacts only exist for a place: `nextSolarEclipse(after, observer)`, `previousSolarEclipse(before, observer)`, and `solarEclipses(startUtc, endUtc, observer)`. Eclipses the Sun is below the horizon for throughout are not returned.

@@ -1,7 +1,7 @@
 {
   "name": "@openwaters/almanac",
   "version": "0.3.0",
-  "description": "Offline sun & moon engine: positions, rise/set, moon phase, lunar eclipses.",
+  "description": "Offline sun & moon engine: positions, rise/set, moon phase, lunar and solar eclipses.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "moon",
     "ephemeris",
     "lunar-eclipse",
+    "solar-eclipse",
     "marine"
   ],
   "publishConfig": {

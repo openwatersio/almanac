@@ -13,9 +13,9 @@ Both ports implement four matching layers:
 - Time: Julian date and Delta-T from the Espenak–Meeus piecewise polynomials.
 - Positions: truncated VSOP87 for the Sun, Montenbruck–Pfleger MOON2 for the Moon, and truncated IAU 2000B nutation and aberration translated from upstream.
 - Transforms: ecliptic and equatorial conversion on the equator of date, equatorial to horizontal conversion, topocentric parallax, precession for fixed-star catalog positions, and atmospheric refraction.
-- Events: root finding over the position and transform layers for rise, set, twilight, transit, phase, and lunar eclipse searches.
+- Events: root finding over the position and transform layers for rise, set, twilight, transit, phase, lunar eclipse, and solar eclipse searches.
 
-Event searches use the same position models returned by the position functions. Lunar eclipses are found from the Moon's distance to the Earth's shadow axis rather than from a separate precomputed eclipse series.
+Event searches use the same position models returned by the position functions. Lunar eclipses are found from the Moon's distance to the Earth's shadow axis rather than from a separate precomputed eclipse series. Solar eclipses are found from an observer's distance to the Moon's shadow axis at each new moon.
 
 ## Time and supported interval
 
@@ -37,6 +37,7 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 - Moonrise and moonset occur when the apparent topocentric upper limb crosses altitude zero, including refraction, topocentric parallax, and the true semidiameter at the current distance.
 - Moon phase events and `moonIllumination.phase` use apparent geocentric ecliptic longitudes, including aberration and nutation.
 - Lunar eclipse visibility is geometric: the unrefracted topocentric altitude of the Moon's center must be above zero. It does not account for weather, terrain, refraction, or safe-viewing conditions.
+- Solar eclipse circumstances are observer-bound. The peak is the closest approach of the Moon's shadow axis to the observer, not greatest eclipse. The Sun's altitude at each contact is the refracted topocentric value `sunAltAz` reports for that instant. An eclipse whose Sun is below the horizon at C1, the peak, and C4 is not returned. `solarObscuration` is purely geometric and does not test the horizon.
 
 ## Public API
 
@@ -57,8 +58,14 @@ The functions have the same names and semantics in both ports. TypeScript return
 | `previousLunarEclipse(before)` | Instant | The lunar eclipse strictly before the anchor, or the out-of-range outcome. |
 | `lunarEclipses(startUtc, endUtc)` | Half-open window | Every lunar eclipse whose peak is in the window, sorted by peak. Contacts may extend outside the window. |
 | `lunarEclipseVisibility(eclipse, observer)` | Structurally valid lunar eclipse and observer | `visibleAtPeak`, unrefracted `moonGeometricAltAtPeakDeg`, and `contactsVisible`. |
+| `nextSolarEclipse(after, observer)` | Instant and observer | The solar eclipse the observer can see strictly after the anchor, or the out-of-range outcome. |
+| `previousSolarEclipse(before, observer)` | Instant and observer | The solar eclipse the observer can see strictly before the anchor, or the out-of-range outcome. |
+| `solarEclipses(startUtc, endUtc, observer)` | Half-open window and observer | Every solar eclipse the observer can see whose peak is in the window, sorted by peak. Contacts may extend outside the window. |
+| `solarObscuration(time, observer)` | Instant and observer | Fraction of the Sun's disc area the Moon covers, in `[0, 1]`. |
 
 A lunar eclipse has `kind`, `peak`, `magUmbral`, `magPenumbral`, `p1`, `u1`, `u2`, `u3`, `u4`, and `p4`. Kind is `penumbral`, `partial`, or `total`; P1 and P4 are always present, U1 and U4 are present for partial and total eclipses, and U2 and U3 are present only for total eclipses. `lunarEclipseVisibility` validates finite times, contact chronology, and agreement between the kind and contact shape.
+
+A solar eclipse has `kind`, `obscuration`, `c1`, `c2`, `peak`, `c3`, `c4`, and `sunAltDeg`. Kind is `partial`, `annular`, or `total`; C1, peak, and C4 are always present, and C2 and C3 are present only for annular and total eclipses. `sunAltDeg` carries the Sun's altitude at each contact with the same presence pattern. `obscuration` is the fraction of the Sun's disc area covered at the peak, exactly 1 for a total eclipse.
 
 ## Shared behavior
 
@@ -72,12 +79,15 @@ A lunar eclipse has `kind`, `peak`, `magUmbral`, `magPenumbral`, `p1`, `u1`, `u2
 | Validation order | Finite values, observer ranges, and interval containment are validated before the empty-window check. Invalid input cannot return a clean empty list. |
 | Window end | Ordinary instants use `[min, max)`. A window end uses `[min, max]`, making the complete supported window legal. |
 | Search anchor | Next and previous eclipse searches skip peaks within 100 milliseconds of the anchor. Range bounds do not use this band. |
+| Solar eclipse scan | Next and previous solar eclipse searches walk new moons to the supported boundary, then return the out-of-range outcome. |
 
 Event windows are half-open `[startUtc, endUtc)`, and callers own timezone and civil-day handling. Any window inside the supported interval is valid. Event-search cost is linear in the window length; the test suite measures the complete 151-year window and requires Sun and Moon events to finish within 120 seconds.
 
 Next and previous lunar eclipse searches are strict and scan at most two years in their direction. The 100-millisecond same-eclipse band cannot skip a distinct eclipse because the minimum catalog gap is 29 days. Reaching the supported boundary without another eclipse returns the out-of-range outcome.
 
 `lunarEclipses` returns every penumbral, partial, and total eclipse whose peak is in `[startUtc, endUtc)`, with no visibility filter. Candidate peaks use a fixed whole-UT-day seed so search direction and window boundaries do not shift the returned millisecond. Adjacent ranges can split at a returned peak without losing or duplicating it. Every root finder has a bounded iteration count; exhausting one is an implementation failure.
+
+`solarEclipses` returns every eclipse the observer can see whose peak is in `[startUtc, endUtc)`. Candidate peaks use a fixed whole-UT-day new-moon seed, so adjacent ranges can split at a returned peak without losing or duplicating it. The same-eclipse band and the bounded root finders apply as for lunar eclipses.
 
 ## Fixture and parity evidence
 
@@ -88,6 +98,8 @@ External fixtures determine physical correctness. Committed raw responses preser
 - Rise, set, twilight, and phase events use USNO data. Nautical and astronomical twilight also use a dedicated one-minute Horizons altitude grid because the USNO daily service reports only civil twilight.
 - Lunar eclipse types, peaks, magnitudes, and selected contacts use the Espenak Five Millennium catalog.
 - Contact fixtures cover total, partial, and penumbral shapes, including absent umbral contacts.
+- Solar eclipse local circumstances (kind, contacts, Sun altitudes, obscuration) use the USNO Astronomical Applications API for eclipses from 2001 through 2026, the years that endpoint serves.
+- Solar eclipse kinds, peaks, and obscuration at the point of greatest eclipse use the Espenak Five Millennium Catalog of Solar Eclipses across the supported interval, with the observer placed at the catalog's whole-degree coordinates.
 
 The test suites enforce these physical tolerances:
 
@@ -101,9 +113,16 @@ The test suites enforce these physical tolerances:
 | Event times | 60 seconds |
 | Eclipse peaks and contacts | 60 seconds |
 | Eclipse magnitudes | 0.03 |
+| Solar eclipse contacts C1 to C4 | 60 seconds |
+| Solar eclipse peak | 5 minutes |
+| Solar eclipse obscuration | 0.01 |
+| Sun altitude at C1 to C4 | 0.5° |
+| Sun altitude at the peak | 1.5° |
 
 The Montenbruck–Pfleger lunar distance model has a measured mean scale bias of `-27.3 ppm` against JPL ephemerides and a periodic residual reaching about `-139 ppm`; the observed maximum absolute difference is 53.3 kilometers. Angular accuracy is unaffected.
 
 USNO event fixtures after 2050 include disagreement between Delta-T projections. Rows through 2050 use the absolute 60-second limit. Later rows apply that limit to scatter around the mean offset for each date and separately bound the mean by the documented time-model divergence.
+
+The solar eclipse peak is looser than its contacts because the axis-distance curve is flat at its minimum, so the root of its derivative is ill-conditioned, while the contacts are steep crossings. The catalog's whole-degree coordinates alone move the local peak by up to about 3 minutes. The altitude at the peak inherits that time tolerance.
 
 The parity corpus detects port drift below the physical tolerances. It stores canonical inputs and quantized outputs with angles at `1e-6°`, distances at `1e-3 km` or `1e-9 AU`, and times at 1 millisecond. Both suites compare decoded values with a tolerance of 5 scaled units or 1 time quantum. Serializer byte order and floating-point formatting are outside the comparison. Every public function appears in the corpus, and external fixtures settle any disagreement between the ports.
