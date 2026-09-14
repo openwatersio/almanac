@@ -1,6 +1,6 @@
 {
   "source": "NASA/GSFC Five Millennium Catalog of Lunar Eclipses (eclipse.gsfc.nasa.gov)",
-  "retrieved": "2026-08-28",
+  "retrieved": "2026-09-13",
   "requests": [
     "https://eclipse.gsfc.nasa.gov/LEcat5/LE1901-2000.html",
     "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html",

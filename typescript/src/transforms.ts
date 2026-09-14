@@ -100,6 +100,18 @@ function observerGeoVectorOfDate(gastDeg: number, observer: Observer): Vec3 {
     };
 }
 
+/**
+ * UPSTREAM: `geo_pos`, astronomy.ts ~2236 — the observer's geocentric
+ * position in AU on the J2000 mean equator: `terra`'s of-date vector
+ * gyrated into J2000. The topocentric path below avoids this rotation; the
+ * solar-eclipse layer needs it because it subtracts the observer from a
+ * geocentric Moon that stays in EQJ.
+ * INTERNAL: exported for `solar.ts`, not part of the public API.
+ */
+export function observerGeoVectorEqj(ut: number, observer: Observer): Vec3 {
+    return gyration(observerGeoVectorOfDate(siderealDeg(ut), observer), ttDaysFromUt(ut), PrecessDirection.Into2000);
+}
+
 /** UPSTREAM: `spin`, astronomy.ts ~2518 — rotate a horizontal-frame unit vector by sidereal angle. */
 function spin(angleDeg: number, pos: Vec3): Vec3 {
     const angr = angleDeg * DEG2RAD;

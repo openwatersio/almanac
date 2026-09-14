@@ -1,8 +1,10 @@
 {
-  "retrieved": "2026-08-28",
+  "retrieved": "2026-09-13",
   "requests": {
     "LE1901-2000": "https://eclipse.gsfc.nasa.gov/LEcat5/LE1901-2000.html",
     "LE2001-2100": "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html",
+    "SE1901-2000": "https://eclipse.gsfc.nasa.gov/SEcat5/SE1901-2000.html",
+    "SE2001-2100": "https://eclipse.gsfc.nasa.gov/SEcat5/SE2001-2100.html",
     "contacts-2019": "https://eclipse.gsfc.nasa.gov/OH/OH2019.html",
     "contacts-2025": "https://eclipse.gsfc.nasa.gov/OH/OH2025.html",
     "contacts-2026": "https://eclipse.gsfc.nasa.gov/OH/OH2026.html",

@@ -1,0 +1,48 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -79.38,
+      43.65
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 10,
+    "delta_t": "71.4s",
+    "description": "Sun in Partial Eclipse at this Location",
+    "duration": "1h 02m 06.6s",
+    "event": "Solar Eclipse of 2021 June 10",
+    "local_data": [
+      {
+        "altitude": "----",
+        "azimuth": "56.3",
+        "day": "10",
+        "phenomenon": "Sunrise",
+        "time": "09:36"
+      },
+      {
+        "altitude": "-0.2",
+        "azimuth": "57.0",
+        "day": "10",
+        "phenomenon": "Maximum Eclipse",
+        "time": "09:39:57.6"
+      },
+      {
+        "altitude": "9.0",
+        "azimuth": "66.7",
+        "day": "10",
+        "phenomenon": "Eclipse Ends",
+        "position_angle": "67.6",
+        "time": "10:37:54.9",
+        "vertex_angle": "113.7"
+      }
+    ],
+    "magnitude": "0.861",
+    "month": 6,
+    "obscuration": "80.1%",
+    "year": 2021
+  },
+  "type": "Feature"
+}

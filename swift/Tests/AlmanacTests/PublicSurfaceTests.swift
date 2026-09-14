@@ -108,4 +108,28 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertEqual(handVisibility.contactsVisible.p1, true)
         XCTAssertNil(handVisibility.contactsVisible.u1)
     }
+
+    func testSolarEclipse() throws {
+        let observer = try Observer(latitudeDeg: 44.94, longitudeDeg: -123.03)
+        let e: SolarEclipse = try nextSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000), observer: observer) // 2017-07-14
+        let previous: SolarEclipse = try previousSolarEclipse(before: e.peak, observer: observer)
+        let range: [SolarEclipse] = try solarEclipses(from: previous.peak, to: e.peak, observer: observer)
+        XCTAssertEqual(range.map(\.peak), [previous.peak])
+        _ = (e.obscuration, e.c1, e.c2, e.peak, e.c3, e.c4)
+        let alt: SolarEclipseSunAltitudes = e.sunAltDeg
+        _ = (alt.c1, alt.c2, alt.peak, alt.c3, alt.c4)
+        let kinds: [SolarEclipseKind] = [.partial, .annular, .total]
+        XCTAssertEqual(kinds.map { $0.rawValue }, ["partial", "annular", "total"])
+        XCTAssertTrue(kinds.contains(e.kind))
+
+        let covered: Double = try solarObscuration(at: e.peak, observer: observer)
+        XCTAssertFalse(covered.isNaN)
+
+        // Construct both via their public inits — proves the inits themselves
+        // are public, which a `@testable` test would not catch.
+        let handAlt = SolarEclipseSunAltitudes(c1: 10, c2: nil, peak: 20, c3: nil, c4: 30)
+        let hand = SolarEclipse(kind: .partial, obscuration: 0.5, c1: e.c1, c2: nil, peak: e.peak, c3: nil, c4: e.c4, sunAltDeg: handAlt)
+        XCTAssertEqual(hand.kind, .partial)
+        XCTAssertNil(hand.sunAltDeg.c2)
+    }
 }

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Fetches the raw NASA/GSFC Espenak eclipse pages the derive pipeline works
-// from: the two Five Millennium Catalog century pages, plus four per-eclipse
-// Observer's Handbook pages carrying named-contact times. This is the ONLY
-// script that touches eclipse.gsfc.nasa.gov — run it once, inspect the
-// output, commit the raw .html files. derive.mjs never calls this.
+// from: the four Five Millennium Catalog century pages (lunar and solar),
+// plus four per-eclipse Observer's Handbook pages carrying named-contact
+// times. This is the ONLY script that touches eclipse.gsfc.nasa.gov — run it
+// once, inspect the output, commit the raw .html files. derive.mjs never
+// calls this.
 import { writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
@@ -15,6 +16,8 @@ const BASE = "https://eclipse.gsfc.nasa.gov";
 const CATALOGS = [
   { name: "LE1901-2000", url: `${BASE}/LEcat5/LE1901-2000.html` },
   { name: "LE2001-2100", url: `${BASE}/LEcat5/LE2001-2100.html` },
+  { name: "SE1901-2000", url: `${BASE}/SEcat5/SE1901-2000.html` },
+  { name: "SE2001-2100", url: `${BASE}/SEcat5/SE2001-2100.html` },
 ];
 
 // Per-eclipse contact pages: NASA's yearly "Observer's Handbook" (OH) pages

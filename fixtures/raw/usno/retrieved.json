@@ -1,5 +1,5 @@
 {
-  "retrieved": "2026-08-28",
+  "retrieved": "2026-09-13",
   "requests": {
     "grid-70p5-2026-03-20": "https://aa.usno.navy.mil/api/rstt/oneday?date=2026-03-20&coords=70.5,-123.052&tz=0",
     "grid-70p5-2026-06-21": "https://aa.usno.navy.mil/api/rstt/oneday?date=2026-06-21&coords=70.5,-123.052&tz=0",
@@ -52,6 +52,15 @@
     "phases-2026-01-01": "https://aa.usno.navy.mil/api/moon/phases/date?date=2026-01-01&nump=99",
     "phases-2050-01-01": "https://aa.usno.navy.mil/api/moon/phases/date?date=2050-01-01&nump=99",
     "phases-2075-01-01": "https://aa.usno.navy.mil/api/moon/phases/date?date=2075-01-01&nump=99",
-    "phases-2098-06-01": "https://aa.usno.navy.mil/api/moon/phases/date?date=2098-06-01&nump=99"
+    "phases-2098-06-01": "https://aa.usno.navy.mil/api/moon/phases/date?date=2098-06-01&nump=99",
+    "solar-2017-08-21-salem": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2017-08-21&coords=44.94,-123.03&height=0",
+    "solar-2024-04-08-victoria": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2024-04-08&coords=48.43,-123.37&height=0",
+    "solar-2023-10-14-albuquerque": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2023-10-14&coords=35.08,-106.65&height=0",
+    "solar-2012-05-20-redding": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2012-05-20&coords=40.59,-122.39&height=0",
+    "solar-2001-06-21-lusaka": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2001-06-21&coords=-15.4,28.3&height=0",
+    "solar-2021-06-10-toronto": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2021-06-10&coords=43.65,-79.38&height=0",
+    "solar-2020-12-14-pucon": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2020-12-14&coords=-39.28,-71.95&height=0",
+    "solar-2026-08-12-valencia": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2026-08-12&coords=39.47,-0.38&height=0",
+    "solar-2024-04-08-perth": "https://aa.usno.navy.mil/api/eclipses/solar/date?date=2024-04-08&coords=-31.95,115.86&height=0"
   }
 }

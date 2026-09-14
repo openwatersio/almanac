@@ -10,13 +10,14 @@ Almanac provides the same offline Sun, Moon, and fixed-star calculations in Type
 - Moonrise and moonset using the upper-limb convention.
 - Moon illumination, phase angle, named phase, waxing or waning state, and quarter-phase events.
 - Lunar eclipse next, previous, and range searches, including eclipse kind, magnitudes, contact times, and geometric local visibility.
+- Solar eclipse next, previous, and range searches for an observer, including eclipse kind, contact times with the Sun's altitude at each, peak obscuration, and the fraction of the Sun's disc covered at any instant.
 - A shared fixture and parity corpus for both ports, plus a performance regression harness.
 
 The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it raise a typed error.
 
 ## Boundaries
 
-- Solar eclipse search and local circumstances remain outside the public API until a consumer needs the required geoid intersection, path classification, obscuration, and safe-viewing behavior.
+- The global solar eclipse search (the peak instant with no observer, and where the shadow axis meets the surface), path classification, eclipse magnitude, and safe-viewing guidance remain outside the public API until a consumer needs them.
 - Planets, planetary transits, libration, apparent magnitudes, and constellations require models or catalogs outside the current scope.
 - Almanac does not ship a star catalog because runtime data files are outside its design. `starAltAz` takes the J2000 coordinates a consumer already carries.
 - Star positions omit annual aberration and proper motion. Annual aberration is at most 20.5 arcseconds, and all but a few fast-moving stars shift only a few arcseconds per decade, below the arcminute used by a sky drawing or sight reduction.

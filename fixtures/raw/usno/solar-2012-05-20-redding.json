@@ -1,0 +1,69 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -122.39,
+      40.59
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 21,
+    "delta_t": "66.8s",
+    "description": "Sun in Annular Eclipse at this Location",
+    "duration": "2h 24m 56.6s",
+    "duration_of_annularity": "4m 33.9s",
+    "event": "Solar Eclipse of 2012 May 21",
+    "local_data": [
+      {
+        "altitude": "34.5",
+        "azimuth": "267.9",
+        "day": "21",
+        "phenomenon": "Eclipse Begins",
+        "position_angle": "271.6",
+        "time": "00:11:32.0",
+        "vertex_angle": "217.7"
+      },
+      {
+        "altitude": "20.4",
+        "azimuth": "279.7",
+        "day": "21",
+        "phenomenon": "Annularity Begins",
+        "position_angle": "106.0",
+        "time": "01:26:21.2",
+        "vertex_angle": "53.0"
+      },
+      {
+        "altitude": "19.9",
+        "azimuth": "280.0",
+        "day": "21",
+        "phenomenon": "Maximum Eclipse",
+        "time": "01:28:37.1"
+      },
+      {
+        "altitude": "19.5",
+        "azimuth": "280.3",
+        "day": "21",
+        "phenomenon": "Annularity Ends",
+        "position_angle": "257.0",
+        "time": "01:30:55.1",
+        "vertex_angle": "204.2"
+      },
+      {
+        "altitude": "7.5",
+        "azimuth": "290.3",
+        "day": "21",
+        "phenomenon": "Eclipse Ends",
+        "position_angle": "91.0",
+        "time": "02:36:28.6",
+        "vertex_angle": "41.6"
+      }
+    ],
+    "magnitude": "0.960",
+    "month": 5,
+    "obscuration": "87.7%",
+    "year": 2012
+  },
+  "type": "Feature"
+}

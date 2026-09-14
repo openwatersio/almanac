@@ -1,0 +1,50 @@
+{
+  "apiversion": "4.0.1",
+  "geometry": {
+    "coordinates": [
+      -123.37,
+      48.43
+    ],
+    "height": "0m",
+    "type": "Point"
+  },
+  "properties": {
+    "day": 8,
+    "delta_t": "72.8s",
+    "description": "Sun in Partial Eclipse at this Location",
+    "duration": "1h 38m 06.8s",
+    "event": "Solar Eclipse of 2024 April 08",
+    "local_data": [
+      {
+        "altitude": "37.8",
+        "azimuth": "128.6",
+        "day": "8",
+        "phenomenon": "Eclipse Begins",
+        "position_angle": "186.0",
+        "time": "17:41:00.8",
+        "vertex_angle": "217.7"
+      },
+      {
+        "altitude": "43.4",
+        "azimuth": "142.5",
+        "day": "8",
+        "phenomenon": "Maximum Eclipse",
+        "time": "18:29:16.8"
+      },
+      {
+        "altitude": "47.5",
+        "azimuth": "159.2",
+        "day": "8",
+        "phenomenon": "Eclipse Ends",
+        "position_angle": "97.6",
+        "time": "19:19:07.6",
+        "vertex_angle": "111.5"
+      }
+    ],
+    "magnitude": "0.285",
+    "month": 4,
+    "obscuration": "17.7%",
+    "year": 2024
+  },
+  "type": "Feature"
+}
