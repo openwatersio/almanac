@@ -91,134 +91,2383 @@ func calcMoon(_ tt: Double) -> MoonEcliptic {
         }
     }
 
+    var termY = 0.0
+
     /** UPSTREAM: `Term`. */
-    func Term(_ p: Int, _ q: Int, _ r: Int, _ s: Int) -> (x: Double, y: Double) {
-        var result = (x: 1.0, y: 0.0)
-        let I = [0, p, q, r, s]   // I[0] is not used; it is a placeholder
-        for k in 1...4 where I[k] != 0 {
-            let (c, s2) = AddThe(result.x, result.y, CO(I[k], k), SI(I[k], k))
-            result = (c, s2)
+    func Term(_ p: Int, _ q: Int, _ r: Int, _ s: Int) {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var sine = 0.0
+        var nextX = 0.0
+        if p != 0 {
+            c = CO(p, 1); sine = SI(p, 1)
+            nextX = x*c - y*sine; y = y*c + x*sine; x = nextX
         }
-        return result
+        if q != 0 {
+            c = CO(q, 2); sine = SI(q, 2)
+            nextX = x*c - y*sine; y = y*c + x*sine; x = nextX
+        }
+        if r != 0 {
+            c = CO(r, 3); sine = SI(r, 3)
+            nextX = x*c - y*sine; y = y*c + x*sine; x = nextX
+        }
+        if s != 0 {
+            c = CO(s, 4); sine = SI(s, 4)
+            nextX = x*c - y*sine; y = y*c + x*sine; x = nextX
+        }
+        termY = y
     }
 
-    /** UPSTREAM: `AddSol`. */
-    func AddSol(_ coeffl: Double, _ coeffs: Double, _ coeffg: Double, _ coeffp: Double, _ p: Int, _ q: Int, _ r: Int, _ s: Int) {
-        let result = Term(p, q, r, s)
-        DLAM += coeffl * result.y
-        DS += coeffs * result.y
-        GAM1C += coeffg * result.x
-        SINPI += coeffp * result.x
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[43]
+        s = si[43]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 13.9020 * y
+        DS += 14.0600 * y
+        GAM1C += -0.0010 * x
+        SINPI += 0.2607 * x
     }
-
-    AddSol(    13.9020,    14.0600,    -0.0010,     0.2607, 0, 0, 0, 4)
-    AddSol(     0.4030,    -4.0100,     0.3940,     0.0023, 0, 0, 0, 3)
-    AddSol(  2369.9120,  2373.3600,     0.6010,    28.2333, 0, 0, 0, 2)
-    AddSol(  -125.1540,  -112.7900,    -0.7250,    -0.9781, 0, 0, 0, 1)
-    AddSol(     1.9790,     6.9800,    -0.4450,     0.0433, 1, 0, 0, 4)
-    AddSol(   191.9530,   192.7200,     0.0290,     3.0861, 1, 0, 0, 2)
-    AddSol(    -8.4660,   -13.5100,     0.4550,    -0.1093, 1, 0, 0, 1)
-    AddSol( 22639.5000, 22609.0700,     0.0790,   186.5398, 1, 0, 0, 0)
-    AddSol(    18.6090,     3.5900,    -0.0940,     0.0118, 1, 0, 0,-1)
-    AddSol( -4586.4650, -4578.1300,    -0.0770,    34.3117, 1, 0, 0,-2)
-    AddSol(     3.2150,     5.4400,     0.1920,    -0.0386, 1, 0, 0,-3)
-    AddSol(   -38.4280,   -38.6400,     0.0010,     0.6008, 1, 0, 0,-4)
-    AddSol(    -0.3930,    -1.4300,    -0.0920,     0.0086, 1, 0, 0,-6)
-    AddSol(    -0.2890,    -1.5900,     0.1230,    -0.0053, 0, 1, 0, 4)
-    AddSol(   -24.4200,   -25.1000,     0.0400,    -0.3000, 0, 1, 0, 2)
-    AddSol(    18.0230,    17.9300,     0.0070,     0.1494, 0, 1, 0, 1)
-    AddSol(  -668.1460,  -126.9800,    -1.3020,    -0.3997, 0, 1, 0, 0)
-    AddSol(     0.5600,     0.3200,    -0.0010,    -0.0037, 0, 1, 0,-1)
-    AddSol(  -165.1450,  -165.0600,     0.0540,     1.9178, 0, 1, 0,-2)
-    AddSol(    -1.8770,    -6.4600,    -0.4160,     0.0339, 0, 1, 0,-4)
-    AddSol(     0.2130,     1.0200,    -0.0740,     0.0054, 2, 0, 0, 4)
-    AddSol(    14.3870,    14.7800,    -0.0170,     0.2833, 2, 0, 0, 2)
-    AddSol(    -0.5860,    -1.2000,     0.0540,    -0.0100, 2, 0, 0, 1)
-    AddSol(   769.0160,   767.9600,     0.1070,    10.1657, 2, 0, 0, 0)
-    AddSol(     1.7500,     2.0100,    -0.0180,     0.0155, 2, 0, 0,-1)
-    AddSol(  -211.6560,  -152.5300,     5.6790,    -0.3039, 2, 0, 0,-2)
-    AddSol(     1.2250,     0.9100,    -0.0300,    -0.0088, 2, 0, 0,-3)
-    AddSol(   -30.7730,   -34.0700,    -0.3080,     0.3722, 2, 0, 0,-4)
-    AddSol(    -0.5700,    -1.4000,    -0.0740,     0.0109, 2, 0, 0,-6)
-    AddSol(    -2.9210,   -11.7500,     0.7870,    -0.0484, 1, 1, 0, 2)
-    AddSol(     1.2670,     1.5200,    -0.0220,     0.0164, 1, 1, 0, 1)
-    AddSol(  -109.6730,  -115.1800,     0.4610,    -0.9490, 1, 1, 0, 0)
-    AddSol(  -205.9620,  -182.3600,     2.0560,     1.4437, 1, 1, 0,-2)
-    AddSol(     0.2330,     0.3600,     0.0120,    -0.0025, 1, 1, 0,-3)
-    AddSol(    -4.3910,    -9.6600,    -0.4710,     0.0673, 1, 1, 0,-4)
-    AddSol(     0.2830,     1.5300,    -0.1110,     0.0060, 1,-1, 0, 4)
-    AddSol(    14.5770,    31.7000,    -1.5400,     0.2302, 1,-1, 0, 2)
-    AddSol(   147.6870,   138.7600,     0.6790,     1.1528, 1,-1, 0, 0)
-    AddSol(    -1.0890,     0.5500,     0.0210,     0.0000, 1,-1, 0,-1)
-    AddSol(    28.4750,    23.5900,    -0.4430,    -0.2257, 1,-1, 0,-2)
-    AddSol(    -0.2760,    -0.3800,    -0.0060,    -0.0036, 1,-1, 0,-3)
-    AddSol(     0.6360,     2.2700,     0.1460,    -0.0102, 1,-1, 0,-4)
-    AddSol(    -0.1890,    -1.6800,     0.1310,    -0.0028, 0, 2, 0, 2)
-    AddSol(    -7.4860,    -0.6600,    -0.0370,    -0.0086, 0, 2, 0, 0)
-    AddSol(    -8.0960,   -16.3500,    -0.7400,     0.0918, 0, 2, 0,-2)
-    AddSol(    -5.7410,    -0.0400,     0.0000,    -0.0009, 0, 0, 2, 2)
-    AddSol(     0.2550,     0.0000,     0.0000,     0.0000, 0, 0, 2, 1)
-    AddSol(  -411.6080,    -0.2000,     0.0000,    -0.0124, 0, 0, 2, 0)
-    AddSol(     0.5840,     0.8400,     0.0000,     0.0071, 0, 0, 2,-1)
-    AddSol(   -55.1730,   -52.1400,     0.0000,    -0.1052, 0, 0, 2,-2)
-    AddSol(     0.2540,     0.2500,     0.0000,    -0.0017, 0, 0, 2,-3)
-    AddSol(     0.0250,    -1.6700,     0.0000,     0.0031, 0, 0, 2,-4)
-    AddSol(     1.0600,     2.9600,    -0.1660,     0.0243, 3, 0, 0, 2)
-    AddSol(    36.1240,    50.6400,    -1.3000,     0.6215, 3, 0, 0, 0)
-    AddSol(   -13.1930,   -16.4000,     0.2580,    -0.1187, 3, 0, 0,-2)
-    AddSol(    -1.1870,    -0.7400,     0.0420,     0.0074, 3, 0, 0,-4)
-    AddSol(    -0.2930,    -0.3100,    -0.0020,     0.0046, 3, 0, 0,-6)
-    AddSol(    -0.2900,    -1.4500,     0.1160,    -0.0051, 2, 1, 0, 2)
-    AddSol(    -7.6490,   -10.5600,     0.2590,    -0.1038, 2, 1, 0, 0)
-    AddSol(    -8.6270,    -7.5900,     0.0780,    -0.0192, 2, 1, 0,-2)
-    AddSol(    -2.7400,    -2.5400,     0.0220,     0.0324, 2, 1, 0,-4)
-    AddSol(     1.1810,     3.3200,    -0.2120,     0.0213, 2,-1, 0, 2)
-    AddSol(     9.7030,    11.6700,    -0.1510,     0.1268, 2,-1, 0, 0)
-    AddSol(    -0.3520,    -0.3700,     0.0010,    -0.0028, 2,-1, 0,-1)
-    AddSol(    -2.4940,    -1.1700,    -0.0030,    -0.0017, 2,-1, 0,-2)
-    AddSol(     0.3600,     0.2000,    -0.0120,    -0.0043, 2,-1, 0,-4)
-    AddSol(    -1.1670,    -1.2500,     0.0080,    -0.0106, 1, 2, 0, 0)
-    AddSol(    -7.4120,    -6.1200,     0.1170,     0.0484, 1, 2, 0,-2)
-    AddSol(    -0.3110,    -0.6500,    -0.0320,     0.0044, 1, 2, 0,-4)
-    AddSol(     0.7570,     1.8200,    -0.1050,     0.0112, 1,-2, 0, 2)
-    AddSol(     2.5800,     2.3200,     0.0270,     0.0196, 1,-2, 0, 0)
-    AddSol(     2.5330,     2.4000,    -0.0140,    -0.0212, 1,-2, 0,-2)
-    AddSol(    -0.3440,    -0.5700,    -0.0250,     0.0036, 0, 3, 0,-2)
-    AddSol(    -0.9920,    -0.0200,     0.0000,     0.0000, 1, 0, 2, 2)
-    AddSol(   -45.0990,    -0.0200,     0.0000,    -0.0010, 1, 0, 2, 0)
-    AddSol(    -0.1790,    -9.5200,     0.0000,    -0.0833, 1, 0, 2,-2)
-    AddSol(    -0.3010,    -0.3300,     0.0000,     0.0014, 1, 0, 2,-4)
-    AddSol(    -6.3820,    -3.3700,     0.0000,    -0.0481, 1, 0,-2, 2)
-    AddSol(    39.5280,    85.1300,     0.0000,    -0.7136, 1, 0,-2, 0)
-    AddSol(     9.3660,     0.7100,     0.0000,    -0.0112, 1, 0,-2,-2)
-    AddSol(     0.2020,     0.0200,     0.0000,     0.0000, 1, 0,-2,-4)
-    AddSol(     0.4150,     0.1000,     0.0000,     0.0013, 0, 1, 2, 0)
-    AddSol(    -2.1520,    -2.2600,     0.0000,    -0.0066, 0, 1, 2,-2)
-    AddSol(    -1.4400,    -1.3000,     0.0000,     0.0014, 0, 1,-2, 2)
-    AddSol(     0.3840,    -0.0400,     0.0000,     0.0000, 0, 1,-2,-2)
-    AddSol(     1.9380,     3.6000,    -0.1450,     0.0401, 4, 0, 0, 0)
-    AddSol(    -0.9520,    -1.5800,     0.0520,    -0.0130, 4, 0, 0,-2)
-    AddSol(    -0.5510,    -0.9400,     0.0320,    -0.0097, 3, 1, 0, 0)
-    AddSol(    -0.4820,    -0.5700,     0.0050,    -0.0045, 3, 1, 0,-2)
-    AddSol(     0.6810,     0.9600,    -0.0260,     0.0115, 3,-1, 0, 0)
-    AddSol(    -0.2970,    -0.2700,     0.0020,    -0.0009, 2, 2, 0,-2)
-    AddSol(     0.2540,     0.2100,    -0.0030,     0.0000, 2,-2, 0,-2)
-    AddSol(    -0.2500,    -0.2200,     0.0040,     0.0014, 1, 3, 0,-2)
-    AddSol(    -3.9960,     0.0000,     0.0000,     0.0004, 2, 0, 2, 0)
-    AddSol(     0.5570,    -0.7500,     0.0000,    -0.0090, 2, 0, 2,-2)
-    AddSol(    -0.4590,    -0.3800,     0.0000,    -0.0053, 2, 0,-2, 2)
-    AddSol(    -1.2980,     0.7400,     0.0000,     0.0004, 2, 0,-2, 0)
-    AddSol(     0.5380,     1.1400,     0.0000,    -0.0141, 2, 0,-2,-2)
-    AddSol(     0.2630,     0.0200,     0.0000,     0.0000, 1, 1, 2, 0)
-    AddSol(     0.4260,     0.0700,     0.0000,    -0.0006, 1, 1,-2,-2)
-    AddSol(    -0.3040,     0.0300,     0.0000,     0.0003, 1,-1, 2, 0)
-    AddSol(    -0.3720,    -0.1900,     0.0000,    -0.0027, 1,-1,-2, 2)
-    AddSol(     0.4180,     0.0000,     0.0000,     0.0000, 0, 0, 4, 0)
-    AddSol(    -0.3300,    -0.0400,     0.0000,     0.0000, 3, 0, 2, 0)
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[39]
+        s = si[39]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.4030 * y
+        DS += -4.0100 * y
+        GAM1C += 0.3940 * x
+        SINPI += 0.0023 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 2369.9120 * y
+        DS += 2373.3600 * y
+        GAM1C += 0.6010 * x
+        SINPI += 28.2333 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[31]
+        s = si[31]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -125.1540 * y
+        DS += -112.7900 * y
+        GAM1C += -0.7250 * x
+        SINPI += -0.9781 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[43]
+        s = si[43]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.9790 * y
+        DS += 6.9800 * y
+        GAM1C += -0.4450 * x
+        SINPI += 0.0433 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 191.9530 * y
+        DS += 192.7200 * y
+        GAM1C += 0.0290 * x
+        SINPI += 3.0861 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[31]
+        s = si[31]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -8.4660 * y
+        DS += -13.5100 * y
+        GAM1C += 0.4550 * x
+        SINPI += -0.1093 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 22639.5000 * y
+        DS += 22609.0700 * y
+        GAM1C += 0.0790 * x
+        SINPI += 186.5398 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[23]
+        s = si[23]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 18.6090 * y
+        DS += 3.5900 * y
+        GAM1C += -0.0940 * x
+        SINPI += 0.0118 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -4586.4650 * y
+        DS += -4578.1300 * y
+        GAM1C += -0.0770 * x
+        SINPI += 34.3117 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[15]
+        s = si[15]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 3.2150 * y
+        DS += 5.4400 * y
+        GAM1C += 0.1920 * x
+        SINPI += -0.0386 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -38.4280 * y
+        DS += -38.6400 * y
+        GAM1C += 0.0010 * x
+        SINPI += 0.6008 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[3]
+        s = si[3]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3930 * y
+        DS += -1.4300 * y
+        GAM1C += -0.0920 * x
+        SINPI += 0.0086 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[43]
+        s = si[43]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.2890 * y
+        DS += -1.5900 * y
+        GAM1C += 0.1230 * x
+        SINPI += -0.0053 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -24.4200 * y
+        DS += -25.1000 * y
+        GAM1C += 0.0400 * x
+        SINPI += -0.3000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[31]
+        s = si[31]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 18.0230 * y
+        DS += 17.9300 * y
+        GAM1C += 0.0070 * x
+        SINPI += 0.1494 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -668.1460 * y
+        DS += -126.9800 * y
+        GAM1C += -1.3020 * x
+        SINPI += -0.3997 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[23]
+        s = si[23]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.5600 * y
+        DS += 0.3200 * y
+        GAM1C += -0.0010 * x
+        SINPI += -0.0037 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -165.1450 * y
+        DS += -165.0600 * y
+        GAM1C += 0.0540 * x
+        SINPI += 1.9178 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -1.8770 * y
+        DS += -6.4600 * y
+        GAM1C += -0.4160 * x
+        SINPI += 0.0339 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[43]
+        s = si[43]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2130 * y
+        DS += 1.0200 * y
+        GAM1C += -0.0740 * x
+        SINPI += 0.0054 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 14.3870 * y
+        DS += 14.7800 * y
+        GAM1C += -0.0170 * x
+        SINPI += 0.2833 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[31]
+        s = si[31]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.5860 * y
+        DS += -1.2000 * y
+        GAM1C += 0.0540 * x
+        SINPI += -0.0100 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 769.0160 * y
+        DS += 767.9600 * y
+        GAM1C += 0.1070 * x
+        SINPI += 10.1657 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[23]
+        s = si[23]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.7500 * y
+        DS += 2.0100 * y
+        GAM1C += -0.0180 * x
+        SINPI += 0.0155 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -211.6560 * y
+        DS += -152.5300 * y
+        GAM1C += 5.6790 * x
+        SINPI += -0.3039 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[15]
+        s = si[15]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.2250 * y
+        DS += 0.9100 * y
+        GAM1C += -0.0300 * x
+        SINPI += -0.0088 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -30.7730 * y
+        DS += -34.0700 * y
+        GAM1C += -0.3080 * x
+        SINPI += 0.3722 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[3]
+        s = si[3]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.5700 * y
+        DS += -1.4000 * y
+        GAM1C += -0.0740 * x
+        SINPI += 0.0109 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -2.9210 * y
+        DS += -11.7500 * y
+        GAM1C += 0.7870 * x
+        SINPI += -0.0484 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[31]
+        s = si[31]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.2670 * y
+        DS += 1.5200 * y
+        GAM1C += -0.0220 * x
+        SINPI += 0.0164 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -109.6730 * y
+        DS += -115.1800 * y
+        GAM1C += 0.4610 * x
+        SINPI += -0.9490 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -205.9620 * y
+        DS += -182.3600 * y
+        GAM1C += 2.0560 * x
+        SINPI += 1.4437 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[15]
+        s = si[15]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2330 * y
+        DS += 0.3600 * y
+        GAM1C += 0.0120 * x
+        SINPI += -0.0025 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -4.3910 * y
+        DS += -9.6600 * y
+        GAM1C += -0.4710 * x
+        SINPI += 0.0673 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[43]
+        s = si[43]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2830 * y
+        DS += 1.5300 * y
+        GAM1C += -0.1110 * x
+        SINPI += 0.0060 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 14.5770 * y
+        DS += 31.7000 * y
+        GAM1C += -1.5400 * x
+        SINPI += 0.2302 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 147.6870 * y
+        DS += 138.7600 * y
+        GAM1C += 0.6790 * x
+        SINPI += 1.1528 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[23]
+        s = si[23]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -1.0890 * y
+        DS += 0.5500 * y
+        GAM1C += 0.0210 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 28.4750 * y
+        DS += 23.5900 * y
+        GAM1C += -0.4430 * x
+        SINPI += -0.2257 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[15]
+        s = si[15]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.2760 * y
+        DS += -0.3800 * y
+        GAM1C += -0.0060 * x
+        SINPI += -0.0036 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.6360 * y
+        DS += 2.2700 * y
+        GAM1C += 0.1460 * x
+        SINPI += -0.0102 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.1890 * y
+        DS += -1.6800 * y
+        GAM1C += 0.1310 * x
+        SINPI += -0.0028 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -7.4860 * y
+        DS += -0.6600 * y
+        GAM1C += -0.0370 * x
+        SINPI += -0.0086 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -8.0960 * y
+        DS += -16.3500 * y
+        GAM1C += -0.7400 * x
+        SINPI += 0.0918 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -5.7410 * y
+        DS += -0.0400 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0009 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[31]
+        s = si[31]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2550 * y
+        DS += 0.0000 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -411.6080 * y
+        DS += -0.2000 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0124 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[23]
+        s = si[23]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.5840 * y
+        DS += 0.8400 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0071 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -55.1730 * y
+        DS += -52.1400 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.1052 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[15]
+        s = si[15]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2540 * y
+        DS += 0.2500 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0017 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.0250 * y
+        DS += -1.6700 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0031 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.0600 * y
+        DS += 2.9600 * y
+        GAM1C += -0.1660 * x
+        SINPI += 0.0243 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 36.1240 * y
+        DS += 50.6400 * y
+        GAM1C += -1.3000 * x
+        SINPI += 0.6215 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -13.1930 * y
+        DS += -16.4000 * y
+        GAM1C += 0.2580 * x
+        SINPI += -0.1187 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -1.1870 * y
+        DS += -0.7400 * y
+        GAM1C += 0.0420 * x
+        SINPI += 0.0074 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[3]
+        s = si[3]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.2930 * y
+        DS += -0.3100 * y
+        GAM1C += -0.0020 * x
+        SINPI += 0.0046 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.2900 * y
+        DS += -1.4500 * y
+        GAM1C += 0.1160 * x
+        SINPI += -0.0051 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -7.6490 * y
+        DS += -10.5600 * y
+        GAM1C += 0.2590 * x
+        SINPI += -0.1038 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -8.6270 * y
+        DS += -7.5900 * y
+        GAM1C += 0.0780 * x
+        SINPI += -0.0192 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -2.7400 * y
+        DS += -2.5400 * y
+        GAM1C += 0.0220 * x
+        SINPI += 0.0324 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.1810 * y
+        DS += 3.3200 * y
+        GAM1C += -0.2120 * x
+        SINPI += 0.0213 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 9.7030 * y
+        DS += 11.6700 * y
+        GAM1C += -0.1510 * x
+        SINPI += 0.1268 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[23]
+        s = si[23]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3520 * y
+        DS += -0.3700 * y
+        GAM1C += 0.0010 * x
+        SINPI += -0.0028 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -2.4940 * y
+        DS += -1.1700 * y
+        GAM1C += -0.0030 * x
+        SINPI += -0.0017 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.3600 * y
+        DS += 0.2000 * y
+        GAM1C += -0.0120 * x
+        SINPI += -0.0043 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -1.1670 * y
+        DS += -1.2500 * y
+        GAM1C += 0.0080 * x
+        SINPI += -0.0106 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -7.4120 * y
+        DS += -6.1200 * y
+        GAM1C += 0.1170 * x
+        SINPI += 0.0484 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3110 * y
+        DS += -0.6500 * y
+        GAM1C += -0.0320 * x
+        SINPI += 0.0044 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[17]
+        s = si[17]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.7570 * y
+        DS += 1.8200 * y
+        GAM1C += -0.1050 * x
+        SINPI += 0.0112 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[17]
+        s = si[17]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 2.5800 * y
+        DS += 2.3200 * y
+        GAM1C += 0.0270 * x
+        SINPI += 0.0196 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[17]
+        s = si[17]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 2.5330 * y
+        DS += 2.4000 * y
+        GAM1C += -0.0140 * x
+        SINPI += -0.0212 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[37]
+        s = si[37]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3440 * y
+        DS += -0.5700 * y
+        GAM1C += -0.0250 * x
+        SINPI += 0.0036 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.9920 * y
+        DS += -0.0200 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -45.0990 * y
+        DS += -0.0200 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0010 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.1790 * y
+        DS += -9.5200 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0833 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3010 * y
+        DS += -0.3300 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0014 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -6.3820 * y
+        DS += -3.3700 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0481 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 39.5280 * y
+        DS += 85.1300 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.7136 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 9.3660 * y
+        DS += 0.7100 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0112 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[11]
+        s = si[11]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2020 * y
+        DS += 0.0200 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.4150 * y
+        DS += 0.1000 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0013 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -2.1520 * y
+        DS += -2.2600 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0066 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -1.4400 * y
+        DS += -1.3000 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0014 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.3840 * y
+        DS += -0.0400 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[40]
+        s = si[40]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 1.9380 * y
+        DS += 3.6000 * y
+        GAM1C += -0.1450 * x
+        SINPI += 0.0401 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[40]
+        s = si[40]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.9520 * y
+        DS += -1.5800 * y
+        GAM1C += 0.0520 * x
+        SINPI += -0.0130 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.5510 * y
+        DS += -0.9400 * y
+        GAM1C += 0.0320 * x
+        SINPI += -0.0097 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.4820 * y
+        DS += -0.5700 * y
+        GAM1C += 0.0050 * x
+        SINPI += -0.0045 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.6810 * y
+        DS += 0.9600 * y
+        GAM1C += -0.0260 * x
+        SINPI += 0.0115 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[33]
+        s = si[33]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.2970 * y
+        DS += -0.2700 * y
+        GAM1C += 0.0020 * x
+        SINPI += -0.0009 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[17]
+        s = si[17]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2540 * y
+        DS += 0.2100 * y
+        GAM1C += -0.0030 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[37]
+        s = si[37]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.2500 * y
+        DS += -0.2200 * y
+        GAM1C += 0.0040 * x
+        SINPI += 0.0014 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -3.9960 * y
+        DS += 0.0000 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0004 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.5570 * y
+        DS += -0.7500 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0090 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.4590 * y
+        DS += -0.3800 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0053 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -1.2980 * y
+        DS += 0.7400 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0004 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[32]
+        s = si[32]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.5380 * y
+        DS += 1.1400 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0141 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.2630 * y
+        DS += 0.0200 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[29]
+        s = si[29]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[19]
+        s = si[19]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.4260 * y
+        DS += 0.0700 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0006 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3040 * y
+        DS += 0.0300 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0003 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[28]
+        s = si[28]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[21]
+        s = si[21]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[18]
+        s = si[18]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[35]
+        s = si[35]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3720 * y
+        DS += -0.1900 * y
+        GAM1C += 0.0000 * x
+        SINPI += -0.0027 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[42]
+        s = si[42]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += 0.4180 * y
+        DS += 0.0000 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
+    do {
+        var x = 1.0
+        var y = 0.0
+        var c = 0.0
+        var s = 0.0
+        var nextX = 0.0
+        c = co[36]
+        s = si[36]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        c = co[34]
+        s = si[34]
+        nextX = x*c - y*s
+        y = y*c + x*s
+        x = nextX
+        DLAM += -0.3300 * y
+        DS += -0.0400 * y
+        GAM1C += 0.0000 * x
+        SINPI += 0.0000 * x
+    }
 
     /** UPSTREAM: `ADDN`. */
     func ADDN(_ coeffn: Double, _ p: Int, _ q: Int, _ r: Int, _ s: Int) -> Double {
-        coeffn * Term(p, q, r, s).y
+        Term(p, q, r, s)
+        return coeffn * termY
     }
 
     var N = 0.0
