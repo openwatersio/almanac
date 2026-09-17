@@ -10,8 +10,9 @@ import Foundation
 // a grid can straddle both halves of a grazing pair (the polar-onset day where
 // the Sun sets at 08:00 and rises again at 08:16) and report neither. Here each
 // daily cycle's altitude extrema are located numerically and every monotonic
-// segment between consecutive extrema is bisected, so a pair of crossings
-// minutes apart is bracketed by construction rather than by luck of the grid.
+// segment between consecutive extrema is solved for each target level, so a
+// pair of crossings minutes apart is bracketed by construction rather than by
+// luck of the grid.
 // Hour angle supplies only the initial bracket: HA 0/12h are not the exact
 // extrema, because declination, distance and lunar parallax all drift within a
 // cycle, and toward the poles the daily altitude cycle flattens until the
@@ -77,7 +78,7 @@ private let moonCycleDays = 1.035050
 private let moonHaRateDegPerDay = 360.0 / moonCycleDays
 
 private let secondDays = 1.0 / 86400
-/** Bisection and golden-section both stop under a second; events are reported to the ms. */
+/** Every search stops under a second; events are reported to the ms. */
 private let timeTolDays = secondDays
 /** An extremum this close to the target grazes it without crossing: no event. */
 private let tangentEpsDeg = 1e-6
@@ -97,6 +98,7 @@ private let flatCycleLatitudeDeg = 85.0
 
 private let goldenSectionCap = 100
 private let bisectionCap = 60
+private let secantCap = 8
 private let hourAngleIterCap = 20
 private let moonPhaseIterCap = 50
 private let invPhi = 0.6180339887498949
@@ -215,8 +217,7 @@ private func nextHourAngle(_ sample: Sampler, _ afterUt: Double, _ targetHaDeg: 
 }
 
 /**
- * Golden-section refinement of the altitude extremum bracketed around
- * `centreUt`. Evaluating the true extremum is what makes a grazing pair
+ * Refinement of the altitude extremum bracketed around `centreUt`. Evaluating the true extremum is what makes a grazing pair
  * findable: the segment on either side of it is monotonic, so bisection can
  * only miss a crossing if the extremum itself was never seen.
  *
@@ -227,10 +228,92 @@ private func nextHourAngle(_ sample: Sampler, _ afterUt: Double, _ targetHaDeg: 
  * backwards and break the chain's ordering.
  */
 private func refineExtremum(
-    _ sample: Sampler, _ centreUt: Double, _ wantMax: Bool, _ halfWidthDays: Double, _ afterUt: Double
+    _ sample: Sampler, _ centreUt: Double, _ wantMax: Bool, _ halfWidthDays: Double, _ afterUt: Double,
+    _ flatCycle: Bool
 ) -> Sample {
-    var a = max(clampUt(centreUt - halfWidthDays), afterUt)
-    var b = clampUt(centreUt + halfWidthDays)
+    let a = max(clampUt(centreUt - halfWidthDays), afterUt)
+    let b = clampUt(centreUt + halfWidthDays)
+    if !flatCycle {
+        if let best = brentExtremum(sample, a, b, wantMax) { return best }
+    }
+    return goldenExtremum(sample, a, b, wantMax)
+}
+
+/**
+ * Brent's parabolic-plus-golden minimizer on `[a, b]`, scored for a maximum
+ * or minimum. Each step evaluates one sample; a parabola through the three
+ * best points supplies the step whenever it is finite, lands strictly inside
+ * the bracket, and contracts faster than the step before last, and golden
+ * section takes over otherwise. Returns `nil` when the search hits its cap or
+ * settles within a tolerance of the original bracket edge, where the flat,
+ * asymmetric altitude curve has made the parabola unreliable; the caller then
+ * runs the golden search unchanged.
+ */
+private func brentExtremum(_ sample: Sampler, _ a0: Double, _ b0: Double, _ wantMax: Bool) -> Sample? {
+    let cost: (Sample) -> Double = { wantMax ? -$0.altDeg : $0.altDeg }
+    var a = a0
+    var b = b0
+    var x = a + (1 - invPhi) * (b - a)
+    var w = x
+    var v = x
+    var sx = sample(x)
+    var fx = cost(sx)
+    var fw = fx
+    var fv = fx
+    var d = 0.0        // the last step taken
+    var e = 0.0        // the step before last, which the parabolic step must beat
+    for _ in 0..<goldenSectionCap {
+        if b - a < timeTolDays {
+            return x - a0 < timeTolDays || b0 - x < timeTolDays ? nil : sx
+        }
+        let tol1 = max(timeTolDays / 16, 4 * Double.ulpOfOne * abs(x))
+        let xm = (a + b) / 2
+        var golden = true
+        if abs(e) > tol1 {
+            let r = (x - w) * (fx - fv)
+            var q = (x - v) * (fx - fw)
+            var p = (x - v) * q - (x - w) * r
+            q = 2 * (q - r)
+            if q > 0 { p = -p }
+            q = abs(q)
+            let eTemp = e
+            e = d
+            if (p / q).isFinite && abs(p) < abs(0.5 * q * eTemp) && p > q * (a - x) && p < q * (b - x) {
+                d = p / q
+                // Near an edge the parabola only re-proposes the best point; step across it instead.
+                if x + d - a < 2 * tol1 || b - (x + d) < 2 * tol1 { d = xm >= x ? tol1 : -tol1 }
+                golden = false
+            }
+        }
+        if golden {
+            e = x >= xm ? a - x : b - x
+            d = (1 - invPhi) * e
+        }
+        let u = abs(d) >= tol1 ? x + d : x + (d >= 0 ? tol1 : -tol1)
+        let su = sample(u)
+        let fu = cost(su)
+        if fu <= fx {
+            if u >= x { a = x } else { b = x }
+            v = w; fv = fw
+            w = x; fw = fx
+            x = u; fx = fu; sx = su
+        } else {
+            if u < x { a = u } else { b = u }
+            if fu <= fw || w == x {
+                v = w; fv = fw
+                w = u; fw = fu
+            } else if fu <= fv || v == x || v == w {
+                v = u; fv = fu
+            }
+        }
+    }
+    return nil
+}
+
+/** Golden-section search of the extremum on `[a, b]`: slow, and safe on any curve shape. */
+private func goldenExtremum(_ sample: Sampler, _ a: Double, _ b: Double, _ wantMax: Bool) -> Sample {
+    var a = a
+    var b = b
     var x1 = b - invPhi * (b - a)
     var x2 = a + invPhi * (b - a)
     var s1 = sample(x1)
@@ -254,20 +337,29 @@ private func refineExtremum(
 }
 
 /**
- * Quadratically accelerated search for the single crossing of `level` on a
- * monotonic segment, with bisection if the estimate cannot be verified.
+ * The single crossing of `level` on a monotonic segment between two extrema,
+ * reported from inside a verified half-second bracket.
+ *
+ * Between extrema the altitude offset is close to a half cosine, so the cosine
+ * through the two endpoints predicts the crossing to within a minute for the
+ * Sun and a few minutes for the Moon, with no probe at all. Secant steps from
+ * that estimate reach the second in one or two probes, and one more probe on
+ * the side the last sign points to proves the bracket. Anything that escapes
+ * the segment, stalls, or fails the proof falls back to the quadratically
+ * accelerated bracketed search with bisection behind it.
  */
-private func bisectCrossing(_ sample: Sampler, _ level: Level, _ s0: Sample, _ s1: Sample) -> Double {
+private func solveCrossing(_ sample: Sampler, _ level: Level, _ s0: Sample, _ s1: Sample) -> Double {
     var a = s0.ut
     var b = s1.ut
     let belowAtA = offsetDeg(s0, level) < 0
-    // Reuse the phase search's quadratic acceleration, normalized to an
-    // ascending crossing. Endpoint geometry has already been evaluated.
+    // Normalized to an ascending crossing. Endpoint geometry has already been evaluated.
     func f(_ ut: Double) -> Double {
         (belowAtA ? 1 : -1) * offsetDeg(
             ut == s0.ut ? s0 : ut == s1.ut ? s1 : sample(ut), level
         )
     }
+    let targetDeg = level ?? (s0.riseSetAltDeg + s1.riseSetAltDeg) / 2
+    if let secant = secantCrossing(f, a, b, s0, s1, targetDeg) { return secant }
     if let root = search(f, a, b, 0.25, iterLimit: bisectionCap, what: "altitude crossing") {
         // A derivative-based estimate alone does not establish a time bound.
         // Accept only a verified half-second bracket, including near grazes.
@@ -282,6 +374,51 @@ private func bisectCrossing(_ sample: Sampler, _ level: Level, _ s0: Sample, _ s
     }
     assertReached(false, "crossing bisection")
     return (a + b) / 2
+}
+
+/**
+ * Secant refinement of the ascending crossing of `f` on `[a, b]`, started from
+ * the half cosine that the sine of altitude follows between two extrema.
+ * Returns the root inside a proven half-second bracket, or `nil` when the
+ * caller should run the bracketed search.
+ */
+private func secantCrossing(
+    _ f: (Double) -> Double, _ a: Double, _ b: Double, _ s0: Sample, _ s1: Sample, _ targetDeg: Double
+) -> Double? {
+    // sin(alt) ≈ c + amp·cos(π (t − a) / (b − a)) passes through both extrema; a
+    // constant declination and no parallax would make it exact.
+    let g0 = sin(s0.altDeg * DEG2RAD)
+    let g1 = sin(s1.altDeg * DEG2RAD)
+    let c = (g0 + g1) / 2
+    let amp = (g0 - g1) / 2
+    let ratio = (sin(targetDeg * DEG2RAD) - c) / amp
+    if !(abs(ratio) < 1) { return nil }
+    let theta = acos(ratio)
+    var t = a + theta * (b - a) / Double.pi
+    var slope = abs(amp) * sin(theta) * Double.pi / (b - a) / cos(targetDeg * DEG2RAD) * RAD2DEG
+    var ft = f(t)
+    for _ in 0..<secantCap {
+        let step = -ft / slope
+        if !step.isFinite { return nil }
+        if abs(step) < timeTolDays / 4 {
+            // The last sign says which side the root is on: prove a half-second
+            // bracket there, then report the secant root itself, held inside the
+            // bracket, so the answer does not jump with the side the probe picked.
+            if ft < 0 {
+                let right = min(b, t + timeTolDays / 2)
+                return f(right) >= 0 ? min(t + step, right) : nil
+            }
+            let left = max(a, t - timeTolDays / 2)
+            return f(left) < 0 ? max(left, t + step) : nil
+        }
+        let next = t + step
+        if next <= a || next >= b { return nil }
+        let fNext = f(next)
+        slope = (fNext - ft) / (next - t)
+        t = next
+        ft = fNext
+    }
+    return nil
 }
 
 // ------------------------------------------------------ the altitude search
@@ -303,8 +440,9 @@ private func searchAltitudeEvents<K>(
     endUt: Double,
     haRateDegPerDay: Double,
     cycleDays: Double,
-    extremumHalfWidthDays: Double
+    flatCycle: Bool
 ) throws -> [(time: Date, kind: K)] {
+    let halfWidthDays = flatCycle ? cycleDays / 2 : extremumHalfWidthDays
     var found: [(ut: Double, kind: K)] = []
     func emit(_ ut: Double, _ kind: K) {
         let q = quantizedUt(ut)
@@ -329,27 +467,16 @@ private func searchAltitudeEvents<K>(
         // extremum we are not allowed to probe past. The segment up to it is
         // still monotonic, so any crossing inside the window is still found.
         let s1 = atRangeEnd ? sample(maxUt)
-            : refineExtremum(sample, nextEst, nextIsMax, extremumHalfWidthDays, s0.ut)
+            : refineExtremum(sample, nextEst, nextIsMax, halfWidthDays, s0.ut, flatCycle)
         assertReached(s1.ut > s0.ut, "extremum chain ordering")
 
         // Earlier extrema still establish the chain, but their crossings cannot be emitted.
         if quantizedUt(s1.ut) >= startUt {
-            var crossingSample = sample
-            if levels.count > 1 {
-                // Twilight levels share midpoint probes; retain them only for this segment.
-                var samples = [Double: Sample]()
-                crossingSample = { ut in
-                    if let previous = samples[ut] { return previous }
-                    let current = sample(ut)
-                    samples[ut] = current
-                    return current
-                }
-            }
             for spec in levels {
                 let g0 = crossingSign(s0, spec.level)
                 let g1 = crossingSign(s1, spec.level)
                 if g0 * g1 >= 0 { continue }      // no crossing, or a graze that only touches
-                emit(bisectCrossing(crossingSample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling)
+                emit(solveCrossing(sample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling)
             }
         }
         if nextIsMax, let transitKind, !atRangeEnd { emit(nextEst, transitKind) }
@@ -375,8 +502,8 @@ private let moonLevels: [LevelSpec<MoonEventKind>] = [
     LevelSpec(level: nil, rising: .rise, falling: .set),
 ]
 
-private func extremumHalfWidth(_ observer: Observer, _ cycleDays: Double) -> Double {
-    abs(observer.latitudeDeg) >= flatCycleLatitudeDeg ? cycleDays / 2 : extremumHalfWidthDays
+private func flatCycle(_ observer: Observer) -> Bool {
+    abs(observer.latitudeDeg) >= flatCycleLatitudeDeg
 }
 
 /**
@@ -401,7 +528,7 @@ public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer) 
         sample: sunSampler(observer), levels: sunLevels, transitKind: .transit,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: sunHaRateDegPerDay, cycleDays: sunCycleDays,
-        extremumHalfWidthDays: extremumHalfWidth(observer, sunCycleDays)
+        flatCycle: flatCycle(observer)
     )
     return raw.map { SunEvent(time: $0.time, kind: $0.kind) }
 }
@@ -423,7 +550,7 @@ public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer)
         sample: moonSampler(observer), levels: moonLevels, transitKind: nil,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: moonHaRateDegPerDay, cycleDays: moonCycleDays,
-        extremumHalfWidthDays: extremumHalfWidth(observer, moonCycleDays)
+        flatCycle: flatCycle(observer)
     )
     return raw.map { MoonEvent(time: $0.time, kind: $0.kind) }
 }
