@@ -8,8 +8,9 @@
 // a grid can straddle both halves of a grazing pair (the polar-onset day where
 // the Sun sets at 08:00 and rises again at 08:16) and report neither. Here each
 // daily cycle's altitude extrema are located numerically and every monotonic
-// segment between consecutive extrema is bisected, so a pair of crossings
-// minutes apart is bracketed by construction rather than by luck of the grid.
+// segment between consecutive extrema is solved for each target level, so a
+// pair of crossings minutes apart is bracketed by construction rather than by
+// luck of the grid.
 // Hour angle supplies only the initial bracket: HA 0/12h are not the exact
 // extrema, because declination, distance and lunar parallax all drift within a
 // cycle, and toward the poles the daily altitude cycle flattens until the
@@ -26,7 +27,7 @@ import {
     SUPPORTED_MIN, SUPPORTED_MAX
 } from './types.js';
 import { dateFromUt, ttDaysFromUt, utDays } from './time.js';
-import { KM_PER_AU, RAD2DEG } from './nutation.js';
+import { DEG2RAD, KM_PER_AU, RAD2DEG } from './nutation.js';
 import { topoAltAzUnrefracted } from './transforms.js';
 import { sunGeoVectorEqj } from './sun.js';
 import { moonGeoVectorEqj } from './moon.js';
@@ -81,7 +82,7 @@ const MOON_CYCLE_DAYS = 1.035050;
 const MOON_HA_RATE_DEG_PER_DAY = 360 / MOON_CYCLE_DAYS;
 
 const SECOND_DAYS = 1 / 86400;
-/** Bisection and golden-section both stop under a second; events are reported to the ms. */
+/** Every search stops under a second; events are reported to the ms. */
 const TIME_TOL_DAYS = SECOND_DAYS;
 /** An extremum this close to the target grazes it without crossing: no event. */
 const TANGENT_EPS_DEG = 1e-6;
@@ -101,6 +102,7 @@ const FLAT_CYCLE_LATITUDE_DEG = 85;
 
 const GOLDEN_SECTION_CAP = 100;
 const BISECTION_CAP = 60;
+const SECANT_CAP = 8;
 const HOUR_ANGLE_ITER_CAP = 20;
 const MOON_PHASE_ITER_CAP = 50;
 const INV_PHI = 0.6180339887498949;
@@ -216,8 +218,7 @@ function nextHourAngle(sample: Sampler, afterUt: number, targetHaDeg: number, ra
 }
 
 /**
- * Golden-section refinement of the altitude extremum bracketed around
- * `centreUt`. Evaluating the true extremum is what makes a grazing pair
+ * Refinement of the altitude extremum bracketed around `centreUt`. Evaluating the true extremum is what makes a grazing pair
  * findable: the segment on either side of it is monotonic, so bisection can
  * only miss a crossing if the extremum itself was never seen.
  *
@@ -228,10 +229,91 @@ function nextHourAngle(sample: Sampler, afterUt: number, targetHaDeg: number, ra
  * backwards and break the chain's ordering.
  */
 function refineExtremum(
-    sample: Sampler, centreUt: number, wantMax: boolean, halfWidthDays: number, afterUt: number
+    sample: Sampler, centreUt: number, wantMax: boolean, halfWidthDays: number, afterUt: number,
+    flatCycle: boolean
 ): Sample {
-    let a = Math.max(clampUt(centreUt - halfWidthDays), afterUt);
-    let b = clampUt(centreUt + halfWidthDays);
+    const a = Math.max(clampUt(centreUt - halfWidthDays), afterUt);
+    const b = clampUt(centreUt + halfWidthDays);
+    if (!flatCycle) {
+        const best = brentExtremum(sample, a, b, wantMax);
+        if (best !== null) return best;
+    }
+    return goldenExtremum(sample, a, b, wantMax);
+}
+
+/**
+ * Brent's parabolic-plus-golden minimizer on `[a, b]`, scored for a maximum
+ * or minimum. Each step evaluates one sample; a parabola through the three
+ * best points supplies the step whenever it is finite, lands strictly inside
+ * the bracket, and contracts faster than the step before last, and golden
+ * section takes over otherwise. Returns `null` when the search hits its cap or
+ * settles within a tolerance of the original bracket edge, where the flat,
+ * asymmetric altitude curve has made the parabola unreliable; the caller then
+ * runs the golden search unchanged.
+ */
+function brentExtremum(sample: Sampler, a0: number, b0: number, wantMax: boolean): Sample | null {
+    const cost = (s: Sample) => (wantMax ? -s.altDeg : s.altDeg);
+    let a = a0;
+    let b = b0;
+    let x = a + (1 - INV_PHI) * (b - a);
+    let w = x;
+    let v = x;
+    let sx = sample(x);
+    let fx = cost(sx);
+    let fw = fx;
+    let fv = fx;
+    let d = 0;         // the last step taken
+    let e = 0;         // the step before last, which the parabolic step must beat
+    for (let i = 0; i < GOLDEN_SECTION_CAP; i++) {
+        if (b - a < TIME_TOL_DAYS) {
+            return x - a0 < TIME_TOL_DAYS || b0 - x < TIME_TOL_DAYS ? null : sx;
+        }
+        const tol1 = Math.max(TIME_TOL_DAYS / 16, 4 * Number.EPSILON * Math.abs(x));
+        const xm = (a + b) / 2;
+        let golden = true;
+        if (Math.abs(e) > tol1) {
+            const r = (x - w) * (fx - fv);
+            let q = (x - v) * (fx - fw);
+            let p = (x - v) * q - (x - w) * r;
+            q = 2 * (q - r);
+            if (q > 0) p = -p;
+            q = Math.abs(q);
+            const eTemp = e;
+            e = d;
+            if (Number.isFinite(p / q) && Math.abs(p) < Math.abs(0.5 * q * eTemp) && p > q * (a - x) && p < q * (b - x)) {
+                d = p / q;
+                // Near an edge the parabola only re-proposes the best point; step across it instead.
+                if (x + d - a < 2 * tol1 || b - (x + d) < 2 * tol1) d = xm >= x ? tol1 : -tol1;
+                golden = false;
+            }
+        }
+        if (golden) {
+            e = x >= xm ? a - x : b - x;
+            d = (1 - INV_PHI) * e;
+        }
+        const u = Math.abs(d) >= tol1 ? x + d : x + (d >= 0 ? tol1 : -tol1);
+        const su = sample(u);
+        const fu = cost(su);
+        if (fu <= fx) {
+            if (u >= x) a = x; else b = x;
+            v = w; fv = fw;
+            w = x; fw = fx;
+            x = u; fx = fu; sx = su;
+        } else {
+            if (u < x) a = u; else b = u;
+            if (fu <= fw || w === x) {
+                v = w; fv = fw;
+                w = u; fw = fu;
+            } else if (fu <= fv || v === x || v === w) {
+                v = u; fv = fu;
+            }
+        }
+    }
+    return null;
+}
+
+/** Golden-section search of the extremum on `[a, b]`: slow, and safe on any curve shape. */
+function goldenExtremum(sample: Sampler, a: number, b: number, wantMax: boolean): Sample {
     let x1 = b - INV_PHI * (b - a);
     let x2 = a + INV_PHI * (b - a);
     let s1 = sample(x1);
@@ -255,18 +337,28 @@ function refineExtremum(
 }
 
 /**
- * Quadratically accelerated search for the single crossing of `level` on a
- * monotonic segment, with bisection if the estimate cannot be verified.
+ * The single crossing of `level` on a monotonic segment between two extrema,
+ * reported from inside a verified half-second bracket.
+ *
+ * Between extrema the altitude offset is close to a half cosine, so the cosine
+ * through the two endpoints predicts the crossing to within a minute for the
+ * Sun and a few minutes for the Moon, with no probe at all. Secant steps from
+ * that estimate reach the second in one or two probes, and one more probe on
+ * the side the last sign points to proves the bracket. Anything that escapes
+ * the segment, stalls, or fails the proof falls back to the quadratically
+ * accelerated bracketed search with bisection behind it.
  */
-function bisectCrossing(sample: Sampler, level: Level, s0: Sample, s1: Sample): number {
+function solveCrossing(sample: Sampler, level: Level, s0: Sample, s1: Sample): number {
     let a = s0.ut;
     let b = s1.ut;
     const belowAtA = offsetDeg(s0, level) < 0;
-    // Reuse the phase search's quadratic acceleration, normalized to an
-    // ascending crossing. Endpoint geometry has already been evaluated.
+    // Normalized to an ascending crossing. Endpoint geometry has already been evaluated.
     const f = (ut: number) => (belowAtA ? 1 : -1) * offsetDeg(
         ut === s0.ut ? s0 : ut === s1.ut ? s1 : sample(ut), level
     );
+    const targetDeg = level === null ? (s0.riseSetAltDeg + s1.riseSetAltDeg) / 2 : level;
+    const secant = secantCrossing(f, a, b, s0, s1, targetDeg);
+    if (secant !== null) return secant;
     const root = search(f, a, b, 0.25, BISECTION_CAP, 'altitude crossing');
     if (root !== null) {
         // A derivative-based estimate alone does not establish a time bound.
@@ -283,6 +375,51 @@ function bisectCrossing(sample: Sampler, level: Level, s0: Sample, s1: Sample): 
     }
     assertReached(false, 'crossing bisection');
     return (a + b) / 2;
+}
+
+/**
+ * Secant refinement of the ascending crossing of `f` on `[a, b]`, started from
+ * the half cosine that the sine of altitude follows between two extrema.
+ * Returns the root inside a proven half-second bracket, or `null` when the
+ * caller should run the bracketed search.
+ */
+function secantCrossing(
+    f: (ut: number) => number, a: number, b: number, s0: Sample, s1: Sample, targetDeg: number
+): number | null {
+    // sin(alt) ≈ c + amp·cos(π (t − a) / (b − a)) passes through both extrema; a
+    // constant declination and no parallax would make it exact.
+    const g0 = Math.sin(s0.altDeg * DEG2RAD);
+    const g1 = Math.sin(s1.altDeg * DEG2RAD);
+    const c = (g0 + g1) / 2;
+    const amp = (g0 - g1) / 2;
+    const ratio = (Math.sin(targetDeg * DEG2RAD) - c) / amp;
+    if (!(Math.abs(ratio) < 1)) return null;
+    const theta = Math.acos(ratio);
+    let t = a + theta * (b - a) / Math.PI;
+    let slope = Math.abs(amp) * Math.sin(theta) * Math.PI / (b - a) / Math.cos(targetDeg * DEG2RAD) * RAD2DEG;
+    let ft = f(t);
+    for (let i = 0; i < SECANT_CAP; i++) {
+        const step = -ft / slope;
+        if (!Number.isFinite(step)) return null;
+        if (Math.abs(step) < TIME_TOL_DAYS / 4) {
+            // The last sign says which side the root is on: prove a half-second
+            // bracket there, then report the secant root itself, held inside the
+            // bracket, so the answer does not jump with the side the probe picked.
+            if (ft < 0) {
+                const right = Math.min(b, t + TIME_TOL_DAYS / 2);
+                return f(right) >= 0 ? Math.min(t + step, right) : null;
+            }
+            const left = Math.max(a, t - TIME_TOL_DAYS / 2);
+            return f(left) < 0 ? Math.max(left, t + step) : null;
+        }
+        const next = t + step;
+        if (next <= a || next >= b) return null;
+        const fNext = f(next);
+        slope = (fNext - ft) / (next - t);
+        t = next;
+        ft = fNext;
+    }
+    return null;
 }
 
 // ------------------------------------------------------ the altitude search
@@ -304,8 +441,9 @@ function searchAltitudeEvents<K extends string>(
     endUt: number,
     haRateDegPerDay: number,
     cycleDays: number,
-    extremumHalfWidthDays: number
+    flatCycle: boolean
 ): { time: Date; kind: K }[] {
+    const extremumHalfWidthDays = flatCycle ? cycleDays / 2 : EXTREMUM_HALF_WIDTH_DAYS;
     const found: { ut: number; kind: K }[] = [];
     const emit = (ut: number, kind: K) => {
         const q = quantizedUt(ut);
@@ -329,28 +467,16 @@ function searchAltitudeEvents<K extends string>(
         // extremum we are not allowed to probe past. The segment up to it is
         // still monotonic, so any crossing inside the window is still found.
         const s1 = atRangeEnd ? sample(MAX_UT)
-            : refineExtremum(sample, nextEst, nextIsMax, extremumHalfWidthDays, s0.ut);
+            : refineExtremum(sample, nextEst, nextIsMax, extremumHalfWidthDays, s0.ut, flatCycle);
         assertReached(s1.ut > s0.ut, 'extremum chain ordering');
 
         // Earlier extrema still establish the chain, but their crossings cannot be emitted.
         if (quantizedUt(s1.ut) >= startUt) {
-            let crossingSample = sample;
-            if (levels.length > 1) {
-                // Twilight levels share midpoint probes; retain them only for this segment.
-                const samples = new Map<number, Sample>();
-                crossingSample = (ut) => {
-                    const previous = samples.get(ut);
-                    if (previous) return previous;
-                    const current = sample(ut);
-                    samples.set(ut, current);
-                    return current;
-                };
-            }
             for (const spec of levels) {
                 const g0 = crossingSign(s0, spec.level);
                 const g1 = crossingSign(s1, spec.level);
                 if (g0 * g1 >= 0) continue;      // no crossing, or a graze that only touches
-                emit(bisectCrossing(crossingSample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
+                emit(solveCrossing(sample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
             }
         }
         if (nextIsMax && transitKind !== null && !atRangeEnd) emit(nextEst, transitKind);
@@ -376,10 +502,8 @@ const MOON_LEVELS: readonly LevelSpec<MoonEventKind>[] = [
     { level: null, rising: 'rise', falling: 'set' },
 ];
 
-function extremumHalfWidth(observer: Observer, cycleDays: number): number {
-    return Math.abs(observer.latitudeDeg) >= FLAT_CYCLE_LATITUDE_DEG
-        ? cycleDays / 2
-        : EXTREMUM_HALF_WIDTH_DAYS;
+function flatCycle(observer: Observer): boolean {
+    return Math.abs(observer.latitudeDeg) >= FLAT_CYCLE_LATITUDE_DEG;
 }
 
 /**
@@ -402,7 +526,7 @@ export function sunEvents(startUtc: Date, endUtc: Date, observer: Observer): Sun
     return searchAltitudeEvents(
         sunSampler(observer), SUN_LEVELS, 'transit',
         utDays(startUtc), utDays(endUtc),
-        SUN_HA_RATE_DEG_PER_DAY, SUN_CYCLE_DAYS, extremumHalfWidth(observer, SUN_CYCLE_DAYS)
+        SUN_HA_RATE_DEG_PER_DAY, SUN_CYCLE_DAYS, flatCycle(observer)
     );
 }
 
@@ -420,7 +544,7 @@ export function moonEvents(startUtc: Date, endUtc: Date, observer: Observer): Mo
     return searchAltitudeEvents(
         moonSampler(observer), MOON_LEVELS, null,
         utDays(startUtc), utDays(endUtc),
-        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, extremumHalfWidth(observer, MOON_CYCLE_DAYS)
+        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer)
     );
 }
 
