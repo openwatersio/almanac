@@ -10,12 +10,15 @@
 
 import { C_AUDAY, PI2, PrecessDirection, Vec3, gyration } from './nutation.js';
 
-type VsopSeries = number[][];
-type VsopFormula = VsopSeries[];
+export type VsopFormula = number[][][];
 type VsopModel = [VsopFormula, VsopFormula, VsopFormula];
 
-/** UPSTREAM: `vsop.Earth`, astronomy.ts lines 555-628 (longitude, latitude, radius). */
-const vsopEarth: VsopModel = [
+/**
+ * UPSTREAM: `vsop.Earth`, astronomy.ts lines 555-628 (longitude, latitude,
+ * radius). The reference the unrolled `earthLon`/`earthLat`/`earthRad`
+ * below are checked against; exported for that test only.
+ */
+export const vsopEarth: VsopModel = [
   [
     [
       [1.75347045673, 0.00000000000, 0.00000000000],
@@ -93,24 +96,121 @@ const vsopEarth: VsopModel = [
 
 /** UPSTREAM: astronomy.ts lines 3229-3232. */
 const DAYS_PER_MILLENNIUM = 365250;
-const LON_INDEX = 0;
-const LAT_INDEX = 1;
-const RAD_INDEX = 2;
 
-/** UPSTREAM: `VsopFormula`, astronomy.ts lines 3191-3205. */
-function vsopFormula(formula: VsopFormula, t: number, clamp_angle: boolean): number {
+/**
+ * UPSTREAM: `VsopFormula`, astronomy.ts lines 3191-3205, written out term by
+ * term for `vsop.Earth` because the event searches evaluate it tens of
+ * thousands of times. Term order, per-series scaling, clamping and
+ * accumulation match upstream's loop, so the result is bit-for-bit the same;
+ * `test/positions.test.ts` checks that against the table above.
+ */
+function earthLon(t: number): number {
     let tpower = 1;
     let coord = 0;
-    for (let series of formula) {
-        let sum = 0;
-        for (let [ampl, phas, freq] of series)
-            sum += ampl * Math.cos(phas + (t * freq));
-        let incr = tpower * sum;
-        if (clamp_angle)
-            incr %= PI2;    // improve precision for longitudes: they can be hundreds of radians
-        coord += incr;
-        tpower *= t;
-    }
+    let sum: number;
+    let incr: number;
+    sum = 0;
+    sum += 1.75347045673;   // cos(0) is 1 exactly
+    sum += 0.03341656453 * Math.cos(4.66925680415 + (t * 6283.07584999140));
+    sum += 0.00034894275 * Math.cos(4.62610242189 + (t * 12566.15169998280));
+    sum += 0.00003417572 * Math.cos(2.82886579754 + (t * 3.52311834900));
+    sum += 0.00003497056 * Math.cos(2.74411783405 + (t * 5753.38488489680));
+    sum += 0.00003135899 * Math.cos(3.62767041756 + (t * 77713.77146812050));
+    sum += 0.00002676218 * Math.cos(4.41808345438 + (t * 7860.41939243920));
+    sum += 0.00002342691 * Math.cos(6.13516214446 + (t * 3930.20969621960));
+    sum += 0.00001273165 * Math.cos(2.03709657878 + (t * 529.69096509460));
+    sum += 0.00001324294 * Math.cos(0.74246341673 + (t * 11506.76976979360));
+    sum += 0.00000901854 * Math.cos(2.04505446477 + (t * 26.29831979980));
+    sum += 0.00001199167 * Math.cos(1.10962946234 + (t * 1577.34354244780));
+    sum += 0.00000857223 * Math.cos(3.50849152283 + (t * 398.14900340820));
+    sum += 0.00000779786 * Math.cos(1.17882681962 + (t * 5223.69391980220));
+    sum += 0.00000990250 * Math.cos(5.23268072088 + (t * 5884.92684658320));
+    sum += 0.00000753141 * Math.cos(2.53339052847 + (t * 5507.55323866740));
+    sum += 0.00000505267 * Math.cos(4.58292599973 + (t * 18849.22754997420));
+    sum += 0.00000492392 * Math.cos(4.20505711826 + (t * 775.52261132400));
+    sum += 0.00000356672 * Math.cos(2.91954114478 + (t * 0.06731030280));
+    sum += 0.00000284125 * Math.cos(1.89869240932 + (t * 796.29800681640));
+    sum += 0.00000242879 * Math.cos(0.34481445893 + (t * 5486.77784317500));
+    sum += 0.00000317087 * Math.cos(5.84901948512 + (t * 11790.62908865880));
+    sum += 0.00000271112 * Math.cos(0.31486255375 + (t * 10977.07880469900));
+    sum += 0.00000206217 * Math.cos(4.80646631478 + (t * 2544.31441988340));
+    sum += 0.00000205478 * Math.cos(1.86953770281 + (t * 5573.14280143310));
+    sum += 0.00000202318 * Math.cos(2.45767790232 + (t * 6069.77675455340));
+    sum += 0.00000126225 * Math.cos(1.08295459501 + (t * 20.77539549240));
+    sum += 0.00000155516 * Math.cos(0.83306084617 + (t * 213.29909543800));
+    incr = tpower * sum;
+    incr %= PI2;
+    coord += incr;
+    tpower *= t;
+    sum = 0;
+    sum += 6283.07584999140;   // cos(0) is 1 exactly
+    sum += 0.00206058863 * Math.cos(2.67823455808 + (t * 6283.07584999140));
+    sum += 0.00004303419 * Math.cos(2.63512233481 + (t * 12566.15169998280));
+    incr = tpower * sum;
+    incr %= PI2;
+    coord += incr;
+    tpower *= t;
+    sum = 0;
+    sum += 0.00008721859 * Math.cos(1.07253635559 + (t * 6283.07584999140));
+    incr = tpower * sum;
+    incr %= PI2;
+    coord += incr;
+    tpower *= t;
+    return coord;
+}
+
+function earthLat(t: number): number {
+    let tpower = 1;
+    let coord = 0;
+    let sum: number;
+    let incr: number;
+    sum = 0;
+    incr = tpower * sum;
+    coord += incr;
+    tpower *= t;
+    sum = 0;
+    sum += 0.00227777722 * Math.cos(3.41376620530 + (t * 6283.07584999140));
+    sum += 0.00003805678 * Math.cos(3.37063423795 + (t * 12566.15169998280));
+    incr = tpower * sum;
+    coord += incr;
+    tpower *= t;
+    return coord;
+}
+
+function earthRad(t: number): number {
+    let tpower = 1;
+    let coord = 0;
+    let sum: number;
+    let incr: number;
+    sum = 0;
+    sum += 1.00013988784;   // cos(0) is 1 exactly
+    sum += 0.01670699632 * Math.cos(3.09846350258 + (t * 6283.07584999140));
+    sum += 0.00013956024 * Math.cos(3.05524609456 + (t * 12566.15169998280));
+    sum += 0.00003083720 * Math.cos(5.19846674381 + (t * 77713.77146812050));
+    sum += 0.00001628463 * Math.cos(1.17387558054 + (t * 5753.38488489680));
+    sum += 0.00001575572 * Math.cos(2.84685214877 + (t * 7860.41939243920));
+    sum += 0.00000924799 * Math.cos(5.45292236722 + (t * 11506.76976979360));
+    sum += 0.00000542439 * Math.cos(4.56409151453 + (t * 3930.20969621960));
+    sum += 0.00000472110 * Math.cos(3.66100022149 + (t * 5884.92684658320));
+    sum += 0.00000085831 * Math.cos(1.27079125277 + (t * 161000.68573767410));
+    sum += 0.00000057056 * Math.cos(2.01374292245 + (t * 83996.84731811189));
+    sum += 0.00000055736 * Math.cos(5.24159799170 + (t * 71430.69561812909));
+    sum += 0.00000174844 * Math.cos(3.01193636733 + (t * 18849.22754997420));
+    sum += 0.00000243181 * Math.cos(4.27349530790 + (t * 11790.62908865880));
+    incr = tpower * sum;
+    coord += incr;
+    tpower *= t;
+    sum = 0;
+    sum += 0.00103018607 * Math.cos(1.10748968172 + (t * 6283.07584999140));
+    sum += 0.00001721238 * Math.cos(1.06442300386 + (t * 12566.15169998280));
+    incr = tpower * sum;
+    coord += incr;
+    tpower *= t;
+    sum = 0;
+    sum += 0.00004359385 * Math.cos(5.78455133808 + (t * 6283.07584999140));
+    incr = tpower * sum;
+    coord += incr;
+    tpower *= t;
     return coord;
 }
 
@@ -142,9 +242,9 @@ function vsopSphereToRect(lon: number, lat: number, radius: number): Vec3 {
  */
 export function earthHelioVector(tt: number): Vec3 {
     const t = tt / DAYS_PER_MILLENNIUM;   // millennia since 2000
-    const lon = vsopFormula(vsopEarth[LON_INDEX], t, true);
-    const lat = vsopFormula(vsopEarth[LAT_INDEX], t, false);
-    const rad = vsopFormula(vsopEarth[RAD_INDEX], t, false);
+    const lon = earthLon(t);
+    const lat = earthLat(t);
+    const rad = earthRad(t);
     const eclip = vsopSphereToRect(lon, lat, rad);
     return vsopRotate(eclip);
 }
