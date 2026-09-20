@@ -26,31 +26,32 @@ cover positions, a 228-hour sky track, short/year/polar event windows, full-rang
 moon phases, next/previous/range lunar and solar eclipse searches, including empty
 windows, and solar obscuration over a 228-hour track.
 
-The v0.2.1 optimizations reuse Moon and shadow geometry, flatten scratch arrays,
-and refine altitude crossings with fewer position evaluations. In the
-[hosted CI comparison](https://github.com/openwatersio/almanac/actions/runs/34119038860),
-median query time fell relative to the v0.2.0 astronomy code:
+Event searches find altitude extrema with Brent's method and altitude crossings
+with a cosine-seeded secant solver, each root proven inside a half-second
+bracket, and the TypeScript Sun series evaluates its terms as straight-line
+arithmetic. Median query time relative to v0.4.1:
 
 | Workload | TypeScript: less time | Swift: less time |
 | --- | ---: | ---: |
-| Moon positions / 1,024 hours | 29.8% | 22.1% |
-| Sky track / 228 hours | 40.0% | 42.4% |
-| Sun events / 228 hours | 39.3% | 40.2% |
-| Moon events / 228 hours | 39.1% | 35.1% |
-| Previous lunar eclipse | 26.0% | 36.6% |
-| Lunar eclipses / 1950–2100 | 26.4% | 23.4% |
+| Sun events / year | 73.4% | 62.8% |
+| Moon events / year | 57.6% | 57.4% |
+| Sun events / 228 hours | 73.4% | 61.9% |
+| Moon events / 228 hours | 57.1% | 57.0% |
+| Sun positions / 1,024 hours | 35.5% | — |
+| Lunar eclipses / 1950–2100 | 24.6% | — |
 
-TypeScript was measured on Ubuntu; Swift used release builds on macOS. Each comparison builds both revisions with the same harness and toolchain, then takes seven interleaved process pairs with 300 ms warmup per process. Build and startup time are excluded. Timings vary by machine; the shared correctness fixtures and parity tolerances remain the accuracy gates.
+Swift already evaluated the Sun series efficiently, so its gains are confined to
+the searches. Each comparison builds both revisions with the same harness and toolchain, then takes seven interleaved process pairs with 300 ms warmup per process. Build and startup time are excluded. Timings vary by machine; the shared correctness fixtures and parity tolerances remain the accuracy gates.
 
 Reproduce the comparison locally from the repository root with mise 2026.9.1 or newer after installing the configured Node and Swift versions in `mise.toml`:
 
 ```bash
 mise install
 mise exec -- npm ci --prefix typescript
-mise exec -- node benchmarks/run.mjs --base v0.2.0 --skip '^solar/'
+mise exec -- node benchmarks/run.mjs --base v0.4.1
 ```
 
-The `--skip` pattern leaves out the solar eclipse workloads, which need a base of 0.4.0 or later.
+Pass `--skip '^solar/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived.
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.
 Results include timing tables, raw samples, checksums, and revision/toolchain
