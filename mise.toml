@@ -1,5 +1,11 @@
-min_version = "2026.9.1"
+min_version = "2026.9.6"
 
 [tools]
 node = "22"
-swift = "6.3.3"
+swift = [
+  # A standalone macOS toolchain borrows Apple's SDK from Xcode and must match
+  # it; Xcode 27 ships the Swift 6.4 SDK, which 6.3.3 cannot parse.
+  { version = "6.4.0", os = "macos" },
+  # Linux is self-contained and mirrors the ubuntu-latest image CI builds with.
+  { version = "6.3.3", os = "linux" },
+]

@@ -38,15 +38,17 @@ The shared organization guidance is in the [repository standards](https://github
 
 ## Development checks
 
-CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `ubuntu-latest` supplies Swift (6.3.3 in the current Ubuntu 24.04 runner image). Local `mise.toml` mirrors those versions. Update it when CI changes; workflows do not read it. The npm packaging and publishing jobs use Node 24 for trusted publishing.
+CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `ubuntu-latest` supplies Swift (6.3.3 in the current Ubuntu 24.04 runner image). The npm packaging and publishing jobs use Node 24 for trusted publishing.
 
-For local setup, mise 2026.9.1 or newer provides the core Swift backend:
+Local `mise.toml` selects Swift per operating system, and workflows do not read it. The Linux entry mirrors the runner image, which is the version of record; update it when the image changes. The macOS entry instead tracks the Swift version in the installed Xcode, because a standalone macOS toolchain borrows Apple's SDK from Xcode and fails against an SDK newer than itself. Raise it when Xcode moves to a new Swift release.
+
+For local setup, mise 2026.9.6 or newer provides the core Swift backend and the per-operating-system tool selection `mise.toml` uses:
 
 ```bash
 mise install
 ```
 
-CI runs SwiftPM on Linux without Xcode. For local macOS checks, select an Xcode SDK compatible with the Swift version in `mise.toml`; mise installs the compiler, not Apple's SDK.
+CI runs SwiftPM on Linux without Xcode. On macOS, mise installs the compiler but not Apple's SDK, so the macOS entry in `mise.toml` has to match the Xcode in use. A mismatch fails while compiling a package manifest, reporting an unknown `-target-arch-variant` argument and a missing `URL`.
 
 Run the correctness, dependency, and package checks from the repository root:
 
