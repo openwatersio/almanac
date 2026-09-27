@@ -57,6 +57,11 @@ public struct GlobalSolarEclipse: Sendable {
     }
 }
 
+/// What an observer on the central line sees: the Moon's shadow axis only meets the ground inside a central phase.
+public enum SolarEclipseAxisKind: String, Sendable {
+    case annular, total
+}
+
 /// A point on a solar eclipse's central line: where the Moon's shadow axis meets the ground at one instant.
 public struct SolarEclipseAxisPoint: Sendable {
     public let time: Date
@@ -64,12 +69,12 @@ public struct SolarEclipseAxisPoint: Sendable {
     public let latitudeDeg: Double
     /// Longitude, degrees east in (−180, 180].
     public let longitudeDeg: Double
-    /// `total` or `annular` at this point, never `partial`; the kind can change along a hybrid path.
-    public let kind: SolarEclipseKind
+    /// `total` or `annular` at this point; the kind can change along a hybrid path.
+    public let kind: SolarEclipseAxisKind
     /// Fraction of the Sun's disc area covered at this point; exactly 1 for a total eclipse.
     public let obscuration: Double
 
-    public init(time: Date, latitudeDeg: Double, longitudeDeg: Double, kind: SolarEclipseKind, obscuration: Double) {
+    public init(time: Date, latitudeDeg: Double, longitudeDeg: Double, kind: SolarEclipseAxisKind, obscuration: Double) {
         self.time = time; self.latitudeDeg = latitudeDeg; self.longitudeDeg = longitudeDeg
         self.kind = kind; self.obscuration = obscuration
     }
@@ -432,7 +437,7 @@ public func solarEclipseCentralLine(peak: Date, stepSeconds: Int = 60) throws ->
 private func axisPoint(_ time: Date, _ ground: GroundPoint) -> SolarEclipseAxisPoint {
     SolarEclipseAxisPoint(
         time: time, latitudeDeg: ground.latitudeDeg, longitudeDeg: ground.longitudeDeg,
-        kind: ground.kind, obscuration: ground.obscuration)
+        kind: ground.kind == .total ? .total : .annular, obscuration: ground.obscuration)
 }
 
 /**

@@ -164,5 +164,7 @@ final class PublicSurfaceTests: XCTestCase {
         // which a `@testable` test would not catch.
         let hand = SolarEclipseAxisPoint(time: e.peak, latitudeDeg: 37, longitudeDeg: -88, kind: .total, obscuration: 1)
         XCTAssertEqual(hand.kind, .total)
+        let kinds: [SolarEclipseAxisKind] = [.annular, .total]
+        XCTAssertEqual(kinds.map { $0.rawValue }, ["annular", "total"])
     }
 }

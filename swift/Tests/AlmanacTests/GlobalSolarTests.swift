@@ -395,7 +395,7 @@ final class GlobalSolarTests: XCTestCase {
                 let found = try solarEclipses(from: p.time.addingTimeInterval(-Self.day), to: p.time.addingTimeInterval(Self.day), observer: observer)
                 guard found.count == 1, let local = found.first else { bad.append("\(p.time): \(found.count) local eclipses"); continue }
                 let dt = abs(local.peak.timeIntervalSince(p.time))
-                if dt > 2 || local.kind != p.kind { bad.append("\(p.time): local \(local.kind.rawValue) \(dt) s off") }
+                if dt > 2 || local.kind.rawValue != p.kind.rawValue { bad.append("\(p.time): local \(local.kind.rawValue) \(dt) s off") }
             }
         }
         XCTAssertGreaterThan(checked, 900)
@@ -454,7 +454,7 @@ final class GlobalSolarTests: XCTestCase {
             let p = try solarEclipseAxisPoint(at: e.peak)
             if e.kind == .partial { XCTAssertNil(p, "\(e.peak)"); continue }
             let point = try XCTUnwrap(p, "\(e.peak)")
-            XCTAssertEqual(point.kind, e.kind, "\(e.peak)")
+            XCTAssertEqual(point.kind.rawValue, e.kind.rawValue, "\(e.peak)")
             XCTAssertLessThan(abs(point.latitudeDeg - e.latitudeDeg!), 1e-3, "\(e.peak)")
             XCTAssertLessThan(abs((point.longitudeDeg - e.longitudeDeg! + 540).truncatingRemainder(dividingBy: 360) - 180), 1e-3, "\(e.peak)")
             XCTAssertLessThan(abs(point.obscuration - e.obscuration!), 1e-6, "\(e.peak)")
