@@ -3,10 +3,11 @@
 // port drift below physical tolerances. Covers positions/altaz/illumination
 // every 8 days 1950-2100, monthly sun/moon events and phases over 2026,
 // every lunar eclipse 1950-2100, every solar eclipse each observer can see
-// 1950-2100, and obscuration through two Victoria partials. Consumes the
-// BUILT TS package (public API only -- `npm run build` in typescript/
-// first) and writes scaled-integer JSON under fixtures/parity/. Row order
-// is fixed (ascending sample time / observer index / eclipse peak);
+// 1950-2100, obscuration through two Victoria partials, and every global
+// solar eclipse 1950-2100 with next/previous anchors and range windows.
+// Consumes the BUILT TS package (public API only -- `npm run build` in
+// typescript/ first) and writes scaled-integer JSON under fixtures/parity/.
+// Row order is fixed (ascending sample time / observer index / eclipse peak);
 // provenance (the two ports' generating commit shas, passed as argv --
 // never exec'd, never compared) lands only in the uncompared meta.json.
 //
@@ -23,6 +24,7 @@ import {
     sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
     solarEclipses, solarObscuration,
+    nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -63,6 +65,20 @@ export const PHASE_WINDOW_2026 = { startMs: Date.UTC(2026, 0, 1), endMs: Date.UT
 export const OBSCURATION_TRACKS = [
     { observerIdx: 0, startMs: Date.UTC(2024, 3, 8, 17, 30), endMs: Date.UTC(2024, 3, 8, 19, 30), stepMs: 120000 },
     { observerIdx: 0, startMs: Date.UTC(2017, 7, 21, 16, 0), endMs: Date.UTC(2017, 7, 21, 18, 30), stepMs: 120000 },
+];
+
+/** Global solar eclipse anchors for next and previous: the interval's first and last eclipses, and some between. */
+export const GLOBAL_SOLAR_ANCHORS_MS = [
+    Date.UTC(1950, 5, 1), Date.UTC(1975, 0, 1), Date.UTC(2000, 0, 1), Date.UTC(2026, 8, 27),
+    Date.UTC(2050, 0, 1), Date.UTC(2075, 0, 1), Date.UTC(2100, 5, 1),
+];
+
+/** Global solar eclipse windows: the whole interval, a year with a total and an annular eclipse, a year of partials, and an empty window. */
+export const GLOBAL_SOLAR_WINDOWS = [
+    { startMs: MIN_MS, endMs: MAX_MS },
+    { startMs: Date.UTC(2026, 0, 1), endMs: Date.UTC(2027, 0, 1) },
+    { startMs: Date.UTC(2025, 0, 1), endMs: Date.UTC(2026, 0, 1) },
+    { startMs: Date.UTC(2026, 8, 1), endMs: Date.UTC(2027, 0, 1) },
 ];
 
 // -------------------------------------------------------------- quantizing
@@ -205,6 +221,34 @@ function buildSolar() {
     return { observers: OBSERVERS, eclipses, obscuration };
 }
 
+function globalSolarRow(e) {
+    return {
+        kind: e.kind,
+        peakMs: qEventMs(e.peak),
+        axisDistanceKm: qKm(e.axisDistanceKm),
+        latitudeDeg: e.latitudeDeg === null ? null : qAngle(e.latitudeDeg),
+        longitudeDeg: e.longitudeDeg === null ? null : qAngle(e.longitudeDeg),
+        obscuration: e.obscuration === null ? null : qFrac(e.obscuration),
+    };
+}
+
+function buildGlobalSolar() {
+    // The global solar tests prove next/previous walks reproduce the full
+    // range exactly; the anchors put both single-eclipse entry points in the
+    // corpus as well.
+    const anchors = GLOBAL_SOLAR_ANCHORS_MS.map((tMs) => ({
+        tMs,
+        next: globalSolarRow(nextGlobalSolarEclipse(new Date(tMs))),
+        previous: globalSolarRow(previousGlobalSolarEclipse(new Date(tMs))),
+    }));
+    const windows = GLOBAL_SOLAR_WINDOWS.map(({ startMs, endMs }) => ({
+        startMs,
+        endMs,
+        eclipses: globalSolarEclipses(new Date(startMs), new Date(endMs)).map(globalSolarRow),
+    }));
+    return { anchors, windows };
+}
+
 function json(obj) {
     return JSON.stringify(obj, null, 2) + "\n";
 }
@@ -227,6 +271,8 @@ function buildMeta(tsCommit, swiftCommit, files) {
             eclipses: files.eclipses.eclipses.length,
             solarEclipses: files.solar.eclipses.length,
             obscurationSamples: files.solar.obscuration.length,
+            globalSolarAnchors: files.globalSolar.anchors.length,
+            globalSolarEclipses: files.globalSolar.windows.reduce((n, w) => n + w.eclipses.length, 0),
         },
     });
 }
@@ -236,7 +282,8 @@ export function buildCorpus() {
     const events = buildEvents();
     const eclipses = buildEclipses();
     const solar = buildSolar();
-    return { positions, altaz, illumination, events, eclipses, solar };
+    const globalSolar = buildGlobalSolar();
+    return { positions, altaz, illumination, events, eclipses, solar, globalSolar };
 }
 
 // ------------------------------------------------------- near-exact check
@@ -268,6 +315,9 @@ const REPRO_TIME_MS = 100;
 const EXACT = "exact", SCALED = "scaled", TIME = "time";
 
 const OBSERVER_SCHEMA = { latitudeDeg: EXACT, longitudeDeg: EXACT };
+const GLOBAL_SOLAR_ECLIPSE_SCHEMA = {
+    kind: EXACT, peakMs: TIME, axisDistanceKm: SCALED, latitudeDeg: SCALED, longitudeDeg: SCALED, obscuration: SCALED,
+};
 const ROW_SCHEMAS = {
     positions: {
         tMs: EXACT,
@@ -298,6 +348,8 @@ const ROW_SCHEMAS = {
         sunAltDeg: { c1: SCALED, c2: SCALED, peak: SCALED, c3: SCALED, c4: SCALED },
     },
     obscuration: { observerIdx: EXACT, tMs: EXACT, value: SCALED },
+    globalSolarAnchor: { tMs: EXACT, next: GLOBAL_SOLAR_ECLIPSE_SCHEMA, previous: GLOBAL_SOLAR_ECLIPSE_SCHEMA },
+    globalSolarWindow: { startMs: EXACT, endMs: EXACT, eclipses: [GLOBAL_SOLAR_ECLIPSE_SCHEMA] },
 };
 
 /** Recursively compares `a` vs `b` against `schema` (object/array of schema,
@@ -368,6 +420,10 @@ function checkFile(rel, fresh, committed) {
             compareNode("solar.eclipses", [ROW_SCHEMAS.solarEclipse], fresh.eclipses, committed.eclipses, ctx);
             compareNode("solar.obscuration", [ROW_SCHEMAS.obscuration], fresh.obscuration, committed.obscuration, ctx);
             break;
+        case "globalSolar.json":
+            compareNode("globalSolar.anchors", [ROW_SCHEMAS.globalSolarAnchor], fresh.anchors, committed.anchors, ctx);
+            compareNode("globalSolar.windows", [ROW_SCHEMAS.globalSolarWindow], fresh.windows, committed.windows, ctx);
+            break;
         default: throw new Error(`checkFile: no schema for ${rel}`);
     }
     return ctx;
@@ -398,6 +454,7 @@ function main() {
         "events.json": files.events,
         "eclipses.json": files.eclipses,
         "solar.json": files.solar,
+        "globalSolar.json": files.globalSolar,
     };
     const metaDest = new URL("meta.json", FIXTURES_DIR);
 
