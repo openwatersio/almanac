@@ -21,10 +21,11 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 
 ## Performance
 
-Almanac includes a shared performance harness for both ports: **22 workloads**
+Almanac includes a shared performance harness for both ports: **27 workloads**
 cover positions, a 228-hour sky track, short/year/polar event windows, full-range
-moon phases, next/previous/range lunar and solar eclipse searches, including empty
-windows, and solar obscuration over a 228-hour track.
+moon phases, next/previous/range lunar, solar, and global solar eclipse searches,
+including empty windows, solar obscuration over a 228-hour track, and the central
+line of the 2024-04-08 eclipse.
 
 Event searches find altitude extrema with Brent's method and altitude crossings
 with a cosine-seeded secant solver, each root proven inside a half-second
@@ -48,10 +49,10 @@ Reproduce the comparison locally from the repository root with mise 2026.9.1 or 
 ```bash
 mise install
 mise exec -- npm ci --prefix typescript
-mise exec -- node benchmarks/run.mjs --base v0.4.1
+mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^global/'
 ```
 
-Pass `--skip '^solar/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived.
+The `--skip` pattern leaves out the global solar eclipse workloads, which need a base of 0.5.0 or later. Use `--skip '^(solar|global)/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived.
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.
 Results include timing tables, raw samples, checksums, and revision/toolchain
@@ -100,7 +101,7 @@ const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 ### Swift
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.4.0")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.5.0")
 ```
 
 ```swift
