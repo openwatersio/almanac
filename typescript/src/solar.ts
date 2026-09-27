@@ -235,7 +235,7 @@ function peakLocalMoonShadow(centerUt: number, observer: Observer): ShadowInfo {
  * bias is upstream's, added to match Espenak's classifications.
  * INTERNAL: shared with globalSolar.ts.
  */
-export function eclipseKindFromUmbra(k: number): SolarEclipseKind {
+export function eclipseKindFromUmbra(k: number): 'total' | 'annular' {
     return (k > 0.014) ? 'total' : 'annular';
 }
 

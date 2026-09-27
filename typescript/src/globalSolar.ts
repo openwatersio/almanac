@@ -1,7 +1,9 @@
 // L3 solar eclipses anywhere on Earth: the Moon's shadow cone against the
 // Earth's center at every new moon — greatest eclipse, how far the shadow
 // axis passes from the center then, and where the axis meets the ground, with
-// the kind and covered fraction a person standing there sees.
+// the kind and covered fraction a person standing there sees. The same
+// intersection at any instant gives the axis point, and between the axis's
+// first and last ground contact, the central line.
 //
 // Translated from the cosinekitty/astronomy upstream, pinned sha
 // 865d3da7d8112bbc7911238052c6af4aaf877181, source/js/astronomy.ts:
@@ -23,6 +25,11 @@
 //   - upstream's `Rotation_EQJ_EQD` matrix and its inverse are `gyration` in
 //     each direction: the same precession and nutation, applied as two
 //     rotations rather than one combined matrix.
+//
+// The central line is not upstream's: its ends are roots of the intersection
+// quadratic's discriminant, and an axis point rejects the crossing on the
+// Sun's side of the Moon that upstream, asking only at greatest eclipse,
+// never meets.
 
 import {
     assertSupported, assertSupportedWindowEnd, AlmanacOutOfRangeError, SUPPORTED_MIN, SUPPORTED_MAX
@@ -58,6 +65,19 @@ export interface GlobalSolarEclipse {
     obscuration: number | null;
 }
 
+/** A point on a solar eclipse's central line: where the Moon's shadow axis meets the ground at one instant. */
+export interface SolarEclipseAxisPoint {
+    time: Date;
+    /** Geodetic latitude, degrees. */
+    latitudeDeg: number;
+    /** Longitude, degrees east in (−180, 180]. */
+    longitudeDeg: number;
+    /** `total` or `annular` at this point; the kind can change along a hybrid path. */
+    kind: 'total' | 'annular';
+    /** Fraction of the Sun's disc area covered at this point; exactly 1 for a total eclipse. */
+    obscuration: number;
+}
+
 /**
  * UPSTREAM: `EARTH_MEAN_RADIUS_KM`, astronomy.ts 142 — the geoid's mean
  * radius. A new moon is an eclipse when the Moon's penumbra reaches this
@@ -68,6 +88,21 @@ const EARTH_MEAN_RADIUS_KM = 6371.0;
 
 /** Upstream's `PeakMoonShadow` window, in days, either side of the new moon. */
 const PEAK_WINDOW_DAYS = 0.03;
+
+/** How far either side of a ground point the search for the central line's ends reaches, days: longer than any path lasts. */
+const CONTACT_WINDOW_DAYS = 0.25;
+
+/** The central line's ends are found to a millisecond: the crossing races along the horizon there. */
+const CONTACT_TOL_SECONDS = 0.001;
+
+/** Bisection alone would need 25 iterations to take the window down to the tolerance. */
+const CONTACT_ITER_CAP = 50;
+
+/** The central line's default spacing, seconds: about 200 points across the longest path. */
+const DEFAULT_STEP_SECONDS = 60;
+
+/** The widest spacing a central line accepts, seconds; the narrowest is 1. */
+const MAX_STEP_SECONDS = 3600;
 
 /**
  * UPSTREAM: `MoonShadow`, astronomy.ts ~8481 — the Moon's shadow cone
@@ -115,17 +150,15 @@ function peakMoonShadow(centerUt: number): ShadowInfo {
 }
 
 /**
- * UPSTREAM: `GeoidIntersect`, astronomy.ts ~8842 — where the shadow axis at
- * greatest eclipse meets the Earth's oblate geoid, and the kind and covered
- * fraction a person standing there sees. An axis that misses the geoid is a
- * partial eclipse with no ground point.
+ * UPSTREAM: the first half of `GeoidIntersect`, astronomy.ts ~8842 — the
+ * shadow axis and the lunacentric Earth in equator-of-date coordinates, in km
+ * with z dilated so the geoid becomes a sphere, and the discriminant of the
+ * quadratic whose roots are where the axis crosses it: positive exactly while
+ * the axis passes inside the geoid.
  */
-function geoidIntersect(shadow: ShadowInfo, peak: Date): GlobalSolarEclipse {
-    let kind: SolarEclipseKind = 'partial';
-    let latitudeDeg: number | null = null;      // left null for partial eclipses
-    let longitudeDeg: number | null = null;     // left null for partial eclipses
-    let obscuration: number | null = null;      // left null for partial eclipses
+interface DilatedAxis { tt: number; v: Vec3; e: Vec3; A: number; B: number; radic: number; }
 
+function dilatedAxis(shadow: ShadowInfo): DilatedAxis {
     // We want to calculate the intersection of the shadow axis with the Earth's geoid.
     // First we must convert EQJ (equator of J2000) coordinates to EQD (equator of date)
     // coordinates that are perfectly aligned with the Earth's equator at this
@@ -148,57 +181,108 @@ function geoidIntersect(shadow: ShadowInfo, peak: Date): GlobalSolarEclipse {
     const B = -2.0 * (v.x*e.x + v.y*e.y + v.z*e.z);
     const C = (e.x*e.x + e.y*e.y + e.z*e.z) - R*R;
     const radic = B*B - 4*A*C;
+    return { tt, v, e, A, B, radic };
+}
 
-    if (radic > 0.0) {
-        // Calculate the closer of the two intersection points.
-        // This will be on the day side of the Earth.
-        const u = (-B - Math.sqrt(radic)) / (2 * A);
+/** Where the shadow axis meets the ground, and what a person standing there sees. */
+interface GroundPoint { latitudeDeg: number; longitudeDeg: number; kind: 'total' | 'annular'; obscuration: number; }
 
-        // Convert lunacentric dilated coordinates to geocentric coordinates.
-        const px = u*v.x - e.x;
-        const py = u*v.y - e.y;
-        const pz = (u*v.z - e.z) * EARTH_FLATTENING;
+/**
+ * UPSTREAM: the second half of `GeoidIntersect`, astronomy.ts ~8842 — the
+ * geodetic point at parameter `u` along the dilated axis, and the kind and
+ * covered fraction a person standing there sees.
+ */
+function axisGround(shadow: ShadowInfo, axis: DilatedAxis, u: number): GroundPoint {
+    const { tt, v, e } = axis;
 
-        // Convert cartesian coordinates into geodetic latitude/longitude.
-        const proj = Math.hypot(px, py) * EARTH_FLATTENING_SQUARED;
-        if (proj == 0.0)
-            latitudeDeg = (pz > 0.0) ? +90.0 : -90.0;
-        else
-            latitudeDeg = RAD2DEG * Math.atan(pz / proj);
+    // Convert lunacentric dilated coordinates to geocentric coordinates.
+    const px = u*v.x - e.x;
+    const py = u*v.y - e.y;
+    const pz = (u*v.z - e.z) * EARTH_FLATTENING;
 
-        // Adjust longitude for Earth's rotation at the given UT. `siderealDeg`
-        // is upstream's `15 * sidereal_time`, already in degrees.
-        let lon = (RAD2DEG*Math.atan2(py, px) - siderealDeg(shadow.ut)) % 360.0;
-        if (lon <= -180.0)
-            lon += 360.0;
-        else if (lon > +180.0)
-            lon -= 360.0;
-        longitudeDeg = lon;
+    // Convert cartesian coordinates into geodetic latitude/longitude.
+    const proj = Math.hypot(px, py) * EARTH_FLATTENING_SQUARED;
+    let latitudeDeg: number;
+    if (proj == 0.0)
+        latitudeDeg = (pz > 0.0) ? +90.0 : -90.0;
+    else
+        latitudeDeg = RAD2DEG * Math.atan(pz / proj);
 
-        // We want to determine whether the observer sees a total eclipse or an annular eclipse.
-        // Put the EQD geocentric coordinates of the observer back into AU, and
-        // rotate them back to the EQJ system.
-        const og = gyration({ x: px / KM_PER_AU, y: py / KM_PER_AU, z: pz / KM_PER_AU }, tt, PrecessDirection.Into2000);
+    // Adjust longitude for Earth's rotation at the given UT. `siderealDeg`
+    // is upstream's `15 * sidereal_time`, already in degrees.
+    let longitudeDeg = (RAD2DEG*Math.atan2(py, px) - siderealDeg(shadow.ut)) % 360.0;
+    if (longitudeDeg <= -180.0)
+        longitudeDeg += 360.0;
+    else if (longitudeDeg > +180.0)
+        longitudeDeg -= 360.0;
 
-        // Convert geocentric vector to lunacentric vector.
-        const o: Vec3 = { x: og.x + shadow.target.x, y: og.y + shadow.target.y, z: og.z + shadow.target.z };
+    // We want to determine whether the observer sees a total eclipse or an annular eclipse.
+    // Put the EQD geocentric coordinates of the observer back into AU, and
+    // rotate them back to the EQJ system.
+    const og = gyration({ x: px / KM_PER_AU, y: py / KM_PER_AU, z: pz / KM_PER_AU }, tt, PrecessDirection.Into2000);
 
-        // Recalculate the shadow using a vector from the Moon's center toward the observer.
-        const surface = calcShadow(MOON_POLAR_RADIUS_KM, shadow.ut, o, shadow.dir);
+    // Convert geocentric vector to lunacentric vector.
+    const o: Vec3 = { x: og.x + shadow.target.x, y: og.y + shadow.target.y, z: og.z + shadow.target.z };
 
-        // If we did everything right, the shadow distance should be very close to zero.
-        // That's because we already determined the observer 'o' is on the shadow axis!
-        // Upstream's bound is 1e-9 km; exceeding it is an implementation failure.
-        if (surface.r > 1.0e-9 || surface.r < 0.0)
-            throw new Error(`almanac internal: unexpected shadow distance from geoid intersection = ${surface.r}`);
+    // Recalculate the shadow using a vector from the Moon's center toward the observer.
+    const surface = calcShadow(MOON_POLAR_RADIUS_KM, shadow.ut, o, shadow.dir);
 
-        kind = eclipseKindFromUmbra(surface.k);
-        obscuration = (kind === 'total') ? 1.0 : solarEclipseObscuration(shadow.dir, o);
+    // If we did everything right, the shadow distance should be very close to zero.
+    // That's because we already determined the observer 'o' is on the shadow axis!
+    // Upstream's bound is 1e-9 km; exceeding it is an implementation failure.
+    if (surface.r > 1.0e-9 || surface.r < 0.0)
+        throw new Error(`almanac internal: unexpected shadow distance from geoid intersection = ${surface.r}`);
+
+    const kind = eclipseKindFromUmbra(surface.k);
+    const obscuration = (kind === 'total') ? 1.0 : solarEclipseObscuration(shadow.dir, o);
+    return { latitudeDeg, longitudeDeg, kind, obscuration };
+}
+
+/**
+ * UPSTREAM: `GeoidIntersect`'s choice of root — where the axis first meets
+ * the geoid on its way from the Moon, on the day side of the Earth, or null
+ * when it misses. Upstream only asks at a new moon's greatest eclipse. At an
+ * arbitrary instant the line through the Sun and Moon can also cross the
+ * Earth on the Sun's side of the Moon, near a full moon, where the Moon casts
+ * no shadow on it: both roots are then negative.
+ */
+function nearAxisGround(shadow: ShadowInfo): GroundPoint | null {
+    const axis = dilatedAxis(shadow);
+    if (!(axis.radic > 0.0)) return null;
+    // Calculate the closer of the two intersection points.
+    // This will be on the day side of the Earth.
+    const u = (-axis.B - Math.sqrt(axis.radic)) / (2 * axis.A);
+    if (!(u > 0.0)) return null;
+    return axisGround(shadow, axis, u);
+}
+
+/**
+ * Where the axis grazes the geoid at a ground contact: its closest approach to
+ * the geoid's center, which moves smoothly through the contact while the
+ * crossing itself races along the horizon.
+ */
+function grazingGround(shadow: ShadowInfo): GroundPoint {
+    const axis = dilatedAxis(shadow);
+    return axisGround(shadow, axis, -axis.B / (2 * axis.A));
+}
+
+/**
+ * UPSTREAM: `GeoidIntersect`, astronomy.ts ~8842 — where the shadow axis at
+ * greatest eclipse meets the Earth's oblate geoid, and the kind and covered
+ * fraction a person standing there sees. An axis that misses the geoid is a
+ * partial eclipse with no ground point.
+ */
+function geoidIntersect(shadow: ShadowInfo, peak: Date): GlobalSolarEclipse {
+    const ground = nearAxisGround(shadow);
+    if (ground === null) {
+        // This is a partial solar eclipse, and an obscuration needs a place:
+        // `solarEclipses` and `solarObscuration` take an observer.
+        return { kind: 'partial', peak, axisDistanceKm: shadow.r, latitudeDeg: null, longitudeDeg: null, obscuration: null };
     }
-    // Otherwise this is a partial solar eclipse, and an obscuration needs a
-    // place: `solarEclipses` and `solarObscuration` take an observer.
-
-    return { kind, peak, axisDistanceKm: shadow.r, latitudeDeg, longitudeDeg, obscuration };
+    return {
+        kind: ground.kind, peak, axisDistanceKm: shadow.r,
+        latitudeDeg: ground.latitudeDeg, longitudeDeg: ground.longitudeDeg, obscuration: ground.obscuration
+    };
 }
 
 /**
@@ -285,4 +369,69 @@ function scanGlobalSolarEclipses(startMs: number, endMs: number, direction: 1 | 
         if (firstOnly) break;
     }
     return found;
+}
+
+/**
+ * Where the Moon's shadow axis meets the ground at `time`, with the kind and
+ * obscuration a person standing there sees, or `null` when the axis misses
+ * the Earth. This is the point `nextGlobalSolarEclipse` reports at greatest
+ * eclipse, at any instant.
+ *
+ * @throws {AlmanacOutOfRangeError} if `time` is outside the supported interval.
+ * @throws {RangeError} if `time` is invalid.
+ */
+export function solarEclipseAxisPoint(time: Date): SolarEclipseAxisPoint | null {
+    assertSupported(time);
+    const ground = nearAxisGround(moonShadow(utDays(time)));
+    return ground === null ? null : { time: new Date(time.getTime()), ...ground };
+}
+
+/**
+ * The central line of the solar eclipse in progress at `peak`, normally its
+ * greatest eclipse: the axis point at every whole multiple of `stepSeconds`
+ * between the first and last ground contact, with the points where the axis
+ * grazes the Earth at those two contacts as its ends. Empty when the axis
+ * misses the Earth at `peak`, as it does for a partial eclipse.
+ *
+ * @throws {AlmanacOutOfRangeError} if `peak` is outside the supported interval.
+ * @throws {RangeError} if `peak` is invalid, or `stepSeconds` is not a whole
+ *      number from 1 to 3600.
+ */
+export function solarEclipseCentralLine(peak: Date, stepSeconds: number = DEFAULT_STEP_SECONDS): SolarEclipseAxisPoint[] {
+    assertSupported(peak);
+    if (!(Number.isInteger(stepSeconds) && stepSeconds >= 1 && stepSeconds <= MAX_STEP_SECONDS))
+        throw new RangeError(`stepSeconds must be a whole number from 1 to ${MAX_STEP_SECONDS}: ${stepSeconds}`);
+    const peakUt = utDays(peak);
+    if (nearAxisGround(moonShadow(peakUt)) === null) return [];
+
+    const first = dateFromUt(groundContactUt(peakUt, -1));
+    const last = dateFromUt(groundContactUt(peakUt, +1));
+    const point = (time: Date, ground: GroundPoint): SolarEclipseAxisPoint => ({ time, ...ground });
+
+    const line = [point(first, grazingGround(moonShadow(utDays(first))))];
+    const stepMs = stepSeconds * 1000;
+    for (let ms = (Math.floor(first.getTime() / stepMs) + 1) * stepMs; ms < last.getTime(); ms += stepMs) {
+        const time = new Date(ms);
+        const ground = nearAxisGround(moonShadow(utDays(time)));
+        // A step within the contacts' millisecond tolerance can fall just outside the path.
+        if (ground !== null) line.push(point(time, ground));
+    }
+    if (last.getTime() > first.getTime()) line.push(point(last, grazingGround(moonShadow(utDays(last)))));
+    return line;
+}
+
+/**
+ * The ground contact before (`direction` −1) or after (+1) `ut`: where the
+ * discriminant of the intersection quadratic crosses zero, so the axis
+ * touches the geoid. Every central path is shorter than the search window.
+ */
+function groundContactUt(ut: number, direction: 1 | -1): number {
+    const t1 = direction < 0 ? ut - CONTACT_WINDOW_DAYS : ut;
+    const t2 = direction < 0 ? ut : ut + CONTACT_WINDOW_DAYS;
+    const contact = search(
+        u => -direction * dilatedAxis(moonShadow(u)).radic, t1, t2,
+        CONTACT_TOL_SECONDS, CONTACT_ITER_CAP, 'central line contact'
+    );
+    if (contact === null) throw new Error('almanac internal: failed to find a ground contact of the shadow axis');
+    return contact;
 }
