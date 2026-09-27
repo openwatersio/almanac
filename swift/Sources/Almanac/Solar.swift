@@ -75,9 +75,10 @@ public struct SolarEclipse: Sendable {
     }
 }
 
-/** UPSTREAM: `SUN_RADIUS_AU` and `MOON_POLAR_RADIUS_AU`, astronomy.ts 135 and 149-150. */
+/** UPSTREAM: `SUN_RADIUS_AU` and `MOON_POLAR_RADIUS_AU`, astronomy.ts 135 and 149-150.
+ *  INTERNAL: `moonPolarRadiusKm` is shared with GlobalSolar.swift — not `private`. */
 private let sunRadiusAu = sunRadiusKm / KM_PER_AU
-private let moonPolarRadiusKm = 1736.0
+let moonPolarRadiusKm = 1736.0
 private let moonPolarRadiusAu = moonPolarRadiusKm / KM_PER_AU
 
 /** Upstream's `PeakLocalMoonShadow` window, in days, either side of the new moon. */
@@ -201,8 +202,9 @@ public func solarObscuration(at time: Date, observer: Observer) throws -> Double
  * UPSTREAM: `SolarEclipseObscuration`, astronomy.ts ~8670, with its clamp:
  * "in marginal cases, we need to clamp obscuration to less than 1.0. This
  * function is never called for total eclipses, so it should never return 1.0."
+ * INTERNAL, shared with GlobalSolar.swift — not `private`.
  */
-private func solarEclipseObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
+func solarEclipseObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
     min(0.9999, discObscuration(hm, lo))
 }
 
@@ -238,8 +240,9 @@ private func peakLocalMoonShadow(_ centerUt: Double, _ observer: Observer) -> Sh
  * UPSTREAM: `EclipseKindFromUmbra`, astronomy.ts ~8834 — a positive umbra
  * radius at the observer is a total eclipse, otherwise annular. The 14 m
  * bias is upstream's, added to match Espenak's classifications.
+ * INTERNAL, shared with GlobalSolar.swift — not `private`.
  */
-private func eclipseKindFromUmbra(_ k: Double) -> SolarEclipseKind {
+func eclipseKindFromUmbra(_ k: Double) -> SolarEclipseKind {
     (k > 0.014) ? .total : .annular
 }
 

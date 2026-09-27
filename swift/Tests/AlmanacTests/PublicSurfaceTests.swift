@@ -132,4 +132,21 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertEqual(hand.kind, .partial)
         XCTAssertNil(hand.sunAltDeg.c2)
     }
+
+    func testGlobalSolarEclipse() throws {
+        let e: GlobalSolarEclipse = try nextGlobalSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000)) // 2017-07-14
+        let previous: GlobalSolarEclipse = try previousGlobalSolarEclipse(before: e.peak)
+        let range: [GlobalSolarEclipse] = try globalSolarEclipses(from: previous.peak, to: e.peak)
+        XCTAssertEqual(range.map(\.peak), [previous.peak])
+        let kind: SolarEclipseKind = e.kind
+        let point: (Double?, Double?) = (e.latitudeDeg, e.longitudeDeg)
+        let obscuration: Double? = e.obscuration
+        _ = (kind, e.peak, e.axisDistanceKm, point, obscuration)
+
+        // Construct via its public init — proves the init itself is public,
+        // which a `@testable` test would not catch.
+        let hand = GlobalSolarEclipse(kind: .partial, peak: e.peak, axisDistanceKm: 6500, latitudeDeg: nil, longitudeDeg: nil, obscuration: nil)
+        XCTAssertEqual(hand.kind, .partial)
+        XCTAssertNil(hand.latitudeDeg)
+    }
 }
