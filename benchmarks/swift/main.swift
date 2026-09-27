@@ -96,6 +96,23 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
         // `--skip '^solar/'` leaves them out of a historical comparison.
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: spec.name + " needs Almanac 0.4.0 or later"])
         #endif
+    case "nextGlobalSolarEclipse", "previousGlobalSolarEclipse", "globalSolarEclipses", "solarEclipseCentralLine":
+        #if ALMANAC_GLOBAL_SOLAR_ECLIPSES
+        switch spec.operation {
+        case "nextGlobalSolarEclipse":
+            return { try nextGlobalSolarEclipse(after: from).peak.timeIntervalSince1970 }
+        case "previousGlobalSolarEclipse":
+            return { try previousGlobalSolarEclipse(before: to).peak.timeIntervalSince1970 }
+        case "globalSolarEclipses":
+            return { Double(try globalSolarEclipses(from: from, to: to).count) }
+        default:
+            return { Double(try solarEclipseCentralLine(peak: from).count) }
+        }
+        #else
+        // The global search has no consumer-loop fallback on revisions before 0.5.0;
+        // `--skip '^global/'` leaves it out of a historical comparison.
+        throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: spec.name + " needs Almanac 0.5.0 or later"])
+        #endif
     default:
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unknown operation: \(spec.operation)"])
     }
