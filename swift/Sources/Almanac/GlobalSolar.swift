@@ -47,13 +47,22 @@ public struct GlobalSolarEclipse: Sendable {
     public let longitudeDeg: Double?
     /// Fraction of the Sun's disc area covered at that point; exactly 1 for a total eclipse; `nil` for a partial eclipse.
     public let obscuration: Double?
+    /// Geodetic latitude of greatest eclipse, degrees: the ground point, or for a partial eclipse the point on the Earth's limb nearest the axis, with the Sun on the horizon.
+    public let greatestLatitudeDeg: Double
+    /// Longitude of greatest eclipse, degrees east in (−180, 180].
+    public let greatestLongitudeDeg: Double
+    /// Fraction of the Sun's disc area covered at greatest eclipse.
+    public let greatestObscuration: Double
 
     public init(
         kind: SolarEclipseKind, peak: Date, axisDistanceKm: Double,
-        latitudeDeg: Double?, longitudeDeg: Double?, obscuration: Double?
+        latitudeDeg: Double?, longitudeDeg: Double?, obscuration: Double?,
+        greatestLatitudeDeg: Double, greatestLongitudeDeg: Double, greatestObscuration: Double
     ) {
         self.kind = kind; self.peak = peak; self.axisDistanceKm = axisDistanceKm
         self.latitudeDeg = latitudeDeg; self.longitudeDeg = longitudeDeg; self.obscuration = obscuration
+        self.greatestLatitudeDeg = greatestLatitudeDeg; self.greatestLongitudeDeg = greatestLongitudeDeg
+        self.greatestObscuration = greatestObscuration
     }
 }
 
@@ -200,7 +209,31 @@ private func axisGround(_ shadow: ShadowInfo, _ axis: DilatedAxis, _ u: Double) 
     let px = u*v.x - e.x
     let py = u*v.y - e.y
     let pz = (u*v.z - e.z) * EARTH_FLATTENING
+    let (latitudeDeg, longitudeDeg, o) = geodeticPlace(shadow, axis.tt, px, py, pz)
 
+    // Recalculate the shadow using a vector from the Moon's center toward the observer.
+    let surface = calcShadow(moonPolarRadiusKm, shadow.ut, o, shadow.dir)
+
+    // If we did everything right, the shadow distance should be very close to zero.
+    // That's because we already determined the observer 'o' is on the shadow axis!
+    // Upstream's bound is 1e-9 km; exceeding it is an implementation failure.
+    if surface.r > 1.0e-9 || surface.r < 0.0 {
+        fatalError("almanac internal: unexpected shadow distance from geoid intersection = \(surface.r)")
+    }
+
+    let kind = eclipseKindFromUmbra(surface.k)
+    let obscuration = (kind == .total) ? 1.0 : solarEclipseObscuration(shadow.dir, o)
+    return GroundPoint(latitudeDeg: latitudeDeg, longitudeDeg: longitudeDeg, kind: kind, obscuration: obscuration)
+}
+
+/**
+ * UPSTREAM: the middle of `GeoidIntersect`, astronomy.ts ~8842 — geodetic
+ * latitude and longitude of a geocentric equator-of-date point in km, and the
+ * lunacentric EQJ vector toward it in AU.
+ */
+private func geodeticPlace(
+    _ shadow: ShadowInfo, _ tt: Double, _ px: Double, _ py: Double, _ pz: Double
+) -> (latitudeDeg: Double, longitudeDeg: Double, o: Vec3) {
     // Convert cartesian coordinates into geodetic latitude/longitude.
     let proj = (px*px + py*py).squareRoot() * EARTH_FLATTENING_SQUARED
     let latitudeDeg: Double
@@ -222,24 +255,38 @@ private func axisGround(_ shadow: ShadowInfo, _ axis: DilatedAxis, _ u: Double) 
     // We want to determine whether the observer sees a total eclipse or an annular eclipse.
     // Put the EQD geocentric coordinates of the observer back into AU, and
     // rotate them back to the EQJ system.
-    let og = gyration(Vec3(x: px / KM_PER_AU, y: py / KM_PER_AU, z: pz / KM_PER_AU), axis.tt, .into2000)
+    let og = gyration(Vec3(x: px / KM_PER_AU, y: py / KM_PER_AU, z: pz / KM_PER_AU), tt, .into2000)
 
     // Convert geocentric vector to lunacentric vector.
     let o = Vec3(x: og.x + shadow.target.x, y: og.y + shadow.target.y, z: og.z + shadow.target.z)
+    return (latitudeDeg, longitudeDeg, o)
+}
 
-    // Recalculate the shadow using a vector from the Moon's center toward the observer.
+/**
+ * Greatest eclipse when the axis misses the geoid: the point on the Earth's
+ * limb nearest the axis. In the dilated coordinates the geoid is a sphere, and
+ * the axis's closest approach to its center, scaled onto it, stands for that point.
+ * The axis runs perpendicular to the radius there, so it lies in the sphere's
+ * tangent plane; dilation maps tangent planes to tangent planes, so on the
+ * ellipsoid the axis lies in the geodetic horizon and the Sun's center is at
+ * geometric altitude zero, as the catalog tabulates. The observer there sees
+ * what the local search would: a total or annular phase only inside the
+ * umbra, which a non-central eclipse can graze.
+ */
+private func limbGround(
+    _ shadow: ShadowInfo, _ axis: DilatedAxis
+) -> (latitudeDeg: Double, longitudeDeg: Double, obscuration: Double) {
+    let v = axis.v, e = axis.e
+    let u = -axis.B / (2 * axis.A)
+    let cx = u*v.x - e.x
+    let cy = u*v.y - e.y
+    let cz = u*v.z - e.z
+    let scale = EARTH_EQUATORIAL_RADIUS_KM / (cx*cx + cy*cy + cz*cz).squareRoot()
+    let (latitudeDeg, longitudeDeg, o) = geodeticPlace(shadow, axis.tt, cx * scale, cy * scale, cz * scale * EARTH_FLATTENING)
     let surface = calcShadow(moonPolarRadiusKm, shadow.ut, o, shadow.dir)
-
-    // If we did everything right, the shadow distance should be very close to zero.
-    // That's because we already determined the observer 'o' is on the shadow axis!
-    // Upstream's bound is 1e-9 km; exceeding it is an implementation failure.
-    if surface.r > 1.0e-9 || surface.r < 0.0 {
-        fatalError("almanac internal: unexpected shadow distance from geoid intersection = \(surface.r)")
-    }
-
-    let kind = eclipseKindFromUmbra(surface.k)
-    let obscuration = (kind == .total) ? 1.0 : solarEclipseObscuration(shadow.dir, o)
-    return GroundPoint(latitudeDeg: latitudeDeg, longitudeDeg: longitudeDeg, kind: kind, obscuration: obscuration)
+    let obscuration = (surface.r < abs(surface.k) && eclipseKindFromUmbra(surface.k) == .total)
+        ? 1.0 : solarEclipseObscuration(shadow.dir, o)
+    return (latitudeDeg, longitudeDeg, obscuration)
 }
 
 /**
@@ -278,14 +325,18 @@ private func grazingGround(_ shadow: ShadowInfo) -> GroundPoint {
  */
 private func geoidIntersect(_ shadow: ShadowInfo, _ peak: Date) -> GlobalSolarEclipse {
     guard let ground = nearAxisGround(shadow) else {
-        // This is a partial solar eclipse, and an obscuration needs a place:
-        // `solarEclipses` and `solarObscuration` take an observer.
+        // This is a partial solar eclipse: no one stands on the axis, and
+        // greatest eclipse is on the limb nearest it.
+        let limb = limbGround(shadow, dilatedAxis(shadow))
         return GlobalSolarEclipse(
-            kind: .partial, peak: peak, axisDistanceKm: shadow.r, latitudeDeg: nil, longitudeDeg: nil, obscuration: nil)
+            kind: .partial, peak: peak, axisDistanceKm: shadow.r, latitudeDeg: nil, longitudeDeg: nil, obscuration: nil,
+            greatestLatitudeDeg: limb.latitudeDeg, greatestLongitudeDeg: limb.longitudeDeg, greatestObscuration: limb.obscuration
+        )
     }
     return GlobalSolarEclipse(
         kind: ground.kind, peak: peak, axisDistanceKm: shadow.r,
-        latitudeDeg: ground.latitudeDeg, longitudeDeg: ground.longitudeDeg, obscuration: ground.obscuration
+        latitudeDeg: ground.latitudeDeg, longitudeDeg: ground.longitudeDeg, obscuration: ground.obscuration,
+        greatestLatitudeDeg: ground.latitudeDeg, greatestLongitudeDeg: ground.longitudeDeg, greatestObscuration: ground.obscuration
     )
 }
 

@@ -3,11 +3,12 @@ import { readFileSync } from 'node:fs';
 import {
   nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
   solarEclipseAxisPoint, solarEclipseCentralLine,
-  solarEclipses, solarObscuration, lunarEclipses, AlmanacOutOfRangeError
+  solarEclipses, solarObscuration, sunAltAz, lunarEclipses, AlmanacOutOfRangeError
 } from '../src/index.js';
 import type { GlobalSolarEclipse, Observer, SolarEclipseAxisPoint } from '../src/index.js';
 import { SUPPORTED_MIN, SUPPORTED_MAX } from '../src/types.js';
 import { deltaTSeconds, utDays } from '../src/time.js';
+import { refractionDeg } from '../src/transforms.js';
 
 const load = (p: string) => JSON.parse(readFileSync(new URL(`../../fixtures/${p}`, import.meta.url), 'utf8'));
 
@@ -181,6 +182,66 @@ describe('the ground point is on the shadow axis at greatest eclipse', () => {
       if (local.kind !== e.kind) differ.push(`${e.peak.toISOString().slice(0, 10)} global ${e.kind} local ${local.kind}`);
     }
     expect(differ).toEqual(['1966-05-20 global annular local partial']);
+  });
+});
+
+describe('greatest eclipse when the axis misses the Earth', () => {
+  // The catalog tabulates a point for every eclipse. With no ground point it
+  // is the point on the limb nearest the axis, with the Sun on the horizon.
+  const limb = walk.map((e, i) => ({ e, row: catalog[i] })).filter(({ e }) => e.kind === 'partial');
+  const greatestPoint = (e: GlobalSolarEclipse): Observer => ({ latitudeDeg: e.greatestLatitudeDeg, longitudeDeg: e.greatestLongitudeDeg });
+
+  it('every partial and non-central eclipse has one, within 1° of the catalog\'s point', () => {
+    // 115 partials and 7 non-central annular or total eclipses; measured
+    // worst 0.63° (1971-02-25), inside the catalog's whole-degree rounding.
+    expect(limb.length).toBe(122);
+    const errs = limb.map(({ e, row }) => ({
+      at: row.peakUtc, deg: angleDiffDeg(row.latitudeDeg, row.longitudeDeg, e.greatestLatitudeDeg, e.greatestLongitudeDeg)
+    }));
+    const worst = errs.reduce((a, b) => (b.deg > a.deg ? b : a));
+    expect(worst.deg, `worst greatest-eclipse point error ${worst.deg.toFixed(3)}° at ${worst.at}`).toBeLessThanOrEqual(1);
+  });
+
+  it('puts the Sun\'s center on the geometric horizon there', () => {
+    // sunAltAz refracts, so a geometric zero reads as the refraction at zero.
+    // Measured worst 0.0011°, the Sun's parallax and the axis's tilt from it.
+    for (const { e, row } of limb) {
+      const alt = sunAltAz(e.peak, greatestPoint(e)).altDeg;
+      expect(Math.abs(alt - refractionDeg(0)), row.peakUtc).toBeLessThan(0.01);
+    }
+  });
+
+  it('the local search there peaks within 2 s of greatest eclipse, with the same kind and obscuration', () => {
+    // Measured worst 0.95 s (2047-07-22). Inside a grazing umbra the observer
+    // sees the non-central eclipse's own kind: the kind stays `partial` for
+    // the axis, but the obscuration is what the point sees.
+    const bad: string[] = [];
+    for (const { e, row } of limb) {
+      const at = e.peak.getTime();
+      const found = solarEclipses(new Date(at - DAY), new Date(at + DAY), greatestPoint(e));
+      if (found.length !== 1) { bad.push(`${row.peakUtc}: ${found.length} local eclipses`); continue; }
+      const dt = Math.abs(found[0].peak.getTime() - at) / SEC;
+      if (dt > 2) bad.push(`${row.peakUtc}: local peak off by ${dt.toFixed(2)} s`);
+      if (found[0].kind !== row.kind) bad.push(`${row.peakUtc}: local ${found[0].kind}, catalog ${row.kind}`);
+      const obscuration = solarObscuration(e.peak, greatestPoint(e));
+      if (Math.abs(obscuration - e.greatestObscuration) > 1e-6) bad.push(`${row.peakUtc}: obscuration ${obscuration} vs ${e.greatestObscuration}`);
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it('is the ground point when the axis meets the Earth', () => {
+    for (const e of walk) {
+      const label = e.peak.toISOString();
+      expect(e.greatestLatitudeDeg, label).toBeGreaterThanOrEqual(-90);
+      expect(e.greatestLatitudeDeg, label).toBeLessThanOrEqual(90);
+      expect(e.greatestLongitudeDeg, label).toBeGreaterThan(-180);
+      expect(e.greatestLongitudeDeg, label).toBeLessThanOrEqual(180);
+      expect(e.greatestObscuration, label).toBeGreaterThan(0);
+      expect(e.greatestObscuration, label).toBeLessThanOrEqual(1);
+      if (e.kind === 'partial') continue;
+      expect([e.greatestLatitudeDeg, e.greatestLongitudeDeg, e.greatestObscuration], label)
+        .toEqual([e.latitudeDeg, e.longitudeDeg, e.obscuration]);
+    }
   });
 });
 

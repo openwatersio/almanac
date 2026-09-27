@@ -63,6 +63,12 @@ export interface GlobalSolarEclipse {
     longitudeDeg: number | null;
     /** Fraction of the Sun's disc area covered at that point; exactly 1 for a total eclipse; `null` for a partial eclipse. */
     obscuration: number | null;
+    /** Geodetic latitude of greatest eclipse, degrees: the ground point, or for a partial eclipse the point on the Earth's limb nearest the axis, with the Sun on the horizon. */
+    greatestLatitudeDeg: number;
+    /** Longitude of greatest eclipse, degrees east in (−180, 180]. */
+    greatestLongitudeDeg: number;
+    /** Fraction of the Sun's disc area covered at greatest eclipse. */
+    greatestObscuration: number;
 }
 
 /** A point on a solar eclipse's central line: where the Moon's shadow axis meets the ground at one instant. */
@@ -199,7 +205,28 @@ function axisGround(shadow: ShadowInfo, axis: DilatedAxis, u: number): GroundPoi
     const px = u*v.x - e.x;
     const py = u*v.y - e.y;
     const pz = (u*v.z - e.z) * EARTH_FLATTENING;
+    const { latitudeDeg, longitudeDeg, o } = geodeticPlace(shadow, tt, px, py, pz);
 
+    // Recalculate the shadow using a vector from the Moon's center toward the observer.
+    const surface = calcShadow(MOON_POLAR_RADIUS_KM, shadow.ut, o, shadow.dir);
+
+    // If we did everything right, the shadow distance should be very close to zero.
+    // That's because we already determined the observer 'o' is on the shadow axis!
+    // Upstream's bound is 1e-9 km; exceeding it is an implementation failure.
+    if (surface.r > 1.0e-9 || surface.r < 0.0)
+        throw new Error(`almanac internal: unexpected shadow distance from geoid intersection = ${surface.r}`);
+
+    const kind = eclipseKindFromUmbra(surface.k);
+    const obscuration = (kind === 'total') ? 1.0 : solarEclipseObscuration(shadow.dir, o);
+    return { latitudeDeg, longitudeDeg, kind, obscuration };
+}
+
+/**
+ * UPSTREAM: the middle of `GeoidIntersect`, astronomy.ts ~8842 — geodetic
+ * latitude and longitude of a geocentric equator-of-date point in km, and the
+ * lunacentric EQJ vector toward it in AU.
+ */
+function geodeticPlace(shadow: ShadowInfo, tt: number, px: number, py: number, pz: number): { latitudeDeg: number; longitudeDeg: number; o: Vec3 } {
     // Convert cartesian coordinates into geodetic latitude/longitude.
     const proj = Math.hypot(px, py) * EARTH_FLATTENING_SQUARED;
     let latitudeDeg: number;
@@ -223,19 +250,32 @@ function axisGround(shadow: ShadowInfo, axis: DilatedAxis, u: number): GroundPoi
 
     // Convert geocentric vector to lunacentric vector.
     const o: Vec3 = { x: og.x + shadow.target.x, y: og.y + shadow.target.y, z: og.z + shadow.target.z };
+    return { latitudeDeg, longitudeDeg, o };
+}
 
-    // Recalculate the shadow using a vector from the Moon's center toward the observer.
+/**
+ * Greatest eclipse when the axis misses the geoid: the point on the Earth's
+ * limb nearest the axis. In the dilated coordinates the geoid is a sphere, and
+ * the axis's closest approach to its center, scaled onto it, stands for that point.
+ * The axis runs perpendicular to the radius there, so it lies in the sphere's
+ * tangent plane; dilation maps tangent planes to tangent planes, so on the
+ * ellipsoid the axis lies in the geodetic horizon and the Sun's center is at
+ * geometric altitude zero, as the catalog tabulates. The observer there sees
+ * what the local search would: a total or annular phase only inside the
+ * umbra, which a non-central eclipse can graze.
+ */
+function limbGround(shadow: ShadowInfo, axis: DilatedAxis): { latitudeDeg: number; longitudeDeg: number; obscuration: number } {
+    const { tt, v, e, A, B } = axis;
+    const u = -B / (2 * A);
+    const cx = u*v.x - e.x;
+    const cy = u*v.y - e.y;
+    const cz = u*v.z - e.z;
+    const scale = EARTH_EQUATORIAL_RADIUS_KM / Math.sqrt(cx*cx + cy*cy + cz*cz);
+    const { latitudeDeg, longitudeDeg, o } = geodeticPlace(shadow, tt, cx * scale, cy * scale, cz * scale * EARTH_FLATTENING);
     const surface = calcShadow(MOON_POLAR_RADIUS_KM, shadow.ut, o, shadow.dir);
-
-    // If we did everything right, the shadow distance should be very close to zero.
-    // That's because we already determined the observer 'o' is on the shadow axis!
-    // Upstream's bound is 1e-9 km; exceeding it is an implementation failure.
-    if (surface.r > 1.0e-9 || surface.r < 0.0)
-        throw new Error(`almanac internal: unexpected shadow distance from geoid intersection = ${surface.r}`);
-
-    const kind = eclipseKindFromUmbra(surface.k);
-    const obscuration = (kind === 'total') ? 1.0 : solarEclipseObscuration(shadow.dir, o);
-    return { latitudeDeg, longitudeDeg, kind, obscuration };
+    const obscuration = (surface.r < Math.abs(surface.k) && eclipseKindFromUmbra(surface.k) === 'total')
+        ? 1.0 : solarEclipseObscuration(shadow.dir, o);
+    return { latitudeDeg, longitudeDeg, obscuration };
 }
 
 /**
@@ -275,13 +315,18 @@ function grazingGround(shadow: ShadowInfo): GroundPoint {
 function geoidIntersect(shadow: ShadowInfo, peak: Date): GlobalSolarEclipse {
     const ground = nearAxisGround(shadow);
     if (ground === null) {
-        // This is a partial solar eclipse, and an obscuration needs a place:
-        // `solarEclipses` and `solarObscuration` take an observer.
-        return { kind: 'partial', peak, axisDistanceKm: shadow.r, latitudeDeg: null, longitudeDeg: null, obscuration: null };
+        // This is a partial solar eclipse: no one stands on the axis, and
+        // greatest eclipse is on the limb nearest it.
+        const limb = limbGround(shadow, dilatedAxis(shadow));
+        return {
+            kind: 'partial', peak, axisDistanceKm: shadow.r, latitudeDeg: null, longitudeDeg: null, obscuration: null,
+            greatestLatitudeDeg: limb.latitudeDeg, greatestLongitudeDeg: limb.longitudeDeg, greatestObscuration: limb.obscuration
+        };
     }
     return {
         kind: ground.kind, peak, axisDistanceKm: shadow.r,
-        latitudeDeg: ground.latitudeDeg, longitudeDeg: ground.longitudeDeg, obscuration: ground.obscuration
+        latitudeDeg: ground.latitudeDeg, longitudeDeg: ground.longitudeDeg, obscuration: ground.obscuration,
+        greatestLatitudeDeg: ground.latitudeDeg, greatestLongitudeDeg: ground.longitudeDeg, greatestObscuration: ground.obscuration
     };
 }
 
