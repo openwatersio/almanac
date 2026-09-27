@@ -98,7 +98,7 @@ const CONTACT_TOL_SECONDS = 0.001;
 /** Bisection alone would need 25 iterations to take the window down to the tolerance. */
 const CONTACT_ITER_CAP = 50;
 
-/** The central line's default spacing, seconds: about 200 points across the longest path. */
+/** The central line's default spacing, seconds: at most 235 points on a path from 1950 through 2100. */
 const DEFAULT_STEP_SECONDS = 60;
 
 /** The widest spacing a central line accepts, seconds; the narrowest is 1. */

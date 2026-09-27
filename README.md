@@ -155,3 +155,20 @@ anchor. Search results are global; apply `lunarEclipseVisibility` for an observe
 Solar eclipses are searched for an observer, because their contacts only exist for a place: `nextSolarEclipse(after, observer)`, `previousSolarEclipse(before, observer)`, and `solarEclipses(startUtc, endUtc, observer)`. An eclipse whose Sun is below the horizon at C1, the peak, and C4 is not returned.
 
 To ask about the whole Earth instead, `nextGlobalSolarEclipse(after)`, `previousGlobalSolarEclipse(before)`, and `globalSolarEclipses(startUtc, endUtc)` need no observer. Each eclipse reports its greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there. When the axis misses the Earth the eclipse is partial and has no ground point.
+
+`solarEclipseCentralLine(peak, stepSeconds)` samples where the axis meets the ground from its first contact to its last, and `solarEclipseAxisPoint(time)` gives that point at any instant. How far the next totality passes from a place is a distance to each point of a line:
+
+```ts
+import { nextGlobalSolarEclipse, solarEclipseCentralLine } from '@openwaters/almanac';
+let next = nextGlobalSolarEclipse(new Date());
+while (next.kind !== 'total') next = nextGlobalSolarEclipse(next.peak);
+const line = solarEclipseCentralLine(next.peak);   // every whole minute of the path, and its two ends
+```
+
+```swift
+var next = try nextGlobalSolarEclipse(after: Date())
+while next.kind != .total { next = try nextGlobalSolarEclipse(after: next.peak) }
+let line = try solarEclipseCentralLine(peak: next.peak)   // every whole minute of the path, and its two ends
+```
+
+Points are a median 47 km apart at the default step but hundreds apart beside an end, where the shadow races along the horizon; pass a smaller `stepSeconds` for a finer line.
