@@ -7,8 +7,9 @@ import XCTest
 /// sunEvents/moonEvents over 2026 for 3 observers, searchMoonPhases over
 /// 2026, every lunar eclipse 1950-2100 with contacts and
 /// lunarEclipseVisibility for the same 3 observers, every solar eclipse each
-/// observer can see, and every global solar eclipse with next/previous
-/// anchors and range windows) and checks it two ways:
+/// observer can see, every global solar eclipse with next/previous anchors
+/// and range windows, the axis point through one hybrid eclipse, and one
+/// full central line) and checks it two ways:
 ///
 /// - `testTolerant`: field-wise, at the corpus's own tolerances (meta.json)
 ///   -- this is the real cross-port event, the two independently-written
@@ -91,6 +92,11 @@ final class ParityTests: XCTestCase {
     struct GlobalSolarWindow: Codable { let startMs: Int64; let endMs: Int64; let eclipses: [GlobalSolarRow] }
     struct GlobalSolarFile: Codable { let anchors: [GlobalSolarAnchor]; let windows: [GlobalSolarWindow] }
 
+    struct AxisPointRow: Codable { let latitudeDeg: Int; let longitudeDeg: Int; let kind: String; let obscuration: Int }
+    struct AxisTrackRow: Codable { let tMs: Int64; let point: AxisPointRow? }
+    struct CentralLineRow: Codable { let tMs: Int64; let latitudeDeg: Int; let longitudeDeg: Int; let kind: String; let obscuration: Int }
+    struct CentralLineFile: Codable { let axisTrack: [AxisTrackRow]; let centralLine: [CentralLineRow] }
+
     struct Corpus {
         let positions: [PositionEntry]
         let altaz: [AltazEntry]
@@ -99,6 +105,7 @@ final class ParityTests: XCTestCase {
         let eclipses: EclipsesFile
         let solar: SolarFile
         let globalSolar: GlobalSolarFile
+        let centralLine: CentralLineFile
     }
 
     static func parityURL(_ name: String) -> URL {
@@ -161,6 +168,10 @@ final class ParityTests: XCTestCase {
         (1_735_689_600_000, 1_767_225_600_000),   // 2025
         (1_788_220_800_000, 1_798_761_600_000),   // 2026-09-01 ... 2027-01-01
     ]
+    /// solarEclipseAxisPoint every five minutes through the 2023-04-20 hybrid: misses before and after, and the kind changing along the path.
+    static let axisTrack: (startMs: Int64, endMs: Int64, stepMs: Int64) = (1_681_952_400_000, 1_681_975_800_000, 300_000)   // 01:00Z ... 07:30Z
+    /// The full central line of the glancing 2044-08-23 total, from an instant inside its path, at the default step.
+    static let centralLineAtMs: Int64 = 2_355_527_734_000   // 2044-08-23T01:15:34Z
 
     // ------------------------------------------------------------- quantize
 
@@ -292,9 +303,27 @@ final class ParityTests: XCTestCase {
         }
         let globalSolar = GlobalSolarFile(anchors: globalAnchors, windows: globalWindows)
 
+        func axisPointRow(_ p: SolarEclipseAxisPoint) -> AxisPointRow {
+            AxisPointRow(
+                latitudeDeg: qScaled(p.latitudeDeg, scales.angleDeg), longitudeDeg: qScaled(p.longitudeDeg, scales.angleDeg),
+                kind: p.kind.rawValue, obscuration: qScaled(p.obscuration, scales.fraction))
+        }
+        var axisTrackRows: [AxisTrackRow] = []
+        var tMs = axisTrack.startMs
+        while tMs <= axisTrack.endMs {
+            axisTrackRows.append(AxisTrackRow(tMs: tMs, point: try solarEclipseAxisPoint(at: dateFromMs(tMs)).map(axisPointRow)))
+            tMs += axisTrack.stepMs
+        }
+        let centralLineRows = try solarEclipseCentralLine(peak: dateFromMs(centralLineAtMs)).map { p in
+            let row = axisPointRow(p)
+            return CentralLineRow(
+                tMs: qEventMs(p.time), latitudeDeg: row.latitudeDeg, longitudeDeg: row.longitudeDeg, kind: row.kind, obscuration: row.obscuration)
+        }
+        let centralLine = CentralLineFile(axisTrack: axisTrackRows, centralLine: centralLineRows)
+
         return Corpus(
             positions: positions, altaz: altaz, illumination: illumination, events: events, eclipses: eclipses, solar: solar,
-            globalSolar: globalSolar)
+            globalSolar: globalSolar, centralLine: centralLine)
     }
 
     // One recompute for the whole test class -- see the type doc for why.
@@ -308,6 +337,7 @@ final class ParityTests: XCTestCase {
     static let committedEclipses: EclipsesFile = try! load(EclipsesFile.self, "eclipses.json")
     static let committedSolar: SolarFile = try! load(SolarFile.self, "solar.json")
     static let committedGlobalSolar: GlobalSolarFile = try! load(GlobalSolarFile.self, "globalSolar.json")
+    static let committedCentralLine: CentralLineFile = try! load(CentralLineFile.self, "centralLine.json")
 
     // ---------------------------------------------------------- tolerant
 
@@ -449,6 +479,25 @@ final class ParityTests: XCTestCase {
             XCTAssertEqual(a.eclipses.count, b.eclipses.count, "global window from \(a.startMs)")
             for (ra, rb) in zip(a.eclipses, b.eclipses) { nearGlobal(ra, rb, "global window from \(a.startMs)") }
         }
+
+        XCTAssertEqual(fresh.centralLine.axisTrack.count, Self.committedCentralLine.axisTrack.count)
+        for (a, b) in zip(fresh.centralLine.axisTrack, Self.committedCentralLine.axisTrack) {
+            XCTAssertEqual(a.tMs, b.tMs)
+            XCTAssertEqual(a.point == nil, b.point == nil, "axis point null-ness @\(a.tMs)")
+            guard let pa = a.point, let pb = b.point else { continue }
+            XCTAssertEqual(pa.kind, pb.kind, "axis point kind @\(a.tMs)")
+            near(pa.latitudeDeg, pb.latitudeDeg, tolAngle, "axis point latitudeDeg @\(a.tMs)")
+            near(pa.longitudeDeg, pb.longitudeDeg, tolAngle, "axis point longitudeDeg @\(a.tMs)")
+            near(pa.obscuration, pb.obscuration, tolFrac, "axis point obscuration @\(a.tMs)")
+        }
+        XCTAssertEqual(fresh.centralLine.centralLine.count, Self.committedCentralLine.centralLine.count)
+        for (a, b) in zip(fresh.centralLine.centralLine, Self.committedCentralLine.centralLine) {
+            nearMs(a.tMs, b.tMs, "central line tMs @\(a.tMs)")
+            XCTAssertEqual(a.kind, b.kind, "central line kind @\(a.tMs)")
+            near(a.latitudeDeg, b.latitudeDeg, tolAngle, "central line latitudeDeg @\(a.tMs)")
+            near(a.longitudeDeg, b.longitudeDeg, tolAngle, "central line longitudeDeg @\(a.tMs)")
+            near(a.obscuration, b.obscuration, tolFrac, "central line obscuration @\(a.tMs)")
+        }
     }
 
     // ------------------------------------------------------ reproduction
@@ -502,6 +551,7 @@ final class ParityTests: XCTestCase {
         let eclipses = try roundTrip(fresh.eclipses, "eclipses.json")
         let solar = try roundTrip(fresh.solar, "solar.json")
         let globalSolar = try roundTrip(fresh.globalSolar, "globalSolar.json")
+        let centralLine = try roundTrip(fresh.centralLine, "centralLine.json")
 
         XCTAssertEqual(positions.count, Self.committedPositions.count)
         for (a, b) in zip(positions, Self.committedPositions) {
@@ -611,6 +661,25 @@ final class ParityTests: XCTestCase {
             XCTAssertEqual(a.endMs, b.endMs)
             XCTAssertEqual(a.eclipses.count, b.eclipses.count, "global window from \(a.startMs)")
             for (ra, rb) in zip(a.eclipses, b.eclipses) { nearGlobal(ra, rb, "global window from \(a.startMs)") }
+        }
+
+        XCTAssertEqual(centralLine.axisTrack.count, Self.committedCentralLine.axisTrack.count)
+        for (a, b) in zip(centralLine.axisTrack, Self.committedCentralLine.axisTrack) {
+            XCTAssertEqual(a.tMs, b.tMs)
+            XCTAssertEqual(a.point == nil, b.point == nil, "axis point null-ness @\(a.tMs)")
+            guard let pa = a.point, let pb = b.point else { continue }
+            XCTAssertEqual(pa.kind, pb.kind, "axis point kind @\(a.tMs)")
+            near(pa.latitudeDeg, pb.latitudeDeg, "axis point latitudeDeg @\(a.tMs)")
+            near(pa.longitudeDeg, pb.longitudeDeg, "axis point longitudeDeg @\(a.tMs)")
+            near(pa.obscuration, pb.obscuration, "axis point obscuration @\(a.tMs)")
+        }
+        XCTAssertEqual(centralLine.centralLine.count, Self.committedCentralLine.centralLine.count)
+        for (a, b) in zip(centralLine.centralLine, Self.committedCentralLine.centralLine) {
+            nearMs(a.tMs, b.tMs, "central line tMs @\(a.tMs)")
+            XCTAssertEqual(a.kind, b.kind, "central line kind @\(a.tMs)")
+            near(a.latitudeDeg, b.latitudeDeg, "central line latitudeDeg @\(a.tMs)")
+            near(a.longitudeDeg, b.longitudeDeg, "central line longitudeDeg @\(a.tMs)")
+            near(a.obscuration, b.obscuration, "central line obscuration @\(a.tMs)")
         }
     }
 }
