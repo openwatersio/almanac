@@ -1,6 +1,6 @@
 # Almanac
 
-Offline sky engine for the Salish Sea and everywhere else: Sun and Moon positions, rise, set, twilight, Moon phase, lunar eclipses, solar eclipses for an observer, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun and Moon positions, rise, set, twilight, Moon phase, lunar eclipses, solar eclipses for an observer and anywhere on Earth, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -70,7 +70,9 @@ npm install @openwaters/almanac
 ```
 
 ```ts
-import { nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, sunEvents, starAltAz } from '@openwaters/almanac';
+import {
+  nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, nextGlobalSolarEclipse, sunEvents, starAltAz
+} from '@openwaters/almanac';
 
 const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
 
@@ -81,6 +83,9 @@ console.log(eclipse.kind, eclipse.peak, visibility.visibleAtPeak);
 const solar = nextSolarEclipse(new Date(), observer);
 console.log(solar.kind, solar.peak, solar.obscuration, solar.sunAltDeg.peak);
 console.log(solarObscuration(solar.peak, observer));   // fraction of the Sun's disc covered, 0 to 1
+
+const anywhere = nextGlobalSolarEclipse(new Date());   // no observer: the next solar eclipse on Earth
+console.log(anywhere.kind, anywhere.peak, anywhere.latitudeDeg, anywhere.longitudeDeg);   // where the shadow axis lands; null for a partial
 
 const today = new Date();
 const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
@@ -112,6 +117,12 @@ let solar = try nextSolarEclipse(after: Date(), observer: observer)
 print(solar.kind, solar.peak, solar.obscuration, solar.sunAltDeg.peak)
 print(try solarObscuration(at: solar.peak, observer: observer))   // fraction of the Sun's disc covered, 0 to 1
 
+let anywhere = try nextGlobalSolarEclipse(after: Date())   // no observer: the next solar eclipse on Earth
+print(anywhere.kind, anywhere.peak, anywhere.axisDistanceKm)
+if let lat = anywhere.latitudeDeg, let lon = anywhere.longitudeDeg {
+  print(lat, lon)   // where the shadow axis lands; nil for a partial
+}
+
 let today = Date()
 let tomorrow = today.addingTimeInterval(24 * 60 * 60)
 for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
@@ -142,3 +153,22 @@ extend outside the range. Previous/next searches skip peaks within 100 ms of the
 anchor. Search results are global; apply `lunarEclipseVisibility` for an observer.
 
 Solar eclipses are searched for an observer, because their contacts only exist for a place: `nextSolarEclipse(after, observer)`, `previousSolarEclipse(before, observer)`, and `solarEclipses(startUtc, endUtc, observer)`. An eclipse whose Sun is below the horizon at C1, the peak, and C4 is not returned.
+
+To ask about the whole Earth instead, `nextGlobalSolarEclipse(after)`, `previousGlobalSolarEclipse(before)`, and `globalSolarEclipses(startUtc, endUtc)` need no observer. Each eclipse reports its greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there. When the axis misses the Earth the eclipse is partial and has no ground point.
+
+`solarEclipseCentralLine(peak, stepSeconds)` samples where the axis meets the ground from its first contact to its last, and `solarEclipseAxisPoint(time)` gives that point at any instant. How far the next totality passes from a place is a distance to each point of a line:
+
+```ts
+import { nextGlobalSolarEclipse, solarEclipseCentralLine } from '@openwaters/almanac';
+let next = nextGlobalSolarEclipse(new Date());
+while (next.kind !== 'total') next = nextGlobalSolarEclipse(next.peak);
+const line = solarEclipseCentralLine(next.peak);   // every whole minute of the path, and its two ends
+```
+
+```swift
+var next = try nextGlobalSolarEclipse(after: Date())
+while next.kind != .total { next = try nextGlobalSolarEclipse(after: next.peak) }
+let line = try solarEclipseCentralLine(peak: next.peak)   // every whole minute of the path, and its two ends
+```
+
+Points are a median 47 km apart at the default step but hundreds apart beside an end, where the shadow races along the horizon; pass a smaller `stepSeconds` for a finer line.

@@ -2,9 +2,10 @@
 // Fetches the raw NASA/GSFC Espenak eclipse pages the derive pipeline works
 // from: the four Five Millennium Catalog century pages (lunar and solar),
 // plus four per-eclipse Observer's Handbook pages carrying named-contact
-// times. This is the ONLY script that touches eclipse.gsfc.nasa.gov — run it
-// once, inspect the output, commit the raw .html files. derive.mjs never
-// calls this.
+// times. This is the ONLY script that touches those catalog and handbook
+// pages on eclipse.gsfc.nasa.gov; refresh-sepath.mjs fetches the per-eclipse
+// path tables. Run it once, inspect the output, commit the raw .html files.
+// derive.mjs never calls this.
 import { writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 

@@ -33,5 +33,19 @@
     "firstPeak": "1950-03-18T15:31:32Z",
     "lastPeak": "2100-09-04T08:45:56Z",
     "note": "peakUtc is the catalog's TD of greatest eclipse minus its Delta-T column. latitudeDeg/longitudeDeg are the whole-degree coordinates of greatest eclipse, so an observer placed there sits up to ~80 km off the shadow axis. central is false when the type flag is + or -."
+  },
+  "paths": {
+    "source": "NASA/GSFC eclipse path tables (eclipse.gsfc.nasa.gov/SEpath)",
+    "retrieved": "2026-09-27",
+    "requests": [
+      "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2017Aug21Tpath.html",
+      "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2023Oct14Apath.html",
+      "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2024Apr08Tpath.html",
+      "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2026Aug12Tpath.html",
+      "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2044Aug23Tpath.html",
+      "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2045Aug12Tpath.html"
+    ],
+    "stepSeconds": 120,
+    "note": "Each table's UT is its TD minus its own deltaTSeconds, a few seconds from the Espenak–Meeus value this package uses, so compare at the same TD. Coordinates are WGS 84; greatestEclipse is to 0.1 arcminute. limits holds the central line where the path meets the horizon at its start and end, whose times the tables do not give. durationS is the central duration at each row."
   }
 }

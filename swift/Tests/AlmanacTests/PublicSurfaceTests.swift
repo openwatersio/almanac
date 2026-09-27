@@ -132,4 +132,39 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertEqual(hand.kind, .partial)
         XCTAssertNil(hand.sunAltDeg.c2)
     }
+
+    func testGlobalSolarEclipse() throws {
+        let e: GlobalSolarEclipse = try nextGlobalSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000)) // 2017-07-14
+        let previous: GlobalSolarEclipse = try previousGlobalSolarEclipse(before: e.peak)
+        let range: [GlobalSolarEclipse] = try globalSolarEclipses(from: previous.peak, to: e.peak)
+        XCTAssertEqual(range.map(\.peak), [previous.peak])
+        let kind: SolarEclipseKind = e.kind
+        let point: (Double?, Double?) = (e.latitudeDeg, e.longitudeDeg)
+        let obscuration: Double? = e.obscuration
+        _ = (kind, e.peak, e.axisDistanceKm, point, obscuration)
+
+        // Construct via its public init — proves the init itself is public,
+        // which a `@testable` test would not catch.
+        let hand = GlobalSolarEclipse(kind: .partial, peak: e.peak, axisDistanceKm: 6500, latitudeDeg: nil, longitudeDeg: nil, obscuration: nil)
+        XCTAssertEqual(hand.kind, .partial)
+        XCTAssertNil(hand.latitudeDeg)
+    }
+
+    func testCentralLine() throws {
+        let e: GlobalSolarEclipse = try nextGlobalSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000)) // 2017-08-21 total
+        let point: SolarEclipseAxisPoint? = try solarEclipseAxisPoint(at: e.peak)
+        let p = try XCTUnwrap(point)
+        _ = (p.time, p.latitudeDeg, p.longitudeDeg, p.kind, p.obscuration)
+        let line: [SolarEclipseAxisPoint] = try solarEclipseCentralLine(peak: e.peak)
+        XCTAssertFalse(line.isEmpty)
+        let coarse: [SolarEclipseAxisPoint] = try solarEclipseCentralLine(peak: e.peak, stepSeconds: 600)
+        XCTAssertLessThan(coarse.count, line.count)
+
+        // Construct via its public init — proves the init itself is public,
+        // which a `@testable` test would not catch.
+        let hand = SolarEclipseAxisPoint(time: e.peak, latitudeDeg: 37, longitudeDeg: -88, kind: .total, obscuration: 1)
+        XCTAssertEqual(hand.kind, .total)
+        let kinds: [SolarEclipseAxisKind] = [.annular, .total]
+        XCTAssertEqual(kinds.map { $0.rawValue }, ["annular", "total"])
+    }
 }

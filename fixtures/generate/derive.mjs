@@ -7,6 +7,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { SITES as STAR_SITES, DATES as STAR_DATES, TIME as STAR_TIME, STAR_IDS } from "./refresh-stars.mjs";
 import { SOLAR_CASES, solarName } from "./refresh-usno.mjs";
+import { PATHS as SEPATH_PATHS, pathName as sepathName } from "./refresh-sepath.mjs";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 
@@ -14,6 +15,7 @@ const RAW_DIR = new URL("../raw/horizons/", import.meta.url);
 const USNO_RAW_DIR = new URL("../raw/usno/", import.meta.url);
 const STARS_RAW_DIR = new URL("../raw/stars/", import.meta.url);
 const ESPENAK_RAW_DIR = new URL("../raw/espenak/", import.meta.url);
+const SEPATH_RAW_DIR = new URL("../raw/sepath/", import.meta.url);
 const FIXTURES_DIR = new URL("../", import.meta.url);
 
 const AU_KM = 1.495978707e8;
@@ -496,13 +498,118 @@ function deriveEspenakSolarCatalog(retrieved, requests) {
   };
 }
 
-function deriveSolar(usno, espenak) {
+// --- NASA/GSFC per-eclipse path tables (SEpath) ---------------------------
+
+const SEPATH_STEP_SECONDS = 120;
+
+function round6(x) {
+  return Number(x.toFixed(6));
+}
+
+/** A path-table coordinate, degrees and hemisphere-suffixed minutes ("065", "13.5N"), as signed degrees. */
+function sepathDeg(degStr, minStr, name) {
+  const m = minStr.match(/^(\d+\.\d)([NSEW])$/);
+  assert.ok(m && /^\d+$/.test(degStr), `${name}: unrecognized coordinate "${degStr} ${minStr}"`);
+  const deg = Number(degStr) + Number(m[1]) / 60;
+  return round6(m[2] === "S" || m[2] === "W" ? -deg : deg);
+}
+
+/** A central duration ("02m18.2s") in seconds. */
+function sepathDuration(str, name) {
+  const m = str.match(/^(\d+)m(\d+\.\d)s$/);
+  assert.ok(m, `${name}: unrecognized duration "${str}"`);
+  return round6(Number(m[1]) * 60 + Number(m[2]));
+}
+
+function sepathFile({ eclipse, kind }, name) {
+  const html = readFileSync(new URL(`${name}.html`, SEPATH_RAW_DIR), "utf8");
+  const text = html.replace(/<[^>]+>/g, "").replace(/&#176;/g, "°").replace(/&#39;/g, "'").replace(/&Delta;/g, "Δ");
+  assert.ok(text.includes(`${SEPATH_STEP_SECONDS}-second intervals`), `${name}: not a ${SEPATH_STEP_SECONDS}-second table`);
+  const dtMatch = text.replace(/\s+/g, " ").match(/ΔT = ([\d.]+) seconds/);
+  assert.ok(dtMatch, `${name}: no Delta-T`);
+  const ge = text.match(
+    /Greatest Eclipse:\s+Time =\s+(\d{2}):(\d{2}):(\d{2}\.\d) UT\s+Lat =\s+(\d+)°(\d+\.\d)'([NS])\s+Long =\s+(\d+)°(\d+\.\d)'([EW])/);
+  assert.ok(ge, `${name}: no greatest eclipse`);
+  const [y, mo, d] = eclipse.split("-").map(Number);
+  const geMs = Date.UTC(y, mo - 1, d, Number(ge[1]), Number(ge[2])) + Math.round(Number(ge[3]) * 1000);
+
+  const limits = [];
+  const centralLine = [];
+  for (const line of text.split("\n")) {
+    const tokens = line.trim().split(/\s+/);
+    if (tokens[0] !== "Limits" && !/^\d{2}:\d{2}$/.test(tokens[0])) continue;
+    // The central line is the four tokens before the diameter ratio; a
+    // missing northern or southern limit is a pair of dashes before it.
+    const ri = tokens.findIndex((t) => /^\d\.\d{3}$/.test(t));
+    assert.ok(ri >= 5 && tokens.length === ri + 5, `${name}: unrecognized row "${line.trim()}"`);
+    const latitudeDeg = sepathDeg(tokens[ri - 4], tokens[ri - 3], name);
+    const longitudeDeg = sepathDeg(tokens[ri - 2], tokens[ri - 1], name);
+    const diameterRatio = Number(tokens[ri]);
+    assert.equal(diameterRatio > 1, kind === "total", `${name}: diameter ratio ${diameterRatio} for a ${kind} path`);
+    if (tokens[0] === "Limits") {
+      limits.push({ latitudeDeg, longitudeDeg });
+      continue;
+    }
+    const [hh, mm] = tokens[0].split(":").map(Number);
+    let ms = Date.UTC(y, mo - 1, d, hh, mm);
+    // Rows carry clock times only; put each on the day that keeps it within
+    // half a day of greatest eclipse.
+    if (ms - geMs > 43200000) ms -= 86400000;
+    else if (geMs - ms > 43200000) ms += 86400000;
+    centralLine.push({
+      utc: new Date(ms).toISOString(), latitudeDeg, longitudeDeg, diameterRatio,
+      sunAltDeg: Number(tokens[ri + 1]), durationS: sepathDuration(tokens[ri + 4], name),
+    });
+  }
+
+  // self-checks: two limits, a steady 120 s cadence, and greatest eclipse inside the timed rows.
+  assert.equal(limits.length, 2, `${name}: expected the two Limits rows, found ${limits.length}`);
+  assert.ok(centralLine.length >= 20, `${name}: only ${centralLine.length} timed rows`);
+  for (let i = 1; i < centralLine.length; i++) {
+    assert.equal(Date.parse(centralLine[i].utc) - Date.parse(centralLine[i - 1].utc), SEPATH_STEP_SECONDS * 1000,
+      `${name}: row ${centralLine[i].utc} is not ${SEPATH_STEP_SECONDS} s after the one before it`);
+  }
+  assert.ok(geMs > Date.parse(centralLine[0].utc) && geMs < Date.parse(centralLine.at(-1).utc), `${name}: greatest eclipse outside the rows`);
+
+  return {
+    eclipse, kind, deltaTSeconds: Number(dtMatch[1]),
+    greatestEclipse: {
+      utc: new Date(geMs).toISOString(),
+      latitudeDeg: sepathDeg(ge[4], `${ge[5]}${ge[6]}`, name),
+      longitudeDeg: sepathDeg(ge[7], `${ge[8]}${ge[9]}`, name),
+    },
+    limits, centralLine,
+  };
+}
+
+function deriveSepath(retrieved, requests) {
+  const paths = SEPATH_PATHS.map((p) => sepathFile(p, sepathName(p)));
+  // self-check against the table the issue quotes: 2026-08-12 peaks at 65°13.5'N 25°13.7'W.
+  const aug2026 = paths.find((p) => p.eclipse === "2026-08-12");
+  assert.deepEqual(
+    [aug2026.greatestEclipse.utc, aug2026.greatestEclipse.latitudeDeg, aug2026.greatestEclipse.longitudeDeg, aug2026.deltaTSeconds],
+    ["2026-08-12T17:45:53.800Z", 65.225, -25.228333, 71.4], "solar paths: 2026-08-12 greatest eclipse");
+  return {
+    "eclipses/solar-paths.json": json(paths),
+    solarPathsMeta: {
+      source: "NASA/GSFC eclipse path tables (eclipse.gsfc.nasa.gov/SEpath)",
+      retrieved,
+      requests: SEPATH_PATHS.map((p) => requests[sepathName(p)]),
+      stepSeconds: SEPATH_STEP_SECONDS,
+      note: "Each table's UT is its TD minus its own deltaTSeconds, a few seconds from the Espenak–Meeus value this package uses, so compare at the same TD. Coordinates are WGS 84; greatestEclipse is to 0.1 arcminute. limits holds the central line where the path meets the horizon at its start and end, whose times the tables do not give. durationS is the central duration at each row.",
+    },
+  };
+}
+
+function deriveSolar(usno, espenak, sepath) {
   const { "eclipses/solar-local.json": localJson, solarLocalMeta } = deriveUsnoSolar(usno.retrieved, usno.requests);
   const { "eclipses/solar-catalog.json": catalogJson, solarCatalogMeta } = deriveEspenakSolarCatalog(espenak.retrieved, espenak.requests);
+  const { "eclipses/solar-paths.json": pathsJson, solarPathsMeta } = deriveSepath(sepath.retrieved, sepath.requests);
   return {
     "eclipses/solar-local.json": localJson,
     "eclipses/solar-catalog.json": catalogJson,
-    "eclipses/solar-meta.json": json({ local: solarLocalMeta, catalog: solarCatalogMeta }),
+    "eclipses/solar-paths.json": pathsJson,
+    "eclipses/solar-meta.json": json({ local: solarLocalMeta, catalog: solarCatalogMeta, paths: solarPathsMeta }),
   };
 }
 
@@ -779,6 +886,7 @@ function main() {
   const horizons = JSON.parse(readFileSync(new URL("retrieved.json", RAW_DIR), "utf8"));
   const usno = JSON.parse(readFileSync(new URL("retrieved.json", USNO_RAW_DIR), "utf8"));
   const espenak = JSON.parse(readFileSync(new URL("retrieved.json", ESPENAK_RAW_DIR), "utf8"));
+  const sepath = JSON.parse(readFileSync(new URL("retrieved.json", SEPATH_RAW_DIR), "utf8"));
   const stars = JSON.parse(readFileSync(new URL("retrieved.json", STARS_RAW_DIR), "utf8"));
 
   const files = {
@@ -787,7 +895,7 @@ function main() {
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
     ...deriveEspenak(espenak.retrieved, espenak.requests),
-    ...deriveSolar(usno, espenak),
+    ...deriveSolar(usno, espenak, sepath),
     ...deriveStars(stars.retrieved, stars.requests),
   };
 

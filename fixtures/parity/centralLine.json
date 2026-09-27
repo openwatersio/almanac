@@ -1,0 +1,935 @@
+{
+  "axisTrack": [
+    {
+      "tMs": 1681952400000,
+      "point": null
+    },
+    {
+      "tMs": 1681952700000,
+      "point": null
+    },
+    {
+      "tMs": 1681953000000,
+      "point": null
+    },
+    {
+      "tMs": 1681953300000,
+      "point": null
+    },
+    {
+      "tMs": 1681953600000,
+      "point": null
+    },
+    {
+      "tMs": 1681953900000,
+      "point": null
+    },
+    {
+      "tMs": 1681954200000,
+      "point": null
+    },
+    {
+      "tMs": 1681954500000,
+      "point": null
+    },
+    {
+      "tMs": 1681954800000,
+      "point": null
+    },
+    {
+      "tMs": 1681955100000,
+      "point": null
+    },
+    {
+      "tMs": 1681955400000,
+      "point": null
+    },
+    {
+      "tMs": 1681955700000,
+      "point": null
+    },
+    {
+      "tMs": 1681956000000,
+      "point": null
+    },
+    {
+      "tMs": 1681956300000,
+      "point": null
+    },
+    {
+      "tMs": 1681956600000,
+      "point": null
+    },
+    {
+      "tMs": 1681956900000,
+      "point": null
+    },
+    {
+      "tMs": 1681957200000,
+      "point": null
+    },
+    {
+      "tMs": 1681957500000,
+      "point": null
+    },
+    {
+      "tMs": 1681957800000,
+      "point": null
+    },
+    {
+      "tMs": 1681958100000,
+      "point": null
+    },
+    {
+      "tMs": 1681958400000,
+      "point": {
+        "latitudeDeg": -43869725,
+        "longitudeDeg": 80126833,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681958700000,
+      "point": {
+        "latitudeDeg": -40218238,
+        "longitudeDeg": 88973502,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681959000000,
+      "point": {
+        "latitudeDeg": -37386292,
+        "longitudeDeg": 94460252,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681959300000,
+      "point": {
+        "latitudeDeg": -34936184,
+        "longitudeDeg": 98538878,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681959600000,
+      "point": {
+        "latitudeDeg": -32726362,
+        "longitudeDeg": 101808650,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681959900000,
+      "point": {
+        "latitudeDeg": -30688211,
+        "longitudeDeg": 104547290,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681960200000,
+      "point": {
+        "latitudeDeg": -28781857,
+        "longitudeDeg": 106909909,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681960500000,
+      "point": {
+        "latitudeDeg": -26981543,
+        "longitudeDeg": 108993350,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681960800000,
+      "point": {
+        "latitudeDeg": -25269422,
+        "longitudeDeg": 110862828,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681961100000,
+      "point": {
+        "latitudeDeg": -23632509,
+        "longitudeDeg": 112564770,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681961400000,
+      "point": {
+        "latitudeDeg": -22061010,
+        "longitudeDeg": 114133694,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681961700000,
+      "point": {
+        "latitudeDeg": -20547332,
+        "longitudeDeg": 115596196,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681962000000,
+      "point": {
+        "latitudeDeg": -19085473,
+        "longitudeDeg": 116973398,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681962300000,
+      "point": {
+        "latitudeDeg": -17670610,
+        "longitudeDeg": 118282531,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681962600000,
+      "point": {
+        "latitudeDeg": -16298829,
+        "longitudeDeg": 119538005,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681962900000,
+      "point": {
+        "latitudeDeg": -14966936,
+        "longitudeDeg": 120752157,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681963200000,
+      "point": {
+        "latitudeDeg": -13672312,
+        "longitudeDeg": 121935786,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681963500000,
+      "point": {
+        "latitudeDeg": -12412826,
+        "longitudeDeg": 123098559,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681963800000,
+      "point": {
+        "latitudeDeg": -11186753,
+        "longitudeDeg": 124249326,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681964100000,
+      "point": {
+        "latitudeDeg": -9992732,
+        "longitudeDeg": 125396367,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681964400000,
+      "point": {
+        "latitudeDeg": -8829721,
+        "longitudeDeg": 126547613,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681964700000,
+      "point": {
+        "latitudeDeg": -7696982,
+        "longitudeDeg": 127710826,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681965000000,
+      "point": {
+        "latitudeDeg": -6594065,
+        "longitudeDeg": 128893785,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681965300000,
+      "point": {
+        "latitudeDeg": -5520808,
+        "longitudeDeg": 130104460,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681965600000,
+      "point": {
+        "latitudeDeg": -4477346,
+        "longitudeDeg": 131351209,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681965900000,
+      "point": {
+        "latitudeDeg": -3464132,
+        "longitudeDeg": 132642990,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681966200000,
+      "point": {
+        "latitudeDeg": -2481976,
+        "longitudeDeg": 133989629,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681966500000,
+      "point": {
+        "latitudeDeg": -1532096,
+        "longitudeDeg": 135402145,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681966800000,
+      "point": {
+        "latitudeDeg": -616199,
+        "longitudeDeg": 136893192,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681967100000,
+      "point": {
+        "latitudeDeg": 263393,
+        "longitudeDeg": 138477646,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681967400000,
+      "point": {
+        "latitudeDeg": 1103578,
+        "longitudeDeg": 140173461,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681967700000,
+      "point": {
+        "latitudeDeg": 1900200,
+        "longitudeDeg": 142002922,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681968000000,
+      "point": {
+        "latitudeDeg": 2647636,
+        "longitudeDeg": 143994606,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681968300000,
+      "point": {
+        "latitudeDeg": 3338113,
+        "longitudeDeg": 146186579,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681968600000,
+      "point": {
+        "latitudeDeg": 3960511,
+        "longitudeDeg": 148632003,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681968900000,
+      "point": {
+        "latitudeDeg": 4498102,
+        "longitudeDeg": 151409806,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681969200000,
+      "point": {
+        "latitudeDeg": 4923733,
+        "longitudeDeg": 154647524,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681969500000,
+      "point": {
+        "latitudeDeg": 5187666,
+        "longitudeDeg": 158579340,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681969800000,
+      "point": {
+        "latitudeDeg": 5176528,
+        "longitudeDeg": 163743459,
+        "kind": "total",
+        "obscuration": 1000000
+      }
+    },
+    {
+      "tMs": 1681970100000,
+      "point": {
+        "latitudeDeg": 4431447,
+        "longitudeDeg": 172349391,
+        "kind": "annular",
+        "obscuration": 999389
+      }
+    },
+    {
+      "tMs": 1681970400000,
+      "point": null
+    },
+    {
+      "tMs": 1681970700000,
+      "point": null
+    },
+    {
+      "tMs": 1681971000000,
+      "point": null
+    },
+    {
+      "tMs": 1681971300000,
+      "point": null
+    },
+    {
+      "tMs": 1681971600000,
+      "point": null
+    },
+    {
+      "tMs": 1681971900000,
+      "point": null
+    },
+    {
+      "tMs": 1681972200000,
+      "point": null
+    },
+    {
+      "tMs": 1681972500000,
+      "point": null
+    },
+    {
+      "tMs": 1681972800000,
+      "point": null
+    },
+    {
+      "tMs": 1681973100000,
+      "point": null
+    },
+    {
+      "tMs": 1681973400000,
+      "point": null
+    },
+    {
+      "tMs": 1681973700000,
+      "point": null
+    },
+    {
+      "tMs": 1681974000000,
+      "point": null
+    },
+    {
+      "tMs": 1681974300000,
+      "point": null
+    },
+    {
+      "tMs": 1681974600000,
+      "point": null
+    },
+    {
+      "tMs": 1681974900000,
+      "point": null
+    },
+    {
+      "tMs": 1681975200000,
+      "point": null
+    },
+    {
+      "tMs": 1681975500000,
+      "point": null
+    },
+    {
+      "tMs": 1681975800000,
+      "point": null
+    }
+  ],
+  "centralLine": [
+    {
+      "tMs": 2355526055400,
+      "latitudeDeg": 74500885,
+      "longitudeDeg": -55296228,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526080000,
+      "latitudeDeg": 76124447,
+      "longitudeDeg": -63461931,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526140000,
+      "latitudeDeg": 76944454,
+      "longitudeDeg": -72691623,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526200000,
+      "latitudeDeg": 77127952,
+      "longitudeDeg": -79631838,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526260000,
+      "latitudeDeg": 77043723,
+      "longitudeDeg": -85373328,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526320000,
+      "latitudeDeg": 76803115,
+      "longitudeDeg": -90229627,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526380000,
+      "latitudeDeg": 76461045,
+      "longitudeDeg": -94373326,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526440000,
+      "latitudeDeg": 76049961,
+      "longitudeDeg": -97927294,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526500000,
+      "latitudeDeg": 75590819,
+      "longitudeDeg": -100988035,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526560000,
+      "latitudeDeg": 75097839,
+      "longitudeDeg": -103633956,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526620000,
+      "latitudeDeg": 74580971,
+      "longitudeDeg": -105929451,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526680000,
+      "latitudeDeg": 74047327,
+      "longitudeDeg": -107927590,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526740000,
+      "latitudeDeg": 73502062,
+      "longitudeDeg": -109672195,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526800000,
+      "latitudeDeg": 72948955,
+      "longitudeDeg": -111199522,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526860000,
+      "latitudeDeg": 72390797,
+      "longitudeDeg": -112539643,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526920000,
+      "latitudeDeg": 71829658,
+      "longitudeDeg": -113717582,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355526980000,
+      "latitudeDeg": 71267076,
+      "longitudeDeg": -114754234,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527040000,
+      "latitudeDeg": 70704193,
+      "longitudeDeg": -115667115,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527100000,
+      "latitudeDeg": 70141854,
+      "longitudeDeg": -116470964,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527160000,
+      "latitudeDeg": 69580675,
+      "longitudeDeg": -117178235,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527220000,
+      "latitudeDeg": 69021097,
+      "longitudeDeg": -117799483,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527280000,
+      "latitudeDeg": 68463429,
+      "longitudeDeg": -118343693,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527340000,
+      "latitudeDeg": 67907873,
+      "longitudeDeg": -118818529,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527400000,
+      "latitudeDeg": 67354549,
+      "longitudeDeg": -119230552,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527460000,
+      "latitudeDeg": 66803514,
+      "longitudeDeg": -119585386,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527520000,
+      "latitudeDeg": 66254770,
+      "longitudeDeg": -119887861,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527580000,
+      "latitudeDeg": 65708277,
+      "longitudeDeg": -120142128,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527640000,
+      "latitudeDeg": 65163962,
+      "longitudeDeg": -120351750,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527700000,
+      "latitudeDeg": 64621722,
+      "longitudeDeg": -120519785,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527760000,
+      "latitudeDeg": 64081429,
+      "longitudeDeg": -120648844,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527820000,
+      "latitudeDeg": 63542933,
+      "longitudeDeg": -120741146,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527880000,
+      "latitudeDeg": 63006065,
+      "longitudeDeg": -120798561,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355527940000,
+      "latitudeDeg": 62470636,
+      "longitudeDeg": -120822640,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528000000,
+      "latitudeDeg": 61936441,
+      "longitudeDeg": -120814647,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528060000,
+      "latitudeDeg": 61403255,
+      "longitudeDeg": -120775574,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528120000,
+      "latitudeDeg": 60870833,
+      "longitudeDeg": -120706160,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528180000,
+      "latitudeDeg": 60338910,
+      "longitudeDeg": -120606895,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528240000,
+      "latitudeDeg": 59807197,
+      "longitudeDeg": -120478026,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528300000,
+      "latitudeDeg": 59275378,
+      "longitudeDeg": -120319553,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528360000,
+      "latitudeDeg": 58743107,
+      "longitudeDeg": -120131216,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528420000,
+      "latitudeDeg": 58209998,
+      "longitudeDeg": -119912482,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528480000,
+      "latitudeDeg": 57675624,
+      "longitudeDeg": -119662512,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528540000,
+      "latitudeDeg": 57139499,
+      "longitudeDeg": -119380126,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528600000,
+      "latitudeDeg": 56601074,
+      "longitudeDeg": -119063745,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528660000,
+      "latitudeDeg": 56059713,
+      "longitudeDeg": -118711314,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528720000,
+      "latitudeDeg": 55514670,
+      "longitudeDeg": -118320191,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528780000,
+      "latitudeDeg": 54965062,
+      "longitudeDeg": -117887002,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528840000,
+      "latitudeDeg": 54409816,
+      "longitudeDeg": -117407411,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528900000,
+      "latitudeDeg": 53847605,
+      "longitudeDeg": -116875803,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355528960000,
+      "latitudeDeg": 53276745,
+      "longitudeDeg": -116284785,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529020000,
+      "latitudeDeg": 52695031,
+      "longitudeDeg": -115624402,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529080000,
+      "latitudeDeg": 52099467,
+      "longitudeDeg": -114880816,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529140000,
+      "latitudeDeg": 51485779,
+      "longitudeDeg": -114033939,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529200000,
+      "latitudeDeg": 50847458,
+      "longitudeDeg": -113052781,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529260000,
+      "latitudeDeg": 50173627,
+      "longitudeDeg": -111885043,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529320000,
+      "latitudeDeg": 49443231,
+      "longitudeDeg": -110428780,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529380000,
+      "latitudeDeg": 48602444,
+      "longitudeDeg": -108422086,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529440000,
+      "latitudeDeg": 47207009,
+      "longitudeDeg": -103694685,
+      "kind": "total",
+      "obscuration": 1000000
+    },
+    {
+      "tMs": 2355529440900,
+      "latitudeDeg": 47059157,
+      "longitudeDeg": -103002459,
+      "kind": "total",
+      "obscuration": 1000000
+    }
+  ]
+}
