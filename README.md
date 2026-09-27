@@ -155,7 +155,7 @@ anchor. Search results are global; apply `lunarEclipseVisibility` for an observe
 
 Solar eclipses are searched for an observer, because their contacts only exist for a place: `nextSolarEclipse(after, observer)`, `previousSolarEclipse(before, observer)`, and `solarEclipses(startUtc, endUtc, observer)`. An eclipse whose Sun is below the horizon at C1, the peak, and C4 is not returned.
 
-To ask about the whole Earth instead, `nextGlobalSolarEclipse(after)`, `previousGlobalSolarEclipse(before)`, and `globalSolarEclipses(startUtc, endUtc)` need no observer. Each eclipse reports its greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there. When the axis misses the Earth the eclipse is partial and has no ground point.
+To ask about the whole Earth instead, `nextGlobalSolarEclipse(after)`, `previousGlobalSolarEclipse(before)`, and `globalSolarEclipses(startUtc, endUtc)` need no observer. Each eclipse reports its greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there. When the axis misses the Earth the eclipse is partial and has no ground point, and greatest eclipse falls on the Earth's limb nearest the axis, with the Sun on the horizon: `greatestLatitudeDeg`, `greatestLongitudeDeg`, and `greatestObscuration` give that place for every eclipse.
 
 `solarEclipseCentralLine(peak, stepSeconds)` samples where the axis meets the ground from its first contact to its last, and `solarEclipseAxisPoint(time)` gives that point at any instant. How far the next totality passes from a place is a distance to each point of a line:
 

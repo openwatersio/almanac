@@ -8,7 +8,10 @@
         "axisDistanceKm": 5679173,
         "latitudeDeg": 54813663,
         "longitudeDeg": 172288807,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": 54813663,
+        "greatestLongitudeDeg": 172288807,
+        "greatestObscuration": 1000000
       },
       "previous": {
         "kind": "partial",
@@ -16,7 +19,10 @@
         "axisDistanceKm": 6370499,
         "latitudeDeg": null,
         "longitudeDeg": null,
-        "obscuration": null
+        "obscuration": null,
+        "greatestLatitudeDeg": -61085053,
+        "greatestLongitudeDeg": 41000653,
+        "greatestObscuration": 862339
       }
     },
     {
@@ -27,7 +33,10 @@
         "axisDistanceKm": 6791211,
         "latitudeDeg": null,
         "longitudeDeg": null,
-        "obscuration": null
+        "obscuration": null,
+        "greatestLatitudeDeg": 69776279,
+        "greatestLongitudeDeg": -80365502,
+        "greatestObscuration": 816070
       },
       "previous": {
         "kind": "partial",
@@ -35,7 +44,10 @@
         "axisDistanceKm": 6888335,
         "latitudeDeg": null,
         "longitudeDeg": null,
-        "obscuration": null
+        "obscuration": null,
+        "greatestLatitudeDeg": 66769566,
+        "greatestLongitudeDeg": -69402779,
+        "greatestObscuration": 759472
       }
     },
     {
@@ -46,7 +58,10 @@
         "axisDistanceKm": 7802947,
         "latitudeDeg": null,
         "longitudeDeg": null,
-        "obscuration": null
+        "obscuration": null,
+        "greatestLatitudeDeg": -70258358,
+        "greatestLongitudeDeg": 134329363,
+        "greatestObscuration": 468210
       },
       "previous": {
         "kind": "total",
@@ -54,7 +69,10 @@
         "axisDistanceKm": 3230093,
         "latitudeDeg": 45088683,
         "longitudeDeg": 24318348,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": 45088683,
+        "greatestLongitudeDeg": 24318348,
+        "greatestObscuration": 1000000
       }
     },
     {
@@ -65,7 +83,10 @@
         "axisDistanceKm": 1881520,
         "latitudeDeg": -31295740,
         "longitudeDeg": -48465994,
-        "obscuration": 861451
+        "obscuration": 861451,
+        "greatestLatitudeDeg": -31295740,
+        "greatestLongitudeDeg": -48465994,
+        "greatestObscuration": 861451
       },
       "previous": {
         "kind": "total",
@@ -73,7 +94,10 @@
         "axisDistanceKm": 5724876,
         "latitudeDeg": 65215533,
         "longitudeDeg": -25249367,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": 65215533,
+        "greatestLongitudeDeg": -25249367,
+        "greatestObscuration": 1000000
       }
     },
     {
@@ -84,7 +108,10 @@
         "axisDistanceKm": 5542815,
         "latitudeDeg": -40121387,
         "longitudeDeg": -123702564,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": -40121387,
+        "greatestLongitudeDeg": -123702564,
+        "greatestObscuration": 1000000
       },
       "previous": {
         "kind": "total",
@@ -92,7 +119,10 @@
         "axisDistanceKm": 1877378,
         "latitudeDeg": -3799783,
         "longitudeDeg": 95253296,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": -3799783,
+        "greatestLongitudeDeg": 95253296,
+        "greatestObscuration": 1000000
       }
     },
     {
@@ -103,7 +133,10 @@
         "axisDistanceKm": 1786804,
         "latitudeDeg": -37189247,
         "longitudeDeg": -94082462,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": -37189247,
+        "greatestLongitudeDeg": -94082462,
+        "greatestObscuration": 1000000
       },
       "previous": {
         "kind": "annular",
@@ -111,7 +144,10 @@
         "axisDistanceKm": 791166,
         "latitudeDeg": 12793040,
         "longitudeDeg": 133731390,
-        "obscuration": 967988
+        "obscuration": 967988,
+        "greatestLatitudeDeg": 12793040,
+        "greatestLongitudeDeg": 133731390,
+        "greatestObscuration": 967988
       }
     },
     {
@@ -122,7 +158,10 @@
         "axisDistanceKm": 2160914,
         "latitudeDeg": -10492345,
         "longitudeDeg": 38995015,
-        "obscuration": 1000000
+        "obscuration": 1000000,
+        "greatestLatitudeDeg": -10492345,
+        "greatestLongitudeDeg": 38995015,
+        "greatestObscuration": 1000000
       },
       "previous": {
         "kind": "annular",
@@ -130,7 +169,10 @@
         "axisDistanceKm": 1962616,
         "latitudeDeg": 11957931,
         "longitudeDeg": -162435050,
-        "obscuration": 872098
+        "obscuration": 872098,
+        "greatestLatitudeDeg": 11957931,
+        "greatestLongitudeDeg": -162435050,
+        "greatestObscuration": 872098
       }
     }
   ],
@@ -145,7 +187,10 @@
           "axisDistanceKm": 6370499,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61085053,
+          "greatestLongitudeDeg": 41000653,
+          "greatestObscuration": 862339
         },
         {
           "kind": "total",
@@ -153,7 +198,10 @@
           "axisDistanceKm": 5679173,
           "latitudeDeg": 54813663,
           "longitudeDeg": 172288807,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 54813663,
+          "greatestLongitudeDeg": 172288807,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -161,7 +209,10 @@
           "axisDistanceKm": 1542863,
           "latitudeDeg": -17682249,
           "longitudeDeg": -123524156,
-          "obscuration": 979422
+          "obscuration": 979422,
+          "greatestLatitudeDeg": -17682249,
+          "greatestLongitudeDeg": -123524156,
+          "greatestObscuration": 979422
         },
         {
           "kind": "annular",
@@ -169,7 +220,10 @@
           "axisDistanceKm": 993417,
           "latitudeDeg": 16481587,
           "longitudeDeg": -8464369,
-          "obscuration": 950211
+          "obscuration": 950211,
+          "greatestLatitudeDeg": 16481587,
+          "greatestLongitudeDeg": -8464369,
+          "greatestObscuration": 950211
         },
         {
           "kind": "total",
@@ -177,7 +231,10 @@
           "axisDistanceKm": 2997342,
           "latitudeDeg": 15636721,
           "longitudeDeg": 32652059,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 15636721,
+          "greatestLongitudeDeg": 32652059,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -185,7 +242,10 @@
           "axisDistanceKm": 3892161,
           "latitudeDeg": -21700429,
           "longitudeDeg": -64039329,
-          "obscuration": 887498
+          "obscuration": 887498,
+          "greatestLatitudeDeg": -21700429,
+          "greatestLongitudeDeg": -64039329,
+          "greatestObscuration": 887498
         },
         {
           "kind": "partial",
@@ -193,7 +253,10 @@
           "axisDistanceKm": 7228158,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61989915,
+          "greatestLongitudeDeg": 104948838,
+          "greatestObscuration": 703128
         },
         {
           "kind": "partial",
@@ -201,7 +264,10 @@
           "axisDistanceKm": 9176441,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 64369628,
+          "greatestLongitudeDeg": -71490328,
+          "greatestObscuration": 103945
         },
         {
           "kind": "partial",
@@ -209,7 +275,10 @@
           "axisDistanceKm": 8573455,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -62324959,
+          "greatestLongitudeDeg": -114553486,
+          "greatestObscuration": 252486
         },
         {
           "kind": "annular",
@@ -217,7 +286,10 @@
           "axisDistanceKm": 5927974,
           "latitudeDeg": -79074744,
           "longitudeDeg": -120951066,
-          "obscuration": 944951
+          "obscuration": 944951,
+          "greatestLatitudeDeg": -79074744,
+          "greatestLongitudeDeg": -120951066,
+          "greatestObscuration": 944951
         },
         {
           "kind": "total",
@@ -225,7 +297,10 @@
           "axisDistanceKm": 3912709,
           "latitudeDeg": 60472394,
           "longitudeDeg": 4184867,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 60472394,
+          "greatestLongitudeDeg": 4184867,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -233,7 +308,10 @@
           "axisDistanceKm": 1641170,
           "latitudeDeg": -38397454,
           "longitudeDeg": 68214123,
-          "obscuration": 869321
+          "obscuration": 869321,
+          "greatestLatitudeDeg": -38397454,
+          "greatestLongitudeDeg": 68214123,
+          "greatestObscuration": 869321
         },
         {
           "kind": "total",
@@ -241,7 +319,10 @@
           "axisDistanceKm": 974355,
           "latitudeDeg": 14765807,
           "longitudeDeg": 117005269,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 14765807,
+          "greatestLongitudeDeg": 117005269,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -249,7 +330,10 @@
           "axisDistanceKm": 2722337,
           "latitudeDeg": 2091506,
           "longitudeDeg": 72209961,
-          "obscuration": 842109
+          "obscuration": 842109,
+          "greatestLatitudeDeg": 2091506,
+          "greatestLongitudeDeg": 72209961,
+          "greatestObscuration": 842109
         },
         {
           "kind": "total",
@@ -257,7 +341,10 @@
           "axisDistanceKm": 5697797,
           "latitudeDeg": -40740563,
           "longitudeDeg": -140733680,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -40740563,
+          "greatestLongitudeDeg": -140733680,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -265,7 +352,10 @@
           "axisDistanceKm": 6968595,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 67867900,
+          "greatestLongitudeDeg": 64530432,
+          "greatestObscuration": 732818
         },
         {
           "kind": "partial",
@@ -273,7 +363,10 @@
           "axisDistanceKm": 6373636,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 70662523,
+          "greatestLongitudeDeg": 40073121,
+          "greatestObscuration": 935935
         },
         {
           "kind": "partial",
@@ -281,7 +374,10 @@
           "axisDistanceKm": 6391363,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71255081,
+          "greatestLongitudeDeg": -23345879,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -289,7 +385,10 @@
           "axisDistanceKm": 1753701,
           "latitudeDeg": 26494460,
           "longitudeDeg": 123554414,
-          "obscuration": 885228
+          "obscuration": 885228,
+          "greatestLatitudeDeg": 26494460,
+          "greatestLongitudeDeg": 123554414,
+          "greatestObscuration": 885228
         },
         {
           "kind": "total",
@@ -297,7 +396,10 @@
           "axisDistanceKm": 1881327,
           "latitudeDeg": -23988383,
           "longitudeDeg": -142375426,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -23988383,
+          "greatestLongitudeDeg": -142375426,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -305,7 +407,10 @@
           "axisDistanceKm": 2899802,
           "latitudeDeg": -19119516,
           "longitudeDeg": 137585195,
-          "obscuration": 883888
+          "obscuration": 883888,
+          "greatestLatitudeDeg": -19119516,
+          "greatestLongitudeDeg": 137585195,
+          "greatestObscuration": 883888
         },
         {
           "kind": "total",
@@ -313,7 +418,10 @@
           "axisDistanceKm": 2684871,
           "latitudeDeg": 20431567,
           "longitudeDeg": -1424428,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 20431567,
+          "greatestLongitudeDeg": -1424428,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -321,7 +429,10 @@
           "axisDistanceKm": 7359541,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72246790,
+          "greatestLongitudeDeg": 151948614,
+          "greatestObscuration": 623147
         },
         {
           "kind": "partial",
@@ -329,7 +440,10 @@
           "axisDistanceKm": 7691139,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 72180921,
+          "greatestLongitudeDeg": -74016749,
+          "greatestObscuration": 514372
         },
         {
           "kind": "total",
@@ -337,7 +451,10 @@
           "axisDistanceKm": 5631459,
           "latitudeDeg": 47371881,
           "longitudeDeg": 40027368,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 47371881,
+          "greatestLongitudeDeg": 40027368,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -345,7 +462,10 @@
           "axisDistanceKm": 5649750,
           "latitudeDeg": -45814830,
           "longitudeDeg": 4063058,
-          "obscuration": 879038
+          "obscuration": 879038,
+          "greatestLatitudeDeg": -45814830,
+          "greatestLongitudeDeg": 4063058,
+          "greatestObscuration": 879038
         },
         {
           "kind": "total",
@@ -353,7 +473,10 @@
           "axisDistanceKm": 1343639,
           "latitudeDeg": -4230762,
           "longitudeDeg": 178073591,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -4230762,
+          "greatestLongitudeDeg": 178073591,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -361,7 +484,10 @@
           "axisDistanceKm": 719240,
           "latitudeDeg": 12001098,
           "longitudeDeg": -5699900,
-          "obscuration": 944086
+          "obscuration": 944086,
+          "greatestLatitudeDeg": 12001098,
+          "greatestLongitudeDeg": -5699900,
+          "greatestObscuration": 944086
         },
         {
           "kind": "annular",
@@ -369,7 +495,10 @@
           "axisDistanceKm": 3123185,
           "latitudeDeg": -48206470,
           "longitudeDeg": -15030451,
-          "obscuration": 990390
+          "obscuration": 990390,
+          "greatestLatitudeDeg": -48206470,
+          "greatestLongitudeDeg": -15030451,
+          "greatestObscuration": 990390
         },
         {
           "kind": "total",
@@ -377,7 +506,10 @@
           "axisDistanceKm": 4191823,
           "latitudeDeg": 61701828,
           "longitudeDeg": -119537346,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 61701828,
+          "greatestLongitudeDeg": -119537346,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -385,7 +517,10 @@
           "axisDistanceKm": 7878306,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -68232276,
+          "greatestLongitudeDeg": 43191161,
+          "greatestObscuration": 446527
         },
         {
           "kind": "partial",
@@ -393,7 +528,10 @@
           "axisDistanceKm": 7265946,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -65001830,
+          "greatestLongitudeDeg": 135784904,
+          "greatestObscuration": 702800
         },
         {
           "kind": "partial",
@@ -401,7 +539,10 @@
           "axisDistanceKm": 8689252,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 67600286,
+          "greatestLongitudeDeg": -172911444,
+          "greatestObscuration": 210900
         },
         {
           "kind": "partial",
@@ -409,7 +550,10 @@
           "axisDistanceKm": 7139520,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 64303900,
+          "greatestLongitudeDeg": -173417589,
+          "greatestObscuration": 662365
         },
         {
           "kind": "total",
@@ -417,7 +561,10 @@
           "axisDistanceKm": 2694157,
           "latitudeDeg": -2458232,
           "longitudeDeg": -133837548,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -2458232,
+          "greatestLongitudeDeg": -133837548,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -425,7 +572,10 @@
           "axisDistanceKm": 2490789,
           "latitudeDeg": 1710248,
           "longitudeDeg": 119843646,
-          "obscuration": 932505
+          "obscuration": 932505,
+          "greatestLatitudeDeg": 1710248,
+          "greatestLongitudeDeg": 119843646,
+          "greatestObscuration": 932505
         },
         {
           "kind": "annular",
@@ -433,7 +583,10 @@
           "axisDistanceKm": 2211472,
           "latitudeDeg": 39201420,
           "longitudeDeg": 26447092,
-          "obscuration": 998440
+          "obscuration": 998440,
+          "greatestLatitudeDeg": 39201420,
+          "greatestLongitudeDeg": 26447092,
+          "greatestObscuration": 998440
         },
         {
           "kind": "total",
@@ -441,7 +594,10 @@
           "axisDistanceKm": 2104496,
           "latitudeDeg": -35619079,
           "longitudeDeg": -48138773,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -35619079,
+          "greatestLongitudeDeg": -48138773,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -449,7 +605,10 @@
           "axisDistanceKm": 7285312,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 62621092,
+          "greatestLongitudeDeg": -168336099,
+          "greatestObscuration": 633177
         },
         {
           "kind": "partial",
@@ -457,7 +616,10 @@
           "axisDistanceKm": 6380988,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -62152252,
+          "greatestLongitudeDeg": -28051548,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -465,7 +627,10 @@
           "axisDistanceKm": 6614947,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61145918,
+          "greatestLongitudeDeg": -79753331,
+          "greatestObscuration": 841884
         },
         {
           "kind": "total",
@@ -473,7 +638,10 @@
           "axisDistanceKm": 6028668,
           "latitudeDeg": 56190501,
           "longitudeDeg": 64060828,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 56190501,
+          "greatestLongitudeDeg": 64060828,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -481,7 +649,10 @@
           "axisDistanceKm": 1724776,
           "latitudeDeg": -14780251,
           "longitudeDeg": 116304739,
-          "obscuration": 991033
+          "obscuration": 991033,
+          "greatestLatitudeDeg": -14780251,
+          "greatestLongitudeDeg": 116304739,
+          "greatestObscuration": 991033
         },
         {
           "kind": "annular",
@@ -489,7 +660,10 @@
           "axisDistanceKm": 1403496,
           "latitudeDeg": 15592081,
           "longitudeDeg": -114138568,
-          "obscuration": 939152
+          "obscuration": 939152,
+          "greatestLatitudeDeg": 15592081,
+          "greatestLongitudeDeg": -114138568,
+          "greatestObscuration": 939152
         },
         {
           "kind": "total",
@@ -497,7 +671,10 @@
           "axisDistanceKm": 2853868,
           "latitudeDeg": 18166728,
           "longitudeDeg": -94689321,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 18166728,
+          "greatestLongitudeDeg": -94689321,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -505,7 +682,10 @@
           "axisDistanceKm": 3421877,
           "latitudeDeg": -20289447,
           "longitudeDeg": -164013683,
-          "obscuration": 883642
+          "obscuration": 883642,
+          "greatestLatitudeDeg": -20289447,
+          "greatestLongitudeDeg": -164013683,
+          "greatestObscuration": 883642
         },
         {
           "kind": "partial",
@@ -513,7 +693,10 @@
           "axisDistanceKm": 7137458,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61576207,
+          "greatestLongitudeDeg": -33477255,
+          "greatestObscuration": 737771
         },
         {
           "kind": "partial",
@@ -521,7 +704,10 @@
           "axisDistanceKm": 9649426,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 63595379,
+          "greatestLongitudeDeg": 177200411,
+          "greatestObscuration": 21091
         },
         {
           "kind": "partial",
@@ -529,7 +715,10 @@
           "axisDistanceKm": 8075316,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61801214,
+          "greatestLongitudeDeg": 135420006,
+          "greatestObscuration": 392076
         },
         {
           "kind": "annular",
@@ -537,7 +726,10 @@
           "axisDistanceKm": 5971938,
           "latitudeDeg": -74895260,
           "longitudeDeg": 107537445,
-          "obscuration": 939546
+          "obscuration": 939546,
+          "greatestLatitudeDeg": -74895260,
+          "greatestLongitudeDeg": 107537445,
+          "greatestObscuration": 939546
         },
         {
           "kind": "total",
@@ -545,7 +737,10 @@
           "axisDistanceKm": 4382828,
           "latitudeDeg": 63517751,
           "longitudeDeg": -94167721,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 63517751,
+          "greatestLongitudeDeg": -94167721,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -553,7 +748,10 @@
           "axisDistanceKm": 1685448,
           "latitudeDeg": -37841802,
           "longitudeDeg": -51207883,
-          "obscuration": 865558
+          "obscuration": 865558,
+          "greatestLatitudeDeg": -37841802,
+          "greatestLongitudeDeg": -51207883,
+          "greatestObscuration": 865558
         },
         {
           "kind": "total",
@@ -561,7 +759,10 @@
           "axisDistanceKm": 500431,
           "latitudeDeg": 18841289,
           "longitudeDeg": 5634929,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 18841289,
+          "greatestLongitudeDeg": 5634929,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -569,7 +770,10 @@
           "axisDistanceKm": 2661204,
           "latitudeDeg": 1090380,
           "longitudeDeg": -48471653,
-          "obscuration": 841763
+          "obscuration": 841763,
+          "greatestLatitudeDeg": 1090380,
+          "greatestLongitudeDeg": -48471653,
+          "greatestObscuration": 841763
         },
         {
           "kind": "total",
@@ -577,7 +781,10 @@
           "axisDistanceKm": 5255345,
           "latitudeDeg": -32112988,
           "longitudeDeg": 103758482,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -32112988,
+          "greatestLongitudeDeg": 103758482,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -585,7 +792,10 @@
           "axisDistanceKm": 6888335,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 66769566,
+          "greatestLongitudeDeg": -69402779,
+          "greatestObscuration": 759472
         },
         {
           "kind": "partial",
@@ -593,7 +803,10 @@
           "axisDistanceKm": 6791211,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 69776279,
+          "greatestLongitudeDeg": -80365502,
+          "greatestObscuration": 816070
         },
         {
           "kind": "partial",
@@ -601,7 +814,10 @@
           "axisDistanceKm": 6534527,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -70497495,
+          "greatestLongitudeDeg": -161883131,
+          "greatestObscuration": 954003
         },
         {
           "kind": "annular",
@@ -609,7 +825,10 @@
           "axisDistanceKm": 2154111,
           "latitudeDeg": 33943942,
           "longitudeDeg": 18263405,
-          "obscuration": 887589
+          "obscuration": 887589,
+          "greatestLatitudeDeg": 33943942,
+          "greatestLongitudeDeg": 18263405,
+          "greatestObscuration": 887589
         },
         {
           "kind": "total",
@@ -617,7 +836,10 @@
           "axisDistanceKm": 2085005,
           "latitudeDeg": -29990386,
           "longitudeDeg": 92274052,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -29990386,
+          "greatestLongitudeDeg": 92274052,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -625,7 +847,10 @@
           "axisDistanceKm": 2545426,
           "latitudeDeg": -11942614,
           "longitudeDeg": 28278665,
-          "obscuration": 892938
+          "obscuration": 892938,
+          "greatestLatitudeDeg": -11942614,
+          "greatestLongitudeDeg": 28278665,
+          "greatestObscuration": 892938
         },
         {
           "kind": "total",
@@ -633,7 +858,10 @@
           "axisDistanceKm": 2447737,
           "latitudeDeg": 14131993,
           "longitudeDeg": -123548294,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 14131993,
+          "greatestLongitudeDeg": -123548294,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -641,7 +869,10 @@
           "axisDistanceKm": 7068051,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71954319,
+          "greatestLongitudeDeg": 23167684,
+          "greatestObscuration": 725020
         },
         {
           "kind": "partial",
@@ -649,7 +880,10 @@
           "axisDistanceKm": 7409984,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 72122274,
+          "greatestLongitudeDeg": 159621741,
+          "greatestObscuration": 603489
         },
         {
           "kind": "total",
@@ -657,7 +891,10 @@
           "axisDistanceKm": 5728139,
           "latitudeDeg": 52137690,
           "longitudeDeg": -94450582,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 52137690,
+          "greatestLongitudeDeg": -94450582,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -665,7 +902,10 @@
           "axisDistanceKm": 6143142,
           "latitudeDeg": -59576350,
           "longitudeDeg": -108510812,
-          "obscuration": 870451
+          "obscuration": 870451,
+          "greatestLatitudeDeg": -59576350,
+          "greatestLongitudeDeg": -108510812,
+          "greatestObscuration": 870451
         },
         {
           "kind": "total",
@@ -673,7 +913,10 @@
           "axisDistanceKm": 1418190,
           "latitudeDeg": -104779,
           "longitudeDeg": 47104798,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -104779,
+          "greatestLongitudeDeg": 47104798,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -681,7 +924,10 @@
           "axisDistanceKm": 1220892,
           "latitudeDeg": 4586074,
           "longitudeDeg": -108898029,
-          "obscuration": 946179
+          "obscuration": 946179,
+          "greatestLatitudeDeg": 4586074,
+          "greatestLongitudeDeg": -108898029,
+          "greatestObscuration": 946179
         },
         {
           "kind": "annular",
@@ -689,7 +935,10 @@
           "axisDistanceKm": 3085567,
           "latitudeDeg": -44433969,
           "longitudeDeg": -140765658,
-          "obscuration": 987674
+          "obscuration": 987674,
+          "greatestLatitudeDeg": -44433969,
+          "greatestLongitudeDeg": -140765658,
+          "greatestObscuration": 987674
         },
         {
           "kind": "total",
@@ -697,7 +946,10 @@
           "axisDistanceKm": 3694802,
           "latitudeDeg": 53290928,
           "longitudeDeg": 134071904,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 53290928,
+          "greatestLongitudeDeg": 134071904,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -705,7 +957,10 @@
           "axisDistanceKm": 7852304,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -69286899,
+          "greatestLongitudeDeg": -91544100,
+          "greatestObscuration": 453832
         },
         {
           "kind": "partial",
@@ -713,7 +968,10 @@
           "axisDistanceKm": 7718299,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -65947644,
+          "greatestLongitudeDeg": 13192368,
+          "greatestObscuration": 533326
         },
         {
           "kind": "partial",
@@ -721,7 +979,10 @@
           "axisDistanceKm": 8219660,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 68595045,
+          "greatestLongitudeDeg": 64306271,
+          "greatestObscuration": 356769
         },
         {
           "kind": "partial",
@@ -729,7 +990,10 @@
           "axisDistanceKm": 7202504,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 65285500,
+          "greatestLongitudeDeg": 56859226,
+          "greatestObscuration": 643167
         },
         {
           "kind": "total",
@@ -737,7 +1001,10 @@
           "axisDistanceKm": 3154508,
           "latitudeDeg": -6236252,
           "longitudeDeg": 114175829,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -6236252,
+          "greatestLongitudeDeg": 114175829,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -745,7 +1012,10 @@
           "axisDistanceKm": 2561065,
           "latitudeDeg": 896222,
           "longitudeDeg": -4722548,
-          "obscuration": 934334
+          "obscuration": 934334,
+          "greatestLatitudeDeg": 896222,
+          "greatestLongitudeDeg": -4722548,
+          "greatestObscuration": 934334
         },
         {
           "kind": "annular",
@@ -753,7 +1023,10 @@
           "axisDistanceKm": 1757752,
           "latitudeDeg": 37496617,
           "longitudeDeg": -76736228,
-          "obscuration": 996154
+          "obscuration": 996154,
+          "greatestLatitudeDeg": 37496617,
+          "greatestLongitudeDeg": -76736228,
+          "greatestObscuration": 996154
         },
         {
           "kind": "total",
@@ -761,7 +1034,10 @@
           "axisDistanceKm": 1997896,
           "latitudeDeg": -37788463,
           "longitudeDeg": -173642159,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -37788463,
+          "greatestLongitudeDeg": -173642159,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -769,7 +1045,10 @@
           "axisDistanceKm": 6836953,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 63306973,
+          "greatestLongitudeDeg": 80890327,
+          "greatestObscuration": 777087
         },
         {
           "kind": "total",
@@ -777,7 +1056,10 @@
           "axisDistanceKm": 6246879,
           "latitudeDeg": -68557852,
           "longitudeDeg": -142581256,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -68557852,
+          "greatestLongitudeDeg": -142581256,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -785,7 +1067,10 @@
           "axisDistanceKm": 6902216,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61361869,
+          "greatestLongitudeDeg": 161394009,
+          "greatestObscuration": 757100
         },
         {
           "kind": "total",
@@ -793,7 +1078,10 @@
           "axisDistanceKm": 6333812,
           "latitudeDeg": 59949137,
           "longitudeDeg": -37133236,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 59949137,
+          "greatestLongitudeDeg": -37133236,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "total",
@@ -801,7 +1089,10 @@
           "axisDistanceKm": 1946343,
           "latitudeDeg": -12326651,
           "longitudeDeg": -2295702,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -12326651,
+          "greatestLongitudeDeg": -2295702,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -809,7 +1100,10 @@
           "axisDistanceKm": 1776190,
           "latitudeDeg": 14339819,
           "longitudeDeg": 138356406,
-          "obscuration": 928178
+          "obscuration": 928178,
+          "greatestLatitudeDeg": 14339819,
+          "greatestLongitudeDeg": 138356406,
+          "greatestObscuration": 928178
         },
         {
           "kind": "total",
@@ -817,7 +1111,10 @@
           "axisDistanceKm": 2672472,
           "latitudeDeg": 20719708,
           "longitudeDeg": 139966106,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 20719708,
+          "greatestLongitudeDeg": 139966106,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -825,7 +1122,10 @@
           "axisDistanceKm": 2987014,
           "latitudeDeg": -20017966,
           "longitudeDeg": 94409225,
-          "obscuration": 879307
+          "obscuration": 879307,
+          "greatestLatitudeDeg": -20017966,
+          "greatestLongitudeDeg": 94409225,
+          "greatestObscuration": 879307
         },
         {
           "kind": "partial",
@@ -833,7 +1133,10 @@
           "axisDistanceKm": 7006010,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61316063,
+          "greatestLongitudeDeg": -169841202,
+          "greatestObscuration": 788207
         },
         {
           "kind": "partial",
@@ -841,7 +1144,10 @@
           "axisDistanceKm": 7609409,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61410598,
+          "greatestLongitudeDeg": 23597639,
+          "greatestObscuration": 534104
         },
         {
           "kind": "annular",
@@ -849,7 +1155,10 @@
           "axisDistanceKm": 6030882,
           "latitudeDeg": -71018612,
           "longitudeDeg": -22294808,
-          "obscuration": 935171
+          "obscuration": 935171,
+          "greatestLatitudeDeg": -71018612,
+          "greatestLongitudeDeg": -22294808,
+          "greatestObscuration": 935171
         },
         {
           "kind": "total",
@@ -857,7 +1166,10 @@
           "axisDistanceKm": 4844745,
           "latitudeDeg": 65177696,
           "longitudeDeg": 168856261,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 65177696,
+          "greatestLongitudeDeg": 168856261,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -865,7 +1177,10 @@
           "axisDistanceKm": 1738701,
           "latitudeDeg": -36366658,
           "longitudeDeg": -170428091,
-          "obscuration": 863119
+          "obscuration": 863119,
+          "greatestLatitudeDeg": -36366658,
+          "greatestLongitudeDeg": -170428091,
+          "greatestObscuration": 863119
         },
         {
           "kind": "total",
@@ -873,7 +1188,10 @@
           "axisDistanceKm": 26218,
           "latitudeDeg": 22002352,
           "longitudeDeg": -105206483,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 22002352,
+          "greatestLongitudeDeg": -105206483,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -881,7 +1199,10 @@
           "axisDistanceKm": 2611259,
           "latitudeDeg": 1002793,
           "longitudeDeg": -169708323,
-          "obscuration": 842590
+          "obscuration": 842590,
+          "greatestLatitudeDeg": 1002793,
+          "greatestLongitudeDeg": -169708323,
+          "greatestObscuration": 842590
         },
         {
           "kind": "total",
@@ -889,7 +1210,10 @@
           "axisDistanceKm": 4791608,
           "latitudeDeg": -25155190,
           "longitudeDeg": -9476038,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -25155190,
+          "greatestLongitudeDeg": -9476038,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -897,7 +1221,10 @@
           "axisDistanceKm": 6832934,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 65693334,
+          "greatestLongitudeDeg": 155741756,
+          "greatestObscuration": 778632
         },
         {
           "kind": "partial",
@@ -905,7 +1232,10 @@
           "axisDistanceKm": 7252261,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 68801924,
+          "greatestLongitudeDeg": 162208166,
+          "greatestObscuration": 659044
         },
         {
           "kind": "partial",
@@ -913,7 +1243,10 @@
           "axisDistanceKm": 6639329,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -69587550,
+          "greatestLongitudeDeg": 58190511,
+          "greatestObscuration": 914680
         },
         {
           "kind": "annular",
@@ -921,7 +1254,10 @@
           "axisDistanceKm": 2600006,
           "latitudeDeg": 41532207,
           "longitudeDeg": -84113854,
-          "obscuration": 889591
+          "obscuration": 889591,
+          "greatestLatitudeDeg": 41532207,
+          "greatestLongitudeDeg": -84113854,
+          "greatestObscuration": 889591
         },
         {
           "kind": "total",
@@ -929,7 +1265,10 @@
           "axisDistanceKm": 2245718,
           "latitudeDeg": -35351498,
           "longitudeDeg": -34211268,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -35351498,
+          "greatestLongitudeDeg": -34211268,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -937,7 +1276,10 @@
           "axisDistanceKm": 2158370,
           "latitudeDeg": -4860792,
           "longitudeDeg": -79411831,
-          "obscuration": 902029
+          "obscuration": 902029,
+          "greatestLatitudeDeg": -4860792,
+          "greatestLongitudeDeg": -79411831,
+          "greatestObscuration": 902029
         },
         {
           "kind": "total",
@@ -945,7 +1287,10 @@
           "axisDistanceKm": 2243619,
           "latitudeDeg": 8408856,
           "longitudeDeg": 113189079,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 8408856,
+          "greatestLongitudeDeg": 113189079,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -953,7 +1298,10 @@
           "axisDistanceKm": 6748428,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71422974,
+          "greatestLongitudeDeg": -104136695,
+          "greatestObscuration": 840301
         },
         {
           "kind": "partial",
@@ -961,7 +1309,10 @@
           "axisDistanceKm": 7160627,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71802551,
+          "greatestLongitudeDeg": 32009431,
+          "greatestObscuration": 682606
         },
         {
           "kind": "total",
@@ -969,7 +1320,10 @@
           "axisDistanceKm": 5856479,
           "latitudeDeg": 57769033,
           "longitudeDeg": 130709142,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 57769033,
+          "greatestLongitudeDeg": 130709142,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -977,7 +1331,10 @@
           "axisDistanceKm": 6602315,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71858442,
+          "greatestLongitudeDeg": 114359863,
+          "greatestObscuration": 837648
         },
         {
           "kind": "total",
@@ -985,7 +1342,10 @@
           "axisDistanceKm": 1523425,
           "latitudeDeg": 4708854,
           "longitudeDeg": -82717970,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 4708854,
+          "greatestLongitudeDeg": -82717970,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -993,7 +1353,10 @@
           "axisDistanceKm": 1685302,
           "latitudeDeg": -2968349,
           "longitudeDeg": 145404343,
-          "obscuration": 947531
+          "obscuration": 947531,
+          "greatestLatitudeDeg": -2968349,
+          "greatestLongitudeDeg": 145404343,
+          "greatestObscuration": 947531
         },
         {
           "kind": "annular",
@@ -1001,7 +1364,10 @@
           "axisDistanceKm": 3015123,
           "latitudeDeg": -39826967,
           "longitudeDeg": 93882378,
-          "obscuration": 985700
+          "obscuration": 985700,
+          "greatestLatitudeDeg": -39826967,
+          "greatestLongitudeDeg": 93882378,
+          "greatestObscuration": 985700
         },
         {
           "kind": "total",
@@ -1009,7 +1375,10 @@
           "axisDistanceKm": 3230093,
           "latitudeDeg": 45088683,
           "longitudeDeg": 24318348,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 45088683,
+          "greatestLongitudeDeg": 24318348,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1017,7 +1386,10 @@
           "axisDistanceKm": 7802947,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -70258358,
+          "greatestLongitudeDeg": 134329363,
+          "greatestObscuration": 468210
         },
         {
           "kind": "partial",
@@ -1025,7 +1397,10 @@
           "axisDistanceKm": 8177325,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -66931988,
+          "greatestLongitudeDeg": -109468197,
+          "greatestObscuration": 371477
         },
         {
           "kind": "partial",
@@ -1033,7 +1408,10 @@
           "axisDistanceKm": 7760570,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 69554206,
+          "greatestLongitudeDeg": -59694505,
+          "greatestObscuration": 516055
         },
         {
           "kind": "partial",
@@ -1041,7 +1419,10 @@
           "axisDistanceKm": 7249372,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 66340106,
+          "greatestLongitudeDeg": -74153882,
+          "greatestObscuration": 629216
         },
         {
           "kind": "total",
@@ -1049,7 +1430,10 @@
           "axisDistanceKm": 3636826,
           "latitudeDeg": -11258796,
           "longitudeDeg": 2745258,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -11258796,
+          "greatestLongitudeDeg": 2745258,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1057,7 +1441,10 @@
           "axisDistanceKm": 2607408,
           "latitudeDeg": 632422,
           "longitudeDeg": -130697958,
-          "obscuration": 937350
+          "obscuration": 937350,
+          "greatestLatitudeDeg": 632422,
+          "greatestLongitudeDeg": -130697958,
+          "greatestObscuration": 937350
         },
         {
           "kind": "annular",
@@ -1065,7 +1452,10 @@
           "axisDistanceKm": 1271519,
           "latitudeDeg": 34551133,
           "longitudeDeg": -178610072,
-          "obscuration": 992587
+          "obscuration": 992587,
+          "greatestLatitudeDeg": 34551133,
+          "greatestLongitudeDeg": -178610072,
+          "greatestObscuration": 992587
         },
         {
           "kind": "total",
@@ -1073,7 +1463,10 @@
           "axisDistanceKm": 1926453,
           "latitudeDeg": -39458872,
           "longitudeDeg": 59566347,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -39458872,
+          "greatestLongitudeDeg": 59566347,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1081,7 +1474,10 @@
           "axisDistanceKm": 6352684,
           "latitudeDeg": 66524625,
           "longitudeDeg": -24545425,
-          "obscuration": 880683
+          "obscuration": 880683,
+          "greatestLatitudeDeg": 66524625,
+          "greatestLongitudeDeg": -24545425,
+          "greatestObscuration": 880683
         },
         {
           "kind": "total",
@@ -1089,7 +1485,10 @@
           "axisDistanceKm": 6147349,
           "latitudeDeg": -72666108,
           "longitudeDeg": 88380281,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -72666108,
+          "greatestLongitudeDeg": 88380281,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1097,7 +1496,10 @@
           "axisDistanceKm": 7229211,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61725334,
+          "greatestLongitudeDeg": 44205714,
+          "greatestObscuration": 654853
         },
         {
           "kind": "partial",
@@ -1105,7 +1507,10 @@
           "axisDistanceKm": 6599423,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61397024,
+          "greatestLongitudeDeg": -153722422,
+          "greatestObscuration": 906431
         },
         {
           "kind": "total",
@@ -1113,7 +1518,10 @@
           "axisDistanceKm": 2214860,
           "latitudeDeg": -10564124,
           "longitudeDeg": -118982728,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -10564124,
+          "greatestLongitudeDeg": -118982728,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1121,7 +1529,10 @@
           "axisDistanceKm": 2106812,
           "latitudeDeg": 12876955,
           "longitudeDeg": 28721419,
-          "obscuration": 917068
+          "obscuration": 917068,
+          "greatestLatitudeDeg": 12876955,
+          "greatestLongitudeDeg": 28721419,
+          "greatestObscuration": 917068
         },
         {
           "kind": "total",
@@ -1129,7 +1540,10 @@
           "axisDistanceKm": 2451906,
           "latitudeDeg": 23157999,
           "longitudeDeg": 16728522,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 23157999,
+          "greatestLongitudeDeg": 16728522,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1137,7 +1551,10 @@
           "axisDistanceKm": 2592233,
           "latitudeDeg": -20656198,
           "longitudeDeg": -9072863,
-          "obscuration": 874635
+          "obscuration": 874635,
+          "greatestLatitudeDeg": -20656198,
+          "greatestLongitudeDeg": -9072863,
+          "greatestObscuration": 874635
         },
         {
           "kind": "partial",
@@ -1145,7 +1562,10 @@
           "axisDistanceKm": 6843556,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61211149,
+          "greatestLongitudeDeg": 55397513,
+          "greatestObscuration": 850899
         },
         {
           "kind": "partial",
@@ -1153,7 +1573,10 @@
           "axisDistanceKm": 7179588,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61162621,
+          "greatestLongitudeDeg": -90261248,
+          "greatestObscuration": 671434
         },
         {
           "kind": "annular",
@@ -1161,7 +1584,10 @@
           "axisDistanceKm": 6103130,
           "latitudeDeg": -67577615,
           "longitudeDeg": -150573696,
-          "obscuration": 931295
+          "obscuration": 931295,
+          "greatestLatitudeDeg": -67577615,
+          "greatestLongitudeDeg": -150573696,
+          "greatestObscuration": 931295
         },
         {
           "kind": "total",
@@ -1169,7 +1595,10 @@
           "axisDistanceKm": 5298013,
           "latitudeDeg": 65650479,
           "longitudeDeg": 72296667,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 65650479,
+          "greatestLongitudeDeg": 72296667,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1177,7 +1606,10 @@
           "axisDistanceKm": 1798413,
           "latitudeDeg": -34075872,
           "longitudeDeg": 70225881,
-          "obscuration": 861707
+          "obscuration": 861707,
+          "greatestLatitudeDeg": -34075872,
+          "greatestLongitudeDeg": 70225881,
+          "greatestObscuration": 861707
         },
         {
           "kind": "total",
@@ -1185,7 +1617,10 @@
           "axisDistanceKm": 444109,
           "latitudeDeg": 24212193,
           "longitudeDeg": 144126073,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 24212193,
+          "greatestLongitudeDeg": 144126073,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1193,7 +1628,10 @@
           "axisDistanceKm": 2553699,
           "latitudeDeg": 1637581,
           "longitudeDeg": 69284642,
-          "obscuration": 844672
+          "obscuration": 844672,
+          "greatestLatitudeDeg": 1637581,
+          "greatestLongitudeDeg": 69284642,
+          "greatestObscuration": 844672
         },
         {
           "kind": "total",
@@ -1201,7 +1639,10 @@
           "axisDistanceKm": 4330254,
           "latitudeDeg": -19759271,
           "longitudeDeg": -121872329,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -19759271,
+          "greatestLongitudeDeg": -121872329,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1209,7 +1650,10 @@
           "axisDistanceKm": 6779827,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 64678320,
+          "greatestLongitudeDeg": 20902970,
+          "greatestObscuration": 797664
         },
         {
           "kind": "partial",
@@ -1217,7 +1661,10 @@
           "axisDistanceKm": 7735103,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 67783992,
+          "greatestLongitudeDeg": 46740248,
+          "greatestObscuration": 500304
         },
         {
           "kind": "partial",
@@ -1225,7 +1672,10 @@
           "axisDistanceKm": 9516391,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -65175783,
+          "greatestLongitudeDeg": 28726058,
+          "greatestObscuration": 35005
         },
         {
           "kind": "partial",
@@ -1233,7 +1683,10 @@
           "axisDistanceKm": 6719488,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -68577177,
+          "greatestLongitudeDeg": -82524737,
+          "greatestObscuration": 884604
         },
         {
           "kind": "annular",
@@ -1241,7 +1694,10 @@
           "axisDistanceKm": 3078255,
           "latitudeDeg": 49083812,
           "longitudeDeg": 176270153,
-          "obscuration": 890997
+          "obscuration": 890997,
+          "greatestLatitudeDeg": 49083812,
+          "greatestLongitudeDeg": 176270153,
+          "greatestObscuration": 890997
         },
         {
           "kind": "total",
@@ -1249,7 +1705,10 @@
           "axisDistanceKm": 2371588,
           "latitudeDeg": -39951920,
           "longitudeDeg": -161337477,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -39951920,
+          "greatestLongitudeDeg": -161337477,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1257,7 +1716,10 @@
           "axisDistanceKm": 1718697,
           "latitudeDeg": 2215772,
           "longitudeDeg": 175464245,
-          "obscuration": 910998
+          "obscuration": 910998,
+          "greatestLatitudeDeg": 2215772,
+          "greatestLongitudeDeg": 175464245,
+          "greatestObscuration": 910998
         },
         {
           "kind": "total",
@@ -1265,7 +1727,10 @@
           "axisDistanceKm": 2086342,
           "latitudeDeg": 3487374,
           "longitudeDeg": -11698813,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 3487374,
+          "greatestLongitudeDeg": -11698813,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1273,7 +1738,10 @@
           "axisDistanceKm": 6379008,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -70697481,
+          "greatestLongitudeDeg": 131119346,
+          "greatestObscuration": 968791
         },
         {
           "kind": "partial",
@@ -1281,7 +1749,10 @@
           "axisDistanceKm": 6957366,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71240477,
+          "greatestLongitudeDeg": -97294002,
+          "greatestObscuration": 746059
         },
         {
           "kind": "total",
@@ -1289,7 +1760,10 @@
           "axisDistanceKm": 6028249,
           "latitudeDeg": 64403752,
           "longitudeDeg": -6588123,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 64403752,
+          "greatestLongitudeDeg": -6588123,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1297,7 +1771,10 @@
           "axisDistanceKm": 7017281,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72213377,
+          "greatestLongitudeDeg": -2271401,
+          "greatestObscuration": 709878
         },
         {
           "kind": "total",
@@ -1305,7 +1782,10 @@
           "axisDistanceKm": 1661785,
           "latitudeDeg": 10100126,
           "longitudeDeg": 148797728,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 10100126,
+          "greatestLongitudeDeg": 148797728,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1313,7 +1793,10 @@
           "axisDistanceKm": 2122893,
           "latitudeDeg": -10670499,
           "longitudeDeg": 37775415,
-          "obscuration": 948038
+          "obscuration": 948038,
+          "greatestLatitudeDeg": -10670499,
+          "greatestLongitudeDeg": 37775415,
+          "greatestObscuration": 948038
         },
         {
           "kind": "annular",
@@ -1321,7 +1804,10 @@
           "axisDistanceKm": 2921576,
           "latitudeDeg": -34695219,
           "longitudeDeg": -31187311,
-          "obscuration": 984641
+          "obscuration": 984641,
+          "greatestLatitudeDeg": -34695219,
+          "greatestLongitudeDeg": -31187311,
+          "greatestObscuration": 984641
         },
         {
           "kind": "total",
@@ -1329,7 +1815,10 @@
           "axisDistanceKm": 2786417,
           "latitudeDeg": 36975767,
           "longitudeDeg": -87660979,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 36975767,
+          "greatestLongitudeDeg": -87660979,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1337,7 +1826,10 @@
           "axisDistanceKm": 7728815,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71093273,
+          "greatestLongitudeDeg": 874840,
+          "greatestObscuration": 490243
         },
         {
           "kind": "partial",
@@ -1345,7 +1837,10 @@
           "axisDistanceKm": 8637024,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -67925916,
+          "greatestLongitudeDeg": 127479644,
+          "greatestObscuration": 225353
         },
         {
           "kind": "partial",
@@ -1353,7 +1848,10 @@
           "axisDistanceKm": 7320160,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 70435377,
+          "greatestLongitudeDeg": 174686778,
+          "greatestObscuration": 679090
         },
         {
           "kind": "partial",
@@ -1361,7 +1859,10 @@
           "axisDistanceKm": 7282207,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 67435121,
+          "greatestLongitudeDeg": 153575017,
+          "greatestObscuration": 619843
         },
         {
           "kind": "total",
@@ -1369,7 +1870,10 @@
           "axisDistanceKm": 4123832,
           "latitudeDeg": -17388447,
           "longitudeDeg": -108990455,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -17388447,
+          "greatestLongitudeDeg": -108990455,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1377,7 +1881,10 @@
           "axisDistanceKm": 2636825,
           "latitudeDeg": 1002873,
           "longitudeDeg": 102262190,
-          "obscuration": 941211
+          "obscuration": 941211,
+          "greatestLatitudeDeg": 1002873,
+          "greatestLongitudeDeg": 102262190,
+          "greatestObscuration": 941211
         },
         {
           "kind": "annular",
@@ -1385,7 +1892,10 @@
           "axisDistanceKm": 771621,
           "latitudeDeg": 30524072,
           "longitudeDeg": 79673488,
-          "obscuration": 988174
+          "obscuration": 988174,
+          "greatestLatitudeDeg": 30524072,
+          "greatestLongitudeDeg": 79673488,
+          "greatestObscuration": 988174
         },
         {
           "kind": "total",
@@ -1393,7 +1903,10 @@
           "axisDistanceKm": 1875827,
           "latitudeDeg": -40346604,
           "longitudeDeg": -67940776,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -40346604,
+          "greatestLongitudeDeg": -67940776,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1401,7 +1914,10 @@
           "axisDistanceKm": 5837781,
           "latitudeDeg": 80814831,
           "longitudeDeg": -66874413,
-          "obscuration": 890256
+          "obscuration": 890256,
+          "greatestLatitudeDeg": 80814831,
+          "greatestLongitudeDeg": -66874413,
+          "greatestObscuration": 890256
         },
         {
           "kind": "total",
@@ -1409,7 +1925,10 @@
           "axisDistanceKm": 6076891,
           "latitudeDeg": -76763193,
           "longitudeDeg": -46359189,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -76763193,
+          "greatestLongitudeDeg": -46359189,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1417,7 +1936,10 @@
           "axisDistanceKm": 7590878,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -62226337,
+          "greatestLongitudeDeg": -71562485,
+          "greatestObscuration": 541346
         },
         {
           "kind": "partial",
@@ -1425,7 +1947,10 @@
           "axisDistanceKm": 6825224,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61777382,
+          "greatestLongitudeDeg": 77303443,
+          "greatestObscuration": 820776
         },
         {
           "kind": "total",
@@ -1433,7 +1958,10 @@
           "axisDistanceKm": 2520040,
           "latitudeDeg": -9592375,
           "longitudeDeg": 125788401,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -9592375,
+          "greatestLongitudeDeg": 125788401,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1441,7 +1969,10 @@
           "axisDistanceKm": 2393818,
           "latitudeDeg": 11367147,
           "longitudeDeg": -83093691,
-          "obscuration": 906459
+          "obscuration": 906459,
+          "greatestLatitudeDeg": 11367147,
+          "greatestLongitudeDeg": -83093691,
+          "greatestObscuration": 906459
         },
         {
           "kind": "total",
@@ -1449,7 +1980,10 @@
           "axisDistanceKm": 2188650,
           "latitudeDeg": 25292182,
           "longitudeDeg": -104140917,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 25292182,
+          "greatestLongitudeDeg": -104140917,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1457,7 +1991,10 @@
           "axisDistanceKm": 2238833,
           "latitudeDeg": -21961026,
           "longitudeDeg": -114490239,
-          "obscuration": 869812
+          "obscuration": 869812,
+          "greatestLatitudeDeg": -21961026,
+          "greatestLongitudeDeg": -114490239,
+          "greatestObscuration": 869812
         },
         {
           "kind": "partial",
@@ -1465,7 +2002,10 @@
           "axisDistanceKm": 6637035,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61260220,
+          "greatestLongitudeDeg": -77207749,
+          "greatestObscuration": 930400
         },
         {
           "kind": "partial",
@@ -1473,7 +2013,10 @@
           "axisDistanceKm": 6794945,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61064415,
+          "greatestLongitudeDeg": 153434323,
+          "greatestObscuration": 796292
         },
         {
           "kind": "annular",
@@ -1481,7 +2024,10 @@
           "axisDistanceKm": 6213730,
           "latitudeDeg": -64718010,
           "longitudeDeg": 86710925,
-          "obscuration": 927465
+          "obscuration": 927465,
+          "greatestLatitudeDeg": -64718010,
+          "greatestLongitudeDeg": 86710925,
+          "greatestObscuration": 927465
         },
         {
           "kind": "total",
@@ -1489,7 +2035,10 @@
           "axisDistanceKm": 5724876,
           "latitudeDeg": 65215533,
           "longitudeDeg": -25249367,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 65215533,
+          "greatestLongitudeDeg": -25249367,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1497,7 +2046,10 @@
           "axisDistanceKm": 1881520,
           "latitudeDeg": -31295740,
           "longitudeDeg": -48465994,
-          "obscuration": 861451
+          "obscuration": 861451,
+          "greatestLatitudeDeg": -31295740,
+          "greatestLongitudeDeg": -48465994,
+          "greatestObscuration": 861451
         },
         {
           "kind": "total",
@@ -1505,7 +2057,10 @@
           "axisDistanceKm": 904627,
           "latitudeDeg": 25488510,
           "longitudeDeg": 33188048,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 25488510,
+          "greatestLongitudeDeg": 33188048,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1513,7 +2068,10 @@
           "axisDistanceKm": 2489667,
           "latitudeDeg": 2972324,
           "longitudeDeg": -51548733,
-          "obscuration": 847916
+          "obscuration": 847916,
+          "greatestLatitudeDeg": 2972324,
+          "greatestLongitudeDeg": -51548733,
+          "greatestObscuration": 847916
         },
         {
           "kind": "total",
@@ -1521,7 +2079,10 @@
           "axisDistanceKm": 3863957,
           "latitudeDeg": -15595533,
           "longitudeDeg": 126709103,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -15595533,
+          "greatestLongitudeDeg": 126709103,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1529,7 +2090,10 @@
           "axisDistanceKm": 6732312,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 63753348,
+          "greatestLongitudeDeg": -114084080,
+          "greatestObscuration": 815542
         },
         {
           "kind": "partial",
@@ -1537,7 +2101,10 @@
           "axisDistanceKm": 8254343,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 66765398,
+          "greatestLongitudeDeg": -66133214,
+          "greatestObscuration": 340948
         },
         {
           "kind": "partial",
@@ -1545,7 +2112,10 @@
           "axisDistanceKm": 9052672,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -64301693,
+          "greatestLongitudeDeg": -85502672,
+          "greatestObscuration": 126803
         },
         {
           "kind": "partial",
@@ -1553,7 +2123,10 @@
           "axisDistanceKm": 6766460,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -67514067,
+          "greatestLongitudeDeg": 135638564,
+          "greatestObscuration": 867128
         },
         {
           "kind": "annular",
@@ -1561,7 +2134,10 @@
           "axisDistanceKm": 3587065,
           "latitudeDeg": 56508343,
           "longitudeDeg": 80067208,
-          "obscuration": 891701
+          "obscuration": 891701,
+          "greatestLatitudeDeg": 56508343,
+          "greatestLongitudeDeg": 80067208,
+          "greatestObscuration": 891701
         },
         {
           "kind": "total",
@@ -1569,7 +2145,10 @@
           "axisDistanceKm": 2466669,
           "latitudeDeg": -43612221,
           "longitudeDeg": 71237623,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -43612221,
+          "greatestLongitudeDeg": 71237623,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1577,7 +2156,10 @@
           "axisDistanceKm": 1257480,
           "latitudeDeg": 8916675,
           "longitudeDeg": 71728528,
-          "obscuration": 919621
+          "obscuration": 919621,
+          "greatestLatitudeDeg": 8916675,
+          "greatestLongitudeDeg": 71728528,
+          "greatestObscuration": 919621
         },
         {
           "kind": "total",
@@ -1585,7 +2167,10 @@
           "axisDistanceKm": 1962952,
           "latitudeDeg": -633028,
           "longitudeDeg": -137629708,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -633028,
+          "greatestLongitudeDeg": -137629708,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1593,7 +2178,10 @@
           "axisDistanceKm": 5980808,
           "latitudeDeg": -51296370,
           "longitudeDeg": -7041543,
-          "obscuration": 991532
+          "obscuration": 991532,
+          "greatestLatitudeDeg": -51296370,
+          "greatestLongitudeDeg": -7041543,
+          "greatestObscuration": 991532
         },
         {
           "kind": "partial",
@@ -1601,7 +2189,10 @@
           "axisDistanceKm": 6788049,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 70474642,
+          "greatestLongitudeDeg": 132485818,
+          "greatestObscuration": 797154
         },
         {
           "kind": "total",
@@ -1609,7 +2200,10 @@
           "axisDistanceKm": 6234546,
           "latitudeDeg": 71285570,
           "longitudeDeg": -155571841,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 71285570,
+          "greatestLongitudeDeg": -155571841,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1617,7 +2211,10 @@
           "axisDistanceKm": 7386970,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72314490,
+          "greatestLongitudeDeg": -121298458,
+          "greatestObscuration": 593526
         },
         {
           "kind": "total",
@@ -1625,7 +2222,10 @@
           "axisDistanceKm": 1844106,
           "latitudeDeg": 16039257,
           "longitudeDeg": 22230868,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 16039257,
+          "greatestLongitudeDeg": 22230868,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1633,7 +2233,10 @@
           "axisDistanceKm": 2509331,
           "latitudeDeg": -18233431,
           "longitudeDeg": -72588998,
-          "obscuration": 948097
+          "obscuration": 948097,
+          "greatestLatitudeDeg": -18233431,
+          "greatestLongitudeDeg": -72588998,
+          "greatestObscuration": 948097
         },
         {
           "kind": "annular",
@@ -1641,7 +2244,10 @@
           "axisDistanceKm": 2786753,
           "latitudeDeg": -29050701,
           "longitudeDeg": -154939194,
-          "obscuration": 983990
+          "obscuration": 983990,
+          "greatestLatitudeDeg": -29050701,
+          "greatestLongitudeDeg": -154939194,
+          "greatestObscuration": 983990
         },
         {
           "kind": "total",
@@ -1649,7 +2255,10 @@
           "axisDistanceKm": 2377687,
           "latitudeDeg": 29096212,
           "longitudeDeg": 158047174,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 29096212,
+          "greatestLongitudeDeg": 158047174,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1657,7 +2266,10 @@
           "axisDistanceKm": 7617797,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71738359,
+          "greatestLongitudeDeg": -131237499,
+          "greatestObscuration": 523775
         },
         {
           "kind": "partial",
@@ -1665,7 +2277,10 @@
           "axisDistanceKm": 9089375,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -68896492,
+          "greatestLongitudeDeg": 3659241,
+          "greatestObscuration": 104396
         },
         {
           "kind": "partial",
@@ -1673,7 +2288,10 @@
           "axisDistanceKm": 6903963,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71191498,
+          "greatestLongitudeDeg": 47235666,
+          "greatestObscuration": 838085
         },
         {
           "kind": "partial",
@@ -1681,7 +2299,10 @@
           "axisDistanceKm": 7319769,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 68528310,
+          "greatestLongitudeDeg": 20890867,
+          "greatestObscuration": 609378
         },
         {
           "kind": "total",
@@ -1689,7 +2310,10 @@
           "axisDistanceKm": 4621394,
           "latitudeDeg": -24762517,
           "longitudeDeg": 139067350,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -24762517,
+          "greatestLongitudeDeg": 139067350,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1697,7 +2321,10 @@
           "axisDistanceKm": 2657452,
           "latitudeDeg": 2079168,
           "longitudeDeg": -25445080,
-          "obscuration": 946437
+          "obscuration": 946437,
+          "greatestLatitudeDeg": 2079168,
+          "greatestLongitudeDeg": -25445080,
+          "greatestObscuration": 946437
         },
         {
           "kind": "annular",
@@ -1705,7 +2332,10 @@
           "axisDistanceKm": 254705,
           "latitudeDeg": 25434196,
           "longitudeDeg": -21893686,
-          "obscuration": 982444
+          "obscuration": 982444,
+          "greatestLatitudeDeg": 25434196,
+          "greatestLongitudeDeg": -21893686,
+          "greatestObscuration": 982444
         },
         {
           "kind": "total",
@@ -1713,7 +2343,10 @@
           "axisDistanceKm": 1839474,
           "latitudeDeg": -40294667,
           "longitudeDeg": 163939283,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -40294667,
+          "greatestLongitudeDeg": 163939283,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1721,7 +2354,10 @@
           "axisDistanceKm": 5302631,
           "latitudeDeg": 78894189,
           "longitudeDeg": -102155130,
-          "obscuration": 893891
+          "obscuration": 893891,
+          "greatestLatitudeDeg": 78894189,
+          "greatestLongitudeDeg": -102155130,
+          "greatestObscuration": 893891
         },
         {
           "kind": "total",
@@ -1729,7 +2365,10 @@
           "axisDistanceKm": 6033445,
           "latitudeDeg": -80838428,
           "longitudeDeg": 172592970,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -80838428,
+          "greatestLongitudeDeg": 172592970,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1737,7 +2376,10 @@
           "axisDistanceKm": 7992033,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -62852227,
+          "greatestLongitudeDeg": 174300841,
+          "greatestObscuration": 418268
         },
         {
           "kind": "partial",
@@ -1745,7 +2387,10 @@
           "axisDistanceKm": 7010625,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 62306756,
+          "greatestLongitudeDeg": -53470409,
+          "greatestObscuration": 751370
         },
         {
           "kind": "total",
@@ -1753,7 +2398,10 @@
           "axisDistanceKm": 2866262,
           "latitudeDeg": -9631624,
           "longitudeDeg": 12199796,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -9631624,
+          "greatestLongitudeDeg": 12199796,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1761,7 +2409,10 @@
           "axisDistanceKm": 2635143,
           "latitudeDeg": 9924279,
           "longitudeDeg": 162856589,
-          "obscuration": 896247
+          "obscuration": 896247,
+          "greatestLatitudeDeg": 9924279,
+          "greatestLongitudeDeg": 162856589,
+          "greatestObscuration": 896247
         },
         {
           "kind": "total",
@@ -1769,7 +2420,10 @@
           "axisDistanceKm": 1885261,
           "latitudeDeg": 26952655,
           "longitudeDeg": 137286538,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 26952655,
+          "greatestLongitudeDeg": 137286538,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1777,7 +2431,10 @@
           "axisDistanceKm": 1934780,
           "latitudeDeg": -23763304,
           "longitudeDeg": 137814116,
-          "obscuration": 865079
+          "obscuration": 865079,
+          "greatestLatitudeDeg": -23763304,
+          "greatestLongitudeDeg": 137814116,
+          "greatestObscuration": 865079
         },
         {
           "kind": "partial",
@@ -1785,7 +2442,10 @@
           "axisDistanceKm": 6399325,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61460554,
+          "greatestLongitudeDeg": 151799482,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1793,7 +2453,10 @@
           "axisDistanceKm": 6445532,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61120638,
+          "greatestLongitudeDeg": 35139766,
+          "greatestObscuration": 890166
         },
         {
           "kind": "annular",
@@ -1801,7 +2464,10 @@
           "axisDistanceKm": 6348130,
           "latitudeDeg": -62191676,
           "longitudeDeg": -25742683,
-          "obscuration": 921718
+          "obscuration": 921718,
+          "greatestLatitudeDeg": -62191676,
+          "greatestLongitudeDeg": -25742683,
+          "greatestObscuration": 921718
         },
         {
           "kind": "total",
@@ -1809,7 +2475,10 @@
           "axisDistanceKm": 6129370,
           "latitudeDeg": 64328521,
           "longitudeDeg": -120594453,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 64328521,
+          "greatestLongitudeDeg": -120594453,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1817,7 +2486,10 @@
           "axisDistanceKm": 1992903,
           "latitudeDeg": -28253693,
           "longitudeDeg": -166197766,
-          "obscuration": 862109
+          "obscuration": 862109,
+          "greatestLatitudeDeg": -28253693,
+          "greatestLongitudeDeg": -166197766,
+          "greatestObscuration": 862109
         },
         {
           "kind": "total",
@@ -1825,7 +2497,10 @@
           "axisDistanceKm": 1347978,
           "latitudeDeg": 25895693,
           "longitudeDeg": -78548805,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 25895693,
+          "greatestLongitudeDeg": -78548805,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1833,7 +2508,10 @@
           "axisDistanceKm": 2402452,
           "latitudeDeg": 4789695,
           "longitudeDeg": -171398039,
-          "obscuration": 852371
+          "obscuration": 852371,
+          "greatestLatitudeDeg": 4789695,
+          "greatestLongitudeDeg": -171398039,
+          "greatestObscuration": 852371
         },
         {
           "kind": "total",
@@ -1841,7 +2519,10 @@
           "axisDistanceKm": 3414087,
           "latitudeDeg": -12749551,
           "longitudeDeg": 15179134,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -12749551,
+          "greatestLongitudeDeg": 15179134,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1849,7 +2530,10 @@
           "axisDistanceKm": 6665846,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 62944179,
+          "greatestLongitudeDeg": 111848007,
+          "greatestObscuration": 840120
         },
         {
           "kind": "partial",
@@ -1857,7 +2541,10 @@
           "axisDistanceKm": 8778692,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 65776145,
+          "greatestLongitudeDeg": -177909258,
+          "greatestObscuration": 197691
         },
         {
           "kind": "partial",
@@ -1865,7 +2552,10 @@
           "axisDistanceKm": 8597831,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -63503193,
+          "greatestLongitudeDeg": 160288169,
+          "greatestObscuration": 243197
         },
         {
           "kind": "partial",
@@ -1873,7 +2563,10 @@
           "axisDistanceKm": 6798693,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -66445520,
+          "greatestLongitudeDeg": -6546362,
+          "greatestObscuration": 855452
         },
         {
           "kind": "annular",
@@ -1881,7 +2574,10 @@
           "axisDistanceKm": 4123881,
           "latitudeDeg": 63667240,
           "longitudeDeg": -11517127,
-          "obscuration": 891487
+          "obscuration": 891487,
+          "greatestLatitudeDeg": 63667240,
+          "greatestLongitudeDeg": -11517127,
+          "greatestObscuration": 891487
         },
         {
           "kind": "total",
@@ -1889,7 +2585,10 @@
           "axisDistanceKm": 2533654,
           "latitudeDeg": -46129482,
           "longitudeDeg": -56395390,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -46129482,
+          "greatestLongitudeDeg": -56395390,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1897,7 +2596,10 @@
           "axisDistanceKm": 759387,
           "latitudeDeg": 15288596,
           "longitudeDeg": -29848177,
-          "obscuration": 927690
+          "obscuration": 927690,
+          "greatestLatitudeDeg": 15288596,
+          "greatestLongitudeDeg": -29848177,
+          "greatestObscuration": 927690
         },
         {
           "kind": "total",
@@ -1905,7 +2607,10 @@
           "axisDistanceKm": 1877378,
           "latitudeDeg": -3799783,
           "longitudeDeg": 95253296,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -3799783,
+          "greatestLongitudeDeg": 95253296,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "total",
@@ -1913,7 +2618,10 @@
           "axisDistanceKm": 5542815,
           "latitudeDeg": -40121387,
           "longitudeDeg": -123702564,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -40121387,
+          "greatestLongitudeDeg": -123702564,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1921,7 +2629,10 @@
           "axisDistanceKm": 6664452,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 69551402,
+          "greatestLongitudeDeg": 900478,
+          "greatestObscuration": 831754
         },
         {
           "kind": "partial",
@@ -1929,7 +2640,10 @@
           "axisDistanceKm": 6483484,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71717368,
+          "greatestLongitudeDeg": 31987564,
+          "greatestObscuration": 988952
         },
         {
           "kind": "partial",
@@ -1937,7 +2651,10 @@
           "axisDistanceKm": 7712790,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72150574,
+          "greatestLongitudeDeg": 117582494,
+          "greatestObscuration": 493742
         },
         {
           "kind": "total",
@@ -1945,7 +2662,10 @@
           "axisDistanceKm": 2063029,
           "latitudeDeg": 22355187,
           "longitudeDeg": -102529421,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 22355187,
+          "greatestLongitudeDeg": -102529421,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -1953,7 +2673,10 @@
           "axisDistanceKm": 2856849,
           "latitudeDeg": -25680153,
           "longitudeDeg": 174990570,
-          "obscuration": 947572
+          "obscuration": 947572,
+          "greatestLatitudeDeg": -25680153,
+          "greatestLongitudeDeg": 174990570,
+          "greatestObscuration": 947572
         },
         {
           "kind": "annular",
@@ -1961,7 +2684,10 @@
           "axisDistanceKm": 2610420,
           "latitudeDeg": -23034860,
           "longitudeDeg": 82946528,
-          "obscuration": 983972
+          "obscuration": 983972,
+          "greatestLatitudeDeg": -23034860,
+          "greatestLongitudeDeg": 82946528,
+          "greatestObscuration": 983972
         },
         {
           "kind": "total",
@@ -1969,7 +2695,10 @@
           "axisDistanceKm": 2003335,
           "latitudeDeg": 21474256,
           "longitudeDeg": 41723513,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 21474256,
+          "greatestLongitudeDeg": 41723513,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -1977,7 +2706,10 @@
           "axisDistanceKm": 7471869,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72149006,
+          "greatestLongitudeDeg": 98055319,
+          "greatestObscuration": 568631
         },
         {
           "kind": "partial",
@@ -1985,7 +2717,10 @@
           "axisDistanceKm": 9529216,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -69805706,
+          "greatestLongitudeDeg": -121197953,
+          "greatestObscuration": 19957
         },
         {
           "kind": "partial",
@@ -1993,7 +2728,10 @@
           "axisDistanceKm": 6515777,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71774129,
+          "greatestLongitudeDeg": -82146714,
+          "greatestObscuration": 982544
         },
         {
           "kind": "partial",
@@ -2001,7 +2739,10 @@
           "axisDistanceKm": 7364434,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 69572624,
+          "greatestLongitudeDeg": -112134509,
+          "greatestObscuration": 596975
         },
         {
           "kind": "total",
@@ -2009,7 +2750,10 @@
           "axisDistanceKm": 5108744,
           "latitudeDeg": -33261723,
           "longitudeDeg": 25794245,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -33261723,
+          "greatestLongitudeDeg": 25794245,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2017,7 +2761,10 @@
           "axisDistanceKm": 2675442,
           "latitudeDeg": 3886795,
           "longitudeDeg": -153526099,
-          "obscuration": 952590
+          "obscuration": 952590,
+          "greatestLatitudeDeg": 3886795,
+          "greatestLongitudeDeg": -153526099,
+          "greatestObscuration": 952590
         },
         {
           "kind": "annular",
@@ -2025,7 +2772,10 @@
           "axisDistanceKm": 270242,
           "latitudeDeg": 19454224,
           "longitudeDeg": -123725875,
-          "obscuration": 975820
+          "obscuration": 975820,
+          "greatestLatitudeDeg": 19454224,
+          "greatestLongitudeDeg": -123725875,
+          "greatestObscuration": 975820
         },
         {
           "kind": "total",
@@ -2033,7 +2783,10 @@
           "axisDistanceKm": 1812657,
           "latitudeDeg": -39245686,
           "longitudeDeg": 35188461,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -39245686,
+          "greatestLongitudeDeg": 35188461,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2041,7 +2794,10 @@
           "axisDistanceKm": 4755456,
           "latitudeDeg": 71500677,
           "longitudeDeg": -176199419,
-          "obscuration": 895726
+          "obscuration": 895726,
+          "greatestLatitudeDeg": 71500677,
+          "greatestLongitudeDeg": -176199419,
+          "greatestObscuration": 895726
         },
         {
           "kind": "total",
@@ -2049,7 +2805,10 @@
           "axisDistanceKm": 6000306,
           "latitudeDeg": -84816090,
           "longitudeDeg": 21475724,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -84816090,
+          "greatestLongitudeDeg": 21475724,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2057,7 +2816,10 @@
           "axisDistanceKm": 8415998,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -63588653,
+          "greatestLongitudeDeg": 61023896,
+          "greatestObscuration": 294813
         },
         {
           "kind": "partial",
@@ -2065,7 +2827,10 @@
           "axisDistanceKm": 9484192,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 65956082,
+          "greatestLongitudeDeg": 9794734,
+          "greatestObscuration": 51428
         },
         {
           "kind": "partial",
@@ -2073,7 +2838,10 @@
           "axisDistanceKm": 7158348,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 62978137,
+          "greatestLongitudeDeg": 174080887,
+          "greatestObscuration": 696892
         },
         {
           "kind": "total",
@@ -2081,7 +2849,10 @@
           "axisDistanceKm": 3240341,
           "latitudeDeg": -10722081,
           "longitudeDeg": -100394871,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -10722081,
+          "greatestLongitudeDeg": -100394871,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2089,7 +2860,10 @@
           "axisDistanceKm": 2839490,
           "latitudeDeg": 8729577,
           "longitudeDeg": 47078119,
-          "obscuration": 886807
+          "obscuration": 886807,
+          "greatestLatitudeDeg": 8729577,
+          "greatestLongitudeDeg": 47078119,
+          "greatestObscuration": 886807
         },
         {
           "kind": "total",
@@ -2097,7 +2871,10 @@
           "axisDistanceKm": 1544440,
           "latitudeDeg": 27955805,
           "longitudeDeg": 20900708,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 27955805,
+          "greatestLongitudeDeg": 20900708,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2105,7 +2882,10 @@
           "axisDistanceKm": 1677121,
           "latitudeDeg": -25813986,
           "longitudeDeg": 28106280,
-          "obscuration": 860611
+          "obscuration": 860611,
+          "greatestLatitudeDeg": -25813986,
+          "greatestLongitudeDeg": 28106280,
+          "greatestObscuration": 860611
         },
         {
           "kind": "total",
@@ -2113,7 +2893,10 @@
           "axisDistanceKm": 6109176,
           "latitudeDeg": 64538033,
           "longitudeDeg": 59108113,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 64538033,
+          "greatestLongitudeDeg": 59108113,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2121,7 +2904,10 @@
           "axisDistanceKm": 6151339,
           "latitudeDeg": -62157760,
           "longitudeDeg": -54618989,
-          "obscuration": 896682
+          "obscuration": 896682,
+          "greatestLatitudeDeg": -62157760,
+          "greatestLongitudeDeg": -54618989,
+          "greatestObscuration": 896682
         },
         {
           "kind": "partial",
@@ -2129,7 +2915,10 @@
           "axisDistanceKm": 6530368,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61131103,
+          "greatestLongitudeDeg": -147013083,
+          "greatestObscuration": 895916
         },
         {
           "kind": "partial",
@@ -2137,7 +2926,10 @@
           "axisDistanceKm": 6498416,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61455209,
+          "greatestLongitudeDeg": 150498102,
+          "greatestObscuration": 975936
         },
         {
           "kind": "annular",
@@ -2145,7 +2937,10 @@
           "axisDistanceKm": 2143726,
           "latitudeDeg": -25236567,
           "longitudeDeg": 77753732,
-          "obscuration": 863574
+          "obscuration": 863574,
+          "greatestLatitudeDeg": -25236567,
+          "greatestLongitudeDeg": 77753732,
+          "greatestObscuration": 863574
         },
         {
           "kind": "total",
@@ -2153,7 +2948,10 @@
           "axisDistanceKm": 1766427,
           "latitudeDeg": 25551333,
           "longitudeDeg": 168440286,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 25551333,
+          "greatestLongitudeDeg": 168440286,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2161,7 +2959,10 @@
           "axisDistanceKm": 2294101,
           "latitudeDeg": 7035083,
           "longitudeDeg": 69739964,
-          "obscuration": 857969
+          "obscuration": 857969,
+          "greatestLatitudeDeg": 7035083,
+          "greatestLongitudeDeg": 69739964,
+          "greatestObscuration": 857969
         },
         {
           "kind": "total",
@@ -2169,7 +2970,10 @@
           "axisDistanceKm": 2968421,
           "latitudeDeg": -10941980,
           "longitudeDeg": -95980108,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -10941980,
+          "greatestLongitudeDeg": -95980108,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2177,7 +2981,10 @@
           "axisDistanceKm": 6592405,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 62267126,
+          "greatestLongitudeDeg": -21795728,
+          "greatestObscuration": 867510
         },
         {
           "kind": "partial",
@@ -2185,7 +2992,10 @@
           "axisDistanceKm": 9321441,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 64846566,
+          "greatestLongitudeDeg": 72025516,
+          "greatestObscuration": 76810
         },
         {
           "kind": "partial",
@@ -2193,7 +3003,10 @@
           "axisDistanceKm": 8140211,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -62799794,
+          "greatestLongitudeDeg": 46647018,
+          "greatestObscuration": 377011
         },
         {
           "kind": "partial",
@@ -2201,7 +3014,10 @@
           "axisDistanceKm": 6815805,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -65410329,
+          "greatestLongitudeDeg": -149042705,
+          "greatestObscuration": 849725
         },
         {
           "kind": "annular",
@@ -2209,7 +3025,10 @@
           "axisDistanceKm": 4673031,
           "latitudeDeg": 70107284,
           "longitudeDeg": -96383519,
-          "obscuration": 890205
+          "obscuration": 890205,
+          "greatestLatitudeDeg": 70107284,
+          "greatestLongitudeDeg": -96383519,
+          "greatestObscuration": 890205
         },
         {
           "kind": "total",
@@ -2217,7 +3036,10 @@
           "axisDistanceKm": 2577601,
           "latitudeDeg": -47358355,
           "longitudeDeg": 175779925,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -47358355,
+          "greatestLongitudeDeg": 175779925,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2225,7 +3047,10 @@
           "axisDistanceKm": 249296,
           "latitudeDeg": 21015775,
           "longitudeDeg": -130182375,
-          "obscuration": 935216
+          "obscuration": 935216,
+          "greatestLatitudeDeg": 21015775,
+          "greatestLongitudeDeg": -130182375,
+          "greatestObscuration": 935216
         },
         {
           "kind": "total",
@@ -2233,7 +3058,10 @@
           "axisDistanceKm": 1814167,
           "latitudeDeg": -6047418,
           "longitudeDeg": -32365664,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -6047418,
+          "greatestLongitudeDeg": -32365664,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "total",
@@ -2241,7 +3069,10 @@
           "axisDistanceKm": 5085990,
           "latitudeDeg": -31048639,
           "longitudeDeg": 123241214,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -31048639,
+          "greatestLongitudeDeg": 123241214,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2249,7 +3080,10 @@
           "axisDistanceKm": 6568993,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 68524967,
+          "greatestLongitudeDeg": -131142149,
+          "greatestObscuration": 854697
         },
         {
           "kind": "partial",
@@ -2257,7 +3091,10 @@
           "axisDistanceKm": 6774138,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71113935,
+          "greatestLongitudeDeg": -101490816,
+          "greatestObscuration": 884838
         },
         {
           "kind": "partial",
@@ -2265,7 +3102,10 @@
           "axisDistanceKm": 9474732,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -68771926,
+          "greatestLongitudeDeg": -70003697,
+          "greatestObscuration": 30499
         },
         {
           "kind": "partial",
@@ -2273,7 +3113,10 @@
           "axisDistanceKm": 7987918,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71731511,
+          "greatestLongitudeDeg": -5655281,
+          "greatestObscuration": 412643
         },
         {
           "kind": "total",
@@ -2281,7 +3124,10 @@
           "axisDistanceKm": 2327022,
           "latitudeDeg": 29030098,
           "longitudeDeg": 135075062,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 29030098,
+          "greatestLongitudeDeg": 135075062,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2289,7 +3135,10 @@
           "axisDistanceKm": 3156562,
           "latitudeDeg": -32844717,
           "longitudeDeg": 60422914,
-          "obscuration": 947052
+          "obscuration": 947052,
+          "greatestLatitudeDeg": -32844717,
+          "greatestLongitudeDeg": 60422914,
+          "greatestObscuration": 947052
         },
         {
           "kind": "annular",
@@ -2297,7 +3146,10 @@
           "axisDistanceKm": 2387001,
           "latitudeDeg": -16716020,
           "longitudeDeg": -36996473,
-          "obscuration": 983898
+          "obscuration": 983898,
+          "greatestLatitudeDeg": -16716020,
+          "greatestLongitudeDeg": -36996473,
+          "greatestObscuration": 983898
         },
         {
           "kind": "total",
@@ -2305,7 +3157,10 @@
           "axisDistanceKm": 1672045,
           "latitudeDeg": 14234483,
           "longitudeDeg": -76727447,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 14234483,
+          "greatestLongitudeDeg": -76727447,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2313,7 +3168,10 @@
           "axisDistanceKm": 7276777,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72295640,
+          "greatestLongitudeDeg": -30311331,
+          "greatestObscuration": 629601
         },
         {
           "kind": "total",
@@ -2321,7 +3179,10 @@
           "axisDistanceKm": 6158369,
           "latitudeDeg": 69774463,
           "longitudeDeg": 102027370,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 69774463,
+          "greatestLongitudeDeg": 102027370,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2329,7 +3190,10 @@
           "axisDistanceKm": 7428363,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 70513940,
+          "greatestLongitudeDeg": 115070343,
+          "greatestObscuration": 578930
         },
         {
           "kind": "total",
@@ -2337,7 +3201,10 @@
           "axisDistanceKm": 5588557,
           "latitudeDeg": -43235269,
           "longitudeDeg": -89385057,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -43235269,
+          "greatestLongitudeDeg": -89385057,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2345,7 +3212,10 @@
           "axisDistanceKm": 2708704,
           "latitudeDeg": 6536804,
           "longitudeDeg": 78794743,
-          "obscuration": 960100
+          "obscuration": 960100,
+          "greatestLatitudeDeg": 6536804,
+          "greatestLongitudeDeg": 78794743,
+          "greatestObscuration": 960100
         },
         {
           "kind": "annular",
@@ -2353,7 +3223,10 @@
           "axisDistanceKm": 791166,
           "latitudeDeg": 12793040,
           "longitudeDeg": 133731390,
-          "obscuration": 967988
+          "obscuration": 967988,
+          "greatestLatitudeDeg": 12793040,
+          "greatestLongitudeDeg": 133731390,
+          "greatestObscuration": 967988
         },
         {
           "kind": "total",
@@ -2361,7 +3234,10 @@
           "axisDistanceKm": 1786804,
           "latitudeDeg": -37189247,
           "longitudeDeg": -94082462,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -37189247,
+          "greatestLongitudeDeg": -94082462,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2369,7 +3245,10 @@
           "axisDistanceKm": 4198692,
           "latitudeDeg": 63126571,
           "longitudeDeg": 95209789,
-          "obscuration": 896279
+          "obscuration": 896279,
+          "greatestLatitudeDeg": 63126571,
+          "greatestLongitudeDeg": 95209789,
+          "greatestObscuration": 896279
         },
         {
           "kind": "total",
@@ -2377,7 +3256,10 @@
           "axisDistanceKm": 5980238,
           "latitudeDeg": -87130212,
           "longitudeDeg": -173317784,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -87130212,
+          "greatestLongitudeDeg": -173317784,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2385,7 +3267,10 @@
           "axisDistanceKm": 8864893,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -64417959,
+          "greatestLongitudeDeg": -51334709,
+          "greatestObscuration": 176102
         },
         {
           "kind": "partial",
@@ -2393,7 +3278,10 @@
           "axisDistanceKm": 8932121,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 66950403,
+          "greatestLongitudeDeg": -98130705,
+          "greatestObscuration": 162528
         },
         {
           "kind": "partial",
@@ -2401,7 +3289,10 @@
           "axisDistanceKm": 7270347,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 63780496,
+          "greatestLongitudeDeg": 40004612,
+          "greatestObscuration": 655936
         },
         {
           "kind": "total",
@@ -2409,7 +3300,10 @@
           "axisDistanceKm": 3652103,
           "latitudeDeg": -13112542,
           "longitudeDeg": 148326858,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -13112542,
+          "greatestLongitudeDeg": 148326858,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2417,7 +3311,10 @@
           "axisDistanceKm": 2998159,
           "latitudeDeg": 7768189,
           "longitudeDeg": -70820332,
-          "obscuration": 878178
+          "obscuration": 878178,
+          "greatestLatitudeDeg": 7768189,
+          "greatestLongitudeDeg": -70820332,
+          "greatestObscuration": 878178
         },
         {
           "kind": "total",
@@ -2425,7 +3322,10 @@
           "axisDistanceKm": 1172229,
           "latitudeDeg": 28140392,
           "longitudeDeg": -93712992,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 28140392,
+          "greatestLongitudeDeg": -93712992,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2433,7 +3333,10 @@
           "axisDistanceKm": 1460840,
           "latitudeDeg": -27856803,
           "longitudeDeg": -83324009,
-          "obscuration": 856641
+          "obscuration": 856641,
+          "greatestLatitudeDeg": -27856803,
+          "greatestLongitudeDeg": -83324009,
+          "greatestObscuration": 856641
         },
         {
           "kind": "total",
@@ -2441,7 +3344,10 @@
           "axisDistanceKm": 5792786,
           "latitudeDeg": 66173128,
           "longitudeDeg": -46378891,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 66173128,
+          "greatestLongitudeDeg": -46378891,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2449,7 +3355,10 @@
           "axisDistanceKm": 5897475,
           "latitudeDeg": -63430027,
           "longitudeDeg": -160671175,
-          "obscuration": 899572
+          "obscuration": 899572,
+          "greatestLatitudeDeg": -63430027,
+          "greatestLongitudeDeg": -160671175,
+          "greatestObscuration": 899572
         },
         {
           "kind": "partial",
@@ -2457,7 +3366,10 @@
           "axisDistanceKm": 6747235,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61085713,
+          "greatestLongitudeDeg": 86009893,
+          "greatestObscuration": 824889
         },
         {
           "kind": "partial",
@@ -2465,7 +3377,10 @@
           "axisDistanceKm": 6838325,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61282705,
+          "greatestLongitudeDeg": 25958646,
+          "greatestObscuration": 849020
         },
         {
           "kind": "annular",
@@ -2473,7 +3388,10 @@
           "axisDistanceKm": 2330732,
           "latitudeDeg": -22404878,
           "longitudeDeg": -36695966,
-          "obscuration": 865691
+          "obscuration": 865691,
+          "greatestLatitudeDeg": -22404878,
+          "greatestLongitudeDeg": -36695966,
+          "greatestObscuration": 865691
         },
         {
           "kind": "total",
@@ -2481,7 +3399,10 @@
           "axisDistanceKm": 2153286,
           "latitudeDeg": 24617171,
           "longitudeDeg": 53661814,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 24617171,
+          "greatestLongitudeDeg": 53661814,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2489,7 +3410,10 @@
           "axisDistanceKm": 2143564,
           "latitudeDeg": 9424492,
           "longitudeDeg": -47098306,
-          "obscuration": 864555
+          "obscuration": 864555,
+          "greatestLatitudeDeg": 9424492,
+          "greatestLongitudeDeg": -47098306,
+          "greatestObscuration": 864555
         },
         {
           "kind": "total",
@@ -2497,7 +3421,10 @@
           "axisDistanceKm": 2555518,
           "latitudeDeg": -10296898,
           "longitudeDeg": 151776366,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -10296898,
+          "greatestLongitudeDeg": 151776366,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2505,7 +3432,10 @@
           "axisDistanceKm": 6488264,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61736473,
+          "greatestLongitudeDeg": -154047609,
+          "greatestObscuration": 903563
         },
         {
           "kind": "partial",
@@ -2513,7 +3443,10 @@
           "axisDistanceKm": 9859942,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 63996551,
+          "greatestLongitudeDeg": -37511713,
+          "greatestObscuration": 2643
         },
         {
           "kind": "partial",
@@ -2521,7 +3454,10 @@
           "axisDistanceKm": 7698092,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -62206045,
+          "greatestLongitudeDeg": -67378608,
+          "greatestObscuration": 516501
         },
         {
           "kind": "partial",
@@ -2529,7 +3465,10 @@
           "axisDistanceKm": 6833191,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -64443827,
+          "greatestLongitudeDeg": 68711408,
+          "greatestObscuration": 844190
         },
         {
           "kind": "annular",
@@ -2537,7 +3476,10 @@
           "axisDistanceKm": 5231964,
           "latitudeDeg": 74972647,
           "longitudeDeg": -169176347,
-          "obscuration": 887585
+          "obscuration": 887585,
+          "greatestLatitudeDeg": 74972647,
+          "greatestLongitudeDeg": -169176347,
+          "greatestObscuration": 887585
         },
         {
           "kind": "total",
@@ -2545,7 +3487,10 @@
           "axisDistanceKm": 2610503,
           "latitudeDeg": -47313899,
           "longitudeDeg": 47695330,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -47313899,
+          "greatestLongitudeDeg": 47695330,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2553,7 +3498,10 @@
           "axisDistanceKm": 286103,
           "latitudeDeg": 26128426,
           "longitudeDeg": 131270474,
-          "obscuration": 941783
+          "obscuration": 941783,
+          "greatestLatitudeDeg": 26128426,
+          "greatestLongitudeDeg": 131270474,
+          "greatestObscuration": 941783
         },
         {
           "kind": "annular",
@@ -2561,7 +3509,10 @@
           "axisDistanceKm": 1777558,
           "latitudeDeg": -7254994,
           "longitudeDeg": -160807276,
-          "obscuration": 994424
+          "obscuration": 994424,
+          "greatestLatitudeDeg": -7254994,
+          "greatestLongitudeDeg": -160807276,
+          "greatestObscuration": 994424
         },
         {
           "kind": "total",
@@ -2569,7 +3520,10 @@
           "axisDistanceKm": 4604514,
           "latitudeDeg": -23236911,
           "longitudeDeg": 12489582,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -23236911,
+          "greatestLongitudeDeg": 12489582,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2577,7 +3531,10 @@
           "axisDistanceKm": 6501978,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 67445848,
+          "greatestLongitudeDeg": 96231541,
+          "greatestObscuration": 864066
         },
         {
           "kind": "partial",
@@ -2585,7 +3542,10 @@
           "axisDistanceKm": 7102272,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 70337964,
+          "greatestLongitudeDeg": 127378007,
+          "greatestObscuration": 760875
         },
         {
           "kind": "partial",
@@ -2593,7 +3553,10 @@
           "axisDistanceKm": 9050214,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -67790140,
+          "greatestLongitudeDeg": 165339155,
+          "greatestObscuration": 115816
         },
         {
           "kind": "partial",
@@ -2601,7 +3564,10 @@
           "axisDistanceKm": 8215650,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -71086459,
+          "greatestLongitudeDeg": -130750106,
+          "greatestObscuration": 348291
         },
         {
           "kind": "total",
@@ -2609,7 +3575,10 @@
           "axisDistanceKm": 2634281,
           "latitudeDeg": 35966760,
           "longitudeDeg": 15103672,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 35966760,
+          "greatestLongitudeDeg": 15103672,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2617,7 +3586,10 @@
           "axisDistanceKm": 3411305,
           "latitudeDeg": -39650806,
           "longitudeDeg": -55986374,
-          "obscuration": 946258
+          "obscuration": 946258,
+          "greatestLatitudeDeg": -39650806,
+          "greatestLongitudeDeg": -55986374,
+          "greatestObscuration": 946258
         },
         {
           "kind": "annular",
@@ -2625,7 +3597,10 @@
           "axisDistanceKm": 2120735,
           "latitudeDeg": -10233112,
           "longitudeDeg": -154779173,
-          "obscuration": 984035
+          "obscuration": 984035,
+          "greatestLatitudeDeg": -10233112,
+          "greatestLongitudeDeg": -154779173,
+          "greatestObscuration": 984035
         },
         {
           "kind": "total",
@@ -2633,7 +3608,10 @@
           "axisDistanceKm": 1383240,
           "latitudeDeg": 7433561,
           "longitudeDeg": 162810974,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 7433561,
+          "greatestLongitudeDeg": 162810974,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2641,7 +3619,10 @@
           "axisDistanceKm": 7037044,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -72170216,
+          "greatestLongitudeDeg": -156358731,
+          "greatestObscuration": 705568
         },
         {
           "kind": "total",
@@ -2649,7 +3630,10 @@
           "axisDistanceKm": 5840772,
           "latitudeDeg": 60692754,
           "longitudeDeg": -40451840,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 60692754,
+          "greatestLongitudeDeg": -40451840,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2657,7 +3641,10 @@
           "axisDistanceKm": 7510019,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 71297884,
+          "greatestLongitudeDeg": -17613694,
+          "greatestObscuration": 555546
         },
         {
           "kind": "total",
@@ -2665,7 +3652,10 @@
           "axisDistanceKm": 6052066,
           "latitudeDeg": -55566055,
           "longitudeDeg": 150492885,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -55566055,
+          "greatestLongitudeDeg": 150492885,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2673,7 +3663,10 @@
           "axisDistanceKm": 2753009,
           "latitudeDeg": 9902165,
           "longitudeDeg": -48705010,
-          "obscuration": 968440
+          "obscuration": 968440,
+          "greatestLatitudeDeg": 9902165,
+          "greatestLongitudeDeg": -48705010,
+          "greatestObscuration": 968440
         },
         {
           "kind": "annular",
@@ -2681,7 +3674,10 @@
           "axisDistanceKm": 1303402,
           "latitudeDeg": 5589204,
           "longitudeDeg": 30317979,
-          "obscuration": 959387
+          "obscuration": 959387,
+          "greatestLatitudeDeg": 5589204,
+          "greatestLongitudeDeg": 30317979,
+          "greatestObscuration": 959387
         },
         {
           "kind": "total",
@@ -2689,7 +3685,10 @@
           "axisDistanceKm": 1748830,
           "latitudeDeg": -34149733,
           "longitudeDeg": 136422752,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -34149733,
+          "greatestLongitudeDeg": 136422752,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2697,7 +3696,10 @@
           "axisDistanceKm": 3646634,
           "latitudeDeg": 54567041,
           "longitudeDeg": 1360361,
-          "obscuration": 895643
+          "obscuration": 895643,
+          "greatestLatitudeDeg": 54567041,
+          "greatestLongitudeDeg": 1360361,
+          "greatestObscuration": 895643
         },
         {
           "kind": "total",
@@ -2705,7 +3707,10 @@
           "axisDistanceKm": 5956188,
           "latitudeDeg": -84768664,
           "longitudeDeg": -9667728,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -84768664,
+          "greatestLongitudeDeg": -9667728,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "partial",
@@ -2713,7 +3718,10 @@
           "axisDistanceKm": 9320626,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -65321265,
+          "greatestLongitudeDeg": -163715336,
+          "greatestObscuration": 75044
         },
         {
           "kind": "partial",
@@ -2721,7 +3729,10 @@
           "axisDistanceKm": 8387654,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 67970030,
+          "greatestLongitudeDeg": 152812592,
+          "greatestObscuration": 302309
         },
         {
           "kind": "partial",
@@ -2729,7 +3740,10 @@
           "axisDistanceKm": 7362609,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 64696455,
+          "greatestLongitudeDeg": -95080037,
+          "greatestObscuration": 622695
         },
         {
           "kind": "total",
@@ -2737,7 +3751,10 @@
           "axisDistanceKm": 4079050,
           "latitudeDeg": -16701097,
           "longitudeDeg": 37162756,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -16701097,
+          "greatestLongitudeDeg": 37162756,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2745,7 +3762,10 @@
           "axisDistanceKm": 3124334,
           "latitudeDeg": 7212126,
           "longitudeDeg": 169793576,
-          "obscuration": 870610
+          "obscuration": 870610,
+          "greatestLatitudeDeg": 7212126,
+          "greatestLongitudeDeg": 169793576,
+          "greatestObscuration": 870610
         },
         {
           "kind": "total",
@@ -2753,7 +3773,10 @@
           "axisDistanceKm": 762891,
           "latitudeDeg": 27267744,
           "longitudeDeg": 153431878,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 27267744,
+          "greatestLongitudeDeg": 153431878,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2761,7 +3784,10 @@
           "axisDistanceKm": 1291199,
           "latitudeDeg": -29757743,
           "longitudeDeg": 163288698,
-          "obscuration": 853286
+          "obscuration": 853286,
+          "greatestLatitudeDeg": -29757743,
+          "greatestLongitudeDeg": 163288698,
+          "greatestObscuration": 853286
         },
         {
           "kind": "total",
@@ -2769,7 +3795,10 @@
           "axisDistanceKm": 5430616,
           "latitudeDeg": 67406098,
           "longitudeDeg": -149497092,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 67406098,
+          "greatestLongitudeDeg": -149497092,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2777,7 +3806,10 @@
           "axisDistanceKm": 5696259,
           "latitudeDeg": -65791336,
           "longitudeDeg": 86661373,
-          "obscuration": 901441
+          "obscuration": 901441,
+          "greatestLatitudeDeg": -65791336,
+          "greatestLongitudeDeg": 86661373,
+          "greatestObscuration": 901441
         },
         {
           "kind": "partial",
@@ -2785,7 +3817,10 @@
           "axisDistanceKm": 7020112,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61199642,
+          "greatestLongitudeDeg": -38064861,
+          "greatestObscuration": 733247
         },
         {
           "kind": "partial",
@@ -2793,7 +3828,10 @@
           "axisDistanceKm": 7131724,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61255510,
+          "greatestLongitudeDeg": -100882638,
+          "greatestObscuration": 738562
         },
         {
           "kind": "partial",
@@ -2801,7 +3839,10 @@
           "axisDistanceKm": 9829198,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61890202,
+          "greatestLongitudeDeg": -95648870,
+          "greatestObscuration": 328
         },
         {
           "kind": "annular",
@@ -2809,7 +3850,10 @@
           "axisDistanceKm": 2562284,
           "latitudeDeg": -20025828,
           "longitudeDeg": -149043575,
-          "obscuration": 868310
+          "obscuration": 868310,
+          "greatestLatitudeDeg": -20025828,
+          "greatestLongitudeDeg": -149043575,
+          "greatestObscuration": 868310
         },
         {
           "kind": "total",
@@ -2817,7 +3861,10 @@
           "axisDistanceKm": 2512565,
           "latitudeDeg": 23348763,
           "longitudeDeg": -62798782,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 23348763,
+          "greatestLongitudeDeg": -62798782,
+          "greatestObscuration": 1000000
         },
         {
           "kind": "annular",
@@ -2825,7 +3872,10 @@
           "axisDistanceKm": 1962616,
           "latitudeDeg": 11957931,
           "longitudeDeg": -162435050,
-          "obscuration": 872098
+          "obscuration": 872098,
+          "greatestLatitudeDeg": 11957931,
+          "greatestLongitudeDeg": -162435050,
+          "greatestObscuration": 872098
         },
         {
           "kind": "total",
@@ -2833,7 +3883,10 @@
           "axisDistanceKm": 2160914,
           "latitudeDeg": -10492345,
           "longitudeDeg": 38995015,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": -10492345,
+          "greatestLongitudeDeg": 38995015,
+          "greatestObscuration": 1000000
         }
       ]
     },
@@ -2847,7 +3900,10 @@
           "axisDistanceKm": 6213730,
           "latitudeDeg": -64718010,
           "longitudeDeg": 86710925,
-          "obscuration": 927465
+          "obscuration": 927465,
+          "greatestLatitudeDeg": -64718010,
+          "greatestLongitudeDeg": 86710925,
+          "greatestObscuration": 927465
         },
         {
           "kind": "total",
@@ -2855,7 +3911,10 @@
           "axisDistanceKm": 5724876,
           "latitudeDeg": 65215533,
           "longitudeDeg": -25249367,
-          "obscuration": 1000000
+          "obscuration": 1000000,
+          "greatestLatitudeDeg": 65215533,
+          "greatestLongitudeDeg": -25249367,
+          "greatestObscuration": 1000000
         }
       ]
     },
@@ -2869,7 +3928,10 @@
           "axisDistanceKm": 6637035,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": 61260220,
+          "greatestLongitudeDeg": -77207749,
+          "greatestObscuration": 930400
         },
         {
           "kind": "partial",
@@ -2877,7 +3939,10 @@
           "axisDistanceKm": 6794945,
           "latitudeDeg": null,
           "longitudeDeg": null,
-          "obscuration": null
+          "obscuration": null,
+          "greatestLatitudeDeg": -61064415,
+          "greatestLongitudeDeg": 153434323,
+          "greatestObscuration": 796292
         }
       ]
     },

@@ -237,6 +237,9 @@ function globalSolarRow(e) {
         latitudeDeg: e.latitudeDeg === null ? null : qAngle(e.latitudeDeg),
         longitudeDeg: e.longitudeDeg === null ? null : qAngle(e.longitudeDeg),
         obscuration: e.obscuration === null ? null : qFrac(e.obscuration),
+        greatestLatitudeDeg: qAngle(e.greatestLatitudeDeg),
+        greatestLongitudeDeg: qAngle(e.greatestLongitudeDeg),
+        greatestObscuration: qFrac(e.greatestObscuration),
     };
 }
 
@@ -348,6 +351,7 @@ const EXACT = "exact", SCALED = "scaled", TIME = "time";
 const OBSERVER_SCHEMA = { latitudeDeg: EXACT, longitudeDeg: EXACT };
 const GLOBAL_SOLAR_ECLIPSE_SCHEMA = {
     kind: EXACT, peakMs: TIME, axisDistanceKm: SCALED, latitudeDeg: SCALED, longitudeDeg: SCALED, obscuration: SCALED,
+    greatestLatitudeDeg: SCALED, greatestLongitudeDeg: SCALED, greatestObscuration: SCALED,
 };
 const AXIS_POINT_SCHEMA = { latitudeDeg: SCALED, longitudeDeg: SCALED, kind: EXACT, obscuration: SCALED };
 const ROW_SCHEMAS = {

@@ -141,11 +141,14 @@ final class PublicSurfaceTests: XCTestCase {
         let kind: SolarEclipseKind = e.kind
         let point: (Double?, Double?) = (e.latitudeDeg, e.longitudeDeg)
         let obscuration: Double? = e.obscuration
-        _ = (kind, e.peak, e.axisDistanceKm, point, obscuration)
+        let greatest: (Double, Double, Double) = (e.greatestLatitudeDeg, e.greatestLongitudeDeg, e.greatestObscuration)
+        _ = (kind, e.peak, e.axisDistanceKm, point, obscuration, greatest)
 
         // Construct via its public init — proves the init itself is public,
         // which a `@testable` test would not catch.
-        let hand = GlobalSolarEclipse(kind: .partial, peak: e.peak, axisDistanceKm: 6500, latitudeDeg: nil, longitudeDeg: nil, obscuration: nil)
+        let hand = GlobalSolarEclipse(
+            kind: .partial, peak: e.peak, axisDistanceKm: 6500, latitudeDeg: nil, longitudeDeg: nil, obscuration: nil,
+            greatestLatitudeDeg: 64, greatestLongitudeDeg: -114, greatestObscuration: 0.8)
         XCTAssertEqual(hand.kind, .partial)
         XCTAssertNil(hand.latitudeDeg)
     }

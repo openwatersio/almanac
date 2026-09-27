@@ -170,6 +170,71 @@ final class GlobalSolarTests: XCTestCase {
         XCTAssertEqual(differ, ["1966-05-20 global annular local partial"])
     }
 
+    // ------------------------ greatest eclipse when the axis misses the Earth
+    // The catalog tabulates a point for every eclipse. With no ground point it
+    // is the point on the limb nearest the axis, with the Sun on the horizon.
+
+    static let limb: [(e: GlobalSolarEclipse, row: SolarTests.CatalogRow)] =
+        zip(walk, catalog).filter { $0.0.kind == .partial }.map { (e: $0.0, row: $0.1) }
+
+    static func greatestPoint(_ e: GlobalSolarEclipse) -> Observer {
+        try! Observer(latitudeDeg: e.greatestLatitudeDeg, longitudeDeg: e.greatestLongitudeDeg)
+    }
+
+    func testEveryPartialAndNonCentralEclipseHasAGreatestPointWithinOneDegreeOfTheCatalog() {
+        // 115 partials and 7 non-central annular or total eclipses; measured
+        // worst 0.63° (1971-02-25), inside the catalog's whole-degree rounding.
+        XCTAssertEqual(Self.limb.count, 122)
+        var worst = 0.0, worstAt = ""
+        for (e, row) in Self.limb {
+            let err = Self.angleDiffDeg(row.latitudeDeg, row.longitudeDeg, e.greatestLatitudeDeg, e.greatestLongitudeDeg)
+            if err > worst { worst = err; worstAt = row.peakUtc }
+        }
+        XCTAssertLessThanOrEqual(worst, 1, "worst greatest-eclipse point error \(worst)° at \(worstAt)")
+    }
+
+    func testTheGreatestPointPutsTheSunOnTheGeometricHorizon() throws {
+        // sunAltAz refracts, so a geometric zero reads as the refraction at zero.
+        // Measured worst 0.0011°, the Sun's parallax and the axis's tilt from it.
+        for (e, row) in Self.limb {
+            let alt = try sunAltAz(e.peak, observer: Self.greatestPoint(e)).altDeg
+            XCTAssertLessThan(abs(alt - refractionDeg(0)), 0.01, row.peakUtc)
+        }
+    }
+
+    func testLocalSearchAtTheGreatestPointPeaksAtGreatestEclipseWithTheSameKindAndObscuration() throws {
+        // Measured worst 0.95 s (2047-07-22). Inside a grazing umbra the observer
+        // sees the non-central eclipse's own kind: the kind stays `partial` for
+        // the axis, but the obscuration is what the point sees.
+        var bad: [String] = []
+        for (e, row) in Self.limb {
+            let found = try solarEclipses(from: e.peak.addingTimeInterval(-Self.day), to: e.peak.addingTimeInterval(Self.day), observer: Self.greatestPoint(e))
+            guard found.count == 1, let local = found.first else { bad.append("\(row.peakUtc): \(found.count) local eclipses"); continue }
+            let dt = abs(local.peak.timeIntervalSince(e.peak))
+            if dt > 2 { bad.append("\(row.peakUtc): local peak off by \(dt) s") }
+            if local.kind.rawValue != row.kind { bad.append("\(row.peakUtc): local \(local.kind.rawValue), catalog \(row.kind)") }
+            let obscuration = try solarObscuration(at: e.peak, observer: Self.greatestPoint(e))
+            if abs(obscuration - e.greatestObscuration) > 1e-6 { bad.append("\(row.peakUtc): obscuration \(obscuration) vs \(e.greatestObscuration)") }
+        }
+        XCTAssertEqual(bad, [])
+    }
+
+    func testTheGreatestPointIsTheGroundPointWhenTheAxisMeetsTheEarth() {
+        for e in Self.walk {
+            let label = "\(e.peak)"
+            XCTAssertGreaterThanOrEqual(e.greatestLatitudeDeg, -90, label)
+            XCTAssertLessThanOrEqual(e.greatestLatitudeDeg, 90, label)
+            XCTAssertGreaterThan(e.greatestLongitudeDeg, -180, label)
+            XCTAssertLessThanOrEqual(e.greatestLongitudeDeg, 180, label)
+            XCTAssertGreaterThan(e.greatestObscuration, 0, label)
+            XCTAssertLessThanOrEqual(e.greatestObscuration, 1, label)
+            if e.kind == .partial { continue }
+            XCTAssertEqual(e.greatestLatitudeDeg, e.latitudeDeg, label)
+            XCTAssertEqual(e.greatestLongitudeDeg, e.longitudeDeg, label)
+            XCTAssertEqual(e.greatestObscuration, e.obscuration, label)
+        }
+    }
+
     // ------------------------------------------------------ search semantics
 
     static func assertSame(_ a: GlobalSolarEclipse, _ b: GlobalSolarEclipse, file: StaticString = #filePath, line: UInt = #line) {

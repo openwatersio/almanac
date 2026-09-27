@@ -87,6 +87,7 @@ final class ParityTests: XCTestCase {
     struct GlobalSolarRow: Codable {
         let kind: String; let peakMs: Int64; let axisDistanceKm: Int
         let latitudeDeg: Int?; let longitudeDeg: Int?; let obscuration: Int?
+        let greatestLatitudeDeg: Int; let greatestLongitudeDeg: Int; let greatestObscuration: Int
     }
     struct GlobalSolarAnchor: Codable { let tMs: Int64; let next: GlobalSolarRow; let previous: GlobalSolarRow }
     struct GlobalSolarWindow: Codable { let startMs: Int64; let endMs: Int64; let eclipses: [GlobalSolarRow] }
@@ -288,7 +289,10 @@ final class ParityTests: XCTestCase {
             GlobalSolarRow(
                 kind: e.kind.rawValue, peakMs: qEventMs(e.peak), axisDistanceKm: qScaled(e.axisDistanceKm, scales.distanceKm),
                 latitudeDeg: e.latitudeDeg.map { qScaled($0, scales.angleDeg) }, longitudeDeg: e.longitudeDeg.map { qScaled($0, scales.angleDeg) },
-                obscuration: e.obscuration.map { qScaled($0, scales.fraction) })
+                obscuration: e.obscuration.map { qScaled($0, scales.fraction) },
+                greatestLatitudeDeg: qScaled(e.greatestLatitudeDeg, scales.angleDeg),
+                greatestLongitudeDeg: qScaled(e.greatestLongitudeDeg, scales.angleDeg),
+                greatestObscuration: qScaled(e.greatestObscuration, scales.fraction))
         }
         let globalAnchors: [GlobalSolarAnchor] = try globalSolarAnchorsMs.map { tMs in
             GlobalSolarAnchor(
@@ -465,6 +469,9 @@ final class ParityTests: XCTestCase {
             nearOpt(a.latitudeDeg, b.latitudeDeg, tolAngle, "\(what) latitudeDeg @\(a.peakMs)")
             nearOpt(a.longitudeDeg, b.longitudeDeg, tolAngle, "\(what) longitudeDeg @\(a.peakMs)")
             nearOpt(a.obscuration, b.obscuration, tolFrac, "\(what) obscuration @\(a.peakMs)")
+            near(a.greatestLatitudeDeg, b.greatestLatitudeDeg, tolAngle, "\(what) greatestLatitudeDeg @\(a.peakMs)")
+            near(a.greatestLongitudeDeg, b.greatestLongitudeDeg, tolAngle, "\(what) greatestLongitudeDeg @\(a.peakMs)")
+            near(a.greatestObscuration, b.greatestObscuration, tolFrac, "\(what) greatestObscuration @\(a.peakMs)")
         }
         XCTAssertEqual(fresh.globalSolar.anchors.count, Self.committedGlobalSolar.anchors.count)
         for (a, b) in zip(fresh.globalSolar.anchors, Self.committedGlobalSolar.anchors) {
@@ -648,6 +655,9 @@ final class ParityTests: XCTestCase {
             nearOpt(a.latitudeDeg, b.latitudeDeg, "\(what) latitudeDeg @\(a.peakMs)")
             nearOpt(a.longitudeDeg, b.longitudeDeg, "\(what) longitudeDeg @\(a.peakMs)")
             nearOpt(a.obscuration, b.obscuration, "\(what) obscuration @\(a.peakMs)")
+            near(a.greatestLatitudeDeg, b.greatestLatitudeDeg, "\(what) greatestLatitudeDeg @\(a.peakMs)")
+            near(a.greatestLongitudeDeg, b.greatestLongitudeDeg, "\(what) greatestLongitudeDeg @\(a.peakMs)")
+            near(a.greatestObscuration, b.greatestObscuration, "\(what) greatestObscuration @\(a.peakMs)")
         }
         XCTAssertEqual(globalSolar.anchors.count, Self.committedGlobalSolar.anchors.count)
         for (a, b) in zip(globalSolar.anchors, Self.committedGlobalSolar.anchors) {
