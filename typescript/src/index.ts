@@ -15,3 +15,5 @@ export type { LunarEclipse, LunarEclipseVisibility } from './eclipse.js';
 export { nextLunarEclipse, previousLunarEclipse, lunarEclipses, lunarEclipseVisibility } from './eclipse.js';
 export type { SolarEclipse, SolarEclipseKind, SolarEclipseSunAltitudes } from './solar.js';
 export { nextSolarEclipse, previousSolarEclipse, solarEclipses, solarObscuration } from './solar.js';
+export type { GlobalSolarEclipse } from './globalSolar.js';
+export { nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses } from './globalSolar.js';
