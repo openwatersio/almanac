@@ -32,6 +32,10 @@ import Foundation
 // quadratic's discriminant, and an axis point rejects the crossing on the
 // Sun's side of the Moon that upstream, asking only at greatest eclipse,
 // never meets.
+//
+// Neither is greatest eclipse for an axis that misses the Earth: upstream
+// reports no place at all, and this package reports the point on the limb
+// nearest the axis, where the Sun is on the horizon.
 
 /// A solar eclipse as the whole Earth sees it: greatest eclipse, and where the Moon's shadow axis meets the ground then.
 public struct GlobalSolarEclipse: Sendable {
