@@ -26,10 +26,11 @@ function eclipseWalk(from, to) {
     return eclipses;
 }
 
-// Solar eclipses have no consumer-loop fallback on revisions before 0.4.0;
-// `--skip '^solar/'` leaves them out of a historical comparison.
-function solar(operation) {
-    assert.ok(api[operation], operation + ' needs Almanac 0.4.0 or later');
+// Solar eclipses have no consumer-loop fallback on revisions before 0.4.0, nor
+// the global search before 0.5.0; `--skip '^solar/'` or `--skip '^(solar|global)/'`
+// leaves them out of a historical comparison.
+function solar(operation, version = '0.4.0') {
+    assert.ok(api[operation], operation + ' needs Almanac ' + version + ' or later');
     return api[operation];
 }
 
@@ -72,6 +73,22 @@ function workload(spec) {
         case 'solarObscuration': {
             const obscuration = solar(spec.operation);
             return () => times.reduce((sum, t) => sum + obscuration(t, observer), 0);
+        }
+        case 'nextGlobalSolarEclipse': {
+            const next = solar(spec.operation, '0.5.0');
+            return () => next(from).peak.getTime() / 1000;
+        }
+        case 'previousGlobalSolarEclipse': {
+            const previous = solar(spec.operation, '0.5.0');
+            return () => previous(to).peak.getTime() / 1000;
+        }
+        case 'globalSolarEclipses': {
+            const range = solar(spec.operation, '0.5.0');
+            return () => range(from, to).length;
+        }
+        case 'solarEclipseCentralLine': {
+            const line = solar(spec.operation, '0.5.0');
+            return () => line(from).length;
         }
         default:
             throw new Error('Unknown benchmark operation: ' + spec.operation);
