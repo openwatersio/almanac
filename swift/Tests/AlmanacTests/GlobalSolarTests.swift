@@ -68,7 +68,8 @@ final class GlobalSolarTests: XCTestCase {
 
     func testGreatestEclipseWithin60Seconds() {
         // Measured worst 8.2 s (2081-09-03). The catalog's UT is its TD minus
-        // its own Espenak–Meeus Delta-T, the model this port uses, so no Delta-T floor.
+        // its Delta-T column, this port's Espenak–Meeus model in whole seconds
+        // (within 0.8 s on every row), so no Delta-T floor.
         var worst = 0.0, worstAt = ""
         for (e, row) in zip(Self.walk, Self.catalog) {
             let err = abs(e.peak.timeIntervalSince(utc(row.peakUtc)))
@@ -89,9 +90,8 @@ final class GlobalSolarTests: XCTestCase {
     }
 
     func testAxisDistanceWithin5KmOfGamma() {
-        // Gamma is tabulated to 1e-4 radii, 0.32 km of rounding. Measured worst
-        // 4.1 km (2096-11-15); the lunar theory's error grows away from J2000,
-        // from under 2.3 km through 2049 to that worst case in the 2090s.
+        // Gamma is tabulated to 1e-4 radii, 0.32 km of rounding. Measured within
+        // 2.4 km through 2049, and 4.1 km at worst (2096-11-15).
         var worst = 0.0, worstAt = ""
         for (e, row) in zip(Self.walk, Self.catalog) {
             let err = abs(e.axisDistanceKm - abs(row.gamma) * Self.gammaRadiusKm)

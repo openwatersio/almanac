@@ -83,7 +83,8 @@ describe('nextGlobalSolarEclipse vs the Espenak catalog', () => {
 
   it('greatest eclipse agrees within 60 s', () => {
     // Measured worst 8.2 s (2081-09-03). The catalog's UT is its TD minus its
-    // own Espenak–Meeus Delta-T, the model this port uses, so no Delta-T floor.
+    // Delta-T column, this port's Espenak–Meeus model in whole seconds (within
+    // 0.8 s on every row), so no Delta-T floor.
     const errs = walk.map((e, i) => Math.abs(e.peak.getTime() - Date.parse(catalog[i].peakUtc)) / SEC);
     const worst = Math.max(...errs);
     expect(worst, `worst peak error ${worst.toFixed(1)} s at ${catalog[errs.indexOf(worst)].peakUtc}`).toBeLessThanOrEqual(60);
@@ -100,9 +101,8 @@ describe('nextGlobalSolarEclipse vs the Espenak catalog', () => {
   });
 
   it('axis distance agrees with |gamma| within 5 km', () => {
-    // Gamma is tabulated to 1e-4 radii, 0.32 km of rounding. Measured worst
-    // 4.1 km (2096-11-15); the lunar theory's error grows away from J2000,
-    // from under 2.3 km through 2049 to that worst case in the 2090s.
+    // Gamma is tabulated to 1e-4 radii, 0.32 km of rounding. Measured within
+    // 2.4 km through 2049, and 4.1 km at worst (2096-11-15).
     const errs = walk.map((e, i) => Math.abs(e.axisDistanceKm - Math.abs(catalog[i].gamma) * GAMMA_RADIUS_KM));
     const worst = Math.max(...errs);
     expect(worst, `worst axis distance error ${worst.toFixed(2)} km at ${catalog[errs.indexOf(worst)].peakUtc}`).toBeLessThanOrEqual(5);
