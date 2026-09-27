@@ -1,0 +1,37 @@
+{
+  "retrieved": "2026-09-27",
+  "requests": {
+    "path-2017-08-21": "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2017Aug21Tpath.html",
+    "path-2023-10-14": "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2023Oct14Apath.html",
+    "path-2024-04-08": "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2024Apr08Tpath.html",
+    "path-2026-08-12": "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2026Aug12Tpath.html",
+    "path-2044-08-23": "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2044Aug23Tpath.html",
+    "path-2045-08-12": "https://eclipse.gsfc.nasa.gov/SEpath/SEpath2001/SE2045Aug12Tpath.html"
+  },
+  "paths": {
+    "path-2017-08-21": {
+      "eclipse": "2017-08-21",
+      "kind": "total"
+    },
+    "path-2023-10-14": {
+      "eclipse": "2023-10-14",
+      "kind": "annular"
+    },
+    "path-2024-04-08": {
+      "eclipse": "2024-04-08",
+      "kind": "total"
+    },
+    "path-2026-08-12": {
+      "eclipse": "2026-08-12",
+      "kind": "total"
+    },
+    "path-2044-08-23": {
+      "eclipse": "2044-08-23",
+      "kind": "total"
+    },
+    "path-2045-08-12": {
+      "eclipse": "2045-08-12",
+      "kind": "total"
+    }
+  }
+}
