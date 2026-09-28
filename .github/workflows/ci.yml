@@ -65,6 +65,20 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: swift test -c release
+  # Slackwater's watch app links Almanac. Apple Watch hardware is arm64_32, where
+  # Swift's Int is 32 bits, so the device slice is the one that can break; the
+  # simulator slice is what the app's own CI compiles against. Compile-only: the
+  # suite's results are the same on every 64-bit target and the Linux job runs it.
+  watchos:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Compile for Apple Watch
+        run: swift build -c release --target Almanac --scratch-path .build-watch --triple arm64_32-apple-watchos9.0 --sdk "$(xcrun --sdk watchos --show-sdk-path)"
+      - name: Compile for the watch simulator
+        run: swift build -c release --target Almanac --scratch-path .build-watchsim --triple arm64-apple-watchos9.0-simulator --sdk "$(xcrun --sdk watchsimulator --show-sdk-path)"
   performance-typescript:
     name: performance (typescript, ubuntu-latest)
     needs: changes
