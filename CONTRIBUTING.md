@@ -38,7 +38,7 @@ The shared organization guidance is in the [repository standards](https://github
 
 ## Development checks
 
-CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `ubuntu-latest` supplies Swift (6.3.3 in the current Ubuntu 24.04 runner image). The npm packaging and publishing jobs use Node 24 for trusted publishing.
+CI defines the toolchain: `actions/setup-node` selects Node 22 for tests, and `ubuntu-latest` supplies Swift (6.3.3 in the current Ubuntu 24.04 runner image). The npm packaging and publishing jobs use Node 24 for trusted publishing. A `watchos` job on `macos-latest` compiles the Swift library for Apple Watch hardware and the watch simulator, because Slackwater's watch app depends on it; watch hardware is `arm64_32`, where Swift's `Int` is 32 bits, so keep epoch milliseconds and other large counts in `Double` or `Int64`.
 
 Local `mise.toml` selects Swift per operating system, and workflows do not read it. The Linux entry mirrors the runner image, which is the version of record; update it when the image changes. The macOS entry instead tracks the Swift version in the installed Xcode, because a standalone macOS toolchain borrows Apple's SDK from Xcode and fails against an SDK newer than itself. Raise it when Xcode moves to a new Swift release.
 
