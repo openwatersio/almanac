@@ -6,6 +6,14 @@ public enum AlmanacError: Error, Equatable {
     case invalidArgument(String)
 }
 
+public enum Planet: String, CaseIterable, Sendable {
+    case mercury, venus, earth, mars, jupiter, saturn
+}
+
+func assertSkyPlanet(_ planet: Planet) throws {
+    guard planet != .earth else { throw AlmanacError.invalidArgument("Earth has no planetary direction from Earth") }
+}
+
 /// Cross-port rule: instants are integer epoch milliseconds via truncation toward
 /// zero (ECMAScript TimeClip — what JS Date already did to its input). NOT floor:
 /// floor diverges on negative sub-ms tails (pre-1970 instants).

@@ -53,6 +53,23 @@ final class PublicSurfaceTests: XCTestCase {
         _ = m.waxing
     }
 
+    func testPlanets() throws {
+        let time = Date(timeIntervalSince1970: 1_756_353_600)
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        XCTAssertEqual(Planet.allCases.map(\.rawValue), ["mercury", "venus", "earth", "mars", "jupiter", "saturn"])
+        for planet in Planet.allCases {
+            let h: HeliocentricPosition = try planetHeliocentricPosition(planet, at: time)
+            _ = HeliocentricPosition(xAu: h.xAu, yAu: h.yAu, zAu: h.zAu)
+            if planet == .earth { continue }
+            let p: PlanetPosition = try planetPosition(planet, at: time)
+            _ = PlanetPosition(raDeg: p.raDeg, decDeg: p.decDeg, distanceAu: p.distanceAu)
+            let alt: AltAz = try planetAltAz(planet, at: time, observer: observer)
+            _ = (alt.altDeg, alt.azDeg)
+        }
+        XCTAssertThrowsError(try planetPosition(.earth, at: time))
+        XCTAssertThrowsError(try planetAltAz(.earth, at: time, observer: observer))
+    }
+
     func testEvents() throws {
         let observer = try Observer(latitudeDeg: 48.7621, longitudeDeg: -123.052)
         let start = Date(timeIntervalSince1970: 1_756_339_200) // 2025-08-28T00:00:00Z

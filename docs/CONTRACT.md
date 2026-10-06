@@ -31,6 +31,7 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 - Angles are degrees. Right ascension is in `[0, 360)`, declination and altitude are in `[-90, 90]`, and azimuth is in `[0, 360)` from true north through east.
 - Geocentric Sun and Moon right ascension and declination are apparent coordinates on the true equator and equinox of date, with nutation and aberration applied. Internal ecliptic-of-date values are not part of the public API.
 - Moon distance is in kilometers. Sun distance is in astronomical units.
+- `Planet` contains Mercury, Venus, Earth, Mars, Jupiter, and Saturn. Sun-centered coordinates are geometric AU vectors in the fixed J2000 mean equatorial frame, with no light-time or aberration correction. Earth is valid for those vectors and rejected by Earth-based planetary queries. Planet sky directions are apparent on the true equator and equinox of date. `distanceAu` is physical range with light-time correction, with Earth at reception; aberration affects direction, not range.
 - Horizontal positions use the translated Astronomy Engine `Refraction('normal')` formula with its below-horizon taper and a fixed sea-level standard atmosphere. The model has no pressure or temperature inputs and gives about 34 arcminutes of refraction at the horizon.
 - `starAltAz` accepts J2000 ICRS catalog right ascension and declination, precesses and nutates them to date, and applies refraction. It does not apply annual aberration, proper motion, or parallax.
 - Sunrise and sunset occur when the unrefracted geometric center crosses `horizonDip - (34 arcminutes + the true solar semidiameter at the current distance)`. Civil, nautical, and astronomical twilight use center altitudes of `-6°`, `-12°`, and `-18°` without a refraction term.
@@ -48,6 +49,9 @@ The functions have the same names and semantics in both ports. TypeScript return
 | --- | --- | --- |
 | `horizonDip(observer, heightAboveGroundM)` | Observer and eye height above the unobstructed surface | Signed apparent horizon altitude in degrees from the horizontal plane, including Earth shape and terrestrial refraction; zero at ground level and negative when elevated. Height is in `[0, 10000]` meters and ground elevation (`elevationM - heightAboveGroundM`) in `[-500, 10000]` meters. |
 | `sunPosition(time)` | Instant | Geocentric apparent `raDeg`, `decDeg`, and `distanceAu` on the equator of date. |
+| `planetHeliocentricPosition(planet, time)` | Planet and instant | Geometric Sun-centered `HeliocentricPosition` with `xAu`, `yAu`, `zAu`; includes Earth. |
+| `planetPosition(planet, time)` | Planet other than Earth and instant | Apparent geocentric `PlanetPosition` with `raDeg`, `decDeg`, and light-time `distanceAu`. |
+| `planetAltAz(planet, time, observer)` | Planet other than Earth, instant, and observer | Refracted topocentric `azDeg` and `altDeg`. |
 | `moonPosition(time)` | Instant | Geocentric apparent `raDeg`, `decDeg`, and `distanceKm` on the equator of date. |
 | `sunAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`. |
 | `moonAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`, including parallax. |

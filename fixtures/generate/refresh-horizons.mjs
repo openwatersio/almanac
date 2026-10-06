@@ -56,6 +56,23 @@ function site(command, quantities, start, stop, step, site, apparent) {
   };
 }
 
+const planets = { mercury: 199, venus: 299, earth: 399, mars: 499, jupiter: 599, saturn: 699 };
+
+function vectors(command) {
+  return {
+    format: "text", MAKE_EPHEM: "'YES'", COMMAND: `'${command}'`,
+    EPHEM_TYPE: "'VECTORS'", CENTER: "'500@10'", REF_PLANE: "'FRAME'", REF_SYSTEM: "'ICRF'",
+    VEC_CORR: "'NONE'", VEC_TABLE: "'1'", OUT_UNITS: "'AU-D'", TIME_TYPE: "'TT'",
+    CSV_FORMAT: "'YES'", TIME_DIGITS: "'SECONDS'",
+    START_TIME: "'1950-01-01'", STOP_TIME: "'2100-12-31'", STEP_SIZE: "'30d'",
+  };
+}
+
+function boundaries(params) {
+  const { START_TIME, STOP_TIME, STEP_SIZE, ...rest } = params;
+  return { ...rest, TLIST: "'2433282.5 2488434.499988426'" };
+}
+
 const specs = [
   { name: "sun-coarse", params: geocentric("10", "2,20", "1950-01-01", "2100-12-31", "30d", "TT") },
   { name: "moon-coarse", params: geocentric("301", "2,10,20", "1950-01-01", "2100-12-31", "30d", "TT") },
@@ -68,6 +85,21 @@ const specs = [
   { name: "sun-airless-twilight-n60-mar", params: site("10", "4", "2026-03-20", "2026-03-22", "1m", N60, "AIRLESS") },
   { name: "sun-airless-twilight-n60-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", N60, "AIRLESS") },
 ];
+
+for (const [planet, target] of Object.entries(planets)) {
+  specs.push({ name: `planet-${planet}-helio`, params: vectors(target) });
+  specs.push({ name: `planet-${planet}-helio-boundaries`, params: boundaries(vectors(target)) });
+  if (planet === "earth") continue;
+  const coarse = geocentric(target, "2,9,10,20,23,24", "1950-01-01", "2100-12-31", "30d", "TT");
+  specs.push({ name: `planet-${planet}-coarse`, params: coarse });
+  specs.push({ name: `planet-${planet}-boundaries`, params: boundaries(coarse) });
+  for (const apparent of ["AIRLESS", "REFRACTED"]) {
+    specs.push({ name: `planet-${planet}-${apparent.toLowerCase()}`, params: site(target, "4", "2026-03-01", "2026-03-08", "1h", VIC, apparent) });
+  }
+}
+for (const apparent of ["AIRLESS", "REFRACTED"]) {
+  specs.push({ name: `planet-venus-zenith-${apparent.toLowerCase()}`, params: site(299, "4", "2026-03-03 19:00", "2026-03-03 21:00", "10m", { lat: -2.4975, lon: -104.0738 }, apparent) });
+}
 
 function buildUrl(params) {
   const url = new URL(BASE);
@@ -83,7 +115,9 @@ async function main() {
   // Optional name arguments fetch a subset, e.g. `node refresh-horizons.mjs
   // sun-coarse moon-coarse`. retrieved.json is merged, never overwritten, so a
   // partial run leaves the other entries (and their derived fixtures) intact.
-  const only = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+  const only = process.argv.includes("--planets")
+    ? specs.filter(s => s.name.startsWith("planet-")).map(s => s.name)
+    : process.argv.slice(2).filter((a) => !a.startsWith("--"));
   const todo = only.length ? specs.filter((s) => only.includes(s.name)) : specs;
   const unknown = only.filter((n) => !specs.some((s) => s.name === n));
   if (unknown.length) throw new Error(`unknown spec name(s): ${unknown.join(", ")}`);

@@ -217,7 +217,7 @@ export function refractionDeg(altitudeDeg: number): number {
     return refr;
 }
 
-function refract(unrefracted: AltAz): AltAz {
+export function refract(unrefracted: AltAz): AltAz {
     return { azDeg: unrefracted.azDeg, altDeg: unrefracted.altDeg + refractionDeg(unrefracted.altDeg) };
 }
 
