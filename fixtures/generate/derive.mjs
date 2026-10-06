@@ -897,6 +897,7 @@ function main() {
     ...deriveEspenak(espenak.retrieved, espenak.requests),
     ...deriveSolar(usno, espenak, sepath),
     ...deriveStars(stars.retrieved, stars.requests),
+    ...deriveHorizon(),
   };
 
   let drift = false;
@@ -921,6 +922,14 @@ function main() {
   } else {
     console.log(`derive.mjs: wrote ${Object.keys(files).length} files`);
   }
+}
+
+function deriveHorizon() {
+  const raw = JSON.parse(readFileSync(new URL('../raw/horizon/dip.json', import.meta.url), 'utf8'));
+  assert.equal(raw.rows.length, 25);
+  for (const row of raw.rows) assert.ok(Number.isFinite(row.dipDeg) && row.dipDeg <= 0);
+  const { rows, sourceFunction, ...meta } = raw;
+  return { 'horizon/dip.json': json(rows), 'horizon/meta.json': json(meta) };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

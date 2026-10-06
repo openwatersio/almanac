@@ -46,6 +46,7 @@ The functions have the same names and semantics in both ports. TypeScript return
 
 | Function | Arguments | Result |
 | --- | --- | --- |
+| `horizonDip(observer, heightAboveGroundM)` | Observer and eye height above the unobstructed surface | Signed apparent horizon altitude in degrees from the horizontal plane, including Earth shape and terrestrial refraction; zero at ground level and negative when elevated. Height is in `[0, 10000]` meters and ground elevation (`elevationM - heightAboveGroundM`) in `[-500, 10000]` meters. |
 | `sunPosition(time)` | Instant | Geocentric apparent `raDeg`, `decDeg`, and `distanceAu` on the equator of date. |
 | `moonPosition(time)` | Instant | Geocentric apparent `raDeg`, `decDeg`, and `distanceKm` on the equator of date. |
 | `sunAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`. |

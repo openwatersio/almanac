@@ -12,6 +12,7 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertEqual(observer.latitudeDeg, 48.7621)
         XCTAssertEqual(observer.longitudeDeg, -123.052)
         XCTAssertEqual(observer.elevationM, 3)
+        XCTAssertLessThan(try horizonDip(observer: observer, heightAboveGroundM: 3), 0)
 
         let cases: [AlmanacError] = [.outOfRange, .invalidObserver("x"), .invalidArgument("y")]
         XCTAssertEqual(cases.count, 3)

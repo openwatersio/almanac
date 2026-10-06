@@ -39,6 +39,19 @@ import XCTest
 /// pay it twice for no additional coverage -- the two tests differ only in
 /// how they compare the same recomputed rows to the committed fixtures.
 final class ParityTests: XCTestCase {
+    struct HorizonRow: Decodable {
+        struct Site: Decodable { let latitudeDeg: Double; let longitudeDeg: Double; let elevationM: Double }
+        let observer: Site; let heightAboveGroundM: Double; let dipDeg: Int64
+    }
+
+    func testHorizonParity() throws {
+        let rows = try Self.load([HorizonRow].self, "horizon.json")
+        for row in rows {
+            let observer = try Observer(latitudeDeg: row.observer.latitudeDeg, longitudeDeg: row.observer.longitudeDeg, elevationM: row.observer.elevationM)
+            let actual = try horizonDip(observer: observer, heightAboveGroundM: row.heightAboveGroundM)
+            XCTAssertLessThanOrEqual(abs(actual * 1e6 - Double(row.dipDeg)), 5)
+        }
+    }
     // ------------------------------------------------------------ fixtures
 
     struct MetaFile: Decodable {

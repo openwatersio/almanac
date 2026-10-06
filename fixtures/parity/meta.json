@@ -1,8 +1,8 @@
 {
   "source": "fixtures/generate/parity.mjs -- cross-port parity corpus, computed values only (no external reference)",
-  "generatedAt": "2026-09-27T20:27:24.839Z",
-  "tsCommit": "67dadb0e6fb32ce71326402a24901cf4fdb0d006",
-  "swiftCommit": "67dadb0e6fb32ce71326402a24901cf4fdb0d006",
+  "generatedAt": "2026-10-06T12:11:05.346Z",
+  "tsCommit": "unknown",
+  "swiftCommit": "unknown",
   "note": "Provenance only -- never compared. Scales/tolerances below are read by both ports' parity tests; changing them is a spec change, not a fixture regen.",
   "scales": {
     "angleDeg": 1000000,

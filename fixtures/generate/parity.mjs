@@ -27,6 +27,7 @@ import {
     solarEclipses, solarObscuration,
     nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
     solarEclipseAxisPoint, solarEclipseCentralLine,
+    horizonDip,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -317,7 +318,9 @@ export function buildCorpus() {
     const solar = buildSolar();
     const globalSolar = buildGlobalSolar();
     const centralLine = buildCentralLine();
-    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine };
+    const horizon = JSON.parse(readFileSync(new URL('../horizon/dip.json', import.meta.url), 'utf8'))
+        .map(({ observer, heightAboveGroundM }) => ({ observer, heightAboveGroundM, dipDeg: qAngle(horizonDip(observer, heightAboveGroundM)) }));
+    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon };
 }
 
 // ------------------------------------------------------- near-exact check
@@ -445,6 +448,7 @@ function newCheckCtx() {
 function checkFile(rel, fresh, committed) {
     const ctx = newCheckCtx();
     switch (rel) {
+        case "horizon.json": compareNode("horizon", [{ observer: { ...OBSERVER_SCHEMA, elevationM: EXACT }, heightAboveGroundM: EXACT, dipDeg: SCALED }], fresh, committed, ctx); break;
         case "positions.json": compareNode("positions", [ROW_SCHEMAS.positions], fresh, committed, ctx); break;
         case "altaz.json": compareNode("altaz", [ROW_SCHEMAS.altaz], fresh, committed, ctx); break;
         case "illumination.json": compareNode("illumination", [ROW_SCHEMAS.illumination], fresh, committed, ctx); break;
@@ -503,6 +507,7 @@ function main() {
         "solar.json": files.solar,
         "globalSolar.json": files.globalSolar,
         "centralLine.json": files.centralLine,
+        "horizon.json": files.horizon,
     };
     const metaDest = new URL("meta.json", FIXTURES_DIR);
 
