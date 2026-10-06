@@ -61,5 +61,17 @@
     ],
     "toleranceArcmin": 1,
     "refractedMinimumAltitudeDeg": 10
+  },
+  "illumination": {
+    "timeScale": "TT",
+    "fractionTolerance": 0.01,
+    "elongationToleranceArcmin": 1,
+    "magnitudeTolerance": 0.3,
+    "note": "JPL APmag and pinned VisualMagnitude differ for extreme Venus crescents: five rows at phase 173.8138–176.9577 degrees exceed 0.3 magnitudes, maximum 0.749544 at 2060-05-23. All raw and derived JPL rows are retained and checked for fraction/elongation. The pinned high-phase Venus branch (phase >= 163.6 degrees) is compared with pinned upstream photometry instead of treating its different model as compatible JPL magnitude evidence. Other planet magnitudes and lower-phase Venus remain within 0.3 of JPL. Current Horizons Saturn APmag includes rings under its documented Earth-observer conditions; the pinned source's comment claiming no rings is obsolete.",
+    "photometryReference": {
+      "source": "https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts",
+      "commit": "865d3da7d8112bbc7911238052c6af4aaf877181",
+      "method": "Compile the pinned astronomy.ts with the repository TypeScript compiler, then pass its JavaScript path to refresh-planet-photometry.mjs. No Almanac functions are used."
+    }
   }
 }

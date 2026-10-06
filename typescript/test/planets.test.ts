@@ -1,8 +1,8 @@
 import { it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { planetHeliocentricPosition, planetPosition, planetAltAz, type Planet } from '../src/index.js';
+import { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, type Planet } from '../src/index.js';
 import { planetHelioVector, planetGeoVectorEqj } from '../src/planetModels.js';
-import { planetApparentAtTT } from '../src/planets.js';
+import { planetApparentAtTT, planetIlluminationAtTT } from '../src/planets.js';
 import { earthHelioVector } from '../src/sun.js';
 import { ttDays, ttDaysFromUt, utDays } from '../src/time.js';
 import { topoAltAzUnrefracted } from '../src/transforms.js';
@@ -79,4 +79,35 @@ it('includes Earth heliocentrically, preserves its model, and validates planetar
         expect(() => planetAltAz('venus', time, observer)).toThrow(RangeError);
     }
     expect(() => planetAltAz('venus', new Date(), { ...observer, latitudeDeg: NaN })).toThrow(RangeError);
+});
+
+it('illumination and elongation agree with JPL; compatible photometry stays within 0.3 magnitudes', () => {
+    let highPhaseVenus = 0;
+    for (const row of load('illumination')) {
+        const p = planetIlluminationAtTT(row.planet, ttOf(row.tt));
+        expect(Math.abs(p.fraction-row.fraction), `${row.planet} @ ${row.tt}`).toBeLessThan(0.01);
+        expect(Math.abs(p.elongationDeg-row.elongationDeg)*60).toBeLessThan(1);
+        expect(p.fraction).toBeCloseTo((1+Math.cos(p.phaseAngleDeg*Math.PI/180))/2, 12);
+        expect(p.elongationDeg).toBeGreaterThanOrEqual(0); expect(p.elongationDeg).toBeLessThanOrEqual(180);
+        // The pinned Venus high-phase branch differs from JPL; retain those rows as geometry evidence.
+        if (row.planet === 'venus' && row.phaseAngleDeg >= 163.6) highPhaseVenus++;
+        else expect(Math.abs(p.magnitude-row.magnitude), `${row.planet} @ ${row.tt}`).toBeLessThan(0.3);
+    }
+    expect(highPhaseVenus).toBeGreaterThan(5);
+});
+
+it('pinned photometry includes the Venus high-phase branch and Saturn ring brightness', () => {
+    let ringCases = 0;
+    for (const row of load('photometry-reference').rows) {
+        const p = planetIlluminationAtTT(row.planet, ttOf(row.tt));
+        expect(Math.abs(p.magnitude-row.magnitude)).toBeLessThan(1e-10);
+        expect(Math.abs(p.fraction-row.fraction)).toBeLessThan(1e-10);
+        expect(Math.abs(p.phaseAngleDeg-row.phaseAngleDeg)).toBeLessThan(1e-8);
+        expect(Math.abs(p.elongationDeg-row.elongationDeg)).toBeLessThan(1e-8);
+        if (row.planet === 'saturn' && Math.abs(row.ringTiltDeg) > 10) { ringCases++; expect(p.magnitude).toBeLessThan(row.globeMagnitude-0.3); }
+    }
+    expect(ringCases).toBeGreaterThan(0);
+    expect(() => planetIllumination('earth', new Date())).toThrow(RangeError);
+    expect(() => planetIllumination('pluto' as Planet, new Date())).toThrow(RangeError);
+    expect(() => planetIllumination('venus', new Date(NaN))).toThrow(RangeError);
 });

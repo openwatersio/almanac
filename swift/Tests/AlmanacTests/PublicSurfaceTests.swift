@@ -65,9 +65,12 @@ final class PublicSurfaceTests: XCTestCase {
             _ = PlanetPosition(raDeg: p.raDeg, decDeg: p.decDeg, distanceAu: p.distanceAu)
             let alt: AltAz = try planetAltAz(planet, at: time, observer: observer)
             _ = (alt.altDeg, alt.azDeg)
+            let i: PlanetIllumination = try planetIllumination(planet, at: time)
+            _ = PlanetIllumination(fraction: i.fraction, phaseAngleDeg: i.phaseAngleDeg, magnitude: i.magnitude, elongationDeg: i.elongationDeg)
         }
         XCTAssertThrowsError(try planetPosition(.earth, at: time))
         XCTAssertThrowsError(try planetAltAz(.earth, at: time, observer: observer))
+        XCTAssertThrowsError(try planetIllumination(.earth, at: time))
     }
 
     func testEvents() throws {

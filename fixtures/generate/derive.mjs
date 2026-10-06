@@ -807,7 +807,7 @@ function deriveAltaz(retrieved, requests) {
 
 function derivePlanets(retrieved, requests) {
   const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn"];
-  const heliocentric = [], positions = [], altaz = [];
+  const heliocentric = [], positions = [], altaz = [], illumination = [];
   const names = [];
   function rows(name, vector, expected) {
     names.push(name);
@@ -839,6 +839,7 @@ function derivePlanets(retrieved, requests) {
     for (const { time, nums } of new Map(coarse.map(r => [r.time, r])).values()) {
       assert.ok(nums[0] >= 0 && nums[0] <= 360 && Math.abs(nums[1]) <= 90 && nums[5] > 0, `${planet}: invalid position`);
       positions.push({ planet, tt: time, raDeg: nums[0], decDeg: nums[1], distanceAu: nums[5] });
+      illumination.push({ planet, tt: time, magnitude: nums[2], fraction: nums[4]/100, elongationDeg: nums[7], phaseAngleDeg: nums[8] });
     }
     for (const mode of ["airless", "refracted"]) {
       const name = `planet-${planet}-${mode}`;
@@ -865,15 +866,26 @@ function derivePlanets(retrieved, requests) {
       altaz.push({ planet: "venus", utc: time, mode, observer: { latitudeDeg: -2.4975, longitudeDeg: -104.0738 }, azDeg: nums[0], altDeg: nums[1] });
     }
   }
+  const reference = JSON.parse(readFileSync(new URL("../raw/planet-photometry/reference.json", import.meta.url), "utf8"));
+  assert.equal(reference.commit, "865d3da7d8112bbc7911238052c6af4aaf877181");
+  for (const row of reference.rows) {
+    assert.ok([row.fraction, row.phaseAngleDeg, row.magnitude, row.elongationDeg].every(Number.isFinite), "invalid pinned photometry");
+  }
   return {
     "planets/heliocentric.json": json(heliocentric),
     "planets/positions.json": json(positions),
     "planets/altaz.json": json(altaz),
+    "planets/illumination.json": json(illumination),
+    "planets/photometry-reference.json": json(reference),
     "planets/meta.json": json({ source: "JPL Horizons API", sourceVersion: sourceVersion(raw("planet-mercury-coarse")), retrieved,
       requests: names.map(name => requests[name]),
       heliocentric: { center: "Sun", frame: "ICRF / J2000 mean equatorial", corrections: "NONE", timeScale: "TT", units: "AU", toleranceAu: 1e-3 },
       positions: { center: "Earth", frame: "true equator and equinox of date", timeScale: "TT", toleranceArcmin: 1, toleranceAu: 1e-3 },
       altaz: { timeScale: "UT", modes: ["AIRLESS", "REFRACTED"], toleranceArcmin: 1, refractedMinimumAltitudeDeg: 10 },
+      illumination: { timeScale: "TT", fractionTolerance: 0.01, elongationToleranceArcmin: 1, magnitudeTolerance: 0.3,
+        note: "JPL APmag and pinned VisualMagnitude differ for extreme Venus crescents: five rows at phase 173.8138–176.9577 degrees exceed 0.3 magnitudes, maximum 0.749544 at 2060-05-23. All raw and derived JPL rows are retained and checked for fraction/elongation. The pinned high-phase Venus branch (phase >= 163.6 degrees) is compared with pinned upstream photometry instead of treating its different model as compatible JPL magnitude evidence. Other planet magnitudes and lower-phase Venus remain within 0.3 of JPL. Current Horizons Saturn APmag includes rings under its documented Earth-observer conditions; the pinned source's comment claiming no rings is obsolete.",
+        photometryReference: { source: reference.source, commit: reference.commit, method: reference.method },
+      },
     }),
   };
 }

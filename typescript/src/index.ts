@@ -1,7 +1,7 @@
 // The public contract's API table is the complete export allow-list.
 export type { Observer, Planet } from './types.js';
-export type { HeliocentricPosition, PlanetPosition } from './planets.js';
-export { planetHeliocentricPosition, planetPosition, planetAltAz } from './planets.js';
+export type { HeliocentricPosition, PlanetPosition, PlanetIllumination } from './planets.js';
+export { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination } from './planets.js';
 export { horizonDip } from './horizon.js';
 export { AlmanacOutOfRangeError } from './types.js';
 export type { SunPosition, MoonPosition } from './positions.js';

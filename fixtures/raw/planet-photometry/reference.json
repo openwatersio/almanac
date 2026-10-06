@@ -1,0 +1,541 @@
+{
+  "source": "https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts",
+  "commit": "865d3da7d8112bbc7911238052c6af4aaf877181",
+  "functions": [
+    "Illumination",
+    "AngleFromSun"
+  ],
+  "method": "Compile the pinned astronomy.ts with the repository TypeScript compiler, then pass its JavaScript path to refresh-planet-photometry.mjs. No Almanac functions are used.",
+  "rows": [
+    {
+      "planet": "venus",
+      "tt": "1950-01-31T00:00:00Z",
+      "fraction": 0.0077733759731707375,
+      "phaseAngleDeg": 169.8836992708387,
+      "magnitude": -4.315415686093502,
+      "elongationDeg": 7.358988376999138
+    },
+    {
+      "planet": "venus",
+      "tt": "1953-04-15T00:00:00Z",
+      "fraction": 0.007589557665327151,
+      "phaseAngleDeg": 170.0043337623942,
+      "magnitude": -4.190890913283951,
+      "elongationDeg": 7.172509890487291
+    },
+    {
+      "planet": "venus",
+      "tt": "1956-06-28T00:00:00Z",
+      "fraction": 0.01368249805870081,
+      "phaseAngleDeg": 166.56521550660608,
+      "magnitude": -4.061671785819945,
+      "elongationDeg": 9.564698330743141
+    },
+    {
+      "planet": "venus",
+      "tt": "1964-06-16T00:00:00Z",
+      "fraction": 0.005836789653561603,
+      "phaseAngleDeg": 171.23679366929042,
+      "magnitude": -4.134697887183176,
+      "elongationDeg": 6.261532235255525
+    },
+    {
+      "planet": "venus",
+      "tt": "1967-08-30T00:00:00Z",
+      "fraction": 0.010658556851512957,
+      "phaseAngleDeg": 168.1484171708677,
+      "magnitude": -4.14050609586291,
+      "elongationDeg": 8.512260269956503
+    },
+    {
+      "planet": "venus",
+      "tt": "1970-11-12T00:00:00Z",
+      "fraction": 0.003339734827630003,
+      "phaseAngleDeg": 173.37401184038944,
+      "magnitude": -4.348975264099819,
+      "elongationDeg": 4.828523626780518
+    },
+    {
+      "planet": "venus",
+      "tt": "1974-01-25T00:00:00Z",
+      "fraction": 0.007192447116451506,
+      "phaseAngleDeg": 170.26999749979927,
+      "magnitude": -4.327095824670079,
+      "elongationDeg": 7.082575716907763
+    },
+    {
+      "planet": "venus",
+      "tt": "1977-04-09T00:00:00Z",
+      "fraction": 0.010337584995798066,
+      "phaseAngleDeg": 168.32885978540665,
+      "magnitude": -4.177061550414295,
+      "elongationDeg": 8.376729292952541
+    },
+    {
+      "planet": "venus",
+      "tt": "1980-06-22T00:00:00Z",
+      "fraction": 0.01717535639159329,
+      "phaseAngleDeg": 164.93890302970567,
+      "magnitude": -4.034952835624505,
+      "elongationDeg": 10.709553622358035
+    },
+    {
+      "planet": "venus",
+      "tt": "1988-06-10T00:00:00Z",
+      "fraction": 0.003325890519558672,
+      "phaseAngleDeg": 173.3877748555631,
+      "magnitude": -4.167577833908059,
+      "elongationDeg": 4.730809794649257
+    },
+    {
+      "planet": "venus",
+      "tt": "1991-08-24T00:00:00Z",
+      "fraction": 0.010656867786636492,
+      "phaseAngleDeg": 168.14935963250377,
+      "magnitude": -4.131091195063022,
+      "elongationDeg": 8.500906100877506
+    },
+    {
+      "planet": "venus",
+      "tt": "1994-11-06T00:00:00Z",
+      "fraction": 0.006625533334747469,
+      "phaseAngleDeg": 170.66221669895495,
+      "magnitude": -4.3005649218106825,
+      "elongationDeg": 6.7913813700783265
+    },
+    {
+      "planet": "venus",
+      "tt": "1998-01-19T00:00:00Z",
+      "fraction": 0.008063564776713994,
+      "phaseAngleDeg": 169.696101753131,
+      "magnitude": -4.323772151611687,
+      "elongationDeg": 7.501864725756184
+    },
+    {
+      "planet": "venus",
+      "tt": "2001-04-03T00:00:00Z",
+      "fraction": 0.013900454495260839,
+      "phaseAngleDeg": 166.45813610493826,
+      "magnitude": -4.158480148512219,
+      "elongationDeg": 9.719548088863231
+    },
+    {
+      "planet": "venus",
+      "tt": "2006-01-07T00:00:00Z",
+      "fraction": 0.020136733184798306,
+      "phaseAngleDeg": 163.68392984417903,
+      "magnitude": -4.230745230541334,
+      "elongationDeg": 11.860784182576044
+    },
+    {
+      "planet": "venus",
+      "tt": "2012-06-04T00:00:00Z",
+      "fraction": 0.0016215055010074808,
+      "phaseAngleDeg": 175.38438815099613,
+      "magnitude": -4.1979457861336495,
+      "elongationDeg": 3.307156744573934
+    },
+    {
+      "planet": "venus",
+      "tt": "2015-08-18T00:00:00Z",
+      "fraction": 0.011282039927851373,
+      "phaseAngleDeg": 167.80543073381978,
+      "magnitude": -4.116268332588151,
+      "elongationDeg": 8.734828531108214
+    },
+    {
+      "planet": "venus",
+      "tt": "2018-10-31T00:00:00Z",
+      "fraction": 0.011271343099659437,
+      "phaseAngleDeg": 167.8112350281729,
+      "magnitude": -4.246326492060303,
+      "elongationDeg": 8.844151766859532
+    },
+    {
+      "planet": "venus",
+      "tt": "2022-01-13T00:00:00Z",
+      "fraction": 0.010439572038158595,
+      "phaseAngleDeg": 168.27122847215475,
+      "magnitude": -4.305343879138059,
+      "elongationDeg": 8.536788346242233
+    },
+    {
+      "planet": "venus",
+      "tt": "2025-03-28T00:00:00Z",
+      "fraction": 0.018327541812680703,
+      "phaseAngleDeg": 164.4388985079694,
+      "magnitude": -4.135389020661899,
+      "elongationDeg": 11.165934145178236
+    },
+    {
+      "planet": "venus",
+      "tt": "2026-10-19T00:00:00Z",
+      "fraction": 0.017114758748217218,
+      "phaseAngleDeg": 164.96564936890815,
+      "magnitude": -4.17949372818983,
+      "elongationDeg": 10.885530360361582
+    },
+    {
+      "planet": "venus",
+      "tt": "2030-01-01T00:00:00Z",
+      "fraction": 0.012833437270517667,
+      "phaseAngleDeg": 166.99059477471693,
+      "magnitude": -4.289243267454316,
+      "elongationDeg": 9.483805784523508
+    },
+    {
+      "planet": "venus",
+      "tt": "2033-03-16T00:00:00Z",
+      "fraction": 0.019103065676509545,
+      "phaseAngleDeg": 164.11099590398837,
+      "magnitude": -4.151144847253507,
+      "elongationDeg": 11.428968028808521
+    },
+    {
+      "planet": "venus",
+      "tt": "2036-05-29T00:00:00Z",
+      "fraction": 0.0007447016438508203,
+      "phaseAngleDeg": 176.8724972347809,
+      "magnitude": -4.220913572052356,
+      "elongationDeg": 2.2432693401736863
+    },
+    {
+      "planet": "venus",
+      "tt": "2039-08-12T00:00:00Z",
+      "fraction": 0.012504510292354054,
+      "phaseAngleDeg": 167.1591060979688,
+      "magnitude": -4.097986572446671,
+      "elongationDeg": 9.184357629937296
+    },
+    {
+      "planet": "venus",
+      "tt": "2042-10-25T00:00:00Z",
+      "fraction": 0.01699893668568231,
+      "phaseAngleDeg": 165.0169002054822,
+      "magnitude": -4.188432363037167,
+      "elongationDeg": 10.84099348302548
+    },
+    {
+      "planet": "venus",
+      "tt": "2046-01-07T00:00:00Z",
+      "fraction": 0.014386103257836735,
+      "phaseAngleDeg": 166.22247993232924,
+      "magnitude": -4.273674429319252,
+      "elongationDeg": 10.019116347095016
+    },
+    {
+      "planet": "venus",
+      "tt": "2050-10-13T00:00:00Z",
+      "fraction": 0.013824333623743523,
+      "phaseAngleDeg": 166.4954386882811,
+      "magnitude": -4.193469953247714,
+      "elongationDeg": 9.77598284145139
+    },
+    {
+      "planet": "venus",
+      "tt": "2053-12-26T00:00:00Z",
+      "fraction": 0.007040279725655685,
+      "phaseAngleDeg": 170.3737198064848,
+      "magnitude": -4.3426531827786015,
+      "elongationDeg": 7.0338004118140605
+    },
+    {
+      "planet": "venus",
+      "tt": "2057-03-10T00:00:00Z",
+      "fraction": 0.015823722806920237,
+      "phaseAngleDeg": 165.54696599205164,
+      "magnitude": -4.1876849609704125,
+      "elongationDeg": 10.420140240848617
+    },
+    {
+      "planet": "venus",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.0007044917934258543,
+      "phaseAngleDeg": 176.95812332121,
+      "magnitude": -4.228543526166366,
+      "elongationDeg": 2.178792306425792
+    },
+    {
+      "planet": "venus",
+      "tt": "2063-08-06T00:00:00Z",
+      "fraction": 0.014280942212949177,
+      "phaseAngleDeg": 166.27317162411956,
+      "magnitude": -4.076423147821116,
+      "elongationDeg": 9.803070208153406
+    },
+    {
+      "planet": "venus",
+      "tt": "2070-01-01T00:00:00Z",
+      "fraction": 0.019871722755021914,
+      "phaseAngleDeg": 163.7923761969859,
+      "magnitude": -4.232397154281159,
+      "elongationDeg": 11.769708310320649
+    },
+    {
+      "planet": "venus",
+      "tt": "2071-07-25T00:00:00Z",
+      "fraction": 0.015441786983022732,
+      "phaseAngleDeg": 165.72337660504172,
+      "magnitude": -4.0555704263884635,
+      "elongationDeg": 10.185117927669257
+    },
+    {
+      "planet": "venus",
+      "tt": "2074-10-07T00:00:00Z",
+      "fraction": 0.011720063166859807,
+      "phaseAngleDeg": 167.57004375089696,
+      "magnitude": -4.199524992825875,
+      "elongationDeg": 8.992807844128734
+    },
+    {
+      "planet": "venus",
+      "tt": "2077-12-20T00:00:00Z",
+      "fraction": 0.002906651952029271,
+      "phaseAngleDeg": 173.81898554886308,
+      "magnitude": -4.389114748620456,
+      "elongationDeg": 4.524440679881336
+    },
+    {
+      "planet": "venus",
+      "tt": "2081-03-04T00:00:00Z",
+      "fraction": 0.013254759066525235,
+      "phaseAngleDeg": 166.77783246619217,
+      "magnitude": -4.219998612296679,
+      "elongationDeg": 9.55245494324014
+    },
+    {
+      "planet": "venus",
+      "tt": "2084-05-17T00:00:00Z",
+      "fraction": 0.001521776703877431,
+      "phaseAngleDeg": 175.52865371597395,
+      "magnitude": -4.2191575935464325,
+      "elongationDeg": 3.200055419809105
+    },
+    {
+      "planet": "venus",
+      "tt": "2087-07-31T00:00:00Z",
+      "fraction": 0.01659536357183422,
+      "phaseAngleDeg": 165.19683420762033,
+      "magnitude": -4.051763497087659,
+      "elongationDeg": 10.554425790674456
+    },
+    {
+      "planet": "venus",
+      "tt": "2095-07-19T00:00:00Z",
+      "fraction": 0.011108034611551187,
+      "phaseAngleDeg": 167.90018969992693,
+      "magnitude": -4.087831054051389,
+      "elongationDeg": 8.640290147880398
+    },
+    {
+      "planet": "venus",
+      "tt": "2098-10-01T00:00:00Z",
+      "fraction": 0.010663527801610007,
+      "phaseAngleDeg": 168.14564391685892,
+      "magnitude": -4.196249929691611,
+      "elongationDeg": 8.566814248539183
+    },
+    {
+      "planet": "mercury",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.6126496813152925,
+      "phaseAngleDeg": 76.97951761911946,
+      "magnitude": -0.6393763845361318,
+      "elongationDeg": 19.479301814683073
+    },
+    {
+      "planet": "mercury",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.01185590555264382,
+      "phaseAngleDeg": 167.4979305321576,
+      "magnitude": 5.117832739760291,
+      "elongationDeg": 4.7806620487567395
+    },
+    {
+      "planet": "mercury",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.10695359808722599,
+      "phaseAngleDeg": 141.82186251495,
+      "magnitude": 2.1247619893602288,
+      "elongationDeg": 12.021988699798856
+    },
+    {
+      "planet": "mercury",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.4275137669551596,
+      "phaseAngleDeg": 98.335684764844,
+      "magnitude": 0.13280571191499702,
+      "elongationDeg": 22.499804154478138
+    },
+    {
+      "planet": "mercury",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.7723974588167868,
+      "phaseAngleDeg": 56.989349864378994,
+      "magnitude": -0.7184114048486077,
+      "elongationDeg": 18.019942359484194
+    },
+    {
+      "planet": "venus",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.21472183597029965,
+      "phaseAngleDeg": 124.7890293171825,
+      "magnitude": -4.8892497392472976,
+      "elongationDeg": 36.979421869046384
+    },
+    {
+      "planet": "venus",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.010360164474987499,
+      "phaseAngleDeg": 168.3160763085218,
+      "magnitude": -4.208904870430616,
+      "elongationDeg": 8.415247907200607
+    },
+    {
+      "planet": "venus",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.9762751583952816,
+      "phaseAngleDeg": 17.72093723063771,
+      "magnitude": -3.867808940672277,
+      "elongationDeg": 12.879259536149114
+    },
+    {
+      "planet": "venus",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.9701166296272348,
+      "phaseAngleDeg": 19.909233783962588,
+      "magnitude": -3.873059603435789,
+      "elongationDeg": 14.549756936545549
+    },
+    {
+      "planet": "mars",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.9053328605803084,
+      "phaseAngleDeg": 35.83897474407939,
+      "magnitude": 0.582840923728652,
+      "elongationDeg": 97.78467431063258
+    },
+    {
+      "planet": "mars",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.9111540289868567,
+      "phaseAngleDeg": 34.68348889385833,
+      "magnitude": 0.2550053733441082,
+      "elongationDeg": 108.2933294614065
+    },
+    {
+      "planet": "mars",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.9947113032430145,
+      "phaseAngleDeg": 8.34085390447129,
+      "magnitude": 1.169384269178134,
+      "elongationDeg": 11.71269908221481
+    },
+    {
+      "planet": "mars",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.9959352519444931,
+      "phaseAngleDeg": 7.310786476748055,
+      "magnitude": 1.355187998289037,
+      "elongationDeg": 10.56816914529743
+    },
+    {
+      "planet": "mars",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.9793929647209657,
+      "phaseAngleDeg": 16.506818361383644,
+      "magnitude": 1.5360090495331744,
+      "elongationDeg": 26.357207320851966
+    },
+    {
+      "planet": "jupiter",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.9981267436565477,
+      "phaseAngleDeg": 4.961202091161596,
+      "magnitude": -1.9811397507678423,
+      "elongationDeg": 26.50509877282945
+    },
+    {
+      "planet": "jupiter",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.9913164620681187,
+      "phaseAngleDeg": 10.693786943773885,
+      "magnitude": -2.1716088225007253,
+      "elongationDeg": 72.06259412071513
+    },
+    {
+      "planet": "jupiter",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.9939280208872215,
+      "phaseAngleDeg": 8.938368368233977,
+      "magnitude": -2.4458607037275613,
+      "elongationDeg": 124.84887023954336
+    },
+    {
+      "planet": "jupiter",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.9997993962962075,
+      "phaseAngleDeg": 1.6230676544787324,
+      "magnitude": -1.963023230642734,
+      "elongationDeg": 8.127003107081213
+    },
+    {
+      "planet": "jupiter",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.9946961155387184,
+      "phaseAngleDeg": 8.352842880842264,
+      "magnitude": -1.80659013989235,
+      "elongationDeg": 53.36345286362334
+    },
+    {
+      "planet": "saturn",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.9975720316321346,
+      "phaseAngleDeg": 5.648719886712251,
+      "magnitude": 0.7994508183384426,
+      "elongationDeg": 110.55428959714315,
+      "ringTiltDeg": 1.4719882493335716,
+      "globeMagnitude": 0.8654483172215635
+    },
+    {
+      "planet": "saturn",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.9999281359042642,
+      "phaseAngleDeg": 0.9714351472546324,
+      "magnitude": 1.0779994169640936,
+      "elongationDeg": 9.406685738477213,
+      "ringTiltDeg": -0.0348386988815271,
+      "globeMagnitude": 1.0795799032037063
+    },
+    {
+      "planet": "saturn",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.9996373034563129,
+      "phaseAngleDeg": 2.1824816098396154,
+      "magnitude": 0.912351935253179,
+      "elongationDeg": 21.417788429628995,
+      "ringTiltDeg": 3.6553123465692727,
+      "globeMagnitude": 1.0732347692526947
+    },
+    {
+      "planet": "saturn",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.9999850732600092,
+      "phaseAngleDeg": 0.44272718751002615,
+      "magnitude": -0.06655379057090194,
+      "elongationDeg": 3.973428236138748,
+      "ringTiltDeg": 25.510374387998805,
+      "globeMagnitude": 0.8306233082570493
+    },
+    {
+      "planet": "saturn",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.9979689121809053,
+      "phaseAngleDeg": 5.1661154043484,
+      "magnitude": 0.5373084247377786,
+      "elongationDeg": 63.43240600226149,
+      "ringTiltDeg": -17.56781945463271,
+      "globeMagnitude": 1.2127532038410678
+    }
+  ]
+}

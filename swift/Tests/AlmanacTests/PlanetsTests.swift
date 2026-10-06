@@ -6,6 +6,11 @@ final class PlanetsTests: XCTestCase {
     struct PositionRow: Decodable { let planet: String; let tt: String; let raDeg: Double; let decDeg: Double; let distanceAu: Double }
     struct Site: Decodable { let latitudeDeg: Double; let longitudeDeg: Double }
     struct HorizontalRow: Decodable { let planet: String; let utc: String; let mode: String; let observer: Site; let azDeg: Double; let altDeg: Double }
+    struct PhotometryRow: Decodable {
+        let planet: String; let tt: String; let fraction: Double; let phaseAngleDeg: Double; let magnitude: Double; let elongationDeg: Double
+        let ringTiltDeg: Double?; let globeMagnitude: Double?
+    }
+    struct PhotometryReference: Decodable { let rows: [PhotometryRow] }
     static func load<T: Decodable>(_ type: T.Type, _ name: String) throws -> T {
         try JSONDecoder().decode(type, from: Data(contentsOf: fixturesURL().appendingPathComponent("planets/\(name).json")))
     }
@@ -85,7 +90,43 @@ final class PlanetsTests: XCTestCase {
                 XCTAssertEqual(posA.raDeg, posB.raDeg); XCTAssertEqual(posA.decDeg, posB.decDeg); XCTAssertEqual(posA.distanceAu, posB.distanceAu)
                 let altA = try planetAltAz(planet, at: raw, observer: observer), altB = try planetAltAz(planet, at: clipped, observer: observer)
                 XCTAssertEqual(altA.azDeg, altB.azDeg); XCTAssertEqual(altA.altDeg, altB.altDeg)
+                let illumA = try planetIllumination(planet, at: raw), illumB = try planetIllumination(planet, at: clipped)
+                XCTAssertEqual(illumA.fraction, illumB.fraction); XCTAssertEqual(illumA.phaseAngleDeg, illumB.phaseAngleDeg)
+                XCTAssertEqual(illumA.magnitude, illumB.magnitude); XCTAssertEqual(illumA.elongationDeg, illumB.elongationDeg)
             }
         }
+    }
+
+    func testIlluminationAgainstJPL() throws {
+        var highPhaseVenus = 0
+        for row in try Self.load([PhotometryRow].self, "illumination") {
+            let p = planetIlluminationAtTT(Planet(rawValue: row.planet)!, PositionsTests.ttDaysOf(row.tt))
+            XCTAssertLessThan(abs(p.fraction-row.fraction), 0.01, "\(row.planet) @ \(row.tt)")
+            XCTAssertLessThan(abs(p.elongationDeg-row.elongationDeg)*60, 1)
+            XCTAssertEqual(p.fraction, (1+cos(p.phaseAngleDeg*Double.pi/180))/2, accuracy: 1e-12)
+            XCTAssertGreaterThanOrEqual(p.elongationDeg, 0); XCTAssertLessThanOrEqual(p.elongationDeg, 180)
+            // The pinned Venus high-phase branch differs from JPL; retain those rows as geometry evidence.
+            if row.planet == "venus" && row.phaseAngleDeg >= 163.6 { highPhaseVenus += 1 }
+            else { XCTAssertLessThan(abs(p.magnitude-row.magnitude), 0.3, "\(row.planet) @ \(row.tt)") }
+        }
+        XCTAssertGreaterThan(highPhaseVenus, 5)
+    }
+
+    func testPinnedPhotometryAndSaturnRings() throws {
+        var ringCases = 0
+        for row in try Self.load(PhotometryReference.self, "photometry-reference").rows {
+            let p = planetIlluminationAtTT(Planet(rawValue: row.planet)!, PositionsTests.ttDaysOf(row.tt))
+            XCTAssertEqual(p.magnitude, row.magnitude, accuracy: 1e-10)
+            XCTAssertEqual(p.fraction, row.fraction, accuracy: 1e-10)
+            XCTAssertEqual(p.phaseAngleDeg, row.phaseAngleDeg, accuracy: 1e-8)
+            XCTAssertEqual(p.elongationDeg, row.elongationDeg, accuracy: 1e-8)
+            if let tilt = row.ringTiltDeg, abs(tilt) > 10 {
+                ringCases += 1
+                XCTAssertLessThan(p.magnitude, row.globeMagnitude!-0.3)
+            }
+        }
+        XCTAssertGreaterThan(ringCases, 0)
+        XCTAssertThrowsError(try planetIllumination(.earth, at: Date()))
+        XCTAssertThrowsError(try planetIllumination(.venus, at: Date(timeIntervalSince1970: .nan)))
     }
 }
