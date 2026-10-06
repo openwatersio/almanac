@@ -441,26 +441,27 @@ private func assertLunarEclipse(_ e: LunarEclipse) throws {
  *
  * - Throws: `AlmanacError.invalidArgument` if `eclipse` is structurally invalid.
  */
-public func lunarEclipseVisibility(_ eclipse: LunarEclipse, observer: Observer) throws -> LunarEclipseVisibility {
+public func lunarEclipseVisibility(_ eclipse: LunarEclipse, observer: Observer, heightAboveGroundM: Double = 0) throws -> LunarEclipseVisibility {
     try assertLunarEclipse(eclipse)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
 
     func altAt(_ d: Date) -> Double {
         let ut = utDays(d)
         return topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer).altDeg
     }
-    func up(_ d: Date?) -> Bool? { d.map { altAt($0) > 0 } }
+    func up(_ d: Date?) -> Bool? { d.map { altAt($0) > dip } }
 
     let peakAltDeg = altAt(eclipse.peak)
     return LunarEclipseVisibility(
-        visibleAtPeak: peakAltDeg > 0,
+        visibleAtPeak: peakAltDeg > dip,
         moonGeometricAltAtPeakDeg: peakAltDeg,
         contactsVisible: LunarEclipseContactsVisible(
-            p1: altAt(eclipse.p1) > 0,
+            p1: altAt(eclipse.p1) > dip,
             u1: up(eclipse.u1),
             u2: up(eclipse.u2),
             u3: up(eclipse.u3),
             u4: up(eclipse.u4),
-            p4: altAt(eclipse.p4) > 0
+            p4: altAt(eclipse.p4) > dip
         )
     )
 }

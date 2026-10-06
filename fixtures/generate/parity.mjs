@@ -24,7 +24,7 @@ import {
     sunPosition, moonPosition, sunAltAz, moonAltAz, starAltAz, moonIllumination,
     sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
-    solarEclipses, solarObscuration,
+    solarEclipses, solarObscuration, nextSolarEclipse, previousSolarEclipse,
     nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
     solarEclipseAxisPoint, solarEclipseCentralLine,
     horizonDip,
@@ -320,7 +320,28 @@ export function buildCorpus() {
     const centralLine = buildCentralLine();
     const horizon = JSON.parse(readFileSync(new URL('../horizon/dip.json', import.meta.url), 'utf8'))
         .map(({ observer, heightAboveGroundM }) => ({ observer, heightAboveGroundM, dipDeg: qAngle(horizonDip(observer, heightAboveGroundM)) }));
-    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon };
+    const height = buildHeightCases();
+    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon, height };
+}
+
+function buildHeightCases() {
+    const eventObserver = { ...VICTORIA, elevationM: 100 };
+    const startMs = Date.UTC(2026, 2, 20), endMs = Date.UTC(2026, 2, 22);
+    const start = new Date(startMs), end = new Date(endMs);
+    const eventRows = events => events.map(e => ({ tMs: qEventMs(e.time), kind: e.kind }));
+    const solarObserver = { latitudeDeg: 20, longitudeDeg: 5.5, elevationM: 100 };
+    const solarStartMs = Date.UTC(2026, 7, 12), solarEndMs = Date.UTC(2026, 7, 13);
+    const solarStart = new Date(solarStartMs), solarEnd = new Date(solarEndMs);
+    const local = solarEclipses(solarStart, solarEnd, solarObserver, 100);
+    const lunarObserver = { latitudeDeg: 48.4284, longitudeDeg: -74.8, elevationM: 100 };
+    const afterMs = Date.UTC(2026, 2, 1);
+    const lunar = lunarEclipses(new Date(afterMs), new Date(Date.UTC(2026, 3, 1)))[0];
+    const visibility = lunarEclipseVisibility(lunar, lunarObserver, 100);
+    return {
+        events: { observer: eventObserver, heightAboveGroundM: 100, startMs, endMs, sun: eventRows(sunEvents(start, end, eventObserver, 100)), moon: eventRows(moonEvents(start, end, eventObserver, 100)) },
+        solar: { observer: solarObserver, heightAboveGroundM: 100, startMs: solarStartMs, endMs: solarEndMs, peaksMs: local.map(e => qEventMs(e.peak)), altitudes: local.map(e => ({ c1: qAngle(e.sunAltDeg.c1), peak: qAngle(e.sunAltDeg.peak), c4: qAngle(e.sunAltDeg.c4) })), nextPeakMs: qEventMs(nextSolarEclipse(solarStart, solarObserver, 100).peak), previousPeakMs: qEventMs(previousSolarEclipse(solarEnd, solarObserver, 100).peak) },
+        lunar: { observer: lunarObserver, heightAboveGroundM: 100, afterMs, visibleAtPeak: visibility.visibleAtPeak, moonGeometricAltAtPeakDeg: qAngle(visibility.moonGeometricAltAtPeakDeg), contactsVisible: visibility.contactsVisible },
+    };
 }
 
 // ------------------------------------------------------- near-exact check
@@ -448,6 +469,16 @@ function newCheckCtx() {
 function checkFile(rel, fresh, committed) {
     const ctx = newCheckCtx();
     switch (rel) {
+        case "height.json": {
+            const site = { ...OBSERVER_SCHEMA, elevationM: EXACT };
+            const common = { observer: site, heightAboveGroundM: EXACT, startMs: EXACT, endMs: EXACT };
+            compareNode("height", {
+                events: { ...common, sun: [{ tMs: TIME, kind: EXACT }], moon: [{ tMs: TIME, kind: EXACT }] },
+                solar: { ...common, peaksMs: [TIME], altitudes: [{ c1: SCALED, peak: SCALED, c4: SCALED }], nextPeakMs: TIME, previousPeakMs: TIME },
+                lunar: { observer: site, heightAboveGroundM: EXACT, afterMs: EXACT, visibleAtPeak: EXACT, moonGeometricAltAtPeakDeg: SCALED, contactsVisible: { p1: EXACT, u1: EXACT, u2: EXACT, u3: EXACT, u4: EXACT, p4: EXACT } },
+            }, fresh, committed, ctx);
+            break;
+        }
         case "horizon.json": compareNode("horizon", [{ observer: { ...OBSERVER_SCHEMA, elevationM: EXACT }, heightAboveGroundM: EXACT, dipDeg: SCALED }], fresh, committed, ctx); break;
         case "positions.json": compareNode("positions", [ROW_SCHEMAS.positions], fresh, committed, ctx); break;
         case "altaz.json": compareNode("altaz", [ROW_SCHEMAS.altaz], fresh, committed, ctx); break;
@@ -508,6 +539,7 @@ function main() {
         "globalSolar.json": files.globalSolar,
         "centralLine.json": files.centralLine,
         "horizon.json": files.horizon,
+        "height.json": files.height,
     };
     const metaDest = new URL("meta.json", FIXTURES_DIR);
 

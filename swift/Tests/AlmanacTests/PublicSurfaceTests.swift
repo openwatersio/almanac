@@ -59,6 +59,8 @@ final class PublicSurfaceTests: XCTestCase {
         let end = start.addingTimeInterval(2 * 86400)
 
         let sun: [SunEvent] = try sunEvents(from: start, to: end, observer: observer)
+        _ = try sunEvents(from: start, to: end, observer: observer, heightAboveGroundM: 2)
+        _ = try moonEvents(from: start, to: end, observer: observer, heightAboveGroundM: 2)
         XCTAssertFalse(sun.isEmpty)
         for e in sun { _ = (e.time, e.kind) }
         XCTAssertEqual(SunEventKind.allCases.count, 9)
@@ -88,6 +90,7 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertTrue([.penumbral, .partial, .total].contains(e.kind))
 
         let v: LunarEclipseVisibility = try lunarEclipseVisibility(e, observer: observer)
+        _ = try lunarEclipseVisibility(e, observer: observer, heightAboveGroundM: 2)
         XCTAssertFalse(v.moonGeometricAltAtPeakDeg.isNaN)
         _ = v.visibleAtPeak
         let c: LunarEclipseContactsVisible = v.contactsVisible
@@ -113,6 +116,9 @@ final class PublicSurfaceTests: XCTestCase {
     func testSolarEclipse() throws {
         let observer = try Observer(latitudeDeg: 44.94, longitudeDeg: -123.03)
         let e: SolarEclipse = try nextSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000), observer: observer) // 2017-07-14
+        _ = try nextSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000), observer: observer, heightAboveGroundM: 2)
+        _ = try previousSolarEclipse(before: e.peak, observer: observer, heightAboveGroundM: 2)
+        _ = try solarEclipses(from: e.c1, to: e.c4, observer: observer, heightAboveGroundM: 2)
         let previous: SolarEclipse = try previousSolarEclipse(before: e.peak, observer: observer)
         let range: [SolarEclipse] = try solarEclipses(from: previous.peak, to: e.peak, observer: observer)
         XCTAssertEqual(range.map(\.peak), [previous.peak])

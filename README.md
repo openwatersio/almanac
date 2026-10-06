@@ -98,6 +98,17 @@ for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
 const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 ```
 
+For an unobstructed sea horizon, supply eye height above the water separately from elevation above sea level. Body altitudes remain measured from the horizontal plane:
+
+```ts
+import { horizonDip, sunAltAz } from '@openwaters/almanac';
+const eyeHeightM = 2;
+const viewer = { latitudeDeg: 48.5, longitudeDeg: -123.0, elevationM: 2 };
+const horizonAltDeg = horizonDip(viewer, eyeHeightM);
+const sunAltitudeAboveHorizonDeg = sunAltAz(new Date(), viewer).altDeg - horizonAltDeg;
+const crossings = sunEvents(today, tomorrow, viewer, eyeHeightM);
+```
+
 ### Swift
 
 ```swift

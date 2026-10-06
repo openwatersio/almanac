@@ -23,7 +23,7 @@
 // and `NextMoonQuarter` (~5362).
 
 import {
-    Observer, assertObserver, assertSupported, assertSupportedWindowEnd,
+    Observer, assertSupported, assertSupportedWindowEnd,
     SUPPORTED_MIN, SUPPORTED_MAX
 } from './types.js';
 import { dateFromUt, ttDaysFromUt, utDays } from './time.js';
@@ -32,6 +32,7 @@ import { topoAltAzUnrefracted } from './transforms.js';
 import { sunGeoVectorEqj } from './sun.js';
 import { moonGeoVectorEqj } from './moon.js';
 import { moonPhaseDeg } from './illumination.js';
+import { horizonDip } from './horizon.js';
 
 /** A Sun event: a horizon or twilight crossing, or upper transit. */
 export type SunEventKind =
@@ -153,22 +154,22 @@ function assertReached(condition: boolean, what: string): void {
 interface Sample { ut: number; altDeg: number; hourAngleDeg: number; riseSetAltDeg: number; }
 type Sampler = (ut: number) => Sample;
 
-function sunSampler(observer: Observer): Sampler {
+function sunSampler(observer: Observer, dip: number): Sampler {
     return (ut) => {
         const p = topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer);
         return {
             ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
-            riseSetAltDeg: upperLimbTargetDeg(SUN_RADIUS_KM, p.distanceAu)
+            riseSetAltDeg: dip + upperLimbTargetDeg(SUN_RADIUS_KM, p.distanceAu)
         };
     };
 }
 
-function moonSampler(observer: Observer): Sampler {
+function moonSampler(observer: Observer, dip: number): Sampler {
     return (ut) => {
         const p = topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer);
         return {
             ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
-            riseSetAltDeg: upperLimbTargetDeg(MOON_MEAN_RADIUS_KM, p.distanceAu)
+            riseSetAltDeg: dip + upperLimbTargetDeg(MOON_MEAN_RADIUS_KM, p.distanceAu)
         };
     };
 }
@@ -510,7 +511,7 @@ function flatCycle(observer: Observer): boolean {
  * Sun rise, set, the three twilights and upper transit within the half-open
  * window `[startUtc, endUtc)`, sorted ascending.
  *
- * Rise and set are the unrefracted geometric centre altitude at −(34′ + the
+ * Rise and set use the supplied horizon dip minus (34′ + the
  * Sun's true semidiameter at distance) — the upper-limb convention with the
  * actual disc, the same rule the Moon gets; the twilights are centre altitude
  * −6°, −12° and −18° with no refraction term; transit is local hour angle
@@ -518,13 +519,13 @@ function flatCycle(observer: Observer): boolean {
  * the crossings — while transit is reported regardless of whether the Sun is
  * above the horizon when it happens.
  */
-export function sunEvents(startUtc: Date, endUtc: Date, observer: Observer): SunEvent[] {
+export function sunEvents(startUtc: Date, endUtc: Date, observer: Observer, heightAboveGroundM = 0): SunEvent[] {
     assertSupported(startUtc);
     assertSupportedWindowEnd(endUtc);
-    assertObserver(observer);
+    const dip = horizonDip(observer, heightAboveGroundM);
     if (startUtc.getTime() >= endUtc.getTime()) return [];
     return searchAltitudeEvents(
-        sunSampler(observer), SUN_LEVELS, 'transit',
+        sunSampler(observer, dip), SUN_LEVELS, 'transit',
         utDays(startUtc), utDays(endUtc),
         SUN_HA_RATE_DEG_PER_DAY, SUN_CYCLE_DAYS, flatCycle(observer)
     );
@@ -536,13 +537,13 @@ export function sunEvents(startUtc: Date, endUtc: Date, observer: Observer): Sun
  * so refraction (34′), topocentric parallax and the true semidiameter at the
  * Moon's distance are all included — the same upper-limb rule as the Sun's. An empty list is a valid answer.
  */
-export function moonEvents(startUtc: Date, endUtc: Date, observer: Observer): MoonEvent[] {
+export function moonEvents(startUtc: Date, endUtc: Date, observer: Observer, heightAboveGroundM = 0): MoonEvent[] {
     assertSupported(startUtc);
     assertSupportedWindowEnd(endUtc);
-    assertObserver(observer);
+    const dip = horizonDip(observer, heightAboveGroundM);
     if (startUtc.getTime() >= endUtc.getTime()) return [];
     return searchAltitudeEvents(
-        moonSampler(observer), MOON_LEVELS, null,
+        moonSampler(observer, dip), MOON_LEVELS, null,
         utDays(startUtc), utDays(endUtc),
         MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer)
     );

@@ -52,6 +52,67 @@ final class ParityTests: XCTestCase {
             XCTAssertLessThanOrEqual(abs(actual * 1e6 - Double(row.dipDeg)), 5)
         }
     }
+
+    struct HeightFile: Decodable {
+        struct Event: Decodable { let tMs: Int64; let kind: String }
+        struct Events: Decodable {
+            let observer: HorizonRow.Site; let heightAboveGroundM: Double
+            let startMs: Int64; let endMs: Int64; let sun: [Event]; let moon: [Event]
+        }
+        struct Solar: Decodable {
+            struct Altitudes: Decodable { let c1: Int; let peak: Int; let c4: Int }
+            let observer: HorizonRow.Site; let heightAboveGroundM: Double
+            let startMs: Int64; let endMs: Int64; let peaksMs: [Int64]; let altitudes: [Altitudes]
+            let nextPeakMs: Int64; let previousPeakMs: Int64
+        }
+        struct Lunar: Decodable {
+            let observer: HorizonRow.Site; let heightAboveGroundM: Double; let afterMs: Int64
+            let visibleAtPeak: Bool; let moonGeometricAltAtPeakDeg: Int; let contactsVisible: ContactsVisibleRow
+        }
+        let events: Events; let solar: Solar; let lunar: Lunar
+    }
+
+    func testHeightParity() throws {
+        let row = try Self.load(HeightFile.self, "height.json")
+        func observer(_ site: HorizonRow.Site) throws -> Observer {
+            try Observer(latitudeDeg: site.latitudeDeg, longitudeDeg: site.longitudeDeg, elevationM: site.elevationM)
+        }
+        func nearTime(_ actual: Date, _ expected: Int64) {
+            XCTAssertLessThanOrEqual(abs(Self.qEventMs(actual) - expected), 100)
+        }
+        func nearAngle(_ actual: Double, _ expected: Int) {
+            XCTAssertLessThanOrEqual(abs(Self.qScaled(actual, 1e6) - expected), 5)
+        }
+        let site = try observer(row.events.observer)
+        let sun = try sunEvents(from: Self.dateFromMs(row.events.startMs), to: Self.dateFromMs(row.events.endMs), observer: site, heightAboveGroundM: row.events.heightAboveGroundM)
+        let moon = try moonEvents(from: Self.dateFromMs(row.events.startMs), to: Self.dateFromMs(row.events.endMs), observer: site, heightAboveGroundM: row.events.heightAboveGroundM)
+        XCTAssertEqual(sun.count, row.events.sun.count)
+        for (actual, expected) in zip(sun, row.events.sun) {
+            XCTAssertEqual(actual.kind.rawValue, expected.kind); nearTime(actual.time, expected.tMs)
+        }
+        XCTAssertEqual(moon.count, row.events.moon.count)
+        for (actual, expected) in zip(moon, row.events.moon) {
+            XCTAssertEqual(actual.kind.rawValue, expected.kind); nearTime(actual.time, expected.tMs)
+        }
+        let solarSite = try observer(row.solar.observer)
+        let start = Self.dateFromMs(row.solar.startMs), end = Self.dateFromMs(row.solar.endMs)
+        let solar = try solarEclipses(from: start, to: end, observer: solarSite, heightAboveGroundM: row.solar.heightAboveGroundM)
+        XCTAssertEqual(solar.count, row.solar.peaksMs.count)
+        for ((actual, peak), altitudes) in zip(zip(solar, row.solar.peaksMs), row.solar.altitudes) {
+            nearTime(actual.peak, peak)
+            nearAngle(actual.sunAltDeg.c1, altitudes.c1)
+            nearAngle(actual.sunAltDeg.peak, altitudes.peak)
+            nearAngle(actual.sunAltDeg.c4, altitudes.c4)
+        }
+        nearTime(try nextSolarEclipse(after: start, observer: solarSite, heightAboveGroundM: row.solar.heightAboveGroundM).peak, row.solar.nextPeakMs)
+        nearTime(try previousSolarEclipse(before: end, observer: solarSite, heightAboveGroundM: row.solar.heightAboveGroundM).peak, row.solar.previousPeakMs)
+        let lunar = try nextLunarEclipse(after: Self.dateFromMs(row.lunar.afterMs))
+        let visible = try lunarEclipseVisibility(lunar, observer: observer(row.lunar.observer), heightAboveGroundM: row.lunar.heightAboveGroundM)
+        XCTAssertEqual(visible.visibleAtPeak, row.lunar.visibleAtPeak)
+        nearAngle(visible.moonGeometricAltAtPeakDeg, row.lunar.moonGeometricAltAtPeakDeg)
+        let contacts = visible.contactsVisible
+        XCTAssertEqual(ContactsVisibleRow(p1: contacts.p1, u1: contacts.u1, u2: contacts.u2, u3: contacts.u3, u4: contacts.u4, p4: contacts.p4), row.lunar.contactsVisible)
+    }
     // ------------------------------------------------------------ fixtures
 
     struct MetaFile: Decodable {

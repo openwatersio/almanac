@@ -10,7 +10,7 @@ export function horizonDip(observer: Observer, heightAboveGroundM: number): numb
         throw new RangeError('eye height or ground elevation out of range');
     if (heightAboveGroundM === 0) return 0;
 
-    // Translated from HorizonDipAngle at cosinekitty/astronomy commit 865d3da7d8112bbc7911238052c6af4aaf877181.
+    // HorizonDipAngle: https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L5437.
     const phi = observer.latitudeDeg * DEG2RAD;
     const sinphi = Math.sin(phi);
     const cosphi = Math.cos(phi);
