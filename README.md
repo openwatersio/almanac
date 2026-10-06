@@ -112,7 +112,7 @@ const crossings = sunEvents(today, tomorrow, viewer, eyeHeightM);
 ### Swift
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.6.0")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.7.0")
 ```
 
 ```swift
