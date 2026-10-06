@@ -30,6 +30,9 @@
     { "name": "global/previous", "operation": "previousGlobalSolarEclipse", "from": "2026-09-01T00:00:00Z" },
     { "name": "global/range-228-hours-empty", "operation": "globalSolarEclipses", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z", "expected": 0 },
     { "name": "global/range-1950-2100", "operation": "globalSolarEclipses", "from": "1950-01-01T00:00:00Z", "to": "2101-01-01T00:00:00Z", "expected": 337 },
-    { "name": "global/central-line-2024", "operation": "solarEclipseCentralLine", "from": "2024-04-08T18:17:19Z", "expected": 197 }
+    { "name": "global/central-line-2024", "operation": "solarEclipseCentralLine", "from": "2024-04-08T18:17:19Z", "expected": 197 },
+    { "name": "planets/sky-228-hours", "operation": "planetSky", "from": "2026-08-24T00:00:00Z", "count": 228 },
+    { "name": "planets/events-228-hours", "operation": "planetEvents", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z" },
+    { "name": "planets/events-polar-month", "operation": "planetEvents", "from": "2026-05-01T00:00:00Z", "to": "2026-06-01T00:00:00Z", "latitudeDeg": 85.5 }
   ]
 }

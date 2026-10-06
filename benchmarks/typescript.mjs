@@ -46,6 +46,18 @@ function workload(spec) {
         case 'sky':
             return () => times.reduce((sum, t) => sum + api.sunAltAz(t, observer).altDeg
                 + api.moonAltAz(t, observer).altDeg + api.moonIllumination(t).fraction, 0);
+        case 'planetSky': {
+            assert.ok(api.planetAltAz && api.planetIllumination, "Planetary APIs unavailable; pass --skip '^planets/' for older bases");
+            const planets = ['mercury', 'venus', 'mars', 'jupiter', 'saturn'];
+            return () => times.reduce((sum, t) => sum + planets.reduce((sum, planet) => {
+                const illumination = api.planetIllumination(planet, t);
+                return sum + api.planetAltAz(planet, t, observer).altDeg + illumination.fraction + illumination.magnitude + illumination.elongationDeg;
+            }, 0), 0);
+        }
+        case 'planetEvents': {
+            assert.ok(api.planetEvents, "Planetary APIs unavailable; pass --skip '^planets/' for older bases");
+            return () => ['mercury', 'venus', 'mars', 'jupiter', 'saturn'].reduce((sum, planet) => sum + api.planetEvents(planet, from, to, observer).length, 0);
+        }
         case 'sunEvents':
         case 'moonEvents':
             return () => api[spec.operation](from, to, observer).length;

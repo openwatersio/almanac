@@ -40,7 +40,7 @@ import XCTest
 /// how they compare the same recomputed rows to the committed fixtures.
 final class ParityTests: XCTestCase {
     struct HorizonRow: Decodable {
-        struct Site: Decodable { let latitudeDeg: Double; let longitudeDeg: Double; let elevationM: Double }
+        struct Site: Codable { let latitudeDeg: Double; let longitudeDeg: Double; let elevationM: Double }
         let observer: Site; let heightAboveGroundM: Double; let dipDeg: Int64
     }
 
@@ -112,6 +112,70 @@ final class ParityTests: XCTestCase {
         nearAngle(visible.moonGeometricAltAtPeakDeg, row.lunar.moonGeometricAltAtPeakDeg)
         let contacts = visible.contactsVisible
         XCTAssertEqual(ContactsVisibleRow(p1: contacts.p1, u1: contacts.u1, u2: contacts.u2, u3: contacts.u3, u4: contacts.u4, p4: contacts.p4), row.lunar.contactsVisible)
+    }
+    struct PlanetsFile: Codable {
+        struct Helio: Codable {
+            let planet: String; let tMs: Int64; let xAu: Int64; let yAu: Int64; let zAu: Int64
+        }
+        struct Illumination: Codable {
+            let fraction: Int; let phaseAngleDeg: Int; let magnitude: Int; let elongationDeg: Int
+        }
+        struct Sky: Codable {
+            let planet: String; let tMs: Int64
+            let position: SunPosRow; let altaz: AltAzRow; let illumination: Illumination
+        }
+        struct Event: Codable { let tMs: Int64; let kind: String }
+        struct Window: Codable {
+            let planet: String; let observer: HorizonRow.Site; let heightAboveGroundM: Double
+            let startMs: Int64; let endMs: Int64; let events: [Event]
+        }
+        let heliocentric: [Helio]; let sky: [Sky]; let events: [Window]
+    }
+
+    func testPlanetReproduction() throws {
+        let expected = try Self.load(PlanetsFile.self, "planets.json")
+        XCTAssertEqual(Set(expected.heliocentric.map(\.planet)), Set(Planet.allCases.map(\.rawValue)))
+        XCTAssertEqual(Set(expected.sky.map(\.planet)), Set(Planet.allCases.filter { $0 != .earth }.map(\.rawValue)))
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        let heliocentric = try expected.heliocentric.map { row in
+            let value = try planetHeliocentricPosition(Planet(rawValue: row.planet)!, at: Self.dateFromMs(row.tMs))
+            return PlanetsFile.Helio(planet: row.planet, tMs: row.tMs,
+                xAu: Int64((value.xAu * 1e9).rounded()), yAu: Int64((value.yAu * 1e9).rounded()), zAu: Int64((value.zAu * 1e9).rounded()))
+        }
+        let sky = try expected.sky.map { row in
+            let planet = Planet(rawValue: row.planet)!, time = Self.dateFromMs(row.tMs)
+            let position = try planetPosition(planet, at: time)
+            let altaz = try planetAltAz(planet, at: time, observer: observer)
+            let illumination = try planetIllumination(planet, at: time)
+            return PlanetsFile.Sky(planet: row.planet, tMs: row.tMs,
+                position: SunPosRow(raDeg: Self.qScaled(position.raDeg, 1e6), decDeg: Self.qScaled(position.decDeg, 1e6), distanceAu: Self.qScaled(position.distanceAu, 1e9)),
+                altaz: AltAzRow(azDeg: Self.qScaled(altaz.azDeg, 1e6), altDeg: Self.qScaled(altaz.altDeg, 1e6)),
+                illumination: PlanetsFile.Illumination(fraction: Self.qScaled(illumination.fraction, 1e6), phaseAngleDeg: Self.qScaled(illumination.phaseAngleDeg, 1e6), magnitude: Self.qScaled(illumination.magnitude, 1e6), elongationDeg: Self.qScaled(illumination.elongationDeg, 1e6)))
+        }
+        let events = try expected.events.map { row in
+            let site = try Observer(latitudeDeg: row.observer.latitudeDeg, longitudeDeg: row.observer.longitudeDeg, elevationM: row.observer.elevationM)
+            let values = try planetEvents(Planet(rawValue: row.planet)!, from: Self.dateFromMs(row.startMs), to: Self.dateFromMs(row.endMs), observer: site, heightAboveGroundM: row.heightAboveGroundM)
+            return PlanetsFile.Window(planet: row.planet, observer: row.observer, heightAboveGroundM: row.heightAboveGroundM, startMs: row.startMs, endMs: row.endMs,
+                events: values.map { PlanetsFile.Event(tMs: Self.qEventMs($0.time), kind: $0.kind.rawValue) })
+        }
+        let encoded = try JSONEncoder().encode(PlanetsFile(heliocentric: heliocentric, sky: sky, events: events))
+        let actual = try JSONDecoder().decode(PlanetsFile.self, from: encoded)
+        for (a, b) in zip(actual.heliocentric, expected.heliocentric) {
+            for (x, y) in zip([a.xAu, a.yAu, a.zAu], [b.xAu, b.yAu, b.zAu]) { XCTAssertLessThanOrEqual(abs(x - y), 5) }
+        }
+        for (a, b) in zip(actual.sky, expected.sky) {
+            let x = [a.position.raDeg, a.position.decDeg, a.position.distanceAu, a.altaz.azDeg, a.altaz.altDeg,
+                a.illumination.fraction, a.illumination.phaseAngleDeg, a.illumination.magnitude, a.illumination.elongationDeg]
+            let y = [b.position.raDeg, b.position.decDeg, b.position.distanceAu, b.altaz.azDeg, b.altaz.altDeg,
+                b.illumination.fraction, b.illumination.phaseAngleDeg, b.illumination.magnitude, b.illumination.elongationDeg]
+            for (x, y) in zip(x, y) { XCTAssertLessThanOrEqual(abs(x - y), 5) }
+        }
+        for (a, b) in zip(actual.events, expected.events) {
+            XCTAssertEqual(a.events.count, b.events.count)
+            for (x, y) in zip(a.events, b.events) {
+                XCTAssertEqual(x.kind, y.kind); XCTAssertLessThanOrEqual(abs(x.tMs - y.tMs), 100)
+            }
+        }
     }
     // ------------------------------------------------------------ fixtures
 

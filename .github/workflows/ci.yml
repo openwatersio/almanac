@@ -98,7 +98,12 @@ jobs:
       - name: Compare base and candidate on the same runner
         env:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-        run: node benchmarks/run.mjs --base "$BASE" --port "$PORT" --output benchmark-results
+        run: |
+          args=()
+          if ! git grep -q -F 'public func planetEvents(' "$BASE" -- swift/Sources/Almanac/Events.swift; then
+            args+=(--skip '^planets/')
+          fi
+          node benchmarks/run.mjs --base "$BASE" --port "$PORT" --output benchmark-results "${args[@]}"
       - name: Publish timing table
         if: always()
         run: |
