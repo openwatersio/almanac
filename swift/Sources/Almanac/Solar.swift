@@ -110,7 +110,7 @@ private func localMoonShadow(_ ut: Double, _ observer: Observer) -> ShadowInfo {
 }
 
 /** UPSTREAM: `AngleBetween`, astronomy.ts ~256 — degrees. */
-private func angleBetweenDeg(_ a: Vec3, _ b: Vec3) -> Double {
+private func solarAngleBetweenDeg(_ a: Vec3, _ b: Vec3) -> Double {
     let aa = (a.x*a.x + a.y*a.y + a.z*a.z)
     if abs(aa) < 1.0e-8 { fatalError("almanac internal: AngleBetween first vector is too short") }
     let bb = (b.x*b.x + b.y*b.y + b.z*b.z)
@@ -176,7 +176,7 @@ private func discObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
     // Calculate the apparent angular radius of the Moon for the observer.
     let moonRadius = asin(moonPolarRadiusAu / (lo.x*lo.x + lo.y*lo.y + lo.z*lo.z).squareRoot())
     // Calculate the apparent angular separation between the Sun's center and the Moon's center.
-    let sunMoonSeparation = angleBetweenDeg(lo, ho)
+    let sunMoonSeparation = solarAngleBetweenDeg(lo, ho)
     // Find the fraction of the Sun's apparent disc area that is covered by the Moon.
     return discOverlap(sunRadius, moonRadius, sunMoonSeparation * DEG2RAD)
 }

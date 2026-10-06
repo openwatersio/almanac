@@ -106,7 +106,7 @@ function localMoonShadow(ut: number, observer: Observer): ShadowInfo {
 }
 
 /** UPSTREAM: `AngleBetween`, astronomy.ts ~256 — degrees. */
-function angleBetweenDeg(a: Vec3, b: Vec3): number {
+function solarAngleBetweenDeg(a: Vec3, b: Vec3): number {
     const aa = (a.x*a.x + a.y*a.y + a.z*a.z);
     if (Math.abs(aa) < 1.0e-8) throw new Error('almanac internal: AngleBetween first vector is too short');
     const bb = (b.x*b.x + b.y*b.y + b.z*b.z);
@@ -172,7 +172,7 @@ function discObscuration(hm: Vec3, lo: Vec3): number {
     // Calculate the apparent angular radius of the Moon for the observer.
     const moonRadius = Math.asin(MOON_POLAR_RADIUS_AU / Math.hypot(lo.x, lo.y, lo.z));
     // Calculate the apparent angular separation between the Sun's center and the Moon's center.
-    const sunMoonSeparation = angleBetweenDeg(lo, ho);
+    const sunMoonSeparation = solarAngleBetweenDeg(lo, ho);
     // Find the fraction of the Sun's apparent disc area that is covered by the Moon.
     return discOverlap(sunRadius, moonRadius, sunMoonSeparation * DEG2RAD);
 }
