@@ -34,6 +34,7 @@ Keep lasting documentation in the repository: the public contract, supported sco
 ## Astronomy constraints
 
 - Coarse position fixtures carry TT values. Delta-T projections differ between Espenak–Meeus and the frozen Horizons values by about 5.9 seconds today and 134 seconds at 2100. Roughly 6 seconds in a current UT event comparison is the Delta-T model floor. USNO grid rows after 2050 assert scatter about a per-date mean for the same reason.
+- USNO's solar eclipse local-circumstances endpoint only answers for eclipses between 2001 and 2026, despite advertising 1800 to 2050. Outside that range it returns a 500, and inside it a 400 when the eclipse is not visible from the requested place — so a 400 is an answer, not a malformed request. Pick fixture dates inside the window.
 - `moonPhaseDeg` takes TT days. Passing UT compiles and shifts the result by about 35 arcseconds.
 - `FLAT_CYCLE_LATITUDE_DEG = 85` prevents rise and set events from disappearing when the altitude cycle flattens. Keep the brute-force flattening-band oracle test in both ports.
 - `SAME_ECLIPSE_MS = 100` makes next and previous eclipse searches strict around the anchor. Range searches use exact half-open bounds. Keep the fixed full-moon seed so adjacent ranges agree on the peak.
