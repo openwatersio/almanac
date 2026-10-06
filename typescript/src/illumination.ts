@@ -19,7 +19,7 @@ import { earthHelioVector, sunGeoVectorEqj } from './sun.js';
 export interface MoonIllumination { fraction: number; phaseAngleDeg: number; phase: number; waxing: boolean; }
 
 /** UPSTREAM: `AngleBetween`, astronomy.ts lines 256-273 — angle between two vectors, [0, 180]. */
-function angleBetweenDeg(a: Vec3, b: Vec3): number {
+export function angleBetweenDeg(a: Vec3, b: Vec3): number {
     const aa = a.x * a.x + a.y * a.y + a.z * a.z;
     const bb = b.x * b.x + b.y * b.y + b.z * b.z;
     const dot = (a.x * b.x + a.y * b.y + a.z * b.z) / Math.sqrt(aa * bb);

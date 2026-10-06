@@ -110,7 +110,7 @@ private func localMoonShadow(_ ut: Double, _ observer: Observer) -> ShadowInfo {
 }
 
 /** UPSTREAM: `AngleBetween`, astronomy.ts ~256 — degrees. */
-private func angleBetweenDeg(_ a: Vec3, _ b: Vec3) -> Double {
+private func solarAngleBetweenDeg(_ a: Vec3, _ b: Vec3) -> Double {
     let aa = (a.x*a.x + a.y*a.y + a.z*a.z)
     if abs(aa) < 1.0e-8 { fatalError("almanac internal: AngleBetween first vector is too short") }
     let bb = (b.x*b.x + b.y*b.y + b.z*b.z)
@@ -176,7 +176,7 @@ private func discObscuration(_ hm: Vec3, _ lo: Vec3) -> Double {
     // Calculate the apparent angular radius of the Moon for the observer.
     let moonRadius = asin(moonPolarRadiusAu / (lo.x*lo.x + lo.y*lo.y + lo.z*lo.z).squareRoot())
     // Calculate the apparent angular separation between the Sun's center and the Moon's center.
-    let sunMoonSeparation = angleBetweenDeg(lo, ho)
+    let sunMoonSeparation = solarAngleBetweenDeg(lo, ho)
     // Find the fraction of the Sun's apparent disc area that is covered by the Moon.
     return discOverlap(sunRadius, moonRadius, sunMoonSeparation * DEG2RAD)
 }
@@ -321,8 +321,8 @@ private func buildSolarEclipse(_ shadow: ShadowInfo, _ observer: Observer) throw
  * ponytail: three samples, not a sunrise search — a day that starts after C1
  * and ends before the peak still drops. Upgrade path: sunEvents over [c1, c4].
  */
-private func seesAnyOfIt(_ e: SolarEclipse) -> Bool {
-    e.sunAltDeg.c1 > 0.0 || e.sunAltDeg.peak > 0.0 || e.sunAltDeg.c4 > 0.0
+private func seesAnyOfIt(_ e: SolarEclipse, _ dip: Double) -> Bool {
+    e.sunAltDeg.c1 > dip || e.sunAltDeg.peak > dip || e.sunAltDeg.c4 > dip
 }
 
 /**
@@ -338,8 +338,8 @@ private func seesAnyOfIt(_ e: SolarEclipse) -> Bool {
  *   `AlmanacError.outOfRange` if `after` is outside the supported interval or
  *   no visible eclipse remains before the end of it.
  */
-public func nextSolarEclipse(after: Date, observer: Observer) throws -> SolarEclipse {
-    try nearestSolarEclipse(after, 1, observer)
+public func nextSolarEclipse(after: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> SolarEclipse {
+    try nearestSolarEclipse(after, 1, observer, heightAboveGroundM)
 }
 
 /**
@@ -351,22 +351,24 @@ public func nextSolarEclipse(after: Date, observer: Observer) throws -> SolarEcl
  *   `AlmanacError.outOfRange` if `before` is outside the supported interval or
  *   no visible eclipse remains after the start of it.
  */
-public func previousSolarEclipse(before: Date, observer: Observer) throws -> SolarEclipse {
-    try nearestSolarEclipse(before, -1, observer)
+public func previousSolarEclipse(before: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> SolarEclipse {
+    try nearestSolarEclipse(before, -1, observer, heightAboveGroundM)
 }
 
 /// Solar eclipses `observer` can see with peaks in `[from, to)`, sorted ascending. Contacts may fall outside the window.
-public func solarEclipses(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [SolarEclipse] {
+public func solarEclipses(from startUtc: Date, to endUtc: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> [SolarEclipse] {
     let startUtc = try normalized(startUtc)
     let endUtc = try normalized(endUtc)
     try assertSupported(startUtc)
     try assertSupportedWindowEnd(endUtc)
-    return try scanSolarEclipses((startUtc.timeIntervalSince1970 * 1000).rounded(), (endUtc.timeIntervalSince1970 * 1000).rounded(), 1, firstOnly: false, observer)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
+    return try scanSolarEclipses((startUtc.timeIntervalSince1970 * 1000).rounded(), (endUtc.timeIntervalSince1970 * 1000).rounded(), 1, firstOnly: false, observer, dip)
 }
 
-private func nearestSolarEclipse(_ anchor: Date, _ direction: Double, _ observer: Observer) throws -> SolarEclipse {
+private func nearestSolarEclipse(_ anchor: Date, _ direction: Double, _ observer: Observer, _ heightAboveGroundM: Double) throws -> SolarEclipse {
     let anchor = try normalized(anchor)
     try assertSupported(anchor)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
     let ms = (anchor.timeIntervalSince1970 * 1000).rounded()
     let minMs = supportedMin.timeIntervalSince1970 * 1000
     let maxMs = supportedMax.timeIntervalSince1970 * 1000
@@ -374,12 +376,12 @@ private func nearestSolarEclipse(_ anchor: Date, _ direction: Double, _ observer
     // without a visible solar eclipse, and a pruned new moon is cheap.
     let startMs = direction > 0 ? ms + sameEclipseMs + 1 : minMs
     let endMs = direction > 0 ? maxMs : ms - sameEclipseMs
-    let found = try scanSolarEclipses(startMs, endMs, direction, firstOnly: true, observer)
+    let found = try scanSolarEclipses(startMs, endMs, direction, firstOnly: true, observer, dip)
     if let first = found.first { return first }
     throw AlmanacError.outOfRange
 }
 
-private func scanSolarEclipses(_ startMs: Double, _ endMs: Double, _ direction: Double, firstOnly: Bool, _ observer: Observer) throws -> [SolarEclipse] {
+private func scanSolarEclipses(_ startMs: Double, _ endMs: Double, _ direction: Double, firstOnly: Bool, _ observer: Observer, _ dip: Double) throws -> [SolarEclipse] {
     var found: [SolarEclipse] = []
     if startMs >= endMs { return found }
     // Peak and new moon differ by up to the peak window. Include the entire
@@ -410,7 +412,7 @@ private func scanSolarEclipses(_ startMs: Double, _ endMs: Double, _ direction: 
         // This is at least a partial solar eclipse for the observer.
         let eclipse = try buildSolarEclipse(shadow, observer)
         // Ignore any eclipse that happens completely at night.
-        if !seesAnyOfIt(eclipse) { continue }
+        if !seesAnyOfIt(eclipse, dip) { continue }
         found.append(eclipse)
         if firstOnly { break }
     }

@@ -1,4 +1,10 @@
 export interface Observer { latitudeDeg: number; longitudeDeg: number; elevationM?: number; }
+export type Planet = 'mercury' | 'venus' | 'earth' | 'mars' | 'jupiter' | 'saturn';
+/** INTERNAL: Earth has no planetary direction from an Earth-based observer. */
+export function assertPlanet(planet: Planet, earthAllowed = false): void {
+  if (!['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'].includes(planet) || (!earthAllowed && planet === 'earth'))
+    throw new RangeError(`invalid planet: ${planet}`);
+}
 export class AlmanacOutOfRangeError extends RangeError {
   constructor(msg = 'time outside supported interval 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z') { super(msg); this.name = 'AlmanacOutOfRangeError'; }
 }

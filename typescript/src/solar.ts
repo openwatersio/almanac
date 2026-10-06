@@ -38,6 +38,7 @@ import { moonGeoVectorEqj } from './moon.js';
 import { sunGeoVectorEqj } from './sun.js';
 import { observerGeoVectorEqj, refractionDeg, topoAltAzUnrefracted } from './transforms.js';
 import { MOON_MEAN_RADIUS_KM, SUN_RADIUS_KM, search, searchMoonPhase } from './events.js';
+import { horizonDip } from './horizon.js';
 import {
     ShadowInfo, calcShadow, moonEclipticLatitudeDeg,
     PRUNE_LATITUDE_DEG, SAME_ECLIPSE_MS, SHADOW_TOL_SECONDS, SHADOW_ITER_CAP
@@ -105,7 +106,7 @@ function localMoonShadow(ut: number, observer: Observer): ShadowInfo {
 }
 
 /** UPSTREAM: `AngleBetween`, astronomy.ts ~256 — degrees. */
-function angleBetweenDeg(a: Vec3, b: Vec3): number {
+function solarAngleBetweenDeg(a: Vec3, b: Vec3): number {
     const aa = (a.x*a.x + a.y*a.y + a.z*a.z);
     if (Math.abs(aa) < 1.0e-8) throw new Error('almanac internal: AngleBetween first vector is too short');
     const bb = (b.x*b.x + b.y*b.y + b.z*b.z);
@@ -171,7 +172,7 @@ function discObscuration(hm: Vec3, lo: Vec3): number {
     // Calculate the apparent angular radius of the Moon for the observer.
     const moonRadius = Math.asin(MOON_POLAR_RADIUS_AU / Math.hypot(lo.x, lo.y, lo.z));
     // Calculate the apparent angular separation between the Sun's center and the Moon's center.
-    const sunMoonSeparation = angleBetweenDeg(lo, ho);
+    const sunMoonSeparation = solarAngleBetweenDeg(lo, ho);
     // Find the fraction of the Sun's apparent disc area that is covered by the Moon.
     return discOverlap(sunRadius, moonRadius, sunMoonSeparation * DEG2RAD);
 }
@@ -312,8 +313,8 @@ function buildSolarEclipse(shadow: ShadowInfo, observer: Observer): SolarEclipse
  * ponytail: three samples, not a sunrise search — a day that starts after C1
  * and ends before the peak still drops. Upgrade path: sunEvents over [c1, c4].
  */
-function seesAnyOfIt(e: SolarEclipse): boolean {
-    return e.sunAltDeg.c1 > 0.0 || e.sunAltDeg.peak > 0.0 || e.sunAltDeg.c4 > 0.0;
+function seesAnyOfIt(e: SolarEclipse, dip: number): boolean {
+    return e.sunAltDeg.c1 > dip || e.sunAltDeg.peak > dip || e.sunAltDeg.c4 > dip;
 }
 
 /**
@@ -329,8 +330,8 @@ function seesAnyOfIt(e: SolarEclipse): boolean {
  *      interval, or if no visible eclipse remains before the end of it.
  * @throws {RangeError} if `after` is invalid or `observer` is out of range.
  */
-export function nextSolarEclipse(after: Date, observer: Observer): SolarEclipse {
-    return nearestSolarEclipse(after, 1, observer);
+export function nextSolarEclipse(after: Date, observer: Observer, heightAboveGroundM = 0): SolarEclipse {
+    return nearestSolarEclipse(after, 1, observer, heightAboveGroundM);
 }
 
 /**
@@ -342,32 +343,32 @@ export function nextSolarEclipse(after: Date, observer: Observer): SolarEclipse 
  *      interval, or if no visible eclipse remains after the start of it.
  * @throws {RangeError} if `before` is invalid or `observer` is out of range.
  */
-export function previousSolarEclipse(before: Date, observer: Observer): SolarEclipse {
-    return nearestSolarEclipse(before, -1, observer);
+export function previousSolarEclipse(before: Date, observer: Observer, heightAboveGroundM = 0): SolarEclipse {
+    return nearestSolarEclipse(before, -1, observer, heightAboveGroundM);
 }
 
 /** Solar eclipses `observer` can see with peaks in `[startUtc, endUtc)`, sorted ascending. Contacts may fall outside the window. */
-export function solarEclipses(startUtc: Date, endUtc: Date, observer: Observer): SolarEclipse[] {
+export function solarEclipses(startUtc: Date, endUtc: Date, observer: Observer, heightAboveGroundM = 0): SolarEclipse[] {
     assertSupported(startUtc);
     assertSupportedWindowEnd(endUtc);
-    assertObserver(observer);
-    return scanSolarEclipses(startUtc.getTime(), endUtc.getTime(), 1, false, observer);
+    const dip = horizonDip(observer, heightAboveGroundM);
+    return scanSolarEclipses(startUtc.getTime(), endUtc.getTime(), 1, false, observer, dip);
 }
 
-function nearestSolarEclipse(anchor: Date, direction: 1 | -1, observer: Observer): SolarEclipse {
+function nearestSolarEclipse(anchor: Date, direction: 1 | -1, observer: Observer, heightAboveGroundM: number): SolarEclipse {
     assertSupported(anchor);
-    assertObserver(observer);
+    const dip = horizonDip(observer, heightAboveGroundM);
     const ms = anchor.getTime();
     // No scan limit: walk to the supported boundary. A place can go years
     // without a visible solar eclipse, and a pruned new moon is cheap.
     const startMs = direction > 0 ? ms + SAME_ECLIPSE_MS + 1 : SUPPORTED_MIN;
     const endMs = direction > 0 ? SUPPORTED_MAX : ms - SAME_ECLIPSE_MS;
-    const found = scanSolarEclipses(startMs, endMs, direction, true, observer);
+    const found = scanSolarEclipses(startMs, endMs, direction, true, observer, dip);
     if (found.length) return found[0];
     throw new AlmanacOutOfRangeError();
 }
 
-function scanSolarEclipses(startMs: number, endMs: number, direction: 1 | -1, firstOnly: boolean, observer: Observer): SolarEclipse[] {
+function scanSolarEclipses(startMs: number, endMs: number, direction: 1 | -1, firstOnly: boolean, observer: Observer, dip: number): SolarEclipse[] {
     const found: SolarEclipse[] = [];
     if (startMs >= endMs) return found;
     // Peak and new moon differ by up to the peak window. Include the entire
@@ -398,7 +399,7 @@ function scanSolarEclipses(startMs: number, endMs: number, direction: 1 | -1, fi
         // This is at least a partial solar eclipse for the observer.
         const eclipse = buildSolarEclipse(shadow, observer);
         // Ignore any eclipse that happens completely at night.
-        if (!seesAnyOfIt(eclipse)) continue;
+        if (!seesAnyOfIt(eclipse, dip)) continue;
         found.push(eclipse);
         if (firstOnly) break;
     }

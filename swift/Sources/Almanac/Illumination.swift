@@ -18,7 +18,7 @@ public struct MoonIllumination: Sendable {
 }
 
 /** UPSTREAM: `AngleBetween`, astronomy.ts lines 256-273 — angle between two vectors, [0, 180]. */
-private func angleBetweenDeg(_ a: Vec3, _ b: Vec3) -> Double {
+func angleBetweenDeg(_ a: Vec3, _ b: Vec3) -> Double {
     let aa = a.x * a.x + a.y * a.y + a.z * a.z
     let bb = b.x * b.x + b.y * b.y + b.z * b.z
     let dot = (a.x * b.x + a.y * b.y + a.z * b.z) / (aa * bb).squareRoot()

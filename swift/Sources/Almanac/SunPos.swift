@@ -131,7 +131,7 @@ private func earthRad(_ t: Double) -> Double {
 }
 
 /** UPSTREAM: `VsopRotate`, astronomy.ts lines 3234-3241 — VSOP ecliptic to J2000 equatorial. */
-private func vsopRotate(_ eclip: Vec3) -> Vec3 {
+func vsopRotate(_ eclip: Vec3) -> Vec3 {
     Vec3(
         x: eclip.x + 0.000000440360*eclip.y - 0.000000190919*eclip.z,
         y: -0.000000479966*eclip.x + 0.917482137087*eclip.y - 0.397776982902*eclip.z,
@@ -140,7 +140,7 @@ private func vsopRotate(_ eclip: Vec3) -> Vec3 {
 }
 
 /** UPSTREAM: `VsopSphereToRect`, astronomy.ts lines 3243-3253. */
-private func vsopSphereToRect(_ lon: Double, _ lat: Double, _ radius: Double) -> Vec3 {
+func vsopSphereToRect(_ lon: Double, _ lat: Double, _ radius: Double) -> Vec3 {
     // Convert spherical coordinates to ecliptic cartesian coordinates.
     let r_coslat = radius * cos(lat)
     let coslon = cos(lon)

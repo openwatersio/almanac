@@ -663,7 +663,7 @@ function parseRawRows(text) {
     const month = MONTHS[mon];
     assert.ok(month, `unknown month in row: ${line}`);
     const time = `${y}-${month}-${d}T${hms}Z`;
-    const nums = (line.slice(m.index + full.length).match(/-?\d+\.\d+/g) || []).map(Number);
+    const nums = (line.slice(m.index + full.length).match(/[+-]?\d+\.\d+(?:E[+-]?\d+)?/g) || []).map(Number);
     rows.push({ time, nums });
   }
   return rows;
@@ -805,6 +805,123 @@ function deriveAltaz(retrieved, requests) {
   };
 }
 
+function derivePlanets(retrieved, requests) {
+  const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn"];
+  const heliocentric = [], positions = [], altaz = [], illumination = [], events = [];
+  const names = [];
+  function rows(name, vector, expected) {
+    names.push(name);
+    const text = raw(name);
+    if (vector) {
+      assert.match(text, /Center body name: Sun \(10\)/, `${name}: not Sun-centered`);
+      assert.match(text, /Output units\s+: AU-D/, `${name}: wrong vector units`);
+      assert.match(text, /Output type\s+: GEOMETRIC cartesian states/, `${name}: corrected vector`);
+      assert.match(text, /Reference frame\s+: ICRF/, `${name}: wrong vector frame`);
+      assert.match(text, /Calendar Date \(TT \).*X,\s+Y,\s+Z,/, `${name}: wrong vector columns or time scale`);
+    } else {
+      assert.match(text, /Date__\(TT\)__.*R\.A\._\(a-appar\)_DEC\..*APmag.*Illu%.*delta.*S-O-T.*S-T-O/, `${name}: wrong observer columns or time scale`);
+    }
+    const parsed = parseRawRows(text);
+    assert.ok(expected === 2 ? parsed.length === 2 : parsed.length >= 1830, `${name}: unexpected row count`);
+    for (const row of parsed) {
+      assert.equal(row.nums.length, vector ? 3 : 9, `${name}: unexpected numeric columns at ${row.time}`);
+      assert.ok(row.nums.every(Number.isFinite), `${name}: non-finite value`);
+    }
+    return parsed;
+  }
+  for (const planet of planets) {
+    const helio = [...rows(`planet-${planet}-helio`, true), ...rows(`planet-${planet}-helio-boundaries`, true, 2)];
+    for (const { time, nums } of new Map(helio.map(r => [r.time, r])).values()) {
+      heliocentric.push({ planet, tt: time, xAu: nums[0], yAu: nums[1], zAu: nums[2] });
+    }
+    if (planet === "earth") continue;
+    const coarse = [...rows(`planet-${planet}-coarse`, false), ...rows(`planet-${planet}-boundaries`, false, 2)];
+    for (const { time, nums } of new Map(coarse.map(r => [r.time, r])).values()) {
+      assert.ok(nums[0] >= 0 && nums[0] <= 360 && Math.abs(nums[1]) <= 90 && nums[5] > 0, `${planet}: invalid position`);
+      positions.push({ planet, tt: time, raDeg: nums[0], decDeg: nums[1], distanceAu: nums[5] });
+      illumination.push({ planet, tt: time, magnitude: nums[2], fraction: nums[4]/100, elongationDeg: nums[7], phaseAngleDeg: nums[8] });
+    }
+    for (const mode of ["airless", "refracted"]) {
+      const name = `planet-${planet}-${mode}`;
+      names.push(name);
+      const header = mode === "airless" ? /Date__\(UT\)__.*Azi_+\(a-app\)_+Elev/ : /Date__\(UT\)__.*Azi_+\(r-app\)_+Elev/;
+      assert.ok(header.test(raw(name)), `${name}: wrong horizontal columns`);
+      const track = parseRawRows(raw(name));
+      assert.equal(track.length, 169, `${name}: unexpected row count`);
+      for (const { time, nums } of track) {
+        assert.equal(nums.length, 2, `${name}: unexpected numeric columns`);
+        assert.ok(nums[0] >= 0 && nums[0] <= 360 && Math.abs(nums[1]) <= 90, `${name}: invalid horizontal position`);
+        altaz.push({ planet, utc: time, mode, observer: { latitudeDeg: VIC.lat, longitudeDeg: VIC.lon }, azDeg: nums[0], altDeg: nums[1] });
+      }
+    }
+  }
+  for (const mode of ["airless", "refracted"]) {
+    const name = `planet-venus-zenith-${mode}`;
+    names.push(name);
+    const track = parseRawRows(raw(name));
+    assert.equal(track.length, 13, `${name}: unexpected zenith track count`);
+    assert.ok(Math.max(...track.map(r => r.nums[1])) > 89, `${name}: track misses zenith`);
+    for (const { time, nums } of track) {
+      assert.equal(nums.length, 2, `${name}: unexpected zenith columns`);
+      altaz.push({ planet: "venus", utc: time, mode, observer: { latitudeDeg: -2.4975, longitudeDeg: -104.0738 }, azDeg: nums[0], altDeg: nums[1] });
+    }
+  }
+  const reference = JSON.parse(readFileSync(new URL("../raw/planet-photometry/reference.json", import.meta.url), "utf8"));
+  assert.equal(reference.commit, "865d3da7d8112bbc7911238052c6af4aaf877181");
+  for (const row of reference.rows) {
+    assert.ok([row.fraction, row.phaseAngleDeg, row.magnitude, row.elongationDeg].every(Number.isFinite), "invalid pinned photometry");
+  }
+  const dips = JSON.parse(readFileSync(new URL("../raw/horizon/dip.json", import.meta.url), "utf8")).rows;
+  for (const name of Object.keys(requests).filter(n => n.startsWith("planet-") && n.includes("-events-"))) {
+    names.push(name);
+    const params = new URL(requests[name]).searchParams;
+    const [longitudeDeg, latitudeDeg, elevationKm] = params.get("SITE_COORD").replaceAll("'", "").split(",").map(Number);
+    const observer = { latitudeDeg, longitudeDeg, elevationM: elevationKm*1000 };
+    const heightAboveGroundM = name.endsWith("victoria") ? 100 : 0;
+    const dip = heightAboveGroundM === 0 ? 0 : dips.find(r => r.observer.latitudeDeg === latitudeDeg && r.observer.elevationM === observer.elevationM && r.heightAboveGroundM === heightAboveGroundM)?.dipDeg;
+    assert.ok(Number.isFinite(dip), `${name}: missing pinned horizon dip`);
+    const target = dip - 34/60;
+    const text = raw(name);
+    assert.ok(/Date__\(UT\)__.*Azi_+\(a-app\)_+Elev/.test(text), `${name}: event grid is not airless UT`);
+    const grid = parseRawRows(text);
+    assert.equal(grid.length, 2881, `${name}: expected two-day one-minute grid`);
+    const crossings = [];
+    for (let i = 1; i < grid.length; i++) {
+      const a = grid[i-1], b = grid[i], ta = Date.parse(a.time), tb = Date.parse(b.time);
+      assert.equal(tb-ta, 60000, `${name}: grid step`);
+      const fa = a.nums[1]-target, fb = b.nums[1]-target;
+      if ((fa < 0) === (fb < 0)) continue;
+      const ms = ta + (tb-ta)*(-fa)/(fb-fa);
+      if (ms >= Date.parse(grid.at(-1).time)) continue;
+      crossings.push({ utc: new Date(Math.round(ms)).toISOString(), kind: fb >= 0 ? "rise" : "set" });
+    }
+    events.push({ planet: name.split("-")[1], observer, heightAboveGroundM,
+      startUtc: grid[0].time, endUtc: grid.at(-1).time, events: crossings });
+  }
+  assert.equal(events.length, 10, "expected five midlatitude and five polar grids");
+  return {
+    "planets/heliocentric.json": json(heliocentric),
+    "planets/positions.json": json(positions),
+    "planets/altaz.json": json(altaz),
+    "planets/illumination.json": json(illumination),
+    "planets/photometry-reference.json": json(reference),
+    "planets/events.json": json(events),
+    "planets/meta.json": json({ source: "JPL Horizons API", sourceVersion: sourceVersion(raw("planet-mercury-coarse")), retrieved,
+      requests: names.map(name => requests[name]),
+      heliocentric: { center: "Sun", frame: "ICRF / J2000 mean equatorial", corrections: "NONE", timeScale: "TT", units: "AU", toleranceAu: 1e-3 },
+      positions: { center: "Earth", frame: "true equator and equinox of date", timeScale: "TT", toleranceArcmin: 1, toleranceAu: 1e-3 },
+      altaz: { timeScale: "UT", modes: ["AIRLESS", "REFRACTED"], toleranceArcmin: 1, refractedMinimumAltitudeDeg: 10 },
+      illumination: { timeScale: "TT", fractionTolerance: 0.01, elongationToleranceArcmin: 1, magnitudeTolerance: 0.3,
+        note: "JPL APmag and pinned VisualMagnitude differ for extreme Venus crescents: five rows at phase 173.8138–176.9577 degrees exceed 0.3 magnitudes, maximum 0.749544 at 2060-05-23. All raw and derived JPL rows are retained and checked for fraction/elongation. The pinned high-phase Venus branch (phase >= 163.6 degrees) is compared with pinned upstream photometry instead of treating its different model as compatible JPL magnitude evidence. Other planet magnitudes and lower-phase Venus remain within 0.3 of JPL. Current Horizons Saturn APmag includes rings under its documented Earth-observer conditions; the pinned source's comment claiming no rings is obsolete.",
+        photometryReference: { source: reference.source, commit: reference.commit, method: reference.method },
+      },
+      events: { timeScale: "UT", gridStepSeconds: 60, toleranceSeconds: 60, method: "Linear interpolation of committed JPL AIRLESS one-minute altitudes at pinned horizonDip minus 34/60 degrees; point centers, no semidiameter.",
+        grazingCases: "grazing-cases.json contains model-selected inputs only, not expected outputs. Tests independently scan at one-minute steps to check solver completeness.",
+      },
+    }),
+  };
+}
+
 // --- USNO celestial-navigation star alt/az + SIMBAD J2000 positions --------
 
 // A star whose proper motion moves it more than this drifts past the 1 arcmin
@@ -892,11 +1009,13 @@ function main() {
   const files = {
     ...derivePositions(horizons.retrieved, horizons.requests),
     ...deriveAltaz(horizons.retrieved, horizons.requests),
+    ...derivePlanets(horizons.retrieved, horizons.requests),
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
     ...deriveEspenak(espenak.retrieved, espenak.requests),
     ...deriveSolar(usno, espenak, sepath),
     ...deriveStars(stars.retrieved, stars.requests),
+    ...deriveHorizon(),
   };
 
   let drift = false;
@@ -921,6 +1040,14 @@ function main() {
   } else {
     console.log(`derive.mjs: wrote ${Object.keys(files).length} files`);
   }
+}
+
+function deriveHorizon() {
+  const raw = JSON.parse(readFileSync(new URL('../raw/horizon/dip.json', import.meta.url), 'utf8'));
+  assert.equal(raw.rows.length, 25);
+  for (const row of raw.rows) assert.ok(Number.isFinite(row.dipDeg) && row.dipDeg <= 0);
+  const { rows, sourceFunction, ...meta } = raw;
+  return { 'horizon/dip.json': json(rows), 'horizon/meta.json': json(meta) };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

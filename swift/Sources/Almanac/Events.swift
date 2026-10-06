@@ -40,6 +40,13 @@ public enum MoonEventKind: String, Sendable { case rise, set }
 /// A Moon event.
 public struct MoonEvent: Sendable { public let time: Date; public let kind: MoonEventKind }
 
+/// A planet's point center crossing the apparent horizon.
+public enum PlanetEventKind: String, Sendable { case rise, set }
+public struct PlanetEvent: Sendable {
+    public let time: Date; public let kind: PlanetEventKind
+    public init(time: Date, kind: PlanetEventKind) { self.time = time; self.kind = kind }
+}
+
 /// A quarter lunar phase kind.
 public enum MoonPhaseName: String, Sendable { case new, firstQuarter, full, lastQuarter }
 
@@ -155,19 +162,26 @@ private func assertReached(_ condition: Bool, _ what: String) {
 private struct Sample { let ut: Double; let altDeg: Double; let hourAngleDeg: Double; let riseSetAltDeg: Double }
 private typealias Sampler = (Double) -> Sample
 
-private func sunSampler(_ observer: Observer) -> Sampler {
+private func sunSampler(_ observer: Observer, _ dip: Double) -> Sampler {
     { ut in
         let p = topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer)
         return Sample(ut: ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
-                      riseSetAltDeg: upperLimbTargetDeg(sunRadiusKm, p.distanceAu))
+                      riseSetAltDeg: dip + upperLimbTargetDeg(sunRadiusKm, p.distanceAu))
     }
 }
 
-private func moonSampler(_ observer: Observer) -> Sampler {
+private func moonSampler(_ observer: Observer, _ dip: Double) -> Sampler {
     { ut in
         let p = topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer)
         return Sample(ut: ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
-                      riseSetAltDeg: upperLimbTargetDeg(moonMeanRadiusKm, p.distanceAu))
+                      riseSetAltDeg: dip + upperLimbTargetDeg(moonMeanRadiusKm, p.distanceAu))
+    }
+}
+
+private func planetSampler(_ planet: Planet, _ observer: Observer, _ dip: Double) -> Sampler {
+    { ut in
+        let p = topoAltAzUnrefracted(planetGeoVectorEqj(planet, ttDaysFromUt(ut)), ut, observer)
+        return Sample(ut: ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg, riseSetAltDeg: dip-horizonRefractionDeg)
     }
 }
 
@@ -510,7 +524,7 @@ private func flatCycle(_ observer: Observer) -> Bool {
  * Sun rise, set, the three twilights and upper transit within the half-open
  * window `[from, to)`, sorted ascending.
  *
- * Rise and set are the unrefracted geometric centre altitude at −(34′ + the
+ * Rise and set use the supplied horizon dip minus (34′ + the
  * Sun's true semidiameter at distance) — the upper-limb convention with the
  * actual disc, the same rule the Moon gets; the twilights are centre altitude
  * −6°, −12° and −18° with no refraction term; transit is local hour angle
@@ -518,14 +532,15 @@ private func flatCycle(_ observer: Observer) -> Bool {
  * the crossings — while transit is reported regardless of whether the Sun is
  * above the horizon when it happens.
  */
-public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [SunEvent] {
+public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> [SunEvent] {
     let startUtc = try normalized(startUtc)
     let endUtc = try normalized(endUtc)
     try assertSupported(startUtc)
     try assertSupportedWindowEnd(endUtc)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
     if startUtc >= endUtc { return [] }
     let raw = try searchAltitudeEvents(
-        sample: sunSampler(observer), levels: sunLevels, transitKind: .transit,
+        sample: sunSampler(observer, dip), levels: sunLevels, transitKind: .transit,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: sunHaRateDegPerDay, cycleDays: sunCycleDays,
         flatCycle: flatCycle(observer)
@@ -540,19 +555,34 @@ public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer) 
  * Moon's distance are all included — the same upper-limb rule as the Sun's.
  * An empty list is a valid answer.
  */
-public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [MoonEvent] {
+public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> [MoonEvent] {
     let startUtc = try normalized(startUtc)
     let endUtc = try normalized(endUtc)
     try assertSupported(startUtc)
     try assertSupportedWindowEnd(endUtc)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
     if startUtc >= endUtc { return [] }
     let raw = try searchAltitudeEvents(
-        sample: moonSampler(observer), levels: moonLevels, transitKind: nil,
+        sample: moonSampler(observer, dip), levels: moonLevels, transitKind: nil,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: moonHaRateDegPerDay, cycleDays: moonCycleDays,
         flatCycle: flatCycle(observer)
     )
     return raw.map { MoonEvent(time: $0.time, kind: $0.kind) }
+}
+
+/// Rise/set of a point center at geometric altitude horizonDip minus 34 arcminutes.
+public func planetEvents(_ planet: Planet, from startUtc: Date, to endUtc: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> [PlanetEvent] {
+    try assertSkyPlanet(planet)
+    let startUtc = try normalized(startUtc), endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
+    if startUtc >= endUtc { return [] }
+    let cycleDays = 0.9972695717592592
+    let raw = try searchAltitudeEvents(sample: planetSampler(planet, observer, dip), levels: moonLevels, transitKind: nil,
+        startUt: utDays(startUtc), endUt: utDays(endUtc), haRateDegPerDay: 360/cycleDays, cycleDays: cycleDays, flatCycle: flatCycle(observer))
+    return raw.map { PlanetEvent(time: $0.time, kind: $0.kind == .rise ? .rise : .set) }
 }
 
 // -------------------------------------------------------------- moon phases

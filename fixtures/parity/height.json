@@ -1,0 +1,145 @@
+{
+  "events": {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "startMs": 1773964800000,
+    "endMs": 1774137600000,
+    "sun": [
+      {
+        "tMs": 1773973634900,
+        "kind": "set"
+      },
+      {
+        "tMs": 1773975381700,
+        "kind": "civilDusk"
+      },
+      {
+        "tMs": 1773977589200,
+        "kind": "nauticalDusk"
+      },
+      {
+        "tMs": 1773979867000,
+        "kind": "astroDusk"
+      },
+      {
+        "tMs": 1774009804600,
+        "kind": "astroDawn"
+      },
+      {
+        "tMs": 1774012079300,
+        "kind": "nauticalDawn"
+      },
+      {
+        "tMs": 1774014282900,
+        "kind": "civilDawn"
+      },
+      {
+        "tMs": 1774016026000,
+        "kind": "rise"
+      },
+      {
+        "tMs": 1774038047800,
+        "kind": "transit"
+      },
+      {
+        "tMs": 1774060124300,
+        "kind": "set"
+      },
+      {
+        "tMs": 1774061872400,
+        "kind": "civilDusk"
+      },
+      {
+        "tMs": 1774064084300,
+        "kind": "nauticalDusk"
+      },
+      {
+        "tMs": 1774066370300,
+        "kind": "astroDusk"
+      },
+      {
+        "tMs": 1774096065800,
+        "kind": "astroDawn"
+      },
+      {
+        "tMs": 1774098348900,
+        "kind": "nauticalDawn"
+      },
+      {
+        "tMs": 1774100557000,
+        "kind": "civilDawn"
+      },
+      {
+        "tMs": 1774102301400,
+        "kind": "rise"
+      },
+      {
+        "tMs": 1774124430100,
+        "kind": "transit"
+      }
+    ],
+    "moon": [
+      {
+        "tMs": 1773978512700,
+        "kind": "set"
+      },
+      {
+        "tMs": 1774017490200,
+        "kind": "rise"
+      },
+      {
+        "tMs": 1774069946300,
+        "kind": "set"
+      },
+      {
+        "tMs": 1774105096800,
+        "kind": "rise"
+      }
+    ]
+  },
+  "solar": {
+    "observer": {
+      "latitudeDeg": 20,
+      "longitudeDeg": 5.5,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "startMs": 1786492800000,
+    "endMs": 1786579200000,
+    "peaksMs": [
+      1786560927700
+    ],
+    "altitudes": [
+      {
+        "c1": -50498,
+        "peak": -10685487,
+        "c4": -20487806
+      }
+    ],
+    "nextPeakMs": 1786560927700,
+    "previousPeakMs": 1786560927700
+  },
+  "lunar": {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -74.8,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "afterMs": 1772323200000,
+    "visibleAtPeak": true,
+    "moonGeometricAltAtPeakDeg": -3553,
+    "contactsVisible": {
+      "p1": true,
+      "u1": true,
+      "u2": true,
+      "u3": false,
+      "u4": false,
+      "p4": false
+    }
+  }
+}

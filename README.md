@@ -1,6 +1,6 @@
 # Almanac
 
-Offline sky engine for the Salish Sea and everywhere else: Sun and Moon positions, rise, set, twilight, Moon phase, lunar eclipses, solar eclipses for an observer and anywhere on Earth, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, Moon phase, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -21,11 +21,11 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 
 ## Performance
 
-Almanac includes a shared performance harness for both ports: **27 workloads**
+Almanac includes a shared performance harness for both ports: **30 workloads**
 cover positions, a 228-hour sky track, short/year/polar event windows, full-range
 moon phases, next/previous/range lunar, solar, and global solar eclipse searches,
 including empty windows, solar obscuration over a 228-hour track, and the central
-line of the 2024-04-08 eclipse.
+line of the 2024-04-08 eclipse, five-planet sky tracks, and planetary rise/set.
 
 Event searches find altitude extrema with Brent's method and altitude crossings
 with a cosine-seeded secant solver, each root proven inside a half-second
@@ -49,10 +49,10 @@ Reproduce the comparison locally from the repository root with mise 2026.9.1 or 
 ```bash
 mise install
 mise exec -- npm ci --prefix typescript
-mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^global/'
+mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^(global|planets)/'
 ```
 
-The `--skip` pattern leaves out the global solar eclipse workloads, which need a base of 0.5.0 or later. Use `--skip '^(solar|global)/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived.
+The `--skip` pattern leaves out global eclipse and planetary workloads absent from that base. Use `--skip '^(solar|global|planets)/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived. For a newer base that lacks only planets, use `--skip '^planets/'`.
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.
 Results include timing tables, raw samples, checksums, and revision/toolchain
@@ -98,6 +98,17 @@ for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
 const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 ```
 
+For an unobstructed sea horizon, supply eye height above the water separately from elevation above sea level. Body altitudes remain measured from the horizontal plane:
+
+```ts
+import { horizonDip, sunAltAz } from '@openwaters/almanac';
+const eyeHeightM = 2;
+const viewer = { latitudeDeg: 48.5, longitudeDeg: -123.0, elevationM: 2 };
+const horizonAltDeg = horizonDip(viewer, eyeHeightM);
+const sunAltitudeAboveHorizonDeg = sunAltAz(new Date(), viewer).altDeg - horizonAltDeg;
+const crossings = sunEvents(today, tomorrow, viewer, eyeHeightM);
+```
+
 ### Swift
 
 ```swift
@@ -133,6 +144,44 @@ for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
 // Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
 let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer: observer)
 ```
+
+### Planetary views
+
+Mercury, Venus, Earth, Mars, Jupiter, and Saturn have geometric Sun-centered positions in AU, in fixed J2000 equatorial coordinates. Place the Sun at `(0, 0, 0)` and orient the scene's camera for the desired view:
+
+```ts
+import { planetHeliocentricPosition, planetAltAz, planetIllumination, planetEvents,
+  horizonDip, sunAltAz } from '@openwaters/almanac';
+import type { Planet } from '@openwaters/almanac';
+
+const planets: Planet[] = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'];
+const now = new Date();
+const positions = planets.map(planet => ({ planet, ...planetHeliocentricPosition(planet, now) }));
+
+const viewer = { latitudeDeg: 48.5, longitudeDeg: -123.0, elevationM: 2 };
+const horizonAltDeg = horizonDip(viewer, 2);
+const venus = planetAltAz('venus', now, viewer);
+const brightness = planetIllumination('venus', now);
+console.log(venus.azDeg, venus.altDeg - horizonAltDeg, sunAltAz(now, viewer).altDeg,
+  brightness.magnitude, brightness.elongationDeg);
+const crossings = planetEvents('venus', now, new Date(now.getTime() + 86400000), viewer, 2);
+```
+
+```swift
+let now = Date()
+let positions = try Planet.allCases.map { try planetHeliocentricPosition($0, at: now) }
+let viewer = try Observer(latitudeDeg: 48.5, longitudeDeg: -123.0, elevationM: 2)
+let horizon = try horizonDip(observer: viewer, heightAboveGroundM: 2)
+let venus = try planetAltAz(.venus, at: now, observer: viewer)
+let brightness = try planetIllumination(.venus, at: now)
+print(venus.azDeg, venus.altDeg - horizon, brightness.magnitude, brightness.elongationDeg)
+let crossings = try planetEvents(.venus, from: now, to: now.addingTimeInterval(86400),
+  observer: viewer, heightAboveGroundM: 2)
+```
+
+Earth is included for the solar-system view. Earth-based position, altitude/azimuth, illumination, and rise/set reject Earth. Sky coordinates include light-time and apparent corrections; heliocentric scene coordinates do not.
+
+A viewing-window policy can combine planet altitude above the horizon, Sun altitude, elongation, and brightness. Actual visibility also depends on weather and observing conditions. Magnitude is approximate: the pinned model and Horizons differ by up to 0.75 magnitudes for extreme Venus crescents in the fixture interval.
 
 ### Eclipse searches
 

@@ -1478,7 +1478,7 @@
       "visibility": [
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -57020947,
+          "moonGeometricAltAtPeakDeg": -57020946,
           "contactsVisible": {
             "p1": false,
             "u1": null,
@@ -1502,7 +1502,7 @@
         },
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -74207537,
+          "moonGeometricAltAtPeakDeg": -74207536,
           "contactsVisible": {
             "p1": false,
             "u1": null,
@@ -7878,7 +7878,7 @@
       "visibility": [
         {
           "visibleAtPeak": true,
-          "moonGeometricAltAtPeakDeg": 41711509,
+          "moonGeometricAltAtPeakDeg": 41711506,
           "contactsVisible": {
             "p1": true,
             "u1": true,
@@ -7890,7 +7890,7 @@
         },
         {
           "visibleAtPeak": true,
-          "moonGeometricAltAtPeakDeg": 37196651,
+          "moonGeometricAltAtPeakDeg": 37196649,
           "contactsVisible": {
             "p1": true,
             "u1": true,
@@ -7902,7 +7902,7 @@
         },
         {
           "visibleAtPeak": true,
-          "moonGeometricAltAtPeakDeg": 38215526,
+          "moonGeometricAltAtPeakDeg": 38215523,
           "contactsVisible": {
             "p1": true,
             "u1": true,
@@ -13578,7 +13578,7 @@
       "visibility": [
         {
           "visibleAtPeak": true,
-          "moonGeometricAltAtPeakDeg": 22986200,
+          "moonGeometricAltAtPeakDeg": 22986201,
           "contactsVisible": {
             "p1": true,
             "u1": true,
@@ -13590,7 +13590,7 @@
         },
         {
           "visibleAtPeak": true,
-          "moonGeometricAltAtPeakDeg": 11692686,
+          "moonGeometricAltAtPeakDeg": 11692687,
           "contactsVisible": {
             "p1": true,
             "u1": true,
@@ -13602,7 +13602,7 @@
         },
         {
           "visibleAtPeak": true,
-          "moonGeometricAltAtPeakDeg": 67713612,
+          "moonGeometricAltAtPeakDeg": 67713614,
           "contactsVisible": {
             "p1": true,
             "u1": true,
@@ -15078,7 +15078,7 @@
       "visibility": [
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -17135901,
+          "moonGeometricAltAtPeakDeg": -17135898,
           "contactsVisible": {
             "p1": true,
             "u1": null,
@@ -15090,7 +15090,7 @@
         },
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -18374953,
+          "moonGeometricAltAtPeakDeg": -18374951,
           "contactsVisible": {
             "p1": false,
             "u1": null,
@@ -15102,7 +15102,7 @@
         },
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -6768266,
+          "moonGeometricAltAtPeakDeg": -6768262,
           "contactsVisible": {
             "p1": true,
             "u1": null,
@@ -15728,7 +15728,7 @@
       "visibility": [
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -32796827,
+          "moonGeometricAltAtPeakDeg": -32796830,
           "contactsVisible": {
             "p1": false,
             "u1": false,
@@ -15740,7 +15740,7 @@
         },
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -29758612,
+          "moonGeometricAltAtPeakDeg": -29758614,
           "contactsVisible": {
             "p1": false,
             "u1": false,
@@ -15752,7 +15752,7 @@
         },
         {
           "visibleAtPeak": false,
-          "moonGeometricAltAtPeakDeg": -30547975,
+          "moonGeometricAltAtPeakDeg": -30547979,
           "contactsVisible": {
             "p1": true,
             "u1": false,

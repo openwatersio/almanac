@@ -24,9 +24,10 @@ import {
     sunPosition, moonPosition, sunAltAz, moonAltAz, starAltAz, moonIllumination,
     sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
-    solarEclipses, solarObscuration,
+    solarEclipses, solarObscuration, nextSolarEclipse, previousSolarEclipse,
     nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
     solarEclipseAxisPoint, solarEclipseCentralLine,
+    horizonDip, planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, planetEvents,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -306,7 +307,11 @@ function buildMeta(tsCommit, swiftCommit, files) {
             globalSolarEclipses: files.globalSolar.windows.reduce((n, w) => n + w.eclipses.length, 0),
             axisTrackSamples: files.centralLine.axisTrack.length,
             centralLinePoints: files.centralLine.centralLine.length,
+            planetHeliocentric: files.planets.heliocentric.length,
+            planetSky: files.planets.sky.length,
+            planetEventWindows: files.planets.events.length,
         },
+        planetCoverage: "Annual 1950–2100 samples, both supported edges, conjunction/crescent dates, elevated and ground-level events, polar grazing pairs",
     });
 }
 
@@ -317,7 +322,69 @@ export function buildCorpus() {
     const solar = buildSolar();
     const globalSolar = buildGlobalSolar();
     const centralLine = buildCentralLine();
-    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine };
+    const horizon = JSON.parse(readFileSync(new URL('../horizon/dip.json', import.meta.url), 'utf8'))
+        .map(({ observer, heightAboveGroundM }) => ({ observer, heightAboveGroundM, dipDeg: qAngle(horizonDip(observer, heightAboveGroundM)) }));
+    const height = buildHeightCases();
+    const planets = buildPlanets();
+    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon, height, planets };
+}
+
+function buildPlanets() {
+    const names = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'];
+    const times = new Set([MIN_MS, MAX_MS - 1]);
+    for (let year = 1950; year <= 2100; year++) times.add(Date.UTC(year, 0, 1));
+    for (const date of ['2025-03-23', '2026-03-03T20:00:00Z', '2026-11-18', '2060-05-23', '2071-07-25']) times.add(Date.parse(date));
+    const grazing = JSON.parse(readFileSync(new URL('../planets/grazing-cases.json', import.meta.url), 'utf8'));
+    for (const row of grazing) times.add(Date.parse(row.startUtc));
+    const heliocentric = [], sky = [], events = [];
+    for (const tMs of [...times].sort((a, b) => a - b)) {
+        const time = new Date(tMs);
+        for (const planet of names) {
+            const helio = planetHeliocentricPosition(planet, time);
+            heliocentric.push({ planet, tMs, xAu: qAu(helio.xAu), yAu: qAu(helio.yAu), zAu: qAu(helio.zAu) });
+            if (planet === 'earth') continue;
+            const position = planetPosition(planet, time), altaz = planetAltAz(planet, time, VICTORIA), illumination = planetIllumination(planet, time);
+            sky.push({ planet, tMs,
+                position: { raDeg: qAngle(position.raDeg), decDeg: qAngle(position.decDeg), distanceAu: qAu(position.distanceAu) },
+                altaz: { azDeg: qAngle(altaz.azDeg), altDeg: qAngle(altaz.altDeg) },
+                illumination: { fraction: qFrac(illumination.fraction), phaseAngleDeg: qAngle(illumination.phaseAngleDeg), magnitude: qFrac(illumination.magnitude), elongationDeg: qAngle(illumination.elongationDeg) },
+            });
+        }
+    }
+    const windows = JSON.parse(readFileSync(new URL('../planets/events.json', import.meta.url), 'utf8')).concat(grazing);
+    for (const planet of names.filter(p => p !== 'earth')) {
+        windows.push({ planet, observer: VICTORIA, startUtc: new Date(MIN_MS).toISOString(), endUtc: new Date(MIN_MS + 2 * DAY_MS).toISOString() });
+        windows.push({ planet, observer: VICTORIA, startUtc: new Date(MAX_MS - 2 * DAY_MS).toISOString(), endUtc: new Date(MAX_MS).toISOString() });
+        windows.push({ planet, observer: VICTORIA, startUtc: '2026-03-20T00:00:00Z', endUtc: '2026-03-22T00:00:00Z' });
+    }
+    for (const row of windows) {
+        const observer = { elevationM: 0, ...row.observer }, heightAboveGroundM = row.heightAboveGroundM ?? 0;
+        const startMs = Date.parse(row.startUtc), endMs = Date.parse(row.endUtc);
+        const found = planetEvents(row.planet, new Date(startMs), new Date(endMs), observer, heightAboveGroundM);
+        events.push({ planet: row.planet, observer, heightAboveGroundM, startMs, endMs,
+            events: found.map(e => ({ tMs: qEventMs(e.time), kind: e.kind })) });
+    }
+    return { heliocentric, sky, events };
+}
+
+function buildHeightCases() {
+    const eventObserver = { ...VICTORIA, elevationM: 100 };
+    const startMs = Date.UTC(2026, 2, 20), endMs = Date.UTC(2026, 2, 22);
+    const start = new Date(startMs), end = new Date(endMs);
+    const eventRows = events => events.map(e => ({ tMs: qEventMs(e.time), kind: e.kind }));
+    const solarObserver = { latitudeDeg: 20, longitudeDeg: 5.5, elevationM: 100 };
+    const solarStartMs = Date.UTC(2026, 7, 12), solarEndMs = Date.UTC(2026, 7, 13);
+    const solarStart = new Date(solarStartMs), solarEnd = new Date(solarEndMs);
+    const local = solarEclipses(solarStart, solarEnd, solarObserver, 100);
+    const lunarObserver = { latitudeDeg: 48.4284, longitudeDeg: -74.8, elevationM: 100 };
+    const afterMs = Date.UTC(2026, 2, 1);
+    const lunar = lunarEclipses(new Date(afterMs), new Date(Date.UTC(2026, 3, 1)))[0];
+    const visibility = lunarEclipseVisibility(lunar, lunarObserver, 100);
+    return {
+        events: { observer: eventObserver, heightAboveGroundM: 100, startMs, endMs, sun: eventRows(sunEvents(start, end, eventObserver, 100)), moon: eventRows(moonEvents(start, end, eventObserver, 100)) },
+        solar: { observer: solarObserver, heightAboveGroundM: 100, startMs: solarStartMs, endMs: solarEndMs, peaksMs: local.map(e => qEventMs(e.peak)), altitudes: local.map(e => ({ c1: qAngle(e.sunAltDeg.c1), peak: qAngle(e.sunAltDeg.peak), c4: qAngle(e.sunAltDeg.c4) })), nextPeakMs: qEventMs(nextSolarEclipse(solarStart, solarObserver, 100).peak), previousPeakMs: qEventMs(previousSolarEclipse(solarEnd, solarObserver, 100).peak) },
+        lunar: { observer: lunarObserver, heightAboveGroundM: 100, afterMs, visibleAtPeak: visibility.visibleAtPeak, moonGeometricAltAtPeakDeg: qAngle(visibility.moonGeometricAltAtPeakDeg), contactsVisible: visibility.contactsVisible },
+    };
 }
 
 // ------------------------------------------------------- near-exact check
@@ -445,6 +512,29 @@ function newCheckCtx() {
 function checkFile(rel, fresh, committed) {
     const ctx = newCheckCtx();
     switch (rel) {
+        case "planets.json": {
+            compareNode("planets", {
+                heliocentric: [{ planet: EXACT, tMs: EXACT, xAu: SCALED, yAu: SCALED, zAu: SCALED }],
+                sky: [{ planet: EXACT, tMs: EXACT,
+                    position: { raDeg: SCALED, decDeg: SCALED, distanceAu: SCALED },
+                    altaz: { azDeg: SCALED, altDeg: SCALED },
+                    illumination: { fraction: SCALED, phaseAngleDeg: SCALED, magnitude: SCALED, elongationDeg: SCALED },
+                }],
+                events: [{ planet: EXACT, observer: { ...OBSERVER_SCHEMA, elevationM: EXACT }, heightAboveGroundM: EXACT, startMs: EXACT, endMs: EXACT, events: [{ tMs: TIME, kind: EXACT }] }],
+            }, fresh, committed, ctx);
+            break;
+        }
+        case "height.json": {
+            const site = { ...OBSERVER_SCHEMA, elevationM: EXACT };
+            const common = { observer: site, heightAboveGroundM: EXACT, startMs: EXACT, endMs: EXACT };
+            compareNode("height", {
+                events: { ...common, sun: [{ tMs: TIME, kind: EXACT }], moon: [{ tMs: TIME, kind: EXACT }] },
+                solar: { ...common, peaksMs: [TIME], altitudes: [{ c1: SCALED, peak: SCALED, c4: SCALED }], nextPeakMs: TIME, previousPeakMs: TIME },
+                lunar: { observer: site, heightAboveGroundM: EXACT, afterMs: EXACT, visibleAtPeak: EXACT, moonGeometricAltAtPeakDeg: SCALED, contactsVisible: { p1: EXACT, u1: EXACT, u2: EXACT, u3: EXACT, u4: EXACT, p4: EXACT } },
+            }, fresh, committed, ctx);
+            break;
+        }
+        case "horizon.json": compareNode("horizon", [{ observer: { ...OBSERVER_SCHEMA, elevationM: EXACT }, heightAboveGroundM: EXACT, dipDeg: SCALED }], fresh, committed, ctx); break;
         case "positions.json": compareNode("positions", [ROW_SCHEMAS.positions], fresh, committed, ctx); break;
         case "altaz.json": compareNode("altaz", [ROW_SCHEMAS.altaz], fresh, committed, ctx); break;
         case "illumination.json": compareNode("illumination", [ROW_SCHEMAS.illumination], fresh, committed, ctx); break;
@@ -503,6 +593,9 @@ function main() {
         "solar.json": files.solar,
         "globalSolar.json": files.globalSolar,
         "centralLine.json": files.centralLine,
+        "horizon.json": files.horizon,
+        "height.json": files.height,
+        "planets.json": files.planets,
     };
     const metaDest = new URL("meta.json", FIXTURES_DIR);
 

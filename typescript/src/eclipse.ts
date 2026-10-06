@@ -19,7 +19,7 @@
 //     the contact instants themselves, and `obscuration` is not in it.
 
 import {
-    Observer, assertObserver, assertSupported, assertSupportedWindowEnd,
+    Observer, assertSupported, assertSupportedWindowEnd,
     AlmanacOutOfRangeError, SUPPORTED_MIN, SUPPORTED_MAX
 } from './types.js';
 import { dateFromUt, ttDaysFromUt, utDays } from './time.js';
@@ -27,6 +27,7 @@ import { KM_PER_AU, RAD2DEG, Vec3 } from './nutation.js';
 import { calcMoon, moonGeoVectorEqj } from './moon.js';
 import { sunGeoVectorEqj } from './sun.js';
 import { topoAltAzUnrefracted } from './transforms.js';
+import { horizonDip } from './horizon.js';
 import { MOON_MEAN_RADIUS_KM, SUN_RADIUS_KM, search, searchMoonPhase } from './events.js';
 
 /** A lunar eclipse: peak circumstances plus the contact instants around them. */
@@ -397,9 +398,9 @@ function assertLunarEclipse(e: LunarEclipse): void {
  *
  * @throws {RangeError} if `eclipse` is structurally invalid or `observer` is out of range.
  */
-export function lunarEclipseVisibility(eclipse: LunarEclipse, observer: Observer): LunarEclipseVisibility {
+export function lunarEclipseVisibility(eclipse: LunarEclipse, observer: Observer, heightAboveGroundM = 0): LunarEclipseVisibility {
     assertLunarEclipse(eclipse);
-    assertObserver(observer);
+    const dip = horizonDip(observer, heightAboveGroundM);
 
     const altAt = (d: Date): number => {
         const ut = utDays(d);
@@ -407,11 +408,11 @@ export function lunarEclipseVisibility(eclipse: LunarEclipse, observer: Observer
     };
     // `== null` deliberately: the validator counts `undefined` as absent too,
     // so the reader must, or an `undefined` contact would reach `utDays` raw.
-    const up = (d: Date | null): boolean | null => (d == null ? null : altAt(d) > 0);
+    const up = (d: Date | null): boolean | null => (d == null ? null : altAt(d) > dip);
 
     const peakAltDeg = altAt(eclipse.peak);
     return {
-        visibleAtPeak: peakAltDeg > 0,
+        visibleAtPeak: peakAltDeg > dip,
         moonGeometricAltAtPeakDeg: peakAltDeg,
         contactsVisible: {
             p1: up(eclipse.p1) as boolean,

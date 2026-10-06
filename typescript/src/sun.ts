@@ -215,7 +215,7 @@ function earthRad(t: number): number {
 }
 
 /** UPSTREAM: `VsopRotate`, astronomy.ts lines 3234-3241 — VSOP ecliptic to J2000 equatorial. */
-function vsopRotate(eclip: Vec3): Vec3 {
+export function vsopRotate(eclip: Vec3): Vec3 {
     return {
         x: eclip.x + 0.000000440360*eclip.y - 0.000000190919*eclip.z,
         y: -0.000000479966*eclip.x + 0.917482137087*eclip.y - 0.397776982902*eclip.z,
@@ -224,7 +224,7 @@ function vsopRotate(eclip: Vec3): Vec3 {
 }
 
 /** UPSTREAM: `VsopSphereToRect`, astronomy.ts lines 3243-3253. */
-function vsopSphereToRect(lon: number, lat: number, radius: number): Vec3 {
+export function vsopSphereToRect(lon: number, lat: number, radius: number): Vec3 {
     // Convert spherical coordinates to ecliptic cartesian coordinates.
     const r_coslat = radius * Math.cos(lat);
     const coslon = Math.cos(lon);

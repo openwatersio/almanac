@@ -55,6 +55,21 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
             try sum + sunAltAz(t, observer: observer).altDeg
                 + moonAltAz(t, observer: observer).altDeg + moonIllumination(t).fraction
         } }
+    case "planetSky", "planetEvents":
+        #if ALMANAC_PLANETS
+        let planets: [Planet] = [.mercury, .venus, .mars, .jupiter, .saturn]
+        if spec.operation == "planetEvents" {
+            return { try planets.reduce(0) { try $0 + Double(planetEvents($1, from: from, to: to, observer: observer).count) } }
+        }
+        return { try times.reduce(0) { sum, t in
+            try sum + planets.reduce(0) { sum, planet in
+                let illumination = try planetIllumination(planet, at: t)
+                return try sum + planetAltAz(planet, at: t, observer: observer).altDeg + illumination.fraction + illumination.magnitude + illumination.elongationDeg
+            }
+        } }
+        #else
+        throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Planetary APIs unavailable; pass --skip '^planets/' for older bases"])
+        #endif
     case "sunEvents":
         return { Double(try sunEvents(from: from, to: to, observer: observer).count) }
     case "moonEvents":

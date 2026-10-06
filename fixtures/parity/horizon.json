@@ -1,0 +1,227 @@
+[
+  {
+    "observer": {
+      "latitudeDeg": -90,
+      "longitudeDeg": 0,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "dipDeg": 0
+  },
+  {
+    "observer": {
+      "latitudeDeg": -90,
+      "longitudeDeg": 0,
+      "elevationM": 2
+    },
+    "heightAboveGroundM": 2,
+    "dipDeg": -50039
+  },
+  {
+    "observer": {
+      "latitudeDeg": -90,
+      "longitudeDeg": 0,
+      "elevationM": 10
+    },
+    "heightAboveGroundM": 10,
+    "dipDeg": -111887
+  },
+  {
+    "observer": {
+      "latitudeDeg": -90,
+      "longitudeDeg": 0,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "dipDeg": -353735
+  },
+  {
+    "observer": {
+      "latitudeDeg": -90,
+      "longitudeDeg": 0,
+      "elevationM": 10000
+    },
+    "heightAboveGroundM": 10000,
+    "dipDeg": -3455593
+  },
+  {
+    "observer": {
+      "latitudeDeg": -48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "dipDeg": 0
+  },
+  {
+    "observer": {
+      "latitudeDeg": -48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 2
+    },
+    "heightAboveGroundM": 2,
+    "dipDeg": -50001
+  },
+  {
+    "observer": {
+      "latitudeDeg": -48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 10
+    },
+    "heightAboveGroundM": 10,
+    "dipDeg": -111804
+  },
+  {
+    "observer": {
+      "latitudeDeg": -48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "dipDeg": -353472
+  },
+  {
+    "observer": {
+      "latitudeDeg": -48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 10000
+    },
+    "heightAboveGroundM": 10000,
+    "dipDeg": -3453024
+  },
+  {
+    "observer": {
+      "latitudeDeg": 0,
+      "longitudeDeg": 0,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "dipDeg": 0
+  },
+  {
+    "observer": {
+      "latitudeDeg": 0,
+      "longitudeDeg": 0,
+      "elevationM": 2
+    },
+    "heightAboveGroundM": 2,
+    "dipDeg": -49955
+  },
+  {
+    "observer": {
+      "latitudeDeg": 0,
+      "longitudeDeg": 0,
+      "elevationM": 10
+    },
+    "heightAboveGroundM": 10,
+    "dipDeg": -111700
+  },
+  {
+    "observer": {
+      "latitudeDeg": 0,
+      "longitudeDeg": 0,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "dipDeg": -353142
+  },
+  {
+    "observer": {
+      "latitudeDeg": 0,
+      "longitudeDeg": 0,
+      "elevationM": 10000
+    },
+    "heightAboveGroundM": 10000,
+    "dipDeg": -3449795
+  },
+  {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "dipDeg": 0
+  },
+  {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 2
+    },
+    "heightAboveGroundM": 2,
+    "dipDeg": -50001
+  },
+  {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 10
+    },
+    "heightAboveGroundM": 10,
+    "dipDeg": -111804
+  },
+  {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "dipDeg": -353472
+  },
+  {
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": 0,
+      "elevationM": 10000
+    },
+    "heightAboveGroundM": 10000,
+    "dipDeg": -3453024
+  },
+  {
+    "observer": {
+      "latitudeDeg": 90,
+      "longitudeDeg": 0,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "dipDeg": 0
+  },
+  {
+    "observer": {
+      "latitudeDeg": 90,
+      "longitudeDeg": 0,
+      "elevationM": 2
+    },
+    "heightAboveGroundM": 2,
+    "dipDeg": -50039
+  },
+  {
+    "observer": {
+      "latitudeDeg": 90,
+      "longitudeDeg": 0,
+      "elevationM": 10
+    },
+    "heightAboveGroundM": 10,
+    "dipDeg": -111887
+  },
+  {
+    "observer": {
+      "latitudeDeg": 90,
+      "longitudeDeg": 0,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "dipDeg": -353735
+  },
+  {
+    "observer": {
+      "latitudeDeg": 90,
+      "longitudeDeg": 0,
+      "elevationM": 10000
+    },
+    "heightAboveGroundM": 10000,
+    "dipDeg": -3455593
+  }
+]

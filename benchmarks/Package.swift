@@ -14,10 +14,13 @@ let eclipseSearches: [SwiftSetting] = eclipses.contains("public func lunarEclips
 let solarEclipses: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(source)/swift/Sources/Almanac/Solar.swift") ? [.define("ALMANAC_SOLAR_ECLIPSES")] : []
 // The global search and central line arrived together in 0.5.0 in GlobalSolar.swift.
 let globalEclipses: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(source)/swift/Sources/Almanac/GlobalSolar.swift") ? [.define("ALMANAC_GLOBAL_SOLAR_ECLIPSES")] : []
+// ponytail: declaration detection assumes Events.swift; update if the API moves.
+let events = try String(contentsOfFile: "\(source)/swift/Sources/Almanac/Events.swift", encoding: .utf8)
+let planets: [SwiftSetting] = events.contains("public func planetEvents(") ? [.define("ALMANAC_PLANETS")] : []
 let package = Package(
     name: "AlmanacBenchmarks",
     dependencies: [.package(name: "Almanac", path: source)],
     targets: [
-        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses),
+        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets),
     ]
 )

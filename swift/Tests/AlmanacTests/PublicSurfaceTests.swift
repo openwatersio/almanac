@@ -12,6 +12,7 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertEqual(observer.latitudeDeg, 48.7621)
         XCTAssertEqual(observer.longitudeDeg, -123.052)
         XCTAssertEqual(observer.elevationM, 3)
+        XCTAssertLessThan(try horizonDip(observer: observer, heightAboveGroundM: 3), 0)
 
         let cases: [AlmanacError] = [.outOfRange, .invalidObserver("x"), .invalidArgument("y")]
         XCTAssertEqual(cases.count, 3)
@@ -52,12 +53,40 @@ final class PublicSurfaceTests: XCTestCase {
         _ = m.waxing
     }
 
+    func testPlanets() throws {
+        let time = Date(timeIntervalSince1970: 1_756_353_600)
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        XCTAssertEqual(Planet.allCases.map(\.rawValue), ["mercury", "venus", "earth", "mars", "jupiter", "saturn"])
+        for planet in Planet.allCases {
+            let h: HeliocentricPosition = try planetHeliocentricPosition(planet, at: time)
+            _ = HeliocentricPosition(xAu: h.xAu, yAu: h.yAu, zAu: h.zAu)
+            if planet == .earth { continue }
+            let p: PlanetPosition = try planetPosition(planet, at: time)
+            _ = PlanetPosition(raDeg: p.raDeg, decDeg: p.decDeg, distanceAu: p.distanceAu)
+            let alt: AltAz = try planetAltAz(planet, at: time, observer: observer)
+            _ = (alt.altDeg, alt.azDeg)
+            let i: PlanetIllumination = try planetIllumination(planet, at: time)
+            _ = PlanetIllumination(fraction: i.fraction, phaseAngleDeg: i.phaseAngleDeg, magnitude: i.magnitude, elongationDeg: i.elongationDeg)
+            let events: [PlanetEvent] = try planetEvents(planet, from: time, to: time.addingTimeInterval(2*86400), observer: observer)
+            _ = try planetEvents(planet, from: time, to: time.addingTimeInterval(2*86400), observer: observer, heightAboveGroundM: 2)
+            for e in events { _ = PlanetEvent(time: e.time, kind: e.kind) }
+        }
+        XCTAssertThrowsError(try planetPosition(.earth, at: time))
+        XCTAssertThrowsError(try planetAltAz(.earth, at: time, observer: observer))
+        XCTAssertThrowsError(try planetIllumination(.earth, at: time))
+        XCTAssertThrowsError(try planetEvents(.earth, from: time, to: time, observer: observer))
+        let kinds: [PlanetEventKind] = [.rise, .set]
+        XCTAssertEqual(kinds.map(\.rawValue), ["rise", "set"])
+    }
+
     func testEvents() throws {
         let observer = try Observer(latitudeDeg: 48.7621, longitudeDeg: -123.052)
         let start = Date(timeIntervalSince1970: 1_756_339_200) // 2025-08-28T00:00:00Z
         let end = start.addingTimeInterval(2 * 86400)
 
         let sun: [SunEvent] = try sunEvents(from: start, to: end, observer: observer)
+        _ = try sunEvents(from: start, to: end, observer: observer, heightAboveGroundM: 2)
+        _ = try moonEvents(from: start, to: end, observer: observer, heightAboveGroundM: 2)
         XCTAssertFalse(sun.isEmpty)
         for e in sun { _ = (e.time, e.kind) }
         XCTAssertEqual(SunEventKind.allCases.count, 9)
@@ -87,6 +116,7 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertTrue([.penumbral, .partial, .total].contains(e.kind))
 
         let v: LunarEclipseVisibility = try lunarEclipseVisibility(e, observer: observer)
+        _ = try lunarEclipseVisibility(e, observer: observer, heightAboveGroundM: 2)
         XCTAssertFalse(v.moonGeometricAltAtPeakDeg.isNaN)
         _ = v.visibleAtPeak
         let c: LunarEclipseContactsVisible = v.contactsVisible
@@ -112,6 +142,9 @@ final class PublicSurfaceTests: XCTestCase {
     func testSolarEclipse() throws {
         let observer = try Observer(latitudeDeg: 44.94, longitudeDeg: -123.03)
         let e: SolarEclipse = try nextSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000), observer: observer) // 2017-07-14
+        _ = try nextSolarEclipse(after: Date(timeIntervalSince1970: 1_500_000_000), observer: observer, heightAboveGroundM: 2)
+        _ = try previousSolarEclipse(before: e.peak, observer: observer, heightAboveGroundM: 2)
+        _ = try solarEclipses(from: e.c1, to: e.c4, observer: observer, heightAboveGroundM: 2)
         let previous: SolarEclipse = try previousSolarEclipse(before: e.peak, observer: observer)
         let range: [SolarEclipse] = try solarEclipses(from: previous.peak, to: e.peak, observer: observer)
         XCTAssertEqual(range.map(\.peak), [previous.peak])

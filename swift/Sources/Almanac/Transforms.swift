@@ -207,7 +207,7 @@ func refractionDeg(_ altitudeDeg: Double) -> Double {
     return refr
 }
 
-private func refract(_ unrefracted: TopoUnrefracted) -> AltAz {
+func refract(_ unrefracted: TopoUnrefracted) -> AltAz {
     AltAz(azDeg: unrefracted.azDeg, altDeg: unrefracted.altDeg + refractionDeg(unrefracted.altDeg))
 }
 

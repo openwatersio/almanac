@@ -1,0 +1,234 @@
+{
+  "source": "https://raw.githubusercontent.com/cosinekitty/astronomy/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts",
+  "commit": "865d3da7d8112bbc7911238052c6af4aaf877181",
+  "function": "HorizonDipAngle",
+  "sourceFunction": "function HorizonDipAngle(observer: Observer, metersAboveGround: number): number {\n    // Calculate the effective radius of the Earth at ground level below the observer.\n    // Correct for the Earth's oblateness.\n    const phi = observer.latitude * DEG2RAD;\n    const sinphi = Math.sin(phi);\n    const cosphi = Math.cos(phi);\n    const c = 1.0 / Math.hypot(cosphi, sinphi*EARTH_FLATTENING);\n    const s = c * (EARTH_FLATTENING * EARTH_FLATTENING);\n    const ht_km = (observer.height - metersAboveGround) / 1000.0;     // height of ground above sea level\n    const ach = EARTH_EQUATORIAL_RADIUS_KM*c + ht_km;\n    const ash = EARTH_EQUATORIAL_RADIUS_KM*s + ht_km;\n    const radius_m = 1000.0 * Math.hypot(ach*cosphi, ash*sinphi);\n\n    // Correct refraction of a ray of light traveling tangent to the Earth's surface.\n    // Based on: https://www.largeformatphotography.info/sunmooncalc/SMCalc.js\n    // which in turn derives from:\n    // Sweer, John. 1938.  The Path of a Ray of Light Tangent to the Surface of the Earth.\n    // Journal of the Optical Society of America 28 (September):327-329.\n\n    // k = refraction index\n    const k = 0.175 * Math.pow(1.0 - (6.5e-3/283.15)*(observer.height - (2.0/3.0)*metersAboveGround), 3.256);\n\n    // Calculate how far below the observer's horizontal plane the observed horizon dips.\n    return RAD2DEG * -(Math.sqrt(2*(1 - k)*metersAboveGround / radius_m) / (1 - k));\n}",
+  "retrieved": "2026-10-06",
+  "rows": [
+    {
+      "observer": {
+        "latitudeDeg": -90,
+        "longitudeDeg": 0,
+        "elevationM": 0
+      },
+      "heightAboveGroundM": 0,
+      "dipDeg": 0
+    },
+    {
+      "observer": {
+        "latitudeDeg": -90,
+        "longitudeDeg": 0,
+        "elevationM": 2
+      },
+      "heightAboveGroundM": 2,
+      "dipDeg": -0.05003866670635351
+    },
+    {
+      "observer": {
+        "latitudeDeg": -90,
+        "longitudeDeg": 0,
+        "elevationM": 10
+      },
+      "heightAboveGroundM": 10,
+      "dipDeg": -0.11188749525741339
+    },
+    {
+      "observer": {
+        "latitudeDeg": -90,
+        "longitudeDeg": 0,
+        "elevationM": 100
+      },
+      "heightAboveGroundM": 100,
+      "dipDeg": -0.35373529406623966
+    },
+    {
+      "observer": {
+        "latitudeDeg": -90,
+        "longitudeDeg": 0,
+        "elevationM": 10000
+      },
+      "heightAboveGroundM": 10000,
+      "dipDeg": -3.4555928398263163
+    },
+    {
+      "observer": {
+        "latitudeDeg": -48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 0
+      },
+      "heightAboveGroundM": 0,
+      "dipDeg": 0
+    },
+    {
+      "observer": {
+        "latitudeDeg": -48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 2
+      },
+      "heightAboveGroundM": 2,
+      "dipDeg": -0.0500014745226104
+    },
+    {
+      "observer": {
+        "latitudeDeg": -48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 10
+      },
+      "heightAboveGroundM": 10,
+      "dipDeg": -0.11180433276416409
+    },
+    {
+      "observer": {
+        "latitudeDeg": -48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 100
+      },
+      "heightAboveGroundM": 100,
+      "dipDeg": -0.3534723736305185
+    },
+    {
+      "observer": {
+        "latitudeDeg": -48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 10000
+      },
+      "heightAboveGroundM": 10000,
+      "dipDeg": -3.4530244052076546
+    },
+    {
+      "observer": {
+        "latitudeDeg": 0,
+        "longitudeDeg": 0,
+        "elevationM": 0
+      },
+      "heightAboveGroundM": 0,
+      "dipDeg": 0
+    },
+    {
+      "observer": {
+        "latitudeDeg": 0,
+        "longitudeDeg": 0,
+        "elevationM": 2
+      },
+      "heightAboveGroundM": 2,
+      "dipDeg": -0.049954710961454596
+    },
+    {
+      "observer": {
+        "latitudeDeg": 0,
+        "longitudeDeg": 0,
+        "elevationM": 10
+      },
+      "heightAboveGroundM": 10,
+      "dipDeg": -0.11169976847275832
+    },
+    {
+      "observer": {
+        "latitudeDeg": 0,
+        "longitudeDeg": 0,
+        "elevationM": 100
+      },
+      "heightAboveGroundM": 100,
+      "dipDeg": -0.35314179084033137
+    },
+    {
+      "observer": {
+        "latitudeDeg": 0,
+        "longitudeDeg": 0,
+        "elevationM": 10000
+      },
+      "heightAboveGroundM": 10000,
+      "dipDeg": -3.4497949860857773
+    },
+    {
+      "observer": {
+        "latitudeDeg": 48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 0
+      },
+      "heightAboveGroundM": 0,
+      "dipDeg": 0
+    },
+    {
+      "observer": {
+        "latitudeDeg": 48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 2
+      },
+      "heightAboveGroundM": 2,
+      "dipDeg": -0.0500014745226104
+    },
+    {
+      "observer": {
+        "latitudeDeg": 48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 10
+      },
+      "heightAboveGroundM": 10,
+      "dipDeg": -0.11180433276416409
+    },
+    {
+      "observer": {
+        "latitudeDeg": 48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 100
+      },
+      "heightAboveGroundM": 100,
+      "dipDeg": -0.3534723736305185
+    },
+    {
+      "observer": {
+        "latitudeDeg": 48.4284,
+        "longitudeDeg": 0,
+        "elevationM": 10000
+      },
+      "heightAboveGroundM": 10000,
+      "dipDeg": -3.4530244052076546
+    },
+    {
+      "observer": {
+        "latitudeDeg": 90,
+        "longitudeDeg": 0,
+        "elevationM": 0
+      },
+      "heightAboveGroundM": 0,
+      "dipDeg": 0
+    },
+    {
+      "observer": {
+        "latitudeDeg": 90,
+        "longitudeDeg": 0,
+        "elevationM": 2
+      },
+      "heightAboveGroundM": 2,
+      "dipDeg": -0.05003866670635351
+    },
+    {
+      "observer": {
+        "latitudeDeg": 90,
+        "longitudeDeg": 0,
+        "elevationM": 10
+      },
+      "heightAboveGroundM": 10,
+      "dipDeg": -0.11188749525741339
+    },
+    {
+      "observer": {
+        "latitudeDeg": 90,
+        "longitudeDeg": 0,
+        "elevationM": 100
+      },
+      "heightAboveGroundM": 100,
+      "dipDeg": -0.35373529406623966
+    },
+    {
+      "observer": {
+        "latitudeDeg": 90,
+        "longitudeDeg": 0,
+        "elevationM": 10000
+      },
+      "heightAboveGroundM": 10000,
+      "dipDeg": -3.4555928398263163
+    }
+  ]
+}

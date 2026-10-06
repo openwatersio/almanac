@@ -1,0 +1,7 @@
+[
+  { "planet": "mercury", "startUtc": "2025-04-27T00:00:00Z", "endUtc": "2025-04-28T00:00:00Z", "observer": { "latitudeDeg": 87.80368212429418, "longitudeDeg": -123.3656 } },
+  { "planet": "venus", "startUtc": "2025-04-27T00:00:00Z", "endUtc": "2025-04-28T00:00:00Z", "observer": { "latitudeDeg": 88.54953118437072, "longitudeDeg": -123.3656 } },
+  { "planet": "mars", "startUtc": "2021-09-15T00:00:00Z", "endUtc": "2021-09-16T00:00:00Z", "observer": { "latitudeDeg": 88.7747282140183, "longitudeDeg": -123.3656 } },
+  { "planet": "jupiter", "startUtc": "2022-06-12T00:00:00Z", "endUtc": "2022-06-13T00:00:00Z", "observer": { "latitudeDeg": 88.40810225542452, "longitudeDeg": -123.3656 } },
+  { "planet": "saturn", "startUtc": "2026-11-18T00:00:00Z", "endUtc": "2026-11-19T00:00:00Z", "observer": { "latitudeDeg": 88.53150702808404, "longitudeDeg": -123.3656 } }
+]
