@@ -67,10 +67,16 @@ final class PublicSurfaceTests: XCTestCase {
             _ = (alt.altDeg, alt.azDeg)
             let i: PlanetIllumination = try planetIllumination(planet, at: time)
             _ = PlanetIllumination(fraction: i.fraction, phaseAngleDeg: i.phaseAngleDeg, magnitude: i.magnitude, elongationDeg: i.elongationDeg)
+            let events: [PlanetEvent] = try planetEvents(planet, from: time, to: time.addingTimeInterval(2*86400), observer: observer)
+            _ = try planetEvents(planet, from: time, to: time.addingTimeInterval(2*86400), observer: observer, heightAboveGroundM: 2)
+            for e in events { _ = PlanetEvent(time: e.time, kind: e.kind) }
         }
         XCTAssertThrowsError(try planetPosition(.earth, at: time))
         XCTAssertThrowsError(try planetAltAz(.earth, at: time, observer: observer))
         XCTAssertThrowsError(try planetIllumination(.earth, at: time))
+        XCTAssertThrowsError(try planetEvents(.earth, from: time, to: time, observer: observer))
+        let kinds: [PlanetEventKind] = [.rise, .set]
+        XCTAssertEqual(kinds.map(\.rawValue), ["rise", "set"])
     }
 
     func testEvents() throws {

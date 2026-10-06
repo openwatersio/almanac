@@ -11,9 +11,9 @@ export { sunAltAz, moonAltAz, starAltAz } from './transforms.js';
 export type { MoonIllumination } from './illumination.js';
 export { moonIllumination } from './illumination.js';
 export type {
-  SunEvent, SunEventKind, MoonEvent, MoonEventKind, MoonPhaseEvent, MoonPhaseName
+  SunEvent, SunEventKind, MoonEvent, MoonEventKind, MoonPhaseEvent, MoonPhaseName, PlanetEvent, PlanetEventKind
 } from './events.js';
-export { sunEvents, moonEvents, searchMoonPhases } from './events.js';
+export { sunEvents, moonEvents, searchMoonPhases, planetEvents } from './events.js';
 export type { LunarEclipse, LunarEclipseVisibility } from './eclipse.js';
 export { nextLunarEclipse, previousLunarEclipse, lunarEclipses, lunarEclipseVisibility } from './eclipse.js';
 export type { SolarEclipse, SolarEclipseKind, SolarEclipseSunAltitudes } from './solar.js';

@@ -807,7 +807,7 @@ function deriveAltaz(retrieved, requests) {
 
 function derivePlanets(retrieved, requests) {
   const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn"];
-  const heliocentric = [], positions = [], altaz = [], illumination = [];
+  const heliocentric = [], positions = [], altaz = [], illumination = [], events = [];
   const names = [];
   function rows(name, vector, expected) {
     names.push(name);
@@ -871,12 +871,41 @@ function derivePlanets(retrieved, requests) {
   for (const row of reference.rows) {
     assert.ok([row.fraction, row.phaseAngleDeg, row.magnitude, row.elongationDeg].every(Number.isFinite), "invalid pinned photometry");
   }
+  const dips = JSON.parse(readFileSync(new URL("../raw/horizon/dip.json", import.meta.url), "utf8")).rows;
+  for (const name of Object.keys(requests).filter(n => n.startsWith("planet-") && n.includes("-events-"))) {
+    names.push(name);
+    const params = new URL(requests[name]).searchParams;
+    const [longitudeDeg, latitudeDeg, elevationKm] = params.get("SITE_COORD").replaceAll("'", "").split(",").map(Number);
+    const observer = { latitudeDeg, longitudeDeg, elevationM: elevationKm*1000 };
+    const heightAboveGroundM = name.endsWith("victoria") ? 100 : 0;
+    const dip = heightAboveGroundM === 0 ? 0 : dips.find(r => r.observer.latitudeDeg === latitudeDeg && r.observer.elevationM === observer.elevationM && r.heightAboveGroundM === heightAboveGroundM)?.dipDeg;
+    assert.ok(Number.isFinite(dip), `${name}: missing pinned horizon dip`);
+    const target = dip - 34/60;
+    const text = raw(name);
+    assert.ok(/Date__\(UT\)__.*Azi_+\(a-app\)_+Elev/.test(text), `${name}: event grid is not airless UT`);
+    const grid = parseRawRows(text);
+    assert.equal(grid.length, 2881, `${name}: expected two-day one-minute grid`);
+    const crossings = [];
+    for (let i = 1; i < grid.length; i++) {
+      const a = grid[i-1], b = grid[i], ta = Date.parse(a.time), tb = Date.parse(b.time);
+      assert.equal(tb-ta, 60000, `${name}: grid step`);
+      const fa = a.nums[1]-target, fb = b.nums[1]-target;
+      if ((fa < 0) === (fb < 0)) continue;
+      const ms = ta + (tb-ta)*(-fa)/(fb-fa);
+      if (ms >= Date.parse(grid.at(-1).time)) continue;
+      crossings.push({ utc: new Date(Math.round(ms)).toISOString(), kind: fb >= 0 ? "rise" : "set" });
+    }
+    events.push({ planet: name.split("-")[1], observer, heightAboveGroundM,
+      startUtc: grid[0].time, endUtc: grid.at(-1).time, events: crossings });
+  }
+  assert.equal(events.length, 10, "expected five midlatitude and five polar grids");
   return {
     "planets/heliocentric.json": json(heliocentric),
     "planets/positions.json": json(positions),
     "planets/altaz.json": json(altaz),
     "planets/illumination.json": json(illumination),
     "planets/photometry-reference.json": json(reference),
+    "planets/events.json": json(events),
     "planets/meta.json": json({ source: "JPL Horizons API", sourceVersion: sourceVersion(raw("planet-mercury-coarse")), retrieved,
       requests: names.map(name => requests[name]),
       heliocentric: { center: "Sun", frame: "ICRF / J2000 mean equatorial", corrections: "NONE", timeScale: "TT", units: "AU", toleranceAu: 1e-3 },
@@ -885,6 +914,9 @@ function derivePlanets(retrieved, requests) {
       illumination: { timeScale: "TT", fractionTolerance: 0.01, elongationToleranceArcmin: 1, magnitudeTolerance: 0.3,
         note: "JPL APmag and pinned VisualMagnitude differ for extreme Venus crescents: five rows at phase 173.8138–176.9577 degrees exceed 0.3 magnitudes, maximum 0.749544 at 2060-05-23. All raw and derived JPL rows are retained and checked for fraction/elongation. The pinned high-phase Venus branch (phase >= 163.6 degrees) is compared with pinned upstream photometry instead of treating its different model as compatible JPL magnitude evidence. Other planet magnitudes and lower-phase Venus remain within 0.3 of JPL. Current Horizons Saturn APmag includes rings under its documented Earth-observer conditions; the pinned source's comment claiming no rings is obsolete.",
         photometryReference: { source: reference.source, commit: reference.commit, method: reference.method },
+      },
+      events: { timeScale: "UT", gridStepSeconds: 60, toleranceSeconds: 60, method: "Linear interpolation of committed JPL AIRLESS one-minute altitudes at pinned horizonDip minus 34/60 degrees; point centers, no semidiameter.",
+        grazingCases: "grazing-cases.json contains model-selected inputs only, not expected outputs. Tests independently scan at one-minute steps to check solver completeness.",
       },
     }),
   };

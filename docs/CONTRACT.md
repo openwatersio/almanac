@@ -37,6 +37,7 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 - `starAltAz` accepts J2000 ICRS catalog right ascension and declination, precesses and nutates them to date, and applies refraction. It does not apply annual aberration, proper motion, or parallax.
 - Sunrise and sunset occur when the unrefracted geometric center crosses `horizonDip - (34 arcminutes + the true solar semidiameter at the current distance)`. Civil, nautical, and astronomical twilight use center altitudes of `-6°`, `-12°`, and `-18°` without a refraction term.
 - Moonrise and moonset occur when the apparent topocentric upper limb crosses the supplied horizon, including refraction, topocentric parallax, and the true semidiameter at the current distance.
+- Planet rise/set uses a point center: unrefracted topocentric altitude crosses `horizonDip - 34/60` degrees, with no planetary semidiameter. Polar windows may have no crossing; supplied eye height uses the same convention as Sun/Moon events.
 - Moon phase events and `moonIllumination.phase` use apparent geocentric ecliptic longitudes, including aberration and nutation.
 - Lunar eclipse visibility is geometric: the unrefracted topocentric altitude of the Moon's center must be above the supplied horizon dip. It does not account for weather, terrain, refraction, or safe-viewing conditions.
 - Solar eclipse circumstances are observer-bound. The peak is the closest approach of the Moon's shadow axis to the observer, not greatest eclipse. The Sun's altitude at each contact is the refracted topocentric value `sunAltAz` reports for that instant. An eclipse whose Sun is below the supplied horizon at C1, the peak, and C4 is not returned. `solarObscuration` is purely geometric and does not test the horizon.
@@ -54,6 +55,7 @@ The functions have the same names and semantics in both ports. TypeScript return
 | `planetPosition(planet, time)` | Planet other than Earth and instant | Apparent geocentric `PlanetPosition` with `raDeg`, `decDeg`, and light-time `distanceAu`. |
 | `planetAltAz(planet, time, observer)` | Planet other than Earth, instant, and observer | Refracted topocentric `azDeg` and `altDeg`. |
 | `planetIllumination(planet, time)` | Planet other than Earth and instant | `PlanetIllumination`: `fraction` in `[0, 1]`, `phaseAngleDeg` in `[0, 180]`, approximate airless `magnitude`, and apparent `elongationDeg` in `[0, 180]`. |
+| `planetEvents(planet, startUtc, endUtc, observer, heightAboveGroundM = 0)` | Planet other than Earth, half-open window, and observer | Sorted `PlanetEvent` values with `time` and `kind` (`rise` or `set`). |
 | `moonPosition(time)` | Instant | Geocentric apparent `raDeg`, `decDeg`, and `distanceKm` on the equator of date. |
 | `sunAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`. |
 | `moonAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`, including parallax. |

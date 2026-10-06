@@ -40,6 +40,13 @@ public enum MoonEventKind: String, Sendable { case rise, set }
 /// A Moon event.
 public struct MoonEvent: Sendable { public let time: Date; public let kind: MoonEventKind }
 
+/// A planet's point center crossing the apparent horizon.
+public enum PlanetEventKind: String, Sendable { case rise, set }
+public struct PlanetEvent: Sendable {
+    public let time: Date; public let kind: PlanetEventKind
+    public init(time: Date, kind: PlanetEventKind) { self.time = time; self.kind = kind }
+}
+
 /// A quarter lunar phase kind.
 public enum MoonPhaseName: String, Sendable { case new, firstQuarter, full, lastQuarter }
 
@@ -168,6 +175,13 @@ private func moonSampler(_ observer: Observer, _ dip: Double) -> Sampler {
         let p = topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer)
         return Sample(ut: ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg,
                       riseSetAltDeg: dip + upperLimbTargetDeg(moonMeanRadiusKm, p.distanceAu))
+    }
+}
+
+private func planetSampler(_ planet: Planet, _ observer: Observer, _ dip: Double) -> Sampler {
+    { ut in
+        let p = topoAltAzUnrefracted(planetGeoVectorEqj(planet, ttDaysFromUt(ut)), ut, observer)
+        return Sample(ut: ut, altDeg: p.altDeg, hourAngleDeg: p.hourAngleDeg, riseSetAltDeg: dip-horizonRefractionDeg)
     }
 }
 
@@ -555,6 +569,20 @@ public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer,
         flatCycle: flatCycle(observer)
     )
     return raw.map { MoonEvent(time: $0.time, kind: $0.kind) }
+}
+
+/// Rise/set of a point center at geometric altitude horizonDip minus 34 arcminutes.
+public func planetEvents(_ planet: Planet, from startUtc: Date, to endUtc: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> [PlanetEvent] {
+    try assertSkyPlanet(planet)
+    let startUtc = try normalized(startUtc), endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
+    if startUtc >= endUtc { return [] }
+    let cycleDays = 0.9972695717592592
+    let raw = try searchAltitudeEvents(sample: planetSampler(planet, observer, dip), levels: moonLevels, transitKind: nil,
+        startUt: utDays(startUtc), endUt: utDays(endUtc), haRateDegPerDay: 360/cycleDays, cycleDays: cycleDays, flatCycle: flatCycle(observer))
+    return raw.map { PlanetEvent(time: $0.time, kind: $0.kind == .rise ? .rise : .set) }
 }
 
 // -------------------------------------------------------------- moon phases

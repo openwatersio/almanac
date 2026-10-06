@@ -47,7 +47,7 @@ function site(command, quantities, start, stop, step, site, apparent) {
     COMMAND: `'${command}'`,
     CENTER: "'coord@399'",
     COORD_TYPE: "'GEODETIC'",
-    SITE_COORD: `'${site.lon},${site.lat},0'`,
+    SITE_COORD: `'${site.lon},${site.lat},${(site.elevationM ?? 0)/1000}'`,
     QUANTITIES: `'${quantities}'`,
     START_TIME: `'${start}'`,
     STOP_TIME: `'${stop}'`,
@@ -100,6 +100,16 @@ for (const [planet, target] of Object.entries(planets)) {
 for (const apparent of ["AIRLESS", "REFRACTED"]) {
   specs.push({ name: `planet-venus-zenith-${apparent.toLowerCase()}`, params: site(299, "4", "2026-03-03 19:00", "2026-03-03 21:00", "10m", { lat: -2.4975, lon: -104.0738 }, apparent) });
 }
+const polarDates = { mercury: "2025-04-27", venus: "2025-04-27", mars: "2021-09-15", jupiter: "2022-06-12", saturn: "2026-11-18" };
+for (const [planet, start] of Object.entries(polarDates)) {
+  for (const [label, date, observer] of [
+    ["victoria", "2026-03-20", { ...VIC, elevationM: 100 }],
+    ["polar", start, { lat: 85.5, lon: VIC.lon }],
+  ]) {
+    const stop = new Date(Date.parse(date)+2*86400000).toISOString().slice(0, 10);
+    specs.push({ name: `planet-${planet}-events-${label}`, params: site(planets[planet], "4", date, stop, "1m", observer, "AIRLESS") });
+  }
+}
 
 function buildUrl(params) {
   const url = new URL(BASE);
@@ -115,7 +125,9 @@ async function main() {
   // Optional name arguments fetch a subset, e.g. `node refresh-horizons.mjs
   // sun-coarse moon-coarse`. retrieved.json is merged, never overwritten, so a
   // partial run leaves the other entries (and their derived fixtures) intact.
-  const only = process.argv.includes("--planets")
+  const only = process.argv.includes("--planet-events")
+    ? specs.filter(s => s.name.includes("-events-")).map(s => s.name)
+    : process.argv.includes("--planets")
     ? specs.filter(s => s.name.startsWith("planet-")).map(s => s.name)
     : process.argv.slice(2).filter((a) => !a.startsWith("--"));
   const todo = only.length ? specs.filter((s) => only.includes(s.name)) : specs;

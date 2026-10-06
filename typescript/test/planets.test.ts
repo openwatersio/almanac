@@ -1,6 +1,6 @@
 import { it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, type Planet } from '../src/index.js';
+import { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, planetEvents, horizonDip, type Planet } from '../src/index.js';
 import { planetHelioVector, planetGeoVectorEqj } from '../src/planetModels.js';
 import { planetApparentAtTT, planetIlluminationAtTT } from '../src/planets.js';
 import { earthHelioVector } from '../src/sun.js';
@@ -110,4 +110,73 @@ it('pinned photometry includes the Venus high-phase branch and Saturn ring brigh
     expect(() => planetIllumination('earth', new Date())).toThrow(RangeError);
     expect(() => planetIllumination('pluto' as Planet, new Date())).toThrow(RangeError);
     expect(() => planetIllumination('venus', new Date(NaN))).toThrow(RangeError);
+});
+
+it('rise/set agrees with independent one-minute JPL airless grids within 60 seconds', () => {
+    for (const row of load('events')) {
+        const found = planetEvents(row.planet, new Date(row.startUtc), new Date(row.endUtc), row.observer, row.heightAboveGroundM);
+        expect(found.length, `${row.planet} lat ${row.observer.latitudeDeg}`).toBe(row.events.length);
+        for (let i = 0; i < found.length; i++) {
+            expect(found[i].kind).toBe(row.events[i].kind);
+            expect(Math.abs(found[i].time.getTime()-Date.parse(row.events[i].utc))/1000).toBeLessThan(60);
+            if (i > 0) expect(found[i].time.getTime()).toBeGreaterThan(found[i-1].time.getTime());
+        }
+    }
+});
+
+it('height and half-open event windows retain their shared contract', () => {
+    const start = new Date('2026-03-20T00:00:00Z'), end = new Date('2026-03-22T00:00:00Z');
+    const observer = { latitudeDeg: 48.4284, longitudeDeg: -123.3656, elevationM: 100 };
+    for (const planet of skyPlanets) {
+        const ground = planetEvents(planet, start, end, observer), raised = planetEvents(planet, start, end, observer, 100);
+        expect(planetEvents(planet, start, end, observer, 0)).toEqual(ground);
+        expect(raised.find(e => e.kind === 'rise')!.time.getTime()).toBeLessThan(ground.find(e => e.kind === 'rise')!.time.getTime());
+        expect(raised.find(e => e.kind === 'set')!.time.getTime()).toBeGreaterThan(ground.find(e => e.kind === 'set')!.time.getTime());
+        for (const event of raised) {
+            const ut = utDays(event.time);
+            const p = topoAltAzUnrefracted(planetGeoVectorEqj(planet, ttDaysFromUt(ut)), ut, observer);
+            expect(Math.abs(p.altDeg-(horizonDip(observer, 100)-34/60))).toBeLessThan(0.005);
+        }
+        const split = ground[0].time;
+        expect([...planetEvents(planet, start, split, observer), ...planetEvents(planet, split, end, observer)]).toEqual(ground);
+        expect(planetEvents(planet, start, start, observer)).toEqual([]);
+        expect(planetEvents(planet, end, start, observer)).toEqual([]);
+        expect(() => planetEvents(planet, start, start, observer, NaN)).toThrow(RangeError);
+        expect(() => planetEvents(planet, start, start, observer, -1)).toThrow(RangeError);
+        expect(() => planetEvents(planet, start, start, { ...observer, longitudeDeg: NaN })).toThrow(RangeError);
+        for (const [a,b] of [['1950-01-01T00:00:00Z','1950-01-03T00:00:00Z'], ['2100-12-30T00:00:00Z','2101-01-01T00:00:00Z']]) {
+            for (const e of planetEvents(planet, new Date(a), new Date(b), observer)) {
+                expect(e.time.getTime()).toBeGreaterThanOrEqual(Date.parse(a)); expect(e.time.getTime()).toBeLessThan(Date.parse(b));
+            }
+        }
+    }
+    expect(() => planetEvents('earth', start, start, observer)).toThrow(RangeError);
+    expect(() => planetEvents('pluto' as Planet, start, start, observer)).toThrow(RangeError);
+    expect(() => planetEvents('venus', new Date(NaN), end, observer)).toThrow(RangeError);
+});
+
+it('the polar solver finds every one-minute oracle crossing, including grazing pairs', () => {
+    for (const row of load('grazing-cases')) {
+        const start = Date.parse(row.startUtc), end = Date.parse(row.endUtc);
+        const offset = (ms: number) => {
+            const ut = utDays(new Date(ms));
+            return topoAltAzUnrefracted(planetGeoVectorEqj(row.planet, ttDaysFromUt(ut)), ut, row.observer).altDeg + 34/60;
+        };
+        const brute: {time: Date; kind: string}[] = [];
+        let prev = offset(start);
+        for (let ms = start+60000; ms <= end; ms += 60000) {
+            const cur = offset(ms);
+            if ((prev < 0) !== (cur < 0)) brute.push({time: new Date(ms), kind: cur >= 0 ? 'rise' : 'set'});
+            prev = cur;
+        }
+        expect(brute.length).toBe(2);
+        expect(brute[1].time.getTime()-brute[0].time.getTime()).toBeLessThan(30*60000);
+        const found = planetEvents(row.planet, new Date(start), new Date(end), row.observer);
+        expect(found.length, row.planet).toBe(brute.length);
+        for (let i = 0; i < found.length; i++) {
+            expect(found[i].kind).toBe(brute[i].kind);
+            expect(Math.abs(found[i].time.getTime()-brute[i].time.getTime())).toBeLessThan(60000);
+        }
+        expect(planetEvents(row.planet, new Date(start), new Date(end), { ...row.observer, latitudeDeg: row.observer.latitudeDeg+0.1 })).toEqual([]);
+    }
 });
