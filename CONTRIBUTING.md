@@ -19,6 +19,10 @@ The shared organization guidance is in the [repository standards](https://github
 - `.github/workflows/ci.yml` runs pull request and main-branch checks.
 - `.github/workflows/release.yml` tests, smoke-tests, and publishes tagged releases.
 
+## Documentation
+
+Keep lasting documentation in the repository: the public contract, supported scope, usage, and contributor guidance. Proposed work belongs in GitHub issues or pull requests. Plans, specs, task briefs, and spike output are temporary working documents; keep them in ignored `.superpowers/`. Before a release, remove any committed planning documents and promote decisions that describe shipped behavior into the relevant living document. A merged plan or spec is not evidence that behavior ships.
+
 ## Twin-port contract
 
 - Every behavior change lands in both ports in the same change series. TypeScript leads, and Swift follows function by function with the same structure and operation order. The parity corpus compares the implementations near exactly at about `1e-5°`.
@@ -102,7 +106,7 @@ CI compares a pull request merge result with its target branch base SHA, or a ma
 
 One version number spans both ports. Every release is a Git tag and a GitHub release for that tag: the tag starts the publishing workflow, and the GitHub release carries the notes.
 
-1. Bump `version` in `typescript/package.json`. The release fails if the tag and manifest versions differ. Land the bump through a pull request because `main` is protected and its required checks must pass.
+1. Remove any committed plans and specs, and verify that the living documentation describes shipped behavior. Bump `version` in `typescript/package.json`. The release fails if the tag and manifest versions differ. Land the cleanup and bump through a pull request because `main` is protected and its required checks must pass.
 2. Create and push the version tag:
 
    ```bash

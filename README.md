@@ -12,7 +12,7 @@ Twin implementations, one behavior:
 Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside it raise a typed error. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
 
 - Contract: [`docs/CONTRACT.md`](docs/CONTRACT.md), including coordinates, public behavior, accuracy, and fixture evidence.
-- Scope: [`docs/ROADMAP.md`](docs/ROADMAP.md), including supported behavior and deliberate boundaries.
+- Scope: [`docs/SCOPE.md`](docs/SCOPE.md), including supported behavior and deliberate boundaries.
 - Development and releases: [`CONTRIBUTING.md`](CONTRIBUTING.md), including pinned tools and required checks.
 - Landing page: [openwaters.io/sky](https://openwaters.io/sky), with the library running live in a browser.
 

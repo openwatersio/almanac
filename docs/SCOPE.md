@@ -19,10 +19,10 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instant
 
 ## Boundaries
 
-- A solar eclipse's path width and limits, hybrid as a kind, eclipse magnitude, and safe-viewing guidance remain outside the public API until a consumer needs them.
+- A solar eclipse's path width and limits, hybrid as a kind, eclipse magnitude, and safe-viewing guidance remain outside the public API until a consumer needs them. The global `kind` describes the shadow axis's ground intersection: an axis that misses the Earth returns `partial`, including non-central eclipses cataloged as total or annular. Use the observer-specific search for the kind seen at a place.
 - Planets, planetary transits, libration, apparent magnitudes, and constellations require models or catalogs outside the current scope.
 - Almanac does not ship a star catalog because runtime data files are outside its design. `starAltAz` takes the J2000 coordinates a consumer already carries.
 - Star positions omit annual aberration and proper motion. Annual aberration is at most 20.5 arcseconds, and all but a few fast-moving stars shift only a few arcseconds per decade, below the arcminute used by a sky drawing or sight reduction.
-- Visibility is geometric. Weather, terrain, and cloud cover require separate data sources.
+- Sky positions include atmospheric refraction in a standard sea-level atmosphere. Observer elevation affects parallax, but sea-horizon dip is not modeled. Eclipse obscuration is geometric; local solar eclipse searches use refracted Sun altitudes, while lunar eclipse visibility uses unrefracted Moon altitudes. Weather, terrain, and cloud cover require separate data sources.
 - The library does not extrapolate outside the supported interval because the series truncations and Delta-T model do not support reliable results there.
 - Migrations from astronomy implementations in consumer applications are tracked in those repositories and do not block Almanac releases.
