@@ -39,6 +39,30 @@
    "set": "2026-03-21T05:10:01.717Z",
    "transit": "2026-03-20T21:45:35.380Z",
    "lowerTransit": "2026-03-20T09:20:25.128Z"
+  },
+  "solarDayTimes": {
+   "solarNoon": "2026-03-20T20:20:49.594Z",
+   "nadir": "2026-03-20T08:20:49.594Z",
+   "sunrise": "2026-03-20T14:15:54.324Z",
+   "sunset": "2026-03-21T02:26:39.129Z",
+   "sunriseEnd": "2026-03-20T14:19:06.838Z",
+   "sunsetStart": "2026-03-21T02:23:26.124Z",
+   "dawn": "2026-03-20T13:44:43.146Z",
+   "dusk": "2026-03-21T02:57:55.700Z",
+   "nauticalDawn": "2026-03-20T13:07:59.425Z",
+   "nauticalDusk": "2026-03-21T03:34:47.561Z",
+   "nightEnd": "2026-03-20T12:30:04.563Z",
+   "night": "2026-03-21T04:12:53.641Z",
+   "goldenHourEnd": "2026-03-20T14:57:07.257Z",
+   "goldenHour": "2026-03-21T01:45:20.634Z",
+   "blueHourEnd": "2026-03-20T13:56:49.039Z",
+   "blueHour": "2026-03-21T02:45:47.572Z"
+  },
+  "solarDayMoonTimes": {
+   "rise": "2026-03-20T14:40:23.748Z",
+   "set": "2026-03-21T05:10:01.717Z",
+   "transit": "2026-03-20T21:45:35.380Z",
+   "lowerTransit": "2026-03-20T09:20:25.128Z"
   }
  },
  "sydney": {
@@ -81,6 +105,30 @@
    "set": "2026-12-20T15:29:25.366Z",
    "transit": "2026-12-21T11:12:06.202Z",
    "lowerTransit": "2026-12-20T22:42:49.890Z"
+  },
+  "solarDayTimes": {
+   "solarNoon": "2026-12-21T01:53:02.068Z",
+   "nadir": "2026-12-20T13:53:02.068Z",
+   "sunrise": "2026-12-20T18:40:39.039Z",
+   "sunset": "2026-12-21T09:05:25.857Z",
+   "sunriseEnd": "2026-12-20T18:43:35.334Z",
+   "sunsetStart": "2026-12-21T09:02:29.549Z",
+   "dawn": "2026-12-20T18:11:29.055Z",
+   "dusk": "2026-12-21T09:34:35.988Z",
+   "nauticalDawn": "2026-12-20T17:35:35.043Z",
+   "nauticalDusk": "2026-12-21T10:10:30.236Z",
+   "nightEnd": "2026-12-20T16:56:15.378Z",
+   "night": "2026-12-21T10:49:50.263Z",
+   "goldenHourEnd": "2026-12-20T19:17:31.884Z",
+   "goldenHour": "2026-12-21T08:28:32.864Z",
+   "blueHourEnd": "2026-12-20T18:22:55.931Z",
+   "blueHour": "2026-12-21T09:23:09.051Z"
+  },
+  "solarDayMoonTimes": {
+   "rise": "2026-12-21T06:05:49.271Z",
+   "set": "2026-12-20T15:29:25.366Z",
+   "transit": "2026-12-21T11:12:06.202Z",
+   "lowerTransit": "2026-12-20T22:42:49.891Z"
   }
  },
  "tromsoSummer": {
@@ -125,6 +173,32 @@
    "set": "2026-06-20T22:37:14.915Z",
    "transit": "2026-06-21T16:32:31.579Z",
    "lowerTransit": "2026-06-21T04:10:53.773Z"
+  },
+  "solarDayTimes": {
+   "solarNoon": "2026-06-21T10:46:00.458Z",
+   "nadir": "2026-06-20T22:46:00.458Z",
+   "sunrise": null,
+   "sunset": null,
+   "sunriseEnd": null,
+   "sunsetStart": null,
+   "dawn": null,
+   "dusk": null,
+   "nauticalDawn": null,
+   "nauticalDusk": null,
+   "nightEnd": null,
+   "night": null,
+   "goldenHourEnd": "2026-06-21T00:56:51.590Z",
+   "goldenHour": "2026-06-21T20:35:08.539Z",
+   "blueHourEnd": null,
+   "blueHour": null,
+   "alwaysUp": true,
+   "alwaysDown": false
+  },
+  "solarDayMoonTimes": {
+   "rise": "2026-06-21T10:17:46.212Z",
+   "set": "2026-06-21T22:13:42.741Z",
+   "transit": "2026-06-21T16:32:31.578Z",
+   "lowerTransit": "2026-06-21T04:10:53.773Z"
   }
  },
  "tromsoWinter": {
@@ -166,6 +240,32 @@
   },
   "moonTimes": {
    "transit": "2026-12-21T20:23:35.368Z",
+   "lowerTransit": "2026-12-21T07:53:12.336Z",
+   "alwaysUp": true,
+   "alwaysDown": false
+  },
+  "solarDayTimes": {
+   "solarNoon": "2026-12-21T10:42:13.979Z",
+   "nadir": "2026-12-20T22:42:13.979Z",
+   "sunrise": null,
+   "sunset": null,
+   "sunriseEnd": null,
+   "sunsetStart": null,
+   "dawn": "2026-12-21T08:31:13.435Z",
+   "dusk": "2026-12-21T12:53:13.708Z",
+   "nauticalDawn": "2026-12-21T06:46:42.213Z",
+   "nauticalDusk": "2026-12-21T14:37:44.863Z",
+   "nightEnd": "2026-12-21T05:28:19.449Z",
+   "night": "2026-12-21T15:56:07.533Z",
+   "goldenHourEnd": null,
+   "goldenHour": null,
+   "blueHourEnd": "2026-12-21T09:29:30.546Z",
+   "blueHour": "2026-12-21T11:54:56.615Z",
+   "alwaysUp": false,
+   "alwaysDown": true
+  },
+  "solarDayMoonTimes": {
+   "transit": "2026-12-21T20:23:35.367Z",
    "lowerTransit": "2026-12-21T07:53:12.336Z",
    "alwaysUp": true,
    "alwaysDown": false

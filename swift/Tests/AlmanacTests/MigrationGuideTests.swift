@@ -38,6 +38,22 @@ func brightLimbFromZenith(_ date: Date, _ lat: Double, _ lng: Double) throws -> 
     return orientation.brightLimbAngleDeg - orientation.parallacticAngleDeg
 }
 
+/// The civil day containing `date` in a zone `utcOffset` minutes east of UTC, as a half-open window.
+func civilDay(_ date: Date, _ utcOffset: Int) -> (start: Date, end: Date) {
+    let offset = Double(utcOffset) * 60
+    let start = ((date.timeIntervalSince1970 + offset) / 86400).rounded(.down) * 86400 - offset
+    return (Date(timeIntervalSince1970: start), Date(timeIntervalSince1970: start + 86400))
+}
+
+/// SunCalc's day when `utcOffset` is omitted: from the lower transit before the solar noon nearest `date` to the one after it.
+func solarDay(_ date: Date, _ observer: Observer) throws -> (start: Date, end: Date) {
+    let transits = try sunTransits(from: date.addingTimeInterval(-1.5 * 86400), to: date.addingTimeInterval(1.5 * 86400), observer: observer)
+    let noon = transits.filter { $0.kind == .upper }
+        .min { abs($0.time.timeIntervalSince(date)) < abs($1.time.timeIntervalSince(date)) }!.time
+    let lower = transits.filter { $0.kind == .lower }.map(\.time)
+    return (lower.last { $0 < noon }!, lower.first { $0 > noon }!)
+}
+
 // --- checks against SunCalc 2.1.1 -------------------------------------------
 
 final class MigrationGuideTests: XCTestCase {
@@ -45,7 +61,7 @@ final class MigrationGuideTests: XCTestCase {
         struct Position: Decodable { let azimuth: Double; let altitude: Double }
         struct MoonPosition: Decodable { let altitude: Double; let distance: Double; let parallacticAngle: Double }
         struct Illumination: Decodable { let fraction: Double; let angle: Double }
-        let times: [String: String]; let position: Position; let moonPosition: MoonPosition; let moonIllumination: Illumination
+        let times: [String: String]; let solarDayTimes: [String: String]; let position: Position; let moonPosition: MoonPosition; let moonIllumination: Illumination
     }
 
     struct File: Decodable { let victoria: Reference }
@@ -74,13 +90,15 @@ final class MigrationGuideTests: XCTestCase {
         XCTAssertLessThan(abs(signed180(sun.azimuth - reference.position.azimuth)), 0.2)
         XCTAssertLessThan(abs(sun.altitude - reference.position.altitude), 0.2)
 
-        // The civil day of 2026-03-20 at UTC-7.
-        let start = utc("2026-03-20T07:00:00Z")
-        let times = try sunTimes((start, start.addingTimeInterval(86400)), lat, lng)
-        XCTAssertEqual(Set(times.keys), ["sunrise", "sunset", "goldenHourEnd", "goldenHour", "solarNoon"])
-        for (name, time) in times {
-            let theirs = utcMs(reference.times[name]!)
-            XCTAssertLessThan(abs(time.timeIntervalSince(theirs)), 10, name)
+        // The civil day of 2026-03-20 at UTC-7, and SunCalc's solar day when the offset is omitted.
+        let date = utc("2026-03-20T12:00:00Z")
+        let observer = try Observer(latitudeDeg: lat, longitudeDeg: lng)
+        for (label, day, theirs) in [("civil", civilDay(date, -420), reference.times), ("solar", try solarDay(date, observer), reference.solarDayTimes)] {
+            let times = try sunTimes(day, lat, lng)
+            XCTAssertEqual(Set(times.keys), ["sunrise", "sunset", "goldenHourEnd", "goldenHour", "solarNoon"], label)
+            for (name, time) in times {
+                XCTAssertLessThan(abs(time.timeIntervalSince(utcMs(theirs[name]!))), 10, "\(label) \(name)")
+            }
         }
 
         let moon = try moonState(at, lat, lng)

@@ -19,7 +19,8 @@ This guide maps every SunCalc 2 export to its Almanac call, then gives drop-in a
 | `.nadir` | `sunTransits` kind `lower` | SunCalc puts nadir exactly 12 hours before solar noon; Almanac finds the lower transit itself, up to about 20 seconds away. |
 | `.alwaysUp`, `.alwaysDown` | No `rise` or `set` in the day, then whether `sunAltAz` puts the Sun up at noon | See the `getTimes` adapter. |
 | `getTimes(…, height)` | `elevationM` on the observer and `heightAboveGroundM` on `sunEvents`; add `horizonDip(observer, height)` to a `sunAltitudeEvents` angle | Almanac's dip includes the Earth's shape and terrestrial refraction. |
-| `getTimes(…, utcOffset)` | The window you pass: the civil day from local midnight to the next | See `civilDay` below. |
+| `getTimes(…, utcOffset)`, `getMoonTimes(…, utcOffset)` | The window you pass: the civil day from local midnight to the next | See `civilDay` below. |
+| `getTimes(…)`, `getMoonTimes(…)` with no `utcOffset` | The solar day around `date`, from one lower transit of the Sun to the next | See `solarDay` below. SunCalc runs this day from exactly 12 hours before solar noon, so its edges can differ by seconds. |
 | `times`, `addTime(angle, riseName, setName)` | `sunAltitudeEvents(start, end, observer, angle)` | Angles mean the same thing in both, the Sun's geometric center altitude without refraction. |
 | `getMoonPosition(date, lat, lng)` `.azimuth`, `.altitude` | `moonAltAz(date, observer)` `.azDeg`, `.altDeg` | Both topocentric and refracted. SunCalc applies parallax to altitude only. |
 | `.distance` | `moonPosition(date).distanceKm` | Both are Earth center to Moon center, in kilometers, within about 20 km of each other. |
@@ -44,7 +45,7 @@ const parallacticDeg = moonPosition.parallacticAngle * 180 / Math.PI;
 const angleDeg = illumination.angle * 180 / Math.PI;
 ```
 
-SunCalc 1's `getTimes(date, lat, lng)` has no `utcOffset` and returns the solar day nearest `date`; pass the civil day you mean to the adapter below instead. Its `getMoonTimes(date, lat, lng, inUTC)` searches from local midnight of the computer running it, or from UTC midnight when `inUTC` is true. With Almanac, pass the window explicitly: `civilDay(date, 0)` reproduces `inUTC`, and `civilDay(date, -date.getTimezoneOffset())` the local day.
+SunCalc 1's `getTimes(date, lat, lng)` has no `utcOffset` and always returns the solar day nearest `date`, which the adapter below reproduces when `utcOffset` is left out. Its `getMoonTimes(date, lat, lng, inUTC)` searches from local midnight of the computer running it, or from UTC midnight when `inUTC` is true. With Almanac, pass the window explicitly: `civilDay(date, 0)` reproduces `inUTC`, and `civilDay(date, -date.getTimezoneOffset())` the local day.
 
 ## Examples
 
@@ -104,7 +105,7 @@ function addTime(angle: number, riseName: string, setName: string) {
 }
 ```
 
-`civilDay` turns SunCalc's `utcOffset`, in minutes east of UTC, into the half-open window Almanac searches. With a time zone instead of a fixed offset, pass the offset in effect on that date.
+The adapters search the same day SunCalc does. `civilDay` turns SunCalc's `utcOffset`, in minutes east of UTC, into the half-open window Almanac searches; with a time zone instead of a fixed offset, pass the offset in effect on that date. With no `utcOffset`, SunCalc uses the solar day around `date` instead, and `solarDay` finds it from the Sun's lower transits, so a call such as `getTimes(date, lat, lng)` returns the same day's events after migration.
 
 ```ts
 const HOUR_MS = 3_600_000;
@@ -116,6 +117,17 @@ function civilDay(date: Date, utcOffset: number): [Date, Date] {
   const start = Math.floor((date.getTime() + offsetMs) / DAY_MS) * DAY_MS - offsetMs;
   return [new Date(start), new Date(start + DAY_MS)];
 }
+
+/** SunCalc's day when `utcOffset` is omitted: from the lower transit before the solar noon nearest `date` to the one after it. */
+function solarDay(date: Date, observer: { latitudeDeg: number; longitudeDeg: number }): [Date, Date] {
+  const t = date.getTime();
+  const transits = sunTransits(new Date(t - 1.5 * DAY_MS), new Date(t + 1.5 * DAY_MS), observer);
+  const noon = transits
+    .filter((e) => e.kind === 'upper')
+    .sort((a, b) => Math.abs(a.time.getTime() - t) - Math.abs(b.time.getTime() - t))[0].time;
+  const lower = transits.filter((e) => e.kind === 'lower').map((e) => e.time);
+  return [lower.filter((d) => d < noon).at(-1)!, lower.find((d) => d > noon)!];
+}
 ```
 
 The adapter returns the same field names as `getTimes`, `null` where the Sun does not reach an altitude, and `alwaysUp` or `alwaysDown` on a day with neither a sunrise nor a sunset.
@@ -124,10 +136,10 @@ The adapter returns the same field names as `getTimes`, `null` where the Sun doe
 /** How far the Sun's center sits below its upper limb, for telling polar day from polar night. */
 const SUN_SEMIDIAMETER_DEG = 0.27;
 
-function getTimes(date: Date, lat: number, lng: number, height = 0, utcOffset = 0) {
+function getTimes(date: Date, lat: number, lng: number, height = 0, utcOffset?: number) {
   const observer = { latitudeDeg: lat, longitudeDeg: lng, elevationM: height };
   const dip = horizonDip(observer, height);
-  const [start, end] = civilDay(date, utcOffset);
+  const [start, end] = utcOffset === undefined ? solarDay(date, observer) : civilDay(date, utcOffset);
   const result: Record<string, Date | boolean | null> = {};
 
   const events = sunEvents(start, end, observer, height);
@@ -139,11 +151,11 @@ function getTimes(date: Date, lat: number, lng: number, height = 0, utcOffset = 
     result[setName] = crossings.find((e) => e.kind === 'falling')?.time ?? null;
   }
 
-  // Solar noon is the upper transit nearest civil noon; SunCalc's nadir is the lower transit before it.
-  const civilNoon = start.getTime() + DAY_MS / 2;
-  const noon = sunTransits(new Date(civilNoon - 13 * HOUR_MS), new Date(civilNoon + 13 * HOUR_MS), observer)
+  // Solar noon is the upper transit nearest the middle of the day; SunCalc's nadir is the lower transit before it.
+  const middle = (start.getTime() + end.getTime()) / 2;
+  const noon = sunTransits(new Date(middle - 13 * HOUR_MS), new Date(middle + 13 * HOUR_MS), observer)
     .filter((e) => e.kind === 'upper')
-    .sort((a, b) => Math.abs(a.time.getTime() - civilNoon) - Math.abs(b.time.getTime() - civilNoon))[0].time;
+    .sort((a, b) => Math.abs(a.time.getTime() - middle) - Math.abs(b.time.getTime() - middle))[0].time;
   result.solarNoon = noon;
   result.nadir = sunTransits(new Date(noon.getTime() - 13 * HOUR_MS), noon, observer)
     .find((e) => e.kind === 'lower')!.time;
@@ -176,6 +188,26 @@ func sunTimes(_ day: (start: Date, end: Date), _ lat: Double, _ lng: Double) thr
     result["goldenHour"] = golden.first { $0.kind == .falling }?.time
     result["solarNoon"] = try sunTransits(from: day.start, to: day.end, observer: observer).first { $0.kind == .upper }?.time
     return result
+}
+```
+
+Its window comes from Swift versions of the same two day helpers:
+
+```swift
+/// The civil day containing `date` in a zone `utcOffset` minutes east of UTC, as a half-open window.
+func civilDay(_ date: Date, _ utcOffset: Int) -> (start: Date, end: Date) {
+    let offset = Double(utcOffset) * 60
+    let start = ((date.timeIntervalSince1970 + offset) / 86400).rounded(.down) * 86400 - offset
+    return (Date(timeIntervalSince1970: start), Date(timeIntervalSince1970: start + 86400))
+}
+
+/// SunCalc's day when `utcOffset` is omitted: from the lower transit before the solar noon nearest `date` to the one after it.
+func solarDay(_ date: Date, _ observer: Observer) throws -> (start: Date, end: Date) {
+    let transits = try sunTransits(from: date.addingTimeInterval(-1.5 * 86400), to: date.addingTimeInterval(1.5 * 86400), observer: observer)
+    let noon = transits.filter { $0.kind == .upper }
+        .min { abs($0.time.timeIntervalSince(date)) < abs($1.time.timeIntervalSince(date)) }!.time
+    let lower = transits.filter { $0.kind == .lower }.map(\.time)
+    return (lower.last { $0 < noon }!, lower.first { $0 > noon }!)
 }
 ```
 
@@ -265,9 +297,9 @@ const { rise, set, transit, lowerTransit, alwaysUp, alwaysDown } = SunCalc.getMo
 /** How far the Moon's center sits below its upper limb, for telling a day above the horizon from one below. */
 const MOON_SEMIDIAMETER_DEG = 0.26;
 
-function getMoonTimes(date: Date, lat: number, lng: number, utcOffset = 0) {
+function getMoonTimes(date: Date, lat: number, lng: number, utcOffset?: number) {
   const observer = { latitudeDeg: lat, longitudeDeg: lng };
-  const [start, end] = civilDay(date, utcOffset);
+  const [start, end] = utcOffset === undefined ? solarDay(date, observer) : civilDay(date, utcOffset);
   const result: Record<string, Date | boolean> = {};
 
   const events = moonEvents(start, end, observer);

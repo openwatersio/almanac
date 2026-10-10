@@ -3,8 +3,8 @@
 // the package import pointing at the source tree.
 //
 // The expected values come from SunCalc 2.1.1 (npm `suncalc`), run once with
-// `addTime(-4, 'blueHourEnd', 'blueHour')` and these inputs; SunCalc is not a
-// dependency of this repository.
+// `addTime(-4, 'blueHourEnd', 'blueHour')` and these inputs, each with its
+// utcOffset and with it omitted; SunCalc is not a dependency of this repository.
 import { it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 
@@ -44,13 +44,24 @@ function civilDay(date: Date, utcOffset: number): [Date, Date] {
   return [new Date(start), new Date(start + DAY_MS)];
 }
 
+/** SunCalc's day when `utcOffset` is omitted: from the lower transit before the solar noon nearest `date` to the one after it. */
+function solarDay(date: Date, observer: { latitudeDeg: number; longitudeDeg: number }): [Date, Date] {
+  const t = date.getTime();
+  const transits = sunTransits(new Date(t - 1.5 * DAY_MS), new Date(t + 1.5 * DAY_MS), observer);
+  const noon = transits
+    .filter((e) => e.kind === 'upper')
+    .sort((a, b) => Math.abs(a.time.getTime() - t) - Math.abs(b.time.getTime() - t))[0].time;
+  const lower = transits.filter((e) => e.kind === 'lower').map((e) => e.time);
+  return [lower.filter((d) => d < noon).at(-1)!, lower.find((d) => d > noon)!];
+}
+
 /** How far the Sun's center sits below its upper limb, for telling polar day from polar night. */
 const SUN_SEMIDIAMETER_DEG = 0.27;
 
-function getTimes(date: Date, lat: number, lng: number, height = 0, utcOffset = 0) {
+function getTimes(date: Date, lat: number, lng: number, height = 0, utcOffset?: number) {
   const observer = { latitudeDeg: lat, longitudeDeg: lng, elevationM: height };
   const dip = horizonDip(observer, height);
-  const [start, end] = civilDay(date, utcOffset);
+  const [start, end] = utcOffset === undefined ? solarDay(date, observer) : civilDay(date, utcOffset);
   const result: Record<string, Date | boolean | null> = {};
 
   const events = sunEvents(start, end, observer, height);
@@ -62,11 +73,11 @@ function getTimes(date: Date, lat: number, lng: number, height = 0, utcOffset = 
     result[setName] = crossings.find((e) => e.kind === 'falling')?.time ?? null;
   }
 
-  // Solar noon is the upper transit nearest civil noon; SunCalc's nadir is the lower transit before it.
-  const civilNoon = start.getTime() + DAY_MS / 2;
-  const noon = sunTransits(new Date(civilNoon - 13 * HOUR_MS), new Date(civilNoon + 13 * HOUR_MS), observer)
+  // Solar noon is the upper transit nearest the middle of the day; SunCalc's nadir is the lower transit before it.
+  const middle = (start.getTime() + end.getTime()) / 2;
+  const noon = sunTransits(new Date(middle - 13 * HOUR_MS), new Date(middle + 13 * HOUR_MS), observer)
     .filter((e) => e.kind === 'upper')
-    .sort((a, b) => Math.abs(a.time.getTime() - civilNoon) - Math.abs(b.time.getTime() - civilNoon))[0].time;
+    .sort((a, b) => Math.abs(a.time.getTime() - middle) - Math.abs(b.time.getTime() - middle))[0].time;
   result.solarNoon = noon;
   result.nadir = sunTransits(new Date(noon.getTime() - 13 * HOUR_MS), noon, observer)
     .find((e) => e.kind === 'lower')!.time;
@@ -118,9 +129,9 @@ function brightLimbFromZenith(date: Date, lat: number, lng: number) {
 /** How far the Moon's center sits below its upper limb, for telling a day above the horizon from one below. */
 const MOON_SEMIDIAMETER_DEG = 0.26;
 
-function getMoonTimes(date: Date, lat: number, lng: number, utcOffset = 0) {
+function getMoonTimes(date: Date, lat: number, lng: number, utcOffset?: number) {
   const observer = { latitudeDeg: lat, longitudeDeg: lng };
-  const [start, end] = civilDay(date, utcOffset);
+  const [start, end] = utcOffset === undefined ? solarDay(date, observer) : civilDay(date, utcOffset);
   const result: Record<string, Date | boolean> = {};
 
   const events = moonEvents(start, end, observer);
@@ -174,10 +185,16 @@ const seconds = (mine: unknown, theirs: string) => Math.abs(((mine as Date).getT
 // The documented differences: SunCalc solves every Sun time from the declination at
 // solar noon and puts nadir exactly 12 hours before it, and it uses the geocentric Moon
 // for the parallactic and bright-limb angles and its own refraction near the horizon.
+// With utcOffset omitted SunCalc uses the solar day around `date` instead of a
+// civil day, so each place is checked both ways.
+const both = places.flatMap(([name, p]) => [
+  { label: `${name} civil day`, p, utcOffset: p.utcOffset as number | undefined, times: SUNCALC[name].times, moonTimes: SUNCALC[name].moonTimes },
+  { label: `${name} solar day`, p, utcOffset: undefined, times: SUNCALC[name].solarDayTimes, moonTimes: SUNCALC[name].solarDayMoonTimes },
+]);
+
 it('getTimes and addTime: the same names, within 10 s, nadir within 20 s', () => {
-  for (const [name, p] of places) {
-    const theirs = SUNCALC[name].times;
-    const mine = getTimes(new Date(p.date), p.lat, p.lng, 0, p.utcOffset);
+  for (const { label: name, p, utcOffset, times: theirs } of both) {
+    const mine = getTimes(new Date(p.date), p.lat, p.lng, 0, utcOffset);
     expect(Object.keys(mine).sort(), name).toEqual(Object.keys(theirs).sort());
     for (const [key, value] of Object.entries(theirs)) {
       if (typeof value !== 'string') { expect(mine[key], `${name} ${key}`).toBe(value); continue; }
@@ -218,9 +235,8 @@ it('getMoonIllumination, phase names, and the bright limb: angle within 2°', ()
 });
 
 it('getMoonTimes: rise and set within 5 s, transits within 2 s', () => {
-  for (const [name, p] of places) {
-    const theirs = SUNCALC[name].moonTimes;
-    const mine = getMoonTimes(new Date(p.date), p.lat, p.lng, p.utcOffset);
+  for (const { label: name, p, utcOffset, moonTimes: theirs } of both) {
+    const mine = getMoonTimes(new Date(p.date), p.lat, p.lng, utcOffset);
     expect(Object.keys(mine).sort(), name).toEqual(Object.keys(theirs).sort());
     for (const [key, value] of Object.entries(theirs)) {
       if (typeof value !== 'string') { expect(mine[key], `${name} ${key}`).toBe(value); continue; }
