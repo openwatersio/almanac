@@ -66,7 +66,7 @@ background task; use shorter windows for interactive queries.
 
 ## Usage
 
-Migrating from SunCalc: [`docs/migrating-from-suncalc.md`](docs/migrating-from-suncalc.md) maps every SunCalc call to Almanac and gives drop-in `getTimes` and `getMoonTimes` adapters.
+Migrating from SunCalc: [`docs/migrating-from-suncalc.md`](docs/migrating-from-suncalc.md) maps every SunCalc call to Almanac and gives drop-in `getTimes` and `getMoonTimes` adapters. Migrating from Solar: [`docs/migrating-from-solar.md`](docs/migrating-from-solar.md). How Almanac compares with SunCalc, Astronomy Engine, astronomia, Solar, SwiftAA, and EDSunriseSet, and when each is the better choice: [`docs/comparison.md`](docs/comparison.md).
 
 Migrating from the Solar Swift library: [`docs/migrating-from-solar.md`](docs/migrating-from-solar.md) maps every Solar property to Almanac and gives a drop-in `Solar` adapter.
 
