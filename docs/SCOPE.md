@@ -1,6 +1,6 @@
 # Scope
 
-Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations in TypeScript and Swift. The [public contract](CONTRACT.md) defines the binding behavior, and [GitHub issues](https://github.com/openwatersio/almanac/issues) track proposed work.
+Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations in TypeScript and Swift. The [public contract](CONTRACT.md) defines the binding behavior, and [GitHub issues](https://github.com/openwatersio/almanac/issues) track proposed work. The [library comparison](comparison.md) sets this scope beside other Sun and Moon libraries for TypeScript, JavaScript, and Swift.
 
 ## Included
 
