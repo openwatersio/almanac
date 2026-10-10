@@ -12,6 +12,9 @@ const BASE = "https://ssd.jpl.nasa.gov/api/horizons.api";
 
 const VIC = { lat: 48.4284, lon: -123.3656 }; // Victoria BC
 const N60 = { lat: 60, lon: -123.052 };
+const TROPIC = { lat: 20, lon: -123.052 };
+const POLAR = { lat: 70.5, lon: -123.052 };
+const S88 = { lat: -88.5, lon: -123.052 };
 
 const common = {
   format: "text",
@@ -84,6 +87,25 @@ const specs = [
   { name: "sun-airless-twilight-vic-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", VIC, "AIRLESS") },
   { name: "sun-airless-twilight-n60-mar", params: site("10", "4", "2026-03-20", "2026-03-22", "1m", N60, "AIRLESS") },
   { name: "sun-airless-twilight-n60-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", N60, "AIRLESS") },
+  // Near-polar days pick the Sun's daily extremum grazing a sunAltitudeEvents
+  // level: +6° on 2026-02-12, -0.3° on 2026-05-16, -4° on 2026-12-20 and 21,
+  // each next to a day with no crossing of that level.
+  { name: "sun-airless-twilight-trop-mar", params: site("10", "4", "2026-03-20", "2026-03-22", "1m", TROPIC, "AIRLESS") },
+  { name: "sun-airless-twilight-trop-jun", params: site("10", "4", "2026-06-20", "2026-06-22", "1m", TROPIC, "AIRLESS") },
+  { name: "sun-airless-twilight-polar-feb", params: site("10", "4", "2026-02-11", "2026-02-13", "1m", POLAR, "AIRLESS") },
+  { name: "sun-airless-twilight-polar-may", params: site("10", "4", "2026-05-16", "2026-05-18", "1m", POLAR, "AIRLESS") },
+  { name: "sun-airless-twilight-polar-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", POLAR, "AIRLESS") },
+  // Local apparent hour angle (quantity 42) for upper and lower transits.
+  { name: "sun-hour-angle-vic", params: site("10", "42", "2026-03-20", "2026-03-22", "1m", VIC, "AIRLESS") },
+  { name: "moon-hour-angle-vic", params: site("301", "42", "2026-03-20", "2026-03-22", "1m", VIC, "AIRLESS") },
+  { name: "sun-hour-angle-s88", params: site("10", "42", "2026-09-10", "2026-09-12", "1m", S88, "AIRLESS") },
+  { name: "moon-hour-angle-s88", params: site("301", "42", "2026-09-10", "2026-09-12", "1m", S88, "AIRLESS") },
+  // Moon orientation: J2000 and apparent topocentric positions of both bodies,
+  // the Moon's az/el, elongation, PsAng, and hour angle over a lunar month.
+  { name: "moon-orientation-vic", params: site("301", "1,2,4,23,27,42", "2026-03-01", "2026-04-01", "1h", VIC, "AIRLESS") },
+  { name: "sun-orientation-vic", params: site("10", "1,2", "2026-03-01", "2026-04-01", "1h", VIC, "AIRLESS") },
+  { name: "moon-orientation-polar", params: site("301", "1,2,4,23,27,42", "2026-03-01", "2026-04-01", "1h", POLAR, "AIRLESS") },
+  { name: "sun-orientation-polar", params: site("10", "1,2", "2026-03-01", "2026-04-01", "1h", POLAR, "AIRLESS") },
 ];
 
 for (const [planet, target] of Object.entries(planets)) {

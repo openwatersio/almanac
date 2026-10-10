@@ -185,6 +185,7 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:09",
       "transit": "20:09"
     },
     "moon": {
@@ -198,9 +199,11 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:09",
       "transit": "20:09"
     },
     "moon": {
+      "lowerTransit": "07:33",
       "transit": "20:04"
     }
   },
@@ -209,9 +212,11 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:09",
       "transit": "20:09"
     },
     "moon": {
+      "lowerTransit": "08:36",
       "transit": "21:09"
     }
   },
@@ -220,9 +225,11 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:09",
       "transit": "20:09"
     },
     "moon": {
+      "lowerTransit": "09:42",
       "transit": "22:16"
     }
   },
@@ -231,6 +238,7 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:14",
       "transit": "20:14"
     },
     "moon": {
@@ -312,6 +320,7 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:19",
       "transit": "20:19"
     },
     "moon": {}
@@ -321,6 +330,7 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:19",
       "transit": "20:19"
     },
     "moon": {}
@@ -330,6 +340,7 @@
     "latitudeDeg": 70.5,
     "longitudeDeg": -123.052,
     "sun": {
+      "lowerTransit": "08:19",
       "transit": "20:19"
     },
     "moon": {}
@@ -542,7 +553,8 @@
       "civilDusk": "22:02"
     },
     "moon": {
-      "transit": "05:15"
+      "transit": "05:15",
+      "lowerTransit": "17:45"
     }
   },
   {

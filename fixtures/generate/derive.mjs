@@ -23,6 +23,9 @@ const TOLERANCE_ARCMIN = 1;
 
 const VIC = { lat: 48.4284, lon: -123.3656 }; // Victoria BC
 const N60 = { lat: 60, lon: -123.052 };
+const TROPIC = { lat: 20, lon: -123.052 };
+const POLAR = { lat: 70.5, lon: -123.052 };
+const S88 = { lat: -88.5, lon: -123.052 };
 
 // --- USNO event grid + phase catalog -------------------------------------
 
@@ -56,21 +59,23 @@ function rawUsno(name) {
 // instead, e.g. "Begin Civil Twilight", "Rise"). Map the labels the grid
 // schema cares about; everything else (lower transit, and the polar-day/
 // polar-night "continuously above/below" markers, which carry no time) is
-// dropped deliberately, not silently — anything unrecognized throws.
+// dropped deliberately, not silently — anything unrecognized throws. USNO
+// lists a lower transit only when the body is above the horizon at it.
 const USNO_SUN_MAP = {
   "Begin Civil Twilight": "civilDawn",
   Rise: "rise",
   "Upper Transit": "transit",
+  "Lower Transit": "lowerTransit",
   Set: "set",
   "End Civil Twilight": "civilDusk",
 };
 const USNO_MOON_MAP = {
   Rise: "rise",
   "Upper Transit": "transit",
+  "Lower Transit": "lowerTransit",
   Set: "set",
 };
 const USNO_IGNORED_PHEN = new Set([
-  "Lower Transit",
   "Object continuously above the Horizon",
   "Object continuously below the Horizon",
   "Object continuously above the Twilight Limit",
@@ -80,7 +85,7 @@ const USNO_IGNORED_PHEN = new Set([
 function usnoExtractPhen(entries, map, name) {
   const out = {};
   for (const { phen, time } of entries) {
-    if (USNO_IGNORED_PHEN.has(phen)) continue; // e.g. "Lower Transit", polar continuously-above/below markers
+    if (USNO_IGNORED_PHEN.has(phen)) continue; // polar continuously-above/below markers
     assert.ok(time != null, `${name}: unexpected no-time phenomenon "${phen}"`);
     const key = map[phen];
     assert.ok(key, `${name}: unmapped USNO phenomenon "${phen}"`);
@@ -772,6 +777,11 @@ function deriveAltaz(retrieved, requests) {
     ["sun-airless-twilight-vic-dec", VIC],
     ["sun-airless-twilight-n60-mar", N60],
     ["sun-airless-twilight-n60-dec", N60],
+    ["sun-airless-twilight-trop-mar", TROPIC],
+    ["sun-airless-twilight-trop-jun", TROPIC],
+    ["sun-airless-twilight-polar-feb", POLAR],
+    ["sun-airless-twilight-polar-may", POLAR],
+    ["sun-airless-twilight-polar-dec", POLAR],
   ];
   const twilightRows = twilightSpecs.flatMap(([name, s]) => {
     const rows = parseRawRows(raw(name)).map(({ time, nums }) => ({
@@ -787,22 +797,108 @@ function deriveAltaz(retrieved, requests) {
   twilightRows.sort((a, b) => a.siteLatDeg - b.siteLatDeg || a.siteLonDeg - b.siteLonDeg || byUtc(a, b));
   assert.equal(twilightRows.length, twilightSpecs.length * 2881, "sun-airless-twilight: row count mismatch after merge");
 
+  const transitSpecs = [
+    ["sun-hour-angle-vic", "sun", VIC], ["moon-hour-angle-vic", "moon", VIC],
+    ["sun-hour-angle-s88", "sun", S88], ["moon-hour-angle-s88", "moon", S88],
+  ];
+  const transits = transitSpecs.map(([name, body, s]) => hourAngleTransits(name, body, s));
+  const orientationSpecs = [
+    ["moon-orientation-vic", "sun-orientation-vic", VIC],
+    ["moon-orientation-polar", "sun-orientation-polar", POLAR],
+  ];
+  const orientation = orientationSpecs.flatMap(([moon, sun, s]) => moonOrientationRows(moon, sun, s));
+
   return {
     "altaz/sun-victoria-2026-03.json": json(sunVictoria),
     "altaz/moon-victoria-2026-03.json": json(moonVictoria),
     "altaz/sun-airless-twilight.json": json(twilightRows),
+    "altaz/transits.json": json(transits),
+    "altaz/moon-orientation.json": json(orientation),
     "altaz/meta.json": json({
       source: "JPL Horizons API",
       sourceVersion: sourceVersion(raw("sun-altaz-victoria")),
       retrieved,
       requests: [
         "sun-altaz-victoria", "moon-altaz-victoria",
-        "sun-airless-twilight-vic-mar", "sun-airless-twilight-vic-dec",
-        "sun-airless-twilight-n60-mar", "sun-airless-twilight-n60-dec",
+        ...twilightSpecs.map(([n]) => n),
+        ...transitSpecs.map(([n]) => n),
+        ...orientationSpecs.flat().filter((n) => typeof n === "string"),
       ].map((n) => requests[n]),
       toleranceArcmin: TOLERANCE_ARCMIN,
+      transits: "Upper and lower transits interpolated linearly where the one-minute local apparent hour angle (quantity 42) crosses 0 h and 12 h; tolerance 60 seconds.",
+      moonOrientation: "brightLimbDeg is the position angle of the Sun from the Moon on the true equator of date, from Horizons' apparent topocentric RA/Dec of both bodies (Meeus 48.5). Horizons' PsAng is measured from the ICRF north pole, so it is not compared directly; the same formula applied to the ICRF positions reproduces PsAng + 180 degrees, which derive.mjs asserts. parallacticDeg is the angle at the Moon between the celestial pole and the geodetic zenith, from Horizons' airless azimuth and elevation and the site latitude; derive.mjs asserts that the hour-angle formula on Horizons' hour angle and apparent declination agrees. Tolerance 1 arcminute; the bright limb adds the 8.8 arcsecond solar parallax over sin(elongation), because Almanac uses the geocentric Sun.",
     }),
   };
+}
+
+const D2R = Math.PI / 180;
+const norm360 = (deg) => ((deg % 360) + 360) % 360;
+
+// Upper transit where the hour angle rises through 0 h, lower where it wraps
+// from +12 h to -12 h. Hour angles are unwrapped across the lower transit.
+function hourAngleTransits(name, body, s) {
+  const text = raw(name);
+  assert.ok(/Date__\(UT\)__.*L_Ap_Hour_Ang/.test(text), `${name}: not a UT hour-angle grid`);
+  const grid = parseRawRows(text);
+  assert.equal(grid.length, 2881, `${name}: expected a two-day one-minute grid`);
+  const out = [];
+  for (let i = 1; i < grid.length; i++) {
+    const ta = Date.parse(grid[i - 1].time), tb = Date.parse(grid[i].time);
+    assert.equal(tb - ta, 60000, `${name}: grid step`);
+    const ha = grid[i - 1].nums[0];
+    let hb = grid[i].nums[0];
+    assert.ok(Math.abs(ha) <= 12 && Math.abs(hb) <= 12, `${name}: hour angle out of range`);
+    let level = 0, kind = "upper";
+    if (hb - ha < -12) { hb += 24; level = 12; kind = "lower"; }
+    if (!(ha < level && hb >= level)) continue;
+    out.push({ utc: new Date(Math.round(ta + (tb - ta) * (level - ha) / (hb - ha))).toISOString(), kind });
+  }
+  assert.ok(out.some((e) => e.kind === "upper") && out.some((e) => e.kind === "lower"), `${name}: missing a transit kind`);
+  return { body, observer: { latitudeDeg: s.lat, longitudeDeg: s.lon }, startUtc: grid[0].time, endUtc: grid.at(-1).time, transits: out };
+}
+
+/** Meeus 48.5: position angle of the Sun from the Moon, from north through east. */
+function brightLimbDeg(moonRa, moonDec, sunRa, sunDec) {
+  const dRa = (sunRa - moonRa) * D2R;
+  return norm360(Math.atan2(
+    Math.cos(sunDec * D2R) * Math.sin(dRa),
+    Math.sin(sunDec * D2R) * Math.cos(moonDec * D2R) - Math.cos(sunDec * D2R) * Math.sin(moonDec * D2R) * Math.cos(dRa),
+  ) / D2R);
+}
+
+function signed180(deg) {
+  const x = norm360(deg);
+  return x > 180 ? x - 360 : x;
+}
+
+function moonOrientationRows(moonName, sunName, s) {
+  const moonText = raw(moonName), sunText = raw(sunName);
+  assert.ok(/Date__\(UT\)__.*R\.A\._+\(ICRF\)_+DEC.*R\.A\._\(a-appar\)_DEC.*Azi_+\(a-app\)_+Elev.*S-O-T.*PsAng.*L_Ap_Hour_Ang/.test(moonText), `${moonName}: wrong columns`);
+  assert.ok(/Date__\(UT\)__.*R\.A\._+\(ICRF\)_+DEC.*R\.A\._\(a-appar\)_DEC/.test(sunText), `${sunName}: wrong columns`);
+  const moon = parseRawRows(moonText), sun = parseRawRows(sunText);
+  assert.equal(moon.length, 745, `${moonName}: expected hourly rows over March 2026`);
+  assert.equal(sun.length, moon.length, `${sunName}: row count differs from the Moon's`);
+  const phi = s.lat * D2R;
+  return moon.map((m, i) => {
+    assert.equal(sun[i].time, m.time, `${sunName}: times differ at row ${i}`);
+    assert.equal(m.nums.length, 10, `${moonName}: unexpected columns at ${m.time}`);
+    const [raJ, decJ, ra, dec, azDeg, altDeg, elongationDeg, psAngDeg, , haHours] = m.nums;
+    const [sunRaJ, sunDecJ, sunRa, sunDec] = sun[i].nums;
+    // PsAng is the Sun-to-Moon direction on the ICRF sky: the bright limb in that frame, turned half a circle.
+    const icrf = brightLimbDeg(raJ, decJ, sunRaJ, sunDecJ);
+    assert.ok(Math.abs(signed180(icrf - psAngDeg - 180)) < 0.002 / Math.sin(elongationDeg * D2R),
+      `${moonName}: ICRF bright limb ${icrf} disagrees with PsAng ${psAngDeg} at ${m.time}`);
+    const a = azDeg * D2R, h = altDeg * D2R, d = dec * D2R;
+    const parallacticDeg = Math.atan2(-Math.sin(a) * Math.cos(phi) * Math.cos(h), Math.sin(phi) - Math.sin(d) * Math.sin(h)) / D2R;
+    const H = haHours * 15 * D2R;
+    const fromHourAngle = Math.atan2(Math.sin(H), Math.tan(phi) * Math.cos(d) - Math.sin(d) * Math.cos(H)) / D2R;
+    assert.ok(Math.abs(signed180(parallacticDeg - fromHourAngle)) < 0.01, `${moonName}: parallactic formulas disagree at ${m.time}`);
+    return {
+      utc: m.time, observer: { latitudeDeg: s.lat, longitudeDeg: s.lon }, elongationDeg, psAngDeg,
+      brightLimbDeg: Number(brightLimbDeg(ra, dec, sunRa, sunDec).toFixed(6)),
+      parallacticDeg: Number(parallacticDeg.toFixed(6)),
+    };
+  });
 }
 
 function derivePlanets(retrieved, requests) {
