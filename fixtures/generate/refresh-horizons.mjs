@@ -145,7 +145,8 @@ function sleep(ms) {
 
 async function main() {
   // Optional name arguments fetch a subset, e.g. `node refresh-horizons.mjs
-  // sun-coarse moon-coarse`. retrieved.json is merged, never overwritten, so a
+  // sun-coarse moon-coarse`. retrieved.json records each request's URL and
+  // retrieval date, and a run rewrites only the requests it fetched, so a
   // partial run leaves the other entries (and their derived fixtures) intact.
   const only = process.argv.includes("--planet-events")
     ? specs.filter(s => s.name.includes("-events-")).map(s => s.name)
@@ -157,10 +158,9 @@ async function main() {
   if (unknown.length) throw new Error(`unknown spec name(s): ${unknown.join(", ")}`);
 
   const retrievedPath = new URL("retrieved.json", RAW_DIR);
-  const prior = existsSync(retrievedPath)
+  const requests = existsSync(retrievedPath)
     ? JSON.parse(readFileSync(retrievedPath, "utf8")).requests
     : {};
-  const requests = { ...prior };
   for (let i = 0; i < todo.length; i++) {
     const { name, params } = todo[i];
     const url = buildUrl(params);
@@ -173,15 +173,11 @@ async function main() {
       );
     }
     await writeFile(new URL(`${name}.txt`, RAW_DIR), body);
-    requests[name] = url;
+    requests[name] = { url, retrieved: new Date().toISOString().slice(0, 10) };
     if (i < todo.length - 1) await sleep(1000); // be polite: ~1 req/s
   }
-  const retrieved = new Date().toISOString().slice(0, 10);
-  await writeFile(
-    retrievedPath,
-    JSON.stringify({ retrieved, requests }, null, 2) + "\n",
-  );
-  console.log(`done — retrieved ${retrieved}`);
+  await writeFile(retrievedPath, JSON.stringify({ requests }, null, 2) + "\n");
+  console.log(`done — fetched ${todo.length} request(s)`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

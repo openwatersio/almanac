@@ -4,7 +4,7 @@
 // touches the network — see refresh-horizons.mjs for that. `--check`
 // re-derives and byte-compares against the committed derived files, failing
 // loudly on drift.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { SITES as STAR_SITES, DATES as STAR_DATES, TIME as STAR_TIME, STAR_IDS } from "./refresh-stars.mjs";
 import { SOLAR_CASES, solarName } from "./refresh-usno.mjs";
 import { PATHS as SEPATH_PATHS, pathName as sepathName } from "./refresh-sepath.mjs";
@@ -686,7 +686,7 @@ function byTime(key) {
   return (a, b) => a[key].localeCompare(b[key]);
 }
 
-function derivePositions(retrieved, requests) {
+function derivePositions(dates, requests) {
   function sunFile(name, expectMin, expectExact, timeKey) {
     const rows = parseRawRows(raw(name))
       .map(({ time, nums }) => ({ [timeKey]: time, raDeg: nums[0], decDeg: nums[1], distanceAu: nums[2] }))
@@ -748,15 +748,14 @@ function derivePositions(retrieved, requests) {
     "positions/meta.json": json({
       source: "JPL Horizons API",
       sourceVersion: sourceVersion(raw("sun-coarse")),
-      retrieved,
-      requests: ["sun-coarse", "moon-coarse", "sun-dense", "moon-dense"].map((n) => requests[n]),
+      requests: withDates(["sun-coarse", "moon-coarse", "sun-dense", "moon-dense"], requests, dates),
       toleranceArcmin: TOLERANCE_ARCMIN,
       note: "Coarse rows carry `tt` (Terrestrial Time-labeled instants, requested with TIME_TYPE='TT'); dense rows carry `utc`. Horizons applies real historical delta-T but holds it fixed at its present value for future dates, so UT-labeled rows over 1950-2100 disagree with any real delta-T model (e.g. Espenak-Meeus) by up to ~136 s at 2100 - ~75 arcsec of lunar motion, well past the 1 arcmin tolerance. TT labeling removes the timescale from the comparison; consumers feed `tt` straight to a TT entry point instead of converting from UTC.",
     }),
   };
 }
 
-function deriveAltaz(retrieved, requests) {
+function deriveAltaz(dates, requests) {
   function altazFile(name, expectExact) {
     const rows = parseRawRows(raw(name))
       .map(({ time, nums }) => ({ utc: time, azDeg: nums[0], altDeg: nums[1] }))
@@ -817,13 +816,12 @@ function deriveAltaz(retrieved, requests) {
     "altaz/meta.json": json({
       source: "JPL Horizons API",
       sourceVersion: sourceVersion(raw("sun-altaz-victoria")),
-      retrieved,
-      requests: [
+      requests: withDates([
         "sun-altaz-victoria", "moon-altaz-victoria",
         ...twilightSpecs.map(([n]) => n),
         ...transitSpecs.map(([n]) => n),
         ...orientationSpecs.flat().filter((n) => typeof n === "string"),
-      ].map((n) => requests[n]),
+      ], requests, dates),
       toleranceArcmin: TOLERANCE_ARCMIN,
       transits: "Upper and lower transits interpolated linearly where the one-minute local apparent hour angle (quantity 42) crosses 0 h and 12 h; tolerance 60 seconds.",
       moonOrientation: "brightLimbDeg is the position angle of the Sun from the Moon on the true equator of date, from Horizons' apparent topocentric RA/Dec of both bodies (Meeus 48.5). Horizons' PsAng is measured from the ICRF north pole, so it is not compared directly; the same formula applied to the ICRF positions reproduces PsAng + 180 degrees, which derive.mjs asserts. parallacticDeg is the angle at the Moon between the celestial pole and the geodetic zenith, from Horizons' airless azimuth and elevation and the site latitude; derive.mjs asserts that the hour-angle formula on Horizons' hour angle and apparent declination agrees. Tolerance 1 arcminute; the bright limb adds the 8.8 arcsecond solar parallax over sin(elongation), because Almanac uses the geocentric Sun.",
@@ -901,7 +899,7 @@ function moonOrientationRows(moonName, sunName, s) {
   });
 }
 
-function derivePlanets(retrieved, requests) {
+function derivePlanets(dates, requests) {
   const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"];
   const heliocentric = [], positions = [], altaz = [], illumination = [], events = [];
   const names = [];
@@ -1002,8 +1000,8 @@ function derivePlanets(retrieved, requests) {
     "planets/illumination.json": json(illumination),
     "planets/photometry-reference.json": json(reference),
     "planets/events.json": json(events),
-    "planets/meta.json": json({ source: "JPL Horizons API", sourceVersion: sourceVersion(raw("planet-mercury-coarse")), retrieved,
-      requests: names.map(name => requests[name]),
+    "planets/meta.json": json({ source: "JPL Horizons API", sourceVersion: sourceVersion(raw("planet-mercury-coarse")),
+      requests: withDates(names, requests, dates),
       heliocentric: { center: "Sun", frame: "ICRF / J2000 mean equatorial", corrections: "NONE", timeScale: "TT", units: "AU", toleranceAu: 1e-3 },
       positions: { center: "Earth", frame: "true equator and equinox of date", timeScale: "TT", toleranceArcmin: 1, toleranceAu: 1e-3 },
       altaz: { timeScale: "UT", modes: ["AIRLESS", "REFRACTED"], toleranceArcmin: 1, refractedMinimumAltitudeDeg: 10 },
@@ -1094,18 +1092,44 @@ function deriveStars(retrieved, requests) {
   };
 }
 
+// Each Horizons request carries its own retrieval date, so a partial refresh
+// cannot relabel files it did not fetch. Every raw response's header records
+// when Horizons generated it, in Pasadena time, and the recorded UTC date must
+// be that day or the next.
+function horizonsRetrieval(requests) {
+  const MONTH_NUMBERS = Object.fromEntries(Object.entries(MONTHS).map(([k, v]) => [k, Number(v)]));
+  const rawNames = readdirSync(RAW_DIR).filter((f) => f.endsWith(".txt")).map((f) => f.slice(0, -4)).sort();
+  assert.deepEqual(Object.keys(requests).sort(), rawNames, "horizons retrieved.json: requests and raw files differ");
+  const urls = {}, dates = {};
+  for (const [name, entry] of Object.entries(requests)) {
+    assert.ok(typeof entry.url === "string" && /^\d{4}-\d{2}-\d{2}$/.test(entry.retrieved ?? ""), `${name}: retrieved.json needs a url and a retrieved date`);
+    const m = raw(name).match(/Ephemeris \/ API_USER \w{3} (\w{3})\s+(\d+) [\d:]+ (\d{4})/);
+    assert.ok(m, `${name}: no generation timestamp in the raw header`);
+    const generated = Date.UTC(Number(m[3]), MONTH_NUMBERS[m[1]] - 1, Number(m[2]));
+    const lag = (Date.parse(`${entry.retrieved}T00:00:00Z`) - generated) / 86400000;
+    assert.ok(lag === 0 || lag === 1, `${name}: retrieved ${entry.retrieved} does not match the raw header's ${m.slice(1).join(" ")}`);
+    urls[name] = entry.url;
+    dates[name] = entry.retrieved;
+  }
+  return { urls, dates };
+}
+
+function withDates(names, urls, dates) {
+  return names.map((n) => ({ url: urls[n], retrieved: dates[n] }));
+}
+
 function main() {
   const check = process.argv.includes("--check");
-  const horizons = JSON.parse(readFileSync(new URL("retrieved.json", RAW_DIR), "utf8"));
+  const horizons = horizonsRetrieval(JSON.parse(readFileSync(new URL("retrieved.json", RAW_DIR), "utf8")).requests);
   const usno = JSON.parse(readFileSync(new URL("retrieved.json", USNO_RAW_DIR), "utf8"));
   const espenak = JSON.parse(readFileSync(new URL("retrieved.json", ESPENAK_RAW_DIR), "utf8"));
   const sepath = JSON.parse(readFileSync(new URL("retrieved.json", SEPATH_RAW_DIR), "utf8"));
   const stars = JSON.parse(readFileSync(new URL("retrieved.json", STARS_RAW_DIR), "utf8"));
 
   const files = {
-    ...derivePositions(horizons.retrieved, horizons.requests),
-    ...deriveAltaz(horizons.retrieved, horizons.requests),
-    ...derivePlanets(horizons.retrieved, horizons.requests),
+    ...derivePositions(horizons.dates, horizons.urls),
+    ...deriveAltaz(horizons.dates, horizons.urls),
+    ...derivePlanets(horizons.dates, horizons.urls),
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
     ...deriveEspenak(espenak.retrieved, espenak.requests),
