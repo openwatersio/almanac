@@ -33,6 +33,10 @@
     { "name": "global/central-line-2024", "operation": "solarEclipseCentralLine", "from": "2024-04-08T18:17:19Z", "expected": 197 },
     { "name": "planets/sky-228-hours", "operation": "planetSky", "from": "2026-08-24T00:00:00Z", "count": 228 },
     { "name": "planets/events-228-hours", "operation": "planetEvents", "from": "2026-08-24T00:00:00Z", "to": "2026-09-02T12:00:00Z" },
-    { "name": "planets/events-polar-month", "operation": "planetEvents", "from": "2026-05-01T00:00:00Z", "to": "2026-06-01T00:00:00Z", "latitudeDeg": 85.5 }
+    { "name": "planets/events-polar-month", "operation": "planetEvents", "from": "2026-05-01T00:00:00Z", "to": "2026-06-01T00:00:00Z", "latitudeDeg": 85.5 },
+    { "name": "suncalc/sun-altitude-year", "operation": "sunAltitudeEvents", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z", "altitudeDeg": 6 },
+    { "name": "suncalc/sun-transits-year", "operation": "sunTransits", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z" },
+    { "name": "suncalc/moon-transits-year", "operation": "moonTransits", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z" },
+    { "name": "suncalc/moon-orientation-228-hours", "operation": "moonOrientation", "from": "2026-08-24T00:00:00Z", "count": 228 }
   ]
 }
