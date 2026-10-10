@@ -177,6 +177,53 @@ final class ParityTests: XCTestCase {
             }
         }
     }
+    struct SunCalcFile: Decodable {
+        struct Site: Decodable { let latitudeDeg: Double; let longitudeDeg: Double }
+        struct Altitude: Decodable { let observerIdx: Int; let altitudeDeg: Double; let tMs: Int64; let kind: String }
+        struct Transit: Decodable { let observerIdx: Int; let body: String; let tMs: Int64; let kind: String }
+        struct Orientation: Decodable { let tMs: Int64; let brightLimbAngleDeg: Int; let parallacticAngleDeg: Int }
+        let observers: [Site]; let altitudeEvents: [Altitude]; let transits: [Transit]; let orientation: [Orientation]
+    }
+
+    /// Mirrors parity.mjs `buildSunCalc`: four months of 2026 per observer, the
+    /// four SunCalc altitudes, Sun and Moon transits, and Moon orientation at
+    /// Victoria every 8 days.
+    func testSunCalcReproduction() throws {
+        let expected = try Self.load(SunCalcFile.self, "suncalc.json")
+        let observers = try expected.observers.map { try Observer(latitudeDeg: $0.latitudeDeg, longitudeDeg: $0.longitudeDeg) }
+        var altitudes: [(Int, Double, Int64, String)] = []
+        var transits: [(Int, String, Int64, String)] = []
+        for (idx, observer) in observers.enumerated() {
+            for month in [1, 4, 7, 10] {
+                let start = utc(String(format: "2026-%02d-01T00:00:00Z", month))
+                let end = utc(String(format: "2026-%02d-01T00:00:00Z", month + 1))
+                for level in [6, -0.3, -4, -8] {
+                    for e in try sunAltitudeEvents(from: start, to: end, observer: observer, altitudeDeg: level) {
+                        altitudes.append((idx, level, Self.qEventMs(e.time), e.kind.rawValue))
+                    }
+                }
+                for e in try sunTransits(from: start, to: end, observer: observer) { transits.append((idx, "sun", Self.qEventMs(e.time), e.kind.rawValue)) }
+                for e in try moonTransits(from: start, to: end, observer: observer) { transits.append((idx, "moon", Self.qEventMs(e.time), e.kind.rawValue)) }
+            }
+        }
+        XCTAssertEqual(altitudes.count, expected.altitudeEvents.count)
+        for (a, b) in zip(altitudes, expected.altitudeEvents) {
+            XCTAssertEqual(a.0, b.observerIdx); XCTAssertEqual(a.1, b.altitudeDeg); XCTAssertEqual(a.3, b.kind)
+            XCTAssertLessThanOrEqual(abs(a.2 - b.tMs), 100)
+        }
+        XCTAssertEqual(transits.count, expected.transits.count)
+        for (a, b) in zip(transits, expected.transits) {
+            XCTAssertEqual(a.0, b.observerIdx); XCTAssertEqual(a.1, b.body); XCTAssertEqual(a.3, b.kind)
+            XCTAssertLessThanOrEqual(abs(a.2 - b.tMs), 100)
+        }
+        let victoria = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        for row in expected.orientation {
+            let o = try moonOrientation(at: Self.dateFromMs(row.tMs), observer: victoria)
+            XCTAssertLessThanOrEqual(abs(Self.qScaled(o.brightLimbAngleDeg, 1e6) - row.brightLimbAngleDeg), 5, "\(row.tMs)")
+            XCTAssertLessThanOrEqual(abs(Self.qScaled(o.parallacticAngleDeg, 1e6) - row.parallacticAngleDeg), 5, "\(row.tMs)")
+        }
+    }
+
     // ------------------------------------------------------------ fixtures
 
     struct MetaFile: Decodable {

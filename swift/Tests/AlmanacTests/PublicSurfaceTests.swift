@@ -104,6 +104,27 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertEqual(phaseKinds.map { $0.rawValue }, ["new", "firstQuarter", "full", "lastQuarter"])
     }
 
+    func testSunCalcParity() throws {
+        let observer = try Observer(latitudeDeg: 48.7621, longitudeDeg: -123.052)
+        let start = Date(timeIntervalSince1970: 1_756_339_200) // 2025-08-28T00:00:00Z
+        let end = start.addingTimeInterval(2 * 86400)
+
+        let altitude: [AltitudeEvent] = try sunAltitudeEvents(from: start, to: end, observer: observer, altitudeDeg: 6)
+        XCTAssertFalse(altitude.isEmpty)
+        for e in altitude { _ = AltitudeEvent(time: e.time, kind: e.kind) }
+        XCTAssertEqual(AltitudeEventKind.allCases.map(\.rawValue), ["rising", "falling"])
+
+        let sun: [TransitEvent] = try sunTransits(from: start, to: end, observer: observer)
+        let moon: [TransitEvent] = try moonTransits(from: start, to: end, observer: observer)
+        XCTAssertFalse(sun.isEmpty || moon.isEmpty)
+        for e in sun + moon { _ = TransitEvent(time: e.time, kind: e.kind) }
+        XCTAssertEqual(TransitEventKind.allCases.map(\.rawValue), ["upper", "lower"])
+
+        let o: MoonOrientation = try moonOrientation(at: start, observer: observer)
+        let hand = MoonOrientation(brightLimbAngleDeg: o.brightLimbAngleDeg, parallacticAngleDeg: o.parallacticAngleDeg)
+        XCTAssertEqual(hand.brightLimbAngleDeg - hand.parallacticAngleDeg, o.brightLimbAngleDeg - o.parallacticAngleDeg)
+    }
+
     func testEclipse() throws {
         let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
         let e: LunarEclipse = try nextLunarEclipse(after: Date(timeIntervalSince1970: 1_756_339_200))

@@ -3,7 +3,8 @@
 // port drift below physical tolerances. Covers positions/altaz/illumination
 // every 8 days 1950-2100, monthly sun/moon events and phases over 2026,
 // every lunar eclipse 1950-2100, every solar eclipse each observer can see
-// 1950-2100, obscuration through two Victoria partials, every global solar
+// 1950-2100, Sun altitude crossings and Sun/Moon transits over four months of
+// 2026, Moon orientation every 8 days 1950-2100, obscuration through two Victoria partials, every global solar
 // eclipse 1950-2100 with next/previous anchors and range windows, the axis
 // point through one hybrid eclipse, and one full central line.
 // Consumes the BUILT TS package (public API only -- `npm run build` in
@@ -28,6 +29,7 @@ import {
     nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
     solarEclipseAxisPoint, solarEclipseCentralLine,
     horizonDip, planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, planetEvents,
+    sunAltitudeEvents, sunTransits, moonTransits, moonOrientation,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -310,6 +312,9 @@ function buildMeta(tsCommit, swiftCommit, files) {
             planetHeliocentric: files.planets.heliocentric.length,
             planetSky: files.planets.sky.length,
             planetEventWindows: files.planets.events.length,
+            sunAltitudeEvents: files.suncalc.altitudeEvents.length,
+            transits: files.suncalc.transits.length,
+            moonOrientationSamples: files.suncalc.orientation.length,
         },
         planetCoverage: "Annual 1950–2100 samples, both supported edges, conjunction/crescent dates, elevated and ground-level events, polar grazing pairs",
     });
@@ -326,7 +331,38 @@ export function buildCorpus() {
         .map(({ observer, heightAboveGroundM }) => ({ observer, heightAboveGroundM, dipDeg: qAngle(horizonDip(observer, heightAboveGroundM)) }));
     const height = buildHeightCases();
     const planets = buildPlanets();
-    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon, height, planets };
+    const suncalc = buildSunCalc();
+    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon, height, planets, suncalc };
+}
+
+/** The 70.5°N observer whose winter and summer days graze the SunCalc altitudes. */
+const POLAR = { latitudeDeg: 70.5, longitudeDeg: -123.052 };
+export const SUNCALC_OBSERVERS = [...OBSERVERS, POLAR];
+export const SUNCALC_ALTITUDES = [6, -0.3, -4, -8];
+/** January, April, July, and October 2026. */
+export const SUNCALC_WINDOWS = monthWindows2026().filter((_, m) => m % 3 === 0);
+
+function buildSunCalc() {
+    const altitudeEvents = [], transits = [];
+    for (let observerIdx = 0; observerIdx < SUNCALC_OBSERVERS.length; observerIdx++) {
+        const observer = SUNCALC_OBSERVERS[observerIdx];
+        for (const { startMs, endMs } of SUNCALC_WINDOWS) {
+            const start = new Date(startMs), end = new Date(endMs);
+            for (const altitudeDeg of SUNCALC_ALTITUDES) {
+                for (const e of sunAltitudeEvents(start, end, observer, altitudeDeg)) {
+                    altitudeEvents.push({ observerIdx, altitudeDeg, tMs: qEventMs(e.time), kind: e.kind });
+                }
+            }
+            for (const [body, search] of [['sun', sunTransits], ['moon', moonTransits]]) {
+                for (const e of search(start, end, observer)) transits.push({ observerIdx, body, tMs: qEventMs(e.time), kind: e.kind });
+            }
+        }
+    }
+    const orientation = sampleTimesMs().map((tMs) => {
+        const o = moonOrientation(new Date(tMs), VICTORIA);
+        return { tMs, brightLimbAngleDeg: qAngle(o.brightLimbAngleDeg), parallacticAngleDeg: qAngle(o.parallacticAngleDeg) };
+    });
+    return { observers: SUNCALC_OBSERVERS, altitudeEvents, transits, orientation };
 }
 
 function buildPlanets() {
@@ -534,6 +570,14 @@ function checkFile(rel, fresh, committed) {
             }, fresh, committed, ctx);
             break;
         }
+        case "suncalc.json":
+            compareNode("suncalc", {
+                observers: [OBSERVER_SCHEMA],
+                altitudeEvents: [{ observerIdx: EXACT, altitudeDeg: EXACT, tMs: TIME, kind: EXACT }],
+                transits: [{ observerIdx: EXACT, body: EXACT, tMs: TIME, kind: EXACT }],
+                orientation: [{ tMs: EXACT, brightLimbAngleDeg: SCALED, parallacticAngleDeg: SCALED }],
+            }, fresh, committed, ctx);
+            break;
         case "horizon.json": compareNode("horizon", [{ observer: { ...OBSERVER_SCHEMA, elevationM: EXACT }, heightAboveGroundM: EXACT, dipDeg: SCALED }], fresh, committed, ctx); break;
         case "positions.json": compareNode("positions", [ROW_SCHEMAS.positions], fresh, committed, ctx); break;
         case "altaz.json": compareNode("altaz", [ROW_SCHEMAS.altaz], fresh, committed, ctx); break;
@@ -596,6 +640,7 @@ function main() {
         "horizon.json": files.horizon,
         "height.json": files.height,
         "planets.json": files.planets,
+        "suncalc.json": files.suncalc,
     };
     const metaDest = new URL("meta.json", FIXTURES_DIR);
 
