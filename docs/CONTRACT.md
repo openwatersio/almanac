@@ -15,7 +15,7 @@ Both ports implement four matching layers:
 - Time: Julian date and Delta-T from the Espenak–Meeus piecewise polynomials.
 - Positions: truncated VSOP87 for the Sun and planets, Montenbruck–Pfleger MOON2 for the Moon, and truncated IAU 2000B nutation and aberration translated from upstream.
 - Transforms: ecliptic and equatorial conversion on the equator of date, equatorial to horizontal conversion, topocentric parallax, precession for fixed-star catalog positions, and atmospheric refraction.
-- Events: root finding over the position and transform layers for rise, set, twilight, transit, phase, lunar eclipse, and solar eclipse searches.
+- Events: root finding over the position and transform layers for rise, set, twilight, caller-chosen Sun altitudes, upper and lower transit, phase, lunar eclipse, and solar eclipse searches.
 
 Event searches use the same position models returned by the position functions. Lunar eclipses are found from the Moon's distance to the Earth's shadow axis rather than from a separate precomputed eclipse series. Solar eclipses are found from an observer's distance to the Moon's shadow axis at each new moon, and global solar eclipses from the Earth's center's distance to the same axis, whose crossing of the ground between its first and last contact is the central line.
 
@@ -39,6 +39,9 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 - `starAltAz` accepts J2000 ICRS catalog right ascension and declination, precesses and nutates them to date, and applies refraction. It does not apply annual aberration, proper motion, or parallax.
 - Sunrise and sunset occur when the unrefracted geometric center crosses `horizonDip - (34 arcminutes + the true solar semidiameter at the current distance)`. Civil, nautical, and astronomical twilight use center altitudes of `-6°`, `-12°`, and `-18°` without a refraction term.
 - Moonrise and moonset occur when the apparent topocentric upper limb crosses the supplied horizon, including refraction, topocentric parallax, and the true semidiameter at the current distance.
+- Sun altitude events use the twilight convention: the Sun's unrefracted geometric center crossing the caller's altitude, which must be finite and in `[-90, 90]`, with no horizon dip. An altitude of `-6` returns the same instants as civil twilight. A window in which the Sun never reaches the altitude returns an empty list.
+- Upper transit is local hour angle 0 and lower transit is 180°, reported whether or not the body is above the horizon. The Sun's upper transit is the `transit` that Sun events report. The Moon's transits use its topocentric hour angle, so parallax is included.
+- The Moon's bright-limb angle is the position angle of the midpoint of its bright limb, from celestial north on the true equator of date through east, in `[0, 360)`, from the apparent topocentric Moon and the apparent geocentric Sun (Meeus, *Astronomical Algorithms*, 48.5). The parallactic angle is the angle at the Moon from celestial north to the observer's geodetic zenith, in `(-180, 180]`, from the Moon's topocentric hour angle and declination (Meeus 14.1). The bright-limb angle minus the parallactic angle is the bright limb's angle from the zenith.
 - Planet rise/set uses a point center: unrefracted topocentric altitude crosses `horizonDip - 34/60` degrees, with no planetary semidiameter. Polar windows may have no crossing; supplied eye height uses the same convention as Sun/Moon events.
 - Moon phase events and `moonIllumination.phase` use apparent geocentric ecliptic longitudes, including aberration and nutation.
 - Lunar eclipse visibility is geometric: the unrefracted topocentric altitude of the Moon's center must be above the supplied horizon dip. It does not account for weather, terrain, refraction, or safe-viewing conditions.
@@ -62,9 +65,13 @@ The functions have the same names and semantics in both ports. TypeScript return
 | `sunAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`. |
 | `moonAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`, including parallax. |
 | `starAltAz(raDeg, decDeg, time, observer)` | J2000 ICRS catalog coordinates, instant, and observer | Precessed, nutated, and refracted `azDeg` and `altDeg`; no annual aberration, proper motion, or parallax. |
+| `moonOrientation(time, observer)` | Instant and observer | `MoonOrientation`: `brightLimbAngleDeg` in `[0, 360)` and `parallacticAngleDeg` in `(-180, 180]`. |
 | `moonIllumination(time)` | Instant | `fraction` in `[0, 1]`, `phaseAngleDeg` in `[0, 180]`, `phase` in `[0, 1)`, and `waxing`. Phase angle is zero at full Moon and 180 degrees at new Moon; phase is zero at new Moon and 0.5 at full Moon; `fraction = (1 + cos θ) / 2`. |
 | `sunEvents(startUtc, endUtc, observer, heightAboveGroundM = 0)` | Half-open window and observer | Sorted `{time, kind}` values where `kind` is `rise`, `set`, `civilDawn`, `civilDusk`, `nauticalDawn`, `nauticalDusk`, `astroDawn`, `astroDusk`, or `transit`. Polar windows may omit crossings; transit is still returned. |
 | `moonEvents(startUtc, endUtc, observer, heightAboveGroundM = 0)` | Half-open window and observer | Sorted `{time, kind}` values where `kind` is `rise` or `set`. |
+| `sunAltitudeEvents(startUtc, endUtc, observer, altitudeDeg)` | Half-open window, observer, and the Sun's geometric center altitude in `[-90, 90]` | Sorted `AltitudeEvent` values with `time` and `kind` (`rising` or `falling`). |
+| `sunTransits(startUtc, endUtc, observer)` | Half-open window and observer | Sorted `TransitEvent` values with `time` and `kind` (`upper` or `lower`). |
+| `moonTransits(startUtc, endUtc, observer)` | Half-open window and observer | Sorted `TransitEvent` values for the Moon's topocentric transits. |
 | `searchMoonPhases(startUtc, endUtc)` | Half-open window | Sorted `{time, phase}` values where `phase` is `new`, `firstQuarter`, `full`, or `lastQuarter`. |
 | `nextLunarEclipse(after)` | Instant | The lunar eclipse strictly after the anchor, or the out-of-range outcome. |
 | `previousLunarEclipse(before)` | Instant | The lunar eclipse strictly before the anchor, or the out-of-range outcome. |
@@ -125,6 +132,9 @@ External fixtures determine physical correctness. Committed raw responses preser
 - Sun and Moon positions and distances use JPL Horizons across the supported interval. Coarse files are TT-labeled; dense current-era files exercise the public UT1-like API.
 - Fixed-star horizontal positions use J2000 catalog coordinates from SIMBAD and expected altitude and azimuth from the USNO celestial-navigation almanac.
 - Rise, set, twilight, and phase events use USNO data. Nautical and astronomical twilight also use a dedicated one-minute Horizons altitude grid because the USNO daily service reports only civil twilight.
+- Sun altitude events use the same airless one-minute Horizons grid at `+6°`, `-0.3°`, `-4°`, and `-8°`, at Victoria, 60°N, 20°N, and 70.5°N. The 70.5°N days put the Sun's daily extremum within hundredths of a degree of `+6°`, `-0.3°`, and `-4°` next to days with no crossing, and every grid block must return each crossing once and nothing else. A one-minute brute-force scan at 88.5°N covers the flattening band.
+- Transits use USNO's daily upper transit of the Moon and lower transit of the Sun and Moon, which it lists when the body is above the horizon, and one-minute Horizons local apparent hour angle grids at Victoria and 88.5°S for both kinds and both bodies. A one-minute brute-force hour-angle scan at 88.5°S and 89.5°N covers the flattening band.
+- Moon orientation uses hourly Horizons topocentric apparent positions of the Moon and Sun through March 2026 at Victoria and 70.5°N. Horizons' `PsAng` is measured from the ICRF pole, so the bright-limb reference applies the same formula to Horizons' apparent positions on the equator of date, and derive.mjs asserts that the formula on Horizons' ICRF positions reproduces `PsAng` plus 180°. The parallactic angle reference comes from Horizons' airless azimuth and elevation, and agrees with Horizons' hour angle and declination. A spherical-trigonometry oracle from the unrefracted azimuth and altitude checks the parallactic angle at eight latitudes.
 - Lunar eclipse types, peaks, magnitudes, and selected contacts use the Espenak Five Millennium catalog.
 - Contact fixtures cover total, partial, and penumbral shapes, including absent umbral contacts.
 - Solar eclipse local circumstances (kind, contacts, Sun altitudes, obscuration) use the USNO Astronomical Applications API for eclipses from 2001 through 2026, the years that endpoint serves. USNO reports unrefracted Sun altitudes; the tests refract them with the port's own model before comparing.
@@ -146,6 +156,8 @@ The test suites enforce these physical tolerances:
 | Planet solar elongation | 1 arcminute |
 | Planet visual magnitude, except extreme Venus crescents | 0.3 |
 | Star altitude and azimuth | 1 arcminute |
+| Moon parallactic angle | 1 arcminute |
+| Moon bright-limb angle | 1 arcminute plus 8.8 arcseconds over the sine of the Moon's elongation |
 | Event times | 60 seconds |
 | Eclipse peaks and contacts | 60 seconds |
 | Eclipse magnitudes | 0.03 |
@@ -165,6 +177,8 @@ The test suites enforce these physical tolerances:
 | Annular obscuration on the central line against the tabulated diameter ratio squared | 0.002 |
 
 The Montenbruck–Pfleger lunar distance model has a measured mean scale bias of `-27.3 ppm` against JPL ephemerides and a periodic residual reaching about `-139 ppm`; the observed maximum absolute difference is 53.3 kilometers. Angular accuracy is unaffected.
+
+The bright-limb angle uses the geocentric Sun, which sits up to the 8.8 arcsecond solar parallax from the topocentric Sun Horizons uses; that offset turns the angle by up to 8.8 arcseconds over the sine of the elongation, which is large near new and full Moon, where the angle is ill-conditioned. The measured worst is 0.42 arcminutes at elongations from 20° to 160°, and 81% of the limit at 1.1°. The parallactic angle's worst is 0.18 arcminutes. Sun altitude events fall within 5.6 seconds of the Horizons grid, at the 70.5°N `+6°` graze, and transits within 1.1 seconds of the Horizons hour-angle grids and 27.5 seconds of USNO's minute-rounded times.
 
 USNO event fixtures after 2050 include disagreement between Delta-T projections. Rows through 2050 use the absolute 60-second limit. Later rows apply that limit to scatter around the mean offset for each date and separately bound the mean by the documented time-model divergence.
 

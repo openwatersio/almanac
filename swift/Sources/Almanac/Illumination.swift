@@ -101,3 +101,49 @@ public func moonIllumination(_ time: Date) throws -> MoonIllumination {
     try assertSupported(time)
     return moonIlluminationAtTT(ttDays(time))
 }
+
+/**
+ * How the Moon's disc is turned on the observer's sky. `brightLimbAngleDeg` is
+ * the position angle of the bright limb's midpoint from celestial north
+ * through east, in [0, 360); `parallacticAngleDeg` is the angle at the Moon
+ * from celestial north to the observer's zenith, in (-180, 180]. Their
+ * difference is the bright limb's angle from the zenith.
+ */
+public struct MoonOrientation: Sendable {
+    public let brightLimbAngleDeg: Double; public let parallacticAngleDeg: Double
+    public init(brightLimbAngleDeg: Double, parallacticAngleDeg: Double) {
+        self.brightLimbAngleDeg = brightLimbAngleDeg; self.parallacticAngleDeg = parallacticAngleDeg
+    }
+}
+
+/**
+ * The Moon's orientation at an instant: the bright limb from the apparent
+ * topocentric Moon and the apparent geocentric Sun (Meeus, Astronomical
+ * Algorithms, 48.5), and the parallactic angle from the Moon's topocentric
+ * hour angle and declination at the observer's geodetic latitude (Meeus 14.1).
+ */
+public func moonOrientation(at time: Date, observer: Observer) throws -> MoonOrientation {
+    let time = try normalized(time)
+    try assertSupported(time)
+    let ut = utDays(time)
+    let tt = ttDaysFromUt(ut)
+    let moon = topoAltAzUnrefracted(moonGeoVectorEqj(tt), ut, observer)
+    let sun = sunApparentAtTT(tt)
+    let dec = moon.decDeg * DEG2RAD
+    let sunDec = sun.decDeg * DEG2RAD
+    let dRa = (sun.raDeg - moon.raDeg) * DEG2RAD
+    var brightLimbAngleDeg = RAD2DEG * atan2(
+        cos(sunDec) * sin(dRa),
+        sin(sunDec) * cos(dec) - cos(sunDec) * sin(dec) * cos(dRa)
+    )
+    if brightLimbAngleDeg < 0 { brightLimbAngleDeg += 360 }
+    if brightLimbAngleDeg >= 360 { brightLimbAngleDeg -= 360 }
+    let ha = moon.hourAngleDeg * DEG2RAD
+    let lat = observer.latitudeDeg * DEG2RAD
+    var parallacticAngleDeg = RAD2DEG * atan2(
+        sin(ha),
+        tan(lat) * cos(dec) - sin(dec) * cos(ha)
+    )
+    if parallacticAngleDeg <= -180 { parallacticAngleDeg += 360 }
+    return MoonOrientation(brightLimbAngleDeg: brightLimbAngleDeg, parallacticAngleDeg: parallacticAngleDeg)
+}

@@ -1,6 +1,6 @@
 # Almanac
 
-Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, Moon phase, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, any Sun altitude, upper and lower transits, Moon phase and orientation, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -21,11 +21,13 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 
 ## Performance
 
-Almanac includes a shared performance harness for both ports: **30 workloads**
+Almanac includes a shared performance harness for both ports: **34 workloads**
 cover positions, a 228-hour sky track, short/year/polar event windows, full-range
 moon phases, next/previous/range lunar, solar, and global solar eclipse searches,
 including empty windows, solar obscuration over a 228-hour track, and the central
-line of the 2024-04-08 eclipse, five-planet sky tracks, and planetary rise/set.
+line of the 2024-04-08 eclipse, five-planet sky tracks, planetary rise/set, a
+year of golden-hour crossings and Sun and Moon transits, and a 228-hour Moon
+orientation track.
 
 Event searches find altitude extrema with Brent's method and altitude crossings
 with a cosine-seeded secant solver, each root proven inside a half-second
@@ -49,10 +51,10 @@ Reproduce the comparison locally from the repository root with mise 2026.9.1 or 
 ```bash
 mise install
 mise exec -- npm ci --prefix typescript
-mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^(global|planets)/'
+mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^(global|planets|suncalc)/'
 ```
 
-The `--skip` pattern leaves out global eclipse and planetary workloads absent from that base. Use `--skip '^(solar|global|planets)/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived. For a newer base that lacks only planets, use `--skip '^planets/'`.
+The `--skip` pattern leaves out global eclipse, planetary, and SunCalc-parity workloads absent from that base. Use `--skip '^(solar|global|planets|suncalc)/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived. For a base that lacks only the SunCalc-parity APIs, use `--skip '^suncalc/'`.
 
 CI runs the harness on code changes and fails on **median regressions over 20%**.
 Results include timing tables, raw samples, checksums, and revision/toolchain
@@ -63,6 +65,8 @@ Event searches scale with window length. Run a full 151-year sweep in a worker o
 background task; use shorter windows for interactive queries.
 
 ## Usage
+
+Migrating from SunCalc: [`docs/migrating-from-suncalc.md`](docs/migrating-from-suncalc.md) maps every SunCalc call to Almanac and gives drop-in `getTimes` and `getMoonTimes` adapters.
 
 ### TypeScript
 
@@ -143,6 +147,27 @@ for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
 
 // Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
 let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer: observer)
+```
+
+### Golden hour, transits, and the Moon's tilt
+
+`sunAltitudeEvents` finds the Sun's center crossing any altitude, with the twilight convention, so `6` gives golden hour and `-6` civil twilight. `sunTransits` and `moonTransits` give each body's highest (`upper`) and lowest (`lower`) meridian crossings. `moonOrientation` turns the Moon's disc: subtracting the parallactic angle from the bright-limb angle gives the bright limb's direction from the zenith.
+
+```ts
+import { sunAltitudeEvents, sunTransits, moonTransits, moonOrientation } from '@openwaters/almanac';
+const golden = sunAltitudeEvents(today, tomorrow, observer, 6);       // 'rising' ends morning golden hour, 'falling' starts the evening one
+const solarMidnight = sunTransits(today, tomorrow, observer).find(e => e.kind === 'lower');
+const moonHighest = moonTransits(today, tomorrow, observer).find(e => e.kind === 'upper');
+const { brightLimbAngleDeg, parallacticAngleDeg } = moonOrientation(today, observer);
+const brightLimbFromZenithDeg = brightLimbAngleDeg - parallacticAngleDeg;
+```
+
+```swift
+let golden = try sunAltitudeEvents(from: today, to: tomorrow, observer: observer, altitudeDeg: 6)
+let solarMidnight = try sunTransits(from: today, to: tomorrow, observer: observer).first { $0.kind == .lower }
+let moonHighest = try moonTransits(from: today, to: tomorrow, observer: observer).first { $0.kind == .upper }
+let orientation = try moonOrientation(at: today, observer: observer)
+let brightLimbFromZenithDeg = orientation.brightLimbAngleDeg - orientation.parallacticAngleDeg
 ```
 
 ### Planetary views

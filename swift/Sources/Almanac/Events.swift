@@ -47,6 +47,24 @@ public struct PlanetEvent: Sendable {
     public init(time: Date, kind: PlanetEventKind) { self.time = time; self.kind = kind }
 }
 
+/// The Sun's center crossing a caller-chosen altitude, upward or downward.
+public enum AltitudeEventKind: String, CaseIterable, Sendable { case rising, falling }
+
+/// A Sun altitude crossing.
+public struct AltitudeEvent: Sendable {
+    public let time: Date; public let kind: AltitudeEventKind
+    public init(time: Date, kind: AltitudeEventKind) { self.time = time; self.kind = kind }
+}
+
+/// A body crossing the local meridian: highest at `upper`, lowest at `lower`.
+public enum TransitEventKind: String, CaseIterable, Sendable { case upper, lower }
+
+/// A meridian transit.
+public struct TransitEvent: Sendable {
+    public let time: Date; public let kind: TransitEventKind
+    public init(time: Date, kind: TransitEventKind) { self.time = time; self.kind = kind }
+}
+
 /// A quarter lunar phase kind.
 public enum MoonPhaseName: String, Sendable { case new, firstQuarter, full, lastQuarter }
 
@@ -444,12 +462,16 @@ private struct LevelSpec<K> { let level: Level; let rising: K; let falling: K }
  * solving every monotonic segment between consecutive extrema for every target
  * level. The chain starts a full cycle before `startUt` so the segment
  * containing the window's first instant is covered, and runs one extremum past
- * `endUt` so an event just inside the window's end is too.
+ * `endUt` so an event just inside the window's end is too. `transitKind` is
+ * emitted at each hour angle 0 and `lowerTransitKind` at each hour angle 180.
+ * With no levels the extrema are never refined: the hour-angle chain alone
+ * places the transits.
  */
 private func searchAltitudeEvents<K>(
     sample: @escaping Sampler,
     levels: [LevelSpec<K>],
     transitKind: K?,
+    lowerTransitKind: K?,
     startUt: Double,
     endUt: Double,
     haRateDegPerDay: Double,
@@ -481,6 +503,7 @@ private func searchAltitudeEvents<K>(
         // extremum we are not allowed to probe past. The segment up to it is
         // still monotonic, so any crossing inside the window is still found.
         let s1 = atRangeEnd ? sample(maxUt)
+            : levels.isEmpty ? sample(nextEst)
             : refineExtremum(sample, nextEst, nextIsMax, halfWidthDays, s0.ut, flatCycle)
         assertReached(s1.ut > s0.ut, "extremum chain ordering")
 
@@ -493,7 +516,7 @@ private func searchAltitudeEvents<K>(
                 emit(solveCrossing(sample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling)
             }
         }
-        if nextIsMax, let transitKind, !atRangeEnd { emit(nextEst, transitKind) }
+        if let transit = nextIsMax ? transitKind : lowerTransitKind, !atRangeEnd { emit(nextEst, transit) }
 
         s0 = s1
         if atRangeEnd { break }
@@ -540,7 +563,7 @@ public func sunEvents(from startUtc: Date, to endUtc: Date, observer: Observer, 
     let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
     if startUtc >= endUtc { return [] }
     let raw = try searchAltitudeEvents(
-        sample: sunSampler(observer, dip), levels: sunLevels, transitKind: .transit,
+        sample: sunSampler(observer, dip), levels: sunLevels, transitKind: .transit, lowerTransitKind: nil,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: sunHaRateDegPerDay, cycleDays: sunCycleDays,
         flatCycle: flatCycle(observer)
@@ -563,7 +586,7 @@ public func moonEvents(from startUtc: Date, to endUtc: Date, observer: Observer,
     let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
     if startUtc >= endUtc { return [] }
     let raw = try searchAltitudeEvents(
-        sample: moonSampler(observer, dip), levels: moonLevels, transitKind: nil,
+        sample: moonSampler(observer, dip), levels: moonLevels, transitKind: nil, lowerTransitKind: nil,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: moonHaRateDegPerDay, cycleDays: moonCycleDays,
         flatCycle: flatCycle(observer)
@@ -580,9 +603,73 @@ public func planetEvents(_ planet: Planet, from startUtc: Date, to endUtc: Date,
     let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
     if startUtc >= endUtc { return [] }
     let cycleDays = 0.9972695717592592
-    let raw = try searchAltitudeEvents(sample: planetSampler(planet, observer, dip), levels: moonLevels, transitKind: nil,
+    let raw = try searchAltitudeEvents(sample: planetSampler(planet, observer, dip), levels: moonLevels, transitKind: nil, lowerTransitKind: nil,
         startUt: utDays(startUtc), endUt: utDays(endUtc), haRateDegPerDay: 360/cycleDays, cycleDays: cycleDays, flatCycle: flatCycle(observer))
     return raw.map { PlanetEvent(time: $0.time, kind: $0.kind == .rise ? .rise : .set) }
+}
+
+/**
+ * The Sun's unrefracted geometric center crossing `altitudeDeg` within the
+ * half-open window `[from, to)`, sorted ascending: `rising` upward, `falling`
+ * downward. The twilight convention, so `-6` returns the civil twilight
+ * instants. A window with no crossing, as in polar day or night, returns an
+ * empty list.
+ */
+public func sunAltitudeEvents(from startUtc: Date, to endUtc: Date, observer: Observer, altitudeDeg: Double) throws -> [AltitudeEvent] {
+    guard altitudeDeg >= -90 && altitudeDeg <= 90 else { throw AlmanacError.invalidArgument("altitudeDeg \(altitudeDeg)") }
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    if startUtc >= endUtc { return [] }
+    let raw = try searchAltitudeEvents(
+        sample: sunSampler(observer, 0), levels: [LevelSpec<AltitudeEventKind>(level: altitudeDeg, rising: .rising, falling: .falling)],
+        transitKind: nil, lowerTransitKind: nil,
+        startUt: utDays(startUtc), endUt: utDays(endUtc),
+        haRateDegPerDay: sunHaRateDegPerDay, cycleDays: sunCycleDays,
+        flatCycle: flatCycle(observer)
+    )
+    return raw.map { AltitudeEvent(time: $0.time, kind: $0.kind) }
+}
+
+/**
+ * The Sun's upper (local hour angle 0) and lower (180°) transits within the
+ * half-open window `[from, to)`, sorted ascending, whether or not the Sun is
+ * above the horizon. The upper transit is `sunEvents`' `transit`.
+ */
+public func sunTransits(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [TransitEvent] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    if startUtc >= endUtc { return [] }
+    let raw = try searchAltitudeEvents(
+        sample: sunSampler(observer, 0), levels: [LevelSpec<TransitEventKind>](), transitKind: .upper, lowerTransitKind: .lower,
+        startUt: utDays(startUtc), endUt: utDays(endUtc),
+        haRateDegPerDay: sunHaRateDegPerDay, cycleDays: sunCycleDays,
+        flatCycle: flatCycle(observer)
+    )
+    return raw.map { TransitEvent(time: $0.time, kind: $0.kind) }
+}
+
+/**
+ * The Moon's upper and lower transits within the half-open window `[from, to)`,
+ * sorted ascending, from the topocentric hour angle, so parallax is included,
+ * whether or not the Moon is above the horizon.
+ */
+public func moonTransits(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [TransitEvent] {
+    let startUtc = try normalized(startUtc)
+    let endUtc = try normalized(endUtc)
+    try assertSupported(startUtc)
+    try assertSupportedWindowEnd(endUtc)
+    if startUtc >= endUtc { return [] }
+    let raw = try searchAltitudeEvents(
+        sample: moonSampler(observer, 0), levels: [LevelSpec<TransitEventKind>](), transitKind: .upper, lowerTransitKind: .lower,
+        startUt: utDays(startUtc), endUt: utDays(endUtc),
+        haRateDegPerDay: moonHaRateDegPerDay, cycleDays: moonCycleDays,
+        flatCycle: flatCycle(observer)
+    )
+    return raw.map { TransitEvent(time: $0.time, kind: $0.kind) }
 }
 
 // -------------------------------------------------------------- moon phases

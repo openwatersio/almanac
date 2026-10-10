@@ -17,10 +17,11 @@ let globalEclipses: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(s
 // ponytail: declaration detection assumes Events.swift; update if the API moves.
 let events = try String(contentsOfFile: "\(source)/swift/Sources/Almanac/Events.swift", encoding: .utf8)
 let planets: [SwiftSetting] = events.contains("public func planetEvents(") ? [.define("ALMANAC_PLANETS")] : []
+let suncalc: [SwiftSetting] = events.contains("public func sunTransits(") ? [.define("ALMANAC_SUNCALC")] : []
 let package = Package(
     name: "AlmanacBenchmarks",
     dependencies: [.package(name: "Almanac", path: source)],
     targets: [
-        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets),
+        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets + suncalc),
     ]
 )

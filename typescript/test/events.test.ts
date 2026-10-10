@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { sunEvents, moonEvents, searchMoonPhases, moonIllumination, AlmanacOutOfRangeError } from '../src/index.js';
+import {
+  sunEvents, moonEvents, searchMoonPhases, moonIllumination, sunAltitudeEvents, sunTransits, moonTransits, AlmanacOutOfRangeError
+} from '../src/index.js';
 import { quantizedUt } from '../src/events.js';
 import { topoAltAzUnrefracted } from '../src/transforms.js';
 import { sunGeoVectorEqj } from '../src/sun.js';
@@ -534,4 +536,251 @@ describe('performance smoke (10x headroom — CI timing asserts are flake factor
       + ` + ${moon.length} moon in ${((dt - (t1 - t0)) / 1000).toFixed(1)} s = ${(dt / 1000).toFixed(1)} s`);
     expect(dt).toBeLessThan(120_000);
   }, 300_000);
+});
+
+// ------------------------------------------------- caller-chosen altitudes
+
+describe('sunAltitudeEvents', () => {
+  const POLAR: Observer = { latitudeDeg: 70.5, longitudeDeg: -123.052, elevationM: 0 };
+
+  // The same one-minute Horizons airless grid as the twilights, at the levels
+  // SunCalc users ask for: golden hour (+6), its lower-limb sunrise end (-0.3),
+  // and two arbitrary angles. Every block is solved as one window, so a missed
+  // grazing pair or an extra event fails the count, not only the timing.
+  it('Horizons airless grid: +6/-0.3/-4/-8° crossings within 60 s, one for one', () => {
+    const rows: AltAzRow[] = load('altaz/sun-airless-twilight.json');
+    const blocks: AltAzRow[][] = [];
+    for (const r of rows) {
+      const last = blocks.at(-1)?.at(-1);
+      if (!last || last.siteLatDeg !== r.siteLatDeg || Date.parse(r.utc) - Date.parse(last.utc) !== 60 * SEC) blocks.push([r]);
+      else blocks.at(-1)!.push(r);
+    }
+    let worst = 0;
+    let worstLabel = '';
+    let checked = 0;
+    for (const block of blocks) {
+      const observer: Observer = { latitudeDeg: block[0].siteLatDeg, longitudeDeg: block[0].siteLonDeg, elevationM: 0 };
+      const start = new Date(block[0].utc);
+      const end = new Date(block.at(-1)!.utc);
+      for (const level of [6, -0.3, -4, -8]) {
+        const expected: { ms: number; kind: string }[] = [];
+        for (let i = 1; i < block.length; i++) {
+          const fa = block[i - 1].altDeg - level;
+          const fb = block[i].altDeg - level;
+          if ((fa < 0) === (fb < 0)) continue;
+          const ta = Date.parse(block[i - 1].utc);
+          expected.push({ ms: ta + (60 * SEC * -fa) / (fb - fa), kind: fb >= 0 ? 'rising' : 'falling' });
+        }
+        const found = sunAltitudeEvents(start, end, observer, level);
+        const label = `${level}° @ ${block[0].utc} lat ${observer.latitudeDeg}`;
+        expect(found.map((e) => e.kind), label).toEqual(expected.map((e) => e.kind));
+        for (let i = 0; i < expected.length; i++) {
+          const diff = Math.abs(found[i].time.getTime() - expected[i].ms);
+          if (diff > worst) { worst = diff; worstLabel = `${label} ${found[i].kind}`; }
+          expect(diff / SEC, label).toBeLessThan(60);
+          checked++;
+        }
+      }
+    }
+    console.log(`Horizons altitude crossings: ${checked} crossings, worst ${(worst / SEC).toFixed(1)} s (${worstLabel})`);
+    expect(checked).toBeGreaterThan(60);
+  }, 120_000);
+
+  it('the near-polar evidence carries grazing pairs and days with no crossing', () => {
+    const day = (iso: string) => [new Date(`${iso}T00:00:00Z`), new Date(Date.parse(`${iso}T00:00:00Z`) + DAY)] as const;
+    expect(sunAltitudeEvents(...day('2026-02-11'), POLAR, 6)).toEqual([]);
+    expect(sunAltitudeEvents(...day('2026-02-12'), POLAR, 6).map((e) => e.kind)).toEqual(['rising', 'falling']);
+    expect(sunAltitudeEvents(...day('2026-05-17'), POLAR, -0.3)).toEqual([]);
+    expect(sunAltitudeEvents(...day('2026-05-16'), POLAR, -0.3).map((e) => e.kind)).toEqual(['falling', 'rising']);
+    expect(sunAltitudeEvents(...day('2026-12-21'), POLAR, 6)).toEqual([]);
+    expect(sunAltitudeEvents(...day('2026-12-21'), POLAR, -4).map((e) => e.kind)).toEqual(['rising', 'falling']);
+  });
+
+  it('-6° reproduces civil twilight to the millisecond', () => {
+    for (const observer of [VICTORIA, POLAR, { latitudeDeg: -88.5, longitudeDeg: -123.052 }]) {
+      const start = new Date('2026-01-01T00:00:00Z');
+      const end = new Date('2027-01-01T00:00:00Z');
+      const civil = sunEvents(start, end, observer)
+        .filter((e) => e.kind === 'civilDawn' || e.kind === 'civilDusk')
+        .map((e) => ({ ms: e.time.getTime(), kind: e.kind === 'civilDawn' ? 'rising' : 'falling' }));
+      const mine = sunAltitudeEvents(start, end, observer, -6).map((e) => ({ ms: e.time.getTime(), kind: e.kind }));
+      expect(mine, `lat ${observer.latitudeDeg}`).toEqual(civil);
+    }
+  }, 60_000);
+
+  it('every crossing sits on the requested altitude, pole to equator', () => {
+    let worst = 0;
+    for (const latitudeDeg of [-89.5, -35, 0, 48.7621, 70.5, 86, 88.9, 90]) {
+      const observer: Observer = { latitudeDeg, longitudeDeg: -123.052 };
+      const flat = Math.abs(latitudeDeg) >= 85;
+      const start = new Date('2026-01-01T00:00:00Z');
+      const end = new Date(start.getTime() + (flat ? 366 : 40) * DAY);
+      for (const level of flat ? [-0.3, 2, -4] : [12.5, -0.3, -8, 40]) {
+        const offset = (t: Date) => {
+          const ut = utDays(t);
+          return topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer).altDeg - level;
+        };
+        for (const e of sunAltitudeEvents(start, end, observer, level)) {
+          const rate = (offset(new Date(e.time.getTime() + 30 * SEC)) - offset(new Date(e.time.getTime() - 30 * SEC))) / 60;
+          expect(Math.sign(rate), `lat ${latitudeDeg} ${level}° ${e.kind}`).toBe(e.kind === 'rising' ? 1 : -1);
+          const seconds = Math.abs(offset(e.time) / rate);
+          worst = Math.max(worst, seconds);
+          expect(seconds, `lat ${latitudeDeg} ${level}° @ ${e.time.toISOString()}`).toBeLessThan(1);
+        }
+      }
+    }
+    console.log(`altitude-event residual: worst ${worst.toFixed(3)} s`);
+  }, 120_000);
+
+  it('flattening band: every crossing a brute-force scan finds is reported', () => {
+    const observer: Observer = { latitudeDeg: 88.5, longitudeDeg: -123.052 };
+    const start = Date.parse('2026-03-10T00:00:00Z');
+    const end = start + 20 * DAY;
+    const offset = (ms: number) => {
+      const ut = utDays(new Date(ms));
+      return topoAltAzUnrefracted(sunGeoVectorEqj(ttDaysFromUt(ut)), ut, observer).altDeg + 0.3;
+    };
+    const brute: { ms: number; kind: string }[] = [];
+    let prev = offset(start);
+    for (let ms = start + 60 * SEC; ms <= end; ms += 60 * SEC) {
+      const cur = offset(ms);
+      if (prev < 0 && cur >= 0) brute.push({ ms, kind: 'rising' });
+      if (prev >= 0 && cur < 0) brute.push({ ms, kind: 'falling' });
+      prev = cur;
+    }
+    expect(brute.length).toBeGreaterThan(1);
+    const mine = sunAltitudeEvents(new Date(start), new Date(end), observer, -0.3);
+    expect(mine.map((e) => e.kind)).toEqual(brute.map((b) => b.kind));
+    for (let i = 0; i < brute.length; i++) {
+      expect(Math.abs(mine[i].time.getTime() - brute[i].ms)).toBeLessThan(60 * SEC);
+    }
+  }, 60_000);
+
+  it('validates the altitude, observer, and window', () => {
+    const t1 = new Date('2026-08-28T00:00:00Z');
+    const t2 = new Date('2026-08-29T00:00:00Z');
+    for (const bad of [NaN, Infinity, -90.0001, 91]) {
+      expect(() => sunAltitudeEvents(t2, t1, VICTORIA, bad), `${bad}`).toThrow(RangeError);
+      expect(() => sunAltitudeEvents(t2, t1, VICTORIA, bad), `${bad}`).not.toThrow(AlmanacOutOfRangeError);
+    }
+    expect(sunAltitudeEvents(t1, t2, VICTORIA, 90)).toEqual([]);
+    expect(sunAltitudeEvents(t1, t2, VICTORIA, -90)).toEqual([]);
+    expect(() => sunAltitudeEvents(t2, t1, { latitudeDeg: 91, longitudeDeg: 0 }, 6)).toThrow(RangeError);
+    expect(() => sunAltitudeEvents(new Date(NaN), t1, VICTORIA, 6)).toThrow(RangeError);
+    expect(() => sunAltitudeEvents(new Date('1949-12-31T00:00:00Z'), t1, VICTORIA, 6)).toThrow(AlmanacOutOfRangeError);
+    expect(sunAltitudeEvents(t1, t1, VICTORIA, 6)).toEqual([]);
+    expect(sunAltitudeEvents(t2, t1, VICTORIA, 6)).toEqual([]);
+    const events = sunAltitudeEvents(t1, t2, VICTORIA, 6);
+    expect(events.map((e) => e.kind)).toEqual(['falling', 'rising']);
+    const at = events[0].time.getTime();
+    expect(sunAltitudeEvents(t1, new Date(at), VICTORIA, 6)).toEqual([]);
+    expect(sunAltitudeEvents(new Date(at), t2, VICTORIA, 6)[0].time.getTime()).toBe(at);
+    expect(() => sunAltitudeEvents(new Date(SUPPORTED_MAX - DAY), new Date(SUPPORTED_MAX), VICTORIA, 6)).not.toThrow();
+  });
+});
+
+// ------------------------------------------------------------------ transits
+
+describe('sunTransits and moonTransits', () => {
+  it('the Sun\'s upper transit is sunEvents\' transit, to the millisecond', () => {
+    for (const observer of [VICTORIA, { latitudeDeg: 70.5, longitudeDeg: -123.052 }, { latitudeDeg: -88.5, longitudeDeg: 10 }]) {
+      const start = new Date('2026-01-01T00:00:00Z');
+      const end = new Date('2027-01-01T00:00:00Z');
+      const want = sunEvents(start, end, observer).filter((e) => e.kind === 'transit').map((e) => e.time.getTime());
+      const transits = sunTransits(start, end, observer);
+      expect(transits.filter((e) => e.kind === 'upper').map((e) => e.time.getTime())).toEqual(want);
+      for (let i = 1; i < transits.length; i++) {
+        expect(transits[i].kind, 'upper and lower alternate').not.toBe(transits[i - 1].kind);
+        expect(transits[i].time.getTime()).toBeGreaterThan(transits[i - 1].time.getTime());
+      }
+    }
+  }, 60_000);
+
+  it('USNO grid: Moon upper transit and both bodies\' lower transit within 60 s', () => {
+    let worst = 0;
+    let worstLabel = '';
+    let checked = 0;
+    for (const row of usnoGrid) {
+      const observer: Observer = { latitudeDeg: row.latitudeDeg, longitudeDeg: row.longitudeDeg, elevationM: 0 };
+      const dayStart = new Date(`${row.date}T00:00:00Z`);
+      const dayEnd = new Date(dayStart.getTime() + DAY);
+      for (const [body, key, kind] of [['moon', 'transit', 'upper'], ['moon', 'lowerTransit', 'lower'], ['sun', 'lowerTransit', 'lower']] as const) {
+        const want = row[body][key];
+        if (want === undefined) continue;
+        const found = (body === 'sun' ? sunTransits : moonTransits)(dayStart, dayEnd, observer).filter((e) => e.kind === kind);
+        const label = `${body} ${kind} @ ${row.date} lat ${row.latitudeDeg}`;
+        expect(found.length, label).toBe(1);
+        const diff = Math.abs(found[0].time.getTime() - Date.parse(`${row.date}T${want}:00Z`)) / SEC;
+        if (diff > worst) { worst = diff; worstLabel = label; }
+        expect(diff, label).toBeLessThan(60);
+        checked++;
+      }
+    }
+    console.log(`USNO transits: ${checked} checked, worst ${worst.toFixed(1)} s (${worstLabel})`);
+    expect(checked).toBeGreaterThan(40);
+  });
+
+  it('Horizons hour-angle grids: upper and lower transits within 60 s, one for one', () => {
+    let worst = 0;
+    let worstLabel = '';
+    for (const grid of load('altaz/transits.json') as { body: 'sun' | 'moon'; observer: Observer; startUtc: string; endUtc: string; transits: { utc: string; kind: string }[] }[]) {
+      const found = (grid.body === 'sun' ? sunTransits : moonTransits)(new Date(grid.startUtc), new Date(grid.endUtc), grid.observer);
+      const label = `${grid.body} lat ${grid.observer.latitudeDeg}`;
+      expect(found.map((e) => e.kind), label).toEqual(grid.transits.map((e) => e.kind));
+      for (let i = 0; i < found.length; i++) {
+        const diff = Math.abs(found[i].time.getTime() - Date.parse(grid.transits[i].utc)) / SEC;
+        if (diff > worst) { worst = diff; worstLabel = `${label} ${grid.transits[i].kind} @ ${grid.transits[i].utc}`; }
+        expect(diff, `${label} @ ${grid.transits[i].utc}`).toBeLessThan(60);
+      }
+    }
+    console.log(`Horizons transits: worst ${worst.toFixed(1)} s (${worstLabel})`);
+  });
+
+  // The hour angle has no flattening problem, but the transit chain shares the
+  // altitude search's walk, so the flattening band keeps an independent oracle.
+  it('flattening band: every hour-angle crossing a brute-force scan finds is reported', () => {
+    for (const [name, vector, transits] of [['sun', sunGeoVectorEqj, sunTransits], ['moon', moonGeoVectorEqj, moonTransits]] as const) {
+      for (const latitudeDeg of [-88.5, 89.5]) {
+        const observer: Observer = { latitudeDeg, longitudeDeg: -123.052 };
+        const start = Date.parse('2026-09-10T00:00:00Z');
+        const end = start + 30 * DAY;
+        const ha = (ms: number) => {
+          const ut = utDays(new Date(ms));
+          return topoAltAzUnrefracted(vector(ttDaysFromUt(ut)), ut, observer).hourAngleDeg;
+        };
+        const brute: { ms: number; kind: string }[] = [];
+        let prev = ha(start);
+        for (let ms = start + 60 * SEC; ms <= end; ms += 60 * SEC) {
+          const cur = ha(ms);
+          if (cur < prev) brute.push({ ms, kind: 'upper' });          // wrapped through 0°
+          else if (prev < 180 && cur >= 180) brute.push({ ms, kind: 'lower' });
+          prev = cur;
+        }
+        const mine = transits(new Date(start), new Date(end), observer);
+        expect(mine.map((e) => e.kind), `${name} lat ${latitudeDeg}`).toEqual(brute.map((b) => b.kind));
+        for (let i = 0; i < brute.length; i++) {
+          expect(Math.abs(mine[i].time.getTime() - brute[i].ms), `${name} lat ${latitudeDeg} #${i}`).toBeLessThan(60 * SEC);
+        }
+      }
+    }
+  }, 60_000);
+
+  it('validates the observer and window', () => {
+    const t1 = new Date('2026-08-28T00:00:00Z');
+    const t2 = new Date('2026-08-29T00:00:00Z');
+    for (const fn of [sunTransits, moonTransits]) {
+      expect(() => fn(t2, t1, { latitudeDeg: 91, longitudeDeg: 0 })).toThrow(RangeError);
+      expect(() => fn(new Date(NaN), t1, VICTORIA)).toThrow(RangeError);
+      expect(() => fn(new Date('1949-12-31T00:00:00Z'), t1, VICTORIA)).toThrow(AlmanacOutOfRangeError);
+      expect(fn(t1, t1, VICTORIA)).toEqual([]);
+      expect(fn(t2, t1, VICTORIA)).toEqual([]);
+      const found = fn(t1, t2, VICTORIA);
+      expect(found.length).toBeGreaterThan(0);
+      const at = found[0].time.getTime();
+      expect(fn(t1, new Date(at), VICTORIA).some((e) => e.time.getTime() === at)).toBe(false);
+      expect(fn(new Date(at), t2, VICTORIA)[0].time.getTime()).toBe(at);
+      for (const e of found) expect(Number.isInteger(e.time.getTime())).toBe(true);
+      expect(() => fn(new Date(SUPPORTED_MAX - DAY), new Date(SUPPORTED_MAX), VICTORIA)).not.toThrow();
+    }
+  });
 });

@@ -9,8 +9,10 @@
 //
 // INTERNAL: not part of the curated public API (see index.ts).
 
-import { assertSupported } from './types.js';
-import { ttDays } from './time.js';
+import { Observer, assertObserver, assertSupported } from './types.js';
+import { ttDays, ttDaysFromUt, utDays } from './time.js';
+import { topoAltAzUnrefracted } from './transforms.js';
+import { sunApparentAtTT } from './positions.js';
 import { DEG2RAD, PrecessDirection, RAD2DEG, Vec3, earthTilt, eclipticToEquatorial, gyration } from './nutation.js';
 import { moonGeoVectorEqj } from './moon.js';
 import { earthHelioVector, sunGeoVectorEqj } from './sun.js';
@@ -99,4 +101,45 @@ export function moonIlluminationAtTT(tt: number): MoonIllumination {
 export function moonIllumination(time: Date): MoonIllumination {
     assertSupported(time);
     return moonIlluminationAtTT(ttDays(time));
+}
+
+/**
+ * How the Moon's disc is turned on the observer's sky. `brightLimbAngleDeg` is
+ * the position angle of the bright limb's midpoint from celestial north
+ * through east, in [0, 360); `parallacticAngleDeg` is the angle at the Moon
+ * from celestial north to the observer's zenith, in (-180, 180]. Their
+ * difference is the bright limb's angle from the zenith.
+ */
+export interface MoonOrientation { brightLimbAngleDeg: number; parallacticAngleDeg: number; }
+
+/**
+ * The Moon's orientation at an instant: the bright limb from the apparent
+ * topocentric Moon and the apparent geocentric Sun (Meeus, Astronomical
+ * Algorithms, 48.5), and the parallactic angle from the Moon's topocentric
+ * hour angle and declination at the observer's geodetic latitude (Meeus 14.1).
+ */
+export function moonOrientation(time: Date, observer: Observer): MoonOrientation {
+    assertSupported(time);
+    assertObserver(observer);
+    const ut = utDays(time);
+    const tt = ttDaysFromUt(ut);
+    const moon = topoAltAzUnrefracted(moonGeoVectorEqj(tt), ut, observer);
+    const sun = sunApparentAtTT(tt);
+    const dec = moon.decDeg * DEG2RAD;
+    const sunDec = sun.decDeg * DEG2RAD;
+    const dRa = (sun.raDeg - moon.raDeg) * DEG2RAD;
+    let brightLimbAngleDeg = RAD2DEG * Math.atan2(
+        Math.cos(sunDec) * Math.sin(dRa),
+        Math.sin(sunDec) * Math.cos(dec) - Math.cos(sunDec) * Math.sin(dec) * Math.cos(dRa)
+    );
+    if (brightLimbAngleDeg < 0) brightLimbAngleDeg += 360;
+    if (brightLimbAngleDeg >= 360) brightLimbAngleDeg -= 360;
+    const ha = moon.hourAngleDeg * DEG2RAD;
+    const lat = observer.latitudeDeg * DEG2RAD;
+    let parallacticAngleDeg = RAD2DEG * Math.atan2(
+        Math.sin(ha),
+        Math.tan(lat) * Math.cos(dec) - Math.sin(dec) * Math.cos(ha)
+    );
+    if (parallacticAngleDeg <= -180) parallacticAngleDeg += 360;
+    return { brightLimbAngleDeg, parallacticAngleDeg };
 }

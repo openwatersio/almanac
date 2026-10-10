@@ -1,0 +1,110 @@
+[
+  {
+    "body": "sun",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "startUtc": "2026-03-20T00:00:00Z",
+    "endUtc": "2026-03-22T00:00:00Z",
+    "transits": [
+      {
+        "utc": "2026-03-20T08:20:56.566Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-03-20T20:20:47.760Z",
+        "kind": "upper"
+      },
+      {
+        "utc": "2026-03-21T08:20:38.866Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-03-21T20:20:30.000Z",
+        "kind": "upper"
+      }
+    ]
+  },
+  {
+    "body": "moon",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "startUtc": "2026-03-20T00:00:00Z",
+    "endUtc": "2026-03-22T00:00:00Z",
+    "transits": [
+      {
+        "utc": "2026-03-20T09:20:24.794Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-03-20T21:45:35.025Z",
+        "kind": "upper"
+      },
+      {
+        "utc": "2026-03-21T10:11:36.720Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-03-21T22:38:36.485Z",
+        "kind": "upper"
+      }
+    ]
+  },
+  {
+    "body": "sun",
+    "observer": {
+      "latitudeDeg": -88.5,
+      "longitudeDeg": -123.052
+    },
+    "startUtc": "2026-09-10T00:00:00Z",
+    "endUtc": "2026-09-12T00:00:00Z",
+    "transits": [
+      {
+        "utc": "2026-09-10T08:09:14.047Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-09-10T20:09:03.579Z",
+        "kind": "upper"
+      },
+      {
+        "utc": "2026-09-11T08:08:53.079Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-09-11T20:08:42.552Z",
+        "kind": "upper"
+      }
+    ]
+  },
+  {
+    "body": "moon",
+    "observer": {
+      "latitudeDeg": -88.5,
+      "longitudeDeg": -123.052
+    },
+    "startUtc": "2026-09-10T00:00:00Z",
+    "endUtc": "2026-09-12T00:00:00Z",
+    "transits": [
+      {
+        "utc": "2026-09-10T07:28:24.314Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-09-10T19:52:05.639Z",
+        "kind": "upper"
+      },
+      {
+        "utc": "2026-09-11T08:15:15.226Z",
+        "kind": "lower"
+      },
+      {
+        "utc": "2026-09-11T20:38:02.225Z",
+        "kind": "upper"
+      }
+    ]
+  }
+]

@@ -18,7 +18,8 @@
     "ephemeris",
     "lunar-eclipse",
     "solar-eclipse",
-    "marine"
+    "marine",
+    "suncalc"
   ],
   "publishConfig": {
     "access": "public"

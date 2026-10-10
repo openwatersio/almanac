@@ -13,6 +13,7 @@ struct Workload: Decodable {
     let to: String?
     let count: Int?
     let latitudeDeg: Double?, expected: Double?
+    let altitudeDeg: Double?
 }
 struct Result: Encodable {
     let name: String, iterations: Int, checksum: Double, samplesMs: [Double]
@@ -69,6 +70,24 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
         } }
         #else
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Planetary APIs unavailable; pass --skip '^planets/' for older bases"])
+        #endif
+    case "sunAltitudeEvents", "sunTransits", "moonTransits", "moonOrientation":
+        #if ALMANAC_SUNCALC
+        switch spec.operation {
+        case "sunAltitudeEvents":
+            return { Double(try sunAltitudeEvents(from: from, to: to, observer: observer, altitudeDeg: spec.altitudeDeg ?? 0).count) }
+        case "sunTransits":
+            return { Double(try sunTransits(from: from, to: to, observer: observer).count) }
+        case "moonTransits":
+            return { Double(try moonTransits(from: from, to: to, observer: observer).count) }
+        default:
+            return { try times.reduce(0) { sum, t in
+                let o = try moonOrientation(at: t, observer: observer)
+                return sum + o.brightLimbAngleDeg + o.parallacticAngleDeg
+            } }
+        }
+        #else
+        throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "SunCalc-parity APIs unavailable; pass --skip '^suncalc/' for older bases"])
         #endif
     case "sunEvents":
         return { Double(try sunEvents(from: from, to: to, observer: observer).count) }

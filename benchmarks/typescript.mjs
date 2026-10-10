@@ -58,6 +58,21 @@ function workload(spec) {
             assert.ok(api.planetEvents, "Planetary APIs unavailable; pass --skip '^planets/' for older bases");
             return () => ['mercury', 'venus', 'mars', 'jupiter', 'saturn'].reduce((sum, planet) => sum + api.planetEvents(planet, from, to, observer).length, 0);
         }
+        case 'sunAltitudeEvents':
+        case 'sunTransits':
+        case 'moonTransits':
+        case 'moonOrientation': {
+            const fn = api[spec.operation];
+            assert.ok(fn, "SunCalc-parity APIs unavailable; pass --skip '^suncalc/' for older bases");
+            if (spec.operation === 'moonOrientation') {
+                return () => times.reduce((sum, t) => {
+                    const o = fn(t, observer);
+                    return sum + o.brightLimbAngleDeg + o.parallacticAngleDeg;
+                }, 0);
+            }
+            if (spec.operation === 'sunAltitudeEvents') return () => fn(from, to, observer, spec.altitudeDeg).length;
+            return () => fn(from, to, observer).length;
+        }
         case 'sunEvents':
         case 'moonEvents':
             return () => api[spec.operation](from, to, observer).length;

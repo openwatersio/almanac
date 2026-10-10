@@ -28,7 +28,7 @@ public struct AltAz: Sendable { public let azDeg: Double; public let altDeg: Dou
  * extrema, and the topocentric distance sets the Moon's semidiameter, hence
  * its rise/set target.
  */
-struct TopoUnrefracted { let azDeg: Double; let altDeg: Double; let hourAngleDeg: Double; let distanceAu: Double }
+struct TopoUnrefracted { let azDeg: Double; let altDeg: Double; let hourAngleDeg: Double; let distanceAu: Double; let raDeg: Double; let decDeg: Double }
 
 /** UPSTREAM: `era` (Earth Rotation Angle), astronomy.ts ~2014. */
 private func earthRotationAngleDeg(_ ut: Double) -> Double {
@@ -181,7 +181,7 @@ func topoAltAzUnrefracted(_ bodyEqj: Vec3, _ ut: Double, _ observer: Observer) -
     var hourAngleDeg = (gast + observer.longitudeDeg - radec.raDeg).truncatingRemainder(dividingBy: 360)
     if hourAngleDeg < 0 { hourAngleDeg += 360 }
 
-    return TopoUnrefracted(azDeg: az, altDeg: 90 - zd, hourAngleDeg: hourAngleDeg, distanceAu: radec.distanceAu)
+    return TopoUnrefracted(azDeg: az, altDeg: 90 - zd, hourAngleDeg: hourAngleDeg, distanceAu: radec.distanceAu, raDeg: radec.raDeg, decDeg: radec.decDeg)
 }
 
 /**

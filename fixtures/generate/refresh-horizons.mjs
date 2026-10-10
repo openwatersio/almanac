@@ -12,6 +12,9 @@ const BASE = "https://ssd.jpl.nasa.gov/api/horizons.api";
 
 const VIC = { lat: 48.4284, lon: -123.3656 }; // Victoria BC
 const N60 = { lat: 60, lon: -123.052 };
+const TROPIC = { lat: 20, lon: -123.052 };
+const POLAR = { lat: 70.5, lon: -123.052 };
+const S88 = { lat: -88.5, lon: -123.052 };
 
 const common = {
   format: "text",
@@ -84,6 +87,25 @@ const specs = [
   { name: "sun-airless-twilight-vic-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", VIC, "AIRLESS") },
   { name: "sun-airless-twilight-n60-mar", params: site("10", "4", "2026-03-20", "2026-03-22", "1m", N60, "AIRLESS") },
   { name: "sun-airless-twilight-n60-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", N60, "AIRLESS") },
+  // Near-polar days pick the Sun's daily extremum grazing a sunAltitudeEvents
+  // level: +6° on 2026-02-12, -0.3° on 2026-05-16, -4° on 2026-12-20 and 21,
+  // each next to a day with no crossing of that level.
+  { name: "sun-airless-twilight-trop-mar", params: site("10", "4", "2026-03-20", "2026-03-22", "1m", TROPIC, "AIRLESS") },
+  { name: "sun-airless-twilight-trop-jun", params: site("10", "4", "2026-06-20", "2026-06-22", "1m", TROPIC, "AIRLESS") },
+  { name: "sun-airless-twilight-polar-feb", params: site("10", "4", "2026-02-11", "2026-02-13", "1m", POLAR, "AIRLESS") },
+  { name: "sun-airless-twilight-polar-may", params: site("10", "4", "2026-05-16", "2026-05-18", "1m", POLAR, "AIRLESS") },
+  { name: "sun-airless-twilight-polar-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", POLAR, "AIRLESS") },
+  // Local apparent hour angle (quantity 42) for upper and lower transits.
+  { name: "sun-hour-angle-vic", params: site("10", "42", "2026-03-20", "2026-03-22", "1m", VIC, "AIRLESS") },
+  { name: "moon-hour-angle-vic", params: site("301", "42", "2026-03-20", "2026-03-22", "1m", VIC, "AIRLESS") },
+  { name: "sun-hour-angle-s88", params: site("10", "42", "2026-09-10", "2026-09-12", "1m", S88, "AIRLESS") },
+  { name: "moon-hour-angle-s88", params: site("301", "42", "2026-09-10", "2026-09-12", "1m", S88, "AIRLESS") },
+  // Moon orientation: J2000 and apparent topocentric positions of both bodies,
+  // the Moon's az/el, elongation, PsAng, and hour angle over a lunar month.
+  { name: "moon-orientation-vic", params: site("301", "1,2,4,23,27,42", "2026-03-01", "2026-04-01", "1h", VIC, "AIRLESS") },
+  { name: "sun-orientation-vic", params: site("10", "1,2", "2026-03-01", "2026-04-01", "1h", VIC, "AIRLESS") },
+  { name: "moon-orientation-polar", params: site("301", "1,2,4,23,27,42", "2026-03-01", "2026-04-01", "1h", POLAR, "AIRLESS") },
+  { name: "sun-orientation-polar", params: site("10", "1,2", "2026-03-01", "2026-04-01", "1h", POLAR, "AIRLESS") },
 ];
 
 for (const [planet, target] of Object.entries(planets)) {
@@ -123,7 +145,8 @@ function sleep(ms) {
 
 async function main() {
   // Optional name arguments fetch a subset, e.g. `node refresh-horizons.mjs
-  // sun-coarse moon-coarse`. retrieved.json is merged, never overwritten, so a
+  // sun-coarse moon-coarse`. retrieved.json records each request's URL and
+  // retrieval date, and a run rewrites only the requests it fetched, so a
   // partial run leaves the other entries (and their derived fixtures) intact.
   const only = process.argv.includes("--planet-events")
     ? specs.filter(s => s.name.includes("-events-")).map(s => s.name)
@@ -135,10 +158,9 @@ async function main() {
   if (unknown.length) throw new Error(`unknown spec name(s): ${unknown.join(", ")}`);
 
   const retrievedPath = new URL("retrieved.json", RAW_DIR);
-  const prior = existsSync(retrievedPath)
+  const requests = existsSync(retrievedPath)
     ? JSON.parse(readFileSync(retrievedPath, "utf8")).requests
     : {};
-  const requests = { ...prior };
   for (let i = 0; i < todo.length; i++) {
     const { name, params } = todo[i];
     const url = buildUrl(params);
@@ -151,15 +173,11 @@ async function main() {
       );
     }
     await writeFile(new URL(`${name}.txt`, RAW_DIR), body);
-    requests[name] = url;
+    requests[name] = { url, retrieved: new Date().toISOString().slice(0, 10) };
     if (i < todo.length - 1) await sleep(1000); // be polite: ~1 req/s
   }
-  const retrieved = new Date().toISOString().slice(0, 10);
-  await writeFile(
-    retrievedPath,
-    JSON.stringify({ retrieved, requests }, null, 2) + "\n",
-  );
-  console.log(`done — retrieved ${retrieved}`);
+  await writeFile(retrievedPath, JSON.stringify({ requests }, null, 2) + "\n");
+  console.log(`done — fetched ${todo.length} request(s)`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
