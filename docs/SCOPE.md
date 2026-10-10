@@ -19,6 +19,7 @@ Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations
 - Solar eclipse next, previous, and range searches anywhere on Earth, including greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there.
 - The central line of a total or annular eclipse, sampled from the axis's first ground contact to its last, and the axis point at any instant, so a consumer can measure how far the nearest totality passes.
 - Every value SunCalc computes; the [migration guide](migrating-from-suncalc.md) maps each SunCalc call to Almanac.
+- Every value the Solar Swift library computes; the [Solar migration guide](migrating-from-solar.md) maps each Solar property to Almanac.
 - A shared fixture and parity corpus for both ports, plus a performance regression harness.
 
 The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it raise a typed error.

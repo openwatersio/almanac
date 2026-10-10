@@ -68,6 +68,8 @@ background task; use shorter windows for interactive queries.
 
 Migrating from SunCalc: [`docs/migrating-from-suncalc.md`](docs/migrating-from-suncalc.md) maps every SunCalc call to Almanac and gives drop-in `getTimes` and `getMoonTimes` adapters.
 
+Migrating from the Solar Swift library: [`docs/migrating-from-solar.md`](docs/migrating-from-solar.md) maps every Solar property to Almanac and gives a drop-in `Solar` adapter.
+
 ### TypeScript
 
 ```bash
