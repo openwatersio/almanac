@@ -2,8 +2,10 @@ name: Lockfile
 
 on:
   pull_request:
+    paths: [typescript/**, .github/workflows/lockfile.yml]
   push:
     branches: [main]
+    paths: [typescript/**, .github/workflows/lockfile.yml]
 
 permissions:
   contents: read
