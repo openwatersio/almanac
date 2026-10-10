@@ -7,7 +7,9 @@ Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations
 - Geocentric and topocentric Sun and Moon positions, including right ascension, declination, altitude, and azimuth.
 - Altitude and azimuth for any fixed star from its J2000 catalog position, precessed and nutated to date and refracted through the same topocentric path as the Sun and Moon. The shared fixtures check navigational stars against the USNO almanac within an arcminute.
 - Sunrise, sunset, civil, nautical, and astronomical twilight, and upper transit.
+- The Sun crossing any altitude a caller picks, such as golden hour at `+6°`, and the Sun's and Moon's upper and lower transits.
 - Moonrise and moonset using the upper-limb convention.
+- The Moon's bright-limb position angle and parallactic angle, for drawing its disc as the observer sees it.
 - Apparent horizon dip from eye height above an unobstructed surface, including terrestrial refraction, with height-aware rise/set and local eclipse visibility.
 - Apparent Earth-based positions, altitude/azimuth, point-center rise/set, illumination, approximate visual magnitude, and solar elongation for Mercury, Venus, Mars, Jupiter, Saturn, Uranus, and Neptune.
 - Geometric Sun-centered positions for those seven planets and Earth in fixed J2000 equatorial coordinates, for a solar-system view.
@@ -16,6 +18,7 @@ Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations
 - Solar eclipse next, previous, and range searches for an observer, including eclipse kind, contact times with the Sun's altitude at each, peak obscuration, and the fraction of the Sun's disc covered at any instant.
 - Solar eclipse next, previous, and range searches anywhere on Earth, including greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there.
 - The central line of a total or annular eclipse, sampled from the axis's first ground contact to its last, and the axis point at any instant, so a consumer can measure how far the nearest totality passes.
+- Every value SunCalc computes; the [migration guide](migrating-from-suncalc.md) maps each SunCalc call to Almanac.
 - A shared fixture and parity corpus for both ports, plus a performance regression harness.
 
 The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it raise a typed error.

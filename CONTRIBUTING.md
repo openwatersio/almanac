@@ -103,7 +103,9 @@ mise exec -- node --test benchmarks/compare.test.mjs
 
 CI compares a pull request merge result with its target branch base SHA, or a main push with the previous main SHA. Each port builds both revisions and interleaves their measurements in one job. CI publishes a timing table in the Actions summary and retains JSON and Markdown artifacts for 30 days, including on regressions. Missing workloads, invalid timings, changed outputs, and incompatible reports fail the comparison. The Swift performance job starts after the TypeScript performance job passes.
 
-Planetary workloads cover a five-planet 228-hour sky track, a 228-hour rise/set window, and a polar month. Pass `--skip '^planets/'` when the base lacks the planetary APIs. The Swift harness detects `planetEvents` in `Events.swift`; CI uses the same declaration to omit these workloads only when its base predates them. Compare new planetary workloads against the first revision with all planetary APIs, and existing workloads against the target branch. Future comparisons between revisions with planets include all 30 workloads under the same 20% gate.
+Planetary workloads cover a five-planet 228-hour sky track, a 228-hour rise/set window, and a polar month. Pass `--skip '^planets/'` when the base lacks the planetary APIs. The Swift harness detects `planetEvents` in `Events.swift`; CI uses the same declaration to omit these workloads only when its base predates them. Compare new planetary workloads against the first revision with all planetary APIs, and existing workloads against the target branch.
+
+SunCalc-parity workloads cover a year of `+6°` Sun altitude crossings, a year each of Sun and Moon transits, and Moon orientation over a 228-hour track. Pass `--skip '^suncalc/'` when the base lacks those APIs; the Swift harness detects `sunTransits` in `Events.swift`, and CI uses the same declaration. Comparisons between revisions with both sets include all 34 workloads under the same 20% gate.
 
 ## Releasing
 
