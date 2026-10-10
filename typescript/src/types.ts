@@ -1,8 +1,8 @@
 export interface Observer { latitudeDeg: number; longitudeDeg: number; elevationM?: number; }
-export type Planet = 'mercury' | 'venus' | 'earth' | 'mars' | 'jupiter' | 'saturn';
+export type Planet = 'mercury' | 'venus' | 'earth' | 'mars' | 'jupiter' | 'saturn' | 'uranus' | 'neptune';
 /** INTERNAL: Earth has no planetary direction from an Earth-based observer. */
 export function assertPlanet(planet: Planet, earthAllowed = false): void {
-  if (!['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'].includes(planet) || (!earthAllowed && planet === 'earth'))
+  if (!['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'].includes(planet) || (!earthAllowed && planet === 'earth'))
     throw new RangeError(`invalid planet: ${planet}`);
 }
 export class AlmanacOutOfRangeError extends RangeError {

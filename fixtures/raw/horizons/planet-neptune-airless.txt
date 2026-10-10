@@ -1,0 +1,313 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+*******************************************************************************
+ Revised: July 08, 2026               Neptune                               899
+ 
+ PHYSICAL DATA:
+  Mass x10^24 (kg)      = 102.409         Density (g/cm^3)       =  1.638
+  Equat. radius (1 bar) = 24766+-15 km    Volume, 10^10 km^3     = 6254     
+  Vol. mean radius (km) = 24624+-21       Polar radius (km)      = 24342+-30
+  Geometric Albedo      = 0.41            Flattening             =  0.0171
+  Sid. rot. period (III)= 16.11+-0.01 hr  Sid. rot. rate (rad/s) =  0.000108338 
+  Mean solar day, h     =~16.11 h         
+  GM (km^3/s^2)         = 6835099.97      GM 1-sigma (km^3/s^2)  = +-10 
+  Equ. grav, ge (m/s^2) = 11.15           Pol. grav, gp (m/s^2)  = 11.41+-0.03
+  Visual magnitude V(1,0)= -6.87
+  Vis. mag. (opposition)=  +7.84          Obliquity to orbit     = 28.32 deg
+  Sidereal orbit period = 164.788501027 y Sidereal orbit period  = 60189 d
+  Mean daily motion     = 0.006020076dg/d Mean orbit velocity    =  5.43 km/s 
+  Atmos. temp. (1 bar)  =  72+-2 K        Escape speed (1 bar)  =  23.5 km/s     
+  Aroche(ice)/Rp        =  2.98           Hill's sphere rad., Rp = 4700
+                                 Perihelion  Aphelion    Mean
+  Solar Constant (W/m^2)         1.54        1.49        1.51
+  Maximum Planetary IR (W/m^2)   0.52        0.52        0.52
+  Minimum Planetary IR (W/m^2)   0.52        0.52        0.52
+*******************************************************************************
+
+
+*******************************************************************************
+Ephemeris / API_USER Fri Oct  9 09:19:17 2026 Pasadena, USA      / Horizons    
+*******************************************************************************
+Target body name: Neptune (899)                   {source: nep098_merged}
+Center body name: Earth (399)                     {source: nep098_merged}
+Center-site name: (user defined site below)
+*******************************************************************************
+Start time      : A.D. 2026-Mar-01 00:00:00.0000 UT      
+Stop  time      : A.D. 2026-Mar-08 00:00:00.0000 UT      
+Step-size       : 60 minutes
+*******************************************************************************
+Target pole/equ : IAU_NEPTUNE                     {West-longitude positive}
+Target radii    : 24764.0, 24764.0, 24341.0 km    {Equator_a, b, pole_c}       
+Center geodetic : 236.6344, 48.4284, -1.05861E-12 {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 236.6344,4240.19873,4748.61821  {E-lon(deg),Dxy(km),Dz(km)}
+Center pole/equ : ITRF93                          {East-longitude positive}
+Center radii    : 6378.137, 6378.137, 6356.752 km {Equator_a, b, pole_c}       
+Target primary  : Sun
+Vis. interferer : MOON (R_eq= 1737.400) km        {source: DE441}
+Rel. light bend : Sun                             {source: nep098_merged}
+Rel. lght bnd GM: 1.3271E+11 km^3/s^2                                          
+Atmos refraction: NO (AIRLESS)
+RA format       : DEG
+Time format     : CAL 
+Calendar mode   : Mixed Julian/Gregorian
+EOP file        : eop.261008.p270104                                           
+EOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-OCT-08. PREDICTS-> 2027-JAN-03
+Units conversion: 1 au= 149597870.700 km, c= 299792.458 km/s, 1 day= 86400.0 s 
+Table cut-offs 1: Elevation (-90.0deg=NO ),Airmass (>38.000=NO), Daylight (NO )
+Table cut-offs 2: Solar elongation (  0.0,180.0=NO ),Local Hour Angle( 0.0=NO )
+Table cut-offs 3: RA/DEC angular rate (     0.0=NO )                           
+*******************************************************************************
+ Date__(UT)__HR:MN:SS     Azi____(a-app)___Elev
+***********************************************
+$$SOE
+ 2026-Mar-01 00:00:00 *m  221.595039  32.683838
+ 2026-Mar-01 01:00:00 *m  236.492832  25.147823
+ 2026-Mar-01 02:00:00 Cm  249.488114  16.265818
+ 2026-Mar-01 03:00:00 Nm  261.278903   6.623488
+ 2026-Mar-01 04:00:00  m  272.574812  -3.325410
+ 2026-Mar-01 05:00:00  m  284.064995 -13.184234
+ 2026-Mar-01 06:00:00  m  296.460106 -22.534032
+ 2026-Mar-01 07:00:00  m  310.511813 -30.852177
+ 2026-Mar-01 08:00:00  m  326.883607 -37.443775
+ 2026-Mar-01 09:00:00  m  345.696422 -41.466790
+ 2026-Mar-01 10:00:00  m    5.903016 -42.200009
+ 2026-Mar-01 11:00:00  m   25.503596 -39.489255
+ 2026-Mar-01 12:00:00  m   42.937928 -33.867582
+ 2026-Mar-01 13:00:00  m   57.896229 -26.176289
+ 2026-Mar-01 14:00:00 Nm   70.892211 -17.185528
+ 2026-Mar-01 15:00:00 *    82.671334  -7.484090
+ 2026-Mar-01 16:00:00 *    93.963827   2.475672
+ 2026-Mar-01 17:00:00 *   105.461972  12.297614
+ 2026-Mar-01 18:00:00 *   117.864051  21.561580
+ 2026-Mar-01 19:00:00 *   131.887089  29.745247
+ 2026-Mar-01 20:00:00 *   148.129642  36.164644
+ 2026-Mar-01 21:00:00 *   166.641362  40.012421
+ 2026-Mar-01 22:00:00 *   186.389687  40.621782
+ 2026-Mar-01 23:00:00 *   205.521763  37.870587
+ 2026-Mar-02 00:00:00 *   222.613920  32.272941
+ 2026-Mar-02 01:00:00 *m  237.374425  24.630083
+ 2026-Mar-02 02:00:00 Cm  250.272440  15.683573
+ 2026-Mar-02 03:00:00 Nm  262.011324   6.008980
+ 2026-Mar-02 04:00:00  m  273.299171  -3.945868
+ 2026-Mar-02 05:00:00  m  284.825058 -13.785282
+ 2026-Mar-02 06:00:00  m  297.302282 -23.086180
+ 2026-Mar-02 07:00:00  m  311.482953 -31.316730
+ 2026-Mar-02 08:00:00  m  328.013227 -37.770368
+ 2026-Mar-02 09:00:00  m  346.956169 -41.601920
+ 2026-Mar-02 10:00:00  m    7.182760 -42.113546
+ 2026-Mar-02 11:00:00  m   26.676154 -39.197423
+ 2026-Mar-02 12:00:00  m   43.948064 -33.420053
+ 2026-Mar-02 13:00:00  m   58.760941 -25.626392
+ 2026-Mar-02 14:00:00 Nm   71.656916 -16.575645
+ 2026-Mar-02 15:00:00 *    83.383999  -6.845796
+ 2026-Mar-02 16:00:00 *    94.669184   3.116806
+ 2026-Mar-02 17:00:00 *   106.203689  12.916848
+ 2026-Mar-02 18:00:00 *   118.687584  22.129979
+ 2026-Mar-02 19:00:00 *   132.837240  30.224906
+ 2026-Mar-02 20:00:00 *   149.233203  36.506792
+ 2026-Mar-02 21:00:00 *   167.870123  40.166197
+ 2026-Mar-02 22:00:00 *   187.641329  40.559041
+ 2026-Mar-02 23:00:00 *   206.679008  37.606396
+ 2026-Mar-03 00:00:00 *   223.623270  31.853868
+ 2026-Mar-03 01:00:00 *   238.248464  24.107205
+ 2026-Mar-03 02:00:00 Cm  251.052059  15.098524
+ 2026-Mar-03 03:00:00 Nm  262.741866   5.393484
+ 2026-Mar-03 04:00:00  m  274.024387  -4.565711
+ 2026-Mar-03 05:00:00  m  285.588804 -14.384008
+ 2026-Mar-03 06:00:00  m  298.151136 -23.633863
+ 2026-Mar-03 07:00:00  m  312.463392 -31.773964
+ 2026-Mar-03 08:00:00  m  329.152444 -38.086180
+ 2026-Mar-03 09:00:00  m  348.220695 -41.723379
+ 2026-Mar-03 10:00:00  m    8.458543 -42.013080
+ 2026-Mar-03 11:00:00  m   27.838691 -38.894136
+ 2026-Mar-03 12:00:00  m   44.947672 -32.964636
+ 2026-Mar-03 13:00:00  m   59.617653 -25.071671
+ 2026-Mar-03 14:00:00 Nm   72.416759 -15.963211
+ 2026-Mar-03 15:00:00 *    84.094747  -6.206677
+ 2026-Mar-03 16:00:00 *    95.375389   3.757247
+ 2026-Mar-03 17:00:00 *   106.949065  13.533759
+ 2026-Mar-03 18:00:00 *   119.517726  22.693995
+ 2026-Mar-03 19:00:00 *   133.796568  30.697432
+ 2026-Mar-03 20:00:00 *   150.346299  36.838487
+ 2026-Mar-03 21:00:00 *   169.104052  40.306750
+ 2026-Mar-03 22:00:00 *   188.890155  40.482677
+ 2026-Mar-03 23:00:00 *   207.827645  37.330884
+ 2026-Mar-04 00:00:00 *   224.623159  31.426828
+ 2026-Mar-04 01:00:00 *   239.115127  23.579353
+ 2026-Mar-04 02:00:00 *   251.827162  14.510795
+ 2026-Mar-04 03:00:00 Nm  263.470709   4.777099
+ 2026-Mar-04 04:00:00  m  274.750639  -5.184843
+ 2026-Mar-04 05:00:00  m  286.356423 -14.980295
+ 2026-Mar-04 06:00:00  m  299.006857 -24.176929
+ 2026-Mar-04 07:00:00  m  313.453245 -32.223679
+ 2026-Mar-04 08:00:00  m  330.301126 -38.391000
+ 2026-Mar-04 09:00:00  m  349.489512 -41.831063
+ 2026-Mar-04 10:00:00  m    9.729846 -41.898705
+ 2026-Mar-04 11:00:00  m   28.991042 -38.579617
+ 2026-Mar-04 12:00:00  m   45.936874 -32.501547
+ 2026-Mar-04 13:00:00  m   60.466571 -24.512292
+ 2026-Mar-04 14:00:00 Nm   73.171945 -15.348342
+ 2026-Mar-04 15:00:00 *m   84.803763  -5.566828
+ 2026-Mar-04 16:00:00 *    96.082623   4.396904
+ 2026-Mar-04 17:00:00 *   107.698294  14.148239
+ 2026-Mar-04 18:00:00 *   120.354673  23.253484
+ 2026-Mar-04 19:00:00 *   134.765201  31.162633
+ 2026-Mar-04 20:00:00 *   151.468826  37.159522
+ 2026-Mar-04 21:00:00 *   170.342719  40.433971
+ 2026-Mar-04 22:00:00 *   190.135682  40.392768
+ 2026-Mar-04 23:00:00 *   208.967487  37.044250
+ 2026-Mar-05 00:00:00 *   225.613667  30.992028
+ 2026-Mar-05 01:00:00 *   239.974593  23.046689
+ 2026-Mar-05 02:00:00 *   252.597936  13.920507
+ 2026-Mar-05 03:00:00 N   264.198032   4.159924
+ 2026-Mar-05 04:00:00  m  275.478105  -5.803167
+ 2026-Mar-05 05:00:00  m  287.128105 -15.574030
+ 2026-Mar-05 06:00:00  m  299.869633 -24.715225
+ 2026-Mar-05 07:00:00  m  314.452621 -32.665673
+ 2026-Mar-05 08:00:00  m  331.459117 -38.684617
+ 2026-Mar-05 09:00:00  m  350.762116 -41.924876
+ 2026-Mar-05 10:00:00  m   10.996166 -41.770532
+ 2026-Mar-05 11:00:00  m   30.133064 -38.254091
+ 2026-Mar-05 12:00:00  m   46.915800 -32.031000
+ 2026-Mar-05 13:00:00  m   61.307906 -23.948412
+ 2026-Mar-05 14:00:00 Nm   73.922676 -14.731155
+ 2026-Mar-05 15:00:00 *m   85.511234  -4.926339
+ 2026-Mar-05 16:00:00 *    96.791069   5.035686
+ 2026-Mar-05 17:00:00 *   108.451565  14.760180
+ 2026-Mar-05 18:00:00 *   121.198615  23.808298
+ 2026-Mar-05 19:00:00 *   135.743256  31.620313
+ 2026-Mar-05 20:00:00 *   152.600662  37.469695
+ 2026-Mar-05 21:00:00 *   171.585677  40.547760
+ 2026-Mar-05 22:00:00 *   191.377438  40.289400
+ 2026-Mar-05 23:00:00 *   210.098370  36.746697
+ 2026-Mar-06 00:00:00 *   226.594887  30.549671
+ 2026-Mar-06 01:00:00 *   240.827043  22.509373
+ 2026-Mar-06 02:00:00 *   253.364569  13.327780
+ 2026-Mar-06 03:00:00 N   264.924014   3.542058
+ 2026-Mar-06 04:00:00     276.206966  -6.420585
+ 2026-Mar-06 05:00:00     287.904039 -16.165094
+ 2026-Mar-06 06:00:00  m  300.739652 -25.248590
+ 2026-Mar-06 07:00:00  m  315.461616 -33.099739
+ 2026-Mar-06 08:00:00  m  332.626241 -38.966826
+ 2026-Mar-06 09:00:00  m  352.037989 -42.004736
+ 2026-Mar-06 10:00:00  m   12.257017 -41.628678
+ 2026-Mar-06 11:00:00  m   31.264638 -37.917784
+ 2026-Mar-06 12:00:00  m   47.884592 -31.553206
+ 2026-Mar-06 13:00:00  m   62.141869 -23.380188
+ 2026-Mar-06 14:00:00 Nm   74.669152 -14.111761
+ 2026-Mar-06 15:00:00 *m   86.217343  -4.285304
+ 2026-Mar-06 16:00:00 *    97.500907   5.673502
+ 2026-Mar-06 17:00:00 *   109.209070  15.369468
+ 2026-Mar-06 18:00:00 *   122.049742  24.358284
+ 2026-Mar-06 19:00:00 *   136.730842  32.070274
+ 2026-Mar-06 20:00:00 *   153.741662  37.768804
+ 2026-Mar-06 21:00:00 *   172.832464  40.648027
+ 2026-Mar-06 22:00:00 *   192.614965  40.172672
+ 2026-Mar-06 23:00:00 *   211.220148  36.438433
+ 2026-Mar-07 00:00:00 *   227.566918  30.099959
+ 2026-Mar-07 01:00:00 *   241.672661  21.967561
+ 2026-Mar-07 02:00:00 *   254.127249  12.732730
+ 2026-Mar-07 03:00:00 N   265.648833   2.923599
+ 2026-Mar-07 04:00:00     276.937400  -7.036996
+ 2026-Mar-07 05:00:00     288.684416 -16.753365
+ 2026-Mar-07 06:00:00     301.617099 -25.776864
+ 2026-Mar-07 07:00:00  m  316.480316 -33.525669
+ 2026-Mar-07 08:00:00  m  333.802294 -39.237422
+ 2026-Mar-07 09:00:00  m  353.316600 -42.070570
+ 2026-Mar-07 10:00:00  m   13.511929 -41.473274
+ 2026-Mar-07 11:00:00  m   32.385667 -37.570923
+ 2026-Mar-07 12:00:00  m   48.843398 -31.068371
+ 2026-Mar-07 13:00:00 Am   62.968668 -22.807771
+ 2026-Mar-07 14:00:00 Nm   75.411573 -13.490271
+ 2026-Mar-07 15:00:00 *m   86.922273  -3.643812
+ 2026-Mar-07 16:00:00 *    98.212319   6.310260
+ 2026-Mar-07 17:00:00 *   109.971001  15.975992
+ 2026-Mar-07 18:00:00 *   122.908245  24.903290
+ 2026-Mar-07 19:00:00 *   137.728058  32.512317
+ 2026-Mar-07 20:00:00 *   154.891659  38.056650
+ 2026-Mar-07 21:00:00 *   174.082602  40.734693
+ 2026-Mar-07 22:00:00 *   193.847816  40.042692
+ 2026-Mar-07 23:00:00 *   212.332698  36.119667
+ 2026-Mar-08 00:00:00 *   228.529872  29.643092
+$$EOE
+*******************************************************************************
+Column meaning:
+ 
+TIME
+
+  Times PRIOR to 1962 are UT1, a mean-solar time closely related to the
+prior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current
+civil or "wall-clock" time-scale. UTC is kept within 0.9 seconds of UT1
+using integer leap-seconds for 1972 and later years.
+
+  Conversion from the internal Barycentric Dynamical Time (TDB) of solar
+system dynamics to the non-uniform civil UT time-scale requested for output
+has not been determined for UTC times after the next July or January 1st.
+Therefore, the last known leap-second is used as a constant over future
+intervals.
+
+  Time tags refer to the UT time-scale conversion from TDB on Earth
+regardless of observer location within the solar system, although clock
+rates may differ due to the local gravity field and no analog to "UT"
+may be defined for that location.
+
+  Any 'b' symbol in the 1st-column denotes a B.C. date. First-column blank
+(" ") denotes an A.D. date.
+ 
+CALENDAR SYSTEM
+
+  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15
+(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)
+are in the Julian calendar system, which is automatically extended for dates
+prior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for
+matching historical dates. The Gregorian calendar more accurately corresponds
+to the Earth's orbital motion and seasons. A "Gregorian-only" calendar mode is
+available if such physical events are the primary interest.
+
+  NOTE: "n.a." in output means quantity "not available" at the print-time.
+ 
+SOLAR PRESENCE (OBSERVING SITE)
+  Time tag is followed by a blank, then a solar-presence symbol:
+
+       '*'  Daylight (refracted solar upper-limb on or above apparent horizon)
+       'C'  Civil twilight/dawn
+       'N'  Nautical twilight/dawn
+       'A'  Astronomical twilight/dawn
+       ' '  Night OR geocentric ephemeris
+
+LUNAR PRESENCE (OBSERVING SITE)
+  The solar-presence symbol is immediately followed by a lunar-presence symbol:
+
+       'm'  Refracted upper-limb of Moon on or above apparent horizon
+       ' '  Refracted upper-limb of Moon below apparent horizon OR geocentric
+            ephemeris
+ 
+ 'Azi____(a-app)___Elev' =
+  Airless apparent azimuth and elevation of target center. Compensated
+for light-time, the gravitational deflection of light, stellar aberration,
+precession and nutation. Azimuth is measured clockwise from north:
+
+  North(0) -> East(90) -> South(180) -> West(270) -> North (360)
+
+Elevation angle is with respect to a plane perpendicular to the reference
+surface local zenith direction. TOPOCENTRIC ONLY.  Units: DEGREES
+
+Computations by ...
+
+    Solar System Dynamics Group, Horizons On-Line Ephemeris System
+    4800 Oak Grove Drive, Jet Propulsion Laboratory
+    Pasadena, CA  91109   USA
+
+    General site: https://ssd.jpl.nasa.gov/
+    Mailing list: https://ssd.jpl.nasa.gov/email_list.html
+    System news : https://ssd.jpl.nasa.gov/horizons/news.html
+    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html
+    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x
+                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html
+                  command-line   telnet ssd.jpl.nasa.gov 6775
+                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt
+                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS
+    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov
+
+*******************************************************************************

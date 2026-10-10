@@ -288,5 +288,104 @@
         "kind": "rise"
       }
     ]
+  },
+  {
+    "planet": "uranus",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "startUtc": "2026-03-20T00:00:00Z",
+    "endUtc": "2026-03-22T00:00:00Z",
+    "events": [
+      {
+        "utc": "2026-03-20T07:47:34.136Z",
+        "kind": "set"
+      },
+      {
+        "utc": "2026-03-20T16:23:47.020Z",
+        "kind": "rise"
+      },
+      {
+        "utc": "2026-03-21T07:43:50.054Z",
+        "kind": "set"
+      },
+      {
+        "utc": "2026-03-21T16:19:57.351Z",
+        "kind": "rise"
+      }
+    ]
+  },
+  {
+    "planet": "uranus",
+    "observer": {
+      "latitudeDeg": 85.5,
+      "longitudeDeg": -123.3656,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "startUtc": "2026-03-20T00:00:00Z",
+    "endUtc": "2026-03-22T00:00:00Z",
+    "events": []
+  },
+  {
+    "planet": "neptune",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656,
+      "elevationM": 100
+    },
+    "heightAboveGroundM": 100,
+    "startUtc": "2026-03-20T00:00:00Z",
+    "endUtc": "2026-03-22T00:00:00Z",
+    "events": [
+      {
+        "utc": "2026-03-20T02:34:40.222Z",
+        "kind": "set"
+      },
+      {
+        "utc": "2026-03-20T14:26:10.870Z",
+        "kind": "rise"
+      },
+      {
+        "utc": "2026-03-21T02:30:56.661Z",
+        "kind": "set"
+      },
+      {
+        "utc": "2026-03-21T14:22:19.254Z",
+        "kind": "rise"
+      }
+    ]
+  },
+  {
+    "planet": "neptune",
+    "observer": {
+      "latitudeDeg": 85.5,
+      "longitudeDeg": -123.3656,
+      "elevationM": 0
+    },
+    "heightAboveGroundM": 0,
+    "startUtc": "2026-03-20T00:00:00Z",
+    "endUtc": "2026-03-22T00:00:00Z",
+    "events": [
+      {
+        "utc": "2026-03-20T02:34:49.480Z",
+        "kind": "set"
+      },
+      {
+        "utc": "2026-03-20T14:25:41.581Z",
+        "kind": "rise"
+      },
+      {
+        "utc": "2026-03-21T02:31:47.338Z",
+        "kind": "set"
+      },
+      {
+        "utc": "2026-03-21T14:21:08.632Z",
+        "kind": "rise"
+      }
+    ]
   }
 ]

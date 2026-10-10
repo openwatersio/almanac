@@ -330,7 +330,7 @@ export function buildCorpus() {
 }
 
 function buildPlanets() {
-    const names = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'];
+    const names = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
     const times = new Set([MIN_MS, MAX_MS - 1]);
     for (let year = 1950; year <= 2100; year++) times.add(Date.UTC(year, 0, 1));
     for (const date of ['2025-03-23', '2026-03-03T20:00:00Z', '2026-11-18', '2060-05-23', '2071-07-25']) times.add(Date.parse(date));

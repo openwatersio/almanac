@@ -18590,6 +18590,7442 @@
     "altDeg": 30.187133
   },
   {
+    "planet": "uranus",
+    "utc": "2026-03-01T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 143.767179,
+    "altDeg": 56.835154
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 170.278542,
+    "altDeg": 60.767904
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 199.119812,
+    "altDeg": 59.94009
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 223.719076,
+    "altDeg": 54.701271
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 242.346271,
+    "altDeg": 46.716897
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 256.773357,
+    "altDeg": 37.374137
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 268.848256,
+    "altDeg": 27.488096
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 279.815982,
+    "altDeg": 17.552638
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 290.505733,
+    "altDeg": 7.933906
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 301.521807,
+    "altDeg": -1.024725
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 313.331827,
+    "altDeg": -8.944622
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 326.257031,
+    "altDeg": -15.386562
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 340.373971,
+    "altDeg": -19.871303
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 355.388438,
+    "altDeg": -21.969066
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 10.640474,
+    "altDeg": -21.443235
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 25.360205,
+    "altDeg": -18.355537
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 39.016302,
+    "altDeg": -13.03682
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 51.472814,
+    "altDeg": -5.95189
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 62.919465,
+    "altDeg": 2.429416
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 73.742834,
+    "altDeg": 11.692587
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 84.460566,
+    "altDeg": 21.477907
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 95.749905,
+    "altDeg": 31.44192
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 108.576945,
+    "altDeg": 41.184245
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 124.417043,
+    "altDeg": 50.113181
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 145.285699,
+    "altDeg": 57.210789
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 172.128558,
+    "altDeg": 60.870861
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 200.875749,
+    "altDeg": 59.726694
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 225.08341,
+    "altDeg": 54.258824
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 243.377809,
+    "altDeg": 46.152461
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 257.605217,
+    "altDeg": 36.755023
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 269.577238,
+    "altDeg": 26.853079
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 280.505118,
+    "altDeg": 16.927664
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 291.198999,
+    "altDeg": 7.340954
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 302.252812,
+    "altDeg": -1.562834
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 314.12605,
+    "altDeg": -9.401606
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 327.127958,
+    "altDeg": -15.732386
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 341.314691,
+    "altDeg": -20.075685
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 356.366067,
+    "altDeg": -22.009636
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 11.605085,
+    "altDeg": -21.314716
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 26.267692,
+    "altDeg": -18.07233
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 39.846205,
+    "altDeg": -12.626393
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 52.229173,
+    "altDeg": -5.445214
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 63.622408,
+    "altDeg": 3.00394
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 74.421807,
+    "altDeg": 12.310621
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 85.153285,
+    "altDeg": 22.117662
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 96.507539,
+    "altDeg": 32.080634
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 109.476069,
+    "altDeg": 41.791886
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 125.574227,
+    "altDeg": 50.640637
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 146.829467,
+    "altDeg": 57.57227
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 173.986568,
+    "altDeg": 60.953453
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 202.609473,
+    "altDeg": 59.495461
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 226.421637,
+    "altDeg": 53.806248
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 244.3921,
+    "altDeg": 45.58352
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 258.427452,
+    "altDeg": 36.134585
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 270.301537,
+    "altDeg": 26.218678
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 281.192849,
+    "altDeg": 16.304766
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 291.893249,
+    "altDeg": 6.751458
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 302.986636,
+    "altDeg": -2.095961
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 314.924308,
+    "altDeg": -9.851846
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 328.003085,
+    "altDeg": -16.069561
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 342.258185,
+    "altDeg": -20.269765
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 357.343517,
+    "altDeg": -22.039127
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 12.566241,
+    "altDeg": -21.175641
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 27.169646,
+    "altDeg": -17.780186
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 40.670231,
+    "altDeg": -12.209117
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 52.980613,
+    "altDeg": -4.933711
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 64.322119,
+    "altDeg": 3.581554
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 75.099699,
+    "altDeg": 12.930263
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 85.847674,
+    "altDeg": 22.757634
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 97.270743,
+    "altDeg": 32.717965
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 110.386777,
+    "altDeg": 42.395788
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 126.751587,
+    "altDeg": 51.16025
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 148.398293,
+    "altDeg": 57.919131
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 175.850503,
+    "altDeg": 61.015551
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 204.31991,
+    "altDeg": 59.246867
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 227.734237,
+    "altDeg": 53.344004
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 245.389747,
+    "altDeg": 45.010341
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 259.240464,
+    "altDeg": 35.512973
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 271.021409,
+    "altDeg": 25.584992
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 281.879352,
+    "altDeg": 15.684025
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 292.588615,
+    "altDeg": 6.165501
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 303.723372,
+    "altDeg": -2.624012
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 315.726639,
+    "altDeg": -10.295235
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 328.882365,
+    "altDeg": -16.397985
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 343.204298,
+    "altDeg": -20.45348
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 358.320571,
+    "altDeg": -22.057556
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 13.523769,
+    "altDeg": -21.026105
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 28.066007,
+    "altDeg": -17.479247
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 41.48842,
+    "altDeg": -11.78514
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 53.727235,
+    "altDeg": -4.417509
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 65.018727,
+    "altDeg": 4.162152
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 75.776668,
+    "altDeg": 13.551425
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 86.543939,
+    "altDeg": 23.397733
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 98.039818,
+    "altDeg": 33.353797
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 111.309531,
+    "altDeg": 42.995766
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 127.949669,
+    "altDeg": 51.671686
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 149.991881,
+    "altDeg": 58.250912
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 177.718238,
+    "altDeg": 61.057076
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 206.006129,
+    "altDeg": 58.981406
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 229.021732,
+    "altDeg": 52.872543
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 246.371341,
+    "altDeg": 44.43318
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 260.044643,
+    "altDeg": 34.890332
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 271.737105,
+    "altDeg": 24.952116
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 282.5648,
+    "altDeg": 15.065523
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 293.285225,
+    "altDeg": 5.583169
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 304.463113,
+    "altDeg": -3.146891
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 316.533083,
+    "altDeg": -10.731665
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 329.765745,
+    "altDeg": -16.717554
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 344.152867,
+    "altDeg": -20.626771
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 359.29701,
+    "altDeg": -22.064938
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 14.4775,
+    "altDeg": -20.866208
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 28.956719,
+    "altDeg": -17.169657
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 42.300819,
+    "altDeg": -11.354607
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 54.469144,
+    "altDeg": -3.896735
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 65.712366,
+    "altDeg": 4.745632
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 76.452871,
+    "altDeg": 14.174017
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 87.242288,
+    "altDeg": 24.037872
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 98.815072,
+    "altDeg": 33.988016
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 112.244805,
+    "altDeg": 43.59163
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 129.169009,
+    "altDeg": 52.174602
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 151.609821,
+    "altDeg": 58.567153
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 179.587615,
+    "altDeg": 61.077992
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 207.667343,
+    "altDeg": 58.699585
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 230.284672,
+    "altDeg": 52.392301
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 247.33746,
+    "altDeg": 43.852284
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 260.840371,
+    "altDeg": 34.266802
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 272.44887,
+    "altDeg": 24.320147
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 283.249363,
+    "altDeg": 14.449342
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 293.983206,
+    "altDeg": 5.004546
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 305.205947,
+    "altDeg": -3.664499
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 317.343671,
+    "altDeg": -11.161027
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 330.653165,
+    "altDeg": -17.028169
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 345.103727,
+    "altDeg": -20.789581
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 0.272619,
+    "altDeg": -22.061298
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 15.427273,
+    "altDeg": -20.696052
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 29.841737,
+    "altDeg": -16.851559
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 43.107479,
+    "altDeg": -10.917661
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 55.206443,
+    "altDeg": -3.37151
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 66.403169,
+    "altDeg": 5.331892
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 77.128469,
+    "altDeg": 14.797953
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 87.942933,
+    "altDeg": 24.67796
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 99.596821,
+    "altDeg": 34.620504
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 113.193084,
+    "altDeg": 44.18318
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 130.410127,
+    "altDeg": 52.668644
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 153.251587,
+    "altDeg": 58.867405
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 181.456461,
+    "altDeg": 61.078311
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 209.302903,
+    "altDeg": 58.40192
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 231.523634,
+    "altDeg": 51.903701
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 248.288669,
+    "altDeg": 43.267889
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 261.628016,
+    "altDeg": 33.642518
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 273.15694,
+    "altDeg": 23.689178
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 283.933207,
+    "altDeg": 13.835563
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 294.682685,
+    "altDeg": 4.429719
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 305.951963,
+    "altDeg": -4.176738
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 318.158432,
+    "altDeg": -11.583212
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 331.544558,
+    "altDeg": -17.329729
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 346.056706,
+    "altDeg": -20.941858
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 1.247182,
+    "altDeg": -22.046664
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 16.372935,
+    "altDeg": -20.515741
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 30.721021,
+    "altDeg": -16.525096
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 43.908454,
+    "altDeg": -10.474443
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 55.939241,
+    "altDeg": -2.841955
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 67.091269,
+    "altDeg": 5.920834
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 77.803625,
+    "altDeg": 15.423147
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 88.64609,
+    "altDeg": 25.317908
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 100.385389,
+    "altDeg": 35.251138
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 114.15486,
+    "altDeg": 44.770215
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 131.673522,
+    "altDeg": 53.153447
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-08T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 154.916529,
+    "altDeg": 59.151226
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 143.767179,
+    "altDeg": 56.846225
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 170.278542,
+    "altDeg": 60.777389
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 199.119812,
+    "altDeg": 59.949898
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 223.719076,
+    "altDeg": 54.713262
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 242.346271,
+    "altDeg": 46.732829
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 256.773357,
+    "altDeg": 37.396231
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 268.848256,
+    "altDeg": 27.520366
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 279.815982,
+    "altDeg": 17.604968
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 290.505733,
+    "altDeg": 8.044729
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 301.521807,
+    "altDeg": -0.378113
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 313.331827,
+    "altDeg": -8.298009
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 326.257031,
+    "altDeg": -14.73995
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 340.373971,
+    "altDeg": -19.22469
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 355.388438,
+    "altDeg": -21.322453
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 10.640474,
+    "altDeg": -20.796622
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 25.360205,
+    "altDeg": -17.708925
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 39.016302,
+    "altDeg": -12.390207
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 51.472814,
+    "altDeg": -5.305277
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 62.919465,
+    "altDeg": 2.685695
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 73.742834,
+    "altDeg": 11.770552
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 84.460566,
+    "altDeg": 21.520303
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 95.749905,
+    "altDeg": 31.469452
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 108.576945,
+    "altDeg": 41.203556
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-01T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 124.417043,
+    "altDeg": 50.127327
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 145.285699,
+    "altDeg": 57.221703
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 172.128558,
+    "altDeg": 60.880306
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 200.875749,
+    "altDeg": 59.736586
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 225.08341,
+    "altDeg": 54.271012
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 243.377809,
+    "altDeg": 46.168708
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 257.605217,
+    "altDeg": 36.777614
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 269.577238,
+    "altDeg": 26.886224
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 280.505118,
+    "altDeg": 16.981959
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 291.198999,
+    "altDeg": 7.459423
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 302.252812,
+    "altDeg": -0.916221
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 314.12605,
+    "altDeg": -8.754994
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 327.127958,
+    "altDeg": -15.085774
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 341.314691,
+    "altDeg": -19.429072
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 356.366067,
+    "altDeg": -21.363023
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 11.605085,
+    "altDeg": -20.668103
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 26.267692,
+    "altDeg": -17.425717
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 39.846205,
+    "altDeg": -11.97978
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 52.229173,
+    "altDeg": -4.798601
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 63.622408,
+    "altDeg": 3.23148
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 74.421807,
+    "altDeg": 12.384867
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 85.153285,
+    "altDeg": 22.158744
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 96.507539,
+    "altDeg": 32.107498
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 109.476069,
+    "altDeg": 41.810791
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-02T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 125.574227,
+    "altDeg": 50.654521
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 146.829467,
+    "altDeg": 57.583033
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 173.986568,
+    "altDeg": 60.962866
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 202.609473,
+    "altDeg": 59.505445
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 226.421637,
+    "altDeg": 53.81864
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 244.3921,
+    "altDeg": 45.600092
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 258.427452,
+    "altDeg": 36.157689
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 270.301537,
+    "altDeg": 26.252736
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 281.192849,
+    "altDeg": 16.361155
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 291.893249,
+    "altDeg": 6.878564
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 302.986636,
+    "altDeg": -1.449348
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 314.924308,
+    "altDeg": -9.205233
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 328.003085,
+    "altDeg": -15.422948
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 342.258185,
+    "altDeg": -19.623152
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 357.343517,
+    "altDeg": -21.392515
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 12.566241,
+    "altDeg": -20.529028
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 27.169646,
+    "altDeg": -17.133573
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 40.670231,
+    "altDeg": -11.562504
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 52.980613,
+    "altDeg": -4.287098
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 64.322119,
+    "altDeg": 3.785459
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 75.099699,
+    "altDeg": 13.001099
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 85.847674,
+    "altDeg": 22.797469
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 97.270743,
+    "altDeg": 32.744184
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 110.386777,
+    "altDeg": 42.414299
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-03T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 126.751587,
+    "altDeg": 51.17388
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 148.398293,
+    "altDeg": 57.929752
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 175.850503,
+    "altDeg": 61.02494
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 204.31991,
+    "altDeg": 59.25695
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 227.734237,
+    "altDeg": 53.356606
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 245.389747,
+    "altDeg": 45.027245
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 259.240464,
+    "altDeg": 35.536606
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 271.021409,
+    "altDeg": 25.620002
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 281.879352,
+    "altDeg": 15.74265
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 292.588615,
+    "altDeg": 6.302427
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 303.723372,
+    "altDeg": -1.9774
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 315.726639,
+    "altDeg": -9.648622
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 328.882365,
+    "altDeg": -15.751372
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 343.204298,
+    "altDeg": -19.806868
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 358.320571,
+    "altDeg": -21.410943
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 13.523769,
+    "altDeg": -20.379493
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 28.066007,
+    "altDeg": -16.832634
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 41.48842,
+    "altDeg": -11.138527
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 53.727235,
+    "altDeg": -3.770897
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 65.018727,
+    "altDeg": 4.346382
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 75.776668,
+    "altDeg": 13.61912
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 86.543939,
+    "altDeg": 23.436384
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 98.039818,
+    "altDeg": 33.379396
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 111.309531,
+    "altDeg": 43.013895
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-04T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 127.949669,
+    "altDeg": 51.68507
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 149.991881,
+    "altDeg": 58.261397
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 177.718238,
+    "altDeg": 61.066449
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 206.006129,
+    "altDeg": 58.991595
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 229.021732,
+    "altDeg": 52.885362
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 246.371341,
+    "altDeg": 44.450426
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 260.044643,
+    "altDeg": 34.91451
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 271.737105,
+    "altDeg": 24.988121
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 282.5648,
+    "altDeg": 15.126541
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 293.285225,
+    "altDeg": 5.731341
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 304.463113,
+    "altDeg": -2.500278
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 316.533083,
+    "altDeg": -10.085052
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 329.765745,
+    "altDeg": -16.070941
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 344.152867,
+    "altDeg": -19.980159
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 359.29701,
+    "altDeg": -21.418325
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 14.4775,
+    "altDeg": -20.219595
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 28.956719,
+    "altDeg": -16.523045
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 42.300819,
+    "altDeg": -10.707994
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 54.469144,
+    "altDeg": -3.250122
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 65.712366,
+    "altDeg": 4.913296
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 76.452871,
+    "altDeg": 14.238812
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 87.242288,
+    "altDeg": 24.075396
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 98.815072,
+    "altDeg": 34.013015
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 112.244805,
+    "altDeg": 43.609387
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-05T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 129.169009,
+    "altDeg": 52.187747
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 151.609821,
+    "altDeg": 58.57751
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 179.587615,
+    "altDeg": 61.087357
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 207.667343,
+    "altDeg": 58.709888
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 230.284672,
+    "altDeg": 52.405344
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 247.33746,
+    "altDeg": 43.869881
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 260.840371,
+    "altDeg": 34.291543
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 272.44887,
+    "altDeg": 24.357191
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 283.249363,
+    "altDeg": 14.512926
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 293.983206,
+    "altDeg": 5.165703
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 305.205947,
+    "altDeg": -3.017886
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 317.343671,
+    "altDeg": -10.514414
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 330.653165,
+    "altDeg": -16.381556
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 345.103727,
+    "altDeg": -20.142969
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 0.272619,
+    "altDeg": -21.414686
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 15.427273,
+    "altDeg": -20.049439
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 29.841737,
+    "altDeg": -16.204947
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 43.107479,
+    "altDeg": -10.271048
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 55.206443,
+    "altDeg": -2.724897
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 66.403169,
+    "altDeg": 5.485458
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 77.128469,
+    "altDeg": 14.860061
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 87.942933,
+    "altDeg": 24.714409
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 99.596821,
+    "altDeg": 34.644923
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 113.193084,
+    "altDeg": 44.200577
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-06T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 130.410127,
+    "altDeg": 52.681557
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 153.251587,
+    "altDeg": 58.877641
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 181.456461,
+    "altDeg": 61.087675
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 209.302903,
+    "altDeg": 58.412343
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 231.523634,
+    "altDeg": 51.916974
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 248.288669,
+    "altDeg": 43.285847
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 261.628016,
+    "altDeg": 33.667841
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 273.15694,
+    "altDeg": 23.727309
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 283.933207,
+    "altDeg": 13.901906
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 294.682685,
+    "altDeg": 4.606
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 305.951963,
+    "altDeg": -3.530125
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 318.158432,
+    "altDeg": -10.936599
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 331.544558,
+    "altDeg": -16.683116
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 346.056706,
+    "altDeg": -20.295245
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 1.247182,
+    "altDeg": -21.400052
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 16.372935,
+    "altDeg": -19.869128
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 30.721021,
+    "altDeg": -15.878484
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 43.908454,
+    "altDeg": -9.82783
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 55.939241,
+    "altDeg": -2.195342
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 67.091269,
+    "altDeg": 6.062287
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 77.803625,
+    "altDeg": 15.48276
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 88.64609,
+    "altDeg": 25.353333
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 100.385389,
+    "altDeg": 35.274998
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 114.15486,
+    "altDeg": 44.787261
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-07T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 131.673522,
+    "altDeg": 53.166137
+  },
+  {
+    "planet": "uranus",
+    "utc": "2026-03-08T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 154.916529,
+    "altDeg": 59.161347
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 221.595039,
+    "altDeg": 32.683838
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 236.492832,
+    "altDeg": 25.147823
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 249.488114,
+    "altDeg": 16.265818
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 261.278903,
+    "altDeg": 6.623488
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 272.574812,
+    "altDeg": -3.32541
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 284.064995,
+    "altDeg": -13.184234
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 296.460106,
+    "altDeg": -22.534032
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 310.511813,
+    "altDeg": -30.852177
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 326.883607,
+    "altDeg": -37.443775
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 345.696422,
+    "altDeg": -41.46679
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 5.903016,
+    "altDeg": -42.200009
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 25.503596,
+    "altDeg": -39.489255
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 42.937928,
+    "altDeg": -33.867582
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 57.896229,
+    "altDeg": -26.176289
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 70.892211,
+    "altDeg": -17.185528
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 82.671334,
+    "altDeg": -7.48409
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 93.963827,
+    "altDeg": 2.475672
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 105.461972,
+    "altDeg": 12.297614
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 117.864051,
+    "altDeg": 21.56158
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 131.887089,
+    "altDeg": 29.745247
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 148.129642,
+    "altDeg": 36.164644
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 166.641362,
+    "altDeg": 40.012421
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 186.389687,
+    "altDeg": 40.621782
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 205.521763,
+    "altDeg": 37.870587
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 222.61392,
+    "altDeg": 32.272941
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 237.374425,
+    "altDeg": 24.630083
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 250.27244,
+    "altDeg": 15.683573
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 262.011324,
+    "altDeg": 6.00898
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 273.299171,
+    "altDeg": -3.945868
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 284.825058,
+    "altDeg": -13.785282
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 297.302282,
+    "altDeg": -23.08618
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 311.482953,
+    "altDeg": -31.31673
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 328.013227,
+    "altDeg": -37.770368
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 346.956169,
+    "altDeg": -41.60192
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 7.18276,
+    "altDeg": -42.113546
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 26.676154,
+    "altDeg": -39.197423
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 43.948064,
+    "altDeg": -33.420053
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 58.760941,
+    "altDeg": -25.626392
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 71.656916,
+    "altDeg": -16.575645
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 83.383999,
+    "altDeg": -6.845796
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 94.669184,
+    "altDeg": 3.116806
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 106.203689,
+    "altDeg": 12.916848
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 118.687584,
+    "altDeg": 22.129979
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 132.83724,
+    "altDeg": 30.224906
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 149.233203,
+    "altDeg": 36.506792
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 167.870123,
+    "altDeg": 40.166197
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 187.641329,
+    "altDeg": 40.559041
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 206.679008,
+    "altDeg": 37.606396
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 223.62327,
+    "altDeg": 31.853868
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 238.248464,
+    "altDeg": 24.107205
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 251.052059,
+    "altDeg": 15.098524
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 262.741866,
+    "altDeg": 5.393484
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 274.024387,
+    "altDeg": -4.565711
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 285.588804,
+    "altDeg": -14.384008
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 298.151136,
+    "altDeg": -23.633863
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 312.463392,
+    "altDeg": -31.773964
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 329.152444,
+    "altDeg": -38.08618
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 348.220695,
+    "altDeg": -41.723379
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 8.458543,
+    "altDeg": -42.01308
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 27.838691,
+    "altDeg": -38.894136
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 44.947672,
+    "altDeg": -32.964636
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 59.617653,
+    "altDeg": -25.071671
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 72.416759,
+    "altDeg": -15.963211
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 84.094747,
+    "altDeg": -6.206677
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 95.375389,
+    "altDeg": 3.757247
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 106.949065,
+    "altDeg": 13.533759
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 119.517726,
+    "altDeg": 22.693995
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 133.796568,
+    "altDeg": 30.697432
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 150.346299,
+    "altDeg": 36.838487
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 169.104052,
+    "altDeg": 40.30675
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 188.890155,
+    "altDeg": 40.482677
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 207.827645,
+    "altDeg": 37.330884
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 224.623159,
+    "altDeg": 31.426828
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 239.115127,
+    "altDeg": 23.579353
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 251.827162,
+    "altDeg": 14.510795
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 263.470709,
+    "altDeg": 4.777099
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 274.750639,
+    "altDeg": -5.184843
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 286.356423,
+    "altDeg": -14.980295
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 299.006857,
+    "altDeg": -24.176929
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 313.453245,
+    "altDeg": -32.223679
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 330.301126,
+    "altDeg": -38.391
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 349.489512,
+    "altDeg": -41.831063
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 9.729846,
+    "altDeg": -41.898705
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 28.991042,
+    "altDeg": -38.579617
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 45.936874,
+    "altDeg": -32.501547
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 60.466571,
+    "altDeg": -24.512292
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 73.171945,
+    "altDeg": -15.348342
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 84.803763,
+    "altDeg": -5.566828
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 96.082623,
+    "altDeg": 4.396904
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 107.698294,
+    "altDeg": 14.148239
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 120.354673,
+    "altDeg": 23.253484
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 134.765201,
+    "altDeg": 31.162633
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 151.468826,
+    "altDeg": 37.159522
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 170.342719,
+    "altDeg": 40.433971
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 190.135682,
+    "altDeg": 40.392768
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 208.967487,
+    "altDeg": 37.04425
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 225.613667,
+    "altDeg": 30.992028
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 239.974593,
+    "altDeg": 23.046689
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 252.597936,
+    "altDeg": 13.920507
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 264.198032,
+    "altDeg": 4.159924
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 275.478105,
+    "altDeg": -5.803167
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 287.128105,
+    "altDeg": -15.57403
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 299.869633,
+    "altDeg": -24.715225
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 314.452621,
+    "altDeg": -32.665673
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 331.459117,
+    "altDeg": -38.684617
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 350.762116,
+    "altDeg": -41.924876
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 10.996166,
+    "altDeg": -41.770532
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 30.133064,
+    "altDeg": -38.254091
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 46.9158,
+    "altDeg": -32.031
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 61.307906,
+    "altDeg": -23.948412
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 73.922676,
+    "altDeg": -14.731155
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 85.511234,
+    "altDeg": -4.926339
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 96.791069,
+    "altDeg": 5.035686
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 108.451565,
+    "altDeg": 14.76018
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 121.198615,
+    "altDeg": 23.808298
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 135.743256,
+    "altDeg": 31.620313
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 152.600662,
+    "altDeg": 37.469695
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 171.585677,
+    "altDeg": 40.54776
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 191.377438,
+    "altDeg": 40.2894
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 210.09837,
+    "altDeg": 36.746697
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 226.594887,
+    "altDeg": 30.549671
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 240.827043,
+    "altDeg": 22.509373
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 253.364569,
+    "altDeg": 13.32778
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 264.924014,
+    "altDeg": 3.542058
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 276.206966,
+    "altDeg": -6.420585
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 287.904039,
+    "altDeg": -16.165094
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 300.739652,
+    "altDeg": -25.24859
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 315.461616,
+    "altDeg": -33.099739
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 332.626241,
+    "altDeg": -38.966826
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 352.037989,
+    "altDeg": -42.004736
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 12.257017,
+    "altDeg": -41.628678
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 31.264638,
+    "altDeg": -37.917784
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 47.884592,
+    "altDeg": -31.553206
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 62.141869,
+    "altDeg": -23.380188
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 74.669152,
+    "altDeg": -14.111761
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 86.217343,
+    "altDeg": -4.285304
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 97.500907,
+    "altDeg": 5.673502
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 109.20907,
+    "altDeg": 15.369468
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 122.049742,
+    "altDeg": 24.358284
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 136.730842,
+    "altDeg": 32.070274
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 153.741662,
+    "altDeg": 37.768804
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 172.832464,
+    "altDeg": 40.648027
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 192.614965,
+    "altDeg": 40.172672
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 211.220148,
+    "altDeg": 36.438433
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 227.566918,
+    "altDeg": 30.099959
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T01:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 241.672661,
+    "altDeg": 21.967561
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T02:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 254.127249,
+    "altDeg": 12.73273
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T03:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 265.648833,
+    "altDeg": 2.923599
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T04:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 276.9374,
+    "altDeg": -7.036996
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T05:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 288.684416,
+    "altDeg": -16.753365
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T06:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 301.617099,
+    "altDeg": -25.776864
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T07:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 316.480316,
+    "altDeg": -33.525669
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T08:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 333.802294,
+    "altDeg": -39.237422
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T09:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 353.3166,
+    "altDeg": -42.07057
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T10:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 13.511929,
+    "altDeg": -41.473274
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T11:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 32.385667,
+    "altDeg": -37.570923
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T12:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 48.843398,
+    "altDeg": -31.068371
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T13:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 62.968668,
+    "altDeg": -22.807771
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T14:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 75.411573,
+    "altDeg": -13.490271
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T15:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 86.922273,
+    "altDeg": -3.643812
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T16:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 98.212319,
+    "altDeg": 6.31026
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T17:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 109.971001,
+    "altDeg": 15.975992
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T18:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 122.908245,
+    "altDeg": 24.90329
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T19:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 137.728058,
+    "altDeg": 32.512317
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T20:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 154.891659,
+    "altDeg": 38.05665
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T21:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 174.082602,
+    "altDeg": 40.734693
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T22:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 193.847816,
+    "altDeg": 40.042692
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T23:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 212.332698,
+    "altDeg": 36.119667
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-08T00:00:00Z",
+    "mode": "airless",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 228.529872,
+    "altDeg": 29.643092
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 221.595039,
+    "altDeg": 32.710092
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 236.492832,
+    "altDeg": 25.183515
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 249.488114,
+    "altDeg": 16.322343
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 261.278903,
+    "altDeg": 6.752625
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 272.574812,
+    "altDeg": -2.678797
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 284.064995,
+    "altDeg": -12.537621
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 296.460106,
+    "altDeg": -21.887419
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 310.511813,
+    "altDeg": -30.205564
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 326.883607,
+    "altDeg": -36.797162
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 345.696422,
+    "altDeg": -40.820178
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 5.903016,
+    "altDeg": -41.553396
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 25.503596,
+    "altDeg": -38.842642
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 42.937928,
+    "altDeg": -33.220969
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 57.896229,
+    "altDeg": -25.529677
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 70.892211,
+    "altDeg": -16.538915
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 82.671334,
+    "altDeg": -6.837477
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 93.963827,
+    "altDeg": 2.729409
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 105.461972,
+    "altDeg": 12.371935
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 117.864051,
+    "altDeg": 21.603799
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 131.887089,
+    "altDeg": 29.774675
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 148.129642,
+    "altDeg": 36.187722
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 166.641362,
+    "altDeg": 40.032541
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 186.389687,
+    "altDeg": 40.641477
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-01T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 205.521763,
+    "altDeg": 37.892292
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 222.61392,
+    "altDeg": 32.299608
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 237.374425,
+    "altDeg": 24.666611
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 250.27244,
+    "altDeg": 15.7422
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 262.011324,
+    "altDeg": 6.14877
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 273.299171,
+    "altDeg": -3.299255
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 284.825058,
+    "altDeg": -13.13867
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 297.302282,
+    "altDeg": -22.439567
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 311.482953,
+    "altDeg": -30.670117
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 328.013227,
+    "altDeg": -37.123755
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 346.956169,
+    "altDeg": -40.955307
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 7.18276,
+    "altDeg": -41.466934
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 26.676154,
+    "altDeg": -38.55081
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 43.948064,
+    "altDeg": -32.77344
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 58.760941,
+    "altDeg": -24.979779
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 71.656916,
+    "altDeg": -15.929032
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 83.383999,
+    "altDeg": -6.199183
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 94.669184,
+    "altDeg": 3.339356
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 106.203689,
+    "altDeg": 12.987754
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 118.687584,
+    "altDeg": 22.171036
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 132.83724,
+    "altDeg": 30.25378
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 149.233203,
+    "altDeg": 36.529586
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 167.870123,
+    "altDeg": 40.186208
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 187.641329,
+    "altDeg": 40.578778
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-02T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 206.679008,
+    "altDeg": 37.628307
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 223.62327,
+    "altDeg": 31.880966
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 238.248464,
+    "altDeg": 24.14461
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 251.052059,
+    "altDeg": 15.159409
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 262.741866,
+    "altDeg": 5.545695
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 274.024387,
+    "altDeg": -3.919099
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 285.588804,
+    "altDeg": -13.737395
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 298.151136,
+    "altDeg": -22.98725
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 312.463392,
+    "altDeg": -31.127351
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 329.152444,
+    "altDeg": -37.439567
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 348.220695,
+    "altDeg": -41.076767
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 8.458543,
+    "altDeg": -41.366467
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 27.838691,
+    "altDeg": -38.247523
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 44.947672,
+    "altDeg": -32.318023
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 59.617653,
+    "altDeg": -24.425059
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 72.416759,
+    "altDeg": -15.316598
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 84.094747,
+    "altDeg": -5.560065
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 95.375389,
+    "altDeg": 3.954813
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 106.949065,
+    "altDeg": 13.60154
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 119.517726,
+    "altDeg": 22.733952
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 133.796568,
+    "altDeg": 30.725774
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 150.346299,
+    "altDeg": 36.86101
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 169.104052,
+    "altDeg": 40.326663
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 188.890155,
+    "altDeg": 40.502467
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-03T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 207.827645,
+    "altDeg": 37.353012
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 224.623159,
+    "altDeg": 31.454377
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 239.115127,
+    "altDeg": 23.617678
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 251.827162,
+    "altDeg": 14.574114
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 263.470709,
+    "altDeg": 4.943947
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 274.750639,
+    "altDeg": -4.538231
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 286.356423,
+    "altDeg": -14.333683
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 299.006857,
+    "altDeg": -23.530317
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 313.453245,
+    "altDeg": -31.577067
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 330.301126,
+    "altDeg": -37.744387
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 349.489512,
+    "altDeg": -41.18445
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 9.729846,
+    "altDeg": -41.252092
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 28.991042,
+    "altDeg": -37.933004
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 45.936874,
+    "altDeg": -31.854934
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 60.466571,
+    "altDeg": -23.865679
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 73.171945,
+    "altDeg": -14.701729
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 84.803763,
+    "altDeg": -4.920215
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 96.082623,
+    "altDeg": 4.574125
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 107.698294,
+    "altDeg": 14.21315
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 120.354673,
+    "altDeg": 23.292397
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 134.765201,
+    "altDeg": 31.190465
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 151.468826,
+    "altDeg": 37.181787
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 170.342719,
+    "altDeg": 40.453795
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 190.135682,
+    "altDeg": 40.412621
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-04T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 208.967487,
+    "altDeg": 37.066607
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 225.613667,
+    "altDeg": 31.020045
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 239.974593,
+    "altDeg": 23.085983
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 252.597936,
+    "altDeg": 13.986455
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 264.198032,
+    "altDeg": 4.344223
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 275.478105,
+    "altDeg": -5.156555
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 287.128105,
+    "altDeg": -14.927418
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 299.869633,
+    "altDeg": -24.068612
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 314.452621,
+    "altDeg": -32.01906
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 331.459117,
+    "altDeg": -38.038005
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 350.762116,
+    "altDeg": -41.278263
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 10.996166,
+    "altDeg": -41.123919
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 30.133064,
+    "altDeg": -37.607478
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 46.9158,
+    "altDeg": -31.384387
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 61.307906,
+    "altDeg": -23.301799
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 73.922676,
+    "altDeg": -14.084542
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 85.511234,
+    "altDeg": -4.279727
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 96.791069,
+    "altDeg": 5.196091
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 108.451565,
+    "altDeg": 14.822445
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 121.198615,
+    "altDeg": 23.846219
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 135.743256,
+    "altDeg": 31.647656
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 152.600662,
+    "altDeg": 37.491714
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 171.585677,
+    "altDeg": 40.567505
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 191.377438,
+    "altDeg": 40.309325
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-05T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 210.09837,
+    "altDeg": 36.769295
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 226.594887,
+    "altDeg": 30.578177
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 240.827043,
+    "altDeg": 22.549685
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 253.364569,
+    "altDeg": 13.396575
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 264.924014,
+    "altDeg": 3.747438
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 276.206966,
+    "altDeg": -5.773972
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 287.904039,
+    "altDeg": -15.518481
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 300.739652,
+    "altDeg": -24.601978
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 315.461616,
+    "altDeg": -32.453126
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 332.626241,
+    "altDeg": -38.320213
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 352.037989,
+    "altDeg": -41.358123
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 12.257017,
+    "altDeg": -40.982065
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 31.264638,
+    "altDeg": -37.271171
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 47.884592,
+    "altDeg": -30.906593
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 62.141869,
+    "altDeg": -22.733575
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 74.669152,
+    "altDeg": -13.465148
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 86.217343,
+    "altDeg": -3.638691
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 97.500907,
+    "altDeg": 5.81982
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 109.20907,
+    "altDeg": 15.429289
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 122.049742,
+    "altDeg": 24.395264
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 136.730842,
+    "altDeg": 32.097149
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 153.741662,
+    "altDeg": 37.790588
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 172.832464,
+    "altDeg": 40.667703
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 192.614965,
+    "altDeg": 40.192679
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-06T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 211.220148,
+    "altDeg": 36.461284
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 227.566918,
+    "altDeg": 30.128976
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T01:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 241.672661,
+    "altDeg": 22.008945
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T02:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 254.127249,
+    "altDeg": 12.804621
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T03:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 265.648833,
+    "altDeg": 3.154812
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T04:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 276.9374,
+    "altDeg": -6.390383
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T05:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 288.684416,
+    "altDeg": -16.106753
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T06:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 301.617099,
+    "altDeg": -25.130251
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T07:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 316.480316,
+    "altDeg": -32.879056
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T08:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 333.802294,
+    "altDeg": -38.590809
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T09:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 353.3166,
+    "altDeg": -41.423958
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T10:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 13.511929,
+    "altDeg": -40.826661
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T11:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 32.385667,
+    "altDeg": -36.92431
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T12:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 48.843398,
+    "altDeg": -30.421758
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T13:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 62.968668,
+    "altDeg": -22.161158
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T14:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 75.411573,
+    "altDeg": -12.843658
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T15:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 86.922273,
+    "altDeg": -2.997199
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T16:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 98.212319,
+    "altDeg": 6.444632
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T17:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 109.971001,
+    "altDeg": 16.033546
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T18:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 122.908245,
+    "altDeg": 24.939373
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T19:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 137.728058,
+    "altDeg": 32.538742
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T20:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 154.891659,
+    "altDeg": 38.078212
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T21:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 174.082602,
+    "altDeg": 40.754309
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T22:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 193.847816,
+    "altDeg": 40.06279
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-07T23:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 212.332698,
+    "altDeg": 36.142783
+  },
+  {
+    "planet": "neptune",
+    "utc": "2026-03-08T00:00:00Z",
+    "mode": "refracted",
+    "observer": {
+      "latitudeDeg": 48.4284,
+      "longitudeDeg": -123.3656
+    },
+    "azDeg": 228.529872,
+    "altDeg": 29.672641
+  },
+  {
     "planet": "venus",
     "utc": "2026-03-03T19:00:00Z",
     "mode": "airless",

@@ -1,8 +1,8 @@
 {
   "source": "fixtures/generate/parity.mjs -- cross-port parity corpus, computed values only (no external reference)",
-  "generatedAt": "2026-10-06T13:02:03.454Z",
-  "tsCommit": "e479726",
-  "swiftCommit": "e479726",
+  "generatedAt": "2026-10-10T00:59:43.503Z",
+  "tsCommit": "HEAD",
+  "swiftCommit": "HEAD",
   "note": "Provenance only -- never compared. Scales/tolerances below are read by both ports' parity tests; changing them is a spec change, not a fixture regen.",
   "scales": {
     "angleDeg": 1000000,
@@ -30,9 +30,9 @@
     "globalSolarEclipses": 341,
     "axisTrackSamples": 79,
     "centralLinePoints": 59,
-    "planetHeliocentric": 960,
-    "planetSky": 800,
-    "planetEventWindows": 30
+    "planetHeliocentric": 1280,
+    "planetSky": 1120,
+    "planetEventWindows": 40
   },
   "planetCoverage": "Annual 1950–2100 samples, both supported edges, conjunction/crescent dates, elevated and ground-level events, polar grazing pairs"
 }

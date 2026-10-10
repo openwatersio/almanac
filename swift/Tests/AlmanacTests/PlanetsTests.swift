@@ -210,4 +210,26 @@ final class PlanetsTests: XCTestCase {
             XCTAssertTrue(try planetEvents(planet, from: start, to: end, observer: circumpolar).isEmpty)
         }
     }
+
+    func testOuterPlanetPerformanceAcrossSupportedInterval() throws {
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        let start = Date()
+        var checksum = 0.0, events = 0
+        for year in 1950...2100 {
+            for planet in [Planet.uranus, .neptune] {
+                for month in 1...12 {
+                    let time = utc(String(format: "%04d-%02d-01T00:00:00Z", year, month))
+                    checksum += try planetHeliocentricPosition(planet, at: time).xAu
+                    checksum += try planetPosition(planet, at: time).raDeg
+                    checksum += try planetAltAz(planet, at: time, observer: observer).altDeg
+                    checksum += try planetIllumination(planet, at: time).magnitude
+                }
+                let from = utc("\(year)-01-01T00:00:00Z"), to = utc("\(year)-01-03T00:00:00Z")
+                events += try planetEvents(planet, from: from, to: to, observer: observer).count
+            }
+        }
+        XCTAssertTrue(checksum.isFinite)
+        XCTAssertGreaterThan(events, 0)
+        XCTAssertLessThan(Date().timeIntervalSince(start), 10)
+    }
 }

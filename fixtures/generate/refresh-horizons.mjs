@@ -56,7 +56,7 @@ function site(command, quantities, start, stop, step, site, apparent) {
   };
 }
 
-const planets = { mercury: 199, venus: 299, earth: 399, mars: 499, jupiter: 599, saturn: 699 };
+const planets = { mercury: 199, venus: 299, earth: 399, mars: 499, jupiter: 599, saturn: 699, uranus: 799, neptune: 899 };
 
 function vectors(command) {
   return {
@@ -100,7 +100,7 @@ for (const [planet, target] of Object.entries(planets)) {
 for (const apparent of ["AIRLESS", "REFRACTED"]) {
   specs.push({ name: `planet-venus-zenith-${apparent.toLowerCase()}`, params: site(299, "4", "2026-03-03 19:00", "2026-03-03 21:00", "10m", { lat: -2.4975, lon: -104.0738 }, apparent) });
 }
-const polarDates = { mercury: "2025-04-27", venus: "2025-04-27", mars: "2021-09-15", jupiter: "2022-06-12", saturn: "2026-11-18" };
+const polarDates = { mercury: "2025-04-27", venus: "2025-04-27", mars: "2021-09-15", jupiter: "2022-06-12", saturn: "2026-11-18", uranus: "2026-03-20", neptune: "2026-03-20" };
 for (const [planet, start] of Object.entries(polarDates)) {
   for (const [label, date, observer] of [
     ["victoria", "2026-03-20", { ...VIC, elevationM: 100 }],

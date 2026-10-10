@@ -147,14 +147,14 @@ let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer
 
 ### Planetary views
 
-Mercury, Venus, Earth, Mars, Jupiter, and Saturn have geometric Sun-centered positions in AU, in fixed J2000 equatorial coordinates. Place the Sun at `(0, 0, 0)` and orient the scene's camera for the desired view:
+Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune have geometric Sun-centered positions in AU, in fixed J2000 equatorial coordinates. Place the Sun at `(0, 0, 0)` and orient the scene's camera for the desired view:
 
 ```ts
 import { planetHeliocentricPosition, planetAltAz, planetIllumination, planetEvents,
   horizonDip, sunAltAz } from '@openwaters/almanac';
 import type { Planet } from '@openwaters/almanac';
 
-const planets: Planet[] = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'];
+const planets: Planet[] = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
 const now = new Date();
 const positions = planets.map(planet => ({ planet, ...planetHeliocentricPosition(planet, now) }));
 

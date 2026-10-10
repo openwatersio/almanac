@@ -30,6 +30,8 @@ private func visualMagnitude(_ planet: Planet, _ phase: Double, _ helioDist: Dou
         else { c0 = 0.98; c1 = -1.02 }
     case .mars: c0 = -1.52; c1 = 1.60
     case .jupiter: c0 = -9.40; c1 = 0.50
+    case .uranus: c0 = -7.19; c1 = 0.25
+    case .neptune: c0 = -6.87
     default: fatalError("unsupported planet in visualMagnitude")
     }
     let x = phase / 100

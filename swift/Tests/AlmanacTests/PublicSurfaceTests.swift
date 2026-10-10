@@ -56,7 +56,7 @@ final class PublicSurfaceTests: XCTestCase {
     func testPlanets() throws {
         let time = Date(timeIntervalSince1970: 1_756_353_600)
         let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
-        XCTAssertEqual(Planet.allCases.map(\.rawValue), ["mercury", "venus", "earth", "mars", "jupiter", "saturn"])
+        XCTAssertEqual(Planet.allCases.map(\.rawValue), ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"])
         for planet in Planet.allCases {
             let h: HeliocentricPosition = try planetHeliocentricPosition(planet, at: time)
             _ = HeliocentricPosition(xAu: h.xAu, yAu: h.yAu, zAu: h.zAu)
