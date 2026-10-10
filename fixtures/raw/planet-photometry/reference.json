@@ -5,7 +5,11 @@
     "Illumination",
     "AngleFromSun"
   ],
-  "method": "Compile the pinned astronomy.ts with the repository TypeScript compiler, then pass its JavaScript path to refresh-planet-photometry.mjs. No Almanac functions are used.",
+  "modelSources": {
+    "uranus": "https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/generate/vsop/VSOP87B.ura",
+    "neptune": "https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/generate/vsop/VSOP87B.nep"
+  },
+  "method": "Replace only the Uranus and Neptune VSOP tables in pinned astronomy.ts with the source-series prefixes documented in docs/CONTRACT.md, compile with the repository TypeScript compiler, then pass its JavaScript path to refresh-planet-photometry.mjs. No Almanac functions are used.",
   "rows": [
     {
       "planet": "venus",
@@ -536,6 +540,86 @@
       "elongationDeg": 63.43240600226149,
       "ringTiltDeg": -17.56781945463271,
       "globeMagnitude": 1.2127532038410678
+    },
+    {
+      "planet": "uranus",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.9999890189534013,
+      "phaseAngleDeg": 0.3797303330288164,
+      "magnitude": 5.47119579149575,
+      "elongationDeg": 172.67350391316083
+    },
+    {
+      "planet": "uranus",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.9995985879168148,
+      "phaseAngleDeg": 2.2960265632222963,
+      "magnitude": 5.79068561975864,
+      "elongationDeg": 51.762384754471405
+    },
+    {
+      "planet": "uranus",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.9993841017929814,
+      "phaseAngleDeg": 2.844144701662823,
+      "magnitude": 5.7343916368647925,
+      "elongationDeg": 77.32668988630991
+    },
+    {
+      "planet": "uranus",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.9998403541074108,
+      "phaseAngleDeg": 1.447914972284926,
+      "magnitude": 5.380550482249083,
+      "elongationDeg": 152.48352474153236
+    },
+    {
+      "planet": "uranus",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.9994149768439224,
+      "phaseAngleDeg": 2.771925225798281,
+      "magnitude": 5.789688477683402,
+      "elongationDeg": 101.36815539886386
+    },
+    {
+      "planet": "neptune",
+      "tt": "1950-01-01T00:00:00Z",
+      "fraction": 0.9997407917800891,
+      "phaseAngleDeg": 1.8449974777022282,
+      "magnitude": 7.9515084287144555,
+      "elongationDeg": 82.74109032308586
+    },
+    {
+      "planet": "neptune",
+      "tt": "2025-03-23T00:00:00Z",
+      "fraction": 0.9999991608382808,
+      "phaseAngleDeg": 0.10497249527625489,
+      "magnitude": 7.956675547171387,
+      "elongationDeg": 3.1509536563793796
+    },
+    {
+      "planet": "neptune",
+      "tt": "2026-03-01T00:00:00Z",
+      "fraction": 0.9999657323285083,
+      "phaseAngleDeg": 0.6708067219921194,
+      "magnitude": 7.950463216664256,
+      "elongationDeg": 20.678599203852574
+    },
+    {
+      "planet": "neptune",
+      "tt": "2060-05-23T00:00:00Z",
+      "fraction": 0.9999804932980128,
+      "phaseAngleDeg": 0.5061112191517265,
+      "magnitude": 7.950816409239006,
+      "elongationDeg": 15.100810180451784
+    },
+    {
+      "planet": "neptune",
+      "tt": "2100-12-31T23:59:59Z",
+      "fraction": 0.9997686944985393,
+      "phaseAngleDeg": 1.7428593999937076,
+      "magnitude": 7.905831185223417,
+      "elongationDeg": 110.85578926941623
     }
   ]
 }

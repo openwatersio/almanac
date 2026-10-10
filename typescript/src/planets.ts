@@ -24,6 +24,8 @@ function visualMagnitude(planet: Planet, phase: number, helioDist: number, geoDi
             break;
         case 'mars': c0 = -1.52; c1 = 1.60; break;
         case 'jupiter': c0 = -9.40; c1 = 0.50; break;
+        case 'uranus': c0 = -7.19; c1 = 0.25; break;
+        case 'neptune': c0 = -6.87; break;
         default: throw new Error('unsupported planet in visualMagnitude');
     }
     const x = phase / 100;

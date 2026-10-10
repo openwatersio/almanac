@@ -7,7 +7,7 @@ public enum AlmanacError: Error, Equatable {
 }
 
 public enum Planet: String, CaseIterable, Sendable {
-    case mercury, venus, earth, mars, jupiter, saturn
+    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
 }
 
 func assertSkyPlanet(_ planet: Planet) throws {

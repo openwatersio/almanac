@@ -8,10 +8,12 @@ The algorithms are translated from [Astronomy Engine](https://github.com/cosinek
 
 Maintaining the translation keeps both languages on the same contract, avoids giving one port a separate foreign API, and retains zero runtime dependencies and data files. The package carries only the models its public functions use.
 
+Uranus and Neptune retain additional terms from the pinned commit's full [VSOP87B Uranus](https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/generate/vsop/VSOP87B.ura) and [Neptune](https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/generate/vsop/VSOP87B.nep) tables to meet the same `1e-3` AU distance tolerance as the other planets. Each time-power series keeps a prefix in source order. Uranus's longitude series retain 296, 39, and 3 terms, latitude 41 and 4, and radius 191, 21, and 1; Neptune's retain longitude 76 and 7, latitude 18 and 1, and radius 49 and 3. For `|TT days / 365250| ≤ 0.102`, the sum of omitted absolute amplitudes, weighted by that power of time, is at most `0.0002` AU per coordinate after scaling the angular coordinates by the full radius series' absolute-amplitude bound. The shared Horizons grid measures maximum Sun-centered errors of `0.000153` AU for Uranus and `0.000353` AU for Neptune. The photometry reference runs the pinned upstream functions with these same source-series prefixes.
+
 Both ports implement four matching layers:
 
 - Time: Julian date and Delta-T from the Espenak–Meeus piecewise polynomials.
-- Positions: truncated VSOP87 for the Sun, Montenbruck–Pfleger MOON2 for the Moon, and truncated IAU 2000B nutation and aberration translated from upstream.
+- Positions: truncated VSOP87 for the Sun and planets, Montenbruck–Pfleger MOON2 for the Moon, and truncated IAU 2000B nutation and aberration translated from upstream.
 - Transforms: ecliptic and equatorial conversion on the equator of date, equatorial to horizontal conversion, topocentric parallax, precession for fixed-star catalog positions, and atmospheric refraction.
 - Events: root finding over the position and transform layers for rise, set, twilight, transit, phase, lunar eclipse, and solar eclipse searches.
 
@@ -31,8 +33,8 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 - Angles are degrees. Right ascension is in `[0, 360)`, declination and altitude are in `[-90, 90]`, and azimuth is in `[0, 360)` from true north through east.
 - Geocentric Sun and Moon right ascension and declination are apparent coordinates on the true equator and equinox of date, with nutation and aberration applied. Internal ecliptic-of-date values are not part of the public API.
 - Moon distance is in kilometers. Sun distance is in astronomical units.
-- `Planet` contains Mercury, Venus, Earth, Mars, Jupiter, and Saturn. Sun-centered coordinates are geometric AU vectors in the fixed J2000 mean equatorial frame, with no light-time or aberration correction. Earth is valid for those vectors and rejected by Earth-based planetary queries. Planet sky directions are apparent on the true equator and equinox of date. `distanceAu` is physical range with light-time correction, with Earth at reception; aberration affects direction, not range.
-- Planet illumination uses instantaneous geometric Earth/planet/Sun vectors for phase. `magnitude` is approximate airless visual magnitude from the pinned photometry model, including Saturn's rings and excluding atmospheric extinction. `elongationDeg` is apparent angular separation from the Sun in `[0, 180]`, not a longitude difference. Extreme Venus crescents use the pinned high-phase formula; five reference rows at phase angles 173.8–177.0° differ from Horizons by up to 0.75 magnitudes. The retained evidence and model comparison are in `fixtures/planets/meta.json`.
+- `Planet` contains Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. Sun-centered coordinates are geometric AU vectors in the fixed J2000 mean equatorial frame, with no light-time or aberration correction. Earth is valid for those vectors and rejected by Earth-based planetary queries. Planet sky directions are apparent on the true equator and equinox of date. `distanceAu` is physical range with light-time correction, with Earth at reception; aberration affects direction, not range.
+- Planet illumination uses instantaneous geometric Earth/planet/Sun vectors for phase. `magnitude` is approximate airless visual magnitude from the pinned photometry model, including Saturn's rings and excluding atmospheric extinction. Uranus uses a linear phase correction; Neptune uses distance alone. These models omit seasonal brightness changes. `elongationDeg` is apparent angular separation from the Sun in `[0, 180]`, not a longitude difference. Extreme Venus crescents use the pinned high-phase formula; five reference rows at phase angles 173.8–177.0° differ from Horizons by up to 0.75 magnitudes. The retained evidence and model comparison are in `fixtures/planets/meta.json`.
 - Horizontal positions use the translated Astronomy Engine `Refraction('normal')` formula with its below-horizon taper and a fixed sea-level standard atmosphere. The model has no pressure or temperature inputs and gives about 34 arcminutes of refraction at the horizon.
 - `starAltAz` accepts J2000 ICRS catalog right ascension and declination, precesses and nutates them to date, and applies refraction. It does not apply annual aberration, proper motion, or parallax.
 - Sunrise and sunset occur when the unrefracted geometric center crosses `horizonDip - (34 arcminutes + the true solar semidiameter at the current distance)`. Civil, nautical, and astronomical twilight use center altitudes of `-6°`, `-12°`, and `-18°` without a refraction term.
@@ -138,6 +140,11 @@ The test suites enforce these physical tolerances:
 | Sun distance | `1e-4` AU |
 | Moon angular position | 1 arcminute |
 | Moon distance | 70 kilometers |
+| Planet angular position and altitude/azimuth | 1 arcminute |
+| Planet Sun-centered vectors and Earth-based range | `1e-3` AU |
+| Planet illumination fraction | 0.01 |
+| Planet solar elongation | 1 arcminute |
+| Planet visual magnitude, except extreme Venus crescents | 0.3 |
 | Star altitude and azimuth | 1 arcminute |
 | Event times | 60 seconds |
 | Eclipse peaks and contacts | 60 seconds |

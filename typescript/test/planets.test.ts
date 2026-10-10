@@ -8,7 +8,7 @@ import { ttDays, ttDaysFromUt, utDays } from '../src/time.js';
 import { topoAltAzUnrefracted } from '../src/transforms.js';
 
 const load = (name: string) => JSON.parse(readFileSync(new URL(`../../fixtures/planets/${name}.json`, import.meta.url), 'utf8'));
-const planets: Planet[] = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn'];
+const planets: Planet[] = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
 const skyPlanets = planets.filter(p => p !== 'earth');
 const ttOf = (label: string) => (Date.parse(label) - Date.UTC(2000, 0, 1, 12)) / 86400000;
 const sep = (a: { raDeg: number; decDeg: number }, b: { raDeg: number; decDeg: number }) => {
@@ -179,4 +179,36 @@ it('the polar solver finds every one-minute oracle crossing, including grazing p
         }
         expect(planetEvents(row.planet, new Date(start), new Date(end), { ...row.observer, latitudeDeg: row.observer.latitudeDeg+0.1 })).toEqual([]);
     }
+});
+
+it('supports Uranus and Neptune through every public planetary API', () => {
+    const time = new Date('2026-03-20T00:00:00Z');
+    const observer = { latitudeDeg: 48.4284, longitudeDeg: -123.3656 };
+    for (const planet of ['uranus', 'neptune'] as Planet[]) {
+        const p = planetHeliocentricPosition(planet, time);
+        expect(Math.hypot(p.xAu, p.yAu, p.zAu)).toBeGreaterThan(18);
+        expect(Number.isFinite(planetPosition(planet, time).raDeg)).toBe(true);
+        expect(Number.isFinite(planetAltAz(planet, time, observer).altDeg)).toBe(true);
+        expect(Number.isFinite(planetIllumination(planet, time).magnitude)).toBe(true);
+        expect(planetEvents(planet, time, new Date('2026-03-22T00:00:00Z'), observer).map(e => e.kind)).toEqual(['set', 'rise', 'set', 'rise']);
+    }
+});
+
+it('outer-planet APIs stay fast across 1950–2100 with annual two-day event samples', () => {
+    const observer = { latitudeDeg: 48.4284, longitudeDeg: -123.3656 };
+    const start = performance.now();
+    let checksum = 0, events = 0;
+    for (let year = 1950; year <= 2100; year++) {
+        for (const planet of ['uranus', 'neptune'] as Planet[]) {
+            for (let month = 0; month < 12; month++) {
+                const time = new Date(Date.UTC(year, month, 1));
+                checksum += planetHeliocentricPosition(planet, time).xAu + planetPosition(planet, time).raDeg
+                    + planetAltAz(planet, time, observer).altDeg + planetIllumination(planet, time).magnitude;
+            }
+            events += planetEvents(planet, new Date(Date.UTC(year, 0, 1)), new Date(Date.UTC(year, 0, 3)), observer).length;
+        }
+    }
+    expect(Number.isFinite(checksum)).toBe(true);
+    expect(events).toBeGreaterThan(0);
+    expect(performance.now()-start).toBeLessThan(10000);
 });

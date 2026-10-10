@@ -806,7 +806,7 @@ function deriveAltaz(retrieved, requests) {
 }
 
 function derivePlanets(retrieved, requests) {
-  const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn"];
+  const planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"];
   const heliocentric = [], positions = [], altaz = [], illumination = [], events = [];
   const names = [];
   function rows(name, vector, expected) {
@@ -898,7 +898,7 @@ function derivePlanets(retrieved, requests) {
     events.push({ planet: name.split("-")[1], observer, heightAboveGroundM,
       startUtc: grid[0].time, endUtc: grid.at(-1).time, events: crossings });
   }
-  assert.equal(events.length, 10, "expected five midlatitude and five polar grids");
+  assert.equal(events.length, 14, "expected seven midlatitude and seven polar grids");
   return {
     "planets/heliocentric.json": json(heliocentric),
     "planets/positions.json": json(positions),
@@ -913,7 +913,7 @@ function derivePlanets(retrieved, requests) {
       altaz: { timeScale: "UT", modes: ["AIRLESS", "REFRACTED"], toleranceArcmin: 1, refractedMinimumAltitudeDeg: 10 },
       illumination: { timeScale: "TT", fractionTolerance: 0.01, elongationToleranceArcmin: 1, magnitudeTolerance: 0.3,
         note: "JPL APmag and pinned VisualMagnitude differ for extreme Venus crescents: five rows at phase 173.8138–176.9577 degrees exceed 0.3 magnitudes, maximum 0.749544 at 2060-05-23. All raw and derived JPL rows are retained and checked for fraction/elongation. The pinned high-phase Venus branch (phase >= 163.6 degrees) is compared with pinned upstream photometry instead of treating its different model as compatible JPL magnitude evidence. Other planet magnitudes and lower-phase Venus remain within 0.3 of JPL. Current Horizons Saturn APmag includes rings under its documented Earth-observer conditions; the pinned source's comment claiming no rings is obsolete.",
-        photometryReference: { source: reference.source, commit: reference.commit, method: reference.method },
+        photometryReference: { source: reference.source, commit: reference.commit, modelSources: reference.modelSources, method: reference.method },
       },
       events: { timeScale: "UT", gridStepSeconds: 60, toleranceSeconds: 60, method: "Linear interpolation of committed JPL AIRLESS one-minute altitudes at pinned horizonDip minus 34/60 degrees; point centers, no semidiameter.",
         grazingCases: "grazing-cases.json contains model-selected inputs only, not expected outputs. Tests independently scan at one-minute steps to check solver completeness.",
