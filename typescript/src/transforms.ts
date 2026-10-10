@@ -29,11 +29,12 @@ export interface AltAz { azDeg: number; altDeg: number; }
 
 /**
  * INTERNAL: what {@link topoAltAzUnrefracted} already computes on the way to
- * az/alt. The L3 event layer needs all four from a single evaluation — the
- * local hour angle brackets each daily cycle's altitude extrema, and the
- * topocentric distance sets the Moon's semidiameter, hence its rise/set target.
+ * az/alt. The L3 event layer needs these from a single evaluation — the
+ * local hour angle brackets each daily cycle's altitude extrema, the
+ * topocentric distance sets the Moon's semidiameter, hence its rise/set target,
+ * and the topocentric RA/Dec orient the Moon's disc.
  */
-export interface TopoUnrefracted extends AltAz { hourAngleDeg: number; distanceAu: number; }
+export interface TopoUnrefracted extends AltAz { hourAngleDeg: number; distanceAu: number; raDeg: number; decDeg: number; }
 
 /** UPSTREAM: `era` (Earth Rotation Angle), astronomy.ts ~2014. */
 function earthRotationAngleDeg(ut: number): number {
@@ -189,7 +190,7 @@ export function topoAltAzUnrefracted(bodyEqj: Vec3, ut: number, observer: Observ
     if (hourAngleDeg < 0)
         hourAngleDeg += 360;
 
-    return { azDeg: az, altDeg: 90 - zd, hourAngleDeg, distanceAu };
+    return { azDeg: az, altDeg: 90 - zd, hourAngleDeg, distanceAu, raDeg, decDeg };
 }
 
 /**

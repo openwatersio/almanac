@@ -8,12 +8,13 @@ export type { SunPosition, MoonPosition } from './positions.js';
 export { sunPosition, moonPosition } from './positions.js';
 export type { AltAz } from './transforms.js';
 export { sunAltAz, moonAltAz, starAltAz } from './transforms.js';
-export type { MoonIllumination } from './illumination.js';
-export { moonIllumination } from './illumination.js';
+export type { MoonIllumination, MoonOrientation } from './illumination.js';
+export { moonIllumination, moonOrientation } from './illumination.js';
 export type {
-  SunEvent, SunEventKind, MoonEvent, MoonEventKind, MoonPhaseEvent, MoonPhaseName, PlanetEvent, PlanetEventKind
+  SunEvent, SunEventKind, MoonEvent, MoonEventKind, MoonPhaseEvent, MoonPhaseName, PlanetEvent, PlanetEventKind,
+  AltitudeEvent, AltitudeEventKind, TransitEvent, TransitEventKind
 } from './events.js';
-export { sunEvents, moonEvents, searchMoonPhases, planetEvents } from './events.js';
+export { sunEvents, moonEvents, searchMoonPhases, planetEvents, sunAltitudeEvents, sunTransits, moonTransits } from './events.js';
 export type { LunarEclipse, LunarEclipseVisibility } from './eclipse.js';
 export { nextLunarEclipse, previousLunarEclipse, lunarEclipses, lunarEclipseVisibility } from './eclipse.js';
 export type { SolarEclipse, SolarEclipseKind, SolarEclipseSunAltitudes } from './solar.js';

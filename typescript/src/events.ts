@@ -23,7 +23,7 @@
 // and `NextMoonQuarter` (~5362).
 
 import {
-    Observer, type Planet, assertPlanet, assertSupported, assertSupportedWindowEnd,
+    Observer, type Planet, assertObserver, assertPlanet, assertSupported, assertSupportedWindowEnd,
     SUPPORTED_MIN, SUPPORTED_MAX
 } from './types.js';
 import { dateFromUt, ttDaysFromUt, utDays } from './time.js';
@@ -48,6 +48,14 @@ export interface MoonEvent { time: Date; kind: MoonEventKind; }
 /** A planet's point center crossing the apparent horizon. */
 export type PlanetEventKind = 'rise' | 'set';
 export interface PlanetEvent { time: Date; kind: PlanetEventKind; }
+
+/** The Sun's center crossing a caller-chosen altitude, upward or downward. */
+export type AltitudeEventKind = 'rising' | 'falling';
+export interface AltitudeEvent { time: Date; kind: AltitudeEventKind; }
+
+/** A body crossing the local meridian: highest at `upper`, lowest at `lower`. */
+export type TransitEventKind = 'upper' | 'lower';
+export interface TransitEvent { time: Date; kind: TransitEventKind; }
 
 /** A quarter lunar phase. */
 export type MoonPhaseName = 'new' | 'firstQuarter' | 'full' | 'lastQuarter';
@@ -444,12 +452,16 @@ interface LevelSpec<K extends string> { level: Level; rising: K; falling: K; }
  * solving every monotonic segment between consecutive extrema for every target
  * level. The chain starts a full cycle before `startUt` so the segment
  * containing the window's first instant is covered, and runs one extremum past
- * `endUt` so an event just inside the window's end is too.
+ * `endUt` so an event just inside the window's end is too. `transitKind` is
+ * emitted at each hour angle 0 and `lowerTransitKind` at each hour angle 180.
+ * With no levels the extrema are never refined: the hour-angle chain alone
+ * places the transits.
  */
 function searchAltitudeEvents<K extends string>(
     sample: Sampler,
     levels: readonly LevelSpec<K>[],
     transitKind: K | null,
+    lowerTransitKind: K | null,
     startUt: number,
     endUt: number,
     haRateDegPerDay: number,
@@ -480,6 +492,7 @@ function searchAltitudeEvents<K extends string>(
         // extremum we are not allowed to probe past. The segment up to it is
         // still monotonic, so any crossing inside the window is still found.
         const s1 = atRangeEnd ? sample(MAX_UT)
+            : levels.length === 0 ? sample(nextEst)
             : refineExtremum(sample, nextEst, nextIsMax, extremumHalfWidthDays, s0.ut, flatCycle);
         assertReached(s1.ut > s0.ut, 'extremum chain ordering');
 
@@ -492,7 +505,8 @@ function searchAltitudeEvents<K extends string>(
                 emit(solveCrossing(sample, spec.level, s0, s1), g1 > 0 ? spec.rising : spec.falling);
             }
         }
-        if (nextIsMax && transitKind !== null && !atRangeEnd) emit(nextEst, transitKind);
+        const transit = nextIsMax ? transitKind : lowerTransitKind;
+        if (transit !== null && !atRangeEnd) emit(nextEst, transit);
 
         s0 = s1;
         if (atRangeEnd) break;
@@ -537,7 +551,7 @@ export function sunEvents(startUtc: Date, endUtc: Date, observer: Observer, heig
     const dip = horizonDip(observer, heightAboveGroundM);
     if (startUtc.getTime() >= endUtc.getTime()) return [];
     return searchAltitudeEvents(
-        sunSampler(observer, dip), SUN_LEVELS, 'transit',
+        sunSampler(observer, dip), SUN_LEVELS, 'transit', null,
         utDays(startUtc), utDays(endUtc),
         SUN_HA_RATE_DEG_PER_DAY, SUN_CYCLE_DAYS, flatCycle(observer)
     );
@@ -555,7 +569,7 @@ export function moonEvents(startUtc: Date, endUtc: Date, observer: Observer, hei
     const dip = horizonDip(observer, heightAboveGroundM);
     if (startUtc.getTime() >= endUtc.getTime()) return [];
     return searchAltitudeEvents(
-        moonSampler(observer, dip), MOON_LEVELS, null,
+        moonSampler(observer, dip), MOON_LEVELS, null, null,
         utDays(startUtc), utDays(endUtc),
         MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer)
     );
@@ -569,8 +583,63 @@ export function planetEvents(planet: Planet, startUtc: Date, endUtc: Date, obser
     const dip = horizonDip(observer, heightAboveGroundM);
     if (startUtc.getTime() >= endUtc.getTime()) return [];
     const cycleDays = 0.9972695717592592;
-    return searchAltitudeEvents(planetSampler(planet, observer, dip), MOON_LEVELS, null,
+    return searchAltitudeEvents(planetSampler(planet, observer, dip), MOON_LEVELS, null, null,
         utDays(startUtc), utDays(endUtc), 360/cycleDays, cycleDays, flatCycle(observer));
+}
+
+/**
+ * The Sun's unrefracted geometric center crossing `altitudeDeg` within the
+ * half-open window `[startUtc, endUtc)`, sorted ascending: `rising` upward,
+ * `falling` downward. The twilight convention, so `-6` returns the civil
+ * twilight instants. A window with no crossing, as in polar day or night,
+ * returns an empty list.
+ */
+export function sunAltitudeEvents(startUtc: Date, endUtc: Date, observer: Observer, altitudeDeg: number): AltitudeEvent[] {
+    if (!(altitudeDeg >= -90 && altitudeDeg <= 90)) throw new RangeError(`altitudeDeg out of range: ${altitudeDeg}`);
+    assertSupported(startUtc);
+    assertSupportedWindowEnd(endUtc);
+    assertObserver(observer);
+    if (startUtc.getTime() >= endUtc.getTime()) return [];
+    const levels: LevelSpec<AltitudeEventKind>[] = [{ level: altitudeDeg, rising: 'rising', falling: 'falling' }];
+    return searchAltitudeEvents(
+        sunSampler(observer, 0), levels, null, null,
+        utDays(startUtc), utDays(endUtc),
+        SUN_HA_RATE_DEG_PER_DAY, SUN_CYCLE_DAYS, flatCycle(observer)
+    );
+}
+
+/**
+ * The Sun's upper (local hour angle 0) and lower (180°) transits within the
+ * half-open window `[startUtc, endUtc)`, sorted ascending, whether or not the
+ * Sun is above the horizon. The upper transit is `sunEvents`' `transit`.
+ */
+export function sunTransits(startUtc: Date, endUtc: Date, observer: Observer): TransitEvent[] {
+    assertSupported(startUtc);
+    assertSupportedWindowEnd(endUtc);
+    assertObserver(observer);
+    if (startUtc.getTime() >= endUtc.getTime()) return [];
+    return searchAltitudeEvents<TransitEventKind>(
+        sunSampler(observer, 0), [], 'upper', 'lower',
+        utDays(startUtc), utDays(endUtc),
+        SUN_HA_RATE_DEG_PER_DAY, SUN_CYCLE_DAYS, flatCycle(observer)
+    );
+}
+
+/**
+ * The Moon's upper and lower transits within the half-open window
+ * `[startUtc, endUtc)`, sorted ascending, from the topocentric hour angle, so
+ * parallax is included, whether or not the Moon is above the horizon.
+ */
+export function moonTransits(startUtc: Date, endUtc: Date, observer: Observer): TransitEvent[] {
+    assertSupported(startUtc);
+    assertSupportedWindowEnd(endUtc);
+    assertObserver(observer);
+    if (startUtc.getTime() >= endUtc.getTime()) return [];
+    return searchAltitudeEvents<TransitEventKind>(
+        moonSampler(observer, 0), [], 'upper', 'lower',
+        utDays(startUtc), utDays(endUtc),
+        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer)
+    );
 }
 
 // -------------------------------------------------------------- moon phases
