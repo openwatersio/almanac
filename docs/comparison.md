@@ -6,7 +6,7 @@ Each library below was checked at the version named in its column, on 2026-10-10
 
 ## Feature matrix
 
-| | Almanac 0.7.0 | SunCalc 2.1.1 | Astronomy Engine 2.1.19 | astronomia 4.2.0 | Solar 4.0.1 | SwiftAA 3.0.1 | EDSunriseSet 1.0 |
+| | Almanac 0.8.0 | SunCalc 2.1.1 | Astronomy Engine 2.1.19 | astronomia 4.2.0 | Solar 4.0.1 | SwiftAA 3.0.1 | EDSunriseSet 1.0 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Languages | TypeScript, Swift; Kotlin planned ([#46](https://github.com/openwatersio/almanac/issues/46)) | JavaScript | C, C#, JavaScript/TypeScript, Python, Kotlin | JavaScript | Swift (Apple platforms) | Swift over C++ (AA+) | Objective-C |
 | Footprint | 21.9 KB whole package, 6.9 KB for `sunEvents` alone; Swift: 7,400 lines, no data | 3.8 KB whole, 2.2 KB for `getTimes` | 44.0 KB whole, 24.2 KB for rise/set and altitude search | 52.7 KB without planet data, 20.6 KB for sunrise; VSOP87 and ELP data add 2.5 MB | One 250-line file | About 430,000 lines, mostly series tables compiled in as C++ (31 MB of source) | About 500 lines |
