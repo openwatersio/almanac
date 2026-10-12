@@ -88,6 +88,8 @@ final class PublicSurfaceTests: XCTestCase {
         let observer = try Observer(latitudeDeg: 48.7621, longitudeDeg: -123.052)
         let start = Date(timeIntervalSince1970: 1_756_339_200) // 2025-08-28T00:00:00Z
         let end = start.addingTimeInterval(2 * 86400)
+        _ = try sunIsUp(start, observer: observer)
+        _ = try sunIsUp(start, observer: observer, heightAboveGroundM: 2)
 
         let sun: [SunEvent] = try sunEvents(from: start, to: end, observer: observer)
         _ = try sunEvents(from: start, to: end, observer: observer, heightAboveGroundM: 2)

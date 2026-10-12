@@ -11,6 +11,8 @@ fun main() {
     check(moonPosition(time).distanceKm > 300_000)
     val observer = Observer(48.4284, -123.3656, 2.0)
     check(sunAltAz(time, observer).altDeg.isFinite())
+    check(sunIsUp(Instant.parse("2024-06-21T12:00:00Z"), Observer(0.0, 0.0)))
+    check(!sunIsUp(Instant.parse("2024-06-21T00:00:00Z"), Observer(0.0, 0.0, 2.0), 2.0))
     check(moonAltAz(time, observer).azDeg.isFinite())
     check(starAltAz(88.792939, 7.407064, time, observer).altDeg.isFinite())
     check(horizonDip(observer, 2.0) < 0)

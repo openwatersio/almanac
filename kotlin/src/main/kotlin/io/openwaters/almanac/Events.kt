@@ -294,6 +294,14 @@ private val SUN_LEVELS = listOf(
 )
 private fun flatCycle(observer: Observer): Boolean = abs(observer.latitudeDeg) >= 85
 
+/** Whether the Sun's upper limb is above the modeled horizon, using the sunrise/set convention. */
+public fun sunIsUp(time: Instant, observer: Observer, heightAboveGroundM: Double = 0.0): Boolean {
+    assertSupported(time)
+    val dip = horizonDip(observer, heightAboveGroundM)
+    val sample = sunSampler(observer, dip)(utDays(time))
+    return sample.altDeg > sample.riseSetAltDeg
+}
+
 public fun sunEvents(startUtc: Instant, endUtc: Instant, observer: Observer, heightAboveGroundM: Double = 0.0): List<SunEvent> {
     assertSupported(startUtc)
     assertSupportedWindowEnd(endUtc)

@@ -238,7 +238,7 @@ final class ParityTests: XCTestCase {
     struct PositionEntry: Codable { let tMs: Int64; let sun: SunPosRow; let moon: MoonPosRow }
 
     struct AltAzRow: Codable, Equatable { let azDeg: Int; let altDeg: Int }
-    struct AltazEntry: Codable { let tMs: Int64; let sun: AltAzRow; let moon: AltAzRow; let star: AltAzRow }
+    struct AltazEntry: Codable { let sunIsUp: Bool; let tMs: Int64; let sun: AltAzRow; let moon: AltAzRow; let star: AltAzRow }
 
     struct IlluminationEntry: Codable { let tMs: Int64; let fraction: Int; let phaseAngleDeg: Int; let phase: Int; let waxing: Bool }
 
@@ -397,6 +397,7 @@ final class ParityTests: XCTestCase {
             let moonAa = try moonAltAz(t, observer: victoria)
             let starAa = try starAltAz(raDeg: betelgeuse.raDeg, decDeg: betelgeuse.decDeg, at: t, observer: victoria)
             altaz.append(AltazEntry(
+                sunIsUp: try sunIsUp(t, observer: victoria),
                 tMs: tMs,
                 sun: AltAzRow(azDeg: qScaled(sunAa.azDeg, scales.angleDeg), altDeg: qScaled(sunAa.altDeg, scales.angleDeg)),
                 moon: AltAzRow(azDeg: qScaled(moonAa.azDeg, scales.angleDeg), altDeg: qScaled(moonAa.altDeg, scales.angleDeg)),
@@ -587,6 +588,7 @@ final class ParityTests: XCTestCase {
 
         XCTAssertEqual(fresh.altaz.count, Self.committedAltaz.count)
         for (a, b) in zip(fresh.altaz, Self.committedAltaz) {
+            XCTAssertEqual(a.sunIsUp, b.sunIsUp)
             XCTAssertEqual(a.tMs, b.tMs)
             near(a.sun.azDeg, b.sun.azDeg, tolAngle, "altaz sun.azDeg @\(a.tMs)")
             near(a.sun.altDeg, b.sun.altDeg, tolAngle, "altaz sun.altDeg @\(a.tMs)")
@@ -794,6 +796,7 @@ final class ParityTests: XCTestCase {
         }
         XCTAssertEqual(altaz.count, Self.committedAltaz.count)
         for (a, b) in zip(altaz, Self.committedAltaz) {
+            XCTAssertEqual(a.sunIsUp, b.sunIsUp)
             XCTAssertEqual(a.tMs, b.tMs)
             near(a.sun.azDeg, b.sun.azDeg, "altaz sun.azDeg @\(a.tMs)")
             near(a.sun.altDeg, b.sun.altDeg, "altaz sun.altDeg @\(a.tMs)")

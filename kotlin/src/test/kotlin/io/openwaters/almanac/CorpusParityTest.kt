@@ -38,7 +38,7 @@ private fun recompute(): Map<String,JsonElement> {
         j("tMs" to ms,"sun" to j("raDeg" to q(s.raDeg),"decDeg" to q(s.decDeg),"distanceAu" to scaled(s.distanceAu,1e9)),"moon" to j("raDeg" to q(m.raDeg),"decDeg" to q(m.decDeg),"distanceKm" to scaled(m.distanceKm,1e3)))
     }.rows()
     out["altaz"] = times.map { ms -> val t = Instant.ofEpochMilli(ms)
-        j("tMs" to ms,"sun" to aa(sunAltAz(t,victoria)),"moon" to aa(moonAltAz(t,victoria)),"star" to aa(starAltAz(88.792939,7.407064,t,victoria)))
+        j("tMs" to ms,"sunIsUp" to sunIsUp(t,victoria),"sun" to aa(sunAltAz(t,victoria)),"moon" to aa(moonAltAz(t,victoria)),"star" to aa(starAltAz(88.792939,7.407064,t,victoria)))
     }.rows()
     out["illumination"] = times.map { ms -> val v = moonIllumination(Instant.ofEpochMilli(ms))
         j("tMs" to ms,"fraction" to q(v.fraction),"phaseAngleDeg" to q(v.phaseAngleDeg),"phase" to q(v.phase),"waxing" to v.waxing)

@@ -19,7 +19,7 @@ export type {
   SunEvent, SunEventKind, MoonEvent, MoonEventKind, MoonPhaseEvent, MoonPhaseName, PlanetEvent, PlanetEventKind,
   AltitudeEvent, AltitudeEventKind, TransitEvent, TransitEventKind
 } from './events.js';
-export { sunEvents, moonEvents, searchMoonPhases, planetEvents, sunAltitudeEvents, sunTransits, moonTransits } from './events.js';
+export { sunIsUp, sunEvents, moonEvents, searchMoonPhases, planetEvents, sunAltitudeEvents, sunTransits, moonTransits } from './events.js';
 export type { LunarEclipse, LunarEclipseVisibility } from './eclipse.js';
 export { nextLunarEclipse, previousLunarEclipse, lunarEclipses, lunarEclipseVisibility } from './eclipse.js';
 export type { SolarEclipse, SolarEclipseKind, SolarEclipseSunAltitudes } from './solar.js';

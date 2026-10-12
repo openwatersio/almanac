@@ -543,6 +543,15 @@ private func flatCycle(_ observer: Observer) -> Bool {
     abs(observer.latitudeDeg) >= flatCycleLatitudeDeg
 }
 
+/// Whether the Sun's upper limb is above the modeled horizon, using the sunrise/set convention.
+public func sunIsUp(_ time: Date, observer: Observer, heightAboveGroundM: Double = 0) throws -> Bool {
+    let time = try normalized(time)
+    try assertSupported(time)
+    let dip = try horizonDip(observer: observer, heightAboveGroundM: heightAboveGroundM)
+    let sample = sunSampler(observer, dip)(utDays(time))
+    return sample.altDeg > sample.riseSetAltDeg
+}
+
 /**
  * Sun rise, set, the three twilights and upper transit within the half-open
  * window `[from, to)`, sorted ascending.
