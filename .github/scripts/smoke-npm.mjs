@@ -16,6 +16,7 @@ try {
     assert.equal(almanac.degreesToRadians(180), Math.PI);
     assert.equal(almanac.radiansToDegrees(Math.PI), 180);
     assert.throws(() => almanac.degreesToRadians(NaN), RangeError);
+    assert.throws(() => almanac.radiansToDegrees(Number.MAX_VALUE), RangeError);
     const { fraction, phase } = almanac.moonIllumination(date);
     assert.ok(fraction >= 0 && fraction <= 1);
     assert.ok(phase >= 0 && phase < 1);

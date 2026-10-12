@@ -69,7 +69,7 @@ background task; use shorter windows for interactive queries.
 
 Migration guides for [SunCalc](docs/migrating-from-suncalc.md), [Astronomy Engine](docs/migrating-from-astronomy-engine.md), and [Solar](docs/migrating-from-solar.md) include tested examples. The [library comparison](docs/comparison.md) explains the features and limits of each library.
 
-Angles use degrees. All three ports provide `degreesToRadians(angle)` and `radiansToDegrees(angle)` for callers that use radians. These functions preserve sign and full turns without wrapping or changing the angle's origin; non-finite inputs raise validation errors. Swift calls use `try`.
+Angles use degrees. All three ports provide `degreesToRadians(angle)` and `radiansToDegrees(angle)` for callers that use radians. These functions preserve sign and full turns without wrapping or changing the angle's origin; non-finite inputs and conversion overflow raise validation errors. Swift calls use `try`.
 
 ### JavaScript module loading
 

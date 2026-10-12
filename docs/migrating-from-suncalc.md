@@ -50,7 +50,7 @@ SunCalc 1's `getTimes(date, lat, lng)` has no `utcOffset` and returns the solar 
 
 SunCalc 1.9's `getPosition` returns the Sun's geometric altitude without atmospheric refraction. Almanac's `sunAltAz` returns apparent altitude with refraction. Converting degrees to radians does not preserve that physical convention: close to sunrise, SunCalc 1 can report a negative altitude while Almanac reports a positive one. Review altitude thresholds and irradiance formulas when migrating. The SunCalc 2 position tolerances in the mapping table do not apply to SunCalc 1.
 
-`degreesToRadians` and `radiansToDegrees` are available in TypeScript, Swift, and Kotlin. They preserve sign and full turns, reject non-finite inputs, and do not change an angle's origin or physical convention. Wrap a signed Moon angle or rotate a south-based azimuth separately when the consuming interface requires it.
+`degreesToRadians` and `radiansToDegrees` are available in TypeScript, Swift, and Kotlin. They preserve sign and full turns, reject non-finite inputs and conversion overflow, and do not change an angle's origin or physical convention. Wrap a signed Moon angle or rotate a south-based azimuth separately when the consuming interface requires it.
 
 A marine application that already converts SunCalc 1 azimuth to north-based radians can keep that interface with this adapter. Its azimuth is in `[-π, π)`, with zero at north and positive toward east; altitude is refracted:
 

@@ -18,3 +18,12 @@ it('rejects non-finite angles as validation errors', () => {
     }
   }
 });
+
+it('rejects overflow while accepting large representable conversions', () => {
+  for (const value of [Number.MAX_VALUE, -Number.MAX_VALUE]) {
+    expect(Number.isFinite(degreesToRadians(value))).toBe(true);
+    expect(Number.isFinite(radiansToDegrees(value / 64))).toBe(true);
+    expect(() => radiansToDegrees(value)).toThrow(RangeError);
+    expect(() => radiansToDegrees(value)).not.toThrow(AlmanacOutOfRangeError);
+  }
+});

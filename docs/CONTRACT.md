@@ -58,7 +58,7 @@ The functions have the same names and semantics in all three ports. TypeScript r
 | Function | Arguments | Result |
 | --- | --- | --- |
 | `degreesToRadians(degrees)` | Finite angle in degrees | Angle in radians; preserves sign and full turns without wrapping. |
-| `radiansToDegrees(radians)` | Finite angle in radians | Angle in degrees; preserves sign and full turns without wrapping. |
+| `radiansToDegrees(radians)` | Finite angle in radians | Angle in degrees; preserves sign and full turns without wrapping. Conversion overflow raises a validation error. |
 | `horizonDip(observer, heightAboveGroundM)` | Observer and eye height above the unobstructed surface | Signed apparent horizon altitude in degrees from the horizontal plane, including Earth shape and terrestrial refraction; zero at ground level and negative when elevated. Height is in `[0, 10000]` meters and ground elevation (`elevationM - heightAboveGroundM`) in `[-500, 10000]` meters. |
 | `sunPosition(time)` | Instant | Geocentric apparent `raDeg`, `decDeg`, and `distanceAu` on the equator of date. |
 | `planetHeliocentricPosition(planet, time)` | Planet and instant | Geometric Sun-centered `HeliocentricPosition` with `xAu`, `yAu`, `zAu`; includes Earth. |

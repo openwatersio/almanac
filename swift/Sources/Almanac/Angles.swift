@@ -4,8 +4,10 @@ public func degreesToRadians(_ degrees: Double) throws -> Double {
     return degrees * DEG2RAD
 }
 
-/// Converts radians to degrees without wrapping the angle.
+/// Converts radians to degrees without wrapping; rejects conversion overflow.
 public func radiansToDegrees(_ radians: Double) throws -> Double {
     guard radians.isFinite else { throw AlmanacError.invalidArgument("radians must be finite") }
-    return radians * RAD2DEG
+    let degrees = radians * RAD2DEG
+    guard degrees.isFinite else { throw AlmanacError.invalidArgument("angle conversion overflow") }
+    return degrees
 }
