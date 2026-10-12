@@ -2,6 +2,7 @@ package io.openwaters.almanac
 
 import java.io.File
 import kotlin.test.*
+import kotlinx.serialization.json.*
 
 internal class TableIntegrityTest {
     private val number = "[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][+-]?\\d+)?"
@@ -38,5 +39,32 @@ internal class TableIntegrityTest {
             assertEquals(values[0].toDouble().toBits(), MOON_N_COEFF[i].toBits())
             assertEquals(values.drop(1).map { it.toInt() }, MOON_N_INDICES[i].toList())
         }
+    }
+
+    @Test fun planetaryModelsRetainEveryCoefficientAndSeriesShape() {
+        val declaration = source("planetModels").substringAfter("const models:").substringAfter("= ").substringBeforeLast(';')
+        val json = declaration.replace(Regex("(\\w+):"), "\"$1\":").replace(Regex(",\\s*([}\\]])"), "$1")
+        val models = Json.parseToJsonElement(json).jsonObject
+        assertEquals(7, models.size)
+        assertEquals(models.keys, PLANET_MODELS.keys.map { it.toString() }.toSet())
+        var terms = 0
+        for ((name, element) in models) {
+            val expected = element.jsonArray
+            val actual = PLANET_MODELS.getValue(Planet.entries.single { it.toString() == name })
+            assertEquals(3, expected.size)
+            assertEquals(expected.size, actual.size)
+            for ((i, formula) in expected.withIndex()) {
+                assertEquals(formula.jsonArray.size, actual[i].size)
+                for ((j, series) in formula.jsonArray.withIndex()) {
+                    assertEquals(series.jsonArray.size, actual[i][j].size)
+                    for ((k, term) in series.jsonArray.withIndex()) {
+                        assertEquals(3, term.jsonArray.size)
+                        assertEquals(term.jsonArray.map { it.jsonPrimitive.double.toBits() }, actual[i][j][k].map { it.toBits() }, "$name $i $j $k")
+                        terms++
+                    }
+                }
+            }
+        }
+        assertEquals(1059, terms)
     }
 }

@@ -14,5 +14,12 @@ fun main() {
     check(horizonDip(observer, 2.0) < 0)
     check(moonIllumination(time).phase in 0.0..1.0)
     check(moonOrientation(time, observer).brightLimbAngleDeg >= 0)
+    for (planet in Planet.entries) {
+        check(planetHeliocentricPosition(planet, time).xAu.isFinite())
+        if (planet == Planet.EARTH) continue
+        check(planetPosition(planet, time).distanceAu > 0)
+        check(planetAltAz(planet, time, observer).azDeg.isFinite())
+        check(planetIllumination(planet, time).magnitude.isFinite())
+    }
     println("Almanac source consumer passed")
 }

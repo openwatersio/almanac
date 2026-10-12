@@ -63,4 +63,38 @@ internal class ParityTest {
             scaledNear(horizonDip(row.getValue("observer").obj().observer(), row.number("heightAboveGroundM")), row, "dipDeg", 1e6)
         }
     }
+
+    @Test fun planetaryQueriesReproduceScaledCorpus() {
+        val file = fixture("parity/planets").obj()
+        val heliocentric = file.array("heliocentric")
+        val sky = file.array("sky")
+        assertEquals(1280, heliocentric.size)
+        assertEquals(1120, sky.size)
+        for (element in heliocentric) {
+            val row = element.obj()
+            val value = planetHeliocentricPosition(row.planet(), Instant.ofEpochMilli(row.getValue("tMs").jsonPrimitive.long))
+            scaledNear(value.xAu, row, "xAu", 1e9)
+            scaledNear(value.yAu, row, "yAu", 1e9)
+            scaledNear(value.zAu, row, "zAu", 1e9)
+        }
+        for (element in sky) {
+            val row = element.obj()
+            val time = Instant.ofEpochMilli(row.getValue("tMs").jsonPrimitive.long)
+            val p = planetPosition(row.planet(), time)
+            val a = planetAltAz(row.planet(), time, victoria)
+            val i = planetIllumination(row.planet(), time)
+            val ep = row.getValue("position").obj()
+            val ea = row.getValue("altaz").obj()
+            val ei = row.getValue("illumination").obj()
+            scaledNear(p.raDeg, ep, "raDeg", 1e6)
+            scaledNear(p.decDeg, ep, "decDeg", 1e6)
+            scaledNear(p.distanceAu, ep, "distanceAu", 1e9)
+            scaledNear(a.azDeg, ea, "azDeg", 1e6)
+            scaledNear(a.altDeg, ea, "altDeg", 1e6)
+            scaledNear(i.fraction, ei, "fraction", 1e6)
+            scaledNear(i.phaseAngleDeg, ei, "phaseAngleDeg", 1e6)
+            scaledNear(i.magnitude, ei, "magnitude", 1e6)
+            scaledNear(i.elongationDeg, ei, "elongationDeg", 1e6)
+        }
+    }
 }
