@@ -2,6 +2,7 @@ min_version = "2026.9.6"
 
 [tools]
 node = "22"
+java = "temurin-17"
 swift = [
   # A standalone macOS toolchain borrows Apple's SDK from Xcode and must match
   # it; Xcode 27 ships the Swift 6.4 SDK, which 6.3.3 cannot parse.

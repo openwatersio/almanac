@@ -1,6 +1,6 @@
 # Scope
 
-Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations in TypeScript and Swift. The [public contract](CONTRACT.md) defines the binding behavior, and [GitHub issues](https://github.com/openwatersio/almanac/issues) track proposed work. The [library comparison](comparison.md) sets this scope beside other Sun and Moon libraries for TypeScript, JavaScript, and Swift.
+Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations in TypeScript, Swift, and Kotlin. The [public contract](CONTRACT.md) defines the binding behavior, and [GitHub issues](https://github.com/openwatersio/almanac/issues) track proposed work. The [library comparison](comparison.md) sets this scope beside other Sun and Moon libraries for TypeScript, JavaScript, and Swift.
 
 ## Included
 
@@ -21,7 +21,7 @@ Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations
 - The central line of a total or annular eclipse, sampled from the axis's first ground contact to its last, and the axis point at any instant, so a consumer can measure how far the nearest totality passes.
 - Every value SunCalc computes; the [migration guide](migrating-from-suncalc.md) maps each SunCalc call to Almanac.
 - Every value the Solar Swift library computes; the [Solar migration guide](migrating-from-solar.md) maps each Solar property to Almanac.
-- A shared fixture and parity corpus for both ports, plus a performance regression harness.
+- A shared fixture and parity corpus for all three ports, plus a TypeScript/Swift performance regression harness.
 
 The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it raise a typed error.
 
@@ -35,3 +35,5 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instant
 - Sky positions include atmospheric refraction in a standard sea-level atmosphere. Observer elevation affects parallax. `horizonDip` reports the apparent horizon from a supplied eye height above the unobstructed surface; event and eclipse visibility APIs accept that height, defaulting to zero. Eclipse obscuration is geometric; local solar eclipse searches use refracted Sun altitudes, while lunar eclipse visibility uses unrefracted Moon altitudes. Weather, terrain, and cloud cover require separate data sources.
 - The library does not extrapolate outside the supported interval because the series truncations and Delta-T model do not support reliable results there.
 - Migrations from astronomy implementations in consumer applications are tracked in those repositories and do not block Almanac releases.
+
+Kotlin/JVM targets JVM 8 and Android minSdk 26 with `java.time.Instant`. It is consumed from source through Gradle; Maven publication, Kotlin benchmarks, and Android device validation are deferred.

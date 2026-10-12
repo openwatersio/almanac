@@ -2,11 +2,12 @@
 
 Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, any Sun altitude, upper and lower transits, Moon phase and orientation, equinoxes and solstices, lunar perigee and apogee, the equation of time, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
-Twin implementations, one behavior:
+Three implementations, one behavior:
 
 - `swift/` — SwiftPM package `Almanac`
 - `typescript/` — npm `@openwaters/almanac`
-- `fixtures/` — the shared test corpus (JPL Horizons, USNO, Espenak) both suites
+- `kotlin/` — Kotlin/JVM `io.openwaters.almanac`, source-consumed with Gradle
+- `fixtures/` — the shared test corpus (JPL Horizons, USNO, Espenak) all three suites
   must pass; the contract that keeps the ports identical
 
 Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside it raise a typed error. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
@@ -21,7 +22,7 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 
 ## Performance
 
-Almanac includes a shared performance harness for both ports: **34 workloads**
+Almanac includes a shared performance harness for TypeScript and Swift: **34 workloads**
 cover positions, a 228-hour sky track, short/year/polar event windows, full-range
 moon phases, next/previous/range lunar, solar, and global solar eclipse searches,
 including empty windows, solar obscuration over a 228-hour track, and the central
@@ -164,6 +165,24 @@ let year = today.addingTimeInterval(366 * 24 * 60 * 60)
 for event in try seasons(from: today, to: year) { print(event.kind, event.time) }
 for apsis in try moonApsides(from: today, to: year) { print(apsis.kind, apsis.time, apsis.distanceKm) }
 print(try equationOfTime(today))   // sundial minus clock, minutes
+```
+
+### Kotlin/JVM and Android
+
+The Kotlin library provides the same 35 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
+
+```kotlin
+import io.openwaters.almanac.*
+import java.time.Instant
+
+val observer = Observer(48.5, -123.0)
+val today = Instant.now()
+val tomorrow = today.plusSeconds(86400)
+val events = sunEvents(today, tomorrow, observer)
+val moon = moonIllumination(today)
+val next = nextGlobalSolarEclipse(today)
+val line = solarEclipseCentralLine(next.peak)
+val minutes = equationOfTime(today)
 ```
 
 ### Golden hour, transits, and the Moon's tilt

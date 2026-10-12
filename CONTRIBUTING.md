@@ -1,10 +1,10 @@
 # Contributing
 
-Almanac is a twin-port library with one behavior implemented by hand in TypeScript and Swift. The [public contract](docs/CONTRACT.md) defines that behavior, and the fixture corpus is the authority both ports answer to. Read the contract before changing public behavior.
+Almanac is a three-port library with one behavior implemented by hand in TypeScript, Swift, and Kotlin. The [public contract](docs/CONTRACT.md) defines that behavior, and the fixture corpus is the authority all three ports answer to. Read the contract before changing public behavior.
 
 ## Repository status
 
-Almanac follows the Open Waters Tier 3 repository baseline for a maintained public utility. Tier 3 requires pull requests and the `typescript`, `swift`, and `fixtures` status checks, with no approving review required. Almanac is listed in the organization profile because external Swift and npm consumers use it; that profile listing is a visibility exception rather than a recorded tier promotion. Promotion to another tier requires an explicit organization decision.
+Almanac follows the Open Waters Tier 3 repository baseline for a maintained public utility. Tier 3 requires pull requests and the `typescript`, `swift`, `kotlin`, and `fixtures` status checks, with no approving review required. Almanac is listed in the organization profile because external Swift and npm consumers use it; that profile listing is a visibility exception rather than a recorded tier promotion. Promotion to another tier requires an explicit organization decision.
 
 The shared organization guidance is in the [repository standards](https://github.com/openwatersio/.github/blob/main/REPOSITORY_STANDARDS.md), [agent instructions](https://github.com/openwatersio/.github/blob/main/docs/agents/agent-instructions.md), [npm release conventions](https://github.com/openwatersio/.github/blob/main/docs/agents/npm-releases.md), and [writing conventions](https://github.com/openwatersio/.github/blob/main/docs/agents/writing-style.md).
 
@@ -12,7 +12,8 @@ The shared organization guidance is in the [repository standards](https://github
 
 - `typescript/` contains the npm package and the leading implementation.
 - `swift/` contains the SwiftPM package and mirrors the TypeScript implementation.
-- `fixtures/` contains raw upstream evidence, derived fixtures, and the parity corpus used by both ports.
+- `kotlin/` contains the Kotlin/JVM library and independent Gradle source consumer.
+- `fixtures/` contains raw upstream evidence, derived fixtures, and the parity corpus used by all three ports.
 - `benchmarks/` contains the shared correctness-preserving performance harness.
 - `docs/` contains the public contract and scope.
 - `Package.swift` is the root manifest used by Git URL SwiftPM consumers.
@@ -23,22 +24,22 @@ The shared organization guidance is in the [repository standards](https://github
 
 Keep lasting documentation in the repository: the public contract, supported scope, usage, and contributor guidance. Proposed work belongs in GitHub issues or pull requests. Plans, specs, task briefs, and spike output are temporary working documents; keep them in ignored `.superpowers/`. Before a release, remove any committed planning documents and promote decisions that describe shipped behavior into the relevant living document. A merged plan or spec is not evidence that behavior ships.
 
-## Twin-port contract
+## Cross-port contract
 
-- Every behavior change lands in both ports in the same change series. TypeScript leads, and Swift follows function by function with the same structure and operation order. The parity corpus compares the implementations near exactly at about `1e-5°`.
+- Every behavior change lands in all three ports in the same change series. TypeScript leads, and Swift and Kotlin follow function by function with the same structure and operation order. The parity corpus compares the implementations near exactly at about `1e-5°`.
 - Astronomy algorithms are translated from Astronomy Engine at pinned commit `865d3da7d8112bbc7911238052c6af4aaf877181`. Copy coefficient tables from that source and cite the upstream function above each translation.
-- The public API is the table in [the contract](docs/CONTRACT.md#public-api). TypeScript exports only through the curated allow-list in `typescript/src/index.ts`. Swift access control is the export gate, and `PublicSurfaceTests.swift` must construct or call every public symbol using plain `import Almanac`. A public-surface change updates the contract table, both ports, that test, and usually the parity corpus.
+- The public API is the table in [the contract](docs/CONTRACT.md#public-api). TypeScript exports only through the curated allow-list in `typescript/src/index.ts`. Kotlin explicit API mode keeps helpers internal; `kotlin/smoke` exercises the public surface through a composite build. Swift access control is the export gate, and `PublicSurfaceTests.swift` must construct or call every public symbol using plain `import Almanac`. A public-surface change updates the contract table, all three ports, that test, and usually the parity corpus.
 - Test tolerances are normative. Do not loosen a tolerance to make a test pass. A resistant fixture means the implementations differ in operation order, a constant, or TT/UT handling, or that the fixture design needs a spec decision.
-- Regenerate parity data with `fixtures/generate/parity.mjs`. The Swift reproduction test must still pass. Comparisons decode values with a tolerance of 5 scaled units or 1 time quantum to accommodate cross-platform `libm` ULP noise; they do not compare serialized bytes.
+- Regenerate parity data with `fixtures/generate/parity.mjs`. The Swift and Kotlin reproduction tests must still pass. Comparisons decode values with a tolerance of 5 scaled units or 1 time quantum to accommodate cross-platform `libm` ULP noise; they do not compare serialized bytes.
 
 ## Astronomy constraints
 
 - Coarse position fixtures carry TT values. Delta-T projections differ between Espenak–Meeus and the frozen Horizons values by about 5.9 seconds today and 134 seconds at 2100. Roughly 6 seconds in a current UT event comparison is the Delta-T model floor. USNO grid rows after 2050 assert scatter about a per-date mean for the same reason.
 - USNO's solar eclipse local-circumstances endpoint only answers for eclipses between 2001 and 2026, despite advertising 1800 to 2050. Outside that range it returns a 500, and inside it a 400 when the eclipse is not visible from the requested place — so a 400 is an answer, not a malformed request. Pick fixture dates inside the window.
 - `moonPhaseDeg` takes TT days. Passing UT compiles and shifts the result by about 35 arcseconds.
-- `FLAT_CYCLE_LATITUDE_DEG = 85` prevents rise and set events from disappearing when the altitude cycle flattens. Keep the brute-force flattening-band oracle test in both ports.
+- `FLAT_CYCLE_LATITUDE_DEG = 85` prevents rise and set events from disappearing when the altitude cycle flattens. Keep the brute-force flattening-band oracle test in all three ports.
 - `SAME_ECLIPSE_MS = 100` makes next and previous eclipse searches strict around the anchor. Range searches use exact half-open bounds. Keep the fixed full-moon seed so adjacent ranges agree on the peak.
-- Every public entry point applies TimeClip truncation toward zero to integer milliseconds. Swift must not use floor.
+- Every public entry point applies TimeClip truncation toward zero to integer milliseconds. Swift and Kotlin must not use floor.
 - Swift tests run in release mode because debug builds exceed the performance smoke limits. The tests do not use `assert()` or `precondition()`, so release builds retain their test semantics.
 
 ## Development checks
@@ -70,11 +71,17 @@ mise exec -- swift test -c release
 mise exec -- node fixtures/generate/derive.mjs --check
 mise exec -- node fixtures/generate/parity.mjs --check HEAD HEAD
 mise exec -- node --test benchmarks/compare.test.mjs
+mise exec -- node --test .github/ci-routes.test.mjs
+(cd kotlin && mise exec -- ./gradlew test jacocoTestReport jacocoTestCoverageVerification && mise exec -- ./gradlew -p smoke run)
 ```
 
 The TypeScript suite includes the full-range performance smokes. `npm pack --dry-run` runs `prepack`, which stages `README.md`, `LICENSE`, and `NOTICE` inside `typescript/`; these generated copies are not repository files and must not be committed.
 
 Fixture refresh scripts named `refresh-*.mjs` are the only fixture scripts that use the network. Run them manually, commit raw responses, derived fixtures, and metadata together, and record request URLs in the metadata files. `refresh-horizons.mjs` and `refresh-usno.mjs` take names, or name prefixes for USNO such as `seasons-`, to fetch a subset; `retrieved.json` is merged, so the other raw files and their derived fixtures stand.
+
+Kotlin CI uses Temurin JDK 17, Kotlin 2.2.0, and the checksum-pinned Gradle 8.14.3 wrapper. Handwritten Kotlin code requires 100% JaCoCo LINE coverage; only `MoonTables.kt` and `PlanetModels.kt` coefficient declarations are excluded, and integrity tests compare every coefficient to TypeScript in source order by IEEE-754 bits. The smoke build calls all public APIs using only the public package. Android runtime testing remains separate from JVM verification.
+
+CI routes Kotlin-only changes to Kotlin, Swift-only changes to Swift and watch compilation, and TypeScript tests to TypeScript. Shared TypeScript source, fixtures, manifest/toolchain/packaged documents, and workflow changes run all ports. Main pushes run all ports; fixture derivation runs unconditionally. Existing performance jobs cover TypeScript and Swift.
 
 ## Performance
 
@@ -111,7 +118,7 @@ Season, apsis, and equation of time workloads cover every equinox and solstice a
 
 ## Releasing
 
-One version number spans both ports. Every release is a Git tag and a GitHub release for that tag: the tag starts the publishing workflow, and the GitHub release carries the notes.
+One version number spans all three ports. Kotlin reads `typescript/package.json` at build configuration time. Every release is a Git tag and a GitHub release for that tag: the tag starts the publishing workflow, and the GitHub release carries the notes.
 
 1. Remove any committed plans and specs, and verify that the living documentation describes shipped behavior. Bump `version` in `typescript/package.json`. The release fails if the tag and manifest versions differ. Land the cleanup and bump through a pull request because `main` is protected and its required checks must pass.
 2. Create and push the version tag:
@@ -121,7 +128,7 @@ One version number spans both ports. Every release is a Git tag and a GitHub rel
    git push origin vX.Y.Z
    ```
 
-3. [The release workflow](.github/workflows/release.yml) runs the full test matrix, builds a clean SwiftPM consumer for the tag, packs and smoke-tests the npm tarball, and publishes that same tarball with provenance. After publishing, it creates a GitHub release with generated notes only if the tag has none.
+3. [The release workflow](.github/workflows/release.yml) runs the full three-port test matrix, including Kotlin coverage and source consumption, builds a clean SwiftPM consumer for the tag, packs and smoke-tests the npm tarball, and publishes that same tarball with provenance. After publishing, it creates a GitHub release with generated notes only if the tag has none.
 4. Write the GitHub release while the workflow runs:
 
    ```bash

@@ -3,3 +3,7 @@ typescript/dist/
 .build/
 .superpowers/
 .benchmarks/
+.gradle/
+.gradle-user-home/
+kotlin/build/
+kotlin/smoke/build/

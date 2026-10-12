@@ -8,7 +8,7 @@ Each library below was checked at the version named in its column, on 2026-10-10
 
 | | Almanac 0.8.0 | SunCalc 2.1.1 | Astronomy Engine 2.1.19 | astronomia 4.2.0 | Solar 4.0.1 | SwiftAA 3.0.1 | EDSunriseSet 1.0 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Languages | TypeScript, Swift; Kotlin planned ([#46](https://github.com/openwatersio/almanac/issues/46)) | JavaScript | C, C#, JavaScript/TypeScript, Python, Kotlin | JavaScript | Swift (Apple platforms) | Swift over C++ (AA+) | Objective-C |
+| Languages | TypeScript, Swift, Kotlin/JVM (Android minSdk 26) | JavaScript | C, C#, JavaScript/TypeScript, Python, Kotlin | JavaScript | Swift (Apple platforms) | Swift over C++ (AA+) | Objective-C |
 | Footprint | 21.9 KB whole package, 6.9 KB for `sunEvents` alone; Swift: 7,400 lines, no data | 3.8 KB whole, 2.2 KB for `getTimes` | 44.0 KB whole, 24.2 KB for rise/set and altitude search | 52.7 KB without planet data, 20.6 KB for sunrise; VSOP87 and ELP data add 2.5 MB | One 250-line file | About 430,000 lines, mostly series tables compiled in as C++ (31 MB of source) | About 500 lines |
 | Date range | 1950–2100, enforced | No limit; its ΔT model is fitted for about 1900–2150 | No limit; "millennia before or after the present" | No stated limit | Not stated | Not stated; its ΔT table runs 1657–2033 | 1801–2099 |
 | Sun position | ✓ | ✓ | ✓ | ✓ from building blocks | — | ✓ without refraction | — |
@@ -59,3 +59,7 @@ Footprints for npm packages are minified and gzipped bundles: each package insta
 ### EDSunriseSet
 
 [EDSunriseSet](https://github.com/erndev/EDSunriseSet) 1.0 (2014-12-02) is an Objective-C wrapper over Paul Schlyter's public-domain `sunriset.c`, giving sunrise, sunset, and the three twilights for 1801–2099. The repository is archived and has no tests. Migration: `sunrisesetWithDate:timezone:latitude:longitude:` and its `sunrise`, `sunset`, and twilight properties become one `sunEvents(from:to:observer:)` call over the local day.
+
+## Kotlin and Android
+
+Almanac provides all 35 functions as native Kotlin, with the same shared fixtures and parity tolerances as TypeScript and Swift. The source Gradle library targets JVM 8 and uses `java.time.Instant`; Android requires minSdk 26. See [Kotlin installation](../kotlin/README.md). Kotlin has no published Maven artifact or benchmark runner yet, and JVM verification does not establish Android device performance.

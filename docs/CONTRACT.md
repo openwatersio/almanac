@@ -1,16 +1,16 @@
 # Almanac contract
 
-Almanac provides pure astronomy functions with matching behavior in TypeScript and Swift. It uses no network service or runtime data files. The two implementations share this contract and the fixture corpus; neither port defines behavior by itself.
+Almanac provides pure astronomy functions with matching behavior in TypeScript, Swift, and Kotlin. It uses no network service or runtime data files. The three implementations share this contract and the fixture corpus; neither port defines behavior by itself.
 
 ## Models and architecture
 
-The algorithms are translated from [Astronomy Engine](https://github.com/cosinekitty/astronomy) by Don Cross at pinned commit `865d3da7d8112bbc7911238052c6af4aaf877181`. Its lunar theory derives from Montenbruck and Pfleger's *Astronomy on the Personal Computer*, and its solar theory uses truncated VSOP87. The complete upstream MIT license is in [NOTICE](../NOTICE) and ships with both packages.
+The algorithms are translated from [Astronomy Engine](https://github.com/cosinekitty/astronomy) by Don Cross at pinned commit `865d3da7d8112bbc7911238052c6af4aaf877181`. Its lunar theory derives from Montenbruck and Pfleger's *Astronomy on the Personal Computer*, and its solar theory uses truncated VSOP87. The complete upstream MIT license is in [NOTICE](../NOTICE) and ships with all three packages.
 
-Maintaining the translation keeps both languages on the same contract, avoids giving one port a separate foreign API, and retains zero runtime dependencies and data files. The package carries only the models its public functions use.
+Maintaining the translation keeps all three languages on the same contract, avoids giving one port a separate foreign API, and retains zero runtime dependencies and data files. The package carries only the models its public functions use.
 
 Uranus and Neptune retain additional terms from the pinned commit's full [VSOP87B Uranus](https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/generate/vsop/VSOP87B.ura) and [Neptune](https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/generate/vsop/VSOP87B.nep) tables to meet the same `1e-3` AU distance tolerance as the other planets. Each time-power series keeps a prefix in source order. Uranus's longitude series retain 296, 39, and 3 terms, latitude 41 and 4, and radius 191, 21, and 1; Neptune's retain longitude 76 and 7, latitude 18 and 1, and radius 49 and 3. For `|TT days / 365250| ≤ 0.102`, the sum of omitted absolute amplitudes, weighted by that power of time, is at most `0.0002` AU per coordinate after scaling the angular coordinates by the full radius series' absolute-amplitude bound. The shared Horizons grid measures maximum Sun-centered errors of `0.000153` AU for Uranus and `0.000353` AU for Neptune. The photometry reference runs the pinned upstream functions with these same source-series prefixes.
 
-Both ports implement four matching layers:
+All three ports implement four matching layers:
 
 - Time: Julian date and Delta-T from the Espenak–Meeus piecewise polynomials.
 - Positions: truncated VSOP87 for the Sun and planets, Montenbruck–Pfleger MOON2 for the Moon, and truncated IAU 2000B nutation and aberration translated from upstream.
@@ -21,7 +21,7 @@ Event searches use the same position models returned by the position functions. 
 
 ## Time and supported interval
 
-API instants are JavaScript `Date` or Foundation `Date` values with millisecond precision. Civil timestamps are interpreted as UT1-like labels. During the leap-second era, the difference from UTC stays within 0.9 seconds. The package carries no leap-second or DUT1 table, so unknown future DUT1 is outside the civil-UTC accuracy promise; the calculations remain UT1-accurate.
+API instants are JavaScript `Date`, Foundation `Date`, or Java `Instant` values with millisecond precision. Civil timestamps are interpreted as UT1-like labels. During the leap-second era, the difference from UTC stays within 0.9 seconds. The package carries no leap-second or DUT1 table, so unknown future DUT1 is outside the civil-UTC accuracy promise; the calculations remain UT1-accurate.
 
 Terrestrial Time is calculated as `TT = UT1 + Delta-T` using the Espenak–Meeus polynomials. Delta-T is projected beyond the present, while sources such as JPL Horizons may freeze or use another projection. Coarse position fixtures therefore compare the models in TT so the fixture checks astronomy rather than disagreement between time projections.
 
@@ -53,7 +53,7 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 
 ## Public API
 
-The functions have the same names and semantics in both ports. TypeScript returns objects and Swift returns structs. All time arguments and results are UTC-shaped instants.
+The functions have the same names and semantics in all three ports. TypeScript returns objects, Swift returns structs, and Kotlin returns immutable data classes. Kotlin top-level functions live in `io.openwaters.almanac`; function names, parameter order, and result fields match the table below. Numeric astronomy values use `Double`, epoch milliseconds use `Long`, nullable contacts use `Instant?`, and kind enums use uppercase members whose `toString()` is the contract string. `solarEclipseCentralLine` accepts `stepSeconds: Int = 60`. All time arguments and results are UTC-shaped instants.
 
 | Function | Arguments | Result |
 | --- | --- | --- |
@@ -105,10 +105,10 @@ An axis point has `time`, `latitudeDeg`, `longitudeDeg`, `kind`, and `obscuratio
 
 | Concern | Rule |
 | --- | --- |
-| Instant precision | Every input and returned instant is normalized to integer epoch milliseconds by truncation toward zero, matching ECMAScript TimeClip. Swift must not floor negative fractional milliseconds. |
-| Non-finite input | Any non-finite numeric or time input is a validation error in both ports. |
-| Out-of-interval time | TypeScript throws `AlmanacOutOfRangeError`; Swift throws `AlmanacError.outOfRange`. |
-| Invalid observer or argument | TypeScript throws `RangeError`; Swift throws `AlmanacError.invalidObserver` or `AlmanacError.invalidArgument`. |
+| Instant precision | Every input and returned instant is normalized to integer epoch milliseconds by truncation toward zero, matching ECMAScript TimeClip. Swift and Kotlin must not floor negative fractional milliseconds. |
+| Non-finite input | Any non-finite numeric or time input is a validation error in all three ports. |
+| Out-of-interval time | TypeScript throws `AlmanacOutOfRangeError`; Swift throws `AlmanacError.outOfRange`; Kotlin throws `AlmanacOutOfRangeException` (an `IllegalArgumentException`). |
+| Invalid observer or argument | TypeScript throws `RangeError`; Swift throws `AlmanacError.invalidObserver` or `AlmanacError.invalidArgument`; Kotlin throws `IllegalArgumentException`. |
 | Reversed or empty window | `startUtc ≥ endUtc` returns an empty list. |
 | Validation order | Finite values, observer ranges, and interval containment are validated before the empty-window check. Invalid input cannot return a clean empty list. |
 | Window end | Ordinary instants use `[min, max)`. A window end uses `[min, max]`, making the complete supported window legal. |
@@ -207,4 +207,4 @@ Greatest eclipse needs no observer, so no coordinate rounding moves it, and the 
 
 Against the path tables, the measured worst cases are 2.6 kilometers for greatest eclipse, 3.1 kilometers across the line and 4.9 seconds along it for the tabulated rows, and 3.6 kilometers for the ends. The one glancing table, 2044-08-23 with its axis 6,129 kilometers from the Earth's center, reaches 8.1 kilometers at greatest eclipse, 9.4 kilometers and 8.1 seconds along the line, and 9.1 kilometers at the ends, because a kilometer across a glancing axis is several along the ground. Distances are to the nearest point of the line, so timing does not enter them; timing has its own row, which matches the other event-time tolerances. The tables tabulate the diameter ratio to three decimals, which bounds its square to about 0.001; the measured worst is 0.0010.
 
-The parity corpus detects port drift below the physical tolerances. It stores canonical inputs and quantized outputs with angles at `1e-6°`, distances at `1e-3 km` or `1e-9 AU`, and times at 1 millisecond. Both suites compare decoded values with a tolerance of 5 scaled units or 1 time quantum. Serializer byte order and floating-point formatting are outside the comparison. Every public function appears in the corpus, and external fixtures settle any disagreement between the ports.
+The parity corpus detects port drift below the physical tolerances. It stores canonical inputs and quantized outputs with angles at `1e-6°`, distances at `1e-3 km` or `1e-9 AU`, and event times quantized to 100 milliseconds (sample inputs retain exact milliseconds). All three suites compare decoded values with a tolerance of 5 scaled units or 1 time quantum. Serializer byte order and floating-point formatting are outside the comparison. Kotlin shares its computed corpus between metadata-tolerance checks and a temporary-file write/read reproduction check across all 13 families, with exact schemas, kinds, booleans, and counts. Every public function appears in the corpus, and external fixtures settle any disagreement between the ports.
