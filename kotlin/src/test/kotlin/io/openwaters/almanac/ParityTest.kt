@@ -212,4 +212,34 @@ internal class ParityTest {
             scaledNear(equationOfTime(Instant.ofEpochMilli(row.getValue("tMs").jsonPrimitive.long)),row,"minutes",1e6)
         }
     }
+    @Test fun lunarEclipsesReproduceCircumstancesAndVisibility() {
+        val file = fixture("parity/eclipses").obj()
+        val sites = file.array("observers").map { it.obj().observer() }
+        val values = lunarEclipses(Instant.ofEpochMilli(SUPPORTED_MIN), Instant.ofEpochMilli(SUPPORTED_MAX))
+        assertEquals(344, values.size)
+        assertEquals(file.array("eclipses").size, values.size)
+        fun visibility(value: LunarEclipseVisibility, row: JsonObject) {
+            assertEquals(row.getValue("visibleAtPeak").jsonPrimitive.boolean, value.visibleAtPeak)
+            scaledNear(value.moonGeometricAltAtPeakDeg, row, "moonGeometricAltAtPeakDeg", 1e6)
+            for ((field, actual) in lunarVisibleContacts(value)) {
+                val expected = row.getValue("contactsVisible").obj().getValue(field)
+                assertEquals(if (expected == JsonNull) null else expected.jsonPrimitive.boolean, actual)
+            }
+        }
+        for ((i, value) in values.withIndex()) {
+            val row = file.array("eclipses")[i].obj()
+            assertEquals(row.string("kind"), value.kind.toString())
+            scaledNear(value.magUmbral, row, "magUmbral", 1e6)
+            scaledNear(value.magPenumbral, row, "magPenumbral", 1e6)
+            for ((field, actual) in lunarContacts(value)) {
+                val expected = row.getValue(field + "Ms")
+                if (expected == JsonNull) assertNull(actual) else eventNear(assertNotNull(actual), row, field + "Ms")
+            }
+            for ((j, site) in sites.withIndex()) visibility(lunarEclipseVisibility(value, site), row.array("visibility")[j].obj())
+        }
+        val row = fixture("parity/height").obj().getValue("lunar").obj()
+        val value = nextLunarEclipse(Instant.ofEpochMilli(row.getValue("afterMs").jsonPrimitive.long))
+        visibility(lunarEclipseVisibility(value, row.getValue("observer").obj().observer(), row.number("heightAboveGroundM")), row)
+    }
+
 }

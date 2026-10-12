@@ -32,5 +32,9 @@ fun main() {
     check(seasons(time, end).isNotEmpty())
     check(moonApsides(time, end).isNotEmpty())
     check(equationOfTime(time).isFinite())
+    val lunar = nextLunarEclipse(time)
+    check(previousLunarEclipse(lunar.peak.plusMillis(101)).kind == lunar.kind)
+    check(lunarEclipses(lunar.peak, lunar.peak.plusMillis(1)).single() == lunar)
+    check(lunarEclipseVisibility(lunar, observer).moonGeometricAltAtPeakDeg.isFinite())
     println("Almanac source consumer passed")
 }
