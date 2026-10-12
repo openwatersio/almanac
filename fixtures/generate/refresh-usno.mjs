@@ -4,6 +4,7 @@
 // the ONLY script that touches aa.usno.navy.mil — run it once, inspect the
 // output, commit the raw .json files. derive.mjs never calls this.
 import { writeFile, mkdir } from "node:fs/promises";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const RAW_DIR = new URL("../raw/usno/", import.meta.url);
@@ -51,6 +52,13 @@ export function solarName(c) {
   return `solar-${c.date}-${c.slug}`;
 }
 
+// Equinoxes and solstices, one year per request, across the whole interval.
+export const SEASON_YEARS = Array.from({ length: 151 }, (_, i) => 1950 + i);
+
+export function seasonsName(year) {
+  return `seasons-${year}`;
+}
+
 function latSlug(lat) {
   return (lat < 0 ? `neg${-lat}` : `${lat}`).replace(".", "p");
 }
@@ -73,7 +81,13 @@ async function fetchJson(name, url, { allowError = false } = {}) {
 
 async function main() {
   await mkdir(RAW_DIR, { recursive: true });
-  const requests = {};
+  // Optional name arguments or prefixes fetch a subset, e.g. `node
+  // refresh-usno.mjs seasons-`. retrieved.json is merged, never overwritten, so
+  // a partial run leaves the other entries (and their derived fixtures) intact.
+  const only = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+  const retrievedPath = new URL("retrieved.json", RAW_DIR);
+  const prior = existsSync(retrievedPath) ? JSON.parse(readFileSync(retrievedPath, "utf8")) : { requests: {} };
+  const requests = { ...prior.requests };
   const jobs = [];
 
   for (const lat of LATS) {
@@ -97,19 +111,26 @@ async function main() {
     const url = `https://aa.usno.navy.mil/api/eclipses/solar/date?date=${c.date}&coords=${c.lat},${c.lon}&height=0`;
     jobs.push({ name: solarName(c), url, allowError: Boolean(c.notVisible) });
   }
-
-  for (let i = 0; i < jobs.length; i++) {
-    const { name, url, allowError } = jobs[i];
-    requests[name] = await fetchJson(name, url, { allowError });
-    if (i < jobs.length - 1) await sleep(1000); // be polite: ~1 req/s
+  for (const year of SEASON_YEARS) {
+    jobs.push({ name: seasonsName(year), url: `https://aa.usno.navy.mil/api/seasons?year=${year}` });
   }
 
-  const retrieved = new Date().toISOString().slice(0, 10);
-  await writeFile(
-    new URL("retrieved.json", RAW_DIR),
-    JSON.stringify({ retrieved, requests }, null, 2) + "\n",
-  );
-  console.log(`done — retrieved ${retrieved} (${jobs.length} requests)`);
+  const todo = only.length ? jobs.filter((j) => only.some((o) => j.name.startsWith(o))) : jobs;
+  if (only.length && !todo.length) throw new Error(`no USNO jobs match: ${only.join(", ")}`);
+
+  for (let i = 0; i < todo.length; i++) {
+    const { name, url, allowError } = todo[i];
+    requests[name] = await fetchJson(name, url, { allowError });
+    if (i < todo.length - 1) await sleep(1000); // be polite: ~1 req/s
+  }
+
+  // A full run stamps `retrieved`; a subset keeps the prior stamp and records
+  // its own date per name under `partial`, so the other metadata stays true.
+  const today = new Date().toISOString().slice(0, 10);
+  const retrieved = only.length ? prior.retrieved ?? today : today;
+  const partial = only.length ? { ...prior.partial, ...Object.fromEntries(todo.map((j) => [j.name, today])) } : undefined;
+  await writeFile(retrievedPath, JSON.stringify({ retrieved, ...(partial ? { partial } : {}), requests }, null, 2) + "\n");
+  console.log(`done — retrieved ${retrieved} (${todo.length} requests)`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -1,0 +1,2418 @@
+[
+  {
+    "kind": "marchEquinox",
+    "utc": "1950-03-21T04:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1950-06-21T23:36Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1950-09-23T14:43Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1950-12-22T10:13Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1951-03-21T10:26Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1951-06-22T05:25Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1951-09-23T20:37Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1951-12-22T16:00Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1952-03-20T16:14Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1952-06-21T11:12Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1952-09-23T02:24Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1952-12-21T21:43Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1953-03-20T22:00Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1953-06-21T17:00Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1953-09-23T08:06Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1953-12-22T03:31Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1954-03-21T03:53Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1954-06-21T22:54Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1954-09-23T13:55Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1954-12-22T09:24Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1955-03-21T09:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1955-06-22T04:31Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1955-09-23T19:41Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1955-12-22T15:11Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1956-03-20T15:20Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1956-06-21T10:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1956-09-23T01:35Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1956-12-21T20:59Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1957-03-20T21:16Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1957-06-21T16:20Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1957-09-23T07:26Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1957-12-22T02:49Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1958-03-21T03:06Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1958-06-21T21:57Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1958-09-23T13:09Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1958-12-22T08:40Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1959-03-21T08:54Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1959-06-22T03:50Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1959-09-23T19:08Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1959-12-22T14:34Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1960-03-20T14:43Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1960-06-21T09:42Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1960-09-23T00:59Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1960-12-21T20:26Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1961-03-20T20:32Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1961-06-21T15:30Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1961-09-23T06:42Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1961-12-22T02:19Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1962-03-21T02:29Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1962-06-21T21:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1962-09-23T12:35Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1962-12-22T08:15Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1963-03-21T08:20Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1963-06-22T03:04Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1963-09-23T18:23Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1963-12-22T14:02Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1964-03-20T14:10Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1964-06-21T08:57Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1964-09-23T00:17Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1964-12-21T19:49Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1965-03-20T20:05Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1965-06-21T14:56Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1965-09-23T06:06Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1965-12-22T01:40Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1966-03-21T01:53Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1966-06-21T20:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1966-09-23T11:43Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1966-12-22T07:28Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1967-03-21T07:37Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1967-06-22T02:23Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1967-09-23T17:38Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1967-12-22T13:16Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1968-03-20T13:22Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1968-06-21T08:13Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1968-09-22T23:26Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1968-12-21T19:00Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1969-03-20T19:08Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1969-06-21T13:55Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1969-09-23T05:07Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1969-12-22T00:44Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1970-03-21T00:56Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1970-06-21T19:43Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1970-09-23T10:59Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1970-12-22T06:36Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1971-03-21T06:38Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1971-06-22T01:20Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1971-09-23T16:45Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1971-12-22T12:24Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1972-03-20T12:21Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1972-06-21T07:06Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1972-09-22T22:33Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1972-12-21T18:13Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1973-03-20T18:12Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1973-06-21T13:01Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1973-09-23T04:21Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1973-12-22T00:08Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1974-03-21T00:07Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1974-06-21T18:38Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1974-09-23T09:58Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1974-12-22T05:56Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1975-03-21T05:57Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1975-06-22T00:26Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1975-09-23T15:55Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1975-12-22T11:46Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1976-03-20T11:50Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1976-06-21T06:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1976-09-22T21:48Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1976-12-21T17:35Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1977-03-20T17:42Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1977-06-21T12:14Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1977-09-23T03:29Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1977-12-21T23:23Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1978-03-20T23:34Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1978-06-21T18:10Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1978-09-23T09:25Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1978-12-22T05:21Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1979-03-21T05:22Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1979-06-21T23:56Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1979-09-23T15:16Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1979-12-22T11:10Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1980-03-20T11:10Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1980-06-21T05:47Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1980-09-22T21:09Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1980-12-21T16:56Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1981-03-20T17:03Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1981-06-21T11:45Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1981-09-23T03:05Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1981-12-21T22:51Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1982-03-20T22:56Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1982-06-21T17:23Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1982-09-23T08:46Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1982-12-22T04:38Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1983-03-21T04:39Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1983-06-21T23:09Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1983-09-23T14:42Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1983-12-22T10:30Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1984-03-20T10:24Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1984-06-21T05:02Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1984-09-22T20:33Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1984-12-21T16:23Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1985-03-20T16:14Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1985-06-21T10:44Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1985-09-23T02:07Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1985-12-21T22:08Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1986-03-20T22:03Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1986-06-21T16:30Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1986-09-23T07:59Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1986-12-22T04:02Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1987-03-21T03:52Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1987-06-21T22:11Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1987-09-23T13:45Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1987-12-22T09:46Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1988-03-20T09:39Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1988-06-21T03:57Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1988-09-22T19:29Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1988-12-21T15:28Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1989-03-20T15:28Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1989-06-21T09:53Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1989-09-23T01:20Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1989-12-21T21:22Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1990-03-20T21:19Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1990-06-21T15:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1990-09-23T06:56Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1990-12-22T03:07Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1991-03-21T03:02Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1991-06-21T21:19Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1991-09-23T12:48Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1991-12-22T08:54Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1992-03-20T08:48Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1992-06-21T03:14Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1992-09-22T18:43Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1992-12-21T14:43Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1993-03-20T14:41Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1993-06-21T09:00Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1993-09-23T00:23Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1993-12-21T20:26Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1994-03-20T20:28Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1994-06-21T14:48Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1994-09-23T06:19Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1994-12-22T02:23Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1995-03-21T02:14Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1995-06-21T20:34Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1995-09-23T12:13Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1995-12-22T08:17Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1996-03-20T08:03Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1996-06-21T02:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1996-09-22T18:00Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1996-12-21T14:06Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1997-03-20T13:55Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1997-06-21T08:20Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1997-09-22T23:56Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1997-12-21T20:07Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1998-03-20T19:55Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1998-06-21T14:03Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1998-09-23T05:37Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1998-12-22T01:56Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "1999-03-21T01:46Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "1999-06-21T19:49Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "1999-09-23T11:32Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "1999-12-22T07:44Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2000-03-20T07:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2000-06-21T01:48Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2000-09-22T17:28Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2000-12-21T13:37Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2001-03-20T13:31Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2001-06-21T07:38Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2001-09-22T23:04Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2001-12-21T19:22Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2002-03-20T19:16Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2002-06-21T13:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2002-09-23T04:55Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2002-12-22T01:14Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2003-03-21T01:00Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2003-06-21T19:10Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2003-09-23T10:47Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2003-12-22T07:04Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2004-03-20T06:49Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2004-06-21T00:57Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2004-09-22T16:30Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2004-12-21T12:42Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2005-03-20T12:33Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2005-06-21T06:46Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2005-09-22T22:23Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2005-12-21T18:35Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2006-03-20T18:26Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2006-06-21T12:26Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2006-09-23T04:03Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2006-12-22T00:22Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2007-03-21T00:07Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2007-06-21T18:06Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2007-09-23T09:51Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2007-12-22T06:08Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2008-03-20T05:48Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2008-06-20T23:59Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2008-09-22T15:44Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2008-12-21T12:04Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2009-03-20T11:44Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2009-06-21T05:45Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2009-09-22T21:19Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2009-12-21T17:47Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2010-03-20T17:32Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2010-06-21T11:28Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2010-09-23T03:09Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2010-12-21T23:38Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2011-03-20T23:21Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2011-06-21T17:16Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2011-09-23T09:05Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2011-12-22T05:30Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2012-03-20T05:14Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2012-06-20T23:09Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2012-09-22T14:49Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2012-12-21T11:12Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2013-03-20T11:02Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2013-06-21T05:04Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2013-09-22T20:44Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2013-12-21T17:11Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2014-03-20T16:57Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2014-06-21T10:51Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2014-09-23T02:29Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2014-12-21T23:03Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2015-03-20T22:45Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2015-06-21T16:38Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2015-09-23T08:20Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2015-12-22T04:48Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2016-03-20T04:30Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2016-06-20T22:34Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2016-09-22T14:21Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2016-12-21T10:44Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2017-03-20T10:29Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2017-06-21T04:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2017-09-22T20:02Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2017-12-21T16:28Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2018-03-20T16:15Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2018-06-21T10:07Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2018-09-23T01:54Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2018-12-21T22:23Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2019-03-20T21:58Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2019-06-21T15:54Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2019-09-23T07:50Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2019-12-22T04:19Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2020-03-20T03:50Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2020-06-20T21:44Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2020-09-22T13:31Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2020-12-21T10:02Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2021-03-20T09:37Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2021-06-21T03:32Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2021-09-22T19:21Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2021-12-21T15:59Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2022-03-20T15:33Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2022-06-21T09:14Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2022-09-23T01:04Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2022-12-21T21:48Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2023-03-20T21:24Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2023-06-21T14:58Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2023-09-23T06:50Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2023-12-22T03:27Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2024-03-20T03:06Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2024-06-20T20:51Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2024-09-22T12:44Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2024-12-21T09:20Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2025-03-20T09:01Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2025-06-21T02:42Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2025-09-22T18:19Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2025-12-21T15:03Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2026-03-20T14:46Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2026-06-21T08:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2026-09-23T00:05Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2026-12-21T20:50Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2027-03-20T20:25Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2027-06-21T14:11Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2027-09-23T06:02Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2027-12-22T02:42Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2028-03-20T02:17Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2028-06-20T20:02Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2028-09-22T11:45Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2028-12-21T08:19Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2029-03-20T08:02Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2029-06-21T01:48Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2029-09-22T17:38Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2029-12-21T14:14Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2030-03-20T13:52Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2030-06-21T07:31Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2030-09-22T23:27Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2030-12-21T20:09Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2031-03-20T19:41Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2031-06-21T13:17Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2031-09-23T05:15Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2031-12-22T01:55Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2032-03-20T01:22Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2032-06-20T19:09Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2032-09-22T11:11Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2032-12-21T07:56Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2033-03-20T07:22Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2033-06-21T01:01Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2033-09-22T16:51Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2033-12-21T13:46Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2034-03-20T13:17Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2034-06-21T06:44Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2034-09-22T22:39Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2034-12-21T19:34Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2035-03-20T19:02Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2035-06-21T12:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2035-09-23T04:39Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2035-12-22T01:31Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2036-03-20T01:03Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2036-06-20T18:32Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2036-09-22T10:23Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2036-12-21T07:13Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2037-03-20T06:50Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2037-06-21T00:22Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2037-09-22T16:13Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2037-12-21T13:07Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2038-03-20T12:40Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2038-06-21T06:09Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2038-09-22T22:02Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2038-12-21T19:02Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2039-03-20T18:32Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2039-06-21T11:57Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2039-09-23T03:49Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2039-12-22T00:40Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2040-03-20T00:11Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2040-06-20T17:46Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2040-09-22T09:45Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2040-12-21T06:33Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2041-03-20T06:07Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2041-06-20T23:36Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2041-09-22T15:26Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2041-12-21T12:18Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2042-03-20T11:53Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2042-06-21T05:16Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2042-09-22T21:11Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2042-12-21T18:04Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2043-03-20T17:27Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2043-06-21T10:58Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2043-09-23T03:07Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2043-12-22T00:01Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2044-03-19T23:20Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2044-06-20T16:51Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2044-09-22T08:48Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2044-12-21T05:43Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2045-03-20T05:07Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2045-06-20T22:34Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2045-09-22T14:33Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2045-12-21T11:35Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2046-03-20T10:58Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2046-06-21T04:14Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2046-09-22T20:21Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2046-12-21T17:28Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2047-03-20T16:52Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2047-06-21T10:03Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2047-09-23T02:08Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2047-12-21T23:07Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2048-03-19T22:34Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2048-06-20T15:54Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2048-09-22T08:00Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2048-12-21T05:02Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2049-03-20T04:28Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2049-06-20T21:47Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2049-09-22T13:42Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2049-12-21T10:52Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2050-03-20T10:19Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2050-06-21T03:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2050-09-22T19:28Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2050-12-21T16:38Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2051-03-20T15:59Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2051-06-21T09:18Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2051-09-23T01:27Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2051-12-21T22:34Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2052-03-19T21:56Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2052-06-20T15:16Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2052-09-22T07:15Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2052-12-21T04:17Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2053-03-20T03:47Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2053-06-20T21:04Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2053-09-22T13:06Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2053-12-21T10:10Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2054-03-20T09:34Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2054-06-21T02:47Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2054-09-22T18:59Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2054-12-21T16:10Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2055-03-20T15:28Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2055-06-21T08:40Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2055-09-23T00:49Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2055-12-21T21:55Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2056-03-19T21:11Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2056-06-20T14:28Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2056-09-22T06:39Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2056-12-21T03:52Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2057-03-20T03:08Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2057-06-20T20:19Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2057-09-22T12:23Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2057-12-21T09:43Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2058-03-20T09:05Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2058-06-21T02:04Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2058-09-22T18:08Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2058-12-21T15:25Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2059-03-20T14:44Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2059-06-21T07:47Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2059-09-23T00:03Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2059-12-21T21:18Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2060-03-19T20:38Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2060-06-20T13:46Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2060-09-22T05:48Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2060-12-21T03:01Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2061-03-20T02:26Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2061-06-20T19:32Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2061-09-22T11:31Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2061-12-21T08:49Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2062-03-20T08:07Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2062-06-21T01:11Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2062-09-22T17:20Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2062-12-21T14:43Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2063-03-20T13:59Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2063-06-21T07:02Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2063-09-22T23:08Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2063-12-21T20:21Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2064-03-19T19:39Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2064-06-20T12:46Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2064-09-22T04:57Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2064-12-21T02:09Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2065-03-20T01:28Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2065-06-20T18:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2065-09-22T10:43Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2065-12-21T08:01Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2066-03-20T07:20Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2066-06-21T00:17Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2066-09-22T16:27Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2066-12-21T13:46Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2067-03-20T12:54Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2067-06-21T05:56Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2067-09-22T22:20Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2067-12-21T19:43Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2068-03-19T18:49Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2068-06-20T11:54Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2068-09-22T04:07Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2068-12-21T01:33Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2069-03-20T00:45Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2069-06-20T17:41Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2069-09-22T09:52Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2069-12-21T07:22Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2070-03-20T06:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2070-06-20T23:23Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2070-09-22T15:45Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2070-12-21T13:20Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2071-03-20T12:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2071-06-21T05:21Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2071-09-22T21:38Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2071-12-21T19:04Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2072-03-19T18:21Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2072-06-20T11:14Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2072-09-22T03:28Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2072-12-21T00:56Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2073-03-20T00:14Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2073-06-20T17:07Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2073-09-22T09:16Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2073-12-21T06:51Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2074-03-20T06:09Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2074-06-20T22:59Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2074-09-22T15:04Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2074-12-21T12:36Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2075-03-20T11:47Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2075-06-21T04:41Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2075-09-22T20:59Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2075-12-21T18:27Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2076-03-19T17:39Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2076-06-20T10:37Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2076-09-22T02:51Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2076-12-21T00:14Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2077-03-19T23:31Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2077-06-20T16:24Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2077-09-22T08:36Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2077-12-21T06:01Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2078-03-20T05:11Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2078-06-20T21:58Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2078-09-22T14:25Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2078-12-21T11:58Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2079-03-20T11:01Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2079-06-21T03:50Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2079-09-22T20:14Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2079-12-21T17:44Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2080-03-19T16:45Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2080-06-20T09:35Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2080-09-22T01:57Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2080-12-20T23:33Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2081-03-19T22:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2081-06-20T15:17Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2081-09-22T07:38Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2081-12-21T05:23Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2082-03-20T04:31Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2082-06-20T21:04Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2082-09-22T13:24Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2082-12-21T11:05Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2083-03-20T10:11Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2083-06-21T02:44Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2083-09-22T19:12Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2083-12-21T16:54Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2084-03-19T16:00Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2084-06-20T08:41Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2084-09-22T01:00Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2084-12-20T22:42Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2085-03-19T21:54Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2085-06-20T14:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2085-09-22T06:44Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2085-12-21T04:29Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2086-03-20T03:36Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2086-06-20T20:10Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2086-09-22T12:33Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2086-12-21T10:23Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2087-03-20T09:29Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2087-06-21T02:07Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2087-09-22T18:29Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2087-12-21T16:09Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2088-03-19T15:18Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2088-06-20T07:57Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2088-09-22T00:19Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2088-12-20T21:57Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2089-03-19T21:07Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2089-06-20T13:44Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2089-09-22T06:08Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2089-12-21T03:53Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2090-03-20T03:03Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2090-06-20T19:37Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2090-09-22T12:00Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2090-12-21T09:44Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2091-03-20T08:43Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2091-06-21T01:20Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2091-09-22T17:52Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2091-12-21T15:39Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2092-03-19T14:35Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2092-06-20T07:16Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2092-09-21T23:43Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2092-12-20T21:33Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2093-03-19T20:36Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2093-06-20T13:08Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2093-09-22T05:30Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2093-12-21T03:22Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2094-03-20T02:23Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2094-06-20T18:43Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2094-09-22T11:18Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2094-12-21T09:14Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2095-03-20T08:16Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2095-06-21T00:40Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2095-09-22T17:12Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2095-12-21T15:02Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2096-03-19T14:04Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2096-06-20T06:32Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2096-09-21T22:56Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2096-12-20T20:47Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2097-03-19T19:49Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2097-06-20T12:14Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2097-09-22T04:37Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2097-12-21T02:39Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2098-03-20T01:42Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2098-06-20T18:04Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2098-09-22T10:25Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2098-12-21T08:22Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2099-03-20T07:19Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2099-06-20T23:43Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2099-09-22T16:12Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2099-12-21T14:05Z"
+  },
+  {
+    "kind": "marchEquinox",
+    "utc": "2100-03-20T13:05Z"
+  },
+  {
+    "kind": "juneSolstice",
+    "utc": "2100-06-21T05:33Z"
+  },
+  {
+    "kind": "septemberEquinox",
+    "utc": "2100-09-22T22:02Z"
+  },
+  {
+    "kind": "decemberSolstice",
+    "utc": "2100-12-21T19:52Z"
+  }
+]

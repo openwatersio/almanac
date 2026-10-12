@@ -6,7 +6,7 @@
 // loudly on drift.
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { SITES as STAR_SITES, DATES as STAR_DATES, TIME as STAR_TIME, STAR_IDS } from "./refresh-stars.mjs";
-import { SOLAR_CASES, solarName } from "./refresh-usno.mjs";
+import { SOLAR_CASES, solarName, SEASON_YEARS, seasonsName } from "./refresh-usno.mjs";
 import { PATHS as SEPATH_PATHS, pathName as sepathName } from "./refresh-sepath.mjs";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
@@ -655,7 +655,8 @@ function sourceVersion(text) {
 // solar/lunar presence flag between the date and the numeric columns (e.g.
 // "*m", "Nm", " "); pulling floats out with a regex sidesteps that flag
 // entirely instead of column-counting around it.
-function parseRawRows(text) {
+/** Each ephemeris line with its ISO instant and the text after the date. */
+function parseRawLines(text) {
   const soe = text.indexOf("$$SOE");
   const eoe = text.indexOf("$$EOE");
   assert.ok(soe !== -1 && eoe !== -1, "missing $$SOE/$$EOE markers");
@@ -667,11 +668,15 @@ function parseRawRows(text) {
     const [full, y, mon, d, hms] = m;
     const month = MONTHS[mon];
     assert.ok(month, `unknown month in row: ${line}`);
-    const time = `${y}-${month}-${d}T${hms}Z`;
-    const nums = (line.slice(m.index + full.length).match(/[+-]?\d+\.\d+(?:E[+-]?\d+)?/g) || []).map(Number);
-    rows.push({ time, nums });
+    rows.push({ time: `${y}-${month}-${d}T${hms}Z`, line: line.slice(m.index + full.length) });
   }
   return rows;
+}
+
+function parseRawRows(text) {
+  return parseRawLines(text).map(({ time, line }) => ({
+    time, nums: (line.match(/[+-]?\d+\.\d+(?:E[+-]?\d+)?/g) || []).map(Number),
+  }));
 }
 
 function json(obj) {
@@ -751,6 +756,142 @@ function derivePositions(dates, requests) {
       requests: withDates(["sun-coarse", "moon-coarse", "sun-dense", "moon-dense"], requests, dates),
       toleranceArcmin: TOLERANCE_ARCMIN,
       note: "Coarse rows carry `tt` (Terrestrial Time-labeled instants, requested with TIME_TYPE='TT'); dense rows carry `utc`. Horizons applies real historical delta-T but holds it fixed at its present value for future dates, so UT-labeled rows over 1950-2100 disagree with any real delta-T model (e.g. Espenak-Meeus) by up to ~136 s at 2100 - ~75 arcsec of lunar motion, well past the 1 arcmin tolerance. TT labeling removes the timescale from the comparison; consumers feed `tt` straight to a TT entry point instead of converting from UTC.",
+    }),
+  };
+}
+
+// --- Equation of time and Moon apsides (Horizons), seasons (USNO) ----------
+
+const SOLAR_TIME_NAMES = ["sun-solar-time-1950", "sun-solar-time-2026", "sun-solar-time-2100"];
+const RANGE_RATE_NAMES = ["moon-range-rate-1950", "moon-range-rate-2026", "moon-range-rate-2049"];
+
+// Horizons quantity 34 prints local apparent solar time, in decimal hours
+// under ANG_FORMAT=DEG, after the solar/lunar presence markers; at longitude 0
+// it is UT plus the equation of time.
+function deriveEquationOfTime(dates, urls) {
+  const rows = [];
+  for (const name of SOLAR_TIME_NAMES) {
+    const text = raw(name);
+    assert.match(text, /Date__\(UT\)__/, `${name}: raw response is not UT-labeled`);
+    for (const { time, line } of parseRawLines(text)) {
+      const solarHours = Number(line.trim().split(/\s+/).at(-1));
+      assert.ok(Number.isFinite(solarHours) && solarHours >= 0 && solarHours < 24, `${name}: unparseable solar time in row: ${line}`);
+      const utSeconds = Number(time.slice(11, 13)) * 3600 + Number(time.slice(14, 16)) * 60 + Number(time.slice(17, 19));
+      let minutes = (solarHours * 3600 - utSeconds) / 60;
+      if (minutes > 720) minutes -= 1440;
+      if (minutes <= -720) minutes += 1440;
+      assert.ok(Math.abs(minutes) < 17, `${name}: equation of time out of range at ${time}: ${minutes}`);
+      rows.push({ utc: time, minutes: Number(minutes.toFixed(4)) });
+    }
+  }
+  rows.sort(byUtc);
+  assert.equal(rows.length, 366 + 1461 + 365, `equation of time: unexpected row count ${rows.length}`);
+  // self-check: the four zero crossings of 2026 land in the months Meeus
+  // tabulates (mid April, mid June, start of September, late December).
+  const months2026 = [];
+  const in2026 = rows.filter((r) => r.utc.startsWith("2026"));
+  for (let i = 1; i < in2026.length; i++) {
+    if (Math.sign(in2026[i].minutes) !== Math.sign(in2026[i - 1].minutes)) months2026.push(in2026[i].utc.slice(5, 7));
+  }
+  assert.deepEqual(months2026, ["04", "06", "09", "12"], `equation of time: zero crossings of 2026 in ${months2026}`);
+  return {
+    "equation-of-time/horizons-eot.json": json(rows),
+    "equation-of-time/meta.json": json({
+      source: "JPL Horizons API, quantity 34 (local apparent solar time) for an observer at latitude 0, longitude 0",
+      sourceVersion: sourceVersion(raw(SOLAR_TIME_NAMES[0])),
+      requests: withDates(SOLAR_TIME_NAMES, urls, dates),
+      note: "minutes = apparent solar time minus UT, positive when a sundial is ahead of mean time; rounded to 1e-4 minute.",
+    }),
+  };
+}
+
+// Horizons quantity 20 prints geocentric range (AU) and range rate (km/s). A
+// range rate rising through zero is a perigee and falling through zero an
+// apogee; the hourly rows bracket each to the minute by linear interpolation,
+// which is accurate because the rate crosses zero at its inflection. The
+// distance is the nearest row's: within half an hour of an apsis the Moon's
+// distance moves under a quarter of a kilometre.
+function deriveMoonApsides(dates, urls) {
+  const apsides = [];
+  for (const name of RANGE_RATE_NAMES) {
+    const text = raw(name);
+    assert.match(text, /Date__\(UT\)__/, `${name}: raw response is not UT-labeled`);
+    const rows = parseRawRows(text).map(({ time, nums }) => ({ ms: Date.parse(time), distanceKm: nums[0] * AU_KM, rateKmS: nums[1] }));
+    assert.ok(rows.length > 4000, `${name}: expected hourly rows, got ${rows.length}`);
+    for (let i = 1; i < rows.length; i++) {
+      const a = rows[i - 1], b = rows[i];
+      assert.equal(b.ms - a.ms, 3600000, `${name}: rows are not hourly at ${new Date(b.ms).toISOString()}`);
+      if (a.rateKmS === 0 || Math.sign(a.rateKmS) === Math.sign(b.rateKmS)) continue;
+      const frac = -a.rateKmS / (b.rateKmS - a.rateKmS);
+      const ms = Math.round(a.ms + frac * 3600000);
+      const nearest = frac < 0.5 ? a : b;
+      apsides.push({
+        utc: new Date(ms).toISOString().replace(/\.\d+Z$/, "Z"),
+        kind: b.rateKmS > 0 ? "perigee" : "apogee",
+        distanceKm: Number(nearest.distanceKm.toFixed(1)),
+      });
+    }
+  }
+  apsides.sort(byUtc);
+  // self-checks: kinds alternate, perigees lie in the perigee band and apogees
+  // in the apogee band, and a year holds 13 or 14 of each.
+  for (let i = 1; i < apsides.length; i++) {
+    const gapDays = (Date.parse(apsides[i].utc) - Date.parse(apsides[i - 1].utc)) / 86400000;
+    if (gapDays > 20) continue;   // the gap between two raw files
+    assert.notEqual(apsides[i].kind, apsides[i - 1].kind, `apsides: kinds do not alternate at ${apsides[i].utc}`);
+    // Evection swings the half anomalistic month between about 11.8 and 15.8 days.
+    assert.ok(gapDays > 11 && gapDays < 17, `apsides: ${gapDays} days between apsides at ${apsides[i].utc}`);
+  }
+  for (const a of apsides) {
+    const [lo, hi] = a.kind === "perigee" ? [356000, 371000] : [404000, 407000];
+    assert.ok(a.distanceKm >= lo && a.distanceKm <= hi, `apsides: ${a.kind} distance ${a.distanceKm} at ${a.utc}`);
+  }
+  const in2026 = apsides.filter((a) => a.utc.startsWith("2026"));
+  for (const kind of ["perigee", "apogee"]) {
+    const n = in2026.filter((a) => a.kind === kind).length;
+    assert.ok(n === 13 || n === 14, `apsides: 2026 holds ${n} ${kind}s`);
+  }
+  return {
+    "apsides/horizons-apsides.json": json(apsides),
+    "apsides/meta.json": json({
+      source: "JPL Horizons API, quantity 20 (geocentric range and range rate of the Moon), hourly",
+      sourceVersion: sourceVersion(raw(RANGE_RATE_NAMES[0])),
+      requests: withDates(RANGE_RATE_NAMES, urls, dates),
+      note: "Apsis instants are the linear interpolation of the hourly range rate through zero, to the second. distanceKm is the nearest hourly row's geocentric range. Windows end in 2049 so Horizons' frozen Delta-T stays within a few seconds of the Espenak-Meeus model.",
+    }),
+  };
+}
+
+const USNO_SEASON_KINDS = { 3: "marchEquinox", 6: "juneSolstice", 9: "septemberEquinox", 12: "decemberSolstice" };
+
+function deriveUsnoSeasons(usno) {
+  const seasons = [];
+  for (const year of SEASON_YEARS) {
+    const name = seasonsName(year);
+    const data = rawUsno(name);
+    assert.equal(data.year, year, `${name}: year mismatch`);
+    const kinds = [];
+    for (const p of data.data) {
+      if (p.phenom === "Perihelion" || p.phenom === "Aphelion") continue;
+      assert.ok(p.phenom === "Equinox" || p.phenom === "Solstice", `${name}: unmapped USNO phenomenon "${p.phenom}"`);
+      const kind = USNO_SEASON_KINDS[p.month];
+      assert.ok(kind, `${name}: ${p.phenom} in month ${p.month}`);
+      assert.ok(/^\d{2}:\d{2}$/.test(p.time), `${name}: unparseable time "${p.time}"`);
+      kinds.push(kind);
+      seasons.push({ kind, utc: `${p.year}-${pad2(p.month)}-${pad2(p.day)}T${p.time}Z` });
+    }
+    assert.deepEqual(kinds, Object.values(USNO_SEASON_KINDS), `${name}: expected four seasons in order, got ${kinds}`);
+  }
+  seasons.sort(byUtc);
+  assert.equal(seasons.length, 4 * SEASON_YEARS.length, "seasons: unexpected row count");
+  return {
+    "seasons/usno-seasons.json": json(seasons),
+    "seasons/meta.json": json({
+      source: "USNO Astronomical Applications API (aa.usno.navy.mil/api/seasons)",
+      sourceVersion: rawUsno(seasonsName(SEASON_YEARS[0])).apiversion,
+      retrieved: usno.partial?.[seasonsName(SEASON_YEARS[0])] ?? usno.retrieved,
+      requests: SEASON_YEARS.map((y) => usno.requests[seasonsName(y)]),
+      note: "Minute-precision UT. Rows after 2050 inherit USNO's Delta-T projection, which diverges from Espenak-Meeus; tests quarantine them as they do the moon phases.",
     }),
   };
 }
@@ -1132,6 +1273,9 @@ function main() {
     ...derivePlanets(horizons.dates, horizons.urls),
     ...deriveUsnoGrid(usno.retrieved, usno.requests),
     ...deriveUsnoPhases(usno.retrieved, usno.requests),
+    ...deriveEquationOfTime(horizons.dates, horizons.urls),
+    ...deriveMoonApsides(horizons.dates, horizons.urls),
+    ...deriveUsnoSeasons(usno),
     ...deriveEspenak(espenak.retrieved, espenak.requests),
     ...deriveSolar(usno, espenak, sepath),
     ...deriveStars(stars.retrieved, stars.requests),

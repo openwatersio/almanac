@@ -1,0 +1,272 @@
+[
+  {
+    "utc": "1950-01-13T05:54:07Z",
+    "kind": "perigee",
+    "distanceKm": 369634.3
+  },
+  {
+    "utc": "1950-01-25T21:33:03Z",
+    "kind": "apogee",
+    "distanceKm": 404318.8
+  },
+  {
+    "utc": "1950-02-07T00:19:14Z",
+    "kind": "perigee",
+    "distanceKm": 368296.3
+  },
+  {
+    "utc": "1950-02-22T18:13:47Z",
+    "kind": "apogee",
+    "distanceKm": 404845.3
+  },
+  {
+    "utc": "1950-03-06T13:30:38Z",
+    "kind": "perigee",
+    "distanceKm": 362788.2
+  },
+  {
+    "utc": "1950-03-22T10:58:47Z",
+    "kind": "apogee",
+    "distanceKm": 405774.2
+  },
+  {
+    "utc": "1950-04-03T20:05:30Z",
+    "kind": "perigee",
+    "distanceKm": 358511.4
+  },
+  {
+    "utc": "1950-04-18T19:41:54Z",
+    "kind": "apogee",
+    "distanceKm": 406449
+  },
+  {
+    "utc": "1950-05-02T06:38:37Z",
+    "kind": "perigee",
+    "distanceKm": 356898.3
+  },
+  {
+    "utc": "1950-05-15T22:00:44Z",
+    "kind": "apogee",
+    "distanceKm": 406511.4
+  },
+  {
+    "utc": "1950-05-30T16:28:00Z",
+    "kind": "perigee",
+    "distanceKm": 358209.8
+  },
+  {
+    "utc": "1950-06-12T06:16:38Z",
+    "kind": "apogee",
+    "distanceKm": 405889.5
+  },
+  {
+    "utc": "1950-06-27T21:38:07Z",
+    "kind": "perigee",
+    "distanceKm": 361972.3
+  },
+  {
+    "utc": "2026-01-01T21:51:28Z",
+    "kind": "perigee",
+    "distanceKm": 360360.9
+  },
+  {
+    "utc": "2026-01-13T20:52:49Z",
+    "kind": "apogee",
+    "distanceKm": 405404.8
+  },
+  {
+    "utc": "2026-01-29T21:54:23Z",
+    "kind": "perigee",
+    "distanceKm": 365894.3
+  },
+  {
+    "utc": "2026-02-10T16:53:44Z",
+    "kind": "apogee",
+    "distanceKm": 404537
+  },
+  {
+    "utc": "2026-02-24T23:17:14Z",
+    "kind": "perigee",
+    "distanceKm": 370171.8
+  },
+  {
+    "utc": "2026-03-10T13:41:52Z",
+    "kind": "apogee",
+    "distanceKm": 404344.5
+  },
+  {
+    "utc": "2026-03-22T11:31:37Z",
+    "kind": "perigee",
+    "distanceKm": 366883.8
+  },
+  {
+    "utc": "2026-04-07T08:26:11Z",
+    "kind": "apogee",
+    "distanceKm": 404935.3
+  },
+  {
+    "utc": "2026-04-19T06:48:23Z",
+    "kind": "perigee",
+    "distanceKm": 361645.7
+  },
+  {
+    "utc": "2026-05-04T22:20:16Z",
+    "kind": "apogee",
+    "distanceKm": 405815.4
+  },
+  {
+    "utc": "2026-05-17T13:37:33Z",
+    "kind": "perigee",
+    "distanceKm": 358082.1
+  },
+  {
+    "utc": "2026-06-01T04:17:02Z",
+    "kind": "apogee",
+    "distanceKm": 406359.5
+  },
+  {
+    "utc": "2026-06-14T23:13:18Z",
+    "kind": "perigee",
+    "distanceKm": 357195.5
+  },
+  {
+    "utc": "2026-06-28T06:56:57Z",
+    "kind": "apogee",
+    "distanceKm": 406277.7
+  },
+  {
+    "utc": "2026-07-13T07:50:11Z",
+    "kind": "perigee",
+    "distanceKm": 359103
+  },
+  {
+    "utc": "2026-07-25T16:37:28Z",
+    "kind": "apogee",
+    "distanceKm": 405575
+  },
+  {
+    "utc": "2026-08-10T11:10:23Z",
+    "kind": "perigee",
+    "distanceKm": 363265.4
+  },
+  {
+    "utc": "2026-08-22T08:16:58Z",
+    "kind": "apogee",
+    "distanceKm": 404677.9
+  },
+  {
+    "utc": "2026-09-06T20:34:33Z",
+    "kind": "perigee",
+    "distanceKm": 368228.5
+  },
+  {
+    "utc": "2026-09-19T03:00:04Z",
+    "kind": "apogee",
+    "distanceKm": 404260.6
+  },
+  {
+    "utc": "2026-10-01T20:59:33Z",
+    "kind": "perigee",
+    "distanceKm": 369300.8
+  },
+  {
+    "utc": "2026-10-16T22:58:56Z",
+    "kind": "apogee",
+    "distanceKm": 404680.6
+  },
+  {
+    "utc": "2026-10-28T18:13:49Z",
+    "kind": "perigee",
+    "distanceKm": 364386.5
+  },
+  {
+    "utc": "2026-11-13T17:57:29Z",
+    "kind": "apogee",
+    "distanceKm": 405649.5
+  },
+  {
+    "utc": "2026-11-25T21:08:12Z",
+    "kind": "perigee",
+    "distanceKm": 359336.1
+  },
+  {
+    "utc": "2026-12-11T06:58:49Z",
+    "kind": "apogee",
+    "distanceKm": 406436.1
+  },
+  {
+    "utc": "2026-12-24T08:37:46Z",
+    "kind": "perigee",
+    "distanceKm": 356647.9
+  },
+  {
+    "utc": "2049-07-02T01:14:51Z",
+    "kind": "apogee",
+    "distanceKm": 406422.5
+  },
+  {
+    "utc": "2049-07-15T07:28:21Z",
+    "kind": "perigee",
+    "distanceKm": 357059
+  },
+  {
+    "utc": "2049-07-29T04:43:03Z",
+    "kind": "apogee",
+    "distanceKm": 406563.9
+  },
+  {
+    "utc": "2049-08-12T17:10:20Z",
+    "kind": "perigee",
+    "distanceKm": 357754.8
+  },
+  {
+    "utc": "2049-08-25T10:38:52Z",
+    "kind": "apogee",
+    "distanceKm": 406030.7
+  },
+  {
+    "utc": "2049-09-10T00:19:04Z",
+    "kind": "perigee",
+    "distanceKm": 361135
+  },
+  {
+    "utc": "2049-09-22T00:11:51Z",
+    "kind": "apogee",
+    "distanceKm": 405097.8
+  },
+  {
+    "utc": "2049-10-07T21:15:22Z",
+    "kind": "perigee",
+    "distanceKm": 366301.8
+  },
+  {
+    "utc": "2049-10-19T18:33:08Z",
+    "kind": "apogee",
+    "distanceKm": 404390.4
+  },
+  {
+    "utc": "2049-11-02T18:23:27Z",
+    "kind": "perigee",
+    "distanceKm": 370150.2
+  },
+  {
+    "utc": "2049-11-16T15:05:40Z",
+    "kind": "apogee",
+    "distanceKm": 404446.8
+  },
+  {
+    "utc": "2049-11-28T10:58:56Z",
+    "kind": "perigee",
+    "distanceKm": 366512.6
+  },
+  {
+    "utc": "2049-12-14T11:11:52Z",
+    "kind": "apogee",
+    "distanceKm": 405224.7
+  },
+  {
+    "utc": "2049-12-26T08:44:45Z",
+    "kind": "perigee",
+    "distanceKm": 360953.6
+  }
+]

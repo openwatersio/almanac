@@ -15,6 +15,7 @@ const N60 = { lat: 60, lon: -123.052 };
 const TROPIC = { lat: 20, lon: -123.052 };
 const POLAR = { lat: 70.5, lon: -123.052 };
 const S88 = { lat: -88.5, lon: -123.052 };
+const GREENWICH = { lat: 0, lon: 0 };
 
 const common = {
   format: "text",
@@ -106,6 +107,18 @@ const specs = [
   { name: "sun-orientation-vic", params: site("10", "1,2", "2026-03-01", "2026-04-01", "1h", VIC, "AIRLESS") },
   { name: "moon-orientation-polar", params: site("301", "1,2,4,23,27,42", "2026-03-01", "2026-04-01", "1h", POLAR, "AIRLESS") },
   { name: "sun-orientation-polar", params: site("10", "1,2", "2026-03-01", "2026-04-01", "1h", POLAR, "AIRLESS") },
+  // Quantity 34 is local apparent solar time; at longitude 0 it is UT plus the
+  // equation of time. 2026 densely, plus a year at each end of the interval.
+  { name: "sun-solar-time-1950", params: site("10", "34", "1950-01-01", "1951-01-01", "1d", GREENWICH, "AIRLESS") },
+  { name: "sun-solar-time-2026", params: site("10", "34", "2026-01-01", "2027-01-01", "6h", GREENWICH, "AIRLESS") },
+  { name: "sun-solar-time-2100", params: site("10", "34", "2100-01-01", "2100-12-31", "1d", GREENWICH, "AIRLESS") },
+  // Quantity 20 is geocentric range and range rate; a range-rate sign change is
+  // a perigee or apogee. Hourly rows bracket every apsis to the minute. The
+  // windows stay before 2050, where Horizons' frozen Delta-T still agrees with
+  // the Espenak-Meeus model within a few seconds.
+  { name: "moon-range-rate-1950", params: geocentric("301", "20", "1950-01-01", "1950-07-01", "1h") },
+  { name: "moon-range-rate-2026", params: geocentric("301", "20", "2026-01-01", "2027-01-01", "1h") },
+  { name: "moon-range-rate-2049", params: geocentric("301", "20", "2049-07-01", "2050-01-01", "1h") },
 ];
 
 for (const [planet, target] of Object.entries(planets)) {
