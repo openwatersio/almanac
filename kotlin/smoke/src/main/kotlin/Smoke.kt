@@ -2,6 +2,8 @@ import io.openwaters.almanac.*
 import java.time.Instant
 
 fun main() {
+    check(degreesToRadians(180.0) == kotlin.math.PI)
+    check(radiansToDegrees(kotlin.math.PI) == 180.0)
     check(Observer(48.4284, -123.3656).elevationM == 0.0)
     check(Planet.EARTH.toString() == "earth")
     val time = Instant.parse("2026-03-20T12:00:00Z")

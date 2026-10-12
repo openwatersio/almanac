@@ -9,6 +9,7 @@ import { it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 
 import {
+  degreesToRadians, radiansToDegrees,
   sunAltAz, sunEvents, sunAltitudeEvents, sunTransits, horizonDip,
   moonAltAz, moonPosition, moonIllumination, moonOrientation, moonEvents, moonTransits,
   AlmanacOutOfRangeError,
@@ -19,8 +20,7 @@ import {
 
 function nauticalSunPosition(date: Date, lat: number, lng: number) {
   const { azDeg, altDeg } = sunAltAz(date, { latitudeDeg: lat, longitudeDeg: lng });
-  const radians = Math.PI / 180;
-  return { azimuth: ((azDeg + 180) % 360 - 180) * radians, altitude: altDeg * radians };
+  return { azimuth: degreesToRadians((azDeg + 180) % 360 - 180), altitude: degreesToRadians(altDeg) };
 }
 
 function nextSunEvent(events: SunEvent[], after: Date, kind: SunEventKind): Date | null {

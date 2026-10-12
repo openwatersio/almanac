@@ -1,4 +1,5 @@
 // The public contract's API table is the complete export allow-list.
+export { degreesToRadians, radiansToDegrees } from './angles.js';
 export type { Observer, Planet } from './types.js';
 export type { HeliocentricPosition, PlanetPosition, PlanetIllumination } from './planets.js';
 export { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination } from './planets.js';

@@ -39,31 +39,41 @@ SunCalc 1 returns angles in radians and measures azimuth from south through west
 
 ```js
 // SunCalc 1 → SunCalc 2 / Almanac conventions
-const azimuthDeg = (position.azimuth * 180 / Math.PI + 180) % 360;   // south-based radians → north-based degrees
-const altitudeDeg = position.altitude * 180 / Math.PI;
-const parallacticDeg = moonPosition.parallacticAngle * 180 / Math.PI;
-const angleDeg = illumination.angle * 180 / Math.PI;
+import { radiansToDegrees } from '@openwaters/almanac';
+const azimuthDeg = (radiansToDegrees(position.azimuth) + 180) % 360;   // south-based radians → north-based degrees
+const altitudeDeg = radiansToDegrees(position.altitude);
+const parallacticDeg = radiansToDegrees(moonPosition.parallacticAngle);
+const angleDeg = radiansToDegrees(illumination.angle);
 ```
 
 SunCalc 1's `getTimes(date, lat, lng)` has no `utcOffset` and returns the solar day nearest `date`, which the adapter below reproduces when `utcOffset` is left out. Its `getMoonTimes(date, lat, lng, inUTC)` searches from local midnight of the computer running it, or from UTC midnight when `inUTC` is true. With Almanac, pass the window explicitly: `civilDay(date, 0)` reproduces `inUTC`, and `civilDay(date, -date.getTimezoneOffset())` gives the local day when its UTC offset stays constant. A named time zone needs its actual midnight-to-midnight interval on a DST transition.
 
 SunCalc 1.9's `getPosition` returns the Sun's geometric altitude without atmospheric refraction. Almanac's `sunAltAz` returns apparent altitude with refraction. Converting degrees to radians does not preserve that physical convention: close to sunrise, SunCalc 1 can report a negative altitude while Almanac reports a positive one. Review altitude thresholds and irradiance formulas when migrating. The SunCalc 2 position tolerances in the mapping table do not apply to SunCalc 1.
 
+`degreesToRadians` and `radiansToDegrees` are available in TypeScript, Swift, and Kotlin. They preserve sign and full turns, reject non-finite inputs, and do not change an angle's origin or physical convention. Wrap a signed Moon angle or rotate a south-based azimuth separately when the consuming interface requires it.
+
 A marine application that already converts SunCalc 1 azimuth to north-based radians can keep that interface with this adapter. Its azimuth is in `[-π, π)`, with zero at north and positive toward east; altitude is refracted:
 
 ```ts
 function nauticalSunPosition(date: Date, lat: number, lng: number) {
   const { azDeg, altDeg } = sunAltAz(date, { latitudeDeg: lat, longitudeDeg: lng });
-  const radians = Math.PI / 180;
-  return { azimuth: ((azDeg + 180) % 360 - 180) * radians, altitude: altDeg * radians };
+  return { azimuth: degreesToRadians((azDeg + 180) % 360 - 180), altitude: degreesToRadians(altDeg) };
 }
 ```
 
 ```swift
 func nauticalSunPosition(_ date: Date, _ lat: Double, _ lng: Double) throws -> (azimuth: Double, altitude: Double) {
     let position = try sunAltAz(date, observer: Observer(latitudeDeg: lat, longitudeDeg: lng))
-    let radians = Double.pi / 180
-    return (((position.azDeg + 180).truncatingRemainder(dividingBy: 360) - 180) * radians, position.altDeg * radians)
+    return (try degreesToRadians((position.azDeg + 180).truncatingRemainder(dividingBy: 360) - 180), try degreesToRadians(position.altDeg))
+}
+```
+
+In Kotlin, import `io.openwaters.almanac.*` and `java.time.Instant`; the pair contains azimuth and altitude in radians:
+
+```kotlin
+fun nauticalSunPosition(date: Instant, lat: Double, lng: Double): Pair<Double, Double> {
+    val position = sunAltAz(date, Observer(lat, lng))
+    return degreesToRadians((position.azDeg + 180) % 360 - 180) to degreesToRadians(position.altDeg)
 }
 ```
 
@@ -73,6 +83,7 @@ Every TypeScript example uses these imports:
 
 ```ts
 import {
+  degreesToRadians, radiansToDegrees,
   sunAltAz, sunEvents, sunAltitudeEvents, sunTransits, horizonDip,
   moonAltAz, moonPosition, moonIllumination, moonOrientation, moonEvents, moonTransits,
   AlmanacOutOfRangeError,
@@ -130,6 +141,8 @@ function addTime(angle: number, riseName: string, setName: string) {
 The adapters search SunCalc's fixed-offset civil day or its solar day. `civilDay` turns SunCalc's `utcOffset`, in minutes east of UTC, into the half-open window Almanac searches. It always spans 24 elapsed hours. For a named time zone, compute both local midnights using that zone's calendar rules; a DST day can span 23 or 25 hours. In Swift, use `Calendar.dateInterval(of: .day, for:)` with the calendar's `timeZone` set, as in the [Solar guide](migrating-from-solar.md#events-for-the-local-calendar-day).
 
 With no `utcOffset`, SunCalc uses the solar day around `date`, and `solarDay` finds it from the Sun's lower transits. Its search padding, and the adapter's transit searches, must fit inside the supported interval. Near 1950-01-01 or 2101-01-01 they can throw even when `date` itself is supported. Use an explicit `sunEvents` window inside the interval when you need events at its edges.
+
+Clipping a day to the supported interval gives a partial-day result. Label it as such: absent rise/set events in that fragment do not establish `alwaysUp` or `alwaysDown` for the full day. The adapters below require their complete search windows to fit and do not clip them.
 
 ```ts
 const HOUR_MS = 3_600_000;
@@ -303,7 +316,7 @@ function brightLimbFromZenith(date: Date, lat: number, lng: number) {
 }
 ```
 
-On a canvas, where a positive rotation turns clockwise, draw the lit side toward the top after `ctx.rotate(-brightLimbFromZenith(date, lat, lng) * Math.PI / 180)`, and use `moonIllumination(date).fraction` for how much of the disc is lit.
+On a canvas, where a positive rotation turns clockwise, draw the lit side toward the top after `ctx.rotate(degreesToRadians(-brightLimbFromZenith(date, lat, lng)))`, and use `moonIllumination(date).fraction` for how much of the disc is lit.
 
 ```swift
 func brightLimbFromZenith(_ date: Date, _ lat: Double, _ lng: Double) throws -> Double {
@@ -313,6 +326,8 @@ func brightLimbFromZenith(_ date: Date, _ lat: Double, _ lng: Double) throws -> 
 ```
 
 ### Moon times for one civil day
+
+Choose the Moon's window independently of the Sun's. These SunCalc 2 adapters use a solar day when `utcOffset` is omitted and a fixed-offset civil day when it is supplied. A plugin can deliberately use the same solar-day window for both bodies, as in [Signal K derived data PR #318](https://github.com/SignalK/signalk-derived-data/pull/318), but changing a civil-day calculation to that window can change which Moon crossings are included. Preserve the source library version's day convention when compatibility matters.
 
 ```js
 // SunCalc

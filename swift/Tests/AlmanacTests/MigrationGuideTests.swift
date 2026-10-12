@@ -14,8 +14,7 @@ import Almanac
 
 func nauticalSunPosition(_ date: Date, _ lat: Double, _ lng: Double) throws -> (azimuth: Double, altitude: Double) {
     let position = try sunAltAz(date, observer: Observer(latitudeDeg: lat, longitudeDeg: lng))
-    let radians = Double.pi / 180
-    return (((position.azDeg + 180).truncatingRemainder(dividingBy: 360) - 180) * radians, position.altDeg * radians)
+    return (try degreesToRadians((position.azDeg + 180).truncatingRemainder(dividingBy: 360) - 180), try degreesToRadians(position.altDeg))
 }
 
 func nextSunEvent(_ events: [SunEvent], after: Date, kind: SunEventKind) -> Date? {

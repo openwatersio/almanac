@@ -1,18 +1,18 @@
 # Migrating from Astronomy Engine
 
-Almanac translates the astronomy models it uses from [Astronomy Engine](https://github.com/cosinekitty/astronomy) at a pinned commit. It exposes task-level calls with matching TypeScript and Swift behavior: observer positions, altitude crossings, phases, and eclipses. Its supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Astronomy Engine accepts dates outside that interval and has features outside Almanac's scope; check the [comparison](comparison.md#astronomy-engine) before replacing a dependency.
+Almanac translates the astronomy models it uses from [Astronomy Engine](https://github.com/cosinekitty/astronomy) at a pinned commit. It exposes task-level calls with matching TypeScript, Swift, and Kotlin behavior: observer positions, altitude crossings, phases, and eclipses. Its supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Astronomy Engine accepts dates outside that interval and has features outside Almanac's scope; check the [comparison](comparison.md#astronomy-engine) before replacing a dependency.
 
-The examples below run in `typescript/test/astronomy-engine-migration.test.ts` and `swift/Tests/AlmanacTests/AstronomyEngineMigrationTests.swift`. Position and Moon-state examples are checked against pinned Astronomy Engine 2.1.19 references. Search and visibility examples use known event dates already covered by Almanac's external fixtures.
+The examples below run in `typescript/test/astronomy-engine-migration.test.ts`, `swift/Tests/AlmanacTests/AstronomyEngineMigrationTests.swift`, and Kotlin's `AstronomyEngineMigrationTest.kt`. Position and Moon-state examples are checked against pinned Astronomy Engine 2.1.19 references. Search and visibility examples use known event dates already covered by Almanac's external fixtures.
 
 ## Coordinates, observers, and time
 
-Replace `new Astronomy.Observer(lat, lon, elevation)` with `{ latitudeDeg: lat, longitudeDeg: lon, elevationM: elevation }` in TypeScript or `try Observer(latitudeDeg:longitudeDeg:elevationM:)` in Swift. Latitude is north-positive and longitude east-positive in both libraries.
+Replace `new Astronomy.Observer(lat, lon, elevation)` with `{ latitudeDeg: lat, longitudeDeg: lon, elevationM: elevation }` in TypeScript, `try Observer(latitudeDeg:longitudeDeg:elevationM:)` in Swift, or `Observer(lat, lon, elevation)` in Kotlin. Latitude is north-positive and longitude east-positive in both libraries.
 
-Pass JavaScript or Foundation `Date` values directly. Almanac returns `Date` values rather than Astronomy Engine's `AstroTime` with a `.date` member. Angles are degrees, azimuth is measured from north through east, and right ascension is degrees rather than Astronomy Engine's hours. Multiply a right ascension in hours by 15 when comparing it with `raDeg`.
+Pass JavaScript or Foundation `Date` values directly, or `java.time.Instant` in Kotlin. Almanac returns those instant types rather than Astronomy Engine's `AstroTime` with a `.date` member. Angles are degrees, azimuth is measured from north through east, and right ascension is degrees rather than Astronomy Engine's hours. Multiply a right ascension in hours by 15 when comparing it with `raDeg`. Use `degreesToRadians` and `radiansToDegrees` when a consumer needs radians; conversion preserves sign and full turns without wrapping.
 
 Observer elevation affects parallax; eye height above an unobstructed surface is a separate input to rise/set and eclipse visibility. At sea, a viewer two meters above the water typically has both `elevationM: 2` and `heightAboveGroundM: 2`. See [horizon conventions](CONTRACT.md#coordinates-and-physical-conventions).
 
-Almanac uses lowercase planet identifiers in TypeScript and Swift enum cases such as `.venus`. The Sun and Moon have their own functions. Earth is accepted for `planetHeliocentricPosition` and rejected by Earth-based planetary position, illumination, and event calls.
+Almanac uses lowercase planet identifiers in TypeScript, Swift enum cases such as `.venus`, and Kotlin enum members such as `Planet.VENUS`. The Sun and Moon have their own functions. Earth is accepted for `planetHeliocentricPosition` and rejected by Earth-based planetary position, illumination, and event calls.
 
 ## Mapping
 
@@ -52,6 +52,13 @@ import Almanac
 import Foundation
 ```
 
+Kotlin imports:
+
+```kotlin
+import io.openwaters.almanac.*
+import java.time.Instant
+```
+
 ```ts
 function briefingPositions(time: Date, observer: Observer) {
   return {
@@ -76,6 +83,18 @@ func briefingPositions(_ time: Date, _ observer: Observer) throws -> (sun: AltAz
 func briefingMoon(_ time: Date) throws -> (phaseDeg: Double, fraction: Double) {
     let illumination = try moonIllumination(time)
     return (illumination.phase * 360, illumination.fraction)
+}
+```
+
+The Kotlin position triple contains Sun, Moon, and Venus; the Moon pair contains phase degrees and illuminated fraction:
+
+```kotlin
+fun briefingPositions(time: Instant, observer: Observer): Triple<AltAz, AltAz, AltAz> =
+    Triple(sunAltAz(time, observer), moonAltAz(time, observer), planetAltAz(Planet.VENUS, time, observer))
+
+fun briefingMoon(time: Instant): Pair<Double, Double> {
+    val illumination = moonIllumination(time)
+    return illumination.phase * 360 to illumination.fraction
 }
 ```
 
@@ -113,6 +132,11 @@ func passageCrossings(_ start: Date, _ end: Date, _ observer: Observer) throws -
 }
 ```
 
+```kotlin
+fun passageCrossings(start: Instant, end: Instant, observer: Observer): Triple<List<SunEvent>, List<MoonEvent>, List<MoonPhaseEvent>> =
+    Triple(sunEvents(start, end, observer), moonEvents(start, end, observer), searchMoonPhases(start, end))
+```
+
 The lists are sorted and include events at `start` while excluding events at `end`. Select the first matching kind strictly after an anchor for a next-event query, or the last matching kind at or before it for an inclusive previous-event query. The query must extend past an anchor you intend to include. See the [bounded selection and night-window recipes](migrating-from-suncalc.md#selecting-events-in-a-bounded-window).
 
 A night can lack astronomical dusk while retaining nautical or civil twilight. Keep each crossing independently and pair evening bounds with the following morning. The list format needs no arbitrary two-minute gap between twilight kinds.
@@ -133,6 +157,11 @@ func visibleLunarEclipses(_ start: Date, _ end: Date, _ observer: Observer) thro
 }
 ```
 
+```kotlin
+fun visibleLunarEclipses(start: Instant, end: Instant, observer: Observer): List<LunarEclipse> =
+    lunarEclipses(start, end).filter { lunarEclipseVisibility(it, observer).visibleAtPeak }
+```
+
 `visibleAtPeak` is geometric visibility of the Moon's center; `contactsVisible` reports the individual contacts. It does not account for clouds or terrain. A briefing's cloud-cover and darkness requirements remain application policy.
 
 `solarEclipses(start, end, observer)` omits an eclipse only when the Sun is below the supplied horizon at C1, peak, and C4. It can return an eclipse whose peak is below the horizon but whose beginning or end is visible. Apply `sunAltDeg.peak` if the application specifically requires visibility at peak, comparing it with the horizon dip when eye height is supplied. A peak-only filter discards useful partial visibility, so choose it deliberately.
@@ -141,6 +170,6 @@ Window membership is based on the eclipse peak; contacts may fall outside the wi
 
 ## Errors and loading
 
-A missing crossing is a valid result. An unsupported date throws `AlmanacOutOfRangeError` in TypeScript or `AlmanacError.outOfRange` in Swift, and invalid arguments raise validation errors. Catch only the outcomes your application intentionally degrades; the [typed fallback example](migrating-from-suncalc.md#missing-events-and-errors) preserves other failures.
+A missing crossing is a valid result. An unsupported date throws `AlmanacOutOfRangeError` in TypeScript, `AlmanacError.outOfRange` in Swift, or `AlmanacOutOfRangeException` in Kotlin, and invalid arguments raise validation errors. Catch only the outcomes your application intentionally degrades; the [typed fallback example](migrating-from-suncalc.md#missing-events-and-errors) preserves other failures. Kotlin's range exception extends `IllegalArgumentException`, so a broad catch of that type also catches malformed inputs.
 
 The npm package is ESM. A CommonJS plugin can use synchronous `require('@openwaters/almanac')` on the documented Node versions, or initialize through asynchronous `import()`. See [module loading](../README.md#javascript-module-loading).

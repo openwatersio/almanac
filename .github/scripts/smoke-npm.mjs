@@ -13,6 +13,9 @@ try {
   const check = `
     const date = new Date('2026-06-21T12:00:00Z');
     const observer = { latitudeDeg: 60.17, longitudeDeg: 24.94 };
+    assert.equal(almanac.degreesToRadians(180), Math.PI);
+    assert.equal(almanac.radiansToDegrees(Math.PI), 180);
+    assert.throws(() => almanac.degreesToRadians(NaN), RangeError);
     const { fraction, phase } = almanac.moonIllumination(date);
     assert.ok(fraction >= 0 && fraction <= 1);
     assert.ok(phase >= 0 && phase < 1);
