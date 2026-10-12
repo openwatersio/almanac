@@ -41,6 +41,9 @@ internal class TransformsTest {
     }
 
     @Test fun siderealAndRefractionRespectTheirPhysicalLimits() {
+        assertEquals(0.0,horizontalAzimuth(0.0,0.0))
+        assertEquals(90.0,horizontalAzimuth(0.0,-1.0))
+        assertEquals(270.0,horizontalAzimuth(0.0,1.0))
         near(siderealDeg(0.0), 280.4606, 0.01)
         assertTrue(refractionDeg(0.0) * 60 > 28)
         assertEquals(0.0, refractionDeg(-91.0))

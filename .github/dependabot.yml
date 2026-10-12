@@ -14,3 +14,10 @@ updates:
     groups:
       npm:
         patterns: ["*"]
+  - package-ecosystem: gradle
+    directory: /kotlin
+    schedule:
+      interval: weekly
+    groups:
+      gradle:
+        patterns: ["*"]

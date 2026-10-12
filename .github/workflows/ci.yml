@@ -5,7 +5,7 @@ on:
 jobs:
   # Which suites a pull request actually needs.
   #
-  # NOT an `on.paths` filter: `typescript`, `swift` and `fixtures` are required
+  # NOT an `on.paths` filter: `typescript`, `swift`, `kotlin` and `fixtures` are required
   # status checks on main, and a workflow skipped by path filtering never
   # reports them at all — the pull request then waits on a status that can
   # never arrive. Skipping at the job level instead leaves a `skipped`
@@ -16,26 +16,19 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      code: ${{ steps.filter.outputs.code }}
+      typescript: ${{ steps.filter.outputs.typescript }}
+      swift: ${{ steps.filter.outputs.swift }}
+      kotlin: ${{ steps.filter.outputs.kotlin }}
     steps:
       - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v7
+        with: { node-version: 22 }
+      - run: node --test .github/ci-routes.test.mjs
       - id: filter
         env:
           BASE: ${{ github.event.pull_request.base.sha }}
-        run: |
-          if [ "$GITHUB_EVENT_NAME" != pull_request ]; then
-            echo 'code=true' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          changed=$(git diff --name-only "$BASE...HEAD")
-          echo "$changed"
-          # Toolchain, workflow, and packaged-document changes must run the suites.
-          if printf '%s\n' "$changed" | grep -qE '^(typescript|swift|fixtures|benchmarks)/|^(Package\.swift|mise\.toml|README\.md|LICENSE|NOTICE)$|^\.github/workflows/'; then
-            echo 'code=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'code=false' >> "$GITHUB_OUTPUT"
-          fi
+        run: node .github/ci-routes.mjs
   # Unconditional: 7 seconds, cheaper to run than to reason about skipping.
   fixtures:
     runs-on: ubuntu-latest
@@ -46,7 +39,7 @@ jobs:
       - run: node fixtures/generate/derive.mjs --check
   typescript:
     needs: changes
-    if: needs.changes.outputs.code == 'true'
+    if: needs.changes.outputs.typescript == 'true'
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
@@ -60,18 +53,37 @@ jobs:
       - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
   swift:
     needs: changes
-    if: needs.changes.outputs.code == 'true'
+    if: needs.changes.outputs.swift == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - run: swift test -c release
+  kotlin:
+    needs: changes
+    if: needs.changes.outputs.kotlin == 'true'
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: kotlin } }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: 17 }
+      - uses: gradle/actions/setup-gradle@v5
+      - run: ./gradlew test jacocoTestReport jacocoTestCoverageVerification
+      - run: ./gradlew -p smoke run
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: kotlin-reports
+          path: |
+            kotlin/build/reports
+            kotlin/build/test-results
   # Slackwater's watch app links Almanac. Apple Watch hardware is arm64_32, where
   # Swift's Int is 32 bits, so the device slice is the one that can break; the
   # simulator slice is what the app's own CI compiles against. Compile-only: the
   # suite's results are the same on every 64-bit target and the Linux job runs it.
   watchos:
     needs: changes
-    if: needs.changes.outputs.code == 'true'
+    if: needs.changes.outputs.swift == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
@@ -82,7 +94,7 @@ jobs:
   performance-typescript:
     name: performance (typescript, ubuntu-latest)
     needs: changes
-    if: needs.changes.outputs.code == 'true'
+    if: needs.changes.outputs.typescript == 'true'
     permissions: { contents: read }
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -128,8 +140,9 @@ jobs:
           retention-days: 30
   performance-swift:
     name: performance (swift, ubuntu-latest)
-    # A failed/skipped TypeScript benchmark skips this job before allocating a runner.
-    needs: performance-typescript
+    # Shared changes run Swift after TypeScript; Swift-only changes run directly.
+    needs: [changes, performance-typescript]
+    if: always() && needs.changes.outputs.swift == 'true' && (needs.performance-typescript.result == 'success' || needs.performance-typescript.result == 'skipped')
     permissions: { contents: read }
     runs-on: ubuntu-latest
     timeout-minutes: 15

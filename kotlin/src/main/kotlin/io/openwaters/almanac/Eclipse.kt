@@ -85,8 +85,11 @@ private fun nearestLunarEclipse(anchor: Instant, direction: Int): LunarEclipse {
     val endMs = if (direction > 0) min(SUPPORTED_MAX,ms+LUNAR_SCAN_LIMIT_DAYS*86400000) else ms-SAME_ECLIPSE_MS
     val found = scanLunarEclipses(startMs,endMs,direction,true)
     if (found.isNotEmpty()) return found.first()
-    if (if (direction > 0) endMs == SUPPORTED_MAX else startMs == SUPPORTED_MIN) throw AlmanacOutOfRangeException()
-    error("almanac internal: no lunar eclipse within $LUNAR_SCAN_LIMIT_DAYS days of $anchor")
+    throw lunarSearchFailure(anchor,startMs,endMs,direction)
+}
+internal fun lunarSearchFailure(anchor: Instant,startMs: Long,endMs: Long,direction: Int): RuntimeException {
+    if (if (direction > 0) endMs == SUPPORTED_MAX else startMs == SUPPORTED_MIN) return AlmanacOutOfRangeException()
+    return IllegalStateException("almanac internal: no lunar eclipse within $LUNAR_SCAN_LIMIT_DAYS days of $anchor")
 }
 private fun scanLunarEclipses(startMs: Long, endMs: Long, direction: Int, firstOnly: Boolean): List<LunarEclipse> {
     val found = mutableListOf<LunarEclipse>()

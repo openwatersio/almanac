@@ -95,6 +95,18 @@ internal fun topoAltAzUnrefracted(bodyEqj: Vec3, ut: Double, observer: Observer)
     val pw = p.x * uw.x + p.y * uw.y + p.z * uw.z
 
     val proj = hypot(pn, pw)
+    val az = horizontalAzimuth(pn,pw)
+    val zd = RAD2DEG * atan2(proj, pz)
+
+    var hourAngleDeg = (gast + observer.longitudeDeg - raDeg) % 360
+    if (hourAngleDeg < 0)
+        hourAngleDeg += 360
+
+    return TopoUnrefracted(az, 90 - zd, hourAngleDeg, distanceAu, raDeg, decDeg)
+}
+
+internal fun horizontalAzimuth(pn: Double,pw: Double): Double {
+    val proj = hypot(pn,pw)
     var az: Double
     if (proj > 0) {
         az = -RAD2DEG * atan2(pw, pn)
@@ -103,13 +115,7 @@ internal fun topoAltAzUnrefracted(bodyEqj: Vec3, ut: Double, observer: Observer)
     } else {
         az = 0.0
     }
-    val zd = RAD2DEG * atan2(proj, pz)
-
-    var hourAngleDeg = (gast + observer.longitudeDeg - raDeg) % 360
-    if (hourAngleDeg < 0)
-        hourAngleDeg += 360
-
-    return TopoUnrefracted(az, 90 - zd, hourAngleDeg, distanceAu, raDeg, decDeg)
+    return az
 }
 
 internal fun refractionDeg(altitudeDeg: Double): Double {

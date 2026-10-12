@@ -336,9 +336,9 @@ public fun moonTransits(startUtc: Instant, endUtc: Instant, observer: Observer):
     if (normalized(startUtc) >= normalized(endUtc)) return emptyList()
     return searchAltitudeEvents(moonSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),MOON_HA_RATE_DEG_PER_DAY,MOON_CYCLE_DAYS,flatCycle(observer)).map { TransitEvent(it.time,it.kind) }
 }
-private data class QuadRoot(val t: Double, val dfdt: Double)
+internal data class QuadRoot(val t: Double, val dfdt: Double)
 // QuadInterp and Search: https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L4528
-private fun quadInterp(tm: Double, dt: Double, fa: Double, fm: Double, fb: Double): QuadRoot? {
+internal fun quadInterp(tm: Double, dt: Double, fa: Double, fm: Double, fb: Double): QuadRoot? {
     val Q = (fb + fa) / 2 - fm
     val R = (fb - fa) / 2
     val S = fm
