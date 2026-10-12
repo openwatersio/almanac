@@ -18,10 +18,12 @@ let globalEclipses: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(s
 let events = try String(contentsOfFile: "\(source)/swift/Sources/Almanac/Events.swift", encoding: .utf8)
 let planets: [SwiftSetting] = events.contains("public func planetEvents(") ? [.define("ALMANAC_PLANETS")] : []
 let suncalc: [SwiftSetting] = events.contains("public func sunTransits(") ? [.define("ALMANAC_SUNCALC")] : []
+// Seasons, lunar apsides, and the equation of time arrived together in 0.9.0 with Seasons.swift.
+let cycles: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(source)/swift/Sources/Almanac/Seasons.swift") ? [.define("ALMANAC_CYCLES")] : []
 let package = Package(
     name: "AlmanacBenchmarks",
     dependencies: [.package(name: "Almanac", path: source)],
     targets: [
-        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets + suncalc),
+        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets + suncalc + cycles),
     ]
 )

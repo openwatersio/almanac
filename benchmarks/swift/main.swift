@@ -89,6 +89,19 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
         #else
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "SunCalc-parity APIs unavailable; pass --skip '^suncalc/' for older bases"])
         #endif
+    case "seasons", "moonApsides", "equationOfTime":
+        #if ALMANAC_CYCLES
+        switch spec.operation {
+        case "seasons":
+            return { Double(try seasons(from: from, to: to).count) }
+        case "moonApsides":
+            return { Double(try moonApsides(from: from, to: to).count) }
+        default:
+            return { try times.reduce(0) { sum, t in sum + (try equationOfTime(t)) } }
+        }
+        #else
+        throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Season, apsis, and equation of time APIs unavailable; pass --skip '^cycles/' for older bases"])
+        #endif
     case "sunEvents":
         return { Double(try sunEvents(from: from, to: to, observer: observer).count) }
     case "moonEvents":
