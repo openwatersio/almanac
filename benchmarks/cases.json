@@ -37,6 +37,9 @@
     { "name": "suncalc/sun-altitude-year", "operation": "sunAltitudeEvents", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z", "altitudeDeg": 6 },
     { "name": "suncalc/sun-transits-year", "operation": "sunTransits", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z" },
     { "name": "suncalc/moon-transits-year", "operation": "moonTransits", "from": "2026-01-01T00:00:00Z", "to": "2027-01-01T00:00:00Z" },
-    { "name": "suncalc/moon-orientation-228-hours", "operation": "moonOrientation", "from": "2026-08-24T00:00:00Z", "count": 228 }
+    { "name": "suncalc/moon-orientation-228-hours", "operation": "moonOrientation", "from": "2026-08-24T00:00:00Z", "count": 228 },
+    { "name": "cycles/seasons-1950-2100", "operation": "seasons", "from": "1950-01-01T00:00:00Z", "to": "2101-01-01T00:00:00Z", "expected": 604 },
+    { "name": "cycles/apsides-1950-2100", "operation": "moonApsides", "from": "1950-01-01T00:00:00Z", "to": "2101-01-01T00:00:00Z", "expected": 4003 },
+    { "name": "cycles/equation-of-time-year", "operation": "equationOfTime", "from": "2026-01-01T00:00:00Z", "count": 8760 }
   ]
 }

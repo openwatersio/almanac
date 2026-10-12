@@ -73,6 +73,14 @@ function workload(spec) {
             if (spec.operation === 'sunAltitudeEvents') return () => fn(from, to, observer, spec.altitudeDeg).length;
             return () => fn(from, to, observer).length;
         }
+        case 'seasons':
+        case 'moonApsides':
+        case 'equationOfTime': {
+            const fn = api[spec.operation];
+            assert.ok(fn, "Season, apsis, and equation of time APIs unavailable; pass --skip '^cycles/' for older bases");
+            if (spec.operation === 'equationOfTime') return () => times.reduce((sum, t) => sum + fn(t), 0);
+            return () => fn(from, to).length;
+        }
         case 'sunEvents':
         case 'moonEvents':
             return () => api[spec.operation](from, to, observer).length;

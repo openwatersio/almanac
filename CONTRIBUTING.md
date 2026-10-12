@@ -107,6 +107,8 @@ Planetary workloads cover a five-planet 228-hour sky track, a 228-hour rise/set 
 
 SunCalc-parity workloads cover a year of `+6°` Sun altitude crossings, a year each of Sun and Moon transits, and Moon orientation over a 228-hour track. Pass `--skip '^suncalc/'` when the base lacks those APIs; the Swift harness detects `sunTransits` in `Events.swift`, and CI uses the same declaration. Comparisons between revisions with both sets include all 34 workloads under the same 20% gate.
 
+Season, apsis, and equation of time workloads cover every equinox and solstice and every lunar apsis from 1950 through 2100, and the equation of time at every hour of 2026. Pass `--skip '^cycles/'` when the base lacks those APIs; the Swift harness and CI detect them from the presence of `Seasons.swift`.
+
 ## Releasing
 
 One version number spans both ports. Every release is a Git tag and a GitHub release for that tag: the tag starts the publishing workflow, and the GitHub release carries the notes.
