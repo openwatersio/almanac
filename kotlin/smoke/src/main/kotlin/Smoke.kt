@@ -36,5 +36,9 @@ fun main() {
     check(previousLunarEclipse(lunar.peak.plusMillis(101)).kind == lunar.kind)
     check(lunarEclipses(lunar.peak, lunar.peak.plusMillis(1)).single() == lunar)
     check(lunarEclipseVisibility(lunar, observer).moonGeometricAltAtPeakDeg.isFinite())
+    val solar = nextSolarEclipse(time, observer)
+    check(previousSolarEclipse(solar.peak.plusMillis(101), observer) == solar)
+    check(solarEclipses(solar.peak, solar.peak.plusMillis(1), observer).single() == solar)
+    check(solarObscuration(solar.peak, observer) > 0)
     println("Almanac source consumer passed")
 }

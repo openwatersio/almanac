@@ -242,4 +242,34 @@ internal class ParityTest {
         visibility(lunarEclipseVisibility(value, row.getValue("observer").obj().observer(), row.number("heightAboveGroundM")), row)
     }
 
+    @Test fun localSolarEclipsesReproduceCircumstances() {
+        val file = fixture("parity/solar").obj()
+        val values = file.array("observers").flatMapIndexed { index, site -> solarEclipses(Instant.ofEpochMilli(SUPPORTED_MIN),Instant.ofEpochMilli(SUPPORTED_MAX),site.obj().observer()).map { index to it } }
+        assertEquals(file.array("eclipses").size,values.size)
+        for ((i,pair) in values.withIndex()) {
+            val row = file.array("eclipses")[i].obj()
+            val value = pair.second
+            assertEquals(row.number("observerIdx").toInt(),pair.first)
+            assertEquals(row.string("kind"),value.kind.toString())
+            scaledNear(value.obscuration,row,"obscuration",1e6)
+            for ((field,actual) in solarContacts(value)) {
+                if (row.getValue(field+"Ms") == JsonNull) assertNull(actual) else eventNear(assertNotNull(actual),row,field+"Ms")
+            }
+            for ((field,actual) in solarAltitudes(value)) {
+                val alt = row.getValue("sunAltDeg").obj()
+                if (alt.getValue(field) == JsonNull) assertNull(actual) else scaledNear(assertNotNull(actual),alt,field,1e6)
+            }
+        }
+        val row = fixture("parity/height").obj().getValue("solar").obj()
+        val start = Instant.ofEpochMilli(row.getValue("startMs").jsonPrimitive.long)
+        val end = Instant.ofEpochMilli(row.getValue("endMs").jsonPrimitive.long)
+        val site = row.getValue("observer").obj().observer()
+        val eye = row.number("heightAboveGroundM")
+        val e = solarEclipses(start,end,site,eye).single()
+        near(eventMs(e.peak).toDouble(),row.array("peaksMs").single().jsonPrimitive.double,100.0,"height")
+        eventNear(nextSolarEclipse(start,site,eye).peak,row,"nextPeakMs")
+        eventNear(previousSolarEclipse(end,site,eye).peak,row,"previousPeakMs")
+        for ((field,actual) in solarAltitudes(e)) if (field in listOf("c1","peak","c4")) scaledNear(assertNotNull(actual),row.array("altitudes").single().obj(),field,1e6)
+    }
+
 }
