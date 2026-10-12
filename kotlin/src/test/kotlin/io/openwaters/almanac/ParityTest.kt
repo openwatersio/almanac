@@ -186,4 +186,30 @@ internal class ParityTest {
             }
         }
     }
+
+    @Test fun cyclesReproduceScaledCorpus() {
+        val file = fixture("parity/cycles").obj()
+        val seasons = seasons(Instant.ofEpochMilli(SUPPORTED_MIN),Instant.ofEpochMilli(SUPPORTED_MAX))
+        assertEquals(604,seasons.size)
+        assertEquals(file.array("seasons").size,seasons.size)
+        for ((i,e) in seasons.withIndex()) {
+            val row = file.array("seasons")[i].obj()
+            assertEquals(row.string("kind"),e.kind.toString())
+            eventNear(e.time,row)
+        }
+        val apsides = moonApsides(Instant.parse("2026-01-01T00:00:00Z"),Instant.parse("2027-01-01T00:00:00Z"))
+        assertEquals(27,apsides.size)
+        assertEquals(file.array("apsides").size,apsides.size)
+        for ((i,e) in apsides.withIndex()) {
+            val row = file.array("apsides")[i].obj()
+            assertEquals(row.string("kind"),e.kind.toString())
+            eventNear(e.time,row)
+            scaledNear(e.distanceKm,row,"distanceKm",1e3)
+        }
+        assertEquals(6894,file.array("equationOfTime").size)
+        for (element in file.array("equationOfTime")) {
+            val row = element.obj()
+            scaledNear(equationOfTime(Instant.ofEpochMilli(row.getValue("tMs").jsonPrimitive.long)),row,"minutes",1e6)
+        }
+    }
 }

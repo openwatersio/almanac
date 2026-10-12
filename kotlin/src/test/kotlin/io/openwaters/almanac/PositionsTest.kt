@@ -102,4 +102,16 @@ internal class PositionsTest {
             executor.shutdownNow()
         }
     }
+
+    @Test fun equationOfTimeMatchesHorizonsAndMeeusSignConvention() {
+        val rows = fixture("equation-of-time/horizons-eot").jsonArray
+        assertTrue(rows.isNotEmpty())
+        for (element in rows) {
+            val row = element.obj()
+            near(equationOfTime(row.instant("utc")),row.number("minutes"),2.0/60,"$row")
+        }
+        near(equationOfTimeAtTT(utDays(Instant.parse("1992-10-13T00:00:00Z"))),13+42.6/60,0.05)
+        for (time in listOf(Instant.MIN,Instant.MAX,Instant.ofEpochMilli(SUPPORTED_MIN-1),Instant.ofEpochMilli(SUPPORTED_MAX)))
+            assertFailsWith<AlmanacOutOfRangeException> { equationOfTime(time) }
+    }
 }

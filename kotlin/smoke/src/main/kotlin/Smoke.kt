@@ -29,5 +29,8 @@ fun main() {
     check(sunTransits(time, end, observer).isNotEmpty())
     check(moonTransits(time, end, observer).isNotEmpty())
     check(searchMoonPhases(time, end).isNotEmpty())
+    check(seasons(time, end).isNotEmpty())
+    check(moonApsides(time, end).isNotEmpty())
+    check(equationOfTime(time).isFinite())
     println("Almanac source consumer passed")
 }
