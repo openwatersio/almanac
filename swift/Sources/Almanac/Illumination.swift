@@ -44,6 +44,15 @@ private func eclipticLonOfDateDeg(_ eqj: Vec3, _ tt: Double) -> Double {
     return elon
 }
 
+/**
+ * INTERNAL: the Sun's apparent geocentric ecliptic longitude of date, [0, 360)
+ * — upstream `SunPosition(t).elon` (astronomy.ts ~2738), which `Seasons.swift`
+ * roots against 0/90/180/270. Aberration is in the vector, nutation in the frame.
+ */
+func sunEclipticLonDeg(_ tt: Double) -> Double {
+    eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt)
+}
+
 /** UPSTREAM: `NormalizeLongitude`, astronomy.ts lines 4735-4739. */
 private func normalizeLongitude(_ lon: Double) -> Double {
     (lon.truncatingRemainder(dividingBy: 360) + 360).truncatingRemainder(dividingBy: 360)

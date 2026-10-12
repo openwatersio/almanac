@@ -224,4 +224,18 @@ final class PublicSurfaceTests: XCTestCase {
         let kinds: [SolarEclipseAxisKind] = [.annular, .total]
         XCTAssertEqual(kinds.map { $0.rawValue }, ["annular", "total"])
     }
+
+    func testSeasonsApsidesAndEquationOfTime() throws {
+        let start = Date(timeIntervalSince1970: 1_767_225_600) // 2026-01-01T00:00:00Z
+        let end = start.addingTimeInterval(366 * 86400)
+        let year: [SeasonEvent] = try seasons(from: start, to: end)
+        XCTAssertEqual(year.map { $0.kind }, SeasonKind.allCases)
+        _ = year[0].time
+        let apsides: [MoonApsis] = try moonApsides(from: start, to: end)
+        let kinds: Set<MoonApsisKind> = Set(apsides.map { $0.kind })
+        XCTAssertEqual(kinds, [.perigee, .apogee])
+        _ = (apsides[0].time, apsides[0].distanceKm)
+        let minutes: Double = try equationOfTime(start)
+        XCTAssertFalse(minutes.isNaN)
+    }
 }

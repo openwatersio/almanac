@@ -283,6 +283,11 @@ final class ParityTests: XCTestCase {
     struct CentralLineRow: Codable { let tMs: Int64; let latitudeDeg: Int; let longitudeDeg: Int; let kind: String; let obscuration: Int }
     struct CentralLineFile: Codable { let axisTrack: [AxisTrackRow]; let centralLine: [CentralLineRow] }
 
+    struct SeasonRow: Codable { let tMs: Int64; let kind: String }
+    struct ApsisRow: Codable { let tMs: Int64; let kind: String; let distanceKm: Int }
+    struct EquationOfTimeRow: Codable { let tMs: Int64; let minutes: Int }
+    struct CyclesFile: Codable { let seasons: [SeasonRow]; let apsides: [ApsisRow]; let equationOfTime: [EquationOfTimeRow] }
+
     struct Corpus {
         let positions: [PositionEntry]
         let altaz: [AltazEntry]
@@ -292,6 +297,7 @@ final class ParityTests: XCTestCase {
         let solar: SolarFile
         let globalSolar: GlobalSolarFile
         let centralLine: CentralLineFile
+        let cycles: CyclesFile
     }
 
     static func parityURL(_ name: String) -> URL {
@@ -510,9 +516,21 @@ final class ParityTests: XCTestCase {
         }
         let centralLine = CentralLineFile(axisTrack: axisTrackRows, centralLine: centralLineRows)
 
+        // Every season 1950-2100, every apsis of 2026, and the equation of time at the 8-day sample times.
+        let seasonRows = try seasons(from: dateFromMs(minMs), to: dateFromMs(maxMs)).map {
+            SeasonRow(tMs: qEventMs($0.time), kind: $0.kind.rawValue)
+        }
+        let apsisRows = try moonApsides(from: monthStart(2026, 1), to: monthStart(2027, 1)).map {
+            ApsisRow(tMs: qEventMs($0.time), kind: $0.kind.rawValue, distanceKm: qScaled($0.distanceKm, scales.distanceKm))
+        }
+        let eotRows = try sampleTimesMs().map {
+            EquationOfTimeRow(tMs: $0, minutes: qScaled(try equationOfTime(dateFromMs($0)), scales.fraction))
+        }
+        let cycles = CyclesFile(seasons: seasonRows, apsides: apsisRows, equationOfTime: eotRows)
+
         return Corpus(
             positions: positions, altaz: altaz, illumination: illumination, events: events, eclipses: eclipses, solar: solar,
-            globalSolar: globalSolar, centralLine: centralLine)
+            globalSolar: globalSolar, centralLine: centralLine, cycles: cycles)
     }
 
     // One recompute for the whole test class -- see the type doc for why.
@@ -527,6 +545,7 @@ final class ParityTests: XCTestCase {
     static let committedSolar: SolarFile = try! load(SolarFile.self, "solar.json")
     static let committedGlobalSolar: GlobalSolarFile = try! load(GlobalSolarFile.self, "globalSolar.json")
     static let committedCentralLine: CentralLineFile = try! load(CentralLineFile.self, "centralLine.json")
+    static let committedCycles: CyclesFile = try! load(CyclesFile.self, "cycles.json")
 
     // ---------------------------------------------------------- tolerant
 
@@ -690,6 +709,23 @@ final class ParityTests: XCTestCase {
             near(a.longitudeDeg, b.longitudeDeg, tolAngle, "central line longitudeDeg @\(a.tMs)")
             near(a.obscuration, b.obscuration, tolFrac, "central line obscuration @\(a.tMs)")
         }
+
+        XCTAssertEqual(fresh.cycles.seasons.count, Self.committedCycles.seasons.count)
+        for (a, b) in zip(fresh.cycles.seasons, Self.committedCycles.seasons) {
+            XCTAssertEqual(a.kind, b.kind, "season kind @\(a.tMs)")
+            nearMs(a.tMs, b.tMs, "season \(a.kind) @\(a.tMs)")
+        }
+        XCTAssertEqual(fresh.cycles.apsides.count, Self.committedCycles.apsides.count)
+        for (a, b) in zip(fresh.cycles.apsides, Self.committedCycles.apsides) {
+            XCTAssertEqual(a.kind, b.kind, "apsis kind @\(a.tMs)")
+            nearMs(a.tMs, b.tMs, "apsis \(a.kind) @\(a.tMs)")
+            near(a.distanceKm, b.distanceKm, tolKm, "apsis distanceKm @\(a.tMs)")
+        }
+        XCTAssertEqual(fresh.cycles.equationOfTime.count, Self.committedCycles.equationOfTime.count)
+        for (a, b) in zip(fresh.cycles.equationOfTime, Self.committedCycles.equationOfTime) {
+            XCTAssertEqual(a.tMs, b.tMs)
+            near(a.minutes, b.minutes, tolFrac, "equationOfTime @\(a.tMs)")
+        }
     }
 
     // ------------------------------------------------------ reproduction
@@ -744,6 +780,7 @@ final class ParityTests: XCTestCase {
         let solar = try roundTrip(fresh.solar, "solar.json")
         let globalSolar = try roundTrip(fresh.globalSolar, "globalSolar.json")
         let centralLine = try roundTrip(fresh.centralLine, "centralLine.json")
+        let cycles = try roundTrip(fresh.cycles, "cycles.json")
 
         XCTAssertEqual(positions.count, Self.committedPositions.count)
         for (a, b) in zip(positions, Self.committedPositions) {
@@ -875,6 +912,23 @@ final class ParityTests: XCTestCase {
             near(a.latitudeDeg, b.latitudeDeg, "central line latitudeDeg @\(a.tMs)")
             near(a.longitudeDeg, b.longitudeDeg, "central line longitudeDeg @\(a.tMs)")
             near(a.obscuration, b.obscuration, "central line obscuration @\(a.tMs)")
+        }
+
+        XCTAssertEqual(cycles.seasons.count, Self.committedCycles.seasons.count)
+        for (a, b) in zip(cycles.seasons, Self.committedCycles.seasons) {
+            XCTAssertEqual(a.kind, b.kind, "season kind @\(a.tMs)")
+            nearMs(a.tMs, b.tMs, "season \(a.kind) @\(a.tMs)")
+        }
+        XCTAssertEqual(cycles.apsides.count, Self.committedCycles.apsides.count)
+        for (a, b) in zip(cycles.apsides, Self.committedCycles.apsides) {
+            XCTAssertEqual(a.kind, b.kind, "apsis kind @\(a.tMs)")
+            nearMs(a.tMs, b.tMs, "apsis \(a.kind) @\(a.tMs)")
+            near(a.distanceKm, b.distanceKm, "apsis distanceKm @\(a.tMs)")
+        }
+        XCTAssertEqual(cycles.equationOfTime.count, Self.committedCycles.equationOfTime.count)
+        for (a, b) in zip(cycles.equationOfTime, Self.committedCycles.equationOfTime) {
+            XCTAssertEqual(a.tMs, b.tMs)
+            near(a.minutes, b.minutes, "equationOfTime @\(a.tMs)")
         }
     }
 }

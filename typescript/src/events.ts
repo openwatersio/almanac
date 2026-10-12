@@ -133,7 +133,7 @@ const MAX_UT = utDays(new Date(SUPPORTED_MAX));
  * the half-open window filter on emitted results, not this clamp, that keeps
  * reported answers inside the interval.
  */
-function clampUt(ut: number): number {
+export function clampUt(ut: number): number {
     return ut < MIN_UT ? MIN_UT : (ut > MAX_UT ? MAX_UT : ut);
 }
 
@@ -153,7 +153,7 @@ export function quantizedUt(ut: number): number {
 }
 
 /** Hitting an iteration cap is a bug, not a runtime condition — see the spec. */
-function assertReached(condition: boolean, what: string): void {
+export function assertReached(condition: boolean, what: string): void {
     if (!condition) throw new Error(`almanac internal: ${what} did not converge`);
 }
 
@@ -210,7 +210,7 @@ function crossingSign(s: Sample, level: Level): number {
 // ----------------------------------------------------------- root findings
 
 /** Wrap a hour-angle difference into (−180, 180]. */
-function angleOffset(diff: number): number {
+export function angleOffset(diff: number): number {
     let offset = diff % 360;
     if (offset <= -180) offset += 360;
     else if (offset > 180) offset -= 360;
@@ -650,7 +650,7 @@ export function moonTransits(startUtc: Date, endUtc: Date, observer: Observer): 
  * moon-phase definition — upstream's `PairLongitude` uses geometric longitudes,
  * which sit a flat ~40 s off the USNO catalogue.
  */
-const MEAN_SYNODIC_MONTH = 29.530588;
+export const MEAN_SYNODIC_MONTH = 29.530588;
 const PHASE_NAMES: readonly MoonPhaseName[] = ['new', 'firstQuarter', 'full', 'lastQuarter'];
 
 interface QuadRoot { t: number; dfdt: number; }

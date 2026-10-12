@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { sunPosition, moonPosition } from '../src/index.js';
-import { sunApparentAtTT, moonApparentAtTT } from '../src/positions.js';
+import { sunPosition, moonPosition, equationOfTime } from '../src/index.js';
+import { sunApparentAtTT, moonApparentAtTT, equationOfTimeAtTT } from '../src/positions.js';
 import { earthHelioVector, vsopEarth, type VsopFormula } from '../src/sun.js';
 import { PI2 } from '../src/nutation.js';
 
@@ -45,6 +45,26 @@ for (const [file, fn, distKey, tolDist] of [
   });
 }
 it('out of range throws', () => expect(() => sunPosition(new Date('1949-12-31T23:59:59Z'))).toThrow());
+
+// Horizons' local apparent solar time at longitude 0 is UT plus the equation of
+// time. The 2100 rows carry Horizons' frozen Delta-T, which moves the UT label
+// by up to 134 s; the equation of time changes under 0.5 min a day, so that is
+// below a thousandth of a minute here.
+const EOT_TOL_MIN = 2 / 60;
+it('equation-of-time/horizons-eot.json within 2 s', () => {
+  let worst = 0;
+  for (const row of load('equation-of-time/horizons-eot.json')) {
+    const diff = equationOfTime(new Date(row.utc)) - row.minutes;
+    worst = Math.max(worst, Math.abs(diff));
+    expect(Math.abs(diff), `equation of time @ ${row.utc}`).toBeLessThan(EOT_TOL_MIN);
+  }
+  expect(worst).toBeGreaterThan(0);
+});
+// Meeus, Astronomical Algorithms, example 28.a: 1992 October 13 at 0h TD, E = +13m42.6s.
+it('Meeus example 28.a', () => {
+  expect(Math.abs(equationOfTimeAtTT(ttDaysOf('1992-10-13T00:00:00Z')) - (13 + 42.6 / 60))).toBeLessThan(0.05);
+});
+it('equation of time out of range throws', () => expect(() => equationOfTime(new Date('2101-01-01T00:00:00Z'))).toThrow());
 
 // `earthHelioVector` evaluates the VSOP87 Earth series term by term. This is
 // upstream's `VsopFormula` loop over the same table; the unrolled functions
