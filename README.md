@@ -71,6 +71,8 @@ Migration guides for [SunCalc](docs/migrating-from-suncalc.md), [Astronomy Engin
 
 Angles use degrees. All three ports provide `degreesToRadians(angle)` and `radiansToDegrees(angle)` for callers that use radians. These functions preserve sign and full turns without wrapping or changing the angle's origin; non-finite inputs and conversion overflow raise validation errors. Swift calls use `try`.
 
+For an instantaneous day/night decision, `sunIsUp(time, observer, heightAboveGroundM = 0)` uses the same upper-limb convention as sunrise and sunset, including polar periods. See the [day/night recipe](docs/cookbook.md).
+
 ### JavaScript module loading
 
 The npm package is ESM and has no separate CommonJS build. Use Node 22.12 or later for the Node examples; CI and release checks load the packed package on Node 22.12 and Node 24. Browser applications can import it through their ESM bundler.
@@ -198,7 +200,7 @@ print(try equationOfTime(today))   // sundial minus clock, minutes
 
 ### Kotlin/JVM and Android
 
-The Kotlin library provides the same 37 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
+The Kotlin library provides the same 38 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
 
 ```kotlin
 import io.openwaters.almanac.*

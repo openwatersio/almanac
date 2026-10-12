@@ -533,6 +533,14 @@ function flatCycle(observer: Observer): boolean {
     return Math.abs(observer.latitudeDeg) >= FLAT_CYCLE_LATITUDE_DEG;
 }
 
+/** Whether the Sun's upper limb is above the modeled horizon, using the sunrise/set convention. */
+export function sunIsUp(time: Date, observer: Observer, heightAboveGroundM = 0): boolean {
+    assertSupported(time);
+    const dip = horizonDip(observer, heightAboveGroundM);
+    const sample = sunSampler(observer, dip)(utDays(time));
+    return sample.altDeg > sample.riseSetAltDeg;
+}
+
 /**
  * Sun rise, set, the three twilights and upper transit within the half-open
  * window `[startUtc, endUtc)`, sorted ascending.

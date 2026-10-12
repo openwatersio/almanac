@@ -23,7 +23,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
     sunPosition, moonPosition, sunAltAz, moonAltAz, starAltAz, moonIllumination,
-    sunEvents, moonEvents, searchMoonPhases,
+    sunIsUp, sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
     solarEclipses, solarObscuration, nextSolarEclipse, previousSolarEclipse,
     nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses,
@@ -132,6 +132,7 @@ function buildPositionsAltazIllumination() {
         const starAa = starAltAz(BETELGEUSE.raDeg, BETELGEUSE.decDeg, t, VICTORIA);
         altaz.push({
             tMs,
+            sunIsUp: sunIsUp(t, VICTORIA),
             sun: { azDeg: qAngle(sunAa.azDeg), altDeg: qAngle(sunAa.altDeg) },
             moon: { azDeg: qAngle(moonAa.azDeg), altDeg: qAngle(moonAa.altDeg) },
             star: { azDeg: qAngle(starAa.azDeg), altDeg: qAngle(starAa.altDeg) },
@@ -480,6 +481,7 @@ const ROW_SCHEMAS = {
     },
     altaz: {
         tMs: EXACT,
+        sunIsUp: EXACT,
         sun: { azDeg: SCALED, altDeg: SCALED },
         moon: { azDeg: SCALED, altDeg: SCALED },
         star: { azDeg: SCALED, altDeg: SCALED },
