@@ -40,5 +40,10 @@ fun main() {
     check(previousSolarEclipse(solar.peak.plusMillis(101), observer) == solar)
     check(solarEclipses(solar.peak, solar.peak.plusMillis(1), observer).single() == solar)
     check(solarObscuration(solar.peak, observer) > 0)
+    val global = nextGlobalSolarEclipse(time)
+    check(previousGlobalSolarEclipse(global.peak.plusMillis(101)) == global)
+    check(globalSolarEclipses(global.peak, global.peak.plusMillis(1)).single() == global)
+    check(solarEclipseAxisPoint(global.peak) != null)
+    check(solarEclipseCentralLine(global.peak).isNotEmpty())
     println("Almanac source consumer passed")
 }

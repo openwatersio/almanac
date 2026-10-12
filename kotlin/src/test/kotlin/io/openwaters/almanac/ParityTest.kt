@@ -17,6 +17,51 @@ internal fun eventNear(time: Instant, expected: JsonObject, field: String = "tMs
 internal class ParityTest {
     private val victoria = Observer(48.4284, -123.3656)
 
+    @Test fun globalSolarEclipsesReproduceAnchorsWindowsAndAxisPoints() {
+        fun compare(e: GlobalSolarEclipse, row: JsonObject) {
+            assertEquals(row.string("kind"), e.kind.toString())
+            eventNear(e.peak,row,"peakMs")
+            scaledNear(e.axisDistanceKm,row,"axisDistanceKm",1e3)
+            for ((field,value) in listOf("latitudeDeg" to e.latitudeDeg,"longitudeDeg" to e.longitudeDeg,"obscuration" to e.obscuration,"greatestLatitudeDeg" to e.greatestLatitudeDeg,"greatestLongitudeDeg" to e.greatestLongitudeDeg,"greatestObscuration" to e.greatestObscuration)) {
+                if (row.getValue(field) == JsonNull) assertNull(value) else scaledNear(assertNotNull(value),row,field,1e6)
+            }
+        }
+        val file = fixture("parity/globalSolar").obj()
+        for (element in file.array("anchors")) {
+            val row = element.obj()
+            val time = Instant.ofEpochMilli(row.getValue("tMs").jsonPrimitive.long)
+            compare(nextGlobalSolarEclipse(time),row.getValue("next").obj())
+            compare(previousGlobalSolarEclipse(time),row.getValue("previous").obj())
+        }
+        for (element in file.array("windows")) {
+            val row = element.obj()
+            val found = globalSolarEclipses(Instant.ofEpochMilli(row.getValue("startMs").jsonPrimitive.long),Instant.ofEpochMilli(row.getValue("endMs").jsonPrimitive.long))
+            assertEquals(row.array("eclipses").size,found.size)
+            for ((i,e) in found.withIndex()) compare(e,row.array("eclipses")[i].obj())
+        }
+        fun point(p: SolarEclipseAxisPoint, row: JsonObject) {
+            assertEquals(row.string("kind"),p.kind.toString())
+            scaledNear(p.latitudeDeg,row,"latitudeDeg",1e6)
+            scaledNear(p.longitudeDeg,row,"longitudeDeg",1e6)
+            scaledNear(p.obscuration,row,"obscuration",1e6)
+        }
+        val central = fixture("parity/centralLine").obj()
+        for (element in central.array("axisTrack")) {
+            val row = element.obj()
+            val actual = solarEclipseAxisPoint(Instant.ofEpochMilli(row.getValue("tMs").jsonPrimitive.long))
+            if (row.getValue("point") == JsonNull) assertNull(actual) else point(assertNotNull(actual),row.getValue("point").obj())
+        }
+        val peak = Instant.parse("2044-08-23T01:15:34Z")
+        val line = solarEclipseCentralLine(peak)
+        assertEquals(59,line.size)
+        assertEquals(central.array("centralLine").size,line.size)
+        for ((i,p) in line.withIndex()) {
+            val row = central.array("centralLine")[i].obj()
+            eventNear(p.time,row)
+            point(p,row)
+        }
+    }
+
     @Test fun positionsReproduceScaledCorpus() {
         val rows = fixture("parity/positions").jsonArray
         assertEquals(6894, rows.size)
