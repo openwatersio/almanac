@@ -7,5 +7,12 @@ fun main() {
     val time = Instant.parse("2026-03-20T12:00:00Z")
     check(sunPosition(time).distanceAu > 0.9)
     check(moonPosition(time).distanceKm > 300_000)
+    val observer = Observer(48.4284, -123.3656, 2.0)
+    check(sunAltAz(time, observer).altDeg.isFinite())
+    check(moonAltAz(time, observer).azDeg.isFinite())
+    check(starAltAz(88.792939, 7.407064, time, observer).altDeg.isFinite())
+    check(horizonDip(observer, 2.0) < 0)
+    check(moonIllumination(time).phase in 0.0..1.0)
+    check(moonOrientation(time, observer).brightLimbAngleDeg >= 0)
     println("Almanac source consumer passed")
 }
