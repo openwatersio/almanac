@@ -20,6 +20,14 @@ fun main() {
         check(planetPosition(planet, time).distanceAu > 0)
         check(planetAltAz(planet, time, observer).azDeg.isFinite())
         check(planetIllumination(planet, time).magnitude.isFinite())
+        check(planetEvents(planet, time, time.plusSeconds(2*86400), observer).isNotEmpty())
     }
+    val end = time.plusSeconds(31*86400)
+    check(sunEvents(time, end, observer).isNotEmpty())
+    check(moonEvents(time, end, observer).isNotEmpty())
+    check(sunAltitudeEvents(time, end, observer, 6.0).isNotEmpty())
+    check(sunTransits(time, end, observer).isNotEmpty())
+    check(moonTransits(time, end, observer).isNotEmpty())
+    check(searchMoonPhases(time, end).isNotEmpty())
     println("Almanac source consumer passed")
 }

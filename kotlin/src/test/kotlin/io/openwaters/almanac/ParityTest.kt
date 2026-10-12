@@ -9,6 +9,10 @@ internal fun scaled(value: Double, scale: Double): Long = floor(value * scale + 
 internal fun scaledNear(actual: Double, expected: JsonObject, field: String, scale: Double) {
     near(scaled(actual, scale).toDouble(), expected.number(field), 5.0, "$field $expected")
 }
+internal fun eventMs(time: Instant): Long = scaled(time.toEpochMilli() / 100.0, 1.0) * 100
+internal fun eventNear(time: Instant, expected: JsonObject, field: String = "tMs") {
+    near(eventMs(time).toDouble(), expected.number(field), 100.0, "$field $expected")
+}
 
 internal class ParityTest {
     private val victoria = Observer(48.4284, -123.3656)
@@ -95,6 +99,91 @@ internal class ParityTest {
             scaledNear(i.phaseAngleDeg, ei, "phaseAngleDeg", 1e6)
             scaledNear(i.magnitude, ei, "magnitude", 1e6)
             scaledNear(i.elongationDeg, ei, "elongationDeg", 1e6)
+        }
+    }
+
+    @Test fun eventFamiliesReproduceKindsCountsAndTimeQuanta() {
+        val file = fixture("parity/events").obj()
+        val sites = file.array("observers").map { it.obj().observer() }
+        val sun = mutableListOf<Triple<Int,Instant,String>>()
+        val moon = mutableListOf<Triple<Int,Instant,String>>()
+        for ((i,site) in sites.withIndex()) for (month in 1..12) {
+            val start = Instant.parse("2026-%02d-01T00:00:00Z".format(month))
+            val end = if (month == 12) Instant.parse("2027-01-01T00:00:00Z") else Instant.parse("2026-%02d-01T00:00:00Z".format(month+1))
+            sun.addAll(sunEvents(start,end,site).map { Triple(i,it.time,it.kind.toString()) })
+            moon.addAll(moonEvents(start,end,site).map { Triple(i,it.time,it.kind.toString()) })
+        }
+        assertEquals(9449,sun.size)
+        assertEquals(2115,moon.size)
+        for ((values,name) in listOf(sun to "sunEvents",moon to "moonEvents")) {
+            val rows = file.array(name)
+            assertEquals(rows.size,values.size)
+            for ((i,value) in values.withIndex()) {
+                val row = rows[i].obj()
+                assertEquals(row.number("observerIdx").toInt(),value.first)
+                assertEquals(row.string("kind"),value.third)
+                eventNear(value.second,row)
+            }
+        }
+        val phases = searchMoonPhases(Instant.parse("2026-01-01T00:00:00Z"),Instant.parse("2027-01-01T00:00:00Z"))
+        assertEquals(file.array("moonPhases").size,phases.size)
+        for ((i,phase) in phases.withIndex()) {
+            val row = file.array("moonPhases")[i].obj()
+            assertEquals(row.string("phase"),phase.phase.toString())
+            eventNear(phase.time,row)
+        }
+        for (element in fixture("parity/planets").obj().array("events")) {
+            val row = element.obj()
+            val found = planetEvents(row.planet(),Instant.ofEpochMilli(row.getValue("startMs").jsonPrimitive.long),Instant.ofEpochMilli(row.getValue("endMs").jsonPrimitive.long),row.getValue("observer").obj().observer(),row.number("heightAboveGroundM"))
+            assertEquals(row.array("events").size,found.size)
+            for ((i,e) in found.withIndex()) {
+                val expected = row.array("events")[i].obj()
+                assertEquals(expected.string("kind"),e.kind.toString())
+                eventNear(e.time,expected)
+            }
+        }
+        val height = fixture("parity/height").obj().getValue("events").obj()
+        val start = Instant.ofEpochMilli(height.getValue("startMs").jsonPrimitive.long)
+        val end = Instant.ofEpochMilli(height.getValue("endMs").jsonPrimitive.long)
+        val site = height.getValue("observer").obj().observer()
+        val eye = height.number("heightAboveGroundM")
+        for ((values,name) in listOf(sunEvents(start,end,site,eye).map { it.time to it.kind.toString() } to "sun",moonEvents(start,end,site,eye).map { it.time to it.kind.toString() } to "moon")) {
+            assertEquals(height.array(name).size,values.size)
+            for ((i,e) in values.withIndex()) {
+                val row = height.array(name)[i].obj()
+                assertEquals(row.string("kind"),e.second)
+                eventNear(e.first,row)
+            }
+        }
+    }
+
+    @Test fun sunCalcEventFamiliesReproduceTimeQuanta() {
+        val file = fixture("parity/suncalc").obj()
+        val altitude = mutableListOf<JsonObject>()
+        val transits = mutableListOf<JsonObject>()
+        for ((i,site) in file.array("observers").map { it.obj().observer() }.withIndex()) for (month in listOf(1,4,7,10)) {
+            val start = Instant.parse("2026-%02d-01T00:00:00Z".format(month))
+            val end = Instant.parse("2026-%02d-01T00:00:00Z".format(month+1))
+            for (level in listOf(6.0,-0.3,-4.0,-8.0)) for (e in sunAltitudeEvents(start,end,site,level)) altitude.add(buildJsonObject {
+                put("observerIdx",i); put("altitudeDeg",level); put("tMs",eventMs(e.time)); put("kind",e.kind.toString())
+            })
+            for (body in listOf("sun","moon")) for (e in if (body == "sun") sunTransits(start,end,site) else moonTransits(start,end,site)) transits.add(buildJsonObject {
+                put("observerIdx",i); put("body",body); put("tMs",eventMs(e.time)); put("kind",e.kind.toString())
+            })
+        }
+        assertEquals(3608,altitude.size)
+        assertEquals(1932,transits.size)
+        for ((values,name) in listOf(altitude to "altitudeEvents",transits to "transits")) {
+            val rows = file.array(name)
+            assertEquals(rows.size,values.size)
+            for ((i,value) in values.withIndex()) {
+                val row = rows[i].obj()
+                assertEquals(row.string("kind"),value.string("kind"))
+                assertEquals(row.number("observerIdx"),value.number("observerIdx"))
+                if (name == "transits") assertEquals(row.string("body"),value.string("body"))
+                else assertEquals(row.number("altitudeDeg"),value.number("altitudeDeg"))
+                near(value.number("tMs"),row.number("tMs"),100.0,"$row")
+            }
         }
     }
 }
