@@ -1,0 +1,74 @@
+{
+  "sources": {
+    "suncalc": {
+      "version": "1.9.0",
+      "url": "https://github.com/mourner/suncalc/blob/v1.9.0/suncalc.js",
+      "call": "getPosition(new Date(time), latitudeDeg, longitudeDeg)"
+    },
+    "astronomyEngine": {
+      "version": "2.1.19",
+      "url": "https://www.npmjs.com/package/astronomy-engine/v/2.1.19",
+      "calls": [
+        "Horizon(time, observer, Equator(body, time, observer, true, true).ra, Equator(body, time, observer, true, true).dec, \"normal\")",
+        "MoonPhase(time)",
+        "Illumination(Body.Moon, time).phase_fraction"
+      ]
+    }
+  },
+  "suncalc": [
+    {
+      "time": "2026-06-21T12:00:00Z",
+      "latitudeDeg": 60.17,
+      "longitudeDeg": 24.94,
+      "azimuth": 0.6244978597149959,
+      "altitude": 0.8641696061889081
+    },
+    {
+      "time": "2026-03-20T04:25:00Z",
+      "latitudeDeg": 60.17,
+      "longitudeDeg": 24.94,
+      "azimuth": -1.5802059781884128,
+      "altitude": -0.012345842491858603
+    }
+  ],
+  "astronomyEngine": [
+    {
+      "time": "2026-06-21T12:00:00Z",
+      "latitudeDeg": 60.17,
+      "longitudeDeg": 24.94,
+      "sun": {
+        "altDeg": 49.511864247273486,
+        "azDeg": 215.84002664261547
+      },
+      "moon": {
+        "altDeg": 13.519729525062928,
+        "azDeg": 116.4226057066139
+      },
+      "venus": {
+        "altDeg": 47.75409466770748,
+        "azDeg": 154.85471590114196
+      },
+      "phaseDeg": 85.06955564088135,
+      "fraction": 0.45831424801030923
+    },
+    {
+      "time": "2026-03-20T04:25:00Z",
+      "latitudeDeg": 60.17,
+      "longitudeDeg": 24.94,
+      "sun": {
+        "altDeg": 0.06587010624480172,
+        "azDeg": 89.48391695826898
+      },
+      "moon": {
+        "altDeg": 0.4288972176114356,
+        "azDeg": 74.46566645120718
+      },
+      "venus": {
+        "altDeg": -2.6383215095753627,
+        "azDeg": 72.19236604222756
+      },
+      "phaseDeg": 14.772662424566818,
+      "fraction": 0.017293231409422127
+    }
+  ]
+}

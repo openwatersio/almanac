@@ -11,9 +11,42 @@ import { readFileSync } from 'node:fs';
 import {
   sunAltAz, sunEvents, sunAltitudeEvents, sunTransits, horizonDip,
   moonAltAz, moonPosition, moonIllumination, moonOrientation, moonEvents, moonTransits,
+  AlmanacOutOfRangeError,
+  type SunEvent, type SunEventKind, type Observer,
 } from '../src/index.js';
 
 // --- guide examples ---------------------------------------------------------
+
+function nauticalSunPosition(date: Date, lat: number, lng: number) {
+  const { azDeg, altDeg } = sunAltAz(date, { latitudeDeg: lat, longitudeDeg: lng });
+  const radians = Math.PI / 180;
+  return { azimuth: ((azDeg + 180) % 360 - 180) * radians, altitude: altDeg * radians };
+}
+
+function nextSunEvent(events: SunEvent[], after: Date, kind: SunEventKind): Date | null {
+  return events.find(e => e.kind === kind && e.time > after)?.time ?? null;
+}
+
+function lastSunEvent(events: SunEvent[], at: Date, kind: SunEventKind): Date | null {
+  return events.findLast(e => e.kind === kind && e.time <= at)?.time ?? null;
+}
+
+function nightBounds(events: SunEvent[]) {
+  const civilDusk = events.find(e => e.kind === 'civilDusk')?.time ?? null;
+  const civilDawn = civilDusk
+    ? events.find(e => e.kind === 'civilDawn' && e.time > civilDusk)?.time ?? null
+    : null;
+  return { civilDusk, civilDawn };
+}
+
+function sunEventsOrEmpty(start: Date, end: Date, observer: Observer): SunEvent[] {
+  try {
+    return sunEvents(start, end, observer);
+  } catch (error) {
+    if (error instanceof AlmanacOutOfRangeError) return [];
+    throw error;
+  }
+}
 
 function getPosition(date: Date, lat: number, lng: number) {
   const { azDeg, altDeg } = sunAltAz(date, { latitudeDeg: lat, longitudeDeg: lng });
@@ -243,4 +276,75 @@ it('getMoonTimes: rise and set within 5 s, transits within 2 s', () => {
       expect(seconds(mine[key], value), `${name} ${key}`).toBeLessThan(key.endsWith('ransit') ? 2 : 5);
     }
   }
+});
+
+const migrationReference = JSON.parse(readFileSync(new URL('./migration-references.json', import.meta.url), 'utf8'));
+const helsinki = { latitudeDeg: 60.17, longitudeDeg: 24.94 };
+const victoria = { latitudeDeg: 48.4284, longitudeDeg: -123.3656 };
+
+it('the SunCalc 1 nautical adapter preserves north-based radians', () => {
+  const ref = migrationReference.suncalc[0];
+  const mine = nauticalSunPosition(new Date(ref.time), ref.latitudeDeg, ref.longitudeDeg);
+  expect(mine.azimuth).toBeGreaterThan(-Math.PI);
+  expect(mine.azimuth).toBeLessThan(Math.PI);
+  expect(Math.abs(mine.azimuth - (ref.azimuth - Math.PI))).toBeLessThan(0.2 * Math.PI / 180);
+  expect(Math.abs(mine.altitude - ref.altitude)).toBeLessThan(0.2 * Math.PI / 180);
+});
+
+it('the SunCalc 1 adapter exposes the refraction change near sunrise', () => {
+  const ref = migrationReference.suncalc[1];
+  expect(ref.altitude).toBeLessThan(0);
+  expect(nauticalSunPosition(new Date(ref.time), ref.latitudeDeg, ref.longitudeDeg).altitude).toBeGreaterThan(0);
+});
+
+it('next is strict and last includes an event at the anchor in the computed list', () => {
+  const events = sunEvents(new Date('2026-03-20T00:00:00Z'), new Date('2026-03-23T00:00:00Z'), victoria);
+  const sunset = events.find(e => e.kind === 'set')!.time;
+  expect(lastSunEvent(events, sunset, 'set')).toEqual(sunset);
+  expect(nextSunEvent(events, sunset, 'set')!.toISOString()).toMatch(/^2026-03-21T/);
+  expect(lastSunEvent(events, new Date('2026-03-20T00:00:00Z'), 'set')).toBeNull();
+  expect(nextSunEvent(events, new Date('2026-03-23T00:00:00Z'), 'rise')).toBeNull();
+});
+
+it('the selection recipes cannot recover an event excluded by the window end', () => {
+  const start = new Date('2026-03-20T00:00:00Z');
+  const events = sunEvents(start, new Date('2026-03-21T00:00:00Z'), victoria);
+  const sunset = events.find(e => e.kind === 'set')!.time;
+  const excluded = sunEvents(start, sunset, victoria);
+  expect(lastSunEvent(excluded, sunset, 'set')).toBeNull();
+  expect(lastSunEvent(events, sunset, 'set')).toEqual(sunset);
+});
+
+it('night bounds pair dusk with the following dawn', () => {
+  const events = sunEvents(new Date('2026-03-20T12:00:00Z'), new Date('2026-03-22T12:00:00Z'), victoria);
+  const night = nightBounds(events);
+  expect(night.civilDusk!.toISOString()).toMatch(/^2026-03-21T/);
+  expect(night.civilDawn!.toISOString()).toMatch(/^2026-03-21T/);
+  expect(+night.civilDawn!).toBeGreaterThan(+night.civilDusk!);
+  expect(nightBounds([])).toEqual({ civilDusk: null, civilDawn: null });
+});
+
+it('getTimes keeps the surviving rise on a polar transition day', () => {
+  const result = getTimes(new Date('2026-05-16T12:00:00Z'), 69.6492, 18.9553, 0, 120);
+  expect((result.sunrise as Date).toISOString()).toMatch(/^2026-05-15T23:32:/);
+  expect(result.sunset).toBeNull();
+  expect(result.alwaysUp).toBeUndefined();
+  expect(result.alwaysDown).toBeUndefined();
+});
+
+it('the optional range fallback preserves invalid input errors', () => {
+  expect(sunEventsOrEmpty(new Date('1900-01-01'), new Date('1900-01-02'), helsinki)).toEqual([]);
+  expect(() => sunEventsOrEmpty(new Date(NaN), new Date('2026-01-02'), helsinki)).toThrow(RangeError);
+  expect(() => sunEventsOrEmpty(new Date('2026-01-01'), new Date('2026-01-02'), { latitudeDeg: 91, longitudeDeg: 0 })).toThrow(RangeError);
+  expect(sunEventsOrEmpty(new Date('2026-06-21'), new Date('2026-06-22'), { latitudeDeg: 78.22, longitudeDeg: 15.63 }).filter(e => e.kind === 'rise' || e.kind === 'set')).toEqual([]);
+});
+
+it('explicit windows work at the supported edges while padded solar days can exceed them', () => {
+  for (const [start, end] of [['1950-01-01', '1950-01-03'], ['2100-12-30', '2101-01-01']]) {
+    const events = sunEventsOrEmpty(new Date(start), new Date(end), victoria);
+    expect(events.length).toBeGreaterThan(0);
+    expect(events.every(e => +e.time >= +new Date(start) && +e.time < +new Date(end))).toBe(true);
+  }
+  expect(() => solarDay(new Date('1950-01-01'), victoria)).toThrow(AlmanacOutOfRangeError);
+  expect(() => solarDay(new Date('2100-12-31T12:00:00Z'), victoria)).toThrow(AlmanacOutOfRangeError);
 });
