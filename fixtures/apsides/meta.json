@@ -1,0 +1,19 @@
+{
+  "source": "JPL Horizons API, quantity 20 (geocentric range and range rate of the Moon), hourly",
+  "sourceVersion": "1.2",
+  "requests": [
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%27301%27&CENTER=%27500%40399%27&QUANTITIES=%2720%27&START_TIME=%271950-01-01%27&STOP_TIME=%271950-07-01%27&STEP_SIZE=%271h%27",
+      "retrieved": "2026-10-11"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%27301%27&CENTER=%27500%40399%27&QUANTITIES=%2720%27&START_TIME=%272026-01-01%27&STOP_TIME=%272027-01-01%27&STEP_SIZE=%271h%27",
+      "retrieved": "2026-10-11"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&ANG_FORMAT=%27DEG%27&TIME_DIGITS=%27SECONDS%27&COMMAND=%27301%27&CENTER=%27500%40399%27&QUANTITIES=%2720%27&START_TIME=%272049-07-01%27&STOP_TIME=%272050-01-01%27&STEP_SIZE=%271h%27",
+      "retrieved": "2026-10-11"
+    }
+  ],
+  "note": "Apsis instants are the linear interpolation of the hourly range rate through zero, to the second. distanceKm is the nearest hourly row's geocentric range. Windows end in 2049 so Horizons' frozen Delta-T stays within a few seconds of the Espenak-Meeus model."
+}

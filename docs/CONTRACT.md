@@ -15,7 +15,7 @@ Both ports implement four matching layers:
 - Time: Julian date and Delta-T from the Espenak–Meeus piecewise polynomials.
 - Positions: truncated VSOP87 for the Sun and planets, Montenbruck–Pfleger MOON2 for the Moon, and truncated IAU 2000B nutation and aberration translated from upstream.
 - Transforms: ecliptic and equatorial conversion on the equator of date, equatorial to horizontal conversion, topocentric parallax, precession for fixed-star catalog positions, and atmospheric refraction.
-- Events: root finding over the position and transform layers for rise, set, twilight, caller-chosen Sun altitudes, upper and lower transit, phase, lunar eclipse, and solar eclipse searches.
+- Events: root finding over the position and transform layers for rise, set, twilight, caller-chosen Sun altitudes, upper and lower transit, phase, season, lunar apsis, lunar eclipse, and solar eclipse searches. Season and apsis searches bracket each root in a fixed grid anchored at J2000, so every window containing an event reports the same millisecond.
 
 Event searches use the same position models returned by the position functions. Lunar eclipses are found from the Moon's distance to the Earth's shadow axis rather than from a separate precomputed eclipse series. Solar eclipses are found from an observer's distance to the Moon's shadow axis at each new moon, and global solar eclipses from the Earth's center's distance to the same axis, whose crossing of the ground between its first and last contact is the central line.
 
@@ -44,6 +44,9 @@ The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the int
 - The Moon's bright-limb angle is the position angle of the midpoint of its bright limb, from celestial north on the true equator of date through east, in `[0, 360)`, from the apparent topocentric Moon and the apparent geocentric Sun (Meeus, *Astronomical Algorithms*, 48.5). The parallactic angle is the angle at the Moon from celestial north to the observer's geodetic zenith, in `(-180, 180]`, from the Moon's topocentric hour angle and declination (Meeus 14.1). The bright-limb angle minus the parallactic angle is the bright limb's angle from the zenith.
 - Planet rise/set uses a point center: unrefracted topocentric altitude crosses `horizonDip - 34/60` degrees, with no planetary semidiameter. Polar windows may have no crossing; supplied eye height uses the same convention as Sun/Moon events.
 - Moon phase events and `moonIllumination.phase` use apparent geocentric ecliptic longitudes, including aberration and nutation.
+- A season starts when the Sun's apparent geocentric ecliptic longitude reaches 0°, 90°, 180°, or 270°, the same longitude the phase search reads. Kinds are named for months because one instant starts opposite seasons in the two hemispheres.
+- A lunar apsis is a zero of the Moon's geocentric radial velocity in the MOON2 theory, perigee where the distance is a minimum and apogee where it is a maximum. The reported distance is the position model's distance at that instant, so it carries the model's distance bias.
+- The equation of time is Meeus's formula 28.1: the Sun's mean longitude less its apparent right ascension, with the aberration and FK5 constant and the nutation in right ascension, converted at four minutes per degree.
 - Lunar eclipse visibility is geometric: the unrefracted topocentric altitude of the Moon's center must be above the supplied horizon dip. It does not account for weather, terrain, refraction, or safe-viewing conditions.
 - Solar eclipse circumstances are observer-bound. The peak is the closest approach of the Moon's shadow axis to the observer, not greatest eclipse. The Sun's altitude at each contact is the refracted topocentric value `sunAltAz` reports for that instant. An eclipse whose Sun is below the supplied horizon at C1, the peak, and C4 is not returned. `solarObscuration` is purely geometric and does not test the horizon.
 - Global solar eclipse circumstances need no observer. The peak is greatest eclipse, the closest approach of the Moon's shadow axis to the Earth's center and the instant the Espenak catalog tabulates. The ground point is where the axis first meets the WGS-84 ellipsoid at the peak, as geodetic latitude and east longitude in `(-180, 180]`, and the kind and obscuration are what an observer standing there sees. An axis that misses the Earth gives a partial eclipse with no ground point, even when part of the umbra reaches the surface. Greatest eclipse always has a place: the ground point when there is one, and otherwise the point on the Earth's limb nearest the axis, where the Sun's center is on the geometric horizon, with no refraction. The axis point is the same ground point at any instant, and the central line samples it from the axis's first ground contact to its last, where the axis grazes the Earth with the Sun on the horizon.
@@ -67,6 +70,9 @@ The functions have the same names and semantics in both ports. TypeScript return
 | `starAltAz(raDeg, decDeg, time, observer)` | J2000 ICRS catalog coordinates, instant, and observer | Precessed, nutated, and refracted `azDeg` and `altDeg`; no annual aberration, proper motion, or parallax. |
 | `moonOrientation(time, observer)` | Instant and observer | `MoonOrientation`: `brightLimbAngleDeg` in `[0, 360)` and `parallacticAngleDeg` in `(-180, 180]`. |
 | `moonIllumination(time)` | Instant | `fraction` in `[0, 1]`, `phaseAngleDeg` in `[0, 180]`, `phase` in `[0, 1)`, and `waxing`. Phase angle is zero at full Moon and 180 degrees at new Moon; phase is zero at new Moon and 0.5 at full Moon; `fraction = (1 + cos θ) / 2`. |
+| `equationOfTime(time)` | Instant | Apparent solar time minus mean solar time, in minutes, positive when a sundial runs ahead of the clock. |
+| `seasons(startUtc, endUtc)` | Half-open window | Sorted `{time, kind}` values where `kind` is `marchEquinox`, `juneSolstice`, `septemberEquinox`, or `decemberSolstice`. |
+| `moonApsides(startUtc, endUtc)` | Half-open window | Sorted `{time, kind, distanceKm}` values where `kind` is `perigee` or `apogee` and `distanceKm` is the Earth–Moon centre distance at that instant. |
 | `sunEvents(startUtc, endUtc, observer, heightAboveGroundM = 0)` | Half-open window and observer | Sorted `{time, kind}` values where `kind` is `rise`, `set`, `civilDawn`, `civilDusk`, `nauticalDawn`, `nauticalDusk`, `astroDawn`, `astroDusk`, or `transit`. Polar windows may omit crossings; transit is still returned. |
 | `moonEvents(startUtc, endUtc, observer, heightAboveGroundM = 0)` | Half-open window and observer | Sorted `{time, kind}` values where `kind` is `rise` or `set`. |
 | `sunAltitudeEvents(startUtc, endUtc, observer, altitudeDeg)` | Half-open window, observer, and the Sun's geometric center altitude in `[-90, 90]` | Sorted `AltitudeEvent` values with `time` and `kind` (`rising` or `falling`). |
@@ -135,6 +141,9 @@ External fixtures determine physical correctness. Committed raw responses preser
 - Sun altitude events use the same airless one-minute Horizons grid at `+6°`, `-0.3°`, `-4°`, and `-8°`, at Victoria, 60°N, 20°N, and 70.5°N. The 70.5°N days put the Sun's daily extremum within hundredths of a degree of `+6°`, `-0.3°`, and `-4°` next to days with no crossing, and every grid block must return each crossing once and nothing else. A one-minute brute-force scan at 88.5°N covers the flattening band.
 - Transits use USNO's daily upper transit of the Moon and lower transit of the Sun and Moon, which it lists when the body is above the horizon, and one-minute Horizons local apparent hour angle grids at Victoria and 88.5°S for both kinds and both bodies. A one-minute brute-force hour-angle scan at 88.5°S and 89.5°N covers the flattening band.
 - Moon orientation uses hourly Horizons topocentric apparent positions of the Moon and Sun through March 2026 at Victoria and 70.5°N. Horizons' `PsAng` is measured from the ICRF pole, so the bright-limb reference applies the same formula to Horizons' apparent positions on the equator of date, and derive.mjs asserts that the formula on Horizons' ICRF positions reproduces `PsAng` plus 180°. The parallactic angle reference comes from Horizons' airless azimuth and elevation, and agrees with Horizons' hour angle and declination. A spherical-trigonometry oracle from the unrefracted azimuth and altitude checks the parallactic angle at eight latitudes.
+- Equinoxes and solstices use the USNO seasons service for every year from 1950 through 2100, to the minute. Rows after 2050 are quarantined like the phases, because the UT label of a Terrestrial Time event moves with the Delta-T projection.
+- Lunar apsides use hourly Horizons geocentric range and range rate over the first half of 1950, all of 2026, and the second half of 2049, with each apsis interpolated to the second where the range rate crosses zero. The windows stop before 2050 so Horizons' frozen Delta-T stays within seconds of the model.
+- The equation of time uses Horizons' local apparent solar time for an observer at latitude and longitude zero, every six hours through 2026 and daily through 1950 and 2100, plus Meeus's worked example 28.a.
 - Lunar eclipse types, peaks, magnitudes, and selected contacts use the Espenak Five Millennium catalog.
 - Contact fixtures cover total, partial, and penumbral shapes, including absent umbral contacts.
 - Solar eclipse local circumstances (kind, contacts, Sun altitudes, obscuration) use the USNO Astronomical Applications API for eclipses from 2001 through 2026, the years that endpoint serves. USNO reports unrefracted Sun altitudes; the tests refract them with the port's own model before comparing.
@@ -175,6 +184,16 @@ The test suites enforce these physical tolerances:
 | The same with a glancing axis, beyond 6,100 kilometers | 15 kilometers |
 | Central line timing against the path tables | 60 seconds |
 | Annular obscuration on the central line against the tabulated diameter ratio squared | 0.002 |
+| Equinoxes and solstices | 90 seconds |
+| Lunar apsis time | 20 minutes |
+| Lunar apsis distance | 70 kilometers |
+| Equation of time | 2 seconds |
+
+Seasons are looser than other events because USNO rounds them to the minute, 30 seconds on its own, and the truncated VSOP87 Earth series sits about 1.5 arcseconds from the full theory in longitude, 35 seconds of the Sun's motion. Against Horizons the 2035 March equinox is 34 seconds late; against USNO the measured worst through 2050 is 79 seconds.
+
+An apsis is where the Moon's distance curve is flat, so its time is ill-conditioned: the lunar theory's periodic distance residual, below, moves the extremum by minutes, most at apogee where the curve is flattest. The measured worst across the three Horizons windows is 14.8 minutes and 54 kilometers.
+
+The equation of time's measured worst against Horizons is 1.0 second.
 
 The Montenbruck–Pfleger lunar distance model has a measured mean scale bias of `-27.3 ppm` against JPL ephemerides and a periodic residual reaching about `-139 ppm`; the observed maximum absolute difference is 53.3 kilometers. Angular accuracy is unaffected.
 

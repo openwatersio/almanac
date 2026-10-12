@@ -1,6 +1,6 @@
 # Almanac
 
-Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, any Sun altitude, upper and lower transits, Moon phase and orientation, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, any Sun altitude, upper and lower transits, Moon phase and orientation, equinoxes and solstices, lunar perigee and apogee, the equation of time, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
 
 Twin implementations, one behavior:
 
@@ -78,7 +78,8 @@ npm install @openwaters/almanac
 
 ```ts
 import {
-  nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, nextGlobalSolarEclipse, sunEvents, starAltAz
+  nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, nextGlobalSolarEclipse, sunEvents, starAltAz,
+  seasons, moonApsides, equationOfTime
 } from '@openwaters/almanac';
 
 const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
@@ -102,6 +103,13 @@ for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
 
 // Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
 const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
+
+// The year's equinoxes and solstices, the Moon's perigees and apogees with
+// distances, and the equation of time in minutes.
+const year = new Date(today.getUTCFullYear() + 1, 0, 1);
+for (const { kind, time } of seasons(today, year)) console.log(kind, time.toISOString());
+for (const { kind, time, distanceKm } of moonApsides(today, year)) console.log(kind, time.toISOString(), distanceKm);
+console.log(equationOfTime(today));   // sundial minus clock, minutes
 ```
 
 For an unobstructed sea horizon, supply eye height above the water separately from elevation above sea level. Body altitudes remain measured from the horizontal plane:
@@ -149,6 +157,13 @@ for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
 
 // Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
 let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer: observer)
+
+// The year's equinoxes and solstices, the Moon's perigees and apogees with
+// distances, and the equation of time in minutes.
+let year = today.addingTimeInterval(366 * 24 * 60 * 60)
+for event in try seasons(from: today, to: year) { print(event.kind, event.time) }
+for apsis in try moonApsides(from: today, to: year) { print(apsis.kind, apsis.time, apsis.distanceKm) }
+print(try equationOfTime(today))   // sundial minus clock, minutes
 ```
 
 ### Golden hour, transits, and the Moon's tilt

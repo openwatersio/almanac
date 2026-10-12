@@ -1,0 +1,50 @@
+{
+  "apiversion": "4.0.1",
+  "data": [
+    {
+      "day": 4,
+      "month": 1,
+      "phenom": "Perihelion",
+      "time": "11:04",
+      "year": 1976
+    },
+    {
+      "day": 20,
+      "month": 3,
+      "phenom": "Equinox",
+      "time": "11:50",
+      "year": 1976
+    },
+    {
+      "day": 21,
+      "month": 6,
+      "phenom": "Solstice",
+      "time": "06:24",
+      "year": 1976
+    },
+    {
+      "day": 3,
+      "month": 7,
+      "phenom": "Aphelion",
+      "time": "03:20",
+      "year": 1976
+    },
+    {
+      "day": 22,
+      "month": 9,
+      "phenom": "Equinox",
+      "time": "21:48",
+      "year": 1976
+    },
+    {
+      "day": 21,
+      "month": 12,
+      "phenom": "Solstice",
+      "time": "17:35",
+      "year": 1976
+    }
+  ],
+  "dst": false,
+  "tz": 0,
+  "year": 1976
+}

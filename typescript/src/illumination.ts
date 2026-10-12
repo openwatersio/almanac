@@ -47,6 +47,15 @@ function eclipticLonOfDateDeg(eqj: Vec3, tt: number): number {
     return elon;
 }
 
+/**
+ * INTERNAL: the Sun's apparent geocentric ecliptic longitude of date, [0, 360)
+ * — upstream `SunPosition(t).elon` (astronomy.ts ~2738), which `seasons.ts`
+ * roots against 0/90/180/270. Aberration is in the vector, nutation in the frame.
+ */
+export function sunEclipticLonDeg(tt: number): number {
+    return eclipticLonOfDateDeg(sunGeoVectorEqj(tt), tt);
+}
+
 /** UPSTREAM: `NormalizeLongitude`, astronomy.ts lines 4735-4739. */
 function normalizeLongitude(lon: number): number {
     return ((lon % 360) + 360) % 360;

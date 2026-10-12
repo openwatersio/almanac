@@ -60,3 +60,33 @@ public func moonPosition(_ time: Date) throws -> MoonPosition {
     try assertSupported(time)
     return moonApparentAtTT(ttDays(time))
 }
+
+/**
+ * INTERNAL: equation of time for a TT instant, in minutes. Not from upstream:
+ * Meeus, *Astronomical Algorithms*, formula 28.1, `E = L0 − 0.0057183° − α +
+ * Δψ cos ε`, with `L0` the Sun's mean longitude from formula 28.2 and `α` the
+ * apparent right ascension `sunApparentAtTT` already computes. The constant
+ * is aberration plus the FK5 correction; `Δψ cos ε` moves `L0` from the mean
+ * equinox to the true one `α` is measured from.
+ */
+func equationOfTimeAtTT(_ tt: Double) -> Double {
+    let tau = tt / 365250
+    let l0 = 280.4664567 + tau * (360007.6982779 + tau * (0.03032028
+        + tau * (1 / 49931 + tau * (-1 / 15300 + tau * (-1 / 2000000)))))
+    let tilt = earthTilt(tt)
+    let nutationRaDeg = (tilt.dpsi / 3600) * cos(tilt.tobl * DEG2RAD)
+    var e = l0 - 0.0057183 - sunApparentAtTT(tt).raDeg + nutationRaDeg
+    e = (e.truncatingRemainder(dividingBy: 360) + 540).truncatingRemainder(dividingBy: 360) - 180   // (−180, 180]
+    return e * 4                        // 360° of right ascension is 1440 minutes
+}
+
+/**
+ * Equation of time: apparent solar time minus mean solar time, in minutes.
+ * Positive when a sundial runs ahead of the clock; about +16.4 at the start
+ * of November and −14.2 in mid February.
+ */
+public func equationOfTime(_ time: Date) throws -> Double {
+    let time = try normalized(time)
+    try assertSupported(time)
+    return equationOfTimeAtTT(ttDays(time))
+}

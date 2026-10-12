@@ -14,7 +14,7 @@
 
 import { assertSupported } from './types.js';
 import { ttDays } from './time.js';
-import { KM_PER_AU, equatorialFromVector } from './nutation.js';
+import { DEG2RAD, KM_PER_AU, earthTilt, equatorialFromVector } from './nutation.js';
 import { moonGeoVector } from './moon.js';
 import { sunGeoVector } from './sun.js';
 
@@ -60,4 +60,33 @@ export function sunPosition(time: Date): SunPosition {
 export function moonPosition(time: Date): MoonPosition {
     assertSupported(time);
     return moonApparentAtTT(ttDays(time));
+}
+
+/**
+ * INTERNAL: equation of time for a TT instant, in minutes. Not from upstream:
+ * Meeus, *Astronomical Algorithms*, formula 28.1, `E = L0 − 0.0057183° − α +
+ * Δψ cos ε`, with `L0` the Sun's mean longitude from formula 28.2 and `α` the
+ * apparent right ascension `sunApparentAtTT` already computes. The constant
+ * is aberration plus the FK5 correction; `Δψ cos ε` moves `L0` from the mean
+ * equinox to the true one `α` is measured from.
+ */
+export function equationOfTimeAtTT(tt: number): number {
+    const tau = tt / 365250;
+    const l0 = 280.4664567 + tau * (360007.6982779 + tau * (0.03032028
+        + tau * (1 / 49931 + tau * (-1 / 15300 + tau * (-1 / 2000000)))));
+    const tilt = earthTilt(tt);
+    const nutationRaDeg = (tilt.dpsi / 3600) * Math.cos(tilt.tobl * DEG2RAD);
+    let e = l0 - 0.0057183 - sunApparentAtTT(tt).raDeg + nutationRaDeg;
+    e = ((e % 360) + 540) % 360 - 180;   // (−180, 180]
+    return e * 4;                        // 360° of right ascension is 1440 minutes
+}
+
+/**
+ * Equation of time: apparent solar time minus mean solar time, in minutes.
+ * Positive when a sundial runs ahead of the clock; about +16.4 at the start
+ * of November and −14.2 in mid February.
+ */
+export function equationOfTime(time: Date): number {
+    assertSupported(time);
+    return equationOfTimeAtTT(ttDays(time));
 }

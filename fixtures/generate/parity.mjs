@@ -30,6 +30,7 @@ import {
     solarEclipseAxisPoint, solarEclipseCentralLine,
     horizonDip, planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, planetEvents,
     sunAltitudeEvents, sunTransits, moonTransits, moonOrientation,
+    seasons, moonApsides, equationOfTime,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -167,6 +168,16 @@ function buildEvents() {
     ).map((e) => ({ tMs: qEventMs(e.time), phase: e.phase }));
 
     return { observers: OBSERVERS, sunEvents: sunRows, moonEvents: moonRows, moonPhases: phaseRows };
+}
+
+/** Every season 1950-2100, every apsis of 2026, and the equation of time at the 8-day sample times. */
+function buildCycles() {
+    const seasonRows = seasons(new Date(MIN_MS), new Date(MAX_MS))
+        .map((e) => ({ tMs: qEventMs(e.time), kind: e.kind }));
+    const apsisRows = moonApsides(new Date(PHASE_WINDOW_2026.startMs), new Date(PHASE_WINDOW_2026.endMs))
+        .map((a) => ({ tMs: qEventMs(a.time), kind: a.kind, distanceKm: qKm(a.distanceKm) }));
+    const eotRows = sampleTimesMs().map((tMs) => ({ tMs, minutes: qFrac(equationOfTime(new Date(tMs))) }));
+    return { seasons: seasonRows, apsides: apsisRows, equationOfTime: eotRows };
 }
 
 function buildEclipses() {
@@ -309,6 +320,9 @@ function buildMeta(tsCommit, swiftCommit, files) {
             globalSolarEclipses: files.globalSolar.windows.reduce((n, w) => n + w.eclipses.length, 0),
             axisTrackSamples: files.centralLine.axisTrack.length,
             centralLinePoints: files.centralLine.centralLine.length,
+            seasons: files.cycles.seasons.length,
+            apsides: files.cycles.apsides.length,
+            equationOfTimeSamples: files.cycles.equationOfTime.length,
             planetHeliocentric: files.planets.heliocentric.length,
             planetSky: files.planets.sky.length,
             planetEventWindows: files.planets.events.length,
@@ -327,12 +341,13 @@ export function buildCorpus() {
     const solar = buildSolar();
     const globalSolar = buildGlobalSolar();
     const centralLine = buildCentralLine();
+    const cycles = buildCycles();
     const horizon = JSON.parse(readFileSync(new URL('../horizon/dip.json', import.meta.url), 'utf8'))
         .map(({ observer, heightAboveGroundM }) => ({ observer, heightAboveGroundM, dipDeg: qAngle(horizonDip(observer, heightAboveGroundM)) }));
     const height = buildHeightCases();
     const planets = buildPlanets();
     const suncalc = buildSunCalc();
-    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon, height, planets, suncalc };
+    return { positions, altaz, illumination, events, eclipses, solar, globalSolar, centralLine, horizon, height, planets, suncalc, cycles };
 }
 
 /** The 70.5°N observer whose winter and summer days graze the SunCalc altitudes. */
@@ -491,6 +506,9 @@ const ROW_SCHEMAS = {
     globalSolarWindow: { startMs: EXACT, endMs: EXACT, eclipses: [GLOBAL_SOLAR_ECLIPSE_SCHEMA] },
     axisTrack: { tMs: EXACT, point: AXIS_POINT_SCHEMA },
     centralLinePoint: { tMs: TIME, ...AXIS_POINT_SCHEMA },
+    season: { tMs: TIME, kind: EXACT },
+    apsis: { tMs: TIME, kind: EXACT, distanceKm: SCALED },
+    equationOfTime: { tMs: EXACT, minutes: SCALED },
 };
 
 /** Recursively compares `a` vs `b` against `schema` (object/array of schema,
@@ -605,6 +623,11 @@ function checkFile(rel, fresh, committed) {
             compareNode("centralLine.axisTrack", [ROW_SCHEMAS.axisTrack], fresh.axisTrack, committed.axisTrack, ctx);
             compareNode("centralLine.centralLine", [ROW_SCHEMAS.centralLinePoint], fresh.centralLine, committed.centralLine, ctx);
             break;
+        case "cycles.json":
+            compareNode("cycles.seasons", [ROW_SCHEMAS.season], fresh.seasons, committed.seasons, ctx);
+            compareNode("cycles.apsides", [ROW_SCHEMAS.apsis], fresh.apsides, committed.apsides, ctx);
+            compareNode("cycles.equationOfTime", [ROW_SCHEMAS.equationOfTime], fresh.equationOfTime, committed.equationOfTime, ctx);
+            break;
         default: throw new Error(`checkFile: no schema for ${rel}`);
     }
     return ctx;
@@ -637,6 +660,7 @@ function main() {
         "solar.json": files.solar,
         "globalSolar.json": files.globalSolar,
         "centralLine.json": files.centralLine,
+        "cycles.json": files.cycles,
         "horizon.json": files.horizon,
         "height.json": files.height,
         "planets.json": files.planets,

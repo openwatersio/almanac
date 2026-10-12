@@ -140,7 +140,7 @@ private let maxUt = utDays(supportedMax)
  * the half-open window filter on emitted results, not this clamp, that keeps
  * reported answers inside the interval.
  */
-private func clampUt(_ ut: Double) -> Double {
+func clampUt(_ ut: Double) -> Double {
     ut < minUt ? minUt : (ut > maxUt ? maxUt : ut)
 }
 
@@ -166,7 +166,7 @@ func quantizedUt(_ ut: Double) -> Double {
  * Nutation.swift) — this port crashes rather than threading a new error case
  * through every internal helper for a branch nothing exercises.
  */
-private func assertReached(_ condition: Bool, _ what: String) {
+func assertReached(_ condition: Bool, _ what: String) {
     if !condition { fatalError("almanac internal: \(what) did not converge") }
 }
 
@@ -220,7 +220,7 @@ private func crossingSign(_ s: Sample, _ level: Level) -> Int {
 // ----------------------------------------------------------- root findings
 
 /** Wrap an hour-angle difference into (−180, 180]. */
-private func angleOffset(_ diff: Double) -> Double {
+func angleOffset(_ diff: Double) -> Double {
     var offset = diff.truncatingRemainder(dividingBy: 360)
     if offset <= -180 { offset += 360 } else if offset > 180 { offset -= 360 }
     return offset
@@ -680,7 +680,7 @@ public func moonTransits(from startUtc: Date, to endUtc: Date, observer: Observe
  * the spec's moon-phase definition — upstream's `PairLongitude` uses
  * geometric longitudes, which sit a flat ~40 s off the USNO catalogue.
  */
-private let meanSynodicMonth = 29.530588
+let meanSynodicMonth = 29.530588
 private let phaseNames: [MoonPhaseName] = [.new, .firstQuarter, .full, .lastQuarter]
 
 private struct QuadRoot { let t: Double; let dfdt: Double }
