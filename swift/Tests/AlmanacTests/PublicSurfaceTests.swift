@@ -7,6 +7,11 @@ import Almanac
 /// an assertion about behaviour (that's every other test file's job).
 /// Extend this file as later tasks add to the public API.
 final class PublicSurfaceTests: XCTestCase {
+    func testAngleConversions() throws {
+        XCTAssertEqual(try degreesToRadians(180), Double.pi)
+        XCTAssertEqual(try radiansToDegrees(Double.pi), 180)
+    }
+
     func testObserverAndErrors() throws {
         let observer = try Observer(latitudeDeg: 48.7621, longitudeDeg: -123.052, elevationM: 3)
         XCTAssertEqual(observer.latitudeDeg, 48.7621)

@@ -67,9 +67,38 @@ background task; use shorter windows for interactive queries.
 
 ## Usage
 
-Migrating from SunCalc: [`docs/migrating-from-suncalc.md`](docs/migrating-from-suncalc.md) maps every SunCalc call to Almanac and gives drop-in `getTimes` and `getMoonTimes` adapters. Migrating from Solar: [`docs/migrating-from-solar.md`](docs/migrating-from-solar.md). How Almanac compares with SunCalc, Astronomy Engine, astronomia, Solar, SwiftAA, and EDSunriseSet, and when each is the better choice: [`docs/comparison.md`](docs/comparison.md).
+Migration guides for [SunCalc](docs/migrating-from-suncalc.md), [Astronomy Engine](docs/migrating-from-astronomy-engine.md), and [Solar](docs/migrating-from-solar.md) include tested examples. The [library comparison](docs/comparison.md) explains the features and limits of each library.
 
-Migrating from the Solar Swift library: [`docs/migrating-from-solar.md`](docs/migrating-from-solar.md) maps every Solar property to Almanac and gives a drop-in `Solar` adapter.
+Angles use degrees. All three ports provide `degreesToRadians(angle)` and `radiansToDegrees(angle)` for callers that use radians. These functions preserve sign and full turns without wrapping or changing the angle's origin; non-finite inputs and conversion overflow raise validation errors. Swift calls use `try`.
+
+### JavaScript module loading
+
+The npm package is ESM and has no separate CommonJS build. Use Node 22.12 or later for the Node examples; CI and release checks load the packed package on Node 22.12 and Node 24. Browser applications can import it through their ESM bundler.
+
+In an ES module (`.mjs` or a package with `"type": "module"`):
+
+```js
+import { sunAltAz } from '@openwaters/almanac';
+const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
+console.log(sunAltAz(new Date(), observer));
+```
+
+A CommonJS application can keep synchronous initialization. [Node's `require(esm)` support](https://nodejs.org/docs/latest-v22.x/api/modules.html#loading-ecmascript-modules-using-require) is enabled without a flag from Node 22.12:
+
+```js
+const { sunAltAz } = require('@openwaters/almanac');
+const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
+console.log(sunAltAz(new Date(), observer));
+```
+
+CommonJS can also load ESM asynchronously if its initialization flow already supports it:
+
+```js
+async function initializeSky() {
+  const { sunAltAz } = await import('@openwaters/almanac');
+  return sunAltAz(new Date(), { latitudeDeg: 48.5, longitudeDeg: -123.0 });
+}
+```
 
 ### TypeScript
 
@@ -169,7 +198,7 @@ print(try equationOfTime(today))   // sundial minus clock, minutes
 
 ### Kotlin/JVM and Android
 
-The Kotlin library provides the same 35 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
+The Kotlin library provides the same 37 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
 
 ```kotlin
 import io.openwaters.almanac.*

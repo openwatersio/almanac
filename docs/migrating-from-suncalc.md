@@ -1,8 +1,8 @@
 # Migrating from SunCalc
 
-Almanac covers everything [SunCalc](https://github.com/mourner/suncalc) computes, so a SunCalc call becomes one or two Almanac calls. The main changes: events come back as sorted lists for any time window you choose, instead of one object of named fields for one day, so your code decides which civil day it wants; places are an observer object, `{ latitudeDeg, longitudeDeg, elevationM? }`, instead of `lat, lng` arguments; every angle is in degrees and azimuth runs from north through east, as in SunCalc 2; every time is a UTC instant; and the supported interval is 1950 through 2100, where any instant outside it throws `AlmanacOutOfRangeError` (Swift `AlmanacError.outOfRange`). Almanac reports a missing event by leaving it out of the list, never as `null` or an invalid date.
+Almanac provides the Sun and Moon calculations available in [SunCalc](https://github.com/mourner/suncalc). Events come back as sorted lists for any time window you choose, instead of one object of named fields for one day, so your code decides which civil day it wants. Places are an observer object, `{ latitudeDeg, longitudeDeg, elevationM? }`, instead of `lat, lng` arguments. Every angle is in degrees and azimuth runs from north through east, as in SunCalc 2. Every time is a UTC instant. The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`; an instant outside it throws `AlmanacOutOfRangeError` (Swift `AlmanacError.outOfRange`). Almanac reports a missing event by leaving it out of the list, never as `null` or an invalid date.
 
-This guide maps every SunCalc 2 export to its Almanac call, then gives drop-in adapters with the same shapes as `getTimes`, `getMoonPosition`, `getMoonIllumination`, and `getMoonTimes`. Every TypeScript and Swift example here runs in the test suite (`typescript/test/migration-guide.test.ts` and `swift/Tests/AlmanacTests/MigrationGuideTests.swift`), which checks the results against SunCalc 2.1.1 within the differences stated below.
+This guide maps SunCalc 2 exports to Almanac and gives adapters with SunCalc 2 field names. [SunCalc 1](#suncalc-1) needs different units and day handling, and its solar altitude has a different refraction convention. Every TypeScript and Swift example here runs in the test suite (`typescript/test/migration-guide.test.ts` and `swift/Tests/AlmanacTests/MigrationGuideTests.swift`). The tests compare results with pinned SunCalc 1.9.0 and 2.1.1 references and exercise event selection, invalid inputs, polar transitions, and the supported interval's edges. For package loading in CommonJS or ESM, see [the README](../README.md#javascript-module-loading).
 
 ## Mapping
 
@@ -39,13 +39,43 @@ SunCalc 1 returns angles in radians and measures azimuth from south through west
 
 ```js
 // SunCalc 1 → SunCalc 2 / Almanac conventions
-const azimuthDeg = (position.azimuth * 180 / Math.PI + 180) % 360;   // south-based radians → north-based degrees
-const altitudeDeg = position.altitude * 180 / Math.PI;
-const parallacticDeg = moonPosition.parallacticAngle * 180 / Math.PI;
-const angleDeg = illumination.angle * 180 / Math.PI;
+import { radiansToDegrees } from '@openwaters/almanac';
+const azimuthDeg = (radiansToDegrees(position.azimuth) + 180) % 360;   // south-based radians → north-based degrees
+const altitudeDeg = radiansToDegrees(position.altitude);
+const parallacticDeg = radiansToDegrees(moonPosition.parallacticAngle);
+const angleDeg = radiansToDegrees(illumination.angle);
 ```
 
-SunCalc 1's `getTimes(date, lat, lng)` has no `utcOffset` and always returns the solar day nearest `date`, which the adapter below reproduces when `utcOffset` is left out. Its `getMoonTimes(date, lat, lng, inUTC)` searches from local midnight of the computer running it, or from UTC midnight when `inUTC` is true. With Almanac, pass the window explicitly: `civilDay(date, 0)` reproduces `inUTC`, and `civilDay(date, -date.getTimezoneOffset())` the local day.
+SunCalc 1's `getTimes(date, lat, lng)` has no `utcOffset` and returns the solar day nearest `date`, which the adapter below reproduces when `utcOffset` is left out. Its `getMoonTimes(date, lat, lng, inUTC)` searches from local midnight of the computer running it, or from UTC midnight when `inUTC` is true. With Almanac, pass the window explicitly: `civilDay(date, 0)` reproduces `inUTC`, and `civilDay(date, -date.getTimezoneOffset())` gives the local day when its UTC offset stays constant. A named time zone needs its actual midnight-to-midnight interval on a DST transition.
+
+SunCalc 1.9's `getPosition` returns the Sun's geometric altitude without atmospheric refraction. Almanac's `sunAltAz` returns apparent altitude with refraction. Converting degrees to radians does not preserve that physical convention: close to sunrise, SunCalc 1 can report a negative altitude while Almanac reports a positive one. Review altitude thresholds and irradiance formulas when migrating. The SunCalc 2 position tolerances in the mapping table do not apply to SunCalc 1.
+
+`degreesToRadians` and `radiansToDegrees` are available in TypeScript, Swift, and Kotlin. They preserve sign and full turns, reject non-finite inputs and conversion overflow, and do not change an angle's origin or physical convention. Wrap a signed Moon angle or rotate a south-based azimuth separately when the consuming interface requires it.
+
+A marine application that already converts SunCalc 1 azimuth to north-based radians can keep that interface with this adapter. Its azimuth is in `[-π, π)`, with zero at north and positive toward east; altitude is refracted:
+
+```ts
+function nauticalSunPosition(date: Date, lat: number, lng: number) {
+  const { azDeg, altDeg } = sunAltAz(date, { latitudeDeg: lat, longitudeDeg: lng });
+  return { azimuth: degreesToRadians((azDeg + 180) % 360 - 180), altitude: degreesToRadians(altDeg) };
+}
+```
+
+```swift
+func nauticalSunPosition(_ date: Date, _ lat: Double, _ lng: Double) throws -> (azimuth: Double, altitude: Double) {
+    let position = try sunAltAz(date, observer: Observer(latitudeDeg: lat, longitudeDeg: lng))
+    return (try degreesToRadians((position.azDeg + 180).truncatingRemainder(dividingBy: 360) - 180), try degreesToRadians(position.altDeg))
+}
+```
+
+In Kotlin, import `io.openwaters.almanac.*` and `java.time.Instant`; the pair contains azimuth and altitude in radians:
+
+```kotlin
+fun nauticalSunPosition(date: Instant, lat: Double, lng: Double): Pair<Double, Double> {
+    val position = sunAltAz(date, Observer(lat, lng))
+    return degreesToRadians((position.azDeg + 180) % 360 - 180) to degreesToRadians(position.altDeg)
+}
+```
 
 ## Examples
 
@@ -53,8 +83,11 @@ Every TypeScript example uses these imports:
 
 ```ts
 import {
+  degreesToRadians, radiansToDegrees,
   sunAltAz, sunEvents, sunAltitudeEvents, sunTransits, horizonDip,
   moonAltAz, moonPosition, moonIllumination, moonOrientation, moonEvents, moonTransits,
+  AlmanacOutOfRangeError,
+  type SunEvent, type SunEventKind, type Observer,
 } from '@openwaters/almanac';
 ```
 
@@ -105,7 +138,11 @@ function addTime(angle: number, riseName: string, setName: string) {
 }
 ```
 
-The adapters search the same day SunCalc does. `civilDay` turns SunCalc's `utcOffset`, in minutes east of UTC, into the half-open window Almanac searches; with a time zone instead of a fixed offset, pass the offset in effect on that date. With no `utcOffset`, SunCalc uses the solar day around `date` instead, and `solarDay` finds it from the Sun's lower transits, so a call such as `getTimes(date, lat, lng)` returns the same day's events after migration.
+The adapters search SunCalc's fixed-offset civil day or its solar day. `civilDay` turns SunCalc's `utcOffset`, in minutes east of UTC, into the half-open window Almanac searches. It always spans 24 elapsed hours. For a named time zone, compute both local midnights using that zone's calendar rules; a DST day can span 23 or 25 hours. In Swift, use `Calendar.dateInterval(of: .day, for:)` with the calendar's `timeZone` set, as in the [Solar guide](migrating-from-solar.md#events-for-the-local-calendar-day).
+
+With no `utcOffset`, SunCalc uses the solar day around `date`, and `solarDay` finds it from the Sun's lower transits. Its search padding, and the adapter's transit searches, must fit inside the supported interval. Near 1950-01-01 or 2101-01-01 they can throw even when `date` itself is supported. Use an explicit `sunEvents` window inside the interval when you need events at its edges.
+
+Clipping a day to the supported interval gives a partial-day result. Label it as such: absent rise/set events in that fragment do not establish `alwaysUp` or `alwaysDown` for the full day. The adapters below require their complete search windows to fit and do not clip them.
 
 ```ts
 const HOUR_MS = 3_600_000;
@@ -131,6 +168,8 @@ function solarDay(date: Date, observer: { latitudeDeg: number; longitudeDeg: num
 ```
 
 The adapter returns the same field names as `getTimes`, `null` where the Sun does not reach an altitude, and `alwaysUp` or `alwaysDown` on a day with neither a sunrise nor a sunset.
+
+A day with only one crossing is a transition, not an all-day polar state. Keep whichever event exists. The polar flags apply only when both crossings are absent; checking either one for absence would discard a valid rise or set.
 
 ```ts
 /** How far the Sun's center sits below its upper limb, for telling polar day from polar night. */
@@ -277,7 +316,7 @@ function brightLimbFromZenith(date: Date, lat: number, lng: number) {
 }
 ```
 
-On a canvas, where a positive rotation turns clockwise, draw the lit side toward the top after `ctx.rotate(-brightLimbFromZenith(date, lat, lng) * Math.PI / 180)`, and use `moonIllumination(date).fraction` for how much of the disc is lit.
+On a canvas, where a positive rotation turns clockwise, draw the lit side toward the top after `ctx.rotate(degreesToRadians(-brightLimbFromZenith(date, lat, lng)))`, and use `moonIllumination(date).fraction` for how much of the disc is lit.
 
 ```swift
 func brightLimbFromZenith(_ date: Date, _ lat: Double, _ lng: Double) throws -> Double {
@@ -287,6 +326,8 @@ func brightLimbFromZenith(_ date: Date, _ lat: Double, _ lng: Double) throws -> 
 ```
 
 ### Moon times for one civil day
+
+Choose the Moon's window independently of the Sun's. These SunCalc 2 adapters use a solar day when `utcOffset` is omitted and a fixed-offset civil day when it is supplied. A plugin can deliberately use the same solar-day window for both bodies, as in [Signal K derived data PR #318](https://github.com/SignalK/signalk-derived-data/pull/318), but changing a civil-day calculation to that window can change which Moon crossings are included. Preserve the source library version's day convention when compatibility matters.
 
 ```js
 // SunCalc
@@ -325,3 +366,82 @@ function getMoonTimes(date: Date, lat: number, lng: number, utcOffset?: number) 
 ```
 
 As with SunCalc, a field is absent when the day has no such event: the Moon's day is about 50 minutes longer than the Sun's, so about once a month a civil day has no moonrise, no moonset, or no transit.
+
+## Selecting events in a bounded window
+
+Compute one `sunEvents(start, end, observer)` list for the interval your application needs, then reuse it for sunrise, sunset, and twilight. The window can represent a forecast, a passage, or a civil day; a 48-hour search is a duration limit, not a guarantee of finding a crossing in polar regions.
+
+The next-event selector is strictly after its anchor; the last-event selector includes an event at its anchor. Both compare the millisecond instants in the already computed, sorted list:
+
+```ts
+function nextSunEvent(events: SunEvent[], after: Date, kind: SunEventKind): Date | null {
+  return events.find(e => e.kind === kind && e.time > after)?.time ?? null;
+}
+
+function lastSunEvent(events: SunEvent[], at: Date, kind: SunEventKind): Date | null {
+  return events.findLast(e => e.kind === kind && e.time <= at)?.time ?? null;
+}
+
+function nightBounds(events: SunEvent[]) {
+  const civilDusk = events.find(e => e.kind === 'civilDusk')?.time ?? null;
+  const civilDawn = civilDusk
+    ? events.find(e => e.kind === 'civilDawn' && e.time > civilDusk)?.time ?? null
+    : null;
+  return { civilDusk, civilDawn };
+}
+```
+
+```swift
+func nextSunEvent(_ events: [SunEvent], after: Date, kind: SunEventKind) -> Date? {
+    events.first { $0.kind == kind && $0.time > after }?.time
+}
+
+func lastSunEvent(_ events: [SunEvent], at: Date, kind: SunEventKind) -> Date? {
+    events.last { $0.kind == kind && $0.time <= at }?.time
+}
+
+func nightBounds(_ events: [SunEvent]) -> (civilDusk: Date?, civilDawn: Date?) {
+    let dusk = events.first { $0.kind == .civilDusk }?.time
+    let dawn = dusk.flatMap { dusk in events.first { $0.kind == .civilDawn && $0.time > dusk }?.time }
+    return (dusk, dawn)
+}
+```
+
+Use `nextSunEvent(events, now, 'rise')` for the next sunrise and `lastSunEvent(events, now, 'set')` for the sunset that began the current night. A missing match returns `null` or `nil`. It means there is no match in that list, not that the body never crosses the horizon.
+
+The astronomical query is half-open: `[start, end)`. An event at `end` is excluded before the selector runs. To include an event at a previous-event anchor, make the query end later than the anchor; one millisecond later is sufficient for a valid anchor because returned instants have integer millisecond precision. If you need strict previous-event behavior, use `<` instead of `<=` in the selector.
+
+`nightBounds` pairs the first civil dusk in the list with the following civil dawn. Start the window before the dusk you want and extend it through the next morning. A truncated window or polar conditions can leave dawn missing; a window with no dusk returns neither bound. Nautical and astronomical bounds follow the same ordering rule. The `astroDawn` and `astroDusk` names differ from SunCalc's `nightEnd` and `night`.
+
+## Missing events and errors
+
+| Outcome | Meaning | Caller action |
+| --- | --- | --- |
+| A valid list without the requested kind | No crossing of that kind in the chosen window. Sun transit can still be present during polar day or night. | Keep other events and represent the missing crossing explicitly. |
+| `AlmanacOutOfRangeError` / `AlmanacError.outOfRange` | An instant or a window bound is outside the supported interval. | Reject the request or apply an explicit application fallback. |
+| `RangeError` / `AlmanacError.invalidArgument` or `.invalidObserver` | Invalid date, coordinates, height, or another argument. | Correct the input; do not turn it into a polar-day answer. |
+
+`AlmanacOutOfRangeError` extends `RangeError`. Catching every `RangeError` therefore also hides malformed dates and coordinates. If your application intentionally treats an unsupported interval as no events, catch the typed error alone:
+
+```ts
+function sunEventsOrEmpty(start: Date, end: Date, observer: Observer): SunEvent[] {
+  try {
+    return sunEvents(start, end, observer);
+  } catch (error) {
+    if (error instanceof AlmanacOutOfRangeError) return [];
+    throw error;
+  }
+}
+```
+
+```swift
+func sunEventsOrEmpty(_ start: Date, _ end: Date, _ observer: Observer) throws -> [SunEvent] {
+    do {
+        return try sunEvents(from: start, to: end, observer: observer)
+    } catch AlmanacError.outOfRange {
+        return []
+    }
+}
+```
+
+The fallback applies to the entire request; it does not clip a partly unsupported window. Other errors raised by Almanac propagate, including invalid-input and calculation errors. It preserves Almanac's validation order: an unsupported start can raise `outOfRange` before the end or observer is validated. The daily adapters also throw these errors, whereas SunCalc 1 commonly returns invalid dates or `NaN`; decide how your application handles them before treating an adapter as a replacement.

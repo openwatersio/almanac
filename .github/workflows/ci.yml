@@ -49,8 +49,26 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
-      - run: npm pack --dry-run
+      - run: npm pack
       - run: node ../fixtures/generate/parity.mjs --check "$GITHUB_SHA" "$GITHUB_SHA"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: almanac-npm-tarball
+          path: typescript/*.tgz
+  smoke-npm:
+    needs: typescript
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { node: ['22.12.0', '24'] }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version: '${{ matrix.node }}' }
+      - uses: actions/download-artifact@v8
+        with:
+          name: almanac-npm-tarball
+          path: npm-tarball
+      - run: node .github/scripts/smoke-npm.mjs npm-tarball/*.tgz
   swift:
     needs: changes
     if: needs.changes.outputs.swift == 'true'

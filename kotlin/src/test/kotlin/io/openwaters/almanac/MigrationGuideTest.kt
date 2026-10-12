@@ -5,7 +5,24 @@ import kotlin.math.*
 import kotlin.test.*
 import kotlinx.serialization.json.*
 
+private fun nauticalSunPosition(date: Instant, lat: Double, lng: Double): Pair<Double, Double> {
+    val position = sunAltAz(date, Observer(lat, lng))
+    return degreesToRadians((position.azDeg + 180) % 360 - 180) to degreesToRadians(position.altDeg)
+}
+
 internal class MigrationGuideTest {
+    @Test fun sunCalc1NauticalAdapterPreservesSignedRadiansAndExposesRefractionChange() {
+        val references = fixture("../typescript/test/migration-references").obj().array("suncalc")
+        val noon = references[0].obj()
+        val (azimuth, altitude) = nauticalSunPosition(noon.instant("time"), noon.number("latitudeDeg"), noon.number("longitudeDeg"))
+        assertTrue(azimuth >= -PI && azimuth < PI)
+        near(azimuth, noon.number("azimuth") - PI, .2 * PI / 180)
+        near(altitude, noon.number("altitude"), .2 * PI / 180)
+        val horizon = references[1].obj()
+        assertTrue(horizon.number("altitude") < 0)
+        assertTrue(nauticalSunPosition(horizon.instant("time"), horizon.number("latitudeDeg"), horizon.number("longitudeDeg")).second > 0)
+    }
+
     private data class Place(val site: Observer,val date: Instant,val at: Instant,val offset: Int,val phaseName: String)
     private val places = mapOf(
         "victoria" to Place(Observer(48.4284,-123.3656),Instant.parse("2026-03-20T12:00:00Z"),Instant.parse("2026-03-20T20:00:00Z"),-420,"Waxing Crescent"),

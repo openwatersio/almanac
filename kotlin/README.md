@@ -1,6 +1,6 @@
 # Almanac for Kotlin
 
-Native Kotlin/JVM implementation of the [Almanac contract](../docs/CONTRACT.md): all 35 astronomy functions, the same immutable result fields, and the shared JPL Horizons, USNO, NASA/Espenak, and cross-port parity fixtures.
+Native Kotlin/JVM implementation of the [Almanac contract](../docs/CONTRACT.md): all 35 astronomy functions and two angle conversions, the same immutable result fields, and the shared JPL Horizons, USNO, NASA/Espenak, and cross-port parity fixtures.
 
 The library uses `java.time.Instant`, Kotlin 2.2.0, JDK 17 to build, and JVM 8 bytecode. Android consumers need minSdk 26. Runtime dependencies are the Kotlin standard library and platform APIs; there are no runtime data files, network calls, or JavaScript engine. Android device validation is pending.
 
@@ -36,6 +36,8 @@ val observer = Observer(48.4284, -123.3656, elevationM = 2.0)
 val start = Instant.parse("2026-03-20T00:00:00Z")
 val end = start.plusSeconds(86400)
 val sun = sunAltAz(start, observer)
+val sunAltitudeRad = degreesToRadians(sun.altDeg)
+val angleDeg = radiansToDegrees(kotlin.math.PI)
 val events = sunEvents(start, end, observer, heightAboveGroundM = 2.0)
 val golden = sunAltitudeEvents(start, end, observer, altitudeDeg = 6.0)
 val moon = moonIllumination(start)

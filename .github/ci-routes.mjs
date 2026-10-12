@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 export function suites(paths, event = 'pull_request') {
     const result = { typescript: false, swift: false, kotlin: false };
     for (const path of paths) {
-        if (event !== 'pull_request' || /^(fixtures\/|typescript\/src\/|typescript\/test\/suncalc-2\.1\.1\.json$|\.github\/(workflows\/|ci-routes)|typescript\/package(-lock)?\.json$|Package\.swift$|mise\.toml$|README\.md$|LICENSE$|NOTICE$|docs\/CONTRACT\.md$)/.test(path)) {
+        if (event !== 'pull_request' || /^(fixtures\/|typescript\/src\/|typescript\/test\/(suncalc-2\.1\.1|migration-references)\.json$|\.github\/(workflows\/|scripts\/|ci-routes)|typescript\/package(-lock)?\.json$|Package\.swift$|mise\.toml$|README\.md$|LICENSE$|NOTICE$|docs\/(CONTRACT|migrating-from-.*)\.md$)/.test(path)) {
             return { typescript: true, swift: true, kotlin: true };
         }
         if (path.startsWith('typescript/')) result.typescript = true;

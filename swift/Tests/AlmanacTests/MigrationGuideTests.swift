@@ -12,6 +12,33 @@ import Almanac
 
 // --- SunCalc guide examples -------------------------------------------------
 
+func nauticalSunPosition(_ date: Date, _ lat: Double, _ lng: Double) throws -> (azimuth: Double, altitude: Double) {
+    let position = try sunAltAz(date, observer: Observer(latitudeDeg: lat, longitudeDeg: lng))
+    return (try degreesToRadians((position.azDeg + 180).truncatingRemainder(dividingBy: 360) - 180), try degreesToRadians(position.altDeg))
+}
+
+func nextSunEvent(_ events: [SunEvent], after: Date, kind: SunEventKind) -> Date? {
+    events.first { $0.kind == kind && $0.time > after }?.time
+}
+
+func lastSunEvent(_ events: [SunEvent], at: Date, kind: SunEventKind) -> Date? {
+    events.last { $0.kind == kind && $0.time <= at }?.time
+}
+
+func nightBounds(_ events: [SunEvent]) -> (civilDusk: Date?, civilDawn: Date?) {
+    let dusk = events.first { $0.kind == .civilDusk }?.time
+    let dawn = dusk.flatMap { dusk in events.first { $0.kind == .civilDawn && $0.time > dusk }?.time }
+    return (dusk, dawn)
+}
+
+func sunEventsOrEmpty(_ start: Date, _ end: Date, _ observer: Observer) throws -> [SunEvent] {
+    do {
+        return try sunEvents(from: start, to: end, observer: observer)
+    } catch AlmanacError.outOfRange {
+        return []
+    }
+}
+
 func getPosition(_ date: Date, _ lat: Double, _ lng: Double) throws -> (azimuth: Double, altitude: Double) {
     let position = try sunAltAz(date, observer: Observer(latitudeDeg: lat, longitudeDeg: lng))
     return (position.azDeg, position.altDeg)
@@ -153,6 +180,72 @@ final class MigrationGuideTests: XCTestCase {
     }
 
     struct File: Decodable { let victoria: Reference }
+
+    struct SunCalc1Case: Decodable {
+        let time: String; let latitudeDeg: Double; let longitudeDeg: Double
+        let azimuth: Double; let altitude: Double
+    }
+
+    struct SunCalc1References: Decodable { let suncalc: [SunCalc1Case] }
+
+    func testSunCalc1NauticalPositionAndRefraction() throws {
+        let url = fixturesURL().deletingLastPathComponent().appendingPathComponent("typescript/test/migration-references.json")
+        let references = try JSONDecoder().decode(SunCalc1References.self, from: Data(contentsOf: url)).suncalc
+        let noon = references[0]
+        let mine = try nauticalSunPosition(utc(noon.time), noon.latitudeDeg, noon.longitudeDeg)
+        XCTAssertGreaterThan(mine.azimuth, -Double.pi)
+        XCTAssertLessThan(mine.azimuth, Double.pi)
+        XCTAssertLessThan(abs(mine.azimuth - (noon.azimuth - Double.pi)), 0.2 * Double.pi / 180)
+        XCTAssertLessThan(abs(mine.altitude - noon.altitude), 0.2 * Double.pi / 180)
+        let horizon = references[1]
+        XCTAssertLessThan(horizon.altitude, 0)
+        XCTAssertGreaterThan(try nauticalSunPosition(utc(horizon.time), horizon.latitudeDeg, horizon.longitudeDeg).altitude, 0)
+    }
+
+    func testEventSelectionAtAnchorAndNightOrdering() throws {
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        let events = try sunEvents(from: utc("2026-03-20T00:00:00Z"), to: utc("2026-03-23T00:00:00Z"), observer: observer)
+        let sunset = try XCTUnwrap(events.first { $0.kind == .set }?.time)
+        XCTAssertEqual(lastSunEvent(events, at: sunset, kind: .set), sunset)
+        let next = try XCTUnwrap(nextSunEvent(events, after: sunset, kind: .set))
+        XCTAssertGreaterThan(next, utc("2026-03-21T00:00:00Z"))
+        XCTAssertLessThan(next, utc("2026-03-22T00:00:00Z"))
+        XCTAssertNil(lastSunEvent(events, at: utc("2026-03-20T00:00:00Z"), kind: .set))
+        XCTAssertNil(nextSunEvent(events, after: utc("2026-03-23T00:00:00Z"), kind: .rise))
+        let night = nightBounds(events.filter { $0.time >= utc("2026-03-20T12:00:00Z") })
+        let dusk = try XCTUnwrap(night.civilDusk)
+        let dawn = try XCTUnwrap(night.civilDawn)
+        XCTAssertGreaterThan(dusk, utc("2026-03-21T00:00:00Z"))
+        XCTAssertGreaterThan(dawn, dusk)
+        XCTAssertLessThan(dawn, utc("2026-03-22T00:00:00Z"))
+        XCTAssertNil(nightBounds([]).civilDusk)
+        XCTAssertNil(nightBounds([]).civilDawn)
+    }
+
+    func testPolarTransitionKeepsItsSurvivingRise() throws {
+        let times = try sunTimes(civilDay(utc("2026-05-16T12:00:00Z"), 120), 69.6492, 18.9553)
+        let rise = try XCTUnwrap(times["sunrise"])
+        XCTAssertLessThan(abs(rise.timeIntervalSince(utc("2026-05-15T23:32:03Z"))), 1)
+        XCTAssertNil(times["sunset"])
+    }
+
+    func testRangeFallbackAndSupportedEdges() throws {
+        let observer = try Observer(latitudeDeg: 48.4284, longitudeDeg: -123.3656)
+        XCTAssertTrue(try sunEventsOrEmpty(utc("1900-01-01T00:00:00Z"), utc("1900-01-02T00:00:00Z"), observer).isEmpty)
+        XCTAssertThrowsError(try sunEventsOrEmpty(Date(timeIntervalSince1970: .nan), utc("2026-01-02T00:00:00Z"), observer)) { error in
+            guard case AlmanacError.invalidArgument = error else { return XCTFail("Expected invalidArgument, got \(error)") }
+        }
+        for (start, end) in [("1950-01-01T00:00:00Z", "1950-01-03T00:00:00Z"), ("2100-12-30T00:00:00Z", "2101-01-01T00:00:00Z")] {
+            let events = try sunEventsOrEmpty(utc(start), utc(end), observer)
+            XCTAssertFalse(events.isEmpty)
+            XCTAssertTrue(events.allSatisfy { $0.time >= utc(start) && $0.time < utc(end) })
+        }
+        for date in ["1950-01-01T00:00:00Z", "2100-12-31T12:00:00Z"] {
+            XCTAssertThrowsError(try solarDay(utc(date), observer)) { error in
+                XCTAssertEqual(error as? AlmanacError, .outOfRange)
+            }
+        }
+    }
 
     func signed180(_ deg: Double) -> Double {
         var x = deg.truncatingRemainder(dividingBy: 360)
