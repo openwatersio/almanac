@@ -74,7 +74,7 @@ mise exec -- node --test benchmarks/compare.test.mjs
 
 The TypeScript suite includes the full-range performance smokes. `npm pack --dry-run` runs `prepack`, which stages `README.md`, `LICENSE`, and `NOTICE` inside `typescript/`; these generated copies are not repository files and must not be committed.
 
-Fixture refresh scripts named `refresh-*.mjs` are the only fixture scripts that use the network. Run them manually, commit raw responses, derived fixtures, and metadata together, and record request URLs in the metadata files.
+Fixture refresh scripts named `refresh-*.mjs` are the only fixture scripts that use the network. Run them manually, commit raw responses, derived fixtures, and metadata together, and record request URLs in the metadata files. `refresh-horizons.mjs` and `refresh-usno.mjs` take names, or name prefixes for USNO such as `seasons-`, to fetch a subset; `retrieved.json` is merged, so the other raw files and their derived fixtures stand.
 
 ## Performance
 
