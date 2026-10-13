@@ -455,7 +455,7 @@ private func secantCrossing(
 
 // ------------------------------------------------------ the altitude search
 
-private struct LevelSpec<K> { let level: Level; let rising: K; let falling: K }
+private struct LevelSpec<K: Sendable>: Sendable { let level: Level; let rising: K; let falling: K }
 
 /**
  * Walk the window one half-cycle at a time, refining each altitude extremum and

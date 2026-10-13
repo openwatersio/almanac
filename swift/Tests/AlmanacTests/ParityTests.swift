@@ -323,7 +323,7 @@ final class ParityTests: XCTestCase {
         return out
     }
 
-    static var utcCalendar: Calendar = {
+    static let utcCalendar: Calendar = {
         var cal = Calendar(identifier: .gregorian)
         cal.timeZone = TimeZone(identifier: "UTC")!
         return cal
