@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
-        with: { node-version: 22 }
+        with: { node-version-file: mise.toml }
       - run: node fixtures/generate/derive.mjs --check
   typescript:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
-        with: { node-version: 22 }
+        with: { node-version-file: mise.toml }
       - run: npm ci
       - run: npm run build
       - run: npm test
@@ -91,7 +91,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
-        with: { node-version: 24 }
+        with: { node-version-file: .github/mise.toml }
       - run: npm ci
       - run: npm pack
       - name: assert tarball contents
@@ -117,10 +117,12 @@ jobs:
     needs: [smoke-swiftpm, smoke-npm]
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       id-token: write
     steps:
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
-        with: { node-version: 24 }
+        with: { node-version-file: .github/mise.toml }
       - run: npm install -g npm@latest   # trusted publishing needs npm >= 11.5.1
       - uses: actions/download-artifact@v8
         with:
