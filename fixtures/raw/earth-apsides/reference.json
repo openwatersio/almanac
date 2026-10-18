@@ -1,0 +1,1521 @@
+{
+  "source": "https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts",
+  "commit": "865d3da7d8112bbc7911238052c6af4aaf877181",
+  "functions": [
+    "SearchPlanetApsis",
+    "NextPlanetApsis"
+  ],
+  "method": "Compile the unmodified pinned source, pass its JavaScript path to refresh-earth-apsides.mjs. Search forward from 1950-01-01 through 2101-01-01; no Almanac functions are used.",
+  "rows": [
+    {
+      "utc": "1950-01-03T06:48:14.356Z",
+      "kind": "perihelion",
+      "distanceKm": 147089581.32668528
+    },
+    {
+      "utc": "1950-07-05T22:35:32.914Z",
+      "kind": "aphelion",
+      "distanceKm": 152098448.9824111
+    },
+    {
+      "utc": "1951-01-02T02:51:20.158Z",
+      "kind": "perihelion",
+      "distanceKm": 147098665.95162594
+    },
+    {
+      "utc": "1951-07-04T20:43:52.786Z",
+      "kind": "aphelion",
+      "distanceKm": 152106834.91911
+    },
+    {
+      "utc": "1952-01-04T20:56:13.614Z",
+      "kind": "perihelion",
+      "distanceKm": 147094261.83257082
+    },
+    {
+      "utc": "1952-07-03T02:28:08.174Z",
+      "kind": "aphelion",
+      "distanceKm": 152100834.4940929
+    },
+    {
+      "utc": "1953-01-02T06:35:02.742Z",
+      "kind": "perihelion",
+      "distanceKm": 147090419.39359424
+    },
+    {
+      "utc": "1953-07-05T18:53:39.457Z",
+      "kind": "aphelion",
+      "distanceKm": 152098662.04147166
+    },
+    {
+      "utc": "1954-01-02T08:52:39.874Z",
+      "kind": "perihelion",
+      "distanceKm": 147102631.47569534
+    },
+    {
+      "utc": "1954-07-03T20:23:45.918Z",
+      "kind": "aphelion",
+      "distanceKm": 152098147.07948416
+    },
+    {
+      "utc": "1955-01-04T11:34:50.379Z",
+      "kind": "perihelion",
+      "distanceKm": 147093978.11903486
+    },
+    {
+      "utc": "1955-07-04T21:28:09.843Z",
+      "kind": "aphelion",
+      "distanceKm": 152094403.29140797
+    },
+    {
+      "utc": "1956-01-02T13:56:06.950Z",
+      "kind": "perihelion",
+      "distanceKm": 147092801.9013885
+    },
+    {
+      "utc": "1956-07-05T00:36:48.557Z",
+      "kind": "aphelion",
+      "distanceKm": 152104508.66987148
+    },
+    {
+      "utc": "1957-01-03T06:44:30.639Z",
+      "kind": "perihelion",
+      "distanceKm": 147101033.4409129
+    },
+    {
+      "utc": "1957-07-03T00:07:40.467Z",
+      "kind": "aphelion",
+      "distanceKm": 152102619.4467278
+    },
+    {
+      "utc": "1958-01-03T13:51:12.521Z",
+      "kind": "perihelion",
+      "distanceKm": 147094189.27083114
+    },
+    {
+      "utc": "1958-07-05T20:14:28.123Z",
+      "kind": "aphelion",
+      "distanceKm": 152096621.18013793
+    },
+    {
+      "utc": "1959-01-01T23:40:48.767Z",
+      "kind": "perihelion",
+      "distanceKm": 147097187.04694837
+    },
+    {
+      "utc": "1959-07-05T07:00:09.822Z",
+      "kind": "aphelion",
+      "distanceKm": 152105505.18360198
+    },
+    {
+      "utc": "1960-01-04T19:12:29.830Z",
+      "kind": "perihelion",
+      "distanceKm": 147092472.11573184
+    },
+    {
+      "utc": "1960-07-02T21:15:15.447Z",
+      "kind": "aphelion",
+      "distanceKm": 152101282.0205333
+    },
+    {
+      "utc": "1961-01-02T16:41:36.125Z",
+      "kind": "perihelion",
+      "distanceKm": 147086404.85014766
+    },
+    {
+      "utc": "1961-07-05T20:10:46.192Z",
+      "kind": "aphelion",
+      "distanceKm": 152098581.89982438
+    },
+    {
+      "utc": "1962-01-02T04:57:39.127Z",
+      "kind": "perihelion",
+      "distanceKm": 147100238.75884375
+    },
+    {
+      "utc": "1962-07-04T04:36:44.189Z",
+      "kind": "aphelion",
+      "distanceKm": 152102565.03083432
+    },
+    {
+      "utc": "1963-01-04T18:57:21.557Z",
+      "kind": "perihelion",
+      "distanceKm": 147095850.10189542
+    },
+    {
+      "utc": "1963-07-04T12:46:25.548Z",
+      "kind": "aphelion",
+      "distanceKm": 152098119.89841148
+    },
+    {
+      "utc": "1964-01-02T20:58:57.250Z",
+      "kind": "perihelion",
+      "distanceKm": 147093243.36830384
+    },
+    {
+      "utc": "1964-07-05T11:39:53.253Z",
+      "kind": "aphelion",
+      "distanceKm": 152103526.36289224
+    },
+    {
+      "utc": "1965-01-02T19:22:13.708Z",
+      "kind": "perihelion",
+      "distanceKm": 147102309.27657908
+    },
+    {
+      "utc": "1965-07-03T08:58:51.229Z",
+      "kind": "aphelion",
+      "distanceKm": 152099511.30428794
+    },
+    {
+      "utc": "1966-01-03T22:45:03.493Z",
+      "kind": "perihelion",
+      "distanceKm": 147095573.0777518
+    },
+    {
+      "utc": "1966-07-05T12:32:21.304Z",
+      "kind": "aphelion",
+      "distanceKm": 152089953.36817846
+    },
+    {
+      "utc": "1967-01-02T05:02:20.618Z",
+      "kind": "perihelion",
+      "distanceKm": 147097898.5392716
+    },
+    {
+      "utc": "1967-07-05T14:24:57.371Z",
+      "kind": "aphelion",
+      "distanceKm": 152100951.2586471
+    },
+    {
+      "utc": "1968-01-04T17:46:23.463Z",
+      "kind": "perihelion",
+      "distanceKm": 147098016.28457114
+    },
+    {
+      "utc": "1968-07-02T18:55:30.362Z",
+      "kind": "aphelion",
+      "distanceKm": 152101519.74609575
+    },
+    {
+      "utc": "1969-01-03T01:13:56.929Z",
+      "kind": "perihelion",
+      "distanceKm": 147091354.52837607
+    },
+    {
+      "utc": "1969-07-05T19:43:28.195Z",
+      "kind": "aphelion",
+      "distanceKm": 152097776.4171665
+    },
+    {
+      "utc": "1970-01-01T21:25:30.838Z",
+      "kind": "perihelion",
+      "distanceKm": 147101126.04571974
+    },
+    {
+      "utc": "1970-07-04T14:49:00.802Z",
+      "kind": "aphelion",
+      "distanceKm": 152103787.8005327
+    },
+    {
+      "utc": "1971-01-04T19:01:31.874Z",
+      "kind": "perihelion",
+      "distanceKm": 147095008.17385814
+    },
+    {
+      "utc": "1971-07-04T04:26:09.461Z",
+      "kind": "aphelion",
+      "distanceKm": 152099502.93044057
+    },
+    {
+      "utc": "1972-01-03T04:17:59.669Z",
+      "kind": "perihelion",
+      "distanceKm": 147086878.24851587
+    },
+    {
+      "utc": "1972-07-05T16:38:45.838Z",
+      "kind": "aphelion",
+      "distanceKm": 152103514.6336826
+    },
+    {
+      "utc": "1973-01-02T11:43:55.073Z",
+      "kind": "perihelion",
+      "distanceKm": 147096780.46649173
+    },
+    {
+      "utc": "1973-07-03T15:07:21.589Z",
+      "kind": "aphelion",
+      "distanceKm": 152103948.9419845
+    },
+    {
+      "utc": "1974-01-04T09:14:19.392Z",
+      "kind": "perihelion",
+      "distanceKm": 147093954.73802117
+    },
+    {
+      "utc": "1974-07-05T01:43:06.113Z",
+      "kind": "aphelion",
+      "distanceKm": 152094493.06559706
+    },
+    {
+      "utc": "1975-01-02T12:32:19.208Z",
+      "kind": "perihelion",
+      "distanceKm": 147097020.63230702
+    },
+    {
+      "utc": "1975-07-06T02:17:39.091Z",
+      "kind": "aphelion",
+      "distanceKm": 152103763.0941416
+    },
+    {
+      "utc": "1976-01-04T11:32:12.782Z",
+      "kind": "perihelion",
+      "distanceKm": 147100599.0210254
+    },
+    {
+      "utc": "1976-07-03T03:10:57.904Z",
+      "kind": "aphelion",
+      "distanceKm": 152101498.0685069
+    },
+    {
+      "utc": "1977-01-03T10:28:29.914Z",
+      "kind": "perihelion",
+      "distanceKm": 147093438.94198743
+    },
+    {
+      "utc": "1977-07-05T20:53:31.202Z",
+      "kind": "aphelion",
+      "distanceKm": 152090777.0900695
+    },
+    {
+      "utc": "1978-01-01T23:04:19.666Z",
+      "kind": "perihelion",
+      "distanceKm": 147102044.1072659
+    },
+    {
+      "utc": "1978-07-05T00:42:27.023Z",
+      "kind": "aphelion",
+      "distanceKm": 152096280.26733693
+    },
+    {
+      "utc": "1979-01-04T22:25:18.852Z",
+      "kind": "perihelion",
+      "distanceKm": 147100517.03740487
+    },
+    {
+      "utc": "1979-07-03T20:51:34.941Z",
+      "kind": "aphelion",
+      "distanceKm": 152095004.09095436
+    },
+    {
+      "utc": "1980-01-03T14:19:05.157Z",
+      "kind": "perihelion",
+      "distanceKm": 147092956.43296388
+    },
+    {
+      "utc": "1980-07-05T17:45:33.560Z",
+      "kind": "aphelion",
+      "distanceKm": 152099153.50848448
+    },
+    {
+      "utc": "1981-01-02T01:35:37.134Z",
+      "kind": "perihelion",
+      "distanceKm": 147102487.49898314
+    },
+    {
+      "utc": "1981-07-03T22:53:59.980Z",
+      "kind": "aphelion",
+      "distanceKm": 152103904.43248317
+    },
+    {
+      "utc": "1982-01-04T11:19:08.718Z",
+      "kind": "perihelion",
+      "distanceKm": 147098297.26955813
+    },
+    {
+      "utc": "1982-07-04T13:46:26.216Z",
+      "kind": "aphelion",
+      "distanceKm": 152094647.71933252
+    },
+    {
+      "utc": "1983-01-02T15:45:33.091Z",
+      "kind": "perihelion",
+      "distanceKm": 147093422.80544558
+    },
+    {
+      "utc": "1983-07-06T09:35:07.166Z",
+      "kind": "aphelion",
+      "distanceKm": 152103220.97017443
+    },
+    {
+      "utc": "1984-01-03T23:06:14.827Z",
+      "kind": "perihelion",
+      "distanceKm": 147095133.34587872
+    },
+    {
+      "utc": "1984-07-03T06:26:07.289Z",
+      "kind": "aphelion",
+      "distanceKm": 152105020.67656168
+    },
+    {
+      "utc": "1985-01-03T20:14:24.319Z",
+      "kind": "perihelion",
+      "distanceKm": 147088100.60148814
+    },
+    {
+      "utc": "1985-07-05T10:27:11.946Z",
+      "kind": "aphelion",
+      "distanceKm": 152094706.04505
+    },
+    {
+      "utc": "1986-01-02T04:36:48.084Z",
+      "kind": "perihelion",
+      "distanceKm": 147097109.15556625
+    },
+    {
+      "utc": "1986-07-05T10:35:57.025Z",
+      "kind": "aphelion",
+      "distanceKm": 152102609.6399825
+    },
+    {
+      "utc": "1987-01-04T22:17:52.197Z",
+      "kind": "perihelion",
+      "distanceKm": 147100404.29243824
+    },
+    {
+      "utc": "1987-07-04T00:32:09.067Z",
+      "kind": "aphelion",
+      "distanceKm": 152101098.78241628
+    },
+    {
+      "utc": "1988-01-03T23:59:51.768Z",
+      "kind": "perihelion",
+      "distanceKm": 147092525.13978627
+    },
+    {
+      "utc": "1988-07-06T00:31:57.126Z",
+      "kind": "aphelion",
+      "distanceKm": 152097901.9225988
+    },
+    {
+      "utc": "1989-01-01T22:23:00.747Z",
+      "kind": "perihelion",
+      "distanceKm": 147101382.9970963
+    },
+    {
+      "utc": "1989-07-04T11:22:37.501Z",
+      "kind": "aphelion",
+      "distanceKm": 152099397.16983303
+    },
+    {
+      "utc": "1990-01-04T17:34:10.654Z",
+      "kind": "perihelion",
+      "distanceKm": 147100871.04137605
+    },
+    {
+      "utc": "1990-07-04T05:01:08.304Z",
+      "kind": "aphelion",
+      "distanceKm": 152088829.85679683
+    },
+    {
+      "utc": "1991-01-03T02:42:51.451Z",
+      "kind": "perihelion",
+      "distanceKm": 147096826.90243202
+    },
+    {
+      "utc": "1991-07-06T14:33:40.051Z",
+      "kind": "aphelion",
+      "distanceKm": 152096667.35468686
+    },
+    {
+      "utc": "1992-01-03T14:54:47.270Z",
+      "kind": "perihelion",
+      "distanceKm": 147102043.05563712
+    },
+    {
+      "utc": "1992-07-03T12:18:14.908Z",
+      "kind": "aphelion",
+      "distanceKm": 152102996.8069158
+    },
+    {
+      "utc": "1993-01-04T02:44:29.230Z",
+      "kind": "perihelion",
+      "distanceKm": 147096397.21267328
+    },
+    {
+      "utc": "1993-07-04T23:02:21.233Z",
+      "kind": "aphelion",
+      "distanceKm": 152092264.2989071
+    },
+    {
+      "utc": "1994-01-02T06:01:18.568Z",
+      "kind": "perihelion",
+      "distanceKm": 147099510.53784457
+    },
+    {
+      "utc": "1994-07-05T20:04:05.466Z",
+      "kind": "aphelion",
+      "distanceKm": 152100083.3913727
+    },
+    {
+      "utc": "1995-01-04T10:59:32.944Z",
+      "kind": "perihelion",
+      "distanceKm": 147100415.70800248
+    },
+    {
+      "utc": "1995-07-04T01:54:41.937Z",
+      "kind": "aphelion",
+      "distanceKm": 152101118.8023991
+    },
+    {
+      "utc": "1996-01-04T07:53:59.091Z",
+      "kind": "perihelion",
+      "distanceKm": 147088520.7414788
+    },
+    {
+      "utc": "1996-07-05T18:39:45.443Z",
+      "kind": "aphelion",
+      "distanceKm": 152097076.59267128
+    },
+    {
+      "utc": "1997-01-01T23:09:47.586Z",
+      "kind": "perihelion",
+      "distanceKm": 147095995.54520506
+    },
+    {
+      "utc": "1997-07-04T18:39:26.925Z",
+      "kind": "aphelion",
+      "distanceKm": 152103377.60219213
+    },
+    {
+      "utc": "1998-01-04T21:06:27.859Z",
+      "kind": "perihelion",
+      "distanceKm": 147100087.07529226
+    },
+    {
+      "utc": "1998-07-03T23:34:43.797Z",
+      "kind": "aphelion",
+      "distanceKm": 152095899.78711608
+    },
+    {
+      "utc": "1999-01-03T12:05:25.173Z",
+      "kind": "perihelion",
+      "distanceKm": 147095657.08696333
+    },
+    {
+      "utc": "1999-07-06T22:06:20.527Z",
+      "kind": "aphelion",
+      "distanceKm": 152099797.42382535
+    },
+    {
+      "utc": "2000-01-03T05:19:56.682Z",
+      "kind": "perihelion",
+      "distanceKm": 147100724.11847883
+    },
+    {
+      "utc": "2000-07-04T00:18:46.005Z",
+      "kind": "aphelion",
+      "distanceKm": 152103677.17982957
+    },
+    {
+      "utc": "2001-01-04T08:59:50.032Z",
+      "kind": "perihelion",
+      "distanceKm": 147096608.00397772
+    },
+    {
+      "utc": "2001-07-04T14:40:16.166Z",
+      "kind": "aphelion",
+      "distanceKm": 152088501.63085026
+    },
+    {
+      "utc": "2002-01-02T14:40:33.123Z",
+      "kind": "perihelion",
+      "distanceKm": 147098414.11168984
+    },
+    {
+      "utc": "2002-07-06T04:11:39.084Z",
+      "kind": "aphelion",
+      "distanceKm": 152094387.6580731
+    },
+    {
+      "utc": "2003-01-04T05:29:53.355Z",
+      "kind": "perihelion",
+      "distanceKm": 147103483.7896249
+    },
+    {
+      "utc": "2003-07-04T05:16:35.619Z",
+      "kind": "aphelion",
+      "distanceKm": 152099472.94051376
+    },
+    {
+      "utc": "2004-01-04T18:05:52.850Z",
+      "kind": "perihelion",
+      "distanceKm": 147094352.7857216
+    },
+    {
+      "utc": "2004-07-05T10:01:50.529Z",
+      "kind": "aphelion",
+      "distanceKm": 152094903.14330906
+    },
+    {
+      "utc": "2005-01-02T00:12:18.274Z",
+      "kind": "perihelion",
+      "distanceKm": 147099948.25599962
+    },
+    {
+      "utc": "2005-07-05T04:47:13.512Z",
+      "kind": "aphelion",
+      "distanceKm": 152102504.5600175
+    },
+    {
+      "utc": "2006-01-04T15:12:31.917Z",
+      "kind": "perihelion",
+      "distanceKm": 147103729.03309914
+    },
+    {
+      "utc": "2006-07-03T23:34:12.772Z",
+      "kind": "aphelion",
+      "distanceKm": 152096074.018055
+    },
+    {
+      "utc": "2007-01-03T18:58:56.584Z",
+      "kind": "perihelion",
+      "distanceKm": 147093485.57186088
+    },
+    {
+      "utc": "2007-07-06T23:45:50.884Z",
+      "kind": "aphelion",
+      "distanceKm": 152097038.05137107
+    },
+    {
+      "utc": "2008-01-03T00:00:37.827Z",
+      "kind": "perihelion",
+      "distanceKm": 147095709.67517444
+    },
+    {
+      "utc": "2008-07-04T07:34:58.321Z",
+      "kind": "aphelion",
+      "distanceKm": 152104443.77504316
+    },
+    {
+      "utc": "2009-01-04T15:26:42.610Z",
+      "kind": "perihelion",
+      "distanceKm": 147095218.25107935
+    },
+    {
+      "utc": "2009-07-04T01:44:31.171Z",
+      "kind": "aphelion",
+      "distanceKm": 152092067.44697195
+    },
+    {
+      "utc": "2010-01-03T00:30:23.083Z",
+      "kind": "perihelion",
+      "distanceKm": 147097493.07335517
+    },
+    {
+      "utc": "2010-07-06T11:37:05.357Z",
+      "kind": "aphelion",
+      "distanceKm": 152097207.93135244
+    },
+    {
+      "utc": "2011-01-03T19:08:57.256Z",
+      "kind": "perihelion",
+      "distanceKm": 147104817.3322984
+    },
+    {
+      "utc": "2011-07-04T15:07:08.118Z",
+      "kind": "aphelion",
+      "distanceKm": 152102339.6465553
+    },
+    {
+      "utc": "2012-01-05T01:15:48.003Z",
+      "kind": "perihelion",
+      "distanceKm": 147096412.03115588
+    },
+    {
+      "utc": "2012-07-05T04:29:47.121Z",
+      "kind": "aphelion",
+      "distanceKm": 152091952.80116454
+    },
+    {
+      "utc": "2013-01-02T04:50:30.524Z",
+      "kind": "perihelion",
+      "distanceKm": 147099219.32719564
+    },
+    {
+      "utc": "2013-07-05T15:14:14.145Z",
+      "kind": "aphelion",
+      "distanceKm": 152096400.9294348
+    },
+    {
+      "utc": "2014-01-04T10:55:59.404Z",
+      "kind": "perihelion",
+      "distanceKm": 147105937.09330636
+    },
+    {
+      "utc": "2014-07-03T23:58:18.581Z",
+      "kind": "aphelion",
+      "distanceKm": 152092369.818018
+    },
+    {
+      "utc": "2015-01-04T05:51:39.587Z",
+      "kind": "perihelion",
+      "distanceKm": 147096949.758282
+    },
+    {
+      "utc": "2015-07-06T18:26:40.078Z",
+      "kind": "aphelion",
+      "distanceKm": 152093035.96606106
+    },
+    {
+      "utc": "2016-01-02T22:52:28.625Z",
+      "kind": "perihelion",
+      "distanceKm": 147099369.79723948
+    },
+    {
+      "utc": "2016-07-04T15:36:44.280Z",
+      "kind": "aphelion",
+      "distanceKm": 152104624.09716317
+    },
+    {
+      "utc": "2017-01-04T14:33:23.521Z",
+      "kind": "perihelion",
+      "distanceKm": 147100638.47359568
+    },
+    {
+      "utc": "2017-07-03T20:09:46.291Z",
+      "kind": "aphelion",
+      "distanceKm": 152094099.0091087
+    },
+    {
+      "utc": "2018-01-03T05:58:48.369Z",
+      "kind": "perihelion",
+      "distanceKm": 147096735.18784955
+    },
+    {
+      "utc": "2018-07-06T17:24:27.124Z",
+      "kind": "aphelion",
+      "distanceKm": 152096478.4166895
+    },
+    {
+      "utc": "2019-01-03T05:47:52.365Z",
+      "kind": "perihelion",
+      "distanceKm": 147099715.45895538
+    },
+    {
+      "utc": "2019-07-04T22:39:11.921Z",
+      "kind": "aphelion",
+      "distanceKm": 152103964.28398174
+    },
+    {
+      "utc": "2020-01-05T08:14:22.375Z",
+      "kind": "perihelion",
+      "distanceKm": 147091659.40845594
+    },
+    {
+      "utc": "2020-07-04T12:42:40.141Z",
+      "kind": "aphelion",
+      "distanceKm": 152094241.9032615
+    },
+    {
+      "utc": "2021-01-02T14:00:56.461Z",
+      "kind": "perihelion",
+      "distanceKm": 147094338.63647836
+    },
+    {
+      "utc": "2021-07-05T22:40:55.764Z",
+      "kind": "aphelion",
+      "distanceKm": 152099816.45013088
+    },
+    {
+      "utc": "2022-01-04T05:36:25.058Z",
+      "kind": "perihelion",
+      "distanceKm": 147105802.25512758
+    },
+    {
+      "utc": "2022-07-04T06:43:31.921Z",
+      "kind": "aphelion",
+      "distanceKm": 152098101.63835967
+    },
+    {
+      "utc": "2023-01-04T15:45:13.805Z",
+      "kind": "perihelion",
+      "distanceKm": 147098743.48954055
+    },
+    {
+      "utc": "2023-07-06T18:18:06.179Z",
+      "kind": "aphelion",
+      "distanceKm": 152093197.79143083
+    },
+    {
+      "utc": "2024-01-03T00:38:25.130Z",
+      "kind": "perihelion",
+      "distanceKm": 147099710.92977917
+    },
+    {
+      "utc": "2024-07-05T04:43:09.256Z",
+      "kind": "aphelion",
+      "distanceKm": 152100477.53116482
+    },
+    {
+      "utc": "2025-01-04T13:22:32.058Z",
+      "kind": "perihelion",
+      "distanceKm": 147103867.14900953
+    },
+    {
+      "utc": "2025-07-03T20:11:47.609Z",
+      "kind": "aphelion",
+      "distanceKm": 152088132.01027852
+    },
+    {
+      "utc": "2026-01-03T16:42:09.401Z",
+      "kind": "perihelion",
+      "distanceKm": 147099797.95988157
+    },
+    {
+      "utc": "2026-07-06T18:00:23.374Z",
+      "kind": "aphelion",
+      "distanceKm": 152088063.04654333
+    },
+    {
+      "utc": "2027-01-03T02:07:43.353Z",
+      "kind": "perihelion",
+      "distanceKm": 147104258.65270796
+    },
+    {
+      "utc": "2027-07-05T05:04:14.749Z",
+      "kind": "aphelion",
+      "distanceKm": 152100475.41495517
+    },
+    {
+      "utc": "2028-01-05T12:44:56.406Z",
+      "kind": "perihelion",
+      "distanceKm": 147099818.07293478
+    },
+    {
+      "utc": "2028-07-03T22:37:48.439Z",
+      "kind": "aphelion",
+      "distanceKm": 152093456.89308977
+    },
+    {
+      "utc": "2029-01-02T18:49:47.284Z",
+      "kind": "perihelion",
+      "distanceKm": 147098300.4835351
+    },
+    {
+      "utc": "2029-07-06T05:13:18.170Z",
+      "kind": "aphelion",
+      "distanceKm": 152098351.1536402
+    },
+    {
+      "utc": "2030-01-03T11:00:21.645Z",
+      "kind": "perihelion",
+      "distanceKm": 147105876.1935963
+    },
+    {
+      "utc": "2030-07-04T12:59:17.112Z",
+      "kind": "aphelion",
+      "distanceKm": 152099431.8187396
+    },
+    {
+      "utc": "2031-01-04T20:57:00.406Z",
+      "kind": "perihelion",
+      "distanceKm": 147094862.03553015
+    },
+    {
+      "utc": "2031-07-06T05:09:25.535Z",
+      "kind": "aphelion",
+      "distanceKm": 152093682.00843263
+    },
+    {
+      "utc": "2032-01-03T05:07:42.569Z",
+      "kind": "perihelion",
+      "distanceKm": 147091934.0726296
+    },
+    {
+      "utc": "2032-07-05T11:32:15.137Z",
+      "kind": "aphelion",
+      "distanceKm": 152103631.68350804
+    },
+    {
+      "utc": "2033-01-04T10:45:28.695Z",
+      "kind": "perihelion",
+      "distanceKm": 147100101.64376324
+    },
+    {
+      "utc": "2033-07-03T20:51:53.642Z",
+      "kind": "aphelion",
+      "distanceKm": 152095789.81292844
+    },
+    {
+      "utc": "2034-01-04T03:45:40.076Z",
+      "kind": "perihelion",
+      "distanceKm": 147097790.55524698
+    },
+    {
+      "utc": "2034-07-06T19:16:25.405Z",
+      "kind": "aphelion",
+      "distanceKm": 152092854.55635792
+    },
+    {
+      "utc": "2035-01-03T00:47:42.534Z",
+      "kind": "perihelion",
+      "distanceKm": 147102387.3595318
+    },
+    {
+      "utc": "2035-07-05T18:22:16.141Z",
+      "kind": "aphelion",
+      "distanceKm": 152103045.48441344
+    },
+    {
+      "utc": "2036-01-05T15:17:50.976Z",
+      "kind": "perihelion",
+      "distanceKm": 147101040.6230601
+    },
+    {
+      "utc": "2036-07-03T21:59:54.877Z",
+      "kind": "aphelion",
+      "distanceKm": 152091402.90265256
+    },
+    {
+      "utc": "2037-01-03T04:40:44.047Z",
+      "kind": "perihelion",
+      "distanceKm": 147098368.69649976
+    },
+    {
+      "utc": "2037-07-06T12:25:05.779Z",
+      "kind": "aphelion",
+      "distanceKm": 152090695.70529807
+    },
+    {
+      "utc": "2038-01-03T05:11:24.641Z",
+      "kind": "perihelion",
+      "distanceKm": 147108160.31437212
+    },
+    {
+      "utc": "2038-07-04T20:02:03.961Z",
+      "kind": "aphelion",
+      "distanceKm": 152094169.12027347
+    },
+    {
+      "utc": "2039-01-05T06:19:42.891Z",
+      "kind": "perihelion",
+      "distanceKm": 147101772.70007128
+    },
+    {
+      "utc": "2039-07-05T12:34:35.960Z",
+      "kind": "aphelion",
+      "distanceKm": 152089527.39273468
+    },
+    {
+      "utc": "2040-01-03T11:20:40.841Z",
+      "kind": "perihelion",
+      "distanceKm": 147098402.53339088
+    },
+    {
+      "utc": "2040-07-05T18:58:19.001Z",
+      "kind": "aphelion",
+      "distanceKm": 152100458.78859898
+    },
+    {
+      "utc": "2041-01-03T20:38:09.602Z",
+      "kind": "perihelion",
+      "distanceKm": 147106675.63815254
+    },
+    {
+      "utc": "2041-07-04T01:44:02.707Z",
+      "kind": "aphelion",
+      "distanceKm": 152095256.585067
+    },
+    {
+      "utc": "2042-01-04T08:52:50.583Z",
+      "kind": "perihelion",
+      "distanceKm": 147099481.19292596
+    },
+    {
+      "utc": "2042-07-06T13:21:33.666Z",
+      "kind": "aphelion",
+      "distanceKm": 152089866.31731904
+    },
+    {
+      "utc": "2043-01-02T22:57:43.902Z",
+      "kind": "perihelion",
+      "distanceKm": 147097560.3702928
+    },
+    {
+      "utc": "2043-07-06T01:55:26.426Z",
+      "kind": "aphelion",
+      "distanceKm": 152102493.7988527
+    },
+    {
+      "utc": "2044-01-05T14:11:47.544Z",
+      "kind": "perihelion",
+      "distanceKm": 147097741.59271038
+    },
+    {
+      "utc": "2044-07-03T15:20:12.414Z",
+      "kind": "aphelion",
+      "distanceKm": 152095347.90620765
+    },
+    {
+      "utc": "2045-01-03T15:09:41.668Z",
+      "kind": "perihelion",
+      "distanceKm": 147095038.50150013
+    },
+    {
+      "utc": "2045-07-06T13:01:16.642Z",
+      "kind": "aphelion",
+      "distanceKm": 152094501.69897068
+    },
+    {
+      "utc": "2046-01-03T00:01:37.369Z",
+      "kind": "perihelion",
+      "distanceKm": 147106031.77473158
+    },
+    {
+      "utc": "2046-07-05T06:20:03.547Z",
+      "kind": "aphelion",
+      "distanceKm": 152100309.77496406
+    },
+    {
+      "utc": "2047-01-05T11:22:21.007Z",
+      "kind": "perihelion",
+      "distanceKm": 147102486.3194813
+    },
+    {
+      "utc": "2047-07-05T06:43:42.214Z",
+      "kind": "aphelion",
+      "distanceKm": 152092190.81257722
+    },
+    {
+      "utc": "2048-01-03T18:32:42.006Z",
+      "kind": "perihelion",
+      "distanceKm": 147096520.92224196
+    },
+    {
+      "utc": "2048-07-06T05:27:56.984Z",
+      "kind": "aphelion",
+      "distanceKm": 152097107.3533954
+    },
+    {
+      "utc": "2049-01-03T10:28:08.736Z",
+      "kind": "perihelion",
+      "distanceKm": 147106079.2624328
+    },
+    {
+      "utc": "2049-07-04T09:11:36.857Z",
+      "kind": "aphelion",
+      "distanceKm": 152091602.16446832
+    },
+    {
+      "utc": "2050-01-04T19:19:05.688Z",
+      "kind": "perihelion",
+      "distanceKm": 147101566.48756137
+    },
+    {
+      "utc": "2050-07-06T00:55:10.620Z",
+      "kind": "aphelion",
+      "distanceKm": 152085015.53872192
+    },
+    {
+      "utc": "2051-01-03T05:25:56.501Z",
+      "kind": "perihelion",
+      "distanceKm": 147100548.57096484
+    },
+    {
+      "utc": "2051-07-06T09:35:10.884Z",
+      "kind": "aphelion",
+      "distanceKm": 152100158.38045904
+    },
+    {
+      "utc": "2052-01-05T09:22:04.200Z",
+      "kind": "perihelion",
+      "distanceKm": 147104660.9891945
+    },
+    {
+      "utc": "2052-07-03T16:42:55.264Z",
+      "kind": "aphelion",
+      "distanceKm": 152096122.3086175
+    },
+    {
+      "utc": "2053-01-03T22:01:01.204Z",
+      "kind": "perihelion",
+      "distanceKm": 147099190.00492704
+    },
+    {
+      "utc": "2053-07-06T13:22:16.964Z",
+      "kind": "aphelion",
+      "distanceKm": 152092146.3175212
+    },
+    {
+      "utc": "2054-01-02T17:08:08.299Z",
+      "kind": "perihelion",
+      "distanceKm": 147104462.8251181
+    },
+    {
+      "utc": "2054-07-05T15:59:28.523Z",
+      "kind": "aphelion",
+      "distanceKm": 152099128.79018855
+    },
+    {
+      "utc": "2055-01-05T12:25:46.202Z",
+      "kind": "perihelion",
+      "distanceKm": 147100473.2881534
+    },
+    {
+      "utc": "2055-07-04T20:07:20.280Z",
+      "kind": "aphelion",
+      "distanceKm": 152092559.18338975
+    },
+    {
+      "utc": "2056-01-04T04:05:20.236Z",
+      "kind": "perihelion",
+      "distanceKm": 147092353.7752929
+    },
+    {
+      "utc": "2056-07-06T08:30:01.693Z",
+      "kind": "aphelion",
+      "distanceKm": 152097416.18614292
+    },
+    {
+      "utc": "2057-01-03T03:21:47.973Z",
+      "kind": "perihelion",
+      "distanceKm": 147104412.39341292
+    },
+    {
+      "utc": "2057-07-04T16:34:12.612Z",
+      "kind": "aphelion",
+      "distanceKm": 152096382.7933095
+    },
+    {
+      "utc": "2058-01-05T03:35:20.841Z",
+      "kind": "perihelion",
+      "distanceKm": 147103531.8134678
+    },
+    {
+      "utc": "2058-07-05T15:15:18.452Z",
+      "kind": "aphelion",
+      "distanceKm": 152088074.99219573
+    },
+    {
+      "utc": "2059-01-03T10:54:27.210Z",
+      "kind": "perihelion",
+      "distanceKm": 147100638.16264218
+    },
+    {
+      "utc": "2059-07-06T21:17:59.953Z",
+      "kind": "aphelion",
+      "distanceKm": 152099161.17106065
+    },
+    {
+      "utc": "2060-01-04T23:06:50.694Z",
+      "kind": "perihelion",
+      "distanceKm": 147106074.9330911
+    },
+    {
+      "utc": "2060-07-03T23:38:30.121Z",
+      "kind": "aphelion",
+      "distanceKm": 152092979.1873924
+    },
+    {
+      "utc": "2061-01-04T07:16:25.000Z",
+      "kind": "perihelion",
+      "distanceKm": 147100320.34528387
+    },
+    {
+      "utc": "2061-07-06T07:47:51.288Z",
+      "kind": "aphelion",
+      "distanceKm": 152085129.45548382
+    },
+    {
+      "utc": "2062-01-02T20:25:57.139Z",
+      "kind": "perihelion",
+      "distanceKm": 147105352.60258585
+    },
+    {
+      "utc": "2062-07-05T23:18:11.132Z",
+      "kind": "aphelion",
+      "distanceKm": 152095225.72186476
+    },
+    {
+      "utc": "2063-01-05T13:43:09.465Z",
+      "kind": "perihelion",
+      "distanceKm": 147106133.54307267
+    },
+    {
+      "utc": "2063-07-04T13:42:28.454Z",
+      "kind": "aphelion",
+      "distanceKm": 152093101.07088315
+    },
+    {
+      "utc": "2064-01-04T12:02:48.915Z",
+      "kind": "perihelion",
+      "distanceKm": 147096816.8789064
+    },
+    {
+      "utc": "2064-07-06T10:36:55.522Z",
+      "kind": "aphelion",
+      "distanceKm": 152096741.26195985
+    },
+    {
+      "utc": "2065-01-02T15:16:17.318Z",
+      "kind": "perihelion",
+      "distanceKm": 147105287.18955055
+    },
+    {
+      "utc": "2065-07-05T02:10:50.835Z",
+      "kind": "aphelion",
+      "distanceKm": 152097772.55542076
+    },
+    {
+      "utc": "2066-01-05T05:32:40.698Z",
+      "kind": "perihelion",
+      "distanceKm": 147102310.63757735
+    },
+    {
+      "utc": "2066-07-05T03:08:20.643Z",
+      "kind": "aphelion",
+      "distanceKm": 152088936.89762053
+    },
+    {
+      "utc": "2067-01-03T17:33:32.269Z",
+      "kind": "perihelion",
+      "distanceKm": 147093939.00906914
+    },
+    {
+      "utc": "2067-07-07T03:27:01.831Z",
+      "kind": "aphelion",
+      "distanceKm": 152099513.91656414
+    },
+    {
+      "utc": "2068-01-04T14:43:18.291Z",
+      "kind": "perihelion",
+      "distanceKm": 147101173.7877593
+    },
+    {
+      "utc": "2068-07-04T04:24:50.980Z",
+      "kind": "aphelion",
+      "distanceKm": 152097725.2089087
+    },
+    {
+      "utc": "2069-01-04T18:08:25.429Z",
+      "kind": "perihelion",
+      "distanceKm": 147099002.32823867
+    },
+    {
+      "utc": "2069-07-05T22:40:29.527Z",
+      "kind": "aphelion",
+      "distanceKm": 152088979.60647473
+    },
+    {
+      "utc": "2070-01-03T02:11:37.815Z",
+      "kind": "perihelion",
+      "distanceKm": 147104737.91607803
+    },
+    {
+      "utc": "2070-07-06T11:24:54.988Z",
+      "kind": "aphelion",
+      "distanceKm": 152097847.62973344
+    },
+    {
+      "utc": "2071-01-05T10:07:26.168Z",
+      "kind": "perihelion",
+      "distanceKm": 147108973.45967463
+    },
+    {
+      "utc": "2071-07-04T19:48:59.362Z",
+      "kind": "aphelion",
+      "distanceKm": 152092687.18213424
+    },
+    {
+      "utc": "2072-01-04T21:11:42.721Z",
+      "kind": "perihelion",
+      "distanceKm": 147098604.7744015
+    },
+    {
+      "utc": "2072-07-06T13:55:59.236Z",
+      "kind": "aphelion",
+      "distanceKm": 152089296.04444486
+    },
+    {
+      "utc": "2073-01-02T14:06:13.429Z",
+      "kind": "perihelion",
+      "distanceKm": 147106537.8340372
+    },
+    {
+      "utc": "2073-07-05T11:20:38.571Z",
+      "kind": "aphelion",
+      "distanceKm": 152090604.44022912
+    },
+    {
+      "utc": "2074-01-05T10:51:19.364Z",
+      "kind": "perihelion",
+      "distanceKm": 147108124.56933177
+    },
+    {
+      "utc": "2074-07-04T14:49:22.758Z",
+      "kind": "aphelion",
+      "distanceKm": 152084497.09867007
+    },
+    {
+      "utc": "2075-01-04T02:45:29.523Z",
+      "kind": "perihelion",
+      "distanceKm": 147099728.78791744
+    },
+    {
+      "utc": "2075-07-07T06:34:16.192Z",
+      "kind": "aphelion",
+      "distanceKm": 152095777.47125533
+    },
+    {
+      "utc": "2076-01-04T00:41:51.812Z",
+      "kind": "perihelion",
+      "distanceKm": 147106875.03567857
+    },
+    {
+      "utc": "2076-07-04T11:25:44.644Z",
+      "kind": "aphelion",
+      "distanceKm": 152098169.60685927
+    },
+    {
+      "utc": "2077-01-04T21:18:50.091Z",
+      "kind": "perihelion",
+      "distanceKm": 147102597.2304014
+    },
+    {
+      "utc": "2077-07-05T09:54:11.479Z",
+      "kind": "aphelion",
+      "distanceKm": 152088626.22227865
+    },
+    {
+      "utc": "2078-01-03T04:06:30.589Z",
+      "kind": "perihelion",
+      "distanceKm": 147100441.6157263
+    },
+    {
+      "utc": "2078-07-06T19:12:44.595Z",
+      "kind": "aphelion",
+      "distanceKm": 152097729.50970742
+    },
+    {
+      "utc": "2079-01-05T00:04:32.423Z",
+      "kind": "perihelion",
+      "distanceKm": 147103567.21085134
+    },
+    {
+      "utc": "2079-07-04T20:44:38.522Z",
+      "kind": "aphelion",
+      "distanceKm": 152096751.19108874
+    },
+    {
+      "utc": "2080-01-05T07:21:16.798Z",
+      "kind": "perihelion",
+      "distanceKm": 147093099.8806087
+    },
+    {
+      "utc": "2080-07-06T06:46:02.034Z",
+      "kind": "aphelion",
+      "distanceKm": 152093229.8863893
+    },
+    {
+      "utc": "2081-01-02T17:37:37.254Z",
+      "kind": "perihelion",
+      "distanceKm": 147102011.74667296
+    },
+    {
+      "utc": "2081-07-05T21:28:13.864Z",
+      "kind": "aphelion",
+      "distanceKm": 152097140.79462844
+    },
+    {
+      "utc": "2082-01-05T13:00:33.362Z",
+      "kind": "perihelion",
+      "distanceKm": 147108448.65760058
+    },
+    {
+      "utc": "2082-07-04T16:14:24.230Z",
+      "kind": "aphelion",
+      "distanceKm": 152089996.87452918
+    },
+    {
+      "utc": "2083-01-04T12:06:33.798Z",
+      "kind": "perihelion",
+      "distanceKm": 147099083.53985047
+    },
+    {
+      "utc": "2083-07-07T15:17:46.110Z",
+      "kind": "aphelion",
+      "distanceKm": 152094029.53494924
+    },
+    {
+      "utc": "2084-01-03T18:04:55.126Z",
+      "kind": "perihelion",
+      "distanceKm": 147106084.47143787
+    },
+    {
+      "utc": "2084-07-04T23:15:31.647Z",
+      "kind": "aphelion",
+      "distanceKm": 152093488.50132823
+    },
+    {
+      "utc": "2085-01-05T04:58:43.856Z",
+      "kind": "perihelion",
+      "distanceKm": 147105471.72276804
+    },
+    {
+      "utc": "2085-07-04T22:04:23.743Z",
+      "kind": "aphelion",
+      "distanceKm": 152082141.2932004
+    },
+    {
+      "utc": "2086-01-03T14:30:25.166Z",
+      "kind": "perihelion",
+      "distanceKm": 147104094.8505249
+    },
+    {
+      "utc": "2086-07-07T01:11:00.260Z",
+      "kind": "aphelion",
+      "distanceKm": 152091514.05958274
+    },
+    {
+      "utc": "2087-01-04T15:34:04.037Z",
+      "kind": "perihelion",
+      "distanceKm": 147111025.40836474
+    },
+    {
+      "utc": "2087-07-05T01:14:58.327Z",
+      "kind": "aphelion",
+      "distanceKm": 152095187.90984088
+    },
+    {
+      "utc": "2088-01-05T14:10:34.680Z",
+      "kind": "perihelion",
+      "distanceKm": 147100955.9636984
+    },
+    {
+      "utc": "2088-07-05T21:39:20.934Z",
+      "kind": "aphelion",
+      "distanceKm": 152090437.5258533
+    },
+    {
+      "utc": "2089-01-02T16:44:26.696Z",
+      "kind": "perihelion",
+      "distanceKm": 147103908.95916778
+    },
+    {
+      "utc": "2089-07-06T07:02:04.294Z",
+      "kind": "aphelion",
+      "distanceKm": 152094903.19797677
+    },
+    {
+      "utc": "2090-01-05T04:55:21.274Z",
+      "kind": "perihelion",
+      "distanceKm": 147108286.70655915
+    },
+    {
+      "utc": "2090-07-04T14:43:19.892Z",
+      "kind": "aphelion",
+      "distanceKm": 152090235.81948
+    },
+    {
+      "utc": "2091-01-04T20:16:18.123Z",
+      "kind": "perihelion",
+      "distanceKm": 147094490.29988545
+    },
+    {
+      "utc": "2091-07-07T12:36:58.900Z",
+      "kind": "aphelion",
+      "distanceKm": 152093642.59878907
+    },
+    {
+      "utc": "2092-01-03T15:55:44.910Z",
+      "kind": "perihelion",
+      "distanceKm": 147100742.5436227
+    },
+    {
+      "utc": "2092-07-05T06:26:58.117Z",
+      "kind": "aphelion",
+      "distanceKm": 152098186.94653654
+    },
+    {
+      "utc": "2093-01-05T10:16:44.600Z",
+      "kind": "perihelion",
+      "distanceKm": 147104828.4597042
+    },
+    {
+      "utc": "2093-07-04T13:58:29.569Z",
+      "kind": "aphelion",
+      "distanceKm": 152088856.93709573
+    },
+    {
+      "utc": "2094-01-03T23:26:14.924Z",
+      "kind": "perihelion",
+      "distanceKm": 147102675.42670912
+    },
+    {
+      "utc": "2094-07-07T10:16:25.655Z",
+      "kind": "aphelion",
+      "distanceKm": 152094517.31777003
+    },
+    {
+      "utc": "2095-01-04T04:02:40.395Z",
+      "kind": "perihelion",
+      "distanceKm": 147109892.18081632
+    },
+    {
+      "utc": "2095-07-05T12:47:19.048Z",
+      "kind": "aphelion",
+      "distanceKm": 152095807.24705705
+    },
+    {
+      "utc": "2096-01-05T21:37:51.498Z",
+      "kind": "perihelion",
+      "distanceKm": 147100935.36254504
+    },
+    {
+      "utc": "2096-07-05T13:19:23.620Z",
+      "kind": "aphelion",
+      "distanceKm": 152085982.35296395
+    },
+    {
+      "utc": "2097-01-03T00:41:03.349Z",
+      "kind": "perihelion",
+      "distanceKm": 147103023.39605272
+    },
+    {
+      "utc": "2097-07-06T15:32:44.973Z",
+      "kind": "aphelion",
+      "distanceKm": 152089445.26744926
+    },
+    {
+      "utc": "2098-01-05T01:41:22.591Z",
+      "kind": "perihelion",
+      "distanceKm": 147112167.73087123
+    },
+    {
+      "utc": "2098-07-04T16:15:04.361Z",
+      "kind": "aphelion",
+      "distanceKm": 152088835.22552517
+    },
+    {
+      "utc": "2099-01-05T06:31:56.651Z",
+      "kind": "perihelion",
+      "distanceKm": 147100250.41481578
+    },
+    {
+      "utc": "2099-07-07T08:02:48.381Z",
+      "kind": "aphelion",
+      "distanceKm": 152091371.65826434
+    },
+    {
+      "utc": "2100-01-03T13:55:25.716Z",
+      "kind": "perihelion",
+      "distanceKm": 147104501.34131747
+    },
+    {
+      "utc": "2100-07-06T16:48:07.553Z",
+      "kind": "aphelion",
+      "distanceKm": 152097459.2663025
+    }
+  ]
+}

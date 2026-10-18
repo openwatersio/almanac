@@ -152,6 +152,9 @@ func vsopSphereToRect(_ lon: Double, _ lat: Double, _ radius: Double) -> Vec3 {
     )
 }
 
+// UPSTREAM: HelioDistance(Body.Earth), the scalar VSOP radius without rotations.
+func earthHelioDistance(_ tt: Double) -> Double { earthRad(tt / 365250) }
+
 /**
  * UPSTREAM: `CalcVsop`, astronomy.ts lines 3255-3262, specialised to
  * `vsop.Earth` — i.e. `HelioVector(Body.Earth, time)`. J2000 mean equator (EQJ).

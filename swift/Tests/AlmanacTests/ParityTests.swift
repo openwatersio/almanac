@@ -286,7 +286,7 @@ final class ParityTests: XCTestCase {
     struct SeasonRow: Codable { let tMs: Int64; let kind: String }
     struct ApsisRow: Codable { let tMs: Int64; let kind: String; let distanceKm: Int }
     struct EquationOfTimeRow: Codable { let tMs: Int64; let minutes: Int }
-    struct CyclesFile: Codable { let seasons: [SeasonRow]; let apsides: [ApsisRow]; let equationOfTime: [EquationOfTimeRow] }
+    struct CyclesFile: Codable { let seasons: [SeasonRow]; let apsides: [ApsisRow]; let earthApsides: [ApsisRow]; let equationOfTime: [EquationOfTimeRow] }
 
     struct Corpus {
         let positions: [PositionEntry]
@@ -527,7 +527,7 @@ final class ParityTests: XCTestCase {
         let eotRows = try sampleTimesMs().map {
             EquationOfTimeRow(tMs: $0, minutes: qScaled(try equationOfTime(dateFromMs($0)), scales.fraction))
         }
-        let cycles = CyclesFile(seasons: seasonRows, apsides: apsisRows, equationOfTime: eotRows)
+        let cycles = CyclesFile(seasons: seasonRows, apsides: apsisRows, earthApsides: try earthApsides(from: dateFromMs(minMs), to: dateFromMs(maxMs)).map { ApsisRow(tMs: qEventMs($0.time), kind: $0.kind.rawValue, distanceKm: qScaled($0.distanceKm, scales.distanceKm)) }, equationOfTime: eotRows)
 
         return Corpus(
             positions: positions, altaz: altaz, illumination: illumination, events: events, eclipses: eclipses, solar: solar,
@@ -719,6 +719,12 @@ final class ParityTests: XCTestCase {
         }
         XCTAssertEqual(fresh.cycles.apsides.count, Self.committedCycles.apsides.count)
         for (a, b) in zip(fresh.cycles.apsides, Self.committedCycles.apsides) {
+            XCTAssertEqual(a.kind, b.kind, "apsis kind @\(a.tMs)")
+            nearMs(a.tMs, b.tMs, "apsis \(a.kind) @\(a.tMs)")
+            near(a.distanceKm, b.distanceKm, tolKm, "apsis distanceKm @\(a.tMs)")
+        }
+        XCTAssertEqual(fresh.cycles.earthApsides.count, Self.committedCycles.earthApsides.count)
+        for (a, b) in zip(fresh.cycles.earthApsides, Self.committedCycles.earthApsides) {
             XCTAssertEqual(a.kind, b.kind, "apsis kind @\(a.tMs)")
             nearMs(a.tMs, b.tMs, "apsis \(a.kind) @\(a.tMs)")
             near(a.distanceKm, b.distanceKm, tolKm, "apsis distanceKm @\(a.tMs)")
@@ -924,6 +930,12 @@ final class ParityTests: XCTestCase {
         }
         XCTAssertEqual(cycles.apsides.count, Self.committedCycles.apsides.count)
         for (a, b) in zip(cycles.apsides, Self.committedCycles.apsides) {
+            XCTAssertEqual(a.kind, b.kind, "apsis kind @\(a.tMs)")
+            nearMs(a.tMs, b.tMs, "apsis \(a.kind) @\(a.tMs)")
+            near(a.distanceKm, b.distanceKm, "apsis distanceKm @\(a.tMs)")
+        }
+        XCTAssertEqual(cycles.earthApsides.count, Self.committedCycles.earthApsides.count)
+        for (a, b) in zip(cycles.earthApsides, Self.committedCycles.earthApsides) {
             XCTAssertEqual(a.kind, b.kind, "apsis kind @\(a.tMs)")
             nearMs(a.tMs, b.tMs, "apsis \(a.kind) @\(a.tMs)")
             near(a.distanceKm, b.distanceKm, "apsis distanceKm @\(a.tMs)")

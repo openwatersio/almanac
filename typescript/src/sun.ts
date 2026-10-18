@@ -236,6 +236,9 @@ export function vsopSphereToRect(lon: number, lat: number, radius: number): Vec3
     };
 }
 
+// UPSTREAM: HelioDistance(Body.Earth), the scalar VSOP radius without rotations.
+export function earthHelioDistance(tt: number): number { return earthRad(tt / 365250); }
+
 /**
  * UPSTREAM: `CalcVsop`, astronomy.ts lines 3255-3262, specialised to
  * `vsop.Earth` — i.e. `HelioVector(Body.Earth, time)`. J2000 mean equator (EQJ).

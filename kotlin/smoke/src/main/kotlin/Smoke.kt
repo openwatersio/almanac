@@ -35,6 +35,7 @@ fun main() {
     check(searchMoonPhases(time, end).isNotEmpty())
     check(seasons(time, end).isNotEmpty())
     check(moonApsides(time, end).isNotEmpty())
+    check(earthApsides(time, time.plusSeconds(366*86400L)).isNotEmpty())
     check(equationOfTime(time).isFinite())
     val lunar = nextLunarEclipse(time)
     check(previousLunarEclipse(lunar.peak.plusMillis(101)).kind == lunar.kind)
@@ -55,7 +56,7 @@ fun main() {
         PlanetIllumination(1.0, 0.0, 0.0, 90.0), MoonIllumination(.5, 90.0, .25, true), MoonOrientation(0.0, 0.0),
         SunEvent(time, SunEventKind.RISE), MoonEvent(time, MoonEventKind.SET), PlanetEvent(time, PlanetEventKind.RISE),
         AltitudeEvent(time, AltitudeEventKind.RISING), TransitEvent(time, TransitEventKind.UPPER), MoonPhaseEvent(time, MoonPhaseName.NEW),
-        SeasonEvent(time, SeasonKind.MARCH_EQUINOX), MoonApsis(time, MoonApsisKind.PERIGEE, 384400.0),
+        SeasonEvent(time, SeasonKind.MARCH_EQUINOX), MoonApsis(time, MoonApsisKind.PERIGEE, 384400.0), EarthApsis(time, EarthApsisKind.PERIHELION, 147100000.0),
         LunarEclipse(lunar.kind, lunar.peak, lunar.magUmbral, lunar.magPenumbral, lunar.p1, lunar.u1, lunar.u2, lunar.u3, lunar.u4, lunar.p4),
         LunarEclipseContactsVisible(true, null, null, null, null, false),
         LunarEclipseVisibility(true, 10.0, LunarEclipseContactsVisible(true, null, null, null, null, false)),
@@ -64,7 +65,7 @@ fun main() {
         GlobalSolarEclipse(global.kind, global.peak, global.axisDistanceKm, global.latitudeDeg, global.longitudeDeg, global.obscuration, global.greatestLatitudeDeg, global.greatestLongitudeDeg, global.greatestObscuration),
         SolarEclipseAxisPoint(time, 0.0, 0.0, SolarEclipseAxisKind.TOTAL, 1.0), AlmanacOutOfRangeException()
     )
-    check(publicModels.size == 24)
-    for (kinds in listOf(SunEventKind.entries, MoonEventKind.entries, PlanetEventKind.entries, AltitudeEventKind.entries, TransitEventKind.entries, MoonPhaseName.entries, SeasonKind.entries, MoonApsisKind.entries, LunarEclipseKind.entries, SolarEclipseKind.entries, SolarEclipseAxisKind.entries)) check(kinds.all { it.toString().first().isLowerCase() })
+    check(publicModels.size == 25)
+    for (kinds in listOf(SunEventKind.entries, MoonEventKind.entries, PlanetEventKind.entries, AltitudeEventKind.entries, TransitEventKind.entries, MoonPhaseName.entries, SeasonKind.entries, MoonApsisKind.entries, EarthApsisKind.entries, LunarEclipseKind.entries, SolarEclipseKind.entries, SolarEclipseAxisKind.entries)) check(kinds.all { it.toString().first().isLowerCase() })
     println("Almanac source consumer passed")
 }
