@@ -30,7 +30,7 @@ import {
     solarEclipseAxisPoint, solarEclipseCentralLine,
     horizonDip, planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination, planetEvents,
     sunAltitudeEvents, sunTransits, moonTransits, moonOrientation,
-    seasons, moonApsides, equationOfTime,
+    seasons, moonApsides, earthApsides, equationOfTime,
 } from "../../typescript/dist/index.js";
 
 const FIXTURES_DIR = new URL("../parity/", import.meta.url);
@@ -178,7 +178,7 @@ function buildCycles() {
     const apsisRows = moonApsides(new Date(PHASE_WINDOW_2026.startMs), new Date(PHASE_WINDOW_2026.endMs))
         .map((a) => ({ tMs: qEventMs(a.time), kind: a.kind, distanceKm: qKm(a.distanceKm) }));
     const eotRows = sampleTimesMs().map((tMs) => ({ tMs, minutes: qFrac(equationOfTime(new Date(tMs))) }));
-    return { seasons: seasonRows, apsides: apsisRows, equationOfTime: eotRows };
+    return { seasons: seasonRows, apsides: apsisRows, earthApsides: earthApsides(new Date(MIN_MS), new Date(MAX_MS)).map(a => ({ tMs: qEventMs(a.time), kind: a.kind, distanceKm: qKm(a.distanceKm) })), equationOfTime: eotRows };
 }
 
 function buildEclipses() {
@@ -323,6 +323,7 @@ function buildMeta(tsCommit, swiftCommit, files) {
             centralLinePoints: files.centralLine.centralLine.length,
             seasons: files.cycles.seasons.length,
             apsides: files.cycles.apsides.length,
+            earthApsides: files.cycles.earthApsides.length,
             equationOfTimeSamples: files.cycles.equationOfTime.length,
             planetHeliocentric: files.planets.heliocentric.length,
             planetSky: files.planets.sky.length,
@@ -628,6 +629,7 @@ function checkFile(rel, fresh, committed) {
         case "cycles.json":
             compareNode("cycles.seasons", [ROW_SCHEMAS.season], fresh.seasons, committed.seasons, ctx);
             compareNode("cycles.apsides", [ROW_SCHEMAS.apsis], fresh.apsides, committed.apsides, ctx);
+            compareNode("cycles.earthApsides", [ROW_SCHEMAS.apsis], fresh.earthApsides, committed.earthApsides, ctx);
             compareNode("cycles.equationOfTime", [ROW_SCHEMAS.equationOfTime], fresh.equationOfTime, committed.equationOfTime, ctx);
             break;
         default: throw new Error(`checkFile: no schema for ${rel}`);

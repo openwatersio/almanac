@@ -28,3 +28,6 @@ export type { GlobalSolarEclipse, SolarEclipseAxisPoint } from './globalSolar.js
 export {
   nextGlobalSolarEclipse, previousGlobalSolarEclipse, globalSolarEclipses, solarEclipseAxisPoint, solarEclipseCentralLine
 } from './globalSolar.js';
+
+export type { EarthApsisKind, EarthApsis } from './earthApsides.js';
+export { earthApsides } from './earthApsides.js';

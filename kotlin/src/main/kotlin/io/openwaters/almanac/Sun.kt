@@ -127,6 +127,8 @@ internal fun vsopSphereToRect(lon: Double, lat: Double, radius: Double): Vec3 {
     return Vec3(r_coslat * coslon, r_coslat * sinlon, radius * sin(lat))
 }
 
+internal fun earthHelioDistance(tt: Double): Double = earthRad(tt / 365250)
+
 internal fun earthHelioVector(tt: Double): Vec3 {
     val t = tt / DAYS_PER_MILLENNIUM
     val lon = earthLon(t)

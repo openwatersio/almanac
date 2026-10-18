@@ -238,6 +238,11 @@ final class PublicSurfaceTests: XCTestCase {
         let year: [SeasonEvent] = try seasons(from: start, to: end)
         XCTAssertEqual(year.map { $0.kind }, SeasonKind.allCases)
         _ = year[0].time
+        let earth: [EarthApsis] = try earthApsides(from: start, to: end)
+        let _: [EarthApsisKind] = earth.map { $0.kind }
+        _ = earth.map { ($0.time, $0.distanceKm) }
+        _ = EarthApsisKind.perihelion
+        _ = EarthApsisKind.aphelion
         let apsides: [MoonApsis] = try moonApsides(from: start, to: end)
         let kinds: Set<MoonApsisKind> = Set(apsides.map { $0.kind })
         XCTAssertEqual(kinds, [.perigee, .apogee])

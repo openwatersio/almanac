@@ -111,7 +111,7 @@ npm install @openwaters/almanac
 ```ts
 import {
   nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, nextGlobalSolarEclipse, sunEvents, starAltAz,
-  seasons, moonApsides, equationOfTime
+  seasons, moonApsides, earthApsides, equationOfTime
 } from '@openwaters/almanac';
 
 const observer = { latitudeDeg: 48.5, longitudeDeg: -123.0 };
@@ -141,6 +141,7 @@ const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
 const year = new Date(today.getUTCFullYear() + 1, 0, 1);
 for (const { kind, time } of seasons(today, year)) console.log(kind, time.toISOString());
 for (const { kind, time, distanceKm } of moonApsides(today, year)) console.log(kind, time.toISOString(), distanceKm);
+for (const { kind, time, distanceKm } of earthApsides(today, year)) console.log(kind, time.toISOString(), distanceKm);
 console.log(equationOfTime(today));   // sundial minus clock, minutes
 ```
 
@@ -197,6 +198,7 @@ let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer
 let year = today.addingTimeInterval(366 * 24 * 60 * 60)
 for event in try seasons(from: today, to: year) { print(event.kind, event.time) }
 for apsis in try moonApsides(from: today, to: year) { print(apsis.kind, apsis.time, apsis.distanceKm) }
+for apsis in try earthApsides(from: today, to: year) { print(apsis.kind, apsis.time, apsis.distanceKm) }
 print(try equationOfTime(today))   // sundial minus clock, minutes
 ```
 
