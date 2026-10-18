@@ -134,12 +134,14 @@ One version number spans all three ports. Kotlin reads `typescript/package.json`
 4. Write the GitHub release while the workflow runs:
 
    ```bash
-   gh release create vX.Y.Z --verify-tag --title vX.Y.Z --latest --notes-file notes.md
+   gh release create vX.Y.Z --verify-tag --title "<headline>" --latest --notes-file notes.md
    ```
 
-   Follow the earlier releases: a summary sentence, the user-facing changes as bullets, measured evidence where accuracy or performance changed, install snippets for npm and SwiftPM, the pull requests, and a full-changelog link. If the workflow's generated notes were published first, replace them with `gh release edit vX.Y.Z --notes-file notes.md`.
+   Follow the [release notes guidance](https://github.com/openwatersio/.github/blob/main/docs/agents/releases.md#release-notes). The title is a short, sentence-case headline of what changed for users, with no version and no closing period, such as "Earth perihelion and aphelion" or "Requires Swift 6". The notes open with what is new and for whom (developers using the TypeScript, Swift, and Kotlin ports), put breaking changes and upgrade steps first, and list the user-visible changes as bullets that link their pull requests. Leave out chores, CI, and bot dependency bumps unless a runtime dependency change matters to users. Add measured evidence where accuracy or performance changed and install snippets for npm and SwiftPM.
 
-A release is finished when npm lists the version and `gh release view vX.Y.Z` shows the written notes.
+   The workflow creates a release titled with the bare tag and generated notes if none exists yet. If it published first, replace the title and notes with `gh release edit vX.Y.Z --repo openwatersio/almanac --title "<headline>" --notes-file notes.md`.
+
+A release is finished when npm lists the version and `gh release view vX.Y.Z` shows the headline title and written notes.
 
 npm publishing uses a trusted publisher bound to `openwatersio/almanac` and the workflow filename `release.yml`. Renaming that file breaks the binding. The repository contains no npm publishing token. Swift consumers pin the `vX.Y.Z` tag, and npm consumers install `@openwaters/almanac` from the registry.
 
