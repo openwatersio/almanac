@@ -14,7 +14,7 @@ Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations
 - Apparent Earth-based positions, altitude/azimuth, point-center rise/set, illumination, approximate visual magnitude, and solar elongation for Mercury, Venus, Mars, Jupiter, Saturn, Uranus, and Neptune.
 - Geometric Sun-centered positions for those seven planets and Earth in fixed J2000 equatorial coordinates, for a solar-system view.
 - Moon illumination, phase angle, named phase, waxing or waning state, and quarter-phase events.
-- Equinoxes and solstices, lunar perigees and apogees with their distances, and the equation of time.
+- Equinoxes and solstices, lunar perigees and apogees, and Earth's perihelion and aphelion, each with its distance, and the equation of time.
 - Lunar eclipse next, previous, and range searches, including eclipse kind, magnitudes, contact times, and geometric local visibility.
 - Solar eclipse next, previous, and range searches for an observer, including eclipse kind, contact times with the Sun's altitude at each, peak obscuration, and the fraction of the Sun's disc covered at any instant.
 - Solar eclipse next, previous, and range searches anywhere on Earth, including greatest eclipse, the shadow axis's distance from the Earth's center, and where the axis meets the ground, with the kind and obscuration seen there.

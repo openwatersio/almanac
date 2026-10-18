@@ -22,7 +22,7 @@ In `build.gradle.kts`, use the version from the pinned checkout's `typescript/pa
 
 ```kotlin
 dependencies {
-    implementation("io.openwaters:almanac:0.10.0")
+    implementation("io.openwaters:almanac:0.11.0")
 }
 ```
 
