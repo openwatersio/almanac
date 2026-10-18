@@ -6,7 +6,7 @@ import { KM_PER_AU } from '../src/nutation.js';
 const rows: {utc: string; kind: string; distanceKm: number}[] = JSON.parse(readFileSync(new URL('../../fixtures/raw/earth-apsides/reference.json', import.meta.url), 'utf8')).rows;
 const start = new Date(SUPPORTED_MIN), end = new Date(SUPPORTED_MAX);
 
-it('matches all 302 pinned Astronomy Engine Earth apsides within 2 seconds and 1 millimeter', () => {
+it('matches all 302 pinned Astronomy Engine Earth apsides within 2 seconds and 1 meter', () => {
   const all = earthApsides(start, end);
   expect(all.length).toBe(302);
   expect(all.length).toBe(rows.length);
