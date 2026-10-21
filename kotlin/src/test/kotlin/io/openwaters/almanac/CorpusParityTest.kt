@@ -34,8 +34,8 @@ private fun recompute(): Map<String,JsonElement> {
     val victoria = Observer(48.4284,-123.3656)
     val times = generateSequence(SUPPORTED_MIN) { it+8*86400000L }.takeWhile { it < SUPPORTED_MAX }.toList()
     out["positions"] = times.map { ms ->
-        val t = Instant.ofEpochMilli(ms); val s = sunPosition(t); val m = moonPosition(t)
-        j("tMs" to ms,"sun" to j("raDeg" to q(s.raDeg),"decDeg" to q(s.decDeg),"distanceAu" to scaled(s.distanceAu,1e9)),"moon" to j("raDeg" to q(m.raDeg),"decDeg" to q(m.decDeg),"distanceKm" to scaled(m.distanceKm,1e3)))
+        val t = Instant.ofEpochMilli(ms); val s = sunPosition(t); val m = moonPosition(t); val star = starPosition(88.792939,7.407064,t)
+        j("tMs" to ms,"sun" to j("raDeg" to q(s.raDeg),"decDeg" to q(s.decDeg),"distanceAu" to scaled(s.distanceAu,1e9)),"moon" to j("raDeg" to q(m.raDeg),"decDeg" to q(m.decDeg),"distanceKm" to scaled(m.distanceKm,1e3)),"star" to j("raDeg" to q(star.raDeg),"decDeg" to q(star.decDeg)),"siderealDeg" to q(greenwichSiderealTime(t)))
     }.rows()
     out["altaz"] = times.map { ms -> val t = Instant.ofEpochMilli(ms)
         j("tMs" to ms,"sunIsUp" to sunIsUp(t,victoria),"sun" to aa(sunAltAz(t,victoria)),"moon" to aa(moonAltAz(t,victoria)),"star" to aa(starAltAz(88.792939,7.407064,t,victoria)))

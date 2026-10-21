@@ -67,4 +67,23 @@ internal class TableIntegrityTest {
         }
         assertEquals(1059, terms)
     }
+
+    @Test fun earthVsopTableRetainsEveryCoefficientAndSeriesShape() {
+        val expected = Json.parseToJsonElement(source("sun").substringAfter("export const vsopEarth: VsopModel = ").substringBefore(';')).jsonArray
+        assertEquals(3, expected.size)
+        assertEquals(expected.size, VSOP_EARTH.size)
+        var terms = 0
+        for ((i, formula) in expected.withIndex()) {
+            assertEquals(formula.jsonArray.size, VSOP_EARTH[i].size)
+            for ((j, series) in formula.jsonArray.withIndex()) {
+                assertEquals(series.jsonArray.size, VSOP_EARTH[i][j].size)
+                for ((k, term) in series.jsonArray.withIndex()) {
+                    assertEquals(3, term.jsonArray.size)
+                    assertEquals(term.jsonArray.map { it.jsonPrimitive.double.toBits() }, VSOP_EARTH[i][j][k].map { it.toBits() }, "$i $j $k")
+                    terms++
+                }
+            }
+        }
+        assertEquals(51, terms)
+    }
 }

@@ -5,6 +5,8 @@ import kotlin.math.cos
 
 public data class SunPosition(public val raDeg: Double, public val decDeg: Double, public val distanceAu: Double)
 public data class MoonPosition(public val raDeg: Double, public val decDeg: Double, public val distanceKm: Double)
+/** Apparent geocentric position of a fixed star: equator of date, RA in [0, 360). */
+public data class StarPosition(public val raDeg: Double, public val decDeg: Double)
 
 internal fun sunApparentAtTT(tt: Double): SunPosition {
     val equ = equatorialFromVector(sunGeoVector(tt))
@@ -24,6 +26,20 @@ public fun sunPosition(time: Instant): SunPosition {
 public fun moonPosition(time: Instant): MoonPosition {
     assertSupported(time)
     return moonApparentAtTT(ttDays(time))
+}
+
+// Equator(star, date, observer, ofdate=true, aberration=true) with the geocentric observer term dropped: https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L2803
+/**
+ * Apparent geocentric position of a fixed star from its J2000 (ICRS) catalog right ascension and declination, both in
+ * degrees: right ascension and declination on the true equator and equinox of date, with annual aberration, precession
+ * and nutation applied. Proper motion and stellar parallax are not applied.
+ */
+public fun starPosition(raDeg: Double, decDeg: Double, time: Instant): StarPosition {
+    assertSupported(time)
+    assertStarCatalog(raDeg, decDeg)
+    val tt = ttDays(time)
+    val equ = equatorialFromVector(gyration(starGeoVectorEqj(raDeg, decDeg, tt), tt, PrecessDirection.From2000))
+    return StarPosition(equ.raDeg, equ.decDeg)
 }
 
 // Meeus 28.1–28.2 uses the apparent RA and moves mean longitude to the true equinox.

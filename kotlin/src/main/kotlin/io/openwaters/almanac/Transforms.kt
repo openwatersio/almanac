@@ -152,14 +152,46 @@ public fun moonAltAz(time: Instant, observer: Observer): AltAz {
     return refract(topoAltAzUnrefracted(moonGeoVectorEqj(ttDaysFromUt(ut)), ut, observer))
 }
 
+// Upstream floors a star's distance at 1 light-year and suggests 1000 when unknown; the star sits at 1000 ly (AU_PER_LY): https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L52
 private val STAR_DISTANCE_AU = 1000 * 63241.07708807546
 
-public fun starAltAz(raDeg: Double, decDeg: Double, time: Instant, observer: Observer): AltAz {
-    assertSupported(time)
+// Shared argument checks for the J2000 catalog position the star functions take.
+internal fun assertStarCatalog(raDeg: Double, decDeg: Double) {
     require(raDeg >= 0 && raDeg < 360) { "raDeg out of range: $raDeg" }
     require(decDeg >= -90 && decDeg <= 90) { "decDeg out of range: $decDeg" }
-    val ut = utDays(time)
+}
+
+// GeoVector for a DefineStar body with aberration, through the user-defined-star branch of BackdatePosition: https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L4270
+// The star is not backdated; the vector from Earth to the star is shifted by Earth's heliocentric velocity over the light travel time, which is the annual aberration, at most 20.5″. Returns AU, EQJ.
+internal fun starGeoVectorEqj(raDeg: Double, decDeg: Double, tt: Double): Vec3 {
     val rCosDec = STAR_DISTANCE_AU * cos(decDeg * DEG2RAD)
-    val eqj = Vec3(rCosDec * cos(raDeg * DEG2RAD), rCosDec * sin(raDeg * DEG2RAD), STAR_DISTANCE_AU * sin(decDeg * DEG2RAD))
-    return refract(topoAltAzUnrefracted(eqj, ut, observer))
+    val tvec = Vec3(rCosDec * cos(raDeg * DEG2RAD), rCosDec * sin(raDeg * DEG2RAD), STAR_DISTANCE_AU * sin(decDeg * DEG2RAD))
+    val ostate = earthHelioState(tt)
+    val rvec = Vec3(tvec.x - ostate.pos.x, tvec.y - ostate.pos.y, tvec.z - ostate.pos.z)
+    val s = C_AUDAY / sqrt(rvec.x*rvec.x + rvec.y*rvec.y + rvec.z*rvec.z)
+    return Vec3(rvec.x + ostate.vel.x / s, rvec.y + ostate.vel.y / s, rvec.z + ostate.vel.z / s)
+}
+
+/**
+ * Topocentric azimuth/altitude of a fixed star from its J2000 (ICRS) catalog right ascension and declination, both in degrees.
+ *
+ * Applied: annual aberration, precession and nutation to the equator of date, Greenwich apparent sidereal time, and
+ * atmospheric refraction (upstream `'normal'` model, the same as [sunAltAz]/[moonAltAz]). Not applied: proper motion
+ * (pass catalog coordinates; fast movers such as Arcturus drift ~1′ in 26 years) and stellar parallax (negligible at
+ * the 1000 ly the star is placed at).
+ */
+public fun starAltAz(raDeg: Double, decDeg: Double, time: Instant, observer: Observer): AltAz {
+    assertSupported(time)
+    assertStarCatalog(raDeg, decDeg)
+    val ut = utDays(time)
+    return refract(topoAltAzUnrefracted(starGeoVectorEqj(raDeg, decDeg, ttDaysFromUt(ut)), ut, observer))
+}
+
+/**
+ * Greenwich apparent sidereal time in degrees, [0, 360): the hour angle of the true equinox of date at Greenwich,
+ * including the equation of the equinoxes. A body's Greenwich hour angle is this minus its right ascension of date.
+ */
+public fun greenwichSiderealTime(time: Instant): Double {
+    assertSupported(time)
+    return siderealDeg(utDays(time))
 }

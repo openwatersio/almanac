@@ -9,6 +9,8 @@ fun main() {
     val time = Instant.parse("2026-03-20T12:00:00Z")
     check(sunPosition(time).distanceAu > 0.9)
     check(moonPosition(time).distanceKm > 300_000)
+    check(starPosition(88.792939, 7.407064, time).raDeg in 0.0..360.0)
+    check(greenwichSiderealTime(time) in 0.0..360.0)
     val observer = Observer(48.4284, -123.3656, 2.0)
     check(sunAltAz(time, observer).altDeg.isFinite())
     check(sunIsUp(Instant.parse("2024-06-21T12:00:00Z"), Observer(0.0, 0.0)))
@@ -51,7 +53,7 @@ fun main() {
     check(solarEclipseAxisPoint(global.peak) != null)
     check(solarEclipseCentralLine(global.peak).isNotEmpty())
     val publicModels: List<Any> = listOf(
-        SunPosition(0.0, 0.0, 1.0), MoonPosition(0.0, 0.0, 384400.0), AltAz(0.0, 0.0),
+        SunPosition(0.0, 0.0, 1.0), MoonPosition(0.0, 0.0, 384400.0), StarPosition(0.0, 0.0), AltAz(0.0, 0.0),
         HeliocentricPosition(1.0, 0.0, 0.0), PlanetPosition(0.0, 0.0, 1.0),
         PlanetIllumination(1.0, 0.0, 0.0, 90.0), MoonIllumination(.5, 90.0, .25, true), MoonOrientation(0.0, 0.0),
         SunEvent(time, SunEventKind.RISE), MoonEvent(time, MoonEventKind.SET), PlanetEvent(time, PlanetEventKind.RISE),
@@ -65,7 +67,7 @@ fun main() {
         GlobalSolarEclipse(global.kind, global.peak, global.axisDistanceKm, global.latitudeDeg, global.longitudeDeg, global.obscuration, global.greatestLatitudeDeg, global.greatestLongitudeDeg, global.greatestObscuration),
         SolarEclipseAxisPoint(time, 0.0, 0.0, SolarEclipseAxisKind.TOTAL, 1.0), AlmanacOutOfRangeException()
     )
-    check(publicModels.size == 25)
+    check(publicModels.size == 26)
     for (kinds in listOf(SunEventKind.entries, MoonEventKind.entries, PlanetEventKind.entries, AltitudeEventKind.entries, TransitEventKind.entries, MoonPhaseName.entries, SeasonKind.entries, MoonApsisKind.entries, EarthApsisKind.entries, LunarEclipseKind.entries, SolarEclipseKind.entries, SolarEclipseAxisKind.entries)) check(kinds.all { it.toString().first().isLowerCase() })
     println("Almanac source consumer passed")
 }
