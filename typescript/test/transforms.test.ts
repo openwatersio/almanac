@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { sunAltAz, moonAltAz, starAltAz } from '../src/index.js';
+import { sunAltAz, moonAltAz, starAltAz, greenwichSiderealTime, AlmanacOutOfRangeError } from '../src/index.js';
 import { siderealDeg, refractionDeg } from '../src/transforms.js';
 import type { Observer } from '../src/types.js';
 
@@ -15,6 +15,12 @@ const azDiffDeg = (a: number, b: number) => (((a - b + 540) % 360) + 360) % 360 
 
 it('refraction at horizon ≈ 34 arcmin', () => expect(refractionDeg(0) * 60).toBeGreaterThan(28)); // Bennett-model ballpark, upstream 'normal'
 it('sidereal: GMST 2000-01-01T12Z ≈ 280.46°', () => expect(Math.abs(siderealDeg(0) - 280.4606)).toBeLessThan(0.01));
+it('greenwichSiderealTime is the sidereal time the transforms use', () => {
+  const t = new Date(Date.UTC(2000, 0, 1, 12));
+  expect(greenwichSiderealTime(t)).toBe(siderealDeg(0));
+  expect(() => greenwichSiderealTime(new Date(Date.UTC(1949, 11, 31)))).toThrow(AlmanacOutOfRangeError);
+  expect(() => greenwichSiderealTime(new Date(NaN))).toThrow(RangeError);
+});
 
 // Horizons REFRACTED apparent az/el at Victoria BC. Only altDeg > 10° rows are
 // asserted: refraction models diverge near the horizon (plan rule).

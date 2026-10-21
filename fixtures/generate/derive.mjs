@@ -1190,6 +1190,7 @@ function deriveStars(retrieved, requests) {
   assert.ok(dropped.includes("ARCTURUS") && dropped.includes("SIRIUS"), "stars: the fast movers should be dropped");
 
   const rows = [];
+  const places = [];
   let apiversion;
   for (const site of STAR_SITES) {
     for (const date of STAR_DATES) {
@@ -1203,6 +1204,11 @@ function deriveStars(retrieved, requests) {
         // A resolver mistake would put SIMBAD's star a sky away from USNO's.
         assert.ok(Math.abs(star.decDeg - entry.almanac_data.dec) < 1,
           `${name}: ${entry.object} dec ${entry.almanac_data.dec} vs SIMBAD ${star.id} ${star.decDeg}`);
+        places.push({
+          utc, star: entry.object, raDeg: star.raDeg, decDeg: star.decDeg,
+          pmMasPerYear: Number(star.pmMasPerYear.toFixed(2)),
+          ghaDeg: entry.almanac_data.gha, decOfDateDeg: entry.almanac_data.dec,
+        });
         if (!kept.includes(entry.object)) continue;
         const { hc, zn } = entry.almanac_data;
         const refr = entry.altitude_corrections.refr; // sextant correction, negative: apparent = hc - refr
@@ -1217,9 +1223,13 @@ function deriveStars(retrieved, requests) {
   }
   rows.sort((a, b) => a.utc.localeCompare(b.utc) || a.latitudeDeg - b.latitudeDeg || a.star.localeCompare(b.star));
   assert.ok(rows.length > 100, `stars: expected well over 100 rows, got ${rows.length}`);
+  // Every site sees the same geocentric places, so one site's rows are the set.
+  const placeRows = places.filter((r, i) => places.findIndex((q) => q.utc === r.utc && q.star === r.star) === i);
+  placeRows.sort((a, b) => a.utc.localeCompare(b.utc) || a.star.localeCompare(b.star));
 
   return {
     "altaz/stars-usno.json": json(rows),
+    "positions/stars-usno.json": json(placeRows),
     "altaz/stars-meta.json": json({
       source: "USNO Astronomical Applications API (aa.usno.navy.mil/api/celnav) apparent altitude/azimuth; SIMBAD ICRS J2000 positions and proper motions",
       sourceVersion: apiversion,
@@ -1227,6 +1237,7 @@ function deriveStars(retrieved, requests) {
       requests: Object.values(requests),
       toleranceArcmin: 1,
       altDeg: "USNO hc (unrefracted computed altitude) minus its refr sextant correction, i.e. refracted apparent altitude",
+      positions: "positions/stars-usno.json carries each star's geocentric apparent place as USNO tabulates it for sight reduction: ghaDeg (Greenwich hour angle) and decOfDateDeg, with the SIMBAD J2000 position and proper motion it starts from. Proper motion is not dropped there; the test allows for it.",
       maxProperMotionMasPerYear: STAR_MAX_PM_MAS_PER_YEAR,
       droppedForProperMotion: dropped,
     }),

@@ -5,14 +5,14 @@ export type { HeliocentricPosition, PlanetPosition, PlanetIllumination } from '.
 export { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination } from './planets.js';
 export { horizonDip } from './horizon.js';
 export { AlmanacOutOfRangeError } from './types.js';
-export type { SunPosition, MoonPosition } from './positions.js';
-export { sunPosition, moonPosition, equationOfTime } from './positions.js';
+export type { SunPosition, MoonPosition, StarPosition } from './positions.js';
+export { sunPosition, moonPosition, starPosition, equationOfTime } from './positions.js';
 export type { SeasonKind, SeasonEvent } from './seasons.js';
 export { seasons } from './seasons.js';
 export type { MoonApsisKind, MoonApsis } from './apsides.js';
 export { moonApsides } from './apsides.js';
 export type { AltAz } from './transforms.js';
-export { sunAltAz, moonAltAz, starAltAz } from './transforms.js';
+export { sunAltAz, moonAltAz, starAltAz, greenwichSiderealTime } from './transforms.js';
 export type { MoonIllumination, MoonOrientation } from './illumination.js';
 export { moonIllumination, moonOrientation } from './illumination.js';
 export type {

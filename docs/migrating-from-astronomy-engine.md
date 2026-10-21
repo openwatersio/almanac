@@ -19,6 +19,9 @@ Almanac uses lowercase planet identifiers in TypeScript, Swift enum cases such a
 | Astronomy Engine | Almanac | Difference |
 | --- | --- | --- |
 | `Horizon(time, observer, Equator(body, time, observer, true, true).ra, …dec, 'normal')` | `sunAltAz`, `moonAltAz`, or `planetAltAz` | One refracted topocentric call returns `azDeg`, `altDeg`. |
+| `DefineStar(Body.Star1, ra, dec, dist)`, then `Equator(Body.Star1, time, observer, true, true)` | `starPosition(raDeg, decDeg, time)` | No star slots to define. Pass the J2000 right ascension in degrees; the result is geocentric, with annual aberration, precession, and nutation. |
+| `Horizon` for a `DefineStar` body | `starAltAz(raDeg, decDeg, time, observer)` | One refracted topocentric call from the J2000 catalog position. |
+| `SiderealTime(time)` | `greenwichSiderealTime(time)` | Greenwich apparent sidereal time in degrees rather than hours. Subtract a body's `raDeg` for its Greenwich hour angle. |
 | `SearchRiseSet(body, observer, direction, start, limitDays, height)` | `sunEvents`, `moonEvents`, or `planetEvents` over an explicit window; select `rise` or `set` | Every crossing is returned, sorted. No matching crossing is an absent event, not a null search result. |
 | `SearchAltitude(Body.Sun, observer, direction, start, limitDays, angle)` | `sunAltitudeEvents(start, end, observer, angle)` | Kinds are `rising` and `falling`. The altitude is the Sun's unrefracted geometric center. |
 | Sun twilight searches at −6°, −12°, −18° | `sunEvents` kinds `civilDawn` / `civilDusk`, `nauticalDawn` / `nauticalDusk`, `astroDawn` / `astroDusk` | Query the window once instead of searching each crossing separately. |

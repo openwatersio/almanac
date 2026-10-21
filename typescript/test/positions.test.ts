@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { sunPosition, moonPosition, equationOfTime } from '../src/index.js';
+import { sunPosition, moonPosition, starPosition, greenwichSiderealTime, equationOfTime, AlmanacOutOfRangeError } from '../src/index.js';
 import { sunApparentAtTT, moonApparentAtTT, equationOfTimeAtTT } from '../src/positions.js';
-import { earthHelioVector, vsopEarth, type VsopFormula } from '../src/sun.js';
+import { earthHelioState, earthHelioVector, vsopEarth, type VsopFormula } from '../src/sun.js';
 import { PI2 } from '../src/nutation.js';
 
 const load = (p: string) => JSON.parse(readFileSync(new URL(`../../fixtures/${p}`, import.meta.url), 'utf8'));
@@ -97,5 +97,53 @@ it('unrolled VSOP Earth series matches the upstream loop bit for bit', () => {
   };
   for (let tt = -73048; tt <= 36525; tt += 7.3) {   // 1800 through 2100, an odd stride
     expect(earthHelioVector(tt)).toEqual(reference(tt));
+  }
+});
+
+// USNO's celestial-navigation GHA and declination for the navigational stars,
+// from each star's SIMBAD J2000 position. The places include proper motion
+// and starPosition does not, so each row allows 1″ plus the star's proper
+// motion since J2000. Annual aberration alone is up to 20.5″.
+it('positions/stars-usno.json GHA and declination within 1″ plus proper motion', () => {
+  const rows = load('positions/stars-usno.json');
+  expect(rows.length).toBeGreaterThan(100);
+  for (const row of rows) {
+    const t = new Date(row.utc);
+    const p = starPosition(row.raDeg, row.decDeg, t);
+    const years = (t.getTime() - Date.UTC(2000, 0, 1, 12)) / (365.25 * 86400000);
+    const tolArcsec = 1 + row.pmMasPerYear * Math.abs(years) / 1000;
+    const gha = greenwichSiderealTime(t) - p.raDeg;
+    const dGha = ((((gha - row.ghaDeg) % 360) + 540) % 360) - 180;
+    expect(Math.abs(dGha) * Math.cos(p.decDeg * Math.PI / 180) * 3600, `${row.star} GHA @ ${row.utc}`).toBeLessThan(tolArcsec);
+    expect(Math.abs(p.decDeg - row.decOfDateDeg) * 3600, `${row.star} dec @ ${row.utc}`).toBeLessThan(tolArcsec);
+  }
+});
+
+it('starPosition returns right ascension in [0, 360)', () => {
+  const t = new Date('2026-03-20T06:00:00Z');
+  for (const ra of [0, 0.001, 359.999]) {
+    const p = starPosition(ra, 0, t);
+    expect(p.raDeg).toBeGreaterThanOrEqual(0);
+    expect(p.raDeg).toBeLessThan(360);
+  }
+});
+
+it('starPosition rejects a catalog position off the sphere and a time outside the interval', () => {
+  const t = new Date('2026-03-20T06:00:00Z');
+  expect(() => starPosition(360, 0, t)).toThrow(RangeError);
+  expect(() => starPosition(-1, 0, t)).toThrow(RangeError);
+  expect(() => starPosition(0, -90.5, t)).toThrow(RangeError);
+  expect(() => starPosition(0, NaN, t)).toThrow(RangeError);
+  expect(() => starPosition(0, 0, new Date(Date.UTC(2101, 0, 1)))).toThrow(AlmanacOutOfRangeError);
+});
+
+it("earthHelioState's velocity is the derivative of earthHelioVector", () => {
+  const h = 0.01; // days
+  for (const tt of [-18262, 0, 9573.25, 36524]) {
+    const { pos, vel } = earthHelioState(tt);
+    const a = earthHelioVector(tt - h), b = earthHelioVector(tt + h), here = earthHelioVector(tt);
+    expect(pos).toEqual(here);
+    for (const k of ['x', 'y', 'z'] as const)
+      expect(Math.abs(vel[k] - (b[k] - a[k]) / (2 * h))).toBeLessThan(1e-9); // AU per day; orbital speed is ~0.0172
   }
 });

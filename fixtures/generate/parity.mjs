@@ -22,7 +22,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
-    sunPosition, moonPosition, sunAltAz, moonAltAz, starAltAz, moonIllumination,
+    sunPosition, moonPosition, starPosition, greenwichSiderealTime, sunAltAz, moonAltAz, starAltAz, moonIllumination,
     sunIsUp, sunEvents, moonEvents, searchMoonPhases,
     lunarEclipses, lunarEclipseVisibility,
     solarEclipses, solarObscuration, nextSolarEclipse, previousSolarEclipse,
@@ -53,7 +53,7 @@ export const VICTORIA = { latitudeDeg: 48.4284, longitudeDeg: -123.3656 };
 const N60 = { latitudeDeg: 60, longitudeDeg: -123.052 };
 const EQUATOR = { latitudeDeg: 0, longitudeDeg: -123.052 };
 export const OBSERVERS = [VICTORIA, N60, EQUATOR];
-/** Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the altaz rows' fixed star. */
+/** Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the positions and altaz rows' fixed star. */
 export const BETELGEUSE = { raDeg: 88.792939, decDeg: 7.407064 };
 
 /** The 12 calendar-month windows of 2026, half-open. */
@@ -121,10 +121,13 @@ function buildPositionsAltazIllumination() {
         const t = new Date(tMs);
         const sun = sunPosition(t);
         const moon = moonPosition(t);
+        const star = starPosition(BETELGEUSE.raDeg, BETELGEUSE.decDeg, t);
         positions.push({
             tMs,
             sun: { raDeg: qAngle(sun.raDeg), decDeg: qAngle(sun.decDeg), distanceAu: qAu(sun.distanceAu) },
             moon: { raDeg: qAngle(moon.raDeg), decDeg: qAngle(moon.decDeg), distanceKm: qKm(moon.distanceKm) },
+            star: { raDeg: qAngle(star.raDeg), decDeg: qAngle(star.decDeg) },
+            siderealDeg: qAngle(greenwichSiderealTime(t)),
         });
 
         const sunAa = sunAltAz(t, VICTORIA);
@@ -479,6 +482,8 @@ const ROW_SCHEMAS = {
         tMs: EXACT,
         sun: { raDeg: SCALED, decDeg: SCALED, distanceAu: SCALED },
         moon: { raDeg: SCALED, decDeg: SCALED, distanceKm: SCALED },
+        star: { raDeg: SCALED, decDeg: SCALED },
+        siderealDeg: SCALED,
     },
     altaz: {
         tMs: EXACT,

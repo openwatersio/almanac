@@ -253,6 +253,83 @@ export function earthHelioVector(tt: number): Vec3 {
 }
 
 /**
+ * UPSTREAM: `VsopDeriv`, astronomy.ts lines 3207-3227 — the time derivative
+ * of a VSOP series, per millennium. It loops over the table rather than
+ * unrolling like `earthLon`: only the star path needs it, once per call.
+ */
+function vsopDeriv(formula: VsopFormula, t: number): number {
+    let tpower = 1;   // t^s
+    let dpower = 0;   // t^(s-1)
+    let deriv = 0;
+    let s = 0;
+    for (const series of formula) {
+        let sin_sum = 0;
+        let cos_sum = 0;
+        for (const [ampl, phas, freq] of series) {
+            const angle = phas + (t * freq);
+            sin_sum += ampl * freq * Math.sin(angle);
+            if (s > 0)
+                cos_sum += ampl * Math.cos(angle);
+        }
+        deriv += (s * dpower * cos_sum) - (tpower * sin_sum);
+        dpower = tpower;
+        tpower *= t;
+        ++s;
+    }
+    return deriv;
+}
+
+/** Heliocentric position in AU and velocity in AU per day, J2000 mean equator (EQJ). */
+export interface HelioState { pos: Vec3; vel: Vec3; }
+
+/**
+ * UPSTREAM: `CalcVsopPosVel`, astronomy.ts lines 3264-3314, specialised to
+ * `vsop.Earth` — i.e. `HelioState(Body.Earth, time)`.
+ */
+export function earthHelioState(tt: number): HelioState {
+    const t = tt / DAYS_PER_MILLENNIUM;
+
+    const lon = earthLon(t);
+    const lat = earthLat(t);
+    const rad = earthRad(t);
+
+    const dlon_dt = vsopDeriv(vsopEarth[0], t);
+    const dlat_dt = vsopDeriv(vsopEarth[1], t);
+    const drad_dt = vsopDeriv(vsopEarth[2], t);
+
+    const coslon = Math.cos(lon);
+    const sinlon = Math.sin(lon);
+    const coslat = Math.cos(lat);
+    const sinlat = Math.sin(lat);
+
+    const vx = (
+        + (drad_dt * coslat * coslon)
+        - (rad * sinlat * coslon * dlat_dt)
+        - (rad * coslat * sinlon * dlon_dt)
+    );
+
+    const vy = (
+        + (drad_dt * coslat * sinlon)
+        - (rad * sinlat * sinlon * dlat_dt)
+        + (rad * coslat * coslon * dlon_dt)
+    );
+
+    const vz = (
+        + (drad_dt * sinlat)
+        + (rad * coslat * dlat_dt)
+    );
+
+    // AU per millennium to AU per day.
+    const eclipVel: Vec3 = {
+        x: vx / DAYS_PER_MILLENNIUM,
+        y: vy / DAYS_PER_MILLENNIUM,
+        z: vz / DAYS_PER_MILLENNIUM
+    };
+
+    return { pos: vsopRotate(vsopSphereToRect(lon, lat, rad)), vel: vsopRotate(eclipVel) };
+}
+
+/**
  * UPSTREAM: `CorrectLightTravel` (astronomy.ts 4170-4191) driving
  * `BodyPosition.Position` (4193-4241) with observerBody = Earth,
  * targetBody = Sun, aberration = true — i.e. what
