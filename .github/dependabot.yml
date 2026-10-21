@@ -15,9 +15,24 @@ updates:
       npm:
         patterns: ["*"]
   - package-ecosystem: gradle
-    directory: /kotlin
+    directories:
+      - /kotlin
+      - /kotlin/smoke
     schedule:
       interval: weekly
+    # Major upgrades need a coordinated toolchain and Android compatibility review.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
-      gradle:
+      kotlin:
+        group-by: dependency-name
+        patterns: ["org.jetbrains.kotlin*"]
+      gradle-minor-and-patch:
         patterns: ["*"]
+        exclude-patterns: ["org.jetbrains.kotlin*"]
+        update-types: [minor, patch]
+      gradle-security:
+        applies-to: security-updates
+        patterns: ["*"]
+        exclude-patterns: ["org.jetbrains.kotlin*"]
