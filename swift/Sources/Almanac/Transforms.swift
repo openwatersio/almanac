@@ -16,7 +16,7 @@ import Foundation
 //   refinement since this layer only needs az/alt; Refraction 'normal' (~7176).
 //
 // INTERNAL: not part of the curated public API (see Positions.swift) except
-// sunAltAz/moonAltAz.
+// sunAltAz, moonAltAz, starAltAz and greenwichSiderealTime.
 
 /// Topocentric horizontal position: azimuth from true north through east, altitude above the horizon.
 public struct AltAz: Sendable { public let azDeg: Double; public let altDeg: Double }
@@ -236,39 +236,67 @@ public func moonAltAz(_ time: Date, observer: Observer) throws -> AltAz {
 }
 
 /**
- * UPSTREAM: the user-defined star path — `HelioVector` for a `DefineStar`
- * body (astronomy.ts ~4097: `VectorFromSphere(Spherical(dec, 15*ra, dist))`)
- * into `Equator(body, date, observer, ofdate=true, aberration=false)` (~2803)
- * and `Horizon` (~2565): the same topocentric path sunAltAz/moonAltAz take.
  * Upstream floors a star's distance at 1 light-year and suggests 1000 when
  * unknown; the star sits at 1000 ly here (`AU_PER_LY`, astronomy.ts line 52).
- * Upstream's geocentric step (star vector minus Earth's heliocentric
- * position) is skipped: at 1000 ly it moves the star 0.003″.
  */
 private let STAR_DISTANCE_AU = 1000 * 63241.07708807546
+
+/** INTERNAL: shared argument checks for the J2000 catalog position the star functions take. */
+func assertStarCatalog(_ raDeg: Double, _ decDeg: Double) throws {
+    guard raDeg >= 0, raDeg < 360 else { throw AlmanacError.invalidArgument("raDeg out of range: \(raDeg)") }
+    guard decDeg >= -90, decDeg <= 90 else { throw AlmanacError.invalidArgument("decDeg out of range: \(decDeg)") }
+}
+
+/**
+ * UPSTREAM: `GeoVector` for a `DefineStar` body with aberration = true —
+ * `HelioVector`'s `VectorFromSphere(Spherical(dec, 15*ra, dist))`
+ * (astronomy.ts ~4097, 7015) through the user-defined-star branch of
+ * `BackdatePosition` (4270-4300). The star is not backdated; the vector from
+ * Earth to the star is shifted by Earth's heliocentric velocity over the
+ * light travel time, which is the annual aberration, at most 20.5″.
+ *
+ * Returns geocentric position in AU, J2000 mean equator (EQJ).
+ */
+func starGeoVectorEqj(_ raDeg: Double, _ decDeg: Double, _ tt: Double) -> Vec3 {
+    let rCosDec = STAR_DISTANCE_AU * cos(decDeg * DEG2RAD)
+    let tvec = Vec3(
+        x: rCosDec * cos(raDeg * DEG2RAD),
+        y: rCosDec * sin(raDeg * DEG2RAD),
+        z: STAR_DISTANCE_AU * sin(decDeg * DEG2RAD)
+    )
+    let ostate = earthHelioState(tt)
+    let rvec = Vec3(x: tvec.x - ostate.pos.x, y: tvec.y - ostate.pos.y, z: tvec.z - ostate.pos.z)
+    let s = C_AUDAY / (rvec.x*rvec.x + rvec.y*rvec.y + rvec.z*rvec.z).squareRoot()
+    return Vec3(x: rvec.x + ostate.vel.x / s, y: rvec.y + ostate.vel.y / s, z: rvec.z + ostate.vel.z / s)
+}
 
 /**
  * Topocentric azimuth/altitude of a fixed star from its J2000 (ICRS)
  * catalog right ascension and declination, both in degrees.
  *
- * Applied: precession and nutation to the equator of date, Greenwich
- * apparent sidereal time, and atmospheric refraction (upstream `'normal'`
- * model, the same as sunAltAz/moonAltAz). Not applied: annual aberration
- * (at most 20.5″ — see the roadmap), proper motion (pass catalog
- * coordinates; fast movers such as Arcturus drift ~1′ in 26 years), and
- * stellar parallax (negligible at the 1000 ly the star is placed at).
+ * Applied: annual aberration, precession and nutation to the equator of
+ * date, Greenwich apparent sidereal time, and atmospheric refraction
+ * (upstream `'normal'` model, the same as sunAltAz/moonAltAz). Not applied:
+ * proper motion (pass catalog coordinates; fast movers such as Arcturus
+ * drift ~1′ in 26 years) and stellar parallax (negligible at the 1000 ly the
+ * star is placed at).
  */
 public func starAltAz(raDeg: Double, decDeg: Double, at time: Date, observer: Observer) throws -> AltAz {
     let time = try normalized(time)
     try assertSupported(time)
-    guard raDeg >= 0, raDeg < 360 else { throw AlmanacError.invalidArgument("raDeg out of range: \(raDeg)") }
-    guard decDeg >= -90, decDeg <= 90 else { throw AlmanacError.invalidArgument("decDeg out of range: \(decDeg)") }
+    try assertStarCatalog(raDeg, decDeg)
     let ut = utDays(time)
-    let rCosDec = STAR_DISTANCE_AU * cos(decDeg * DEG2RAD)
-    let eqj = Vec3(
-        x: rCosDec * cos(raDeg * DEG2RAD),
-        y: rCosDec * sin(raDeg * DEG2RAD),
-        z: STAR_DISTANCE_AU * sin(decDeg * DEG2RAD)
-    )
-    return refract(topoAltAzUnrefracted(eqj, ut, observer))
+    return refract(topoAltAzUnrefracted(starGeoVectorEqj(raDeg, decDeg, ttDaysFromUt(ut)), ut, observer))
+}
+
+/**
+ * Greenwich apparent sidereal time in degrees, [0, 360): the hour angle of
+ * the true equinox of date at Greenwich, including the equation of the
+ * equinoxes. A body's Greenwich hour angle is this minus its right ascension
+ * of date.
+ */
+public func greenwichSiderealTime(_ time: Date) throws -> Double {
+    let time = try normalized(time)
+    try assertSupported(time)
+    return siderealDeg(utDays(time))
 }
