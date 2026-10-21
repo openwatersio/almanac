@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.4.21"
     application
 }
 repositories { mavenCentral() }
