@@ -282,11 +282,24 @@ function vsopDeriv(formula: VsopFormula, t: number): number {
 /** Heliocentric position in AU and velocity in AU per day, J2000 mean equator (EQJ). */
 export interface HelioState { pos: Vec3; vel: Vec3; }
 
+let cacheEarthState: HelioState | undefined;
+let cacheEarthStateTt = NaN;
+
 /**
  * UPSTREAM: `CalcVsopPosVel`, astronomy.ts lines 3264-3314, specialised to
- * `vsop.Earth` — i.e. `HelioState(Body.Earth, time)`.
+ * `vsop.Earth` — i.e. `HelioState(Body.Earth, time)`. Not upstream: a
+ * one-entry cache on the exact instant, because a star catalog drawn for one
+ * moment asks for the same Earth state once per star.
  */
 export function earthHelioState(tt: number): HelioState {
+    if (!cacheEarthState || cacheEarthStateTt !== tt) {
+        cacheEarthState = computeEarthHelioState(tt);
+        cacheEarthStateTt = tt;
+    }
+    return cacheEarthState;
+}
+
+function computeEarthHelioState(tt: number): HelioState {
     const t = tt / DAYS_PER_MILLENNIUM;
 
     const lon = earthLon(t);
