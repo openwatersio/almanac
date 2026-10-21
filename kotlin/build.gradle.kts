@@ -21,7 +21,7 @@ java {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.14.4"))
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 tasks.test {
