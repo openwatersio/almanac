@@ -1,6 +1,6 @@
 {
   "name": "@openwaters/almanac",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Offline astronomy: Sun, Moon and planet positions, apparent horizon, rise/set, phases and eclipses.",
   "license": "MIT",
   "repository": {

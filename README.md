@@ -166,7 +166,7 @@ const crossings = sunEvents(today, tomorrow, viewer, eyeHeightM);
 Requires a Swift 6 or newer toolchain.
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.12.0")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.12.1")
 ```
 
 ```swift
