@@ -74,27 +74,30 @@ final class PositionsTests: XCTestCase {
 
     struct StarPlaceRow: Decodable {
         let utc: String; let star: String; let raDeg: Double; let decDeg: Double
-        let pmMasPerYear: Double; let ghaDeg: Double; let decOfDateDeg: Double
+        let pmRaMasPerYear: Double; let pmDecMasPerYear: Double; let ghaDeg: Double; let decOfDateDeg: Double
     }
 
     // USNO's celestial-navigation GHA and declination for the navigational
     // stars, from each star's SIMBAD J2000 position. The places include proper
-    // motion and starPosition does not, so each row allows 1″ plus the star's
-    // proper motion since J2000. Annual aberration alone is up to 20.5″.
-    func testStarsUsnoGhaAndDeclinationWithinOneArcsecPlusProperMotion() throws {
+    // motion and starPosition does not, so the test first moves each star along
+    // its catalog proper motion to the date, linearly, keeping the J2000
+    // equinox. Every row is then held to 1″ on the sky; annual aberration alone
+    // is up to 20.5″.
+    func testStarsUsnoGhaAndDeclinationWithinOneArcsec() throws {
         let url = fixturesURL().appendingPathComponent("positions").appendingPathComponent("stars-usno.json")
         let rows = try JSONDecoder().decode([StarPlaceRow].self, from: Data(contentsOf: url))
         XCTAssertGreaterThan(rows.count, 100)
         let j2000 = utc("2000-01-01T12:00:00Z").timeIntervalSince1970
         for row in rows {
             let t = utc(row.utc)
-            let p = try starPosition(raDeg: row.raDeg, decDeg: row.decDeg, at: t)
             let years = (t.timeIntervalSince1970 - j2000) / (365.25 * 86400)
-            let tolArcsec = 1 + row.pmMasPerYear * abs(years) / 1000
+            let decDeg = row.decDeg + row.pmDecMasPerYear * years / 3.6e6
+            let raDeg = (row.raDeg + row.pmRaMasPerYear * years / 3.6e6 / cos(row.decDeg * Double.pi / 180) + 360).truncatingRemainder(dividingBy: 360)
+            let p = try starPosition(raDeg: raDeg, decDeg: decDeg, at: t)
             let gha = try greenwichSiderealTime(t) - p.raDeg
             let dGha = ((((gha - row.ghaDeg).truncatingRemainder(dividingBy: 360)) + 540).truncatingRemainder(dividingBy: 360)) - 180
-            XCTAssertLessThan(abs(dGha) * cos(p.decDeg * Double.pi / 180) * 3600, tolArcsec, "\(row.star) GHA @ \(row.utc)")
-            XCTAssertLessThan(abs(p.decDeg - row.decOfDateDeg) * 3600, tolArcsec, "\(row.star) dec @ \(row.utc)")
+            XCTAssertLessThan(abs(dGha) * cos(p.decDeg * Double.pi / 180) * 3600, 1, "\(row.star) GHA @ \(row.utc)")
+            XCTAssertLessThan(abs(p.decDeg - row.decOfDateDeg) * 3600, 1, "\(row.star) dec @ \(row.utc)")
         }
     }
 
@@ -143,5 +146,15 @@ final class PositionsTests: XCTestCase {
     /// by construction.
     func testSubMillisecondBoundaryIsAccepted() throws {
         XCTAssertNoThrow(try sunPosition(Date(timeIntervalSince1970: -631_152_000.0005)))
+    }
+
+    func testWrapDeg360StaysBelow360WhenTheRemainderIsAnUlpUnderZero() throws {
+        // 360 - 1e-14 rounds to 360 itself; a plain `+= 360` returns it.
+        XCTAssertEqual(wrapDeg360(-1e-14), 0)
+        XCTAssertEqual(wrapDeg360(360), 0)
+        XCTAssertEqual(wrapDeg360(-90), 270)
+        XCTAssertEqual(wrapDeg360(725), 5)
+        XCTAssertEqual(wrapDeg360(359.5), 359.5)
+        XCTAssertEqual(equatorialFromVector(Vec3(x: 1, y: -1e-300, z: 0)).raDeg, 0)
     }
 }

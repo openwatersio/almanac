@@ -213,7 +213,7 @@ print(try equationOfTime(today))   // sundial minus clock, minutes
 
 ### Kotlin/JVM and Android
 
-The Kotlin library provides the same 38 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
+The Kotlin library provides the same functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
 
 ```kotlin
 import io.openwaters.almanac.*

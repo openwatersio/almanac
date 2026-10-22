@@ -43,6 +43,20 @@ export function frac(x: number): number {
     return x - Math.floor(x);
 }
 
+/**
+ * Not upstream: an angle wrapped into [0, 360). Upstream adds 360 to a
+ * negative remainder, and a remainder within an ulp below zero then rounds
+ * to 360 itself.
+ */
+export function wrapDeg360(deg: number): number {
+    let r = deg % 360;
+    if (r < 0)
+        r += 360;
+    if (r >= 360)
+        r -= 360;
+    return r;
+}
+
 interface NutationAngles { dpsi: number; deps: number; }
 
 /**
@@ -291,9 +305,7 @@ export function equatorialFromVector(pos: Vec3): EquatorialFromVector {
         return { raDeg: 0, decDeg: (pos.z < 0) ? -90 : +90, distanceAu: dist };
     }
 
-    let raDeg = RAD2DEG * Math.atan2(pos.y, pos.x);
-    if (raDeg < 0)
-        raDeg += 360;
+    const raDeg = wrapDeg360(RAD2DEG * Math.atan2(pos.y, pos.x));
     const decDeg = RAD2DEG * Math.atan2(pos.z, Math.sqrt(xyproj));
     return { raDeg, decDeg, distanceAu: dist };
 }

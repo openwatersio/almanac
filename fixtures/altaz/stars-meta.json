@@ -76,7 +76,7 @@
   ],
   "toleranceArcmin": 1,
   "altDeg": "USNO hc (unrefracted computed altitude) minus its refr sextant correction, i.e. refracted apparent altitude",
-  "positions": "positions/stars-usno.json carries each star's geocentric apparent place as USNO tabulates it for sight reduction: ghaDeg (Greenwich hour angle) and decOfDateDeg, with the SIMBAD J2000 position and proper motion it starts from. Proper motion is not dropped there; the test allows for it.",
+  "positions": "positions/stars-usno.json carries each star's geocentric apparent place as USNO tabulates it for sight reduction: ghaDeg (Greenwich hour angle) and decOfDateDeg, with the SIMBAD J2000 position and proper motion it starts from: pmRaMasPerYear is SIMBAD's RA component, already multiplied by cos dec. Fast movers are not dropped there, because the test propagates each star's proper motion to the date before comparing.",
   "maxProperMotionMasPerYear": 300,
   "droppedForProperMotion": [
     "ALTAIR",

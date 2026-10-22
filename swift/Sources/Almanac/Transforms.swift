@@ -34,9 +34,7 @@ struct TopoUnrefracted { let azDeg: Double; let altDeg: Double; let hourAngleDeg
 private func earthRotationAngleDeg(_ ut: Double) -> Double {
     let thet1 = 0.7790572732640 + 0.00273781191135448 * ut
     let thet3 = ut.truncatingRemainder(dividingBy: 1)
-    var theta = 360 * (thet1 + thet3).truncatingRemainder(dividingBy: 1)
-    if theta < 0 { theta += 360 }
-    return theta
+    return wrapDeg360(360 * (thet1 + thet3).truncatingRemainder(dividingBy: 1))
 }
 
 /**
@@ -57,9 +55,7 @@ func siderealDeg(_ ut: Double) -> Double {
                    + 1.3915817) * t
                    + 4612.156534) * t
     let st = eqeq + 0.014506 + poly
-    var gastDeg = (st / 3600 + theta).truncatingRemainder(dividingBy: 360)
-    if gastDeg < 0 { gastDeg += 360 }
-    return gastDeg
+    return wrapDeg360(st / 3600 + theta)
 }
 
 /**
@@ -171,15 +167,13 @@ func topoAltAzUnrefracted(_ bodyEqj: Vec3, _ ut: Double, _ observer: Observer) -
     let proj = (pn*pn + pw*pw).squareRoot()
     var az: Double
     if proj > 0 {
-        az = -RAD2DEG * atan2(pw, pn)
-        if az < 0 { az += 360 }
+        az = wrapDeg360(-RAD2DEG * atan2(pw, pn))
     } else {
         az = 0
     }
     let zd = RAD2DEG * atan2(proj, pz)
 
-    var hourAngleDeg = (gast + observer.longitudeDeg - radec.raDeg).truncatingRemainder(dividingBy: 360)
-    if hourAngleDeg < 0 { hourAngleDeg += 360 }
+    let hourAngleDeg = wrapDeg360(gast + observer.longitudeDeg - radec.raDeg)
 
     return TopoUnrefracted(azDeg: az, altDeg: 90 - zd, hourAngleDeg: hourAngleDeg, distanceAu: radec.distanceAu, raDeg: radec.raDeg, decDeg: radec.decDeg)
 }

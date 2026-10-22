@@ -19,7 +19,7 @@ import { Observer, assertObserver, assertSupported } from './types.js';
 import { ttDaysFromUt, utDays } from './time.js';
 import {
     C_AUDAY, DEG2RAD, RAD2DEG, EARTH_EQUATORIAL_RADIUS_KM, EARTH_FLATTENING, EARTH_FLATTENING_SQUARED,
-    KM_PER_AU, PrecessDirection, Vec3, earthTilt, equatorialFromVector, gyration
+    KM_PER_AU, PrecessDirection, Vec3, earthTilt, equatorialFromVector, gyration, wrapDeg360
 } from './nutation.js';
 import { earthHelioState, sunGeoVectorEqj } from './sun.js';
 import { moonGeoVectorEqj } from './moon.js';
@@ -40,10 +40,7 @@ export interface TopoUnrefracted extends AltAz { hourAngleDeg: number; distanceA
 function earthRotationAngleDeg(ut: number): number {
     const thet1 = 0.7790572732640 + 0.00273781191135448 * ut;
     const thet3 = ut % 1;
-    let theta = 360 * ((thet1 + thet3) % 1);
-    if (theta < 0)
-        theta += 360;
-    return theta;
+    return wrapDeg360(360 * ((thet1 + thet3) % 1));
 }
 
 /**
@@ -64,10 +61,7 @@ export function siderealDeg(ut: number): number {
                   -    0.00000044   ) * t
                   +    1.3915817    ) * t
                   + 4612.156534     ) * t;
-    let gastDeg = (st / 3600 + theta) % 360;
-    if (gastDeg < 0)
-        gastDeg += 360;
-    return gastDeg;
+    return wrapDeg360(st / 3600 + theta);
 }
 
 /**
@@ -178,17 +172,13 @@ export function topoAltAzUnrefracted(bodyEqj: Vec3, ut: number, observer: Observ
     const proj = Math.hypot(pn, pw);
     let az: number;
     if (proj > 0) {
-        az = -RAD2DEG * Math.atan2(pw, pn);
-        if (az < 0)
-            az += 360;
+        az = wrapDeg360(-RAD2DEG * Math.atan2(pw, pn));
     } else {
         az = 0;
     }
     const zd = RAD2DEG * Math.atan2(proj, pz);
 
-    let hourAngleDeg = (gast + observer.longitudeDeg - raDeg) % 360;
-    if (hourAngleDeg < 0)
-        hourAngleDeg += 360;
+    const hourAngleDeg = wrapDeg360(gast + observer.longitudeDeg - raDeg);
 
     return { azDeg: az, altDeg: 90 - zd, hourAngleDeg, distanceAu, raDeg, decDeg };
 }

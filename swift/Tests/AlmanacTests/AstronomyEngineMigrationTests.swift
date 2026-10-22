@@ -32,6 +32,30 @@ final class AstronomyEngineMigrationTests: XCTestCase {
 
     struct References: Decodable { let astronomyEngine: [Reference] }
 
+    struct StarReference: Decodable {
+        let time: String; let raDeg: Double; let decDeg: Double
+        let apparentRaDeg: Double; let apparentDecDeg: Double; let siderealDeg: Double
+    }
+
+    struct StarReferences: Decodable { let astronomyEngineStars: [StarReference] }
+
+    /// A milliarcsecond, in degrees: the ports agree with upstream's star path far below it.
+    let starReferenceTolDeg = 0.001 / 3600
+
+    func testStarPlacesAndSiderealTimeAgainstAstronomyEngine() throws {
+        let url = fixturesURL().deletingLastPathComponent().appendingPathComponent("typescript/test/migration-references.json")
+        let references = try JSONDecoder().decode(StarReferences.self, from: Data(contentsOf: url)).astronomyEngineStars
+        XCTAssertFalse(references.isEmpty)
+        let wrap = { (d: Double) in (((d.truncatingRemainder(dividingBy: 360)) + 540).truncatingRemainder(dividingBy: 360)) - 180 }
+        for ref in references {
+            let time = utc(ref.time)
+            let place = try starPosition(raDeg: ref.raDeg, decDeg: ref.decDeg, at: time)
+            XCTAssertLessThan(abs(wrap(place.raDeg - ref.apparentRaDeg)) * cos(ref.apparentDecDeg * .pi / 180), starReferenceTolDeg, "RA @ \(ref.time)")
+            XCTAssertLessThan(abs(place.decDeg - ref.apparentDecDeg), starReferenceTolDeg, "dec @ \(ref.time)")
+            XCTAssertLessThan(abs(wrap(try greenwichSiderealTime(time) - ref.siderealDeg)), starReferenceTolDeg, "GAST @ \(ref.time)")
+        }
+    }
+
     func testGuideExamplesAreVerbatim() throws {
         let source = try String(contentsOfFile: #filePath, encoding: .utf8)
         let guide = try String(contentsOf: fixturesURL().deletingLastPathComponent().appendingPathComponent("docs/migrating-from-astronomy-engine.md"), encoding: .utf8)

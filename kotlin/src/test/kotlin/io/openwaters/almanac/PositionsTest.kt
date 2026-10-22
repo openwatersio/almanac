@@ -57,6 +57,16 @@ internal class PositionsTest {
         assertEquals(-90.0, equatorialFromVector(Vec3(0.0, 0.0, -1.0)).decDeg)
     }
 
+    @Test fun wrapDeg360StaysBelow360WhenTheRemainderIsAnUlpUnderZero() {
+        // 360 - 1e-14 rounds to 360 itself; a plain `+= 360` returns it.
+        assertEquals(0.0, wrapDeg360(-1e-14))
+        assertEquals(0.0, wrapDeg360(360.0))
+        assertEquals(270.0, wrapDeg360(-90.0))
+        assertEquals(5.0, wrapDeg360(725.0))
+        assertEquals(359.5, wrapDeg360(359.5))
+        assertEquals(0.0, equatorialFromVector(Vec3(1.0, -1e-300, 0.0)).raDeg)
+    }
+
     @Test fun unrolledEarthMatchesSourceTableLoopBitForBit() {
         val source = File(File(System.getProperty("fixtures")).parentFile, "typescript/src/sun.ts").readText()
         val table = Json.parseToJsonElement(source.substringAfter("export const vsopEarth: VsopModel = ").substringBefore(';')).jsonArray
@@ -116,23 +126,25 @@ internal class PositionsTest {
     }
 
     // USNO's celestial-navigation GHA and declination for the navigational stars, from each star's SIMBAD J2000
-    // position. The places include proper motion and starPosition does not, so each row allows 1″ plus the star's
-    // proper motion since J2000. Annual aberration alone is up to 20.5″.
-    @Test fun starsUsnoGhaAndDeclinationWithinOneArcsecondPlusProperMotion() {
+    // position. The places include proper motion and starPosition does not, so the test first moves each star along its
+    // catalog proper motion to the date, linearly, keeping the J2000 equinox. Every row is then held to 1″ on the sky;
+    // annual aberration alone is up to 20.5″.
+    @Test fun starsUsnoGhaAndDeclinationWithinOneArcsecond() {
         val rows = fixture("positions/stars-usno").jsonArray
         assertTrue(rows.size > 100)
         val j2000 = Instant.parse("2000-01-01T12:00:00Z").toEpochMilli()
         for (element in rows) {
             val row = element.obj()
             val t = row.instant("utc")
-            val p = starPosition(row.number("raDeg"), row.number("decDeg"), t)
             val years = (t.toEpochMilli() - j2000) / (365.25 * 86400000)
-            val tolArcsec = 1 + row.number("pmMasPerYear") * abs(years) / 1000
+            val decDeg = row.number("decDeg") + row.number("pmDecMasPerYear") * years / 3.6e6
+            val raDeg = (row.number("raDeg") + row.number("pmRaMasPerYear") * years / 3.6e6 / cos(row.number("decDeg") * PI / 180) + 360) % 360
+            val p = starPosition(raDeg, decDeg, t)
             val gha = greenwichSiderealTime(t) - p.raDeg
             val dGha = ((((gha - row.number("ghaDeg")) % 360) + 540) % 360) - 180
             val label = "${row.string("star")} @ ${row.string("utc")}"
-            assertTrue(abs(dGha) * cos(p.decDeg * PI / 180) * 3600 < tolArcsec, "$label GHA: $dGha deg, tolerance $tolArcsec arcsec")
-            assertTrue(abs(p.decDeg - row.number("decOfDateDeg")) * 3600 < tolArcsec, "$label dec: ${p.decDeg} vs ${row.number("decOfDateDeg")}, tolerance $tolArcsec arcsec")
+            assertTrue(abs(dGha) * cos(p.decDeg * PI / 180) * 3600 < 1, "$label GHA: $dGha deg")
+            assertTrue(abs(p.decDeg - row.number("decOfDateDeg")) * 3600 < 1, "$label dec: ${p.decDeg} vs ${row.number("decOfDateDeg")}")
         }
     }
 

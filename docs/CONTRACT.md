@@ -73,7 +73,7 @@ The functions have the same names and semantics in all three ports. TypeScript r
 | `moonAltAz(time, observer)` | Instant and observer | Refracted topocentric `azDeg` and `altDeg`, including parallax. |
 | `starPosition(raDeg, decDeg, time)` | J2000 ICRS catalog coordinates and instant | Geocentric apparent `StarPosition` with `raDeg` in `[0, 360)` and `decDeg` on the equator of date, with annual aberration, precession, and nutation; no proper motion or parallax. |
 | `starAltAz(raDeg, decDeg, time, observer)` | J2000 ICRS catalog coordinates, instant, and observer | Refracted topocentric `azDeg` and `altDeg` from the `starPosition` apparent place; no proper motion or parallax. |
-| `greenwichSiderealTime(time)` | Instant | Greenwich apparent sidereal time in degrees, `[0, 360)`, including the equation of the equinoxes. A body's Greenwich hour angle is this minus its right ascension of date. |
+| `greenwichSiderealTime(time)` | Instant | Greenwich apparent sidereal time in degrees, `[0, 360)`, including the equation of the equinoxes, reading the instant as UT1 like every other function; a civil UTC timestamp can be up to 0.9 seconds of time, about 13.5 arcseconds, from UT1. A body's Greenwich hour angle is this minus its right ascension of date, wrapped into `[0, 360)`. |
 | `moonOrientation(time, observer)` | Instant and observer | `MoonOrientation`: `brightLimbAngleDeg` in `[0, 360)` and `parallacticAngleDeg` in `(-180, 180]`. |
 | `moonIllumination(time)` | Instant | `fraction` in `[0, 1]`, `phaseAngleDeg` in `[0, 180]`, `phase` in `[0, 1)`, and `waxing`. Phase angle is zero at full Moon and 180 degrees at new Moon; phase is zero at new Moon and 0.5 at full Moon; `fraction = (1 + cos θ) / 2`. |
 | `equationOfTime(time)` | Instant | Apparent solar time minus mean solar time, in minutes, positive when a sundial runs ahead of the clock. |
@@ -144,7 +144,7 @@ When the axis misses the ellipsoid, the point of greatest eclipse is found in th
 External fixtures determine physical correctness. Committed raw responses preserve the source evidence, while generator scripts derive the test data offline. Fixture metadata records the source, request, and retrieval date.
 
 - Sun and Moon positions and distances use JPL Horizons across the supported interval. Coarse files are TT-labeled; dense current-era files exercise the public UT1-like API.
-- Fixed-star horizontal positions use J2000 catalog coordinates from SIMBAD and expected altitude and azimuth from the USNO celestial-navigation almanac.
+- Fixed-star apparent places and horizontal positions use J2000 catalog coordinates from SIMBAD and the USNO celestial-navigation almanac's Greenwich hour angle, declination, altitude, and azimuth. Greenwich hour angle is `greenwichSiderealTime` minus `starPosition`'s right ascension, so those rows check sidereal time too. Star places and sidereal time also match pinned Astronomy Engine 2.1.19 references in the migration tests to within a milliarcsecond.
 - Rise, set, twilight, and phase events use USNO data. Nautical and astronomical twilight also use a dedicated one-minute Horizons altitude grid because the USNO daily service reports only civil twilight.
 - Sun altitude events use the same airless one-minute Horizons grid at `+6°`, `-0.3°`, `-4°`, and `-8°`, at Victoria, 60°N, 20°N, and 70.5°N. The 70.5°N days put the Sun's daily extremum within hundredths of a degree of `+6°`, `-0.3°`, and `-4°` next to days with no crossing, and every grid block must return each crossing once and nothing else. A one-minute brute-force scan at 88.5°N covers the flattening band.
 - Transits use USNO's daily upper transit of the Moon and lower transit of the Sun and Moon, which it lists when the body is above the horizon, and one-minute Horizons local apparent hour angle grids at Victoria and 88.5°S for both kinds and both bodies. A one-minute brute-force hour-angle scan at 88.5°S and 89.5°N covers the flattening band.
@@ -173,6 +173,7 @@ The test suites enforce these physical tolerances:
 | Planet illumination fraction | 0.01 |
 | Planet solar elongation | 1 arcminute |
 | Planet visual magnitude, except extreme Venus crescents | 0.3 |
+| Star Greenwich hour angle on the sky (scaled by the cosine of declination) and declination, after propagating catalog proper motion to the date | 1 arcsecond |
 | Star altitude and azimuth | 1 arcminute |
 | Moon parallactic angle | 1 arcminute |
 | Moon bright-limb angle | 1 arcminute plus 8.8 arcseconds over the sine of the Moon's elongation |

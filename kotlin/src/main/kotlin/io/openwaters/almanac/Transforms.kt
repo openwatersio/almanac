@@ -11,10 +11,7 @@ internal data class TopoUnrefracted(val azDeg: Double, val altDeg: Double, val h
 private fun earthRotationAngleDeg(ut: Double): Double {
     val thet1 = 0.7790572732640 + 0.00273781191135448 * ut
     val thet3 = ut % 1
-    var theta = 360 * ((thet1 + thet3) % 1)
-    if (theta < 0)
-        theta += 360
-    return theta
+    return wrapDeg360(360 * ((thet1 + thet3) % 1))
 }
 
 internal fun siderealDeg(ut: Double): Double {
@@ -28,10 +25,7 @@ internal fun siderealDeg(ut: Double): Double {
                   -    0.00000044   ) * t
                   +    1.3915817    ) * t
                   + 4612.156534     ) * t
-    var gastDeg = (st / 3600 + theta) % 360
-    if (gastDeg < 0)
-        gastDeg += 360
-    return gastDeg
+    return wrapDeg360(st / 3600 + theta)
 }
 
 private fun observerGeoVectorOfDate(gastDeg: Double, observer: Observer): Vec3 {
@@ -98,9 +92,7 @@ internal fun topoAltAzUnrefracted(bodyEqj: Vec3, ut: Double, observer: Observer)
     val az = horizontalAzimuth(pn,pw)
     val zd = RAD2DEG * atan2(proj, pz)
 
-    var hourAngleDeg = (gast + observer.longitudeDeg - raDeg) % 360
-    if (hourAngleDeg < 0)
-        hourAngleDeg += 360
+    val hourAngleDeg = wrapDeg360(gast + observer.longitudeDeg - raDeg)
 
     return TopoUnrefracted(az, 90 - zd, hourAngleDeg, distanceAu, raDeg, decDeg)
 }
@@ -109,9 +101,7 @@ internal fun horizontalAzimuth(pn: Double,pw: Double): Double {
     val proj = hypot(pn,pw)
     var az: Double
     if (proj > 0) {
-        az = -RAD2DEG * atan2(pw, pn)
-        if (az < 0)
-            az += 360
+        az = wrapDeg360(-RAD2DEG * atan2(pw, pn))
     } else {
         az = 0.0
     }

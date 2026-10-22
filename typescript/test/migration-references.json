@@ -11,7 +11,9 @@
       "calls": [
         "Horizon(time, observer, Equator(body, time, observer, true, true).ra, Equator(body, time, observer, true, true).dec, \"normal\")",
         "MoonPhase(time)",
-        "Illumination(Body.Moon, time).phase_fraction"
+        "Illumination(Body.Moon, time).phase_fraction",
+        "DefineStar(Body.Star1, raDeg / 15, decDeg, 1000), then Equator(Body.Star1, time, new Observer(0, 0, 0), true, true)",
+        "SiderealTime(time) * 15"
       ]
     }
   },
@@ -69,6 +71,248 @@
       },
       "phaseDeg": 14.772662424566818,
       "fraction": 0.017293231409422127
+    }
+  ],
+  "astronomyEngineStars": [
+    {
+      "time": "1950-01-01T00:00:00Z",
+      "raDeg": 88.792939,
+      "decDeg": 7.407064,
+      "apparentRaDeg": 88.1211246598639,
+      "apparentDecDeg": 7.401604117457903,
+      "siderealDeg": 100.07490311592821
+    },
+    {
+      "time": "1950-01-01T00:00:00Z",
+      "raDeg": 101.287155,
+      "decDeg": -16.716116,
+      "apparentRaDeg": 100.73377468114982,
+      "apparentDecDeg": -16.660959284574364,
+      "siderealDeg": 100.07490311592821
+    },
+    {
+      "time": "1950-01-01T00:00:00Z",
+      "raDeg": 37.954561,
+      "decDeg": 89.264109,
+      "apparentRaDeg": 27.20877916670705,
+      "apparentDecDeg": 89.03488120797144,
+      "siderealDeg": 100.07490311592821
+    },
+    {
+      "time": "1950-01-01T00:00:00Z",
+      "raDeg": 186.649563,
+      "decDeg": -63.099093,
+      "apparentRaDeg": 185.94457360103667,
+      "apparentDecDeg": -62.817325924955014,
+      "siderealDeg": 100.07490311592821
+    },
+    {
+      "time": "1950-01-01T00:00:00Z",
+      "raDeg": 279.234735,
+      "decDeg": 38.783689,
+      "apparentRaDeg": 278.8067828756395,
+      "apparentDecDeg": 38.73733418381863,
+      "siderealDeg": 100.07490311592821
+    },
+    {
+      "time": "1999-01-17T06:00:00Z",
+      "raDeg": 88.792939,
+      "decDeg": 7.407064,
+      "apparentRaDeg": 88.78270907027617,
+      "apparentDecDeg": 7.404057458029687,
+      "siderealDeg": 206.22094484697385
+    },
+    {
+      "time": "1999-01-17T06:00:00Z",
+      "raDeg": 101.287155,
+      "decDeg": -16.716116,
+      "apparentRaDeg": 101.28035183027843,
+      "apparentDecDeg": -16.718367441993653,
+      "siderealDeg": 206.22094484697385
+    },
+    {
+      "time": "1999-01-17T06:00:00Z",
+      "raDeg": 37.954561,
+      "decDeg": 89.264109,
+      "apparentRaDeg": 37.87302469561547,
+      "apparentDecDeg": 89.26330257273192,
+      "siderealDeg": 206.22094484697385
+    },
+    {
+      "time": "1999-01-17T06:00:00Z",
+      "raDeg": 186.649563,
+      "decDeg": -63.099093,
+      "apparentRaDeg": 186.64165759120965,
+      "apparentDecDeg": -63.08817891225124,
+      "siderealDeg": 206.22094484697385
+    },
+    {
+      "time": "1999-01-17T06:00:00Z",
+      "raDeg": 279.234735,
+      "decDeg": 38.783689,
+      "apparentRaDeg": 279.2184065937754,
+      "apparentDecDeg": 38.78307727066533,
+      "siderealDeg": 206.22094484697385
+    },
+    {
+      "time": "2026-03-20T06:00:00Z",
+      "raDeg": 88.792939,
+      "decDeg": 7.407064,
+      "apparentRaDeg": 89.14955015953824,
+      "apparentDecDeg": 7.410650265305745,
+      "siderealDeg": 267.78938074076666
+    },
+    {
+      "time": "2026-03-20T06:00:00Z",
+      "raDeg": 101.287155,
+      "decDeg": -16.716116,
+      "apparentRaDeg": 101.582530080003,
+      "apparentDecDeg": -16.746356741611013,
+      "siderealDeg": 267.78938074076666
+    },
+    {
+      "time": "2026-03-20T06:00:00Z",
+      "raDeg": 37.954561,
+      "decDeg": 89.264109,
+      "apparentRaDeg": 46.10750215724644,
+      "apparentDecDeg": 89.37858883303637,
+      "siderealDeg": 267.78938074076666
+    },
+    {
+      "time": "2026-03-20T06:00:00Z",
+      "raDeg": 186.649563,
+      "decDeg": -63.099093,
+      "apparentRaDeg": 187.02812079718248,
+      "apparentDecDeg": -63.245337979546356,
+      "siderealDeg": 267.78938074076666
+    },
+    {
+      "time": "2026-03-20T06:00:00Z",
+      "raDeg": 279.234735,
+      "decDeg": 38.783689,
+      "apparentRaDeg": 279.4543208864543,
+      "apparentDecDeg": 38.80000175018471,
+      "siderealDeg": 267.78938074076666
+    },
+    {
+      "time": "2026-12-21T22:00:00Z",
+      "raDeg": 88.792939,
+      "decDeg": 7.407064,
+      "apparentRaDeg": 89.16652644552816,
+      "apparentDecDeg": 7.4116359922239985,
+      "siderealDeg": 60.486041314663865
+    },
+    {
+      "time": "2026-12-21T22:00:00Z",
+      "raDeg": 101.287155,
+      "decDeg": -16.716116,
+      "apparentRaDeg": 101.59650092354173,
+      "apparentDecDeg": -16.743963876142207,
+      "siderealDeg": 60.486041314663865
+    },
+    {
+      "time": "2026-12-21T22:00:00Z",
+      "raDeg": 37.954561,
+      "decDeg": 89.264109,
+      "apparentRaDeg": 47.18067522431902,
+      "apparentDecDeg": 89.38138008929243,
+      "siderealDeg": 60.486041314663865
+    },
+    {
+      "time": "2026-12-21T22:00:00Z",
+      "raDeg": 186.649563,
+      "decDeg": -63.099093,
+      "apparentRaDeg": 187.0280944819981,
+      "apparentDecDeg": -63.244362007441026,
+      "siderealDeg": 60.486041314663865
+    },
+    {
+      "time": "2026-12-21T22:00:00Z",
+      "raDeg": 279.234735,
+      "decDeg": 38.783689,
+      "apparentRaDeg": 279.45529100401694,
+      "apparentDecDeg": 38.80698349475125,
+      "siderealDeg": 60.486041314663865
+    },
+    {
+      "time": "2075-07-04T12:00:00Z",
+      "raDeg": 88.792939,
+      "decDeg": 7.407064,
+      "apparentRaDeg": 89.80528884946403,
+      "apparentDecDeg": 7.411749264717291,
+      "siderealDeg": 102.63973145711398
+    },
+    {
+      "time": "2075-07-04T12:00:00Z",
+      "raDeg": 101.287155,
+      "decDeg": -16.716116,
+      "apparentRaDeg": 102.12141269301347,
+      "apparentDecDeg": -16.801311983345194,
+      "siderealDeg": 102.63973145711398
+    },
+    {
+      "time": "2075-07-04T12:00:00Z",
+      "raDeg": 37.954561,
+      "decDeg": 89.264109,
+      "apparentRaDeg": 70.89543221609028,
+      "apparentDecDeg": 89.5125128120222,
+      "siderealDeg": 102.63973145711398
+    },
+    {
+      "time": "2075-07-04T12:00:00Z",
+      "raDeg": 186.649563,
+      "decDeg": -63.099093,
+      "apparentRaDeg": 187.71770879360508,
+      "apparentDecDeg": -63.5189595420629,
+      "siderealDeg": 102.63973145711398
+    },
+    {
+      "time": "2075-07-04T12:00:00Z",
+      "raDeg": 279.234735,
+      "decDeg": 38.783689,
+      "apparentRaDeg": 279.87339781461844,
+      "apparentDecDeg": 38.854350271891356,
+      "siderealDeg": 102.63973145711398
+    },
+    {
+      "time": "2100-12-31T23:59:00Z",
+      "raDeg": 88.792939,
+      "decDeg": 7.407064,
+      "apparentRaDeg": 90.16845530346995,
+      "apparentDecDeg": 7.4139658790215375,
+      "siderealDeg": 100.25097158268132
+    },
+    {
+      "time": "2100-12-31T23:59:00Z",
+      "raDeg": 101.287155,
+      "decDeg": -16.716116,
+      "apparentRaDeg": 102.42347903997619,
+      "apparentDecDeg": -16.830075328008203,
+      "siderealDeg": 100.25097158268132
+    },
+    {
+      "time": "2100-12-31T23:59:00Z",
+      "raDeg": 37.954561,
+      "decDeg": 89.264109,
+      "apparentRaDeg": 89.85943121412555,
+      "apparentDecDeg": 89.54378639021292,
+      "siderealDeg": 100.25097158268132
+    },
+    {
+      "time": "2100-12-31T23:59:00Z",
+      "raDeg": 186.649563,
+      "decDeg": -63.099093,
+      "apparentRaDeg": 188.08643528382888,
+      "apparentDecDeg": -63.65283830727388,
+      "siderealDeg": 100.25097158268132
+    },
+    {
+      "time": "2100-12-31T23:59:00Z",
+      "raDeg": 279.234735,
+      "decDeg": 38.783689,
+      "apparentRaDeg": 280.0767508353709,
+      "apparentDecDeg": 38.87584921775677,
+      "siderealDeg": 100.25097158268132
     }
   ]
 }

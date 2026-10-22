@@ -4,7 +4,8 @@
     "star": "Acamar",
     "raDeg": 44.565318,
     "decDeg": -40.304678,
-    "pmMasPerYear": 57.13,
+    "pmRaMasPerYear": -52.273,
+    "pmDecMasPerYear": 23.058,
     "ghaDeg": 161.665188,
     "decOfDateDeg": -40.31498
   },
@@ -13,7 +14,8 @@
     "star": "Adhara",
     "raDeg": 104.656453,
     "decDeg": -28.972086,
-    "pmMasPerYear": 3.5,
+    "pmRaMasPerYear": 3.24,
+    "pmDecMasPerYear": 1.33,
     "ghaDeg": 101.568956,
     "decOfDateDeg": -28.973962
   },
@@ -22,7 +24,8 @@
     "star": "ALDEBARAN",
     "raDeg": 68.980163,
     "decDeg": 16.509302,
-    "pmMasPerYear": 199.31,
+    "pmRaMasPerYear": 63.45,
+    "pmDecMasPerYear": -188.94,
     "ghaDeg": 137.252759,
     "decOfDateDeg": 16.505209
   },
@@ -31,7 +34,8 @@
     "star": "Alioth",
     "raDeg": 193.50729,
     "decDeg": 55.959823,
-    "pmMasPerYear": 112.21,
+    "pmRaMasPerYear": 111.91,
+    "pmDecMasPerYear": -8.24,
     "ghaDeg": 12.727266,
     "decOfDateDeg": 55.961297
   },
@@ -40,7 +44,8 @@
     "star": "Alkaid",
     "raDeg": 206.885157,
     "decDeg": 49.313267,
-    "pmMasPerYear": 122.08,
+    "pmRaMasPerYear": -121.17,
+    "pmDecMasPerYear": -14.91,
     "ghaDeg": 359.349586,
     "decOfDateDeg": 49.314929
   },
@@ -49,7 +54,8 @@
     "star": "Alnilam",
     "raDeg": 84.053389,
     "decDeg": -1.201919,
-    "pmMasPerYear": 1.64,
+    "pmRaMasPerYear": 1.44,
+    "pmDecMasPerYear": -0.78,
     "ghaDeg": 122.177102,
     "decOfDateDeg": -1.205833
   },
@@ -58,7 +64,8 @@
     "star": "Alphard",
     "raDeg": 141.896845,
     "decDeg": -8.6586,
-    "pmMasPerYear": 37.59,
+    "pmRaMasPerYear": -15.23,
+    "pmDecMasPerYear": 34.37,
     "ghaDeg": 64.332698,
     "decOfDateDeg": -8.655586
   },
@@ -67,7 +74,8 @@
     "star": "Alpheratz",
     "raDeg": 2.096916,
     "decDeg": 29.090431,
-    "pmMasPerYear": 213.56,
+    "pmRaMasPerYear": 137.46,
+    "pmDecMasPerYear": -163.44,
     "ghaDeg": 204.140074,
     "decOfDateDeg": 29.085711
   },
@@ -76,7 +84,8 @@
     "star": "Ankaa",
     "raDeg": 6.571047,
     "decDeg": -42.305987,
-    "pmMasPerYear": 425.75,
+    "pmRaMasPerYear": 233.05,
+    "pmDecMasPerYear": -356.3,
     "ghaDeg": 199.668269,
     "decOfDateDeg": -42.316849
   },
@@ -85,7 +94,8 @@
     "star": "Atria",
     "raDeg": 252.166229,
     "decDeg": -69.027712,
-    "pmMasPerYear": 36.34,
+    "pmRaMasPerYear": 17.99,
+    "pmDecMasPerYear": -31.58,
     "ghaDeg": 314.095076,
     "decOfDateDeg": -69.020464
   },
@@ -94,7 +104,8 @@
     "star": "Avior",
     "raDeg": 125.62848,
     "decDeg": -59.509484,
-    "pmMasPerYear": 33.73,
+    "pmRaMasPerYear": -25.52,
+    "pmDecMasPerYear": 22.06,
     "ghaDeg": 80.585096,
     "decOfDateDeg": -59.507143
   },
@@ -103,7 +114,8 @@
     "star": "Bellatrix",
     "raDeg": 81.282764,
     "decDeg": 6.349703,
-    "pmMasPerYear": 15.22,
+    "pmRaMasPerYear": -8.11,
+    "pmDecMasPerYear": -12.88,
     "ghaDeg": 124.948634,
     "decOfDateDeg": 6.345913
   },
@@ -112,7 +124,8 @@
     "star": "BETELGEUSE",
     "raDeg": 88.792939,
     "decDeg": 7.407064,
-    "pmMasPerYear": 29.77,
+    "pmRaMasPerYear": 27.54,
+    "pmDecMasPerYear": 11.3,
     "ghaDeg": 117.438242,
     "decOfDateDeg": 7.404047
   },
@@ -121,7 +134,8 @@
     "star": "CANOPUS",
     "raDeg": 95.987958,
     "decDeg": -52.695661,
-    "pmMasPerYear": 30.62,
+    "pmRaMasPerYear": 19.93,
+    "pmDecMasPerYear": 23.24,
     "ghaDeg": 110.230084,
     "decOfDateDeg": -52.69924
   },
@@ -130,7 +144,8 @@
     "star": "CAPELLA",
     "raDeg": 79.172328,
     "decDeg": 45.997991,
-    "pmMasPerYear": 433.47,
+    "pmRaMasPerYear": 75.25,
+    "pmDecMasPerYear": -426.89,
     "ghaDeg": 127.062591,
     "decOfDateDeg": 45.996436
   },
@@ -139,7 +154,8 @@
     "star": "DENEB",
     "raDeg": 310.35798,
     "decDeg": 45.280339,
-    "pmMasPerYear": 2.73,
+    "pmRaMasPerYear": 2.01,
+    "pmDecMasPerYear": 1.85,
     "ghaDeg": 255.879031,
     "decOfDateDeg": 45.27827
   },
@@ -148,7 +164,8 @@
     "star": "Denebola",
     "raDeg": 177.26491,
     "decDeg": 14.572058,
-    "pmMasPerYear": 510.72,
+    "pmRaMasPerYear": -497.68,
+    "pmDecMasPerYear": -114.67,
     "ghaDeg": 28.968409,
     "decOfDateDeg": 14.576054
   },
@@ -157,7 +174,8 @@
     "star": "Diphda",
     "raDeg": 10.897379,
     "decDeg": -17.986606,
-    "pmMasPerYear": 234.74,
+    "pmRaMasPerYear": 232.55,
+    "pmDecMasPerYear": 31.99,
     "ghaDeg": 195.339942,
     "decOfDateDeg": -17.995946
   },
@@ -166,7 +184,8 @@
     "star": "Dubhe",
     "raDeg": 165.931965,
     "decDeg": 61.751035,
-    "pmMasPerYear": 138.53,
+    "pmRaMasPerYear": -134.11,
+    "pmDecMasPerYear": -34.7,
     "ghaDeg": 40.302781,
     "decOfDateDeg": 61.752266
   },
@@ -175,7 +194,8 @@
     "star": "Elnath",
     "raDeg": 81.572971,
     "decDeg": 28.607452,
-    "pmMasPerYear": 175.07,
+    "pmRaMasPerYear": 22.76,
+    "pmDecMasPerYear": -173.58,
     "ghaDeg": 124.660373,
     "decOfDateDeg": 28.604993
   },
@@ -184,7 +204,8 @@
     "star": "Eltanin",
     "raDeg": 269.151541,
     "decDeg": 51.488896,
-    "pmMasPerYear": 24.32,
+    "pmRaMasPerYear": -8.48,
+    "pmDecMasPerYear": -22.79,
     "ghaDeg": 297.084308,
     "decOfDateDeg": 51.488619
   },
@@ -193,7 +214,8 @@
     "star": "FOMALHAUT",
     "raDeg": 344.412693,
     "decDeg": -29.622237,
-    "pmMasPerYear": 367.86,
+    "pmRaMasPerYear": 328.95,
+    "pmDecMasPerYear": -164.67,
     "ghaDeg": 221.82935,
     "decOfDateDeg": -29.630764
   },
@@ -202,7 +224,8 @@
     "star": "Gacrux",
     "raDeg": 187.791498,
     "decDeg": -57.113213,
-    "pmMasPerYear": 266.58,
+    "pmRaMasPerYear": 28.23,
+    "pmDecMasPerYear": -265.08,
     "ghaDeg": 18.438991,
     "decOfDateDeg": -57.102539
   },
@@ -211,7 +234,8 @@
     "star": "Gienah",
     "raDeg": 183.951545,
     "decDeg": -17.54193,
-    "pmMasPerYear": 160.11,
+    "pmRaMasPerYear": -158.61,
+    "pmDecMasPerYear": 21.86,
     "ghaDeg": 22.281283,
     "decOfDateDeg": -17.534827
   },
@@ -220,7 +244,8 @@
     "star": "Hamal",
     "raDeg": 31.793357,
     "decDeg": 23.462418,
-    "pmMasPerYear": 239.75,
+    "pmRaMasPerYear": 188.55,
+    "pmDecMasPerYear": -148.08,
     "ghaDeg": 174.442099,
     "decOfDateDeg": 23.457223
   },
@@ -229,7 +254,8 @@
     "star": "Kochab",
     "raDeg": 222.676358,
     "decDeg": 74.155504,
-    "pmMasPerYear": 34.55,
+    "pmRaMasPerYear": -32.61,
+    "pmDecMasPerYear": 11.42,
     "ghaDeg": 343.556089,
     "decOfDateDeg": 74.156155
   },
@@ -238,7 +264,8 @@
     "star": "Markab",
     "raDeg": 346.190223,
     "decDeg": 15.205267,
-    "pmMasPerYear": 73.17,
+    "pmRaMasPerYear": 60.4,
+    "pmDecMasPerYear": -41.3,
     "ghaDeg": 220.048002,
     "decOfDateDeg": 15.199811
   },
@@ -247,7 +274,8 @@
     "star": "Menkar",
     "raDeg": 45.569888,
     "decDeg": 4.089739,
-    "pmMasPerYear": 77.55,
+    "pmRaMasPerYear": -10.41,
+    "pmDecMasPerYear": -76.85,
     "ghaDeg": 160.663811,
     "decOfDateDeg": 4.083108
   },
@@ -256,7 +284,8 @@
     "star": "Miaplacidus",
     "raDeg": 138.299906,
     "decDeg": -69.717208,
-    "pmMasPerYear": 190.66,
+    "pmRaMasPerYear": -156.47,
+    "pmDecMasPerYear": 108.95,
     "ghaDeg": 67.904635,
     "decOfDateDeg": -69.712158
   },
@@ -265,7 +294,8 @@
     "star": "Mirfak",
     "raDeg": 51.080709,
     "decDeg": 49.861179,
-    "pmMasPerYear": 35.38,
+    "pmRaMasPerYear": 23.75,
+    "pmDecMasPerYear": -26.23,
     "ghaDeg": 155.155115,
     "decOfDateDeg": 49.858738
   },
@@ -274,7 +304,8 @@
     "star": "Peacock",
     "raDeg": 306.411904,
     "decDeg": -56.73509,
-    "pmMasPerYear": 86.3,
+    "pmRaMasPerYear": 6.9,
+    "pmDecMasPerYear": -86.02,
     "ghaDeg": 259.84355,
     "decOfDateDeg": -56.738618
   },
@@ -283,7 +314,8 @@
     "star": "POLARIS",
     "raDeg": 37.954561,
     "decDeg": 89.264109,
-    "pmMasPerYear": 46.03,
+    "pmRaMasPerYear": 44.48,
+    "pmDecMasPerYear": -11.85,
     "ghaDeg": 168.349314,
     "decOfDateDeg": 89.263295
   },
@@ -292,7 +324,8 @@
     "star": "POLLUX",
     "raDeg": 116.328958,
     "decDeg": 28.026199,
-    "pmMasPerYear": 628.22,
+    "pmRaMasPerYear": -626.55,
+    "pmDecMasPerYear": -45.8,
     "ghaDeg": 89.903473,
     "decOfDateDeg": 28.026086
   },
@@ -301,7 +334,8 @@
     "star": "PROCYON",
     "raDeg": 114.825498,
     "decDeg": 5.224988,
-    "pmMasPerYear": 1259.2,
+    "pmRaMasPerYear": -714.59,
+    "pmDecMasPerYear": -1036.8,
     "ghaDeg": 91.404738,
     "decOfDateDeg": 5.224908
   },
@@ -310,7 +344,8 @@
     "star": "REGULUS",
     "raDeg": 152.092962,
     "decDeg": 11.967209,
-    "pmMasPerYear": 248.79,
+    "pmRaMasPerYear": -248.73,
+    "pmDecMasPerYear": 5.59,
     "ghaDeg": 54.138912,
     "decOfDateDeg": 11.970068
   },
@@ -319,7 +354,8 @@
     "star": "RIGEL",
     "raDeg": 78.634467,
     "decDeg": -8.201638,
-    "pmMasPerYear": 1.4,
+    "pmRaMasPerYear": 1.31,
+    "pmDecMasPerYear": 0.5,
     "ghaDeg": 127.595564,
     "decOfDateDeg": -8.206523
   },
@@ -328,7 +364,8 @@
     "star": "Schedar",
     "raDeg": 10.126846,
     "decDeg": 56.537329,
-    "pmMasPerYear": 58.41,
+    "pmRaMasPerYear": 49.126,
+    "pmDecMasPerYear": -31.595,
     "ghaDeg": 196.109738,
     "decOfDateDeg": 56.534743
   },
@@ -337,7 +374,8 @@
     "star": "SIRIUS",
     "raDeg": 101.287155,
     "decDeg": -16.716116,
-    "pmMasPerYear": 1339.41,
+    "pmRaMasPerYear": -546.01,
+    "pmDecMasPerYear": -1223.07,
     "ghaDeg": 104.940465,
     "decOfDateDeg": -16.718108
   },
@@ -346,7 +384,8 @@
     "star": "Suhail",
     "raDeg": 136.998991,
     "decDeg": -43.432591,
-    "pmMasPerYear": 27.55,
+    "pmRaMasPerYear": -24.01,
+    "pmDecMasPerYear": 13.52,
     "ghaDeg": 69.223666,
     "decOfDateDeg": -43.42869
   },
@@ -355,7 +394,8 @@
     "star": "Acamar",
     "raDeg": 44.565318,
     "decDeg": -40.304678,
-    "pmMasPerYear": 57.13,
+    "pmRaMasPerYear": -52.273,
+    "pmDecMasPerYear": 23.058,
     "ghaDeg": 222.97761,
     "decOfDateDeg": -40.20264
   },
@@ -364,7 +404,8 @@
     "star": "Adhara",
     "raDeg": 104.656453,
     "decDeg": -28.972086,
-    "pmMasPerYear": 3.5,
+    "pmRaMasPerYear": 3.24,
+    "pmDecMasPerYear": 1.33,
     "ghaDeg": 162.872632,
     "decOfDateDeg": -29.011465
   },
@@ -373,7 +414,8 @@
     "star": "ALDEBARAN",
     "raDeg": 68.980163,
     "decDeg": 16.509302,
-    "pmMasPerYear": 199.31,
+    "pmRaMasPerYear": 63.45,
+    "pmDecMasPerYear": -188.94,
     "ghaDeg": 198.43264,
     "decOfDateDeg": 16.561666
   },
@@ -382,7 +424,8 @@
     "star": "Alioth",
     "raDeg": 193.50729,
     "decDeg": 55.959823,
-    "pmMasPerYear": 112.21,
+    "pmRaMasPerYear": 111.91,
+    "pmDecMasPerYear": -8.24,
     "ghaDeg": 73.981574,
     "decOfDateDeg": 55.814268
   },
@@ -391,7 +434,8 @@
     "star": "Alkaid",
     "raDeg": 206.885157,
     "decDeg": 49.313267,
-    "pmMasPerYear": 122.08,
+    "pmRaMasPerYear": -121.17,
+    "pmDecMasPerYear": -14.91,
     "ghaDeg": 60.635679,
     "decOfDateDeg": 49.177995
   },
@@ -400,7 +444,8 @@
     "star": "Alnilam",
     "raDeg": 84.053389,
     "decDeg": -1.201919,
-    "pmMasPerYear": 1.64,
+    "pmRaMasPerYear": 1.44,
+    "pmDecMasPerYear": -0.78,
     "ghaDeg": 183.401898,
     "decOfDateDeg": -1.187019
   },
@@ -409,7 +454,8 @@
     "star": "Alphard",
     "raDeg": 141.896845,
     "decDeg": -8.6586,
-    "pmMasPerYear": 37.59,
+    "pmRaMasPerYear": -15.23,
+    "pmDecMasPerYear": 34.37,
     "ghaDeg": 125.564994,
     "decOfDateDeg": -8.775159
   },
@@ -418,7 +464,8 @@
     "star": "Alphecca",
     "raDeg": 233.671952,
     "decDeg": 26.714685,
-    "pmMasPerYear": 147.77,
+    "pmRaMasPerYear": 118.927,
+    "pmDecMasPerYear": -87.711,
     "ghaDeg": 33.834283,
     "decOfDateDeg": 26.621457
   },
@@ -427,7 +474,8 @@
     "star": "ANTARES",
     "raDeg": 247.351915,
     "decDeg": -26.432003,
-    "pmMasPerYear": 26.26,
+    "pmRaMasPerYear": -12.11,
+    "pmDecMasPerYear": -23.3,
     "ghaDeg": 20.030978,
     "decOfDateDeg": -26.49035
   },
@@ -436,7 +484,8 @@
     "star": "ARCTURUS",
     "raDeg": 213.9153,
     "decDeg": 19.182409,
-    "pmMasPerYear": 2279.42,
+    "pmRaMasPerYear": -1093.39,
+    "pmDecMasPerYear": -2000.06,
     "ghaDeg": 53.568196,
     "decOfDateDeg": 19.041822
   },
@@ -445,7 +494,8 @@
     "star": "Atria",
     "raDeg": 252.166229,
     "decDeg": -69.027712,
-    "pmMasPerYear": 36.34,
+    "pmRaMasPerYear": 17.99,
+    "pmDecMasPerYear": -31.58,
     "ghaDeg": 14.917975,
     "decOfDateDeg": -69.070522
   },
@@ -454,7 +504,8 @@
     "star": "Avior",
     "raDeg": 125.62848,
     "decDeg": -59.509484,
-    "pmMasPerYear": 33.73,
+    "pmRaMasPerYear": -25.52,
+    "pmDecMasPerYear": 22.06,
     "ghaDeg": 142.022594,
     "decOfDateDeg": -59.597567
   },
@@ -463,7 +514,8 @@
     "star": "Bellatrix",
     "raDeg": 81.282764,
     "decDeg": 6.349703,
-    "pmMasPerYear": 15.22,
+    "pmRaMasPerYear": -8.11,
+    "pmDecMasPerYear": -12.88,
     "ghaDeg": 186.153699,
     "decOfDateDeg": 6.372209
   },
@@ -472,7 +524,8 @@
     "star": "BETELGEUSE",
     "raDeg": 88.792939,
     "decDeg": 7.407064,
-    "pmMasPerYear": 29.77,
+    "pmRaMasPerYear": 27.54,
+    "pmDecMasPerYear": 11.3,
     "ghaDeg": 178.639631,
     "decOfDateDeg": 7.410733
   },
@@ -481,7 +534,8 @@
     "star": "CANOPUS",
     "raDeg": 95.987958,
     "decDeg": -52.695661,
-    "pmMasPerYear": 30.62,
+    "pmRaMasPerYear": 19.93,
+    "pmDecMasPerYear": 23.24,
     "ghaDeg": 171.654316,
     "decOfDateDeg": -52.713963
   },
@@ -490,7 +544,8 @@
     "star": "CAPELLA",
     "raDeg": 79.172328,
     "decDeg": 45.997991,
-    "pmMasPerYear": 433.47,
+    "pmRaMasPerYear": 75.25,
+    "pmDecMasPerYear": -426.89,
     "ghaDeg": 188.131142,
     "decOfDateDeg": 46.026455
   },
@@ -499,7 +554,8 @@
     "star": "DENEB",
     "raDeg": 310.35798,
     "decDeg": 45.280339,
-    "pmMasPerYear": 2.73,
+    "pmRaMasPerYear": 2.01,
+    "pmDecMasPerYear": 1.85,
     "ghaDeg": 317.213369,
     "decOfDateDeg": 45.369212
   },
@@ -508,7 +564,8 @@
     "star": "Denebola",
     "raDeg": 177.26491,
     "decDeg": 14.572058,
-    "pmMasPerYear": 510.72,
+    "pmRaMasPerYear": -497.68,
+    "pmDecMasPerYear": -114.67,
     "ghaDeg": 90.182954,
     "decOfDateDeg": 14.422693
   },
@@ -517,7 +574,8 @@
     "star": "Dubhe",
     "raDeg": 165.931965,
     "decDeg": 61.751035,
-    "pmMasPerYear": 138.53,
+    "pmRaMasPerYear": -134.11,
+    "pmDecMasPerYear": -34.7,
     "ghaDeg": 101.441464,
     "decOfDateDeg": 61.608938
   },
@@ -526,7 +584,8 @@
     "star": "Elnath",
     "raDeg": 81.572971,
     "decDeg": 28.607452,
-    "pmMasPerYear": 175.07,
+    "pmRaMasPerYear": 22.76,
+    "pmDecMasPerYear": -173.58,
     "ghaDeg": 185.800425,
     "decOfDateDeg": 28.630154
   },
@@ -535,7 +594,8 @@
     "star": "Eltanin",
     "raDeg": 269.151541,
     "decDeg": 51.488896,
-    "pmMasPerYear": 24.32,
+    "pmRaMasPerYear": -8.48,
+    "pmDecMasPerYear": -22.79,
     "ghaDeg": 358.484711,
     "decOfDateDeg": 51.478693
   },
@@ -544,7 +604,8 @@
     "star": "Gacrux",
     "raDeg": 187.791498,
     "decDeg": -57.113213,
-    "pmMasPerYear": 266.58,
+    "pmRaMasPerYear": 28.23,
+    "pmDecMasPerYear": -265.08,
     "ghaDeg": 79.622783,
     "decOfDateDeg": -57.261205
   },
@@ -553,7 +614,8 @@
     "star": "Gienah",
     "raDeg": 183.951545,
     "decDeg": -17.54193,
-    "pmMasPerYear": 160.11,
+    "pmRaMasPerYear": -158.61,
+    "pmDecMasPerYear": 21.86,
     "ghaDeg": 83.49353,
     "decOfDateDeg": -17.690208
   },
@@ -562,7 +624,8 @@
     "star": "Hamal",
     "raDeg": 31.793357,
     "decDeg": 23.462418,
-    "pmMasPerYear": 239.75,
+    "pmRaMasPerYear": 188.55,
+    "pmDecMasPerYear": -148.08,
     "ghaDeg": 235.628909,
     "decOfDateDeg": 23.586152
   },
@@ -571,7 +634,8 @@
     "star": "Kochab",
     "raDeg": 222.676358,
     "decDeg": 74.155504,
-    "pmMasPerYear": 34.55,
+    "pmRaMasPerYear": -32.61,
+    "pmDecMasPerYear": 11.42,
     "ghaDeg": 45.105007,
     "decOfDateDeg": 74.041938
   },
@@ -580,7 +644,8 @@
     "star": "Menkent",
     "raDeg": 211.670615,
     "decDeg": -36.369955,
-    "pmMasPerYear": 734.4,
+    "pmRaMasPerYear": -520.53,
+    "pmDecMasPerYear": -518.06,
     "ghaDeg": 55.724947,
     "decOfDateDeg": -36.499714
   },
@@ -589,7 +654,8 @@
     "star": "Miaplacidus",
     "raDeg": 138.299906,
     "decDeg": -69.717208,
-    "pmMasPerYear": 190.66,
+    "pmRaMasPerYear": -156.47,
+    "pmDecMasPerYear": 108.95,
     "ghaDeg": 129.413367,
     "decOfDateDeg": -69.828229
   },
@@ -598,7 +664,8 @@
     "star": "Mirfak",
     "raDeg": 51.080709,
     "decDeg": 49.861179,
-    "pmMasPerYear": 35.38,
+    "pmRaMasPerYear": 23.75,
+    "pmDecMasPerYear": -26.23,
     "ghaDeg": 216.241734,
     "decOfDateDeg": 49.956356
   },
@@ -607,7 +674,8 @@
     "star": "Peacock",
     "raDeg": 306.411904,
     "decDeg": -56.73509,
-    "pmMasPerYear": 86.3,
+    "pmRaMasPerYear": 6.9,
+    "pmDecMasPerYear": -86.02,
     "ghaDeg": 320.864479,
     "decOfDateDeg": -56.647993
   },
@@ -616,7 +684,8 @@
     "star": "POLARIS",
     "raDeg": 37.954561,
     "decDeg": 89.264109,
-    "pmMasPerYear": 46.03,
+    "pmRaMasPerYear": 44.48,
+    "pmDecMasPerYear": -11.85,
     "ghaDeg": 221.655384,
     "decOfDateDeg": 89.37845
   },
@@ -625,7 +694,8 @@
     "star": "POLLUX",
     "raDeg": 116.328958,
     "decDeg": 28.026199,
-    "pmMasPerYear": 628.22,
+    "pmRaMasPerYear": -626.55,
+    "pmDecMasPerYear": -45.8,
     "ghaDeg": 151.054966,
     "decOfDateDeg": 27.962814
   },
@@ -634,7 +704,8 @@
     "star": "PROCYON",
     "raDeg": 114.825498,
     "decDeg": 5.224988,
-    "pmMasPerYear": 1259.2,
+    "pmRaMasPerYear": -714.59,
+    "pmDecMasPerYear": -1036.8,
     "ghaDeg": 152.617178,
     "decOfDateDeg": 5.155964
   },
@@ -643,7 +714,8 @@
     "star": "REGULUS",
     "raDeg": 152.092962,
     "decDeg": 11.967209,
-    "pmMasPerYear": 248.79,
+    "pmRaMasPerYear": -248.73,
+    "pmDecMasPerYear": 5.59,
     "ghaDeg": 115.34111,
     "decOfDateDeg": 11.836892
   },
@@ -652,7 +724,8 @@
     "star": "RIGEL",
     "raDeg": 78.634467,
     "decDeg": -8.201638,
-    "pmMasPerYear": 1.4,
+    "pmRaMasPerYear": 1.31,
+    "pmDecMasPerYear": 0.5,
     "ghaDeg": 188.838906,
     "decOfDateDeg": -8.173644
   },
@@ -661,7 +734,8 @@
     "star": "Schedar",
     "raDeg": 10.126846,
     "decDeg": 56.537329,
-    "pmMasPerYear": 58.41,
+    "pmRaMasPerYear": 49.126,
+    "pmDecMasPerYear": -31.595,
     "ghaDeg": 257.297683,
     "decOfDateDeg": 56.681459
   },
@@ -670,7 +744,8 @@
     "star": "Shaula",
     "raDeg": 263.402167,
     "decDeg": -37.103824,
-    "pmMasPerYear": 31.96,
+    "pmRaMasPerYear": -8.53,
+    "pmDecMasPerYear": -30.8,
     "ghaDeg": 3.939193,
     "decOfDateDeg": -37.121498
   },
@@ -679,7 +754,8 @@
     "star": "SIRIUS",
     "raDeg": 101.287155,
     "decDeg": -16.716116,
-    "pmMasPerYear": 1339.41,
+    "pmRaMasPerYear": -546.01,
+    "pmDecMasPerYear": -1223.07,
     "ghaDeg": 166.211126,
     "decOfDateDeg": -16.75525
   },
@@ -688,7 +764,8 @@
     "star": "SPICA",
     "raDeg": 201.298247,
     "decDeg": -11.161319,
-    "pmMasPerYear": 52.29,
+    "pmRaMasPerYear": -42.35,
+    "pmDecMasPerYear": -30.67,
     "ghaDeg": 66.138831,
     "decOfDateDeg": -11.300762
   },
@@ -697,7 +774,8 @@
     "star": "Suhail",
     "raDeg": 136.998991,
     "decDeg": -43.432591,
-    "pmMasPerYear": 27.55,
+    "pmRaMasPerYear": -24.01,
+    "pmDecMasPerYear": 13.52,
     "ghaDeg": 130.544086,
     "decOfDateDeg": -43.542241
   },
@@ -706,7 +784,8 @@
     "star": "VEGA",
     "raDeg": 279.234735,
     "decDeg": 38.783689,
-    "pmMasPerYear": 349.72,
+    "pmRaMasPerYear": 200.94,
+    "pmDecMasPerYear": 286.23,
     "ghaDeg": 348.333126,
     "decOfDateDeg": 38.80209
   },
@@ -715,7 +794,8 @@
     "star": "Alioth",
     "raDeg": 193.50729,
     "decDeg": 55.959823,
-    "pmMasPerYear": 112.21,
+    "pmRaMasPerYear": 111.91,
+    "pmDecMasPerYear": -8.24,
     "ghaDeg": 165.651243,
     "decOfDateDeg": 55.819721
   },
@@ -724,7 +804,8 @@
     "star": "Alkaid",
     "raDeg": 206.885157,
     "decDeg": 49.313267,
-    "pmMasPerYear": 122.08,
+    "pmRaMasPerYear": -121.17,
+    "pmDecMasPerYear": -14.91,
     "ghaDeg": 152.302008,
     "decOfDateDeg": 49.183902
   },
@@ -733,7 +814,8 @@
     "star": "Alphard",
     "raDeg": 141.896845,
     "decDeg": -8.6586,
-    "pmMasPerYear": 37.59,
+    "pmRaMasPerYear": -15.23,
+    "pmDecMasPerYear": 34.37,
     "ghaDeg": 217.234763,
     "decOfDateDeg": -8.774622
   },
@@ -742,7 +824,8 @@
     "star": "Alphecca",
     "raDeg": 233.671952,
     "decDeg": 26.714685,
-    "pmMasPerYear": 147.77,
+    "pmRaMasPerYear": 118.927,
+    "pmDecMasPerYear": -87.711,
     "ghaDeg": 125.49525,
     "decOfDateDeg": 26.62627
   },
@@ -751,7 +834,8 @@
     "star": "Alpheratz",
     "raDeg": 2.096916,
     "decDeg": 29.090431,
-    "pmMasPerYear": 213.56,
+    "pmRaMasPerYear": 137.46,
+    "pmDecMasPerYear": -163.44,
     "ghaDeg": 357.013977,
     "decOfDateDeg": 29.234675
   },
@@ -760,7 +844,8 @@
     "star": "ALTAIR",
     "raDeg": 297.695827,
     "decDeg": 8.868321,
-    "pmMasPerYear": 660.3,
+    "pmRaMasPerYear": 536.23,
+    "pmDecMasPerYear": 385.29,
     "ghaDeg": 61.429662,
     "decOfDateDeg": 8.938135
   },
@@ -769,7 +854,8 @@
     "star": "ANTARES",
     "raDeg": 247.351915,
     "decDeg": -26.432003,
-    "pmMasPerYear": 26.26,
+    "pmRaMasPerYear": -12.11,
+    "pmDecMasPerYear": -23.3,
     "ghaDeg": 111.688397,
     "decOfDateDeg": -26.491678
   },
@@ -778,7 +864,8 @@
     "star": "ARCTURUS",
     "raDeg": 213.9153,
     "decDeg": 19.182409,
-    "pmMasPerYear": 2279.42,
+    "pmRaMasPerYear": -1093.39,
+    "pmDecMasPerYear": -2000.06,
     "ghaDeg": 145.231834,
     "decOfDateDeg": 19.045242
   },
@@ -787,7 +874,8 @@
     "star": "Atria",
     "raDeg": 252.166229,
     "decDeg": -69.027712,
-    "pmMasPerYear": 36.34,
+    "pmRaMasPerYear": 17.99,
+    "pmDecMasPerYear": -31.58,
     "ghaDeg": 106.564615,
     "decOfDateDeg": -69.076035
   },
@@ -796,7 +884,8 @@
     "star": "Avior",
     "raDeg": 125.62848,
     "decDeg": -59.509484,
-    "pmMasPerYear": 33.73,
+    "pmRaMasPerYear": -25.52,
+    "pmDecMasPerYear": 22.06,
     "ghaDeg": 233.701549,
     "decOfDateDeg": -59.596907
   },
@@ -805,7 +894,8 @@
     "star": "CANOPUS",
     "raDeg": 95.987958,
     "decDeg": -52.695661,
-    "pmMasPerYear": 30.62,
+    "pmRaMasPerYear": 19.93,
+    "pmDecMasPerYear": 23.24,
     "ghaDeg": 263.328592,
     "decOfDateDeg": -52.709515
   },
@@ -814,7 +904,8 @@
     "star": "CAPELLA",
     "raDeg": 79.172328,
     "decDeg": 45.997991,
-    "pmMasPerYear": 433.47,
+    "pmRaMasPerYear": 75.25,
+    "pmDecMasPerYear": -426.89,
     "ghaDeg": 279.79812,
     "decOfDateDeg": 46.023451
   },
@@ -823,7 +914,8 @@
     "star": "DENEB",
     "raDeg": 310.35798,
     "decDeg": 45.280339,
-    "pmMasPerYear": 2.73,
+    "pmRaMasPerYear": 2.01,
+    "pmDecMasPerYear": 1.85,
     "ghaDeg": 48.865242,
     "decOfDateDeg": 45.372307
   },
@@ -832,7 +924,8 @@
     "star": "Denebola",
     "raDeg": 177.26491,
     "decDeg": 14.572058,
-    "pmMasPerYear": 510.72,
+    "pmRaMasPerYear": -497.68,
+    "pmDecMasPerYear": -114.67,
     "ghaDeg": 181.850673,
     "decOfDateDeg": 14.424648
   },
@@ -841,7 +934,8 @@
     "star": "Dubhe",
     "raDeg": 165.931965,
     "decDeg": 61.751035,
-    "pmMasPerYear": 138.53,
+    "pmRaMasPerYear": -134.11,
+    "pmDecMasPerYear": -34.7,
     "ghaDeg": 193.116973,
     "decOfDateDeg": 61.612181
   },
@@ -850,7 +944,8 @@
     "star": "Eltanin",
     "raDeg": 269.151541,
     "decDeg": 51.488896,
-    "pmMasPerYear": 24.32,
+    "pmRaMasPerYear": -8.48,
+    "pmDecMasPerYear": -22.79,
     "ghaDeg": 90.139568,
     "decOfDateDeg": 51.484625
   },
@@ -859,7 +954,8 @@
     "star": "Enif",
     "raDeg": 326.046484,
     "decDeg": 9.875009,
-    "pmMasPerYear": 26.92,
+    "pmRaMasPerYear": 26.92,
+    "pmDecMasPerYear": 0.44,
     "ghaDeg": 33.078724,
     "decOfDateDeg": 9.996188
   },
@@ -868,7 +964,8 @@
     "star": "FOMALHAUT",
     "raDeg": 344.412693,
     "decDeg": -29.622237,
-    "pmMasPerYear": 367.86,
+    "pmRaMasPerYear": 328.95,
+    "pmDecMasPerYear": -164.67,
     "ghaDeg": 14.673155,
     "decOfDateDeg": -29.478458
   },
@@ -877,7 +974,8 @@
     "star": "Gacrux",
     "raDeg": 187.791498,
     "decDeg": -57.113213,
-    "pmMasPerYear": 266.58,
+    "pmRaMasPerYear": 28.23,
+    "pmDecMasPerYear": -265.08,
     "ghaDeg": 171.291822,
     "decOfDateDeg": -57.266899
   },
@@ -886,7 +984,8 @@
     "star": "Gienah",
     "raDeg": 183.951545,
     "decDeg": -17.54193,
-    "pmMasPerYear": 160.11,
+    "pmRaMasPerYear": -158.61,
+    "pmDecMasPerYear": 21.86,
     "ghaDeg": 175.160337,
     "decOfDateDeg": -17.691455
   },
@@ -895,7 +994,8 @@
     "star": "Kochab",
     "raDeg": 222.676358,
     "decDeg": 74.155504,
-    "pmMasPerYear": 34.55,
+    "pmRaMasPerYear": -32.61,
+    "pmDecMasPerYear": 11.42,
     "ghaDeg": 136.771616,
     "decOfDateDeg": 74.049116
   },
@@ -904,7 +1004,8 @@
     "star": "Menkent",
     "raDeg": 211.670615,
     "decDeg": -36.369955,
-    "pmMasPerYear": 734.4,
+    "pmRaMasPerYear": -520.53,
+    "pmDecMasPerYear": -518.06,
     "ghaDeg": 147.387802,
     "decOfDateDeg": -36.503593
   },
@@ -913,7 +1014,8 @@
     "star": "Miaplacidus",
     "raDeg": 138.299906,
     "decDeg": -69.717208,
-    "pmMasPerYear": 190.66,
+    "pmRaMasPerYear": -156.47,
+    "pmDecMasPerYear": 108.95,
     "ghaDeg": 221.099747,
     "decOfDateDeg": -69.829648
   },
@@ -922,7 +1024,8 @@
     "star": "Mirfak",
     "raDeg": 51.080709,
     "decDeg": 49.861179,
-    "pmMasPerYear": 35.38,
+    "pmRaMasPerYear": 23.75,
+    "pmDecMasPerYear": -26.23,
     "ghaDeg": 307.903829,
     "decOfDateDeg": 49.952629
   },
@@ -931,7 +1034,8 @@
     "star": "Nunki",
     "raDeg": 283.81636,
     "decDeg": -26.296724,
-    "pmMasPerYear": 55.53,
+    "pmRaMasPerYear": 15.14,
+    "pmDecMasPerYear": -53.43,
     "ghaDeg": 75.220034,
     "decOfDateDeg": -26.262659
   },
@@ -940,7 +1044,8 @@
     "star": "Peacock",
     "raDeg": 306.411904,
     "decDeg": -56.73509,
-    "pmMasPerYear": 86.3,
+    "pmRaMasPerYear": 6.9,
+    "pmDecMasPerYear": -86.02,
     "ghaDeg": 52.510827,
     "decOfDateDeg": -56.646092
   },
@@ -949,7 +1054,8 @@
     "star": "POLARIS",
     "raDeg": 37.954561,
     "decDeg": 89.264109,
-    "pmMasPerYear": 46.03,
+    "pmRaMasPerYear": 44.48,
+    "pmDecMasPerYear": -11.85,
     "ghaDeg": 313.234055,
     "decOfDateDeg": 89.371552
   },
@@ -958,7 +1064,8 @@
     "star": "POLLUX",
     "raDeg": 116.328958,
     "decDeg": 28.026199,
-    "pmMasPerYear": 628.22,
+    "pmRaMasPerYear": -626.55,
+    "pmDecMasPerYear": -45.8,
     "ghaDeg": 242.724733,
     "decOfDateDeg": 27.962753
   },
@@ -967,7 +1074,8 @@
     "star": "Rasalhague",
     "raDeg": 263.733623,
     "decDeg": 12.560037,
-    "pmMasPerYear": 246.52,
+    "pmRaMasPerYear": 108.07,
+    "pmDecMasPerYear": -221.57,
     "ghaDeg": 95.406406,
     "decOfDateDeg": 12.540616
   },
@@ -976,7 +1084,8 @@
     "star": "REGULUS",
     "raDeg": 152.092962,
     "decDeg": 11.967209,
-    "pmMasPerYear": 248.79,
+    "pmRaMasPerYear": -248.73,
+    "pmDecMasPerYear": 5.59,
     "ghaDeg": 207.01043,
     "decOfDateDeg": 11.838061
   },
@@ -985,7 +1094,8 @@
     "star": "Sabik",
     "raDeg": 257.594529,
     "decDeg": -15.724907,
-    "pmMasPerYear": 106.98,
+    "pmRaMasPerYear": 40.13,
+    "pmDecMasPerYear": 99.17,
     "ghaDeg": 101.472573,
     "decOfDateDeg": -15.757957
   },
@@ -994,7 +1104,8 @@
     "star": "Schedar",
     "raDeg": 10.126846,
     "decDeg": 56.537329,
-    "pmMasPerYear": 58.41,
+    "pmRaMasPerYear": 49.126,
+    "pmDecMasPerYear": -31.595,
     "ghaDeg": 348.951133,
     "decOfDateDeg": 56.678689
   },
@@ -1003,7 +1114,8 @@
     "star": "Shaula",
     "raDeg": 263.402167,
     "decDeg": -37.103824,
-    "pmMasPerYear": 31.96,
+    "pmRaMasPerYear": -8.53,
+    "pmDecMasPerYear": -30.8,
     "ghaDeg": 95.593468,
     "decOfDateDeg": -37.122969
   },
@@ -1012,7 +1124,8 @@
     "star": "SPICA",
     "raDeg": 201.298247,
     "decDeg": -11.161319,
-    "pmMasPerYear": 52.29,
+    "pmRaMasPerYear": -42.35,
+    "pmDecMasPerYear": -30.67,
     "ghaDeg": 157.803381,
     "decOfDateDeg": -11.301292
   },
@@ -1021,7 +1134,8 @@
     "star": "Suhail",
     "raDeg": 136.998991,
     "decDeg": -43.432591,
-    "pmMasPerYear": 27.55,
+    "pmRaMasPerYear": -24.01,
+    "pmDecMasPerYear": 13.52,
     "ghaDeg": 222.217427,
     "decOfDateDeg": -43.542494
   },
@@ -1030,7 +1144,8 @@
     "star": "VEGA",
     "raDeg": 279.234735,
     "decDeg": 38.783689,
-    "pmMasPerYear": 349.72,
+    "pmRaMasPerYear": 200.94,
+    "pmDecMasPerYear": 286.23,
     "ghaDeg": 79.987942,
     "decOfDateDeg": 38.807202
   },
@@ -1039,7 +1154,8 @@
     "star": "Acamar",
     "raDeg": 44.565318,
     "decDeg": -40.304678,
-    "pmMasPerYear": 57.13,
+    "pmRaMasPerYear": -52.273,
+    "pmDecMasPerYear": 23.058,
     "ghaDeg": 47.279418,
     "decOfDateDeg": -40.192345
   },
@@ -1048,7 +1164,8 @@
     "star": "ALDEBARAN",
     "raDeg": 68.980163,
     "decDeg": 16.509302,
-    "pmMasPerYear": 199.31,
+    "pmRaMasPerYear": 63.45,
+    "pmDecMasPerYear": -188.94,
     "ghaDeg": 22.737373,
     "decOfDateDeg": 16.564101
   },
@@ -1057,7 +1174,8 @@
     "star": "Alioth",
     "raDeg": 193.50729,
     "decDeg": 55.959823,
-    "pmMasPerYear": 112.21,
+    "pmRaMasPerYear": 111.91,
+    "pmDecMasPerYear": -8.24,
     "ghaDeg": 258.310519,
     "decOfDateDeg": 55.815864
   },
@@ -1066,7 +1184,8 @@
     "star": "Alkaid",
     "raDeg": 206.885157,
     "decDeg": 49.313267,
-    "pmMasPerYear": 122.08,
+    "pmRaMasPerYear": -121.17,
+    "pmDecMasPerYear": -14.91,
     "ghaDeg": 244.961312,
     "decOfDateDeg": 49.181858
   },
@@ -1075,7 +1194,8 @@
     "star": "Alphecca",
     "raDeg": 233.671952,
     "decDeg": 26.714685,
-    "pmMasPerYear": 147.77,
+    "pmRaMasPerYear": 118.927,
+    "pmDecMasPerYear": -87.711,
     "ghaDeg": 218.151988,
     "decOfDateDeg": 26.6276
   },
@@ -1084,7 +1204,8 @@
     "star": "Alpheratz",
     "raDeg": 2.096916,
     "decDeg": 29.090431,
-    "pmMasPerYear": 213.56,
+    "pmRaMasPerYear": 137.46,
+    "pmDecMasPerYear": -163.44,
     "ghaDeg": 89.65533,
     "decOfDateDeg": 29.240887
   },
@@ -1093,7 +1214,8 @@
     "star": "ALTAIR",
     "raDeg": 297.695827,
     "decDeg": 8.868321,
-    "pmMasPerYear": 660.3,
+    "pmRaMasPerYear": 536.23,
+    "pmDecMasPerYear": 385.29,
     "ghaDeg": 154.080104,
     "decOfDateDeg": 8.942079
   },
@@ -1102,7 +1224,8 @@
     "star": "Ankaa",
     "raDeg": 6.571047,
     "decDeg": -42.305987,
-    "pmMasPerYear": 425.75,
+    "pmRaMasPerYear": 233.05,
+    "pmDecMasPerYear": -356.3,
     "ghaDeg": 85.194865,
     "decOfDateDeg": -42.157592
   },
@@ -1111,7 +1234,8 @@
     "star": "ANTARES",
     "raDeg": 247.351915,
     "decDeg": -26.432003,
-    "pmMasPerYear": 26.26,
+    "pmRaMasPerYear": -12.11,
+    "pmDecMasPerYear": -23.3,
     "ghaDeg": 204.343396,
     "decOfDateDeg": -26.491605
   },
@@ -1120,7 +1244,8 @@
     "star": "Atria",
     "raDeg": 252.166229,
     "decDeg": -69.027712,
-    "pmMasPerYear": 36.34,
+    "pmRaMasPerYear": 17.99,
+    "pmDecMasPerYear": -31.58,
     "ghaDeg": 199.228036,
     "decOfDateDeg": -69.078957
   },
@@ -1129,7 +1254,8 @@
     "star": "Avior",
     "raDeg": 125.62848,
     "decDeg": -59.509484,
-    "pmMasPerYear": 33.73,
+    "pmRaMasPerYear": -25.52,
+    "pmDecMasPerYear": 22.06,
     "ghaDeg": 326.348309,
     "decOfDateDeg": -59.589976
   },
@@ -1138,7 +1264,8 @@
     "star": "CANOPUS",
     "raDeg": 95.987958,
     "decDeg": -52.695661,
-    "pmMasPerYear": 30.62,
+    "pmRaMasPerYear": 19.93,
+    "pmDecMasPerYear": 23.24,
     "ghaDeg": 355.969736,
     "decOfDateDeg": -52.703502
   },
@@ -1147,7 +1274,8 @@
     "star": "CAPELLA",
     "raDeg": 79.172328,
     "decDeg": 45.997991,
-    "pmMasPerYear": 433.47,
+    "pmRaMasPerYear": 75.25,
+    "pmDecMasPerYear": -426.89,
     "ghaDeg": 12.434635,
     "decOfDateDeg": 46.022498
   },
@@ -1156,7 +1284,8 @@
     "star": "DENEB",
     "raDeg": 310.35798,
     "decDeg": 45.280339,
-    "pmMasPerYear": 2.73,
+    "pmRaMasPerYear": 2.01,
+    "pmDecMasPerYear": 1.85,
     "ghaDeg": 141.515456,
     "decOfDateDeg": 45.380245
   },
@@ -1165,7 +1294,8 @@
     "star": "Diphda",
     "raDeg": 10.897379,
     "decDeg": -17.986606,
-    "pmMasPerYear": 234.74,
+    "pmRaMasPerYear": 232.55,
+    "pmDecMasPerYear": 31.99,
     "ghaDeg": 80.865348,
     "decOfDateDeg": -17.836511
   },
@@ -1174,7 +1304,8 @@
     "star": "Dubhe",
     "raDeg": 165.931965,
     "decDeg": 61.751035,
-    "pmMasPerYear": 138.53,
+    "pmRaMasPerYear": -134.11,
+    "pmDecMasPerYear": -34.7,
     "ghaDeg": 285.771366,
     "decOfDateDeg": 61.605808
   },
@@ -1183,7 +1314,8 @@
     "star": "Elnath",
     "raDeg": 81.572971,
     "decDeg": 28.607452,
-    "pmMasPerYear": 175.07,
+    "pmRaMasPerYear": 22.76,
+    "pmDecMasPerYear": -173.58,
     "ghaDeg": 10.106543,
     "decOfDateDeg": 28.629372
   },
@@ -1192,7 +1324,8 @@
     "star": "Eltanin",
     "raDeg": 269.151541,
     "decDeg": 51.488896,
-    "pmMasPerYear": 24.32,
+    "pmRaMasPerYear": -8.48,
+    "pmDecMasPerYear": -22.79,
     "ghaDeg": 182.79837,
     "decOfDateDeg": 51.489862
   },
@@ -1201,7 +1334,8 @@
     "star": "Enif",
     "raDeg": 326.046484,
     "decDeg": 9.875009,
-    "pmMasPerYear": 26.92,
+    "pmRaMasPerYear": 26.92,
+    "pmDecMasPerYear": 0.44,
     "ghaDeg": 125.725252,
     "decOfDateDeg": 10.000942
   },
@@ -1210,7 +1344,8 @@
     "star": "FOMALHAUT",
     "raDeg": 344.412693,
     "decDeg": -29.622237,
-    "pmMasPerYear": 367.86,
+    "pmRaMasPerYear": 328.95,
+    "pmDecMasPerYear": -164.67,
     "ghaDeg": 107.316328,
     "decOfDateDeg": -29.47846
   },
@@ -1219,7 +1354,8 @@
     "star": "Gacrux",
     "raDeg": 187.791498,
     "decDeg": -57.113213,
-    "pmMasPerYear": 266.58,
+    "pmRaMasPerYear": 28.23,
+    "pmDecMasPerYear": -265.08,
     "ghaDeg": 263.950372,
     "decOfDateDeg": -57.263115
   },
@@ -1228,7 +1364,8 @@
     "star": "Hamal",
     "raDeg": 31.793357,
     "decDeg": 23.462418,
-    "pmMasPerYear": 239.75,
+    "pmRaMasPerYear": 188.55,
+    "pmDecMasPerYear": -148.08,
     "ghaDeg": 59.927909,
     "decOfDateDeg": 23.590607
   },
@@ -1237,7 +1374,8 @@
     "star": "Kochab",
     "raDeg": 222.676358,
     "decDeg": 74.155504,
-    "pmMasPerYear": 34.55,
+    "pmRaMasPerYear": -32.61,
+    "pmDecMasPerYear": 11.42,
     "ghaDeg": 229.450485,
     "decOfDateDeg": 74.047826
   },
@@ -1246,7 +1384,8 @@
     "star": "Markab",
     "raDeg": 346.190223,
     "decDeg": 15.205267,
-    "pmMasPerYear": 73.17,
+    "pmRaMasPerYear": 60.4,
+    "pmDecMasPerYear": -41.3,
     "ghaDeg": 105.575728,
     "decOfDateDeg": 15.352473
   },
@@ -1255,7 +1394,8 @@
     "star": "Menkar",
     "raDeg": 45.569888,
     "decDeg": 4.089739,
-    "pmMasPerYear": 77.55,
+    "pmRaMasPerYear": -10.41,
+    "pmDecMasPerYear": -76.85,
     "ghaDeg": 46.180211,
     "decOfDateDeg": 4.19731
   },
@@ -1264,7 +1404,8 @@
     "star": "Menkent",
     "raDeg": 211.670615,
     "decDeg": -36.369955,
-    "pmMasPerYear": 734.4,
+    "pmRaMasPerYear": -520.53,
+    "pmDecMasPerYear": -518.06,
     "ghaDeg": 240.044191,
     "decOfDateDeg": -36.501988
   },
@@ -1273,7 +1414,8 @@
     "star": "Miaplacidus",
     "raDeg": 138.299906,
     "decDeg": -69.717208,
-    "pmMasPerYear": 190.66,
+    "pmRaMasPerYear": -156.47,
+    "pmDecMasPerYear": 108.95,
     "ghaDeg": 313.750807,
     "decOfDateDeg": -69.822626
   },
@@ -1282,7 +1424,8 @@
     "star": "Mirfak",
     "raDeg": 51.080709,
     "decDeg": 49.861179,
-    "pmMasPerYear": 35.38,
+    "pmRaMasPerYear": 23.75,
+    "pmDecMasPerYear": -26.23,
     "ghaDeg": 40.53805,
     "decOfDateDeg": 49.954784
   },
@@ -1291,7 +1434,8 @@
     "star": "Nunki",
     "raDeg": 283.81636,
     "decDeg": -26.296724,
-    "pmMasPerYear": 55.53,
+    "pmRaMasPerYear": 15.14,
+    "pmDecMasPerYear": -53.43,
     "ghaDeg": 167.871574,
     "decOfDateDeg": -26.263292
   },
@@ -1300,7 +1444,8 @@
     "star": "Peacock",
     "raDeg": 306.411904,
     "decDeg": -56.73509,
-    "pmMasPerYear": 86.3,
+    "pmRaMasPerYear": 6.9,
+    "pmDecMasPerYear": -86.02,
     "ghaDeg": 145.158931,
     "decOfDateDeg": -56.650428
   },
@@ -1309,7 +1454,8 @@
     "star": "POLARIS",
     "raDeg": 37.954561,
     "decDeg": 89.264109,
-    "pmMasPerYear": 46.03,
+    "pmRaMasPerYear": 44.48,
+    "pmDecMasPerYear": -11.85,
     "ghaDeg": 45.082532,
     "decOfDateDeg": 89.372908
   },
@@ -1318,7 +1464,8 @@
     "star": "Rasalhague",
     "raDeg": 263.733623,
     "decDeg": 12.560037,
-    "pmMasPerYear": 246.52,
+    "pmRaMasPerYear": 108.07,
+    "pmDecMasPerYear": -221.57,
     "ghaDeg": 188.060693,
     "decOfDateDeg": 12.543455
   },
@@ -1327,7 +1474,8 @@
     "star": "Sabik",
     "raDeg": 257.594529,
     "decDeg": -15.724907,
-    "pmMasPerYear": 106.98,
+    "pmRaMasPerYear": 40.13,
+    "pmDecMasPerYear": 99.17,
     "ghaDeg": 194.126658,
     "decOfDateDeg": -15.757341
   },
@@ -1336,7 +1484,8 @@
     "star": "Schedar",
     "raDeg": 10.126846,
     "decDeg": 56.537329,
-    "pmMasPerYear": 58.41,
+    "pmRaMasPerYear": 49.126,
+    "pmDecMasPerYear": -31.595,
     "ghaDeg": 81.587272,
     "decOfDateDeg": 56.6854
   },
@@ -1345,7 +1494,8 @@
     "star": "Shaula",
     "raDeg": 263.402167,
     "decDeg": -37.103824,
-    "pmMasPerYear": 31.96,
+    "pmRaMasPerYear": -8.53,
+    "pmDecMasPerYear": -30.8,
     "ghaDeg": 188.247701,
     "decOfDateDeg": -37.124283
   },
@@ -1354,7 +1504,8 @@
     "star": "VEGA",
     "raDeg": 279.234735,
     "decDeg": 38.783689,
-    "pmMasPerYear": 349.72,
+    "pmRaMasPerYear": 200.94,
+    "pmDecMasPerYear": 286.23,
     "ghaDeg": 172.642926,
     "decOfDateDeg": 38.812855
   },
@@ -1363,7 +1514,8 @@
     "star": "Acamar",
     "raDeg": 44.565318,
     "decDeg": -40.304678,
-    "pmMasPerYear": 57.13,
+    "pmRaMasPerYear": -52.273,
+    "pmDecMasPerYear": 23.058,
     "ghaDeg": 134.999617,
     "decOfDateDeg": -40.198296
   },
@@ -1372,7 +1524,8 @@
     "star": "Adhara",
     "raDeg": 104.656453,
     "decDeg": -28.972086,
-    "pmMasPerYear": 3.5,
+    "pmRaMasPerYear": 3.24,
+    "pmDecMasPerYear": 1.33,
     "ghaDeg": 74.899286,
     "decOfDateDeg": -29.008102
   },
@@ -1381,7 +1534,8 @@
     "star": "ALDEBARAN",
     "raDeg": 68.980163,
     "decDeg": 16.509302,
-    "pmMasPerYear": 199.31,
+    "pmRaMasPerYear": 63.45,
+    "pmDecMasPerYear": -188.94,
     "ghaDeg": 110.4528,
     "decOfDateDeg": 16.563973
   },
@@ -1390,7 +1544,8 @@
     "star": "Alioth",
     "raDeg": 193.50729,
     "decDeg": 55.959823,
-    "pmMasPerYear": 112.21,
+    "pmRaMasPerYear": 111.91,
+    "pmDecMasPerYear": -8.24,
     "ghaDeg": 346.024601,
     "decOfDateDeg": 55.807749
   },
@@ -1399,7 +1554,8 @@
     "star": "Alkaid",
     "raDeg": 206.885157,
     "decDeg": 49.313267,
-    "pmMasPerYear": 122.08,
+    "pmRaMasPerYear": -121.17,
+    "pmDecMasPerYear": -14.91,
     "ghaDeg": 332.678947,
     "decOfDateDeg": 49.173721
   },
@@ -1408,7 +1564,8 @@
     "star": "Alnilam",
     "raDeg": 84.053389,
     "decDeg": -1.201919,
-    "pmMasPerYear": 1.64,
+    "pmRaMasPerYear": 1.44,
+    "pmDecMasPerYear": -0.78,
     "ghaDeg": 95.424838,
     "decOfDateDeg": -1.184846
   },
@@ -1417,7 +1574,8 @@
     "star": "Alphard",
     "raDeg": 141.896845,
     "decDeg": -8.6586,
-    "pmMasPerYear": 37.59,
+    "pmRaMasPerYear": -15.23,
+    "pmDecMasPerYear": 34.37,
     "ghaDeg": 37.595053,
     "decOfDateDeg": -8.775742
   },
@@ -1426,7 +1584,8 @@
     "star": "Alpheratz",
     "raDeg": 2.096916,
     "decDeg": 29.090431,
-    "pmMasPerYear": 213.56,
+    "pmRaMasPerYear": 137.46,
+    "pmDecMasPerYear": -163.44,
     "ghaDeg": 177.380175,
     "decOfDateDeg": 29.243204
   },
@@ -1435,7 +1594,8 @@
     "star": "Ankaa",
     "raDeg": 6.571047,
     "decDeg": -42.305987,
-    "pmMasPerYear": 425.75,
+    "pmRaMasPerYear": 233.05,
+    "pmDecMasPerYear": -356.3,
     "ghaDeg": 172.92091,
     "decOfDateDeg": -42.162092
   },
@@ -1444,7 +1604,8 @@
     "star": "Atria",
     "raDeg": 252.166229,
     "decDeg": -69.027712,
-    "pmMasPerYear": 36.34,
+    "pmRaMasPerYear": 17.99,
+    "pmDecMasPerYear": -31.58,
     "ghaDeg": 286.954491,
     "decOfDateDeg": -69.073585
   },
@@ -1453,7 +1614,8 @@
     "star": "Avior",
     "raDeg": 125.62848,
     "decDeg": -59.509484,
-    "pmMasPerYear": 33.73,
+    "pmRaMasPerYear": -25.52,
+    "pmDecMasPerYear": 22.06,
     "ghaDeg": 54.054298,
     "decOfDateDeg": -59.593071
   },
@@ -1462,7 +1624,8 @@
     "star": "Bellatrix",
     "raDeg": 81.282764,
     "decDeg": 6.349703,
-    "pmMasPerYear": 15.22,
+    "pmRaMasPerYear": -8.11,
+    "pmDecMasPerYear": -12.88,
     "ghaDeg": 98.175769,
     "decOfDateDeg": 6.374001
   },
@@ -1471,7 +1634,8 @@
     "star": "BETELGEUSE",
     "raDeg": 88.792939,
     "decDeg": 7.407064,
-    "pmMasPerYear": 29.77,
+    "pmRaMasPerYear": 27.54,
+    "pmDecMasPerYear": 11.3,
     "ghaDeg": 90.662236,
     "decOfDateDeg": 7.411739
   },
@@ -1480,7 +1644,8 @@
     "star": "CANOPUS",
     "raDeg": 95.987958,
     "decDeg": -52.695661,
-    "pmMasPerYear": 30.62,
+    "pmRaMasPerYear": 19.93,
+    "pmDecMasPerYear": 23.24,
     "ghaDeg": 83.680833,
     "decOfDateDeg": -52.709063
   },
@@ -1489,7 +1654,8 @@
     "star": "CAPELLA",
     "raDeg": 79.172328,
     "decDeg": 45.997991,
-    "pmMasPerYear": 433.47,
+    "pmRaMasPerYear": 75.25,
+    "pmDecMasPerYear": -426.89,
     "ghaDeg": 100.145914,
     "decOfDateDeg": 46.025124
   },
@@ -1498,7 +1664,8 @@
     "star": "DENEB",
     "raDeg": 310.35798,
     "decDeg": 45.280339,
-    "pmMasPerYear": 2.73,
+    "pmRaMasPerYear": 2.01,
+    "pmDecMasPerYear": 1.85,
     "ghaDeg": 229.246669,
     "decOfDateDeg": 45.379779
   },
@@ -1507,7 +1674,8 @@
     "star": "Diphda",
     "raDeg": 10.897379,
     "decDeg": -17.986606,
-    "pmMasPerYear": 234.74,
+    "pmRaMasPerYear": 232.55,
+    "pmDecMasPerYear": 31.99,
     "ghaDeg": 168.589229,
     "decOfDateDeg": -17.839331
   },
@@ -1516,7 +1684,8 @@
     "star": "Dubhe",
     "raDeg": 165.931965,
     "decDeg": 61.751035,
-    "pmMasPerYear": 138.53,
+    "pmRaMasPerYear": -134.11,
+    "pmDecMasPerYear": -34.7,
     "ghaDeg": 13.47768,
     "decOfDateDeg": 61.599474
   },
@@ -1525,7 +1694,8 @@
     "star": "Elnath",
     "raDeg": 81.572971,
     "decDeg": 28.607452,
-    "pmMasPerYear": 175.07,
+    "pmRaMasPerYear": 22.76,
+    "pmDecMasPerYear": -173.58,
     "ghaDeg": 97.819659,
     "decOfDateDeg": 28.62998
   },
@@ -1534,7 +1704,8 @@
     "star": "Eltanin",
     "raDeg": 269.151541,
     "decDeg": 51.488896,
-    "pmMasPerYear": 24.32,
+    "pmRaMasPerYear": -8.48,
+    "pmDecMasPerYear": -22.79,
     "ghaDeg": 270.528664,
     "decOfDateDeg": 51.484797
   },
@@ -1543,7 +1714,8 @@
     "star": "Enif",
     "raDeg": 326.046484,
     "decDeg": 9.875009,
-    "pmMasPerYear": 26.92,
+    "pmRaMasPerYear": 26.92,
+    "pmDecMasPerYear": 0.44,
     "ghaDeg": 213.45237,
     "decOfDateDeg": 10.000503
   },
@@ -1552,7 +1724,8 @@
     "star": "FOMALHAUT",
     "raDeg": 344.412693,
     "decDeg": -29.622237,
-    "pmMasPerYear": 367.86,
+    "pmRaMasPerYear": 328.95,
+    "pmDecMasPerYear": -164.67,
     "ghaDeg": 195.043286,
     "decOfDateDeg": -29.480931
   },
@@ -1561,7 +1734,8 @@
     "star": "Gacrux",
     "raDeg": 187.791498,
     "decDeg": -57.113213,
-    "pmMasPerYear": 266.58,
+    "pmRaMasPerYear": 28.23,
+    "pmDecMasPerYear": -265.08,
     "ghaDeg": 351.660871,
     "decOfDateDeg": -57.260376
   },
@@ -1570,7 +1744,8 @@
     "star": "Hamal",
     "raDeg": 31.793357,
     "decDeg": 23.462418,
-    "pmMasPerYear": 239.75,
+    "pmRaMasPerYear": 188.55,
+    "pmDecMasPerYear": -148.08,
     "ghaDeg": 147.648386,
     "decOfDateDeg": 23.592535
   },
@@ -1579,7 +1754,8 @@
     "star": "Kochab",
     "raDeg": 222.676358,
     "decDeg": 74.155504,
-    "pmMasPerYear": 34.55,
+    "pmRaMasPerYear": -32.61,
+    "pmDecMasPerYear": 11.42,
     "ghaDeg": 317.174657,
     "decOfDateDeg": 74.039086
   },
@@ -1588,7 +1764,8 @@
     "star": "Markab",
     "raDeg": 346.190223,
     "decDeg": 15.205267,
-    "pmMasPerYear": 73.17,
+    "pmRaMasPerYear": 60.4,
+    "pmDecMasPerYear": -41.3,
     "ghaDeg": 193.301771,
     "decOfDateDeg": 15.352948
   },
@@ -1597,7 +1774,8 @@
     "star": "Menkar",
     "raDeg": 45.569888,
     "decDeg": 4.089739,
-    "pmMasPerYear": 77.55,
+    "pmRaMasPerYear": -10.41,
+    "pmDecMasPerYear": -76.85,
     "ghaDeg": 133.899134,
     "decOfDateDeg": 4.196307
   },
@@ -1606,7 +1784,8 @@
     "star": "Miaplacidus",
     "raDeg": 138.299906,
     "decDeg": -69.717208,
-    "pmMasPerYear": 190.66,
+    "pmRaMasPerYear": -156.47,
+    "pmDecMasPerYear": 108.95,
     "ghaDeg": 41.44991,
     "decOfDateDeg": -69.824019
   },
@@ -1615,7 +1794,8 @@
     "star": "Mirfak",
     "raDeg": 51.080709,
     "decDeg": 49.861179,
-    "pmMasPerYear": 35.38,
+    "pmRaMasPerYear": 23.75,
+    "pmDecMasPerYear": -26.23,
     "ghaDeg": 128.253966,
     "decOfDateDeg": 49.959677
   },
@@ -1624,7 +1804,8 @@
     "star": "Peacock",
     "raDeg": 306.411904,
     "decDeg": -56.73509,
-    "pmMasPerYear": 86.3,
+    "pmRaMasPerYear": 6.9,
+    "pmDecMasPerYear": -86.02,
     "ghaDeg": 232.890968,
     "decOfDateDeg": -56.649836
   },
@@ -1633,7 +1814,8 @@
     "star": "POLARIS",
     "raDeg": 37.954561,
     "decDeg": 89.264109,
-    "pmMasPerYear": 46.03,
+    "pmRaMasPerYear": 44.48,
+    "pmDecMasPerYear": -11.85,
     "ghaDeg": 132.618608,
     "decOfDateDeg": 89.381172
   },
@@ -1642,7 +1824,8 @@
     "star": "POLLUX",
     "raDeg": 116.328958,
     "decDeg": 28.026199,
-    "pmMasPerYear": 628.22,
+    "pmRaMasPerYear": -626.55,
+    "pmDecMasPerYear": -45.8,
     "ghaDeg": 63.079026,
     "decOfDateDeg": 27.958763
   },
@@ -1651,7 +1834,8 @@
     "star": "PROCYON",
     "raDeg": 114.825498,
     "decDeg": 5.224988,
-    "pmMasPerYear": 1259.2,
+    "pmRaMasPerYear": -714.59,
+    "pmDecMasPerYear": -1036.8,
     "ghaDeg": 64.642986,
     "decOfDateDeg": 5.154804
   },
@@ -1660,7 +1844,8 @@
     "star": "REGULUS",
     "raDeg": 152.092962,
     "decDeg": 11.967209,
-    "pmMasPerYear": 248.79,
+    "pmRaMasPerYear": -248.73,
+    "pmDecMasPerYear": 5.59,
     "ghaDeg": 27.371932,
     "decOfDateDeg": 11.833231
   },
@@ -1669,7 +1854,8 @@
     "star": "RIGEL",
     "raDeg": 78.634467,
     "decDeg": -8.201638,
-    "pmMasPerYear": 1.4,
+    "pmRaMasPerYear": 1.31,
+    "pmDecMasPerYear": 0.5,
     "ghaDeg": 100.86193,
     "decOfDateDeg": -8.170569
   },
@@ -1678,7 +1864,8 @@
     "star": "Schedar",
     "raDeg": 10.126846,
     "decDeg": 56.537329,
-    "pmMasPerYear": 58.41,
+    "pmRaMasPerYear": 49.126,
+    "pmDecMasPerYear": -31.595,
     "ghaDeg": 169.313062,
     "decOfDateDeg": 56.690938
   },
@@ -1687,7 +1874,8 @@
     "star": "SIRIUS",
     "raDeg": 101.287155,
     "decDeg": -16.716116,
-    "pmMasPerYear": 1339.41,
+    "pmRaMasPerYear": -546.01,
+    "pmDecMasPerYear": -1223.07,
     "ghaDeg": 78.236741,
     "decOfDateDeg": -16.753124
   },
@@ -1696,7 +1884,8 @@
     "star": "Suhail",
     "raDeg": 136.998991,
     "decDeg": -43.432591,
-    "pmMasPerYear": 27.55,
+    "pmRaMasPerYear": -24.01,
+    "pmDecMasPerYear": 13.52,
     "ghaDeg": 42.575627,
     "decOfDateDeg": -43.539061
   },
@@ -1705,7 +1894,8 @@
     "star": "VEGA",
     "raDeg": 279.234735,
     "decDeg": 38.783689,
-    "pmMasPerYear": 349.72,
+    "pmRaMasPerYear": 200.94,
+    "pmDecMasPerYear": 286.23,
     "ghaDeg": 260.371707,
     "decOfDateDeg": 38.809165
   },
@@ -1714,7 +1904,8 @@
     "star": "Alioth",
     "raDeg": 193.50729,
     "decDeg": 55.959823,
-    "pmMasPerYear": 112.21,
+    "pmRaMasPerYear": 111.91,
+    "pmDecMasPerYear": -8.24,
     "ghaDeg": 165.580372,
     "decOfDateDeg": 55.690358
   },
@@ -1723,7 +1914,8 @@
     "star": "Alkaid",
     "raDeg": 206.885157,
     "decDeg": 49.313267,
-    "pmMasPerYear": 122.08,
+    "pmRaMasPerYear": -121.17,
+    "pmDecMasPerYear": -14.91,
     "ghaDeg": 152.25569,
     "decOfDateDeg": 49.066325
   },
@@ -1732,7 +1924,8 @@
     "star": "Alphard",
     "raDeg": 141.896845,
     "decDeg": -8.6586,
-    "pmMasPerYear": 37.59,
+    "pmRaMasPerYear": -15.23,
+    "pmDecMasPerYear": 34.37,
     "ghaDeg": 217.124404,
     "decOfDateDeg": -8.883131
   },
@@ -1741,7 +1934,8 @@
     "star": "Alphecca",
     "raDeg": 233.671952,
     "decDeg": 26.714685,
-    "pmMasPerYear": 147.77,
+    "pmRaMasPerYear": 118.927,
+    "pmDecMasPerYear": -87.711,
     "ghaDeg": 125.427232,
     "decOfDateDeg": 26.550179
   },
@@ -1750,7 +1944,8 @@
     "star": "Alpheratz",
     "raDeg": 2.096916,
     "decDeg": 29.090431,
-    "pmMasPerYear": 213.56,
+    "pmRaMasPerYear": 137.46,
+    "pmDecMasPerYear": -163.44,
     "ghaDeg": 356.88462,
     "decOfDateDeg": 29.367472
   },
@@ -1759,7 +1954,8 @@
     "star": "ALTAIR",
     "raDeg": 297.695827,
     "decDeg": 8.868321,
-    "pmMasPerYear": 660.3,
+    "pmRaMasPerYear": 536.23,
+    "pmDecMasPerYear": 385.29,
     "ghaDeg": 61.321753,
     "decOfDateDeg": 9.007592
   },
@@ -1768,7 +1964,8 @@
     "star": "ANTARES",
     "raDeg": 247.351915,
     "decDeg": -26.432003,
-    "pmMasPerYear": 26.26,
+    "pmRaMasPerYear": -12.11,
+    "pmDecMasPerYear": -23.3,
     "ghaDeg": 111.502973,
     "decOfDateDeg": -26.53851
   },
@@ -1777,7 +1974,8 @@
     "star": "ARCTURUS",
     "raDeg": 213.9153,
     "decDeg": 19.182409,
-    "pmMasPerYear": 2279.42,
+    "pmRaMasPerYear": -1093.39,
+    "pmDecMasPerYear": -2000.06,
     "ghaDeg": 145.144008,
     "decOfDateDeg": 18.923351
   },
@@ -1786,7 +1984,8 @@
     "star": "Atria",
     "raDeg": 252.166229,
     "decDeg": -69.027712,
-    "pmMasPerYear": 36.34,
+    "pmRaMasPerYear": 17.99,
+    "pmDecMasPerYear": -31.58,
     "ghaDeg": 106.102191,
     "decOfDateDeg": -69.111178
   },
@@ -1795,7 +1994,8 @@
     "star": "Avior",
     "raDeg": 125.62848,
     "decDeg": -59.509484,
-    "pmMasPerYear": 33.73,
+    "pmRaMasPerYear": -25.52,
+    "pmDecMasPerYear": 22.06,
     "ghaDeg": 233.760969,
     "decOfDateDeg": -59.678544
   },
@@ -1804,7 +2004,8 @@
     "star": "CANOPUS",
     "raDeg": 95.987958,
     "decDeg": -52.695661,
-    "pmMasPerYear": 30.62,
+    "pmRaMasPerYear": 19.93,
+    "pmDecMasPerYear": 23.24,
     "ghaDeg": 263.380384,
     "decOfDateDeg": -52.727822
   },
@@ -1813,7 +2014,8 @@
     "star": "CAPELLA",
     "raDeg": 79.172328,
     "decDeg": 45.997991,
-    "pmMasPerYear": 433.47,
+    "pmRaMasPerYear": 75.25,
+    "pmDecMasPerYear": -426.89,
     "ghaDeg": 279.537045,
     "decOfDateDeg": 46.040257
   },
@@ -1822,7 +2024,8 @@
     "star": "DENEB",
     "raDeg": 310.35798,
     "decDeg": 45.280339,
-    "pmMasPerYear": 2.73,
+    "pmRaMasPerYear": 2.01,
+    "pmDecMasPerYear": 1.85,
     "ghaDeg": 48.843166,
     "decOfDateDeg": 45.462838
   },
@@ -1831,7 +2034,8 @@
     "star": "Denebola",
     "raDeg": 177.26491,
     "decDeg": 14.572058,
-    "pmMasPerYear": 510.72,
+    "pmRaMasPerYear": -497.68,
+    "pmDecMasPerYear": -114.67,
     "ghaDeg": 181.731087,
     "decOfDateDeg": 14.289623
   },
@@ -1840,7 +2044,8 @@
     "star": "Dubhe",
     "raDeg": 165.931965,
     "decDeg": 61.751035,
-    "pmMasPerYear": 138.53,
+    "pmRaMasPerYear": -134.11,
+    "pmDecMasPerYear": -34.7,
     "ghaDeg": 192.945593,
     "decOfDateDeg": 61.480509
   },
@@ -1849,7 +2054,8 @@
     "star": "Eltanin",
     "raDeg": 269.151541,
     "decDeg": 51.488896,
-    "pmMasPerYear": 24.32,
+    "pmRaMasPerYear": -8.48,
+    "pmDecMasPerYear": -22.79,
     "ghaDeg": 90.185654,
     "decOfDateDeg": 51.487009
   },
@@ -1858,7 +2064,8 @@
     "star": "Enif",
     "raDeg": 326.046484,
     "decDeg": 9.875009,
-    "pmMasPerYear": 26.92,
+    "pmRaMasPerYear": 26.92,
+    "pmDecMasPerYear": 0.44,
     "ghaDeg": 32.968382,
     "decOfDateDeg": 10.110338
   },
@@ -1867,7 +2074,8 @@
     "star": "FOMALHAUT",
     "raDeg": 344.412693,
     "decDeg": -29.622237,
-    "pmMasPerYear": 367.86,
+    "pmRaMasPerYear": 328.95,
+    "pmDecMasPerYear": -164.67,
     "ghaDeg": 14.530489,
     "decOfDateDeg": -29.348914
   },
@@ -1876,7 +2084,8 @@
     "star": "Gacrux",
     "raDeg": 187.791498,
     "decDeg": -57.113213,
-    "pmMasPerYear": 266.58,
+    "pmRaMasPerYear": 28.23,
+    "pmDecMasPerYear": -265.08,
     "ghaDeg": 171.132256,
     "decOfDateDeg": -57.400874
   },
@@ -1885,7 +2094,8 @@
     "star": "Gienah",
     "raDeg": 183.951545,
     "decDeg": -17.54193,
-    "pmMasPerYear": 160.11,
+    "pmRaMasPerYear": -158.61,
+    "pmDecMasPerYear": 21.86,
     "ghaDeg": 175.034147,
     "decOfDateDeg": -17.824806
   },
@@ -1894,7 +2104,8 @@
     "star": "Kochab",
     "raDeg": 222.676358,
     "decDeg": 74.155504,
-    "pmMasPerYear": 34.55,
+    "pmRaMasPerYear": -32.61,
+    "pmDecMasPerYear": 11.42,
     "ghaDeg": 136.977186,
     "decOfDateDeg": 73.953217
   },
@@ -1903,7 +2114,8 @@
     "star": "Menkent",
     "raDeg": 211.670615,
     "decDeg": -36.369955,
-    "pmMasPerYear": 734.4,
+    "pmRaMasPerYear": -520.53,
+    "pmDecMasPerYear": -518.06,
     "ghaDeg": 147.213793,
     "decOfDateDeg": -36.618431
   },
@@ -1912,7 +2124,8 @@
     "star": "Miaplacidus",
     "raDeg": 138.299906,
     "decDeg": -69.717208,
-    "pmMasPerYear": 190.66,
+    "pmRaMasPerYear": -156.47,
+    "pmDecMasPerYear": 108.95,
     "ghaDeg": 221.215208,
     "decOfDateDeg": -69.931923
   },
@@ -1921,7 +2134,8 @@
     "star": "Mirfak",
     "raDeg": 51.080709,
     "decDeg": 49.861179,
-    "pmMasPerYear": 35.38,
+    "pmRaMasPerYear": 23.75,
+    "pmDecMasPerYear": -26.23,
     "ghaDeg": 307.652361,
     "decOfDateDeg": 50.032373
   },
@@ -1930,7 +2144,8 @@
     "star": "Nunki",
     "raDeg": 283.81636,
     "decDeg": -26.296724,
-    "pmMasPerYear": 55.53,
+    "pmRaMasPerYear": 15.14,
+    "pmDecMasPerYear": -53.43,
     "ghaDeg": 75.033657,
     "decOfDateDeg": -26.225718
   },
@@ -1939,7 +2154,8 @@
     "star": "Peacock",
     "raDeg": 306.411904,
     "decDeg": -56.73509,
-    "pmMasPerYear": 86.3,
+    "pmRaMasPerYear": 6.9,
+    "pmDecMasPerYear": -86.02,
     "ghaDeg": 52.229521,
     "decOfDateDeg": -56.562378
   },
@@ -1948,7 +2164,8 @@
     "star": "POLARIS",
     "raDeg": 37.954561,
     "decDeg": 89.264109,
-    "pmMasPerYear": 46.03,
+    "pmRaMasPerYear": 44.48,
+    "pmDecMasPerYear": -11.85,
     "ghaDeg": 302.580441,
     "decOfDateDeg": 89.451915
   },
@@ -1957,7 +2174,8 @@
     "star": "POLLUX",
     "raDeg": 116.328958,
     "decDeg": 28.026199,
-    "pmMasPerYear": 628.22,
+    "pmRaMasPerYear": -626.55,
+    "pmDecMasPerYear": -45.8,
     "ghaDeg": 242.54428,
     "decOfDateDeg": 27.898154
   },
@@ -1966,7 +2184,8 @@
     "star": "Rasalhague",
     "raDeg": 263.733623,
     "decDeg": 12.560037,
-    "pmMasPerYear": 246.52,
+    "pmRaMasPerYear": 108.07,
+    "pmDecMasPerYear": -221.57,
     "ghaDeg": 95.312739,
     "decOfDateDeg": 12.529508
   },
@@ -1975,7 +2194,8 @@
     "star": "REGULUS",
     "raDeg": 152.092962,
     "decDeg": 11.967209,
-    "pmMasPerYear": 248.79,
+    "pmRaMasPerYear": -248.73,
+    "pmDecMasPerYear": 5.59,
     "ghaDeg": 206.877297,
     "decOfDateDeg": 11.717099
   },
@@ -1984,7 +2204,8 @@
     "star": "Sabik",
     "raDeg": 257.594529,
     "decDeg": -15.724907,
-    "pmMasPerYear": 106.98,
+    "pmRaMasPerYear": 40.13,
+    "pmDecMasPerYear": 99.17,
     "ghaDeg": 101.312279,
     "decOfDateDeg": -15.780946
   },
@@ -1993,7 +2214,8 @@
     "star": "Schedar",
     "raDeg": 10.126846,
     "decDeg": 56.537329,
-    "pmMasPerYear": 58.41,
+    "pmRaMasPerYear": 49.126,
+    "pmDecMasPerYear": -31.595,
     "ghaDeg": 348.783951,
     "decOfDateDeg": 56.809615
   },
@@ -2002,7 +2224,8 @@
     "star": "Shaula",
     "raDeg": 263.402167,
     "decDeg": -37.103824,
-    "pmMasPerYear": 31.96,
+    "pmRaMasPerYear": -8.53,
+    "pmDecMasPerYear": -30.8,
     "ghaDeg": 95.369483,
     "decOfDateDeg": -37.133067
   },
@@ -2011,7 +2234,8 @@
     "star": "SPICA",
     "raDeg": 201.298247,
     "decDeg": -11.161319,
-    "pmMasPerYear": 52.29,
+    "pmRaMasPerYear": -42.35,
+    "pmDecMasPerYear": -30.67,
     "ghaDeg": 157.670207,
     "decOfDateDeg": -11.424626
   },
@@ -2020,7 +2244,8 @@
     "star": "Suhail",
     "raDeg": 136.998991,
     "decDeg": -43.432591,
-    "pmMasPerYear": 27.55,
+    "pmRaMasPerYear": -24.01,
+    "pmDecMasPerYear": 13.52,
     "ghaDeg": 222.178717,
     "decOfDateDeg": -43.643825
   },
@@ -2029,7 +2254,8 @@
     "star": "VEGA",
     "raDeg": 279.234735,
     "decDeg": 38.783689,
-    "pmMasPerYear": 349.72,
+    "pmRaMasPerYear": 200.94,
+    "pmDecMasPerYear": 286.23,
     "ghaDeg": 79.969504,
     "decOfDateDeg": 38.835359
   }
