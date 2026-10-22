@@ -139,6 +139,9 @@ jobs:
           if ! git cat-file -e "$BASE:swift/Sources/Almanac/Seasons.swift" 2>/dev/null; then
             skip+=('cycles')
           fi
+          if ! git grep -q -F 'public func starPosition(' "$BASE" -- swift/Sources/Almanac/Positions.swift; then
+            skip+=('stars')
+          fi
           args=()
           if [ ${#skip[@]} -gt 0 ]; then
             args+=(--skip "^($(IFS='|'; echo "${skip[*]}"))/")

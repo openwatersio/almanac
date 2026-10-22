@@ -114,9 +114,11 @@ CI compares a pull request merge result with its target branch base SHA, or a ma
 
 Planetary workloads cover a five-planet 228-hour sky track, a 228-hour rise/set window, and a polar month. Pass `--skip '^planets/'` when the base lacks the planetary APIs. The Swift harness detects `planetEvents` in `Events.swift`; CI uses the same declaration to omit these workloads only when its base predates them. Compare new planetary workloads against the first revision with all planetary APIs, and existing workloads against the target branch.
 
-SunCalc-parity workloads cover a year of `+6°` Sun altitude crossings, a year each of Sun and Moon transits, and Moon orientation over a 228-hour track. Pass `--skip '^suncalc/'` when the base lacks those APIs; the Swift harness detects `sunTransits` in `Events.swift`, and CI uses the same declaration. Comparisons between revisions with both sets include all 34 workloads under the same 20% gate.
+SunCalc-parity workloads cover a year of `+6°` Sun altitude crossings, a year each of Sun and Moon transits, and Moon orientation over a 228-hour track. Pass `--skip '^suncalc/'` when the base lacks those APIs; the Swift harness detects `sunTransits` in `Events.swift`, and CI uses the same declaration.
 
 Season, apsis, and equation of time workloads cover every equinox and solstice and every lunar apsis from 1950 through 2100, and the equation of time at every hour of 2026. Pass `--skip '^cycles/'` when the base lacks those APIs; the Swift harness and CI detect them from the presence of `Seasons.swift`.
+
+Star workloads cover the two ways callers use stars: 1,024 stars spread over the sky at one instant, like a sky dome, and one star at each of 1,024 hours, like a sight-reduction run. Both call `starAltAz`. Since 0.12.0 a star applies annual aberration, which costs about what the Sun does, so older revisions are not comparable. Pass `--skip '^stars/'` when the base predates 0.12.0; the Swift harness and CI detect it from `public func starPosition(` in `Positions.swift`.
 
 ## Releasing
 

@@ -34,11 +34,19 @@ function solar(operation, version = '0.4.0') {
     return api[operation];
 }
 
+// Stars spread evenly over the sky on a golden-angle spiral, like a sky dome drawn at one instant.
+function catalog(count) {
+    return Array.from({ length: count }, (_, i) => [
+        (i * 137.50776405003785) % 360,
+        Math.asin(1 - 2 * (i + 0.5) / count) * 180 / Math.PI,
+    ]);
+}
+
 function workload(spec) {
     const from = new Date(spec.from);
     const to = new Date(spec.to ?? spec.from);
     const observer = { ...suite.observer, latitudeDeg: spec.latitudeDeg ?? suite.observer.latitudeDeg };
-    const times = Array.from({ length: spec.count ?? 1 }, (_, i) => new Date(from.getTime() + i * 3_600_000));
+    const times = spec.operation === 'starCatalog' ? [] : Array.from({ length: spec.count ?? 1 }, (_, i) => new Date(from.getTime() + i * 3_600_000));
     switch (spec.operation) {
         case 'sunPosition':
         case 'moonPosition':
@@ -80,6 +88,15 @@ function workload(spec) {
             assert.ok(fn, "Season, apsis, and equation of time APIs unavailable; pass --skip '^cycles/' for older bases");
             if (spec.operation === 'equationOfTime') return () => times.reduce((sum, t) => sum + fn(t), 0);
             return () => fn(from, to).length;
+        }
+        case 'starCatalog':
+        case 'starTrack': {
+            assert.ok(api.starPosition, "Aberrated star places need Almanac 0.12.0; pass --skip '^stars/' for older bases");
+            if (spec.operation === 'starTrack') {
+                return () => times.reduce((sum, t) => sum + api.starAltAz(spec.raDeg, spec.decDeg, t, observer).altDeg, 0);
+            }
+            const stars = catalog(spec.count);
+            return () => stars.reduce((sum, [ra, dec]) => sum + api.starAltAz(ra, dec, from, observer).altDeg, 0);
         }
         case 'sunEvents':
         case 'moonEvents':

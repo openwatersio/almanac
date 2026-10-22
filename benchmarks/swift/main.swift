@@ -14,6 +14,7 @@ struct Workload: Decodable {
     let count: Int?
     let latitudeDeg: Double?, expected: Double?
     let altitudeDeg: Double?
+    let raDeg: Double?, decDeg: Double?
 }
 struct Result: Encodable {
     let name: String, iterations: Int, checksum: Double, samplesMs: [Double]
@@ -39,13 +40,21 @@ func eclipseWalk(_ from: Date, _ to: Date) throws -> [LunarEclipse] {
     return eclipses
 }
 
+// Same golden-angle spiral as typescript.mjs.
+func catalog(_ count: Int) -> [(ra: Double, dec: Double)] {
+    (0..<count).map { i in
+        ((Double(i) * 137.50776405003785).truncatingRemainder(dividingBy: 360),
+         asin(1 - 2 * (Double(i) + 0.5) / Double(count)) * 180 / .pi)
+    }
+}
+
 func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
     let formatter = ISO8601DateFormatter()
     guard let from = formatter.date(from: spec.from), let to = formatter.date(from: spec.to ?? spec.from) else {
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid workload date"])
     }
     let observer = try Observer(latitudeDeg: spec.latitudeDeg ?? suite.observer.latitudeDeg, longitudeDeg: suite.observer.longitudeDeg)
-    let times = (0..<(spec.count ?? 1)).map { from.addingTimeInterval(Double($0) * 3600) }
+    let times = spec.operation == "starCatalog" ? [] : (0..<(spec.count ?? 1)).map { from.addingTimeInterval(Double($0) * 3600) }
     switch spec.operation {
     case "sunPosition":
         return { try times.reduce(0) { try $0 + sunPosition($1).raDeg } }
@@ -101,6 +110,17 @@ func workload(_ spec: Workload, _ suite: Suite) throws -> () throws -> Double {
         }
         #else
         throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Season, apsis, and equation of time APIs unavailable; pass --skip '^cycles/' for older bases"])
+        #endif
+    case "starCatalog", "starTrack":
+        #if ALMANAC_STAR_ABERRATION
+        if spec.operation == "starTrack" {
+            let ra = spec.raDeg ?? 0, dec = spec.decDeg ?? 0
+            return { try times.reduce(0) { try $0 + starAltAz(raDeg: ra, decDeg: dec, at: $1, observer: observer).altDeg } }
+        }
+        let stars = catalog(spec.count ?? 1)
+        return { try stars.reduce(0) { try $0 + starAltAz(raDeg: $1.ra, decDeg: $1.dec, at: from, observer: observer).altDeg } }
+        #else
+        throw NSError(domain: "AlmanacBenchmarks", code: 1, userInfo: [NSLocalizedDescriptionKey: "Aberrated star places need Almanac 0.12.0; pass --skip '^stars/' for older bases"])
         #endif
     case "sunEvents":
         return { Double(try sunEvents(from: from, to: to, observer: observer).count) }

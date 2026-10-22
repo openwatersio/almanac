@@ -12,9 +12,9 @@ import Foundation
 // INTERNAL: not part of the curated public API (see Positions.swift).
 //
 // Deviation from TS: upstream's `e_tilt` (and the TS port) keep a one-entry
-// module-level mutable cache (perf only, proven order-independent). Swift 6
-// concurrency makes a mutable global awkward for no benefit here, so
-// `earthTilt` below just recomputes every call — same math, same op order.
+// cache that answers any instant within 1e-6 days of the cached one. Swift's
+// `InstantCache` answers only the exact instant, so a result never depends on
+// what was computed before it — same math, same op order.
 
 /** UPSTREAM: constants, astronomy.ts lines 42-72 and 123-140. */
 let DEG2RAD = 0.017453292519943296
@@ -130,10 +130,42 @@ func meanObliquityDeg(_ tt: Double) -> Double {
 struct EarthTilt { let dpsi: Double; let deps: Double; let ee: Double; let mobl: Double; let tobl: Double }
 
 /**
- * UPSTREAM: `e_tilt`, astronomy.ts lines 1460-1475 — minus its one-entry
- * cache (see the file-header deviation note): recomputed every call.
+ * A one-entry cache on the exact TT instant, shared across threads. A star
+ * catalog drawn for one moment asks for the same Earth tilt and state once per
+ * star; the lock costs a few percent of a single uncached call.
+ */
+final class InstantCache<Value>: @unchecked Sendable {
+    private let lock = NSLock()
+    private var tt = Double.nan
+    private var value: Value?
+
+    func value(at tt: Double, _ compute: (Double) -> Value) -> Value {
+        lock.lock()
+        if let cached = value, self.tt == tt {
+            lock.unlock()
+            return cached
+        }
+        lock.unlock()
+        let fresh = compute(tt)
+        lock.lock()
+        self.tt = tt
+        value = fresh
+        lock.unlock()
+        return fresh
+    }
+}
+
+private let tiltCache = InstantCache<EarthTilt>()
+
+/**
+ * UPSTREAM: `e_tilt`, astronomy.ts lines 1460-1475, with its one-entry cache
+ * keyed on the exact instant (see the file-header deviation note).
  */
 func earthTilt(_ tt: Double) -> EarthTilt {
+    tiltCache.value(at: tt, computeEarthTilt)
+}
+
+private func computeEarthTilt(_ tt: Double) -> EarthTilt {
     let nut = iau2000b(tt)
     let meanOb = meanObliquityDeg(tt)
     let trueOb = meanOb + (nut.deps / 3600)
