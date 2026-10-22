@@ -285,9 +285,17 @@ struct HelioState { let pos: Vec3; let vel: Vec3 }
  * UPSTREAM: `CalcVsopPosVel`, astronomy.ts lines 3264-3314, specialised to
  * `vsop.Earth` — i.e. `HelioState(Body.Earth, time)`.
  *
- * Deviation from TS: the TS and Kotlin ports keep a one-entry cache on the exact `tt`; Swift recomputes every call, with the same math and operation order (see Nutation.swift's `earthTilt`).
+ * Not upstream: a one-entry cache on the exact instant, as in the TS and
+ * Kotlin ports, because a star catalog drawn for one moment asks for the same
+ * Earth state once per star.
  */
 func earthHelioState(_ tt: Double) -> HelioState {
+    earthStateCache.value(at: tt, computeEarthHelioState)
+}
+
+private let earthStateCache = InstantCache<HelioState>()
+
+private func computeEarthHelioState(_ tt: Double) -> HelioState {
     let t = tt / DAYS_PER_MILLENNIUM
 
     let lon = earthLon(t)
