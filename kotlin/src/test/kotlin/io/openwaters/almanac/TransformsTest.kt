@@ -51,4 +51,12 @@ internal class TransformsTest {
         assertEquals(0.0, refractionDeg(-90.0))
         for (alt in -90..90) assertTrue(alt + refractionDeg(alt.toDouble()) >= -90)
     }
+
+    @Test fun greenwichSiderealTimeIsTheSiderealTimeTheTransformsUse() {
+        assertEquals(siderealDeg(0.0), greenwichSiderealTime(Instant.parse("2000-01-01T12:00:00Z")))
+        for (bad in listOf(Instant.parse("1949-12-31T00:00:00Z"), Instant.MIN, Instant.MAX))
+            assertFailsWith<AlmanacOutOfRangeException> { greenwichSiderealTime(bad) }
+        val time = Instant.ofEpochMilli(-1)
+        assertEquals(greenwichSiderealTime(time), greenwichSiderealTime(time.minusNanos(500_000)))
+    }
 }

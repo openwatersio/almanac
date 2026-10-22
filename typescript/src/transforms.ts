@@ -13,15 +13,15 @@
 //   refinement since this layer only needs az/alt; Refraction 'normal' (~7176).
 //
 // INTERNAL: not part of the curated public API (see index.ts) except
-// sunAltAz/moonAltAz.
+// sunAltAz, moonAltAz, starAltAz and greenwichSiderealTime.
 
 import { Observer, assertObserver, assertSupported } from './types.js';
 import { ttDaysFromUt, utDays } from './time.js';
 import {
-    DEG2RAD, RAD2DEG, EARTH_EQUATORIAL_RADIUS_KM, EARTH_FLATTENING, EARTH_FLATTENING_SQUARED,
-    KM_PER_AU, PrecessDirection, Vec3, earthTilt, equatorialFromVector, gyration
+    C_AUDAY, DEG2RAD, RAD2DEG, EARTH_EQUATORIAL_RADIUS_KM, EARTH_FLATTENING, EARTH_FLATTENING_SQUARED,
+    KM_PER_AU, PrecessDirection, Vec3, earthTilt, equatorialFromVector, gyration, wrapDeg360
 } from './nutation.js';
-import { sunGeoVectorEqj } from './sun.js';
+import { earthHelioState, sunGeoVectorEqj } from './sun.js';
 import { moonGeoVectorEqj } from './moon.js';
 
 /** Topocentric horizontal position: azimuth from true north through east, altitude above the horizon. */
@@ -40,10 +40,7 @@ export interface TopoUnrefracted extends AltAz { hourAngleDeg: number; distanceA
 function earthRotationAngleDeg(ut: number): number {
     const thet1 = 0.7790572732640 + 0.00273781191135448 * ut;
     const thet3 = ut % 1;
-    let theta = 360 * ((thet1 + thet3) % 1);
-    if (theta < 0)
-        theta += 360;
-    return theta;
+    return wrapDeg360(360 * ((thet1 + thet3) % 1));
 }
 
 /**
@@ -64,10 +61,7 @@ export function siderealDeg(ut: number): number {
                   -    0.00000044   ) * t
                   +    1.3915817    ) * t
                   + 4612.156534     ) * t;
-    let gastDeg = (st / 3600 + theta) % 360;
-    if (gastDeg < 0)
-        gastDeg += 360;
-    return gastDeg;
+    return wrapDeg360(st / 3600 + theta);
 }
 
 /**
@@ -178,17 +172,13 @@ export function topoAltAzUnrefracted(bodyEqj: Vec3, ut: number, observer: Observ
     const proj = Math.hypot(pn, pw);
     let az: number;
     if (proj > 0) {
-        az = -RAD2DEG * Math.atan2(pw, pn);
-        if (az < 0)
-            az += 360;
+        az = wrapDeg360(-RAD2DEG * Math.atan2(pw, pn));
     } else {
         az = 0;
     }
     const zd = RAD2DEG * Math.atan2(proj, pz);
 
-    let hourAngleDeg = (gast + observer.longitudeDeg - raDeg) % 360;
-    if (hourAngleDeg < 0)
-        hourAngleDeg += 360;
+    const hourAngleDeg = wrapDeg360(gast + observer.longitudeDeg - raDeg);
 
     return { azDeg: az, altDeg: 90 - zd, hourAngleDeg, distanceAu, raDeg, decDeg };
 }
@@ -247,39 +237,66 @@ export function moonAltAz(time: Date, observer: Observer): AltAz {
 }
 
 /**
- * UPSTREAM: the user-defined star path — `HelioVector` for a `DefineStar`
- * body (astronomy.ts ~4097: `VectorFromSphere(Spherical(dec, 15*ra, dist))`)
- * into `Equator(body, date, observer, ofdate=true, aberration=false)` (~2803)
- * and `Horizon` (~2565): the same topocentric path sunAltAz/moonAltAz take.
  * Upstream floors a star's distance at 1 light-year and suggests 1000 when
  * unknown; the star sits at 1000 ly here (`AU_PER_LY`, astronomy.ts line 52).
- * Upstream's geocentric step (star vector minus Earth's heliocentric
- * position) is skipped: at 1000 ly it moves the star 0.003″.
  */
 const STAR_DISTANCE_AU = 1000 * 63241.07708807546;
+
+/** INTERNAL: shared argument checks for the J2000 catalog position the star functions take. */
+export function assertStarCatalog(raDeg: number, decDeg: number): void {
+    if (!(raDeg >= 0 && raDeg < 360)) throw new RangeError(`raDeg out of range: ${raDeg}`);
+    if (!(decDeg >= -90 && decDeg <= 90)) throw new RangeError(`decDeg out of range: ${decDeg}`);
+}
+
+/**
+ * UPSTREAM: `GeoVector` for a `DefineStar` body with aberration = true —
+ * `HelioVector`'s `VectorFromSphere(Spherical(dec, 15*ra, dist))`
+ * (astronomy.ts ~4097, 7015) through the user-defined-star branch of
+ * `BackdatePosition` (4270-4300). The star is not backdated; the vector from
+ * Earth to the star is shifted by Earth's heliocentric velocity over the
+ * light travel time, which is the annual aberration, at most 20.5″.
+ *
+ * @returns geocentric position in AU, J2000 mean equator (EQJ).
+ */
+export function starGeoVectorEqj(raDeg: number, decDeg: number, tt: number): Vec3 {
+    const rCosDec = STAR_DISTANCE_AU * Math.cos(decDeg * DEG2RAD);
+    const tvec: Vec3 = {
+        x: rCosDec * Math.cos(raDeg * DEG2RAD),
+        y: rCosDec * Math.sin(raDeg * DEG2RAD),
+        z: STAR_DISTANCE_AU * Math.sin(decDeg * DEG2RAD),
+    };
+    const ostate = earthHelioState(tt);
+    const rvec: Vec3 = { x: tvec.x - ostate.pos.x, y: tvec.y - ostate.pos.y, z: tvec.z - ostate.pos.z };
+    const s = C_AUDAY / Math.sqrt(rvec.x*rvec.x + rvec.y*rvec.y + rvec.z*rvec.z);
+    return { x: rvec.x + ostate.vel.x / s, y: rvec.y + ostate.vel.y / s, z: rvec.z + ostate.vel.z / s };
+}
 
 /**
  * Topocentric azimuth/altitude of a fixed star from its J2000 (ICRS)
  * catalog right ascension and declination, both in degrees.
  *
- * Applied: precession and nutation to the equator of date, Greenwich
- * apparent sidereal time, and atmospheric refraction (upstream `'normal'`
- * model, the same as sunAltAz/moonAltAz). Not applied: annual aberration
- * (at most 20.5″ — see the roadmap), proper motion (pass catalog
- * coordinates; fast movers such as Arcturus drift ~1′ in 26 years), and
- * stellar parallax (negligible at the 1000 ly the star is placed at).
+ * Applied: annual aberration, precession and nutation to the equator of
+ * date, Greenwich apparent sidereal time, and atmospheric refraction
+ * (upstream `'normal'` model, the same as sunAltAz/moonAltAz). Not applied:
+ * proper motion (pass catalog coordinates; fast movers such as Arcturus
+ * drift ~1′ in 26 years) and stellar parallax (negligible at the 1000 ly the
+ * star is placed at).
  */
 export function starAltAz(raDeg: number, decDeg: number, time: Date, observer: Observer): AltAz {
     assertSupported(time);
     assertObserver(observer);
-    if (!(raDeg >= 0 && raDeg < 360)) throw new RangeError(`raDeg out of range: ${raDeg}`);
-    if (!(decDeg >= -90 && decDeg <= 90)) throw new RangeError(`decDeg out of range: ${decDeg}`);
+    assertStarCatalog(raDeg, decDeg);
     const ut = utDays(time);
-    const rCosDec = STAR_DISTANCE_AU * Math.cos(decDeg * DEG2RAD);
-    const eqj: Vec3 = {
-        x: rCosDec * Math.cos(raDeg * DEG2RAD),
-        y: rCosDec * Math.sin(raDeg * DEG2RAD),
-        z: STAR_DISTANCE_AU * Math.sin(decDeg * DEG2RAD),
-    };
-    return refract(topoAltAzUnrefracted(eqj, ut, observer));
+    return refract(topoAltAzUnrefracted(starGeoVectorEqj(raDeg, decDeg, ttDaysFromUt(ut)), ut, observer));
+}
+
+/**
+ * Greenwich apparent sidereal time in degrees, [0, 360): the hour angle of
+ * the true equinox of date at Greenwich, including the equation of the
+ * equinoxes. A body's Greenwich hour angle is this minus its right ascension
+ * of date.
+ */
+export function greenwichSiderealTime(time: Date): number {
+    assertSupported(time);
+    return siderealDeg(utDays(time));
 }

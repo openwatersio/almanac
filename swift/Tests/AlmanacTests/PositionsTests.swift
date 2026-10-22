@@ -72,6 +72,69 @@ final class PositionsTests: XCTestCase {
         }
     }
 
+    struct StarPlaceRow: Decodable {
+        let utc: String; let star: String; let raDeg: Double; let decDeg: Double
+        let pmRaMasPerYear: Double; let pmDecMasPerYear: Double; let ghaDeg: Double; let decOfDateDeg: Double
+    }
+
+    // USNO's celestial-navigation GHA and declination for the navigational
+    // stars, from each star's SIMBAD J2000 position. The places include proper
+    // motion and starPosition does not, so the test first moves each star along
+    // its catalog proper motion to the date, linearly, keeping the J2000
+    // equinox. Every row is then held to 1″ on the sky; annual aberration alone
+    // is up to 20.5″.
+    func testStarsUsnoGhaAndDeclinationWithinOneArcsec() throws {
+        let url = fixturesURL().appendingPathComponent("positions").appendingPathComponent("stars-usno.json")
+        let rows = try JSONDecoder().decode([StarPlaceRow].self, from: Data(contentsOf: url))
+        XCTAssertGreaterThan(rows.count, 100)
+        let j2000 = utc("2000-01-01T12:00:00Z").timeIntervalSince1970
+        for row in rows {
+            let t = utc(row.utc)
+            let years = (t.timeIntervalSince1970 - j2000) / (365.25 * 86400)
+            let decDeg = row.decDeg + row.pmDecMasPerYear * years / 3.6e6
+            let raDeg = (row.raDeg + row.pmRaMasPerYear * years / 3.6e6 / cos(row.decDeg * Double.pi / 180) + 360).truncatingRemainder(dividingBy: 360)
+            let p = try starPosition(raDeg: raDeg, decDeg: decDeg, at: t)
+            let gha = try greenwichSiderealTime(t) - p.raDeg
+            let dGha = ((((gha - row.ghaDeg).truncatingRemainder(dividingBy: 360)) + 540).truncatingRemainder(dividingBy: 360)) - 180
+            XCTAssertLessThan(abs(dGha) * cos(p.decDeg * Double.pi / 180) * 3600, 1, "\(row.star) GHA @ \(row.utc)")
+            XCTAssertLessThan(abs(p.decDeg - row.decOfDateDeg) * 3600, 1, "\(row.star) dec @ \(row.utc)")
+        }
+    }
+
+    func testStarPositionRightAscensionInRange() throws {
+        let t = utc("2026-03-20T06:00:00Z")
+        for ra in [0, 0.001, 359.999] {
+            let p = try starPosition(raDeg: ra, decDeg: 0, at: t)
+            XCTAssertGreaterThanOrEqual(p.raDeg, 0)
+            XCTAssertLessThan(p.raDeg, 360)
+        }
+    }
+
+    func testStarPositionRejectsOffSphereAndOutOfInterval() {
+        let t = utc("2026-03-20T06:00:00Z")
+        for (ra, dec) in [(360.0, 0.0), (-1.0, 0.0), (0.0, -90.5), (0.0, Double.nan)] {
+            XCTAssertThrowsError(try starPosition(raDeg: ra, decDeg: dec, at: t), "\(ra), \(dec)") {
+                guard case AlmanacError.invalidArgument = $0 else { return XCTFail("\($0)") }
+            }
+        }
+        XCTAssertThrowsError(try starPosition(raDeg: 0, decDeg: 0, at: utc("2101-01-01T00:00:00Z"))) {
+            XCTAssertEqual($0 as? AlmanacError, .outOfRange)
+        }
+    }
+
+    func testEarthHelioStateVelocityIsTheDerivativeOfEarthHelioVector() {
+        let h = 0.01 // days
+        for tt in [-18262, 0, 9573.25, 36524] {
+            let state = earthHelioState(tt)
+            let a = earthHelioVector(tt - h), b = earthHelioVector(tt + h), here = earthHelioVector(tt)
+            XCTAssertEqual(state.pos.x, here.x); XCTAssertEqual(state.pos.y, here.y); XCTAssertEqual(state.pos.z, here.z)
+            // AU per day; orbital speed is ~0.0172
+            XCTAssertLessThan(abs(state.vel.x - (b.x - a.x) / (2 * h)), 1e-9, "x @ \(tt)")
+            XCTAssertLessThan(abs(state.vel.y - (b.y - a.y) / (2 * h)), 1e-9, "y @ \(tt)")
+            XCTAssertLessThan(abs(state.vel.z - (b.z - a.z) / (2 * h)), 1e-9, "z @ \(tt)")
+        }
+    }
+
     func testOutOfRangeThrows() {
         XCTAssertThrowsError(try sunPosition(utc("1949-12-31T23:59:59Z")))
     }
@@ -83,5 +146,15 @@ final class PositionsTests: XCTestCase {
     /// by construction.
     func testSubMillisecondBoundaryIsAccepted() throws {
         XCTAssertNoThrow(try sunPosition(Date(timeIntervalSince1970: -631_152_000.0005)))
+    }
+
+    func testWrapDeg360StaysBelow360WhenTheRemainderIsAnUlpUnderZero() throws {
+        // 360 - 1e-14 rounds to 360 itself; a plain `+= 360` returns it.
+        XCTAssertEqual(wrapDeg360(-1e-14), 0)
+        XCTAssertEqual(wrapDeg360(360), 0)
+        XCTAssertEqual(wrapDeg360(-90), 270)
+        XCTAssertEqual(wrapDeg360(725), 5)
+        XCTAssertEqual(wrapDeg360(359.5), 359.5)
+        XCTAssertEqual(equatorialFromVector(Vec3(x: 1, y: -1e-300, z: 0)).raDeg, 0)
     }
 }

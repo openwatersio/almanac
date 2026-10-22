@@ -1,6 +1,6 @@
 # Almanac
 
-Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, any Sun altitude, upper and lower transits, Moon phase and orientation, equinoxes and solstices, lunar perigee and apogee, the equation of time, planetary brightness, lunar and solar eclipses, and fixed-star altitude and azimuth from catalog positions, computed from pure geometry with zero network and zero runtime data files.
+Offline sky engine for the Salish Sea and everywhere else: Sun, Moon, and planet positions, apparent horizon dip, rise, set, twilight, any Sun altitude, upper and lower transits, Moon phase and orientation, equinoxes and solstices, lunar perigee and apogee, the equation of time, planetary brightness, lunar and solar eclipses, fixed-star apparent places, altitude, and azimuth from catalog positions, and Greenwich sidereal time for sight reduction, computed from pure geometry with zero network and zero runtime data files.
 
 Three implementations, one behavior:
 
@@ -111,6 +111,7 @@ npm install @openwaters/almanac
 ```ts
 import {
   nextLunarEclipse, lunarEclipseVisibility, nextSolarEclipse, solarObscuration, nextGlobalSolarEclipse, sunEvents, starAltAz,
+  starPosition, greenwichSiderealTime,
   seasons, moonApsides, earthApsides, equationOfTime
 } from '@openwaters/almanac';
 
@@ -135,6 +136,10 @@ for (const { kind, time } of sunEvents(today, tomorrow, observer)) {
 
 // Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
 const { azDeg, altDeg } = starAltAz(88.792939, 7.407064, today, observer);
+
+// Its apparent place and Greenwich hour angle for sight reduction, in degrees.
+const place = starPosition(88.792939, 7.407064, today);
+const ghaDeg = (greenwichSiderealTime(today) - place.raDeg + 360) % 360;
 
 // The year's equinoxes and solstices, the Moon's perigees and apogees with
 // distances, and the equation of time in minutes.
@@ -193,6 +198,10 @@ for event in try sunEvents(from: today, to: tomorrow, observer: observer) {
 // Betelgeuse from its J2000 catalog position: az/alt in degrees, refracted.
 let star = try starAltAz(raDeg: 88.792939, decDeg: 7.407064, at: today, observer: observer)
 
+// Its apparent place and Greenwich hour angle for sight reduction, in degrees.
+let place = try starPosition(raDeg: 88.792939, decDeg: 7.407064, at: today)
+let ghaDeg = (try greenwichSiderealTime(today) - place.raDeg + 360).truncatingRemainder(dividingBy: 360)
+
 // The year's equinoxes and solstices, the Moon's perigees and apogees with
 // distances, and the equation of time in minutes.
 let year = today.addingTimeInterval(366 * 24 * 60 * 60)
@@ -204,7 +213,7 @@ print(try equationOfTime(today))   // sundial minus clock, minutes
 
 ### Kotlin/JVM and Android
 
-The Kotlin library provides the same 38 functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
+The Kotlin library provides the same functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
 
 ```kotlin
 import io.openwaters.almanac.*

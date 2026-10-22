@@ -28,6 +28,13 @@ final class TransformsTests: XCTestCase {
         XCTAssertLessThan(abs(siderealDeg(0) - 280.4606), 0.01)
     }
 
+    func testGreenwichSiderealTimeIsTheSiderealTimeTheTransformsUse() throws {
+        let t = utc("2000-01-01T12:00:00Z")
+        XCTAssertEqual(try greenwichSiderealTime(t), siderealDeg(0))
+        XCTAssertThrowsError(try greenwichSiderealTime(utc("1949-12-31T00:00:00Z"))) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
+        XCTAssertThrowsError(try greenwichSiderealTime(Date(timeIntervalSince1970: .nan)))
+    }
+
     // Horizons REFRACTED apparent az/el at Victoria BC. Only altDeg > 10° rows
     // are asserted: refraction models diverge near the horizon (plan rule).
     func testSunVictoriaWithinOneArcmin() throws {

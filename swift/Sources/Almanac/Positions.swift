@@ -1,7 +1,7 @@
 import Foundation
 
-// L1 public positions: apparent geocentric Sun and Moon on the true equator and
-// equinox of date.
+// L1 public positions: apparent geocentric Sun, Moon and fixed stars on the true
+// equator and equinox of date.
 //
 // The composition chain mirrors the cosinekitty/astronomy upstream (pinned sha
 // 865d3da7d8112bbc7911238052c6af4aaf877181), same as the TS port
@@ -20,6 +20,9 @@ public struct SunPosition: Sendable { public let raDeg: Double; public let decDe
 
 /// Apparent geocentric position of the Moon: equator of date, RA in [0, 360).
 public struct MoonPosition: Sendable { public let raDeg: Double; public let decDeg: Double; public let distanceKm: Double }
+
+/// Apparent geocentric position of a fixed star: equator of date, RA in [0, 360).
+public struct StarPosition: Sendable { public let raDeg: Double; public let decDeg: Double }
 
 /**
  * INTERNAL: apparent Sun for a TT instant, expressed as days since the J2000
@@ -59,6 +62,25 @@ public func moonPosition(_ time: Date) throws -> MoonPosition {
     let time = try normalized(time)
     try assertSupported(time)
     return moonApparentAtTT(ttDays(time))
+}
+
+/**
+ * Apparent geocentric position of a fixed star from its J2000 (ICRS) catalog
+ * right ascension and declination, both in degrees — right ascension and
+ * declination on the true equator and equinox of date, with annual
+ * aberration, precession and nutation applied. Proper motion and stellar
+ * parallax are not applied.
+ *
+ * UPSTREAM: `Equator(star, date, observer, ofdate=true, aberration=true)`
+ * (astronomy.ts ~2803) with the geocentric observer term dropped.
+ */
+public func starPosition(raDeg: Double, decDeg: Double, at time: Date) throws -> StarPosition {
+    let time = try normalized(time)
+    try assertSupported(time)
+    try assertStarCatalog(raDeg, decDeg)
+    let tt = ttDays(time)
+    let v = equatorialFromVector(gyration(starGeoVectorEqj(raDeg, decDeg, tt), tt, .from2000))
+    return StarPosition(raDeg: v.raDeg, decDeg: v.decDeg)
 }
 
 /**

@@ -1,6 +1,8 @@
 package io.openwaters.almanac
 
 import java.time.Instant
+import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.test.*
 
 private fun briefingPositions(time: Instant, observer: Observer): Triple<AltAz, AltAz, AltAz> =
@@ -17,7 +19,26 @@ private fun passageCrossings(start: Instant, end: Instant, observer: Observer): 
 private fun visibleLunarEclipses(start: Instant, end: Instant, observer: Observer): List<LunarEclipse> =
     lunarEclipses(start, end).filter { lunarEclipseVisibility(it, observer).visibleAtPeak }
 
+// A milliarcsecond, in degrees: the ports agree with upstream's star path far below it.
+private const val STAR_REFERENCE_TOL_DEG = 0.001 / 3600
+
+private fun wrap180(d: Double): Double = ((d % 360) + 540) % 360 - 180
+
 internal class AstronomyEngineMigrationTest {
+    @Test fun starPlacesAndSiderealTimeMatchAstronomyEngineReferences() {
+        val refs = fixture("../typescript/test/migration-references").obj().array("astronomyEngineStars")
+        assertTrue(refs.isNotEmpty())
+        for (element in refs) {
+            val ref = element.obj()
+            val time = ref.instant("time")
+            val place = starPosition(ref.number("raDeg"), ref.number("decDeg"), time)
+            val apparentDec = ref.number("apparentDecDeg")
+            assertTrue(abs(wrap180(place.raDeg - ref.number("apparentRaDeg"))) * cos(Math.toRadians(apparentDec)) < STAR_REFERENCE_TOL_DEG, "RA @ $time")
+            assertTrue(abs(place.decDeg - apparentDec) < STAR_REFERENCE_TOL_DEG, "dec @ $time")
+            assertTrue(abs(wrap180(greenwichSiderealTime(time) - ref.number("siderealDeg"))) < STAR_REFERENCE_TOL_DEG, "GAST @ $time")
+        }
+    }
+
     @Test fun positionsAndMoonStateMatchAstronomyEngineReferences() {
         for (element in fixture("../typescript/test/migration-references").obj().array("astronomyEngine")) {
             val ref = element.obj()

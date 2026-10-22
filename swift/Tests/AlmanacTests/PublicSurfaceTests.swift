@@ -34,6 +34,13 @@ final class PublicSurfaceTests: XCTestCase {
         XCTAssertFalse(moon.raDeg.isNaN)
         XCTAssertFalse(moon.decDeg.isNaN)
         XCTAssertFalse(moon.distanceKm.isNaN)
+
+        let star: StarPosition = try starPosition(raDeg: 88.792939, decDeg: 7.407064, at: time)
+        XCTAssertFalse(star.raDeg.isNaN)
+        XCTAssertFalse(star.decDeg.isNaN)
+
+        let gast: Double = try greenwichSiderealTime(time)
+        XCTAssertFalse(gast.isNaN)
     }
 
     func testAltAz() throws {

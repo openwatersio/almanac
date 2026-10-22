@@ -20,5 +20,6 @@
     }
   ],
   "toleranceArcmin": 1,
+  "stars": "stars-usno.json is not from Horizons: it holds USNO celestial-navigation star places with SIMBAD J2000 positions, asserted within 1 arcsec after propagating proper motion. Its provenance is in altaz/stars-meta.json.",
   "note": "Coarse rows carry `tt` (Terrestrial Time-labeled instants, requested with TIME_TYPE='TT'); dense rows carry `utc`. Horizons applies real historical delta-T but holds it fixed at its present value for future dates, so UT-labeled rows over 1950-2100 disagree with any real delta-T model (e.g. Espenak-Meeus) by up to ~136 s at 2100 - ~75 arcsec of lunar motion, well past the 1 arcmin tolerance. TT labeling removes the timescale from the comparison; consumers feed `tt` straight to a TT entry point instead of converting from UTC."
 }

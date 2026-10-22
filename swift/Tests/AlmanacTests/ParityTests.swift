@@ -235,7 +235,8 @@ final class ParityTests: XCTestCase {
 
     struct SunPosRow: Codable, Equatable { let raDeg: Int; let decDeg: Int; let distanceAu: Int }
     struct MoonPosRow: Codable, Equatable { let raDeg: Int; let decDeg: Int; let distanceKm: Int }
-    struct PositionEntry: Codable { let tMs: Int64; let sun: SunPosRow; let moon: MoonPosRow }
+    struct StarPosRow: Codable, Equatable { let raDeg: Int; let decDeg: Int }
+    struct PositionEntry: Codable { let tMs: Int64; let sun: SunPosRow; let moon: MoonPosRow; let star: StarPosRow; let siderealDeg: Int }
 
     struct AltAzRow: Codable, Equatable { let azDeg: Int; let altDeg: Int }
     struct AltazEntry: Codable { let sunIsUp: Bool; let tMs: Int64; let sun: AltAzRow; let moon: AltAzRow; let star: AltAzRow }
@@ -336,7 +337,7 @@ final class ParityTests: XCTestCase {
     static let n60 = try! Observer(latitudeDeg: 60, longitudeDeg: -123.052)
     static let equator = try! Observer(latitudeDeg: 0, longitudeDeg: -123.052)
     static let observers = [victoria, n60, equator]
-    /// Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the altaz rows' fixed star.
+    /// Betelgeuse, ICRS J2000 (fixtures/raw/stars/simbad-alf-Ori.txt) — the positions and altaz rows' fixed star.
     static let betelgeuse = (raDeg: 88.792939, decDeg: 7.407064)
     /// solarObscuration sampled every two minutes through two Victoria partials: 2024-04-08 (17%) and 2017-08-21 (deep).
     static let obscurationTracks: [(observerIdx: Int, startMs: Int64, endMs: Int64, stepMs: Int64)] = [
@@ -386,12 +387,15 @@ final class ParityTests: XCTestCase {
             let t = dateFromMs(tMs)
             let sun = try sunPosition(t)
             let moon = try moonPosition(t)
+            let star = try starPosition(raDeg: betelgeuse.raDeg, decDeg: betelgeuse.decDeg, at: t)
             positions.append(PositionEntry(
                 tMs: tMs,
                 sun: SunPosRow(raDeg: qScaled(sun.raDeg, scales.angleDeg), decDeg: qScaled(sun.decDeg, scales.angleDeg),
                                distanceAu: qScaled(sun.distanceAu, scales.distanceAu)),
                 moon: MoonPosRow(raDeg: qScaled(moon.raDeg, scales.angleDeg), decDeg: qScaled(moon.decDeg, scales.angleDeg),
-                                 distanceKm: qScaled(moon.distanceKm, scales.distanceKm))))
+                                 distanceKm: qScaled(moon.distanceKm, scales.distanceKm)),
+                star: StarPosRow(raDeg: qScaled(star.raDeg, scales.angleDeg), decDeg: qScaled(star.decDeg, scales.angleDeg)),
+                siderealDeg: qScaled(try greenwichSiderealTime(t), scales.angleDeg)))
 
             let sunAa = try sunAltAz(t, observer: victoria)
             let moonAa = try moonAltAz(t, observer: victoria)
@@ -584,6 +588,9 @@ final class ParityTests: XCTestCase {
             near(a.moon.raDeg, b.moon.raDeg, tolAngle, "moon.raDeg @\(a.tMs)")
             near(a.moon.decDeg, b.moon.decDeg, tolAngle, "moon.decDeg @\(a.tMs)")
             near(a.moon.distanceKm, b.moon.distanceKm, tolKm, "moon.distanceKm @\(a.tMs)")
+            near(a.star.raDeg, b.star.raDeg, tolAngle, "star.raDeg @\(a.tMs)")
+            near(a.star.decDeg, b.star.decDeg, tolAngle, "star.decDeg @\(a.tMs)")
+            near(a.siderealDeg, b.siderealDeg, tolAngle, "siderealDeg @\(a.tMs)")
         }
 
         XCTAssertEqual(fresh.altaz.count, Self.committedAltaz.count)
@@ -594,6 +601,8 @@ final class ParityTests: XCTestCase {
             near(a.sun.altDeg, b.sun.altDeg, tolAngle, "altaz sun.altDeg @\(a.tMs)")
             near(a.moon.azDeg, b.moon.azDeg, tolAngle, "altaz moon.azDeg @\(a.tMs)")
             near(a.moon.altDeg, b.moon.altDeg, tolAngle, "altaz moon.altDeg @\(a.tMs)")
+            near(a.star.azDeg, b.star.azDeg, tolAngle, "altaz star.azDeg @\(a.tMs)")
+            near(a.star.altDeg, b.star.altDeg, tolAngle, "altaz star.altDeg @\(a.tMs)")
         }
 
         XCTAssertEqual(fresh.illumination.count, Self.committedIllumination.count)
@@ -799,6 +808,9 @@ final class ParityTests: XCTestCase {
             near(a.moon.raDeg, b.moon.raDeg, "moon.raDeg @\(a.tMs)")
             near(a.moon.decDeg, b.moon.decDeg, "moon.decDeg @\(a.tMs)")
             near(a.moon.distanceKm, b.moon.distanceKm, "moon.distanceKm @\(a.tMs)")
+            near(a.star.raDeg, b.star.raDeg, "star.raDeg @\(a.tMs)")
+            near(a.star.decDeg, b.star.decDeg, "star.decDeg @\(a.tMs)")
+            near(a.siderealDeg, b.siderealDeg, "siderealDeg @\(a.tMs)")
         }
         XCTAssertEqual(altaz.count, Self.committedAltaz.count)
         for (a, b) in zip(altaz, Self.committedAltaz) {
@@ -808,6 +820,8 @@ final class ParityTests: XCTestCase {
             near(a.sun.altDeg, b.sun.altDeg, "altaz sun.altDeg @\(a.tMs)")
             near(a.moon.azDeg, b.moon.azDeg, "altaz moon.azDeg @\(a.tMs)")
             near(a.moon.altDeg, b.moon.altDeg, "altaz moon.altDeg @\(a.tMs)")
+            near(a.star.azDeg, b.star.azDeg, "altaz star.azDeg @\(a.tMs)")
+            near(a.star.altDeg, b.star.altDeg, "altaz star.altDeg @\(a.tMs)")
         }
         XCTAssertEqual(illumination.count, Self.committedIllumination.count)
         for (a, b) in zip(illumination, Self.committedIllumination) {

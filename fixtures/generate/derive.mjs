@@ -755,6 +755,7 @@ function derivePositions(dates, requests) {
       sourceVersion: sourceVersion(raw("sun-coarse")),
       requests: withDates(["sun-coarse", "moon-coarse", "sun-dense", "moon-dense"], requests, dates),
       toleranceArcmin: TOLERANCE_ARCMIN,
+      stars: "stars-usno.json is not from Horizons: it holds USNO celestial-navigation star places with SIMBAD J2000 positions, asserted within 1 arcsec after propagating proper motion. Its provenance is in altaz/stars-meta.json.",
       note: "Coarse rows carry `tt` (Terrestrial Time-labeled instants, requested with TIME_TYPE='TT'); dense rows carry `utc`. Horizons applies real historical delta-T but holds it fixed at its present value for future dates, so UT-labeled rows over 1950-2100 disagree with any real delta-T model (e.g. Espenak-Meeus) by up to ~136 s at 2100 - ~75 arcsec of lunar motion, well past the 1 arcmin tolerance. TT labeling removes the timescale from the comparison; consumers feed `tt` straight to a TT entry point instead of converting from UTC.",
     }),
   };
@@ -1179,8 +1180,9 @@ function parseSimbad(id) {
   const decDeg = (c[4] === "-" ? -1 : 1) * (Number(c[5]) + Number(c[6]) / 60 + Number(c[7]) / 3600);
   const pm = text.match(/Proper motions:\s+(-?[\d.]+) (-?[\d.]+)/);
   assert.ok(pm, `${id}: no proper motion`);
-  const pmMasPerYear = Math.hypot(Number(pm[1]), Number(pm[2]));
-  return { raDeg: Number(raDeg.toFixed(6)), decDeg: Number(decDeg.toFixed(6)), pmMasPerYear };
+  const pmRaMasPerYear = Number(pm[1]), pmDecMasPerYear = Number(pm[2]);
+  const pmMasPerYear = Math.hypot(pmRaMasPerYear, pmDecMasPerYear);
+  return { raDeg: Number(raDeg.toFixed(6)), decDeg: Number(decDeg.toFixed(6)), pmMasPerYear, pmRaMasPerYear, pmDecMasPerYear };
 }
 
 function deriveStars(retrieved, requests) {
@@ -1190,6 +1192,7 @@ function deriveStars(retrieved, requests) {
   assert.ok(dropped.includes("ARCTURUS") && dropped.includes("SIRIUS"), "stars: the fast movers should be dropped");
 
   const rows = [];
+  const places = [];
   let apiversion;
   for (const site of STAR_SITES) {
     for (const date of STAR_DATES) {
@@ -1203,6 +1206,11 @@ function deriveStars(retrieved, requests) {
         // A resolver mistake would put SIMBAD's star a sky away from USNO's.
         assert.ok(Math.abs(star.decDeg - entry.almanac_data.dec) < 1,
           `${name}: ${entry.object} dec ${entry.almanac_data.dec} vs SIMBAD ${star.id} ${star.decDeg}`);
+        places.push({
+          utc, star: entry.object, raDeg: star.raDeg, decDeg: star.decDeg,
+          pmRaMasPerYear: star.pmRaMasPerYear, pmDecMasPerYear: star.pmDecMasPerYear,
+          ghaDeg: entry.almanac_data.gha, decOfDateDeg: entry.almanac_data.dec,
+        });
         if (!kept.includes(entry.object)) continue;
         const { hc, zn } = entry.almanac_data;
         const refr = entry.altitude_corrections.refr; // sextant correction, negative: apparent = hc - refr
@@ -1217,9 +1225,26 @@ function deriveStars(retrieved, requests) {
   }
   rows.sort((a, b) => a.utc.localeCompare(b.utc) || a.latitudeDeg - b.latitudeDeg || a.star.localeCompare(b.star));
   assert.ok(rows.length > 100, `stars: expected well over 100 rows, got ${rows.length}`);
+  // A star's place is geocentric, so a star both sites list must have the same
+  // GHA and declination at both; the rows are the union of the stars each
+  // site has above its horizon.
+  const placeByKey = new Map();
+  for (const r of places) {
+    const key = `${r.utc} ${r.star}`;
+    const seen = placeByKey.get(key);
+    if (seen) {
+      assert.ok(seen.ghaDeg === r.ghaDeg && seen.decOfDateDeg === r.decOfDateDeg,
+        `stars: ${key} differs between sites: ${seen.ghaDeg}/${seen.decOfDateDeg} vs ${r.ghaDeg}/${r.decOfDateDeg}`);
+    } else {
+      placeByKey.set(key, r);
+    }
+  }
+  const placeRows = [...placeByKey.values()];
+  placeRows.sort((a, b) => a.utc.localeCompare(b.utc) || a.star.localeCompare(b.star));
 
   return {
     "altaz/stars-usno.json": json(rows),
+    "positions/stars-usno.json": json(placeRows),
     "altaz/stars-meta.json": json({
       source: "USNO Astronomical Applications API (aa.usno.navy.mil/api/celnav) apparent altitude/azimuth; SIMBAD ICRS J2000 positions and proper motions",
       sourceVersion: apiversion,
@@ -1227,6 +1252,7 @@ function deriveStars(retrieved, requests) {
       requests: Object.values(requests),
       toleranceArcmin: 1,
       altDeg: "USNO hc (unrefracted computed altitude) minus its refr sextant correction, i.e. refracted apparent altitude",
+      positions: "positions/stars-usno.json carries each star's geocentric apparent place as USNO tabulates it for sight reduction: ghaDeg (Greenwich hour angle) and decOfDateDeg, with the SIMBAD J2000 position and proper motion it starts from: pmRaMasPerYear is SIMBAD's RA component, already multiplied by cos dec. Fast movers are not dropped there, because the test propagates each star's proper motion to the date before comparing.",
       maxProperMotionMasPerYear: STAR_MAX_PM_MAS_PER_YEAR,
       droppedForProperMotion: dropped,
     }),

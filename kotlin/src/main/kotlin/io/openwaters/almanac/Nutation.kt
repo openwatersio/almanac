@@ -29,6 +29,16 @@ internal fun frac(x: Double): Double {
     return x - floor(x)
 }
 
+// Not upstream: an angle wrapped into [0, 360). Upstream adds 360 to a negative remainder, and a remainder within an ulp below zero then rounds to 360 itself.
+internal fun wrapDeg360(deg: Double): Double {
+    var r = deg % 360
+    if (r < 0)
+        r += 360
+    if (r >= 360)
+        r -= 360
+    return r
+}
+
 private data class NutationAngles(val dpsi: Double, val deps: Double)
 
 private fun iau2000b(tt: Double): NutationAngles {
@@ -221,9 +231,7 @@ internal fun equatorialFromVector(pos: Vec3): EquatorialFromVector {
         return EquatorialFromVector(0.0, if (pos.z < 0) -90.0 else 90.0, dist)
     }
 
-    var raDeg = RAD2DEG * atan2(pos.y, pos.x)
-    if (raDeg < 0)
-        raDeg += 360
+    val raDeg = wrapDeg360(RAD2DEG * atan2(pos.y, pos.x))
     val decDeg = RAD2DEG * atan2(pos.z, sqrt(xyproj))
     return EquatorialFromVector(raDeg, decDeg, dist)
 }

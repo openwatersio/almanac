@@ -1,5 +1,5 @@
-// L1 public positions: apparent geocentric Sun and Moon on the true equator and
-// equinox of date.
+// L1 public positions: apparent geocentric Sun, Moon and fixed stars on the true
+// equator and equinox of date.
 //
 // The composition chain mirrors the cosinekitty/astronomy upstream (pinned sha
 // 865d3da7d8112bbc7911238052c6af4aaf877181):
@@ -14,15 +14,19 @@
 
 import { assertSupported } from './types.js';
 import { ttDays } from './time.js';
-import { DEG2RAD, KM_PER_AU, earthTilt, equatorialFromVector } from './nutation.js';
+import { DEG2RAD, KM_PER_AU, PrecessDirection, earthTilt, equatorialFromVector, gyration } from './nutation.js';
 import { moonGeoVector } from './moon.js';
 import { sunGeoVector } from './sun.js';
+import { assertStarCatalog, starGeoVectorEqj } from './transforms.js';
 
 /** Apparent geocentric position of the Sun: equator of date, RA in [0, 360). */
 export interface SunPosition { raDeg: number; decDeg: number; distanceAu: number; }
 
 /** Apparent geocentric position of the Moon: equator of date, RA in [0, 360). */
 export interface MoonPosition { raDeg: number; decDeg: number; distanceKm: number; }
+
+/** Apparent geocentric position of a fixed star: equator of date, RA in [0, 360). */
+export interface StarPosition { raDeg: number; decDeg: number; }
 
 /**
  * INTERNAL: apparent Sun for a TT instant, expressed as days since the J2000
@@ -60,6 +64,24 @@ export function sunPosition(time: Date): SunPosition {
 export function moonPosition(time: Date): MoonPosition {
     assertSupported(time);
     return moonApparentAtTT(ttDays(time));
+}
+
+/**
+ * Apparent geocentric position of a fixed star from its J2000 (ICRS) catalog
+ * right ascension and declination, both in degrees — right ascension and
+ * declination on the true equator and equinox of date, with annual
+ * aberration, precession and nutation applied. Proper motion and stellar
+ * parallax are not applied.
+ *
+ * UPSTREAM: `Equator(star, date, observer, ofdate=true, aberration=true)`
+ * (astronomy.ts ~2803) with the geocentric observer term dropped.
+ */
+export function starPosition(raDeg: number, decDeg: number, time: Date): StarPosition {
+    assertSupported(time);
+    assertStarCatalog(raDeg, decDeg);
+    const tt = ttDays(time);
+    const { raDeg: ra, decDeg: dec } = equatorialFromVector(gyration(starGeoVectorEqj(raDeg, decDeg, tt), tt, PrecessDirection.From2000));
+    return { raDeg: ra, decDeg: dec };
 }
 
 /**

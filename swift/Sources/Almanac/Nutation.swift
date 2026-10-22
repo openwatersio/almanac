@@ -50,6 +50,18 @@ func frac(_ x: Double) -> Double {
     x - x.rounded(.down)
 }
 
+/**
+ * Not upstream: an angle wrapped into [0, 360). Upstream adds 360 to a
+ * negative remainder, and a remainder within an ulp below zero then rounds
+ * to 360 itself.
+ */
+func wrapDeg360(_ deg: Double) -> Double {
+    var r = deg.truncatingRemainder(dividingBy: 360)
+    if r < 0 { r += 360 }
+    if r >= 360 { r -= 360 }
+    return r
+}
+
 private struct NutationAngles { let dpsi: Double; let deps: Double }
 
 /**
@@ -299,8 +311,7 @@ func equatorialFromVector(_ pos: Vec3) -> EquatorialFromVector {
         return EquatorialFromVector(raDeg: 0, decDeg: (pos.z < 0) ? -90 : +90, distanceAu: dist)
     }
 
-    var raDeg = RAD2DEG * atan2(pos.y, pos.x)
-    if raDeg < 0 { raDeg += 360 }
+    let raDeg = wrapDeg360(RAD2DEG * atan2(pos.y, pos.x))
     let decDeg = RAD2DEG * atan2(pos.z, xyproj.squareRoot())
     return EquatorialFromVector(raDeg: raDeg, decDeg: decDeg, distanceAu: dist)
 }

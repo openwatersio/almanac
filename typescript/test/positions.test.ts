@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { sunPosition, moonPosition, equationOfTime } from '../src/index.js';
+import { sunPosition, moonPosition, starPosition, greenwichSiderealTime, equationOfTime, AlmanacOutOfRangeError } from '../src/index.js';
 import { sunApparentAtTT, moonApparentAtTT, equationOfTimeAtTT } from '../src/positions.js';
-import { earthHelioVector, vsopEarth, type VsopFormula } from '../src/sun.js';
-import { PI2 } from '../src/nutation.js';
+import { earthHelioState, earthHelioVector, vsopEarth, type VsopFormula } from '../src/sun.js';
+import { PI2, equatorialFromVector, wrapDeg360 } from '../src/nutation.js';
 
 const load = (p: string) => JSON.parse(readFileSync(new URL(`../../fixtures/${p}`, import.meta.url), 'utf8'));
 const sep = (ra1: number, dec1: number, ra2: number, dec2: number) => {
@@ -98,4 +98,64 @@ it('unrolled VSOP Earth series matches the upstream loop bit for bit', () => {
   for (let tt = -73048; tt <= 36525; tt += 7.3) {   // 1800 through 2100, an odd stride
     expect(earthHelioVector(tt)).toEqual(reference(tt));
   }
+});
+
+// USNO's celestial-navigation GHA and declination for the navigational stars,
+// from each star's SIMBAD J2000 position. The places include proper motion and
+// starPosition does not, so the test first moves each star along its catalog
+// proper motion to the date, linearly, keeping the J2000 equinox. Every row is
+// then held to 1″ on the sky; annual aberration alone is up to 20.5″.
+it('positions/stars-usno.json GHA and declination within 1″', () => {
+  const rows = load('positions/stars-usno.json');
+  expect(rows.length).toBeGreaterThan(100);
+  for (const row of rows) {
+    const t = new Date(row.utc);
+    const years = (t.getTime() - Date.UTC(2000, 0, 1, 12)) / (365.25 * 86400000);
+    const decDeg = row.decDeg + row.pmDecMasPerYear * years / 3.6e6;
+    const raDeg = (row.raDeg + row.pmRaMasPerYear * years / 3.6e6 / Math.cos(row.decDeg * Math.PI / 180) + 360) % 360;
+    const p = starPosition(raDeg, decDeg, t);
+    const gha = greenwichSiderealTime(t) - p.raDeg;
+    const dGha = ((((gha - row.ghaDeg) % 360) + 540) % 360) - 180;
+    expect(Math.abs(dGha) * Math.cos(p.decDeg * Math.PI / 180) * 3600, `${row.star} GHA @ ${row.utc}`).toBeLessThan(1);
+    expect(Math.abs(p.decDeg - row.decOfDateDeg) * 3600, `${row.star} dec @ ${row.utc}`).toBeLessThan(1);
+  }
+});
+
+it('starPosition returns right ascension in [0, 360)', () => {
+  const t = new Date('2026-03-20T06:00:00Z');
+  for (const ra of [0, 0.001, 359.999]) {
+    const p = starPosition(ra, 0, t);
+    expect(p.raDeg).toBeGreaterThanOrEqual(0);
+    expect(p.raDeg).toBeLessThan(360);
+  }
+});
+
+it('starPosition rejects a catalog position off the sphere and a time outside the interval', () => {
+  const t = new Date('2026-03-20T06:00:00Z');
+  expect(() => starPosition(360, 0, t)).toThrow(RangeError);
+  expect(() => starPosition(-1, 0, t)).toThrow(RangeError);
+  expect(() => starPosition(0, -90.5, t)).toThrow(RangeError);
+  expect(() => starPosition(0, NaN, t)).toThrow(RangeError);
+  expect(() => starPosition(0, 0, new Date(Date.UTC(2101, 0, 1)))).toThrow(AlmanacOutOfRangeError);
+});
+
+it("earthHelioState's velocity is the derivative of earthHelioVector", () => {
+  const h = 0.01; // days
+  for (const tt of [-18262, 0, 9573.25, 36524]) {
+    const { pos, vel } = earthHelioState(tt);
+    const a = earthHelioVector(tt - h), b = earthHelioVector(tt + h), here = earthHelioVector(tt);
+    expect(pos).toEqual(here);
+    for (const k of ['x', 'y', 'z'] as const)
+      expect(Math.abs(vel[k] - (b[k] - a[k]) / (2 * h))).toBeLessThan(1e-9); // AU per day; orbital speed is ~0.0172
+  }
+});
+
+it('wrapDeg360 stays below 360 when the remainder is an ulp under zero', () => {
+  // 360 - 1e-14 rounds to 360 itself; a plain `+= 360` returns it.
+  expect(wrapDeg360(-1e-14)).toBe(0);
+  expect(wrapDeg360(360)).toBe(0);
+  expect(wrapDeg360(-90)).toBe(270);
+  expect(wrapDeg360(725)).toBe(5);
+  expect(wrapDeg360(359.5)).toBe(359.5);
+  expect(equatorialFromVector({ x: 1, y: -1e-300, z: 0 }).raDeg).toBe(0);
 });

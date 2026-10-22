@@ -57,6 +57,16 @@ internal class PositionsTest {
         assertEquals(-90.0, equatorialFromVector(Vec3(0.0, 0.0, -1.0)).decDeg)
     }
 
+    @Test fun wrapDeg360StaysBelow360WhenTheRemainderIsAnUlpUnderZero() {
+        // 360 - 1e-14 rounds to 360 itself; a plain `+= 360` returns it.
+        assertEquals(0.0, wrapDeg360(-1e-14))
+        assertEquals(0.0, wrapDeg360(360.0))
+        assertEquals(270.0, wrapDeg360(-90.0))
+        assertEquals(5.0, wrapDeg360(725.0))
+        assertEquals(359.5, wrapDeg360(359.5))
+        assertEquals(0.0, equatorialFromVector(Vec3(1.0, -1e-300, 0.0)).raDeg)
+    }
+
     @Test fun unrolledEarthMatchesSourceTableLoopBitForBit() {
         val source = File(File(System.getProperty("fixtures")).parentFile, "typescript/src/sun.ts").readText()
         val table = Json.parseToJsonElement(source.substringAfter("export const vsopEarth: VsopModel = ").substringBefore(';')).jsonArray
@@ -113,5 +123,61 @@ internal class PositionsTest {
         near(equationOfTimeAtTT(utDays(Instant.parse("1992-10-13T00:00:00Z"))),13+42.6/60,0.05)
         for (time in listOf(Instant.MIN,Instant.MAX,Instant.ofEpochMilli(SUPPORTED_MIN-1),Instant.ofEpochMilli(SUPPORTED_MAX)))
             assertFailsWith<AlmanacOutOfRangeException> { equationOfTime(time) }
+    }
+
+    // USNO's celestial-navigation GHA and declination for the navigational stars, from each star's SIMBAD J2000
+    // position. The places include proper motion and starPosition does not, so the test first moves each star along its
+    // catalog proper motion to the date, linearly, keeping the J2000 equinox. Every row is then held to 1″ on the sky;
+    // annual aberration alone is up to 20.5″.
+    @Test fun starsUsnoGhaAndDeclinationWithinOneArcsecond() {
+        val rows = fixture("positions/stars-usno").jsonArray
+        assertTrue(rows.size > 100)
+        val j2000 = Instant.parse("2000-01-01T12:00:00Z").toEpochMilli()
+        for (element in rows) {
+            val row = element.obj()
+            val t = row.instant("utc")
+            val years = (t.toEpochMilli() - j2000) / (365.25 * 86400000)
+            val decDeg = row.number("decDeg") + row.number("pmDecMasPerYear") * years / 3.6e6
+            val raDeg = (row.number("raDeg") + row.number("pmRaMasPerYear") * years / 3.6e6 / cos(row.number("decDeg") * PI / 180) + 360) % 360
+            val p = starPosition(raDeg, decDeg, t)
+            val gha = greenwichSiderealTime(t) - p.raDeg
+            val dGha = ((((gha - row.number("ghaDeg")) % 360) + 540) % 360) - 180
+            val label = "${row.string("star")} @ ${row.string("utc")}"
+            assertTrue(abs(dGha) * cos(p.decDeg * PI / 180) * 3600 < 1, "$label GHA: $dGha deg")
+            assertTrue(abs(p.decDeg - row.number("decOfDateDeg")) * 3600 < 1, "$label dec: ${p.decDeg} vs ${row.number("decOfDateDeg")}")
+        }
+    }
+
+    @Test fun starPositionReturnsRightAscensionInRange() {
+        val t = Instant.parse("2026-03-20T06:00:00Z")
+        for (ra in listOf(0.0, 0.001, 359.999)) {
+            val p = starPosition(ra, 0.0, t)
+            assertTrue(p.raDeg >= 0 && p.raDeg < 360, "$ra -> ${p.raDeg}")
+        }
+    }
+
+    @Test fun starPositionRejectsOffSphereCatalogAndOutOfRangeTime() {
+        val t = Instant.parse("2026-03-20T06:00:00Z")
+        assertFailsWith<IllegalArgumentException> { starPosition(360.0, 0.0, t) }
+        assertFailsWith<IllegalArgumentException> { starPosition(-1.0, 0.0, t) }
+        assertFailsWith<IllegalArgumentException> { starPosition(0.0, -90.5, t) }
+        assertFailsWith<IllegalArgumentException> { starPosition(0.0, Double.NaN, t) }
+        for (bad in listOf(Instant.parse("2101-01-01T00:00:00Z"), Instant.MIN, Instant.MAX))
+            assertFailsWith<AlmanacOutOfRangeException> { starPosition(0.0, 0.0, bad) }
+        val time = Instant.ofEpochMilli(-1)
+        assertEquals(starPosition(10.0, 20.0, time), starPosition(10.0, 20.0, time.minusNanos(500_000)))
+    }
+
+    @Test fun earthHelioStateVelocityIsTheDerivativeOfEarthHelioVector() {
+        val h = 0.01 // days
+        for (tt in listOf(-18262.0, 0.0, 9573.25, 36524.0)) {
+            val state = earthHelioState(tt)
+            assertSame(state, earthHelioState(tt), "cache hit on the exact instant")
+            val a = earthHelioVector(tt - h); val b = earthHelioVector(tt + h)
+            assertEquals(earthHelioVector(tt), state.pos)
+            near(state.vel.x, (b.x - a.x) / (2 * h), 1e-9, "x tt=$tt") // AU per day; orbital speed is ~0.0172
+            near(state.vel.y, (b.y - a.y) / (2 * h), 1e-9, "y tt=$tt")
+            near(state.vel.z, (b.z - a.z) / (2 * h), 1e-9, "z tt=$tt")
+        }
     }
 }

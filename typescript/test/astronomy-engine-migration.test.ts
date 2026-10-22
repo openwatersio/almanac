@@ -6,6 +6,7 @@ import {
   sunEvents, moonEvents, searchMoonPhases, lunarEclipses, lunarEclipseVisibility,
   type Observer,
 } from '../src/index.js';
+import { starPosition, greenwichSiderealTime } from '../src/index.js';
 
 function briefingPositions(time: Date, observer: Observer) {
   return {
@@ -83,4 +84,20 @@ it('the lunar visibility recipe excludes the eclipse when the Moon is below the 
   expect(pacific[0].kind).toBe('total');
   expect(pacific[0].peak.toISOString()).toMatch(/^2026-03-03T11:33:/);
   expect(visibleLunarEclipses(start, end, { latitudeDeg: 20, longitudeDeg: 60 })).toEqual([]);
+});
+
+// A milliarcsecond, in degrees: the ports agree with upstream's star path far below it.
+const STAR_REFERENCE_TOL_DEG = 0.001 / 3600;
+
+it('starPosition and greenwichSiderealTime reproduce Astronomy Engine star places and sidereal time', () => {
+  expect(reference.astronomyEngineStars.length).toBeGreaterThan(0);
+  for (const ref of reference.astronomyEngineStars) {
+    const time = new Date(ref.time);
+    const place = starPosition(ref.raDeg, ref.decDeg, time);
+    const dRa = ((((place.raDeg - ref.apparentRaDeg) % 360) + 540) % 360) - 180;
+    expect(Math.abs(dRa) * Math.cos(ref.apparentDecDeg * Math.PI / 180), `RA @ ${ref.time}`).toBeLessThan(STAR_REFERENCE_TOL_DEG);
+    expect(Math.abs(place.decDeg - ref.apparentDecDeg), `dec @ ${ref.time}`).toBeLessThan(STAR_REFERENCE_TOL_DEG);
+    const dGast = ((((greenwichSiderealTime(time) - ref.siderealDeg) % 360) + 540) % 360) - 180;
+    expect(Math.abs(dGast), `GAST @ ${ref.time}`).toBeLessThan(STAR_REFERENCE_TOL_DEG);
+  }
 });
