@@ -20,10 +20,14 @@ let planets: [SwiftSetting] = events.contains("public func planetEvents(") ? [.d
 let suncalc: [SwiftSetting] = events.contains("public func sunTransits(") ? [.define("ALMANAC_SUNCALC")] : []
 // Seasons, lunar apsides, and the equation of time arrived together in 0.9.0 with Seasons.swift.
 let cycles: [SwiftSetting] = FileManager.default.fileExists(atPath: "\(source)/swift/Sources/Almanac/Seasons.swift") ? [.define("ALMANAC_CYCLES")] : []
+// Aberrated star places arrived in 0.12.0 with starPosition; older star paths are cheaper and not comparable.
+// ponytail: declaration detection assumes Positions.swift; update if the API moves.
+let positions = try String(contentsOfFile: "\(source)/swift/Sources/Almanac/Positions.swift", encoding: .utf8)
+let stars: [SwiftSetting] = positions.contains("public func starPosition(") ? [.define("ALMANAC_STAR_ABERRATION")] : []
 let package = Package(
     name: "AlmanacBenchmarks",
     dependencies: [.package(name: "Almanac", path: source)],
     targets: [
-        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets + suncalc + cycles),
+        .executableTarget(name: "AlmanacBenchmarks", dependencies: [.product(name: "Almanac", package: "Almanac")], path: "swift", swiftSettings: eclipseSearches + solarEclipses + globalEclipses + planets + suncalc + cycles + stars),
     ]
 )
