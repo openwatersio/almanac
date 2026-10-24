@@ -14,7 +14,7 @@ jobs:
   # Pushes to main are never filtered: that is once per merge, and it keeps
   # this job off the `github.event.before` edge cases (new branch, force push).
   changes:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     outputs:
       typescript: ${{ steps.filter.outputs.typescript }}
       swift: ${{ steps.filter.outputs.swift }}
@@ -31,7 +31,7 @@ jobs:
         run: node .github/ci-routes.mjs
   # Unconditional: 7 seconds, cheaper to run than to reason about skipping.
   fixtures:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -40,7 +40,7 @@ jobs:
   typescript:
     needs: changes
     if: needs.changes.outputs.typescript == 'true'
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
       - uses: actions/checkout@v7
@@ -57,7 +57,7 @@ jobs:
           path: typescript/*.tgz
   smoke-npm:
     needs: typescript
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     strategy:
       matrix: { node: ['22.12.0', '24'] }
     steps:
@@ -72,14 +72,14 @@ jobs:
   swift:
     needs: changes
     if: needs.changes.outputs.swift == 'true'
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - run: swift test -c release
   kotlin:
     needs: changes
     if: needs.changes.outputs.kotlin == 'true'
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     defaults: { run: { working-directory: kotlin } }
     steps:
       - uses: actions/checkout@v7
@@ -114,7 +114,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.typescript == 'true'
     permissions: { contents: read }
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     env: { PORT: typescript }
     steps: &performance-steps
@@ -165,7 +165,7 @@ jobs:
     needs: [changes, performance-typescript]
     if: always() && needs.changes.outputs.swift == 'true' && (needs.performance-typescript.result == 'success' || needs.performance-typescript.result == 'skipped')
     permissions: { contents: read }
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     env: { PORT: swift }
     steps: *performance-steps
