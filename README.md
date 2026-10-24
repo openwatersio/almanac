@@ -47,7 +47,7 @@ arithmetic. Median query time relative to v0.4.1:
 Swift already evaluated the Sun series efficiently, so its gains are confined to
 the searches. Each comparison builds both revisions with the same harness and toolchain, then takes seven interleaved process pairs with 300 ms warmup per process. Build and startup time are excluded. Timings vary by machine; the shared correctness fixtures and parity tolerances remain the accuracy gates.
 
-Reproduce the comparison locally from the repository root with mise 2026.9.1 or newer after installing the configured Node and Swift versions in `mise.toml`:
+Reproduce the comparison locally from the repository root with mise 2026.9.6 or newer after installing the configured Node and Swift versions in `mise.toml`:
 
 ```bash
 mise install
