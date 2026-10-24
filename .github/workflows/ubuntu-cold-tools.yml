@@ -23,7 +23,7 @@ jobs:
           echo "MISE_STATE_DIR=$RUNNER_TEMP/ubuntu26-mise-state" >> "$GITHUB_ENV"
       - uses: jdx/mise-action@v5
         with:
-          version: "2026.9.6"
+          version: "2026.9.11"
           install_args: swift
           cache: false
       - name: Verify the freshly installed compiler and run release tests
@@ -35,5 +35,11 @@ jobs:
             "$MISE_DATA_DIR"/installs/swift/*) ;;
             *) echo "Unexpected Swift path: $swift_path" >&2; exit 1 ;;
           esac
+          mise exec swift -- swift --version
+          mise exec swift -- swift test -c release
+      - name: Verify the documented reinstall commands
+        run: |
+          mise uninstall swift@6.4.0
+          mise install swift
           mise exec swift -- swift --version
           mise exec swift -- swift test -c release
