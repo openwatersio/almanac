@@ -48,15 +48,22 @@ The Swift package and its tests use Swift 6 language mode and require a Swift 6 
 
 CI defines the toolchain: `actions/setup-node` reads Node 22 from `mise.toml` for tests, and `ubuntu-latest` supplies Swift. Check the job’s runner image and compiler metadata for the version used. The npm packaging, publishing, and lockfile jobs read Node 24 from `.github/mise.toml` for trusted publishing and lockfile generation. Compatibility smoke tests keep their explicit Node versions. A `watchos` job on `macos-latest` compiles the Swift library for Apple Watch hardware and the watch simulator, because Slackwater's watch app depends on it; watch hardware is `arm64_32`, where Swift's `Int` is 32 bits, so keep epoch milliseconds and other large counts in `Double` or `Int64`.
 
-`mise.toml` also selects Swift per operating system for local development; CI uses the runner’s Swift toolchain. The Linux entry pins Swift 6.4.0 to match the validated Ubuntu 26.04 image. GitHub selects the image behind `ubuntu-latest`, so a job assigned an older image can still use an older Swift toolchain. Update the Linux pin when validating a new runner toolchain. The macOS entry instead tracks the Swift version in the installed Xcode, because a standalone macOS toolchain borrows Apple's SDK from Xcode and fails against an SDK newer than itself. Raise it when Xcode moves to a new Swift release.
+`mise.toml` pins one Swift 6.4.0 toolchain for local development on macOS and Linux; CI uses the runner’s Swift toolchain. The Linux compiler matches the validated Ubuntu 26.04 image. GitHub selects the image behind `ubuntu-latest`, so a job assigned an older image can still use an older Swift toolchain. On macOS, a standalone toolchain borrows Apple's SDK from Xcode and must match it. Update the shared pin when both platforms have been validated with the new compiler.
 
-For local setup, mise 2026.9.6 or newer provides the core Swift backend and the per-operating-system tool selection `mise.toml` uses:
+For local setup, mise 2026.9.11 or newer selects the matching Swift archive for the Linux distribution instead of falling back to an Ubuntu 24.04 build on newer Ubuntu hosts:
 
 ```bash
 mise install
 ```
 
-CI runs SwiftPM on Linux without Xcode. On macOS, mise installs the compiler but not Apple's SDK, so the macOS entry in `mise.toml` has to match the Xcode in use. A mismatch fails while compiling a package manifest, reporting an unknown `-target-arch-variant` argument and a missing `URL`.
+CI runs SwiftPM on Linux without Xcode. On macOS, mise installs the compiler but not Apple's SDK, so the shared Swift pin in `mise.toml` has to match the Xcode in use. A mismatch fails while compiling a package manifest, reporting an unknown `-target-arch-variant` argument and a missing `URL`.
+
+If Swift 6.4.0 was installed on Ubuntu 26.04 with mise older than 2026.9.11, its package tools can fail with missing `libxml2.so.2`: the older installer chose an Ubuntu 24.04 archive. Updating mise does not replace an existing installation. After updating mise, reinstall Swift from the repository root:
+
+```bash
+mise uninstall swift@6.4.0
+mise install swift
+```
 
 Run the correctness, dependency, and package checks from the repository root:
 
