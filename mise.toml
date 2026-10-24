@@ -3,10 +3,5 @@ min_version = "2026.9.6"
 [tools]
 node = "22"
 java = "temurin-17"
-swift = [
-  # A standalone macOS toolchain borrows Apple's SDK from Xcode and must match
-  # it; Xcode 27 ships the Swift 6.4 SDK, which 6.3.3 cannot parse.
-  { version = "6.4.0", os = "macos" },
-  # Linux is self-contained and targets the validated Ubuntu 26.04 toolchain.
-  { version = "6.4.0", os = "linux" },
-]
+# macOS must match Xcode's SDK; Linux uses the same validated compiler version.
+swift = "6.4.0"
