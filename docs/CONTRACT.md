@@ -25,7 +25,7 @@ API instants are JavaScript `Date`, Foundation `Date`, or Java `Instant` values 
 
 Terrestrial Time is calculated as `TT = UT1 + Delta-T` using the Espenak–Meeus polynomials. Delta-T is projected beyond the present, while sources such as JPL Horizons may freeze or use another projection. Coarse position fixtures therefore compare the models in TT so the fixture checks astronomy rather than disagreement between time projections.
 
-The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the intersection of the external fixture evidence. Inputs outside it return the typed out-of-range outcome. Widening the interval requires external boundary fixtures first.
+The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the intersection of the external fixture evidence. Inputs outside it return the typed out-of-range outcome. Lunar transit windows can begin on 1949-12-29 at 00:00 UTC. Widening the interval requires external boundary fixtures first.
 
 ## Coordinates and physical conventions
 

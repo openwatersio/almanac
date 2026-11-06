@@ -771,7 +771,7 @@ describe('sunTransits and moonTransits', () => {
     for (const fn of [sunTransits, moonTransits]) {
       expect(() => fn(t2, t1, { latitudeDeg: 91, longitudeDeg: 0 })).toThrow(RangeError);
       expect(() => fn(new Date(NaN), t1, VICTORIA)).toThrow(RangeError);
-      expect(() => fn(new Date('1949-12-31T00:00:00Z'), t1, VICTORIA)).toThrow(AlmanacOutOfRangeError);
+      expect(() => fn(new Date('1949-12-28T23:59:59.999Z'), t1, VICTORIA)).toThrow(AlmanacOutOfRangeError);
       expect(fn(t1, t1, VICTORIA)).toEqual([]);
       expect(fn(t2, t1, VICTORIA)).toEqual([]);
       const found = fn(t1, t2, VICTORIA);

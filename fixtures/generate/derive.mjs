@@ -939,6 +939,8 @@ function deriveAltaz(dates, requests) {
   assert.equal(twilightRows.length, twilightSpecs.length * 2881, "sun-airless-twilight: row count mismatch after merge");
 
   const transitSpecs = [
+    ["moon-hour-angle-greenwich-1949-dec29", "moon", { lat: 51.4769, lon: 0 }],
+    ["moon-hour-angle-greenwich-1949-dec31", "moon", { lat: 51.4769, lon: 0 }],
     ["sun-hour-angle-vic", "sun", VIC], ["moon-hour-angle-vic", "moon", VIC],
     ["sun-hour-angle-s88", "sun", S88], ["moon-hour-angle-s88", "moon", S88],
   ];

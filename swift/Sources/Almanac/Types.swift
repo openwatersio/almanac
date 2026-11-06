@@ -26,19 +26,21 @@ func normalized(_ d: Date) throws -> Date {
     if d == Date(timeIntervalSince1970: ms.rounded() / 1000) { return d }
     return Date(timeIntervalSince1970: ms.rounded(.towardZero) / 1000)
 }
+let moonTransitMin = supportedMin.addingTimeInterval(-3 * 86400)
+
 /// Point in time: [min, max). Window ends use assertSupportedWindowEnd ([min, max]).
-func assertSupportedWindowEnd(_ d: Date) throws {
+func assertSupportedWindowEnd(_ d: Date, minimum: Date = supportedMin) throws {
     guard d.timeIntervalSince1970.isFinite else { throw AlmanacError.invalidArgument("non-finite Date") }
-    guard d >= supportedMin, d <= supportedMax else { throw AlmanacError.outOfRange }
+    guard d >= minimum, d <= supportedMax else { throw AlmanacError.outOfRange }
 }
 
 /// 1950-01-01T00:00Z (incl.) … 2101-01-01T00:00Z (excl.) — the fixture-evidence interval.
 let supportedMin = Date(timeIntervalSince1970: -631_152_000)
 let supportedMax = Date(timeIntervalSince1970: 4_133_980_800)
 
-func assertSupported(_ d: Date) throws {
+func assertSupported(_ d: Date, minimum: Date = supportedMin) throws {
     guard d.timeIntervalSince1970.isFinite else { throw AlmanacError.invalidArgument("non-finite Date") }
-    guard d >= supportedMin, d < supportedMax else { throw AlmanacError.outOfRange }
+    guard d >= minimum, d < supportedMax else { throw AlmanacError.outOfRange }
 }
 
 public struct Observer: Sendable {

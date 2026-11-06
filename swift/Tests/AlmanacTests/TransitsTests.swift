@@ -247,7 +247,7 @@ final class TransitsTests: XCTestCase {
         ]
         for fn in fns {
             XCTAssertThrowsError(try fn(Date(timeIntervalSince1970: .nan), t1, Self.victoria))
-            XCTAssertThrowsError(try fn(utc("1949-12-31T00:00:00Z"), t1, Self.victoria)) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
+            XCTAssertThrowsError(try fn(utc("1949-12-28T23:59:59Z"), t1, Self.victoria)) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
             XCTAssertEqual(try fn(t1, t1, Self.victoria).count, 0)
             XCTAssertEqual(try fn(t2, t1, Self.victoria).count, 0)
             let found = try fn(t1, t2, Self.victoria)

@@ -249,14 +249,14 @@ private data class LevelSpec<K>(val level: Double?, val rising: K, val falling: 
 private data class TimedEvent<K>(val time: Instant, val kind: K)
 private data class FoundEvent<K>(val ut: Double, val kind: K)
 // Refined extrema make each segment monotonic, including both halves of a polar grazing pair.
-private fun <K> searchAltitudeEvents(sample: Sampler, levels: List<LevelSpec<K>>, transitKind: K?, lowerTransitKind: K?, startUt: Double, endUt: Double, haRateDegPerDay: Double, cycleDays: Double, flatCycle: Boolean): List<TimedEvent<K>> {
+private fun <K> searchAltitudeEvents(sample: Sampler, levels: List<LevelSpec<K>>, transitKind: K?, lowerTransitKind: K?, startUt: Double, endUt: Double, haRateDegPerDay: Double, cycleDays: Double, flatCycle: Boolean, minUt: Double = MIN_UT): List<TimedEvent<K>> {
     val halfWidth = if (flatCycle) cycleDays / 2 else EXTREMUM_HALF_WIDTH_DAYS
     val found = mutableListOf<FoundEvent<K>>()
     fun emit(ut: Double, kind: K) {
         val q = quantizedUt(ut)
         if (q >= startUt && q < endUt) found.add(FoundEvent(ut, kind))
     }
-    var s0 = sample(clampUt(startUt - cycleDays))
+    var s0 = sample(max(minUt, startUt - cycleDays))
     val firstMax = nextHourAngle(sample, s0.ut, 0.0, haRateDegPerDay)
     val firstMin = nextHourAngle(sample, s0.ut, 180.0, haRateDegPerDay)
     var nextIsMax = firstMax <= firstMin
@@ -339,10 +339,10 @@ public fun sunTransits(startUtc: Instant, endUtc: Instant, observer: Observer): 
     return searchAltitudeEvents(sunSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),360.0,1.0,flatCycle(observer)).map { TransitEvent(it.time,it.kind) }
 }
 public fun moonTransits(startUtc: Instant, endUtc: Instant, observer: Observer): List<TransitEvent> {
-    assertSupported(startUtc)
-    assertSupportedWindowEnd(endUtc)
+    assertSupported(startUtc, MOON_TRANSIT_MIN)
+    assertSupportedWindowEnd(endUtc, MOON_TRANSIT_MIN)
     if (normalized(startUtc) >= normalized(endUtc)) return emptyList()
-    return searchAltitudeEvents(moonSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),MOON_HA_RATE_DEG_PER_DAY,MOON_CYCLE_DAYS,flatCycle(observer)).map { TransitEvent(it.time,it.kind) }
+    return searchAltitudeEvents(moonSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),MOON_HA_RATE_DEG_PER_DAY,MOON_CYCLE_DAYS,flatCycle(observer), utDays(Instant.ofEpochMilli(MOON_TRANSIT_MIN))).map { TransitEvent(it.time,it.kind) }
 }
 internal data class QuadRoot(val t: Double, val dfdt: Double)
 // QuadInterp and Search: https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L4528
