@@ -10,7 +10,7 @@ Three implementations, one behavior:
 - `fixtures/` — the shared test corpus (JPL Horizons, USNO, Espenak) all three suites
   must pass; the contract that keeps the ports identical
 
-Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside it raise a typed error. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
+The default interval is 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z. The lower bound for `moonTransits` is 1949-12-29T00:00Z. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
 
 - Contract: [`docs/CONTRACT.md`](docs/CONTRACT.md), including coordinates, public behavior, accuracy, and fixture evidence.
 - Scope: [`docs/SCOPE.md`](docs/SCOPE.md), including supported behavior and deliberate boundaries.

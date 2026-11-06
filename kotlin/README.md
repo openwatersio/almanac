@@ -49,7 +49,7 @@ val eotMinutes = equationOfTime(start)
 
 Functions keep the TypeScript names and parameter order. Result fields have the same names; kinds are uppercase enum members such as `SunEventKind.RISE`, and `toString()` gives the shared contract string (`rise`). Optional contacts and ground points are nullable.
 
-Inputs and outputs truncate to integer epoch milliseconds toward zero. Ordinary instants must be in `[1950-01-01T00:00Z, 2101-01-01T00:00Z)`; a window end may equal the upper bound. Windows are half-open and validated before empty results. Next/previous eclipse searches skip peaks within 100 ms of their anchor.
+Inputs and outputs truncate to integer epoch milliseconds toward zero. Ordinary instants must be in `[1950-01-01T00:00Z, 2101-01-01T00:00Z)`; a window end may equal the upper bound. The lower bound for `moonTransits` is 1949-12-29T00:00Z. Windows are half-open and validated before empty results. Next/previous eclipse searches skip peaks within 100 ms of their anchor.
 
 Invalid arguments throw `IllegalArgumentException`; unsupported instants or an eclipse search reaching the supported boundary throw `AlmanacOutOfRangeException`, its subtype. Internal non-convergence throws `IllegalStateException`.
 
