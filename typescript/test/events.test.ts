@@ -765,6 +765,15 @@ describe('sunTransits and moonTransits', () => {
     }
   }, 60_000);
 
+  it('includes the lunar crossing rounded to the first supported millisecond', () => {
+    const start = new Date('1949-12-29T00:00:00Z');
+    const end = new Date(start.getTime() + 1000);
+    const site = { latitudeDeg: 0, longitudeDeg: -73.81030419974351 };
+    expect(moonTransits(start, end, site)).toEqual([{ time: start, kind: 'upper' }]);
+    expect(() => moonTransits(start, new Date(start.getTime() - 1), site)).toThrow(AlmanacOutOfRangeError);
+    expect(() => sunTransits(start, end, site)).toThrow(AlmanacOutOfRangeError);
+  });
+
   it('validates the observer and window', () => {
     const t1 = new Date('2026-08-28T00:00:00Z');
     const t2 = new Date('2026-08-29T00:00:00Z');

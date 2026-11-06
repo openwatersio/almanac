@@ -638,6 +638,7 @@ export function sunTransits(startUtc: Date, endUtc: Date, observer: Observer): T
  * `[startUtc, endUtc)`, sorted ascending, from the topocentric hour angle, so
  * parallax is included, whether or not the Moon is above the horizon.
  */
+// Windows begin as early as 1949-12-29 UTC. Seed one millisecond earlier to include a crossing rounded to midnight.
 export function moonTransits(startUtc: Date, endUtc: Date, observer: Observer): TransitEvent[] {
     assertSupported(startUtc, MOON_TRANSIT_MIN);
     assertSupportedWindowEnd(endUtc, MOON_TRANSIT_MIN);
@@ -646,7 +647,7 @@ export function moonTransits(startUtc: Date, endUtc: Date, observer: Observer): 
     return searchAltitudeEvents<TransitEventKind>(
         moonSampler(observer, 0), [], 'upper', 'lower',
         utDays(startUtc), utDays(endUtc),
-        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer), utDays(new Date(MOON_TRANSIT_MIN))
+        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer), utDays(new Date(MOON_TRANSIT_MIN - 1))
     );
 }
 

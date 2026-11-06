@@ -240,6 +240,16 @@ final class TransitsTests: XCTestCase {
         }
     }
 
+    func testFirstLunarTransitMillisecond() throws {
+        let start = utc("1949-12-29T00:00:00Z"), end = start.addingTimeInterval(1)
+        let site = try Observer(latitudeDeg: 0, longitudeDeg: -73.81030419974351)
+        let events = try moonTransits(from: start, to: end, observer: site)
+        XCTAssertEqual(events.map(\.time), [start])
+        XCTAssertEqual(events.map(\.kind), [.upper])
+        XCTAssertThrowsError(try moonTransits(from: start, to: start.addingTimeInterval(-0.001), observer: site))
+        XCTAssertThrowsError(try sunTransits(from: start, to: end, observer: site))
+    }
+
     func testTransitValidationAndWindow() throws {
         let t1 = utc("2026-08-28T00:00:00Z"), t2 = utc("2026-08-29T00:00:00Z")
         let fns: [(Date, Date, Observer) throws -> [TransitEvent]] = [

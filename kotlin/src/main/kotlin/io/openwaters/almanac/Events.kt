@@ -338,11 +338,12 @@ public fun sunTransits(startUtc: Instant, endUtc: Instant, observer: Observer): 
     if (normalized(startUtc) >= normalized(endUtc)) return emptyList()
     return searchAltitudeEvents(sunSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),360.0,1.0,flatCycle(observer)).map { TransitEvent(it.time,it.kind) }
 }
+// Windows begin as early as 1949-12-29 UTC. Seed one millisecond earlier to include a crossing rounded to midnight.
 public fun moonTransits(startUtc: Instant, endUtc: Instant, observer: Observer): List<TransitEvent> {
     assertSupported(startUtc, MOON_TRANSIT_MIN)
     assertSupportedWindowEnd(endUtc, MOON_TRANSIT_MIN)
     if (normalized(startUtc) >= normalized(endUtc)) return emptyList()
-    return searchAltitudeEvents(moonSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),MOON_HA_RATE_DEG_PER_DAY,MOON_CYCLE_DAYS,flatCycle(observer), utDays(Instant.ofEpochMilli(MOON_TRANSIT_MIN))).map { TransitEvent(it.time,it.kind) }
+    return searchAltitudeEvents(moonSampler(observer,0.0),emptyList(),TransitEventKind.UPPER,TransitEventKind.LOWER,utDays(startUtc),utDays(endUtc),MOON_HA_RATE_DEG_PER_DAY,MOON_CYCLE_DAYS,flatCycle(observer), utDays(Instant.ofEpochMilli(MOON_TRANSIT_MIN - 1))).map { TransitEvent(it.time,it.kind) }
 }
 internal data class QuadRoot(val t: Double, val dfdt: Double)
 // QuadInterp and Search: https://github.com/cosinekitty/astronomy/blob/865d3da7d8112bbc7911238052c6af4aaf877181/source/js/astronomy.ts#L4528

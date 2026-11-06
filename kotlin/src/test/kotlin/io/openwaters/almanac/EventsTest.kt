@@ -202,6 +202,17 @@ internal class EventsTest {
         }
     }
 
+    @Test fun firstLunarTransitMillisecond() {
+        val start = Instant.parse("1949-12-29T00:00:00Z")
+        val end = start.plusSeconds(1)
+        val site = Observer(0.0, -73.81030419974351)
+        val transit = moonTransits(start, end, site).single()
+        assertEquals(start, transit.time)
+        assertEquals(TransitEventKind.UPPER, transit.kind)
+        assertFailsWith<AlmanacOutOfRangeException> { moonTransits(start, start.minusMillis(1), site) }
+        assertFailsWith<AlmanacOutOfRangeException> { sunTransits(start, end, site) }
+    }
+
     @Test fun windowsAreNormalizedHalfOpenAndValidatedBeforeEmptyResults() {
         val queries: List<(Instant, Instant) -> List<Pair<Instant, String>>> = listOf(
             { a,b -> events("sun",a,b,victoria) }, { a,b -> events("moon",a,b,victoria) },

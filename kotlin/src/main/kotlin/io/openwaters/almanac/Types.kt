@@ -15,7 +15,7 @@ public enum class Planet(private val rawValue: String) {
     override fun toString(): String = rawValue
 }
 
-public class AlmanacOutOfRangeException(message: String = "time outside the supported interval for this operation") : IllegalArgumentException(message)
+public class AlmanacOutOfRangeException(message: String = "time outside supported interval 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z") : IllegalArgumentException(message)
 
 internal val SUPPORTED_MIN: Long = Instant.parse("1950-01-01T00:00:00Z").toEpochMilli()
 internal val SUPPORTED_MAX: Long = Instant.parse("2101-01-01T00:00:00Z").toEpochMilli()
@@ -39,10 +39,10 @@ internal val MOON_TRANSIT_MIN = Instant.parse("1949-12-29T00:00:00Z").toEpochMil
 
 internal fun assertSupported(time: Instant, minimum: Long = SUPPORTED_MIN) {
     val ms = normalized(time).toEpochMilli()
-    if (ms < minimum || ms >= SUPPORTED_MAX) throw AlmanacOutOfRangeException()
+    if (ms < minimum || ms >= SUPPORTED_MAX) throw AlmanacOutOfRangeException("time outside supported interval ${Instant.ofEpochMilli(minimum)} ≤ t < 2101-01-01T00:00Z")
 }
 
 internal fun assertSupportedWindowEnd(time: Instant, minimum: Long = SUPPORTED_MIN) {
     val ms = normalized(time).toEpochMilli()
-    if (ms < minimum || ms > SUPPORTED_MAX) throw AlmanacOutOfRangeException()
+    if (ms < minimum || ms > SUPPORTED_MAX) throw AlmanacOutOfRangeException("window end outside supported interval ${Instant.ofEpochMilli(minimum)} ≤ t ≤ 2101-01-01T00:00Z")
 }

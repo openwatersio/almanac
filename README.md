@@ -166,7 +166,7 @@ const crossings = sunEvents(today, tomorrow, viewer, eyeHeightM);
 Requires a Swift 6 or newer toolchain.
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.12.2")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.13.0")
 ```
 
 ```swift
@@ -231,7 +231,7 @@ val minutes = equationOfTime(today)
 
 ### Golden hour, transits, and the Moon's tilt
 
-`sunAltitudeEvents` finds the Sun's center crossing any altitude, with the twilight convention, so `6` gives golden hour and `-6` civil twilight. Lunar transit windows can begin on 1949-12-29 at 00:00 UTC. `sunTransits` and `moonTransits` give each body's highest (`upper`) and lowest (`lower`) meridian crossings. `moonOrientation` turns the Moon's disc: subtracting the parallactic angle from the bright-limb angle gives the bright limb's direction from the zenith.
+`sunAltitudeEvents` finds the Sun's center crossing any altitude, with the twilight convention, so `6` gives golden hour and `-6` civil twilight. `moonTransits` windows can begin on 1949-12-29 at 00:00 UTC. `sunTransits` and `moonTransits` give each body's highest (`upper`) and lowest (`lower`) meridian crossings. `moonOrientation` turns the Moon's disc: subtracting the parallactic angle from the bright-limb angle gives the bright limb's direction from the zenith.
 
 ```ts
 import { sunAltitudeEvents, sunTransits, moonTransits, moonOrientation } from '@openwaters/almanac';
