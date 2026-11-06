@@ -765,13 +765,22 @@ describe('sunTransits and moonTransits', () => {
     }
   }, 60_000);
 
+  it('includes the lunar crossing rounded to the first supported millisecond', () => {
+    const start = new Date('1949-12-29T00:00:00Z');
+    const end = new Date(start.getTime() + 1000);
+    const site = { latitudeDeg: 0, longitudeDeg: -73.81030419974351 };
+    expect(moonTransits(start, end, site)).toEqual([{ time: start, kind: 'upper' }]);
+    expect(() => moonTransits(start, new Date(start.getTime() - 1), site)).toThrow(AlmanacOutOfRangeError);
+    expect(() => sunTransits(start, end, site)).toThrow(AlmanacOutOfRangeError);
+  });
+
   it('validates the observer and window', () => {
     const t1 = new Date('2026-08-28T00:00:00Z');
     const t2 = new Date('2026-08-29T00:00:00Z');
     for (const fn of [sunTransits, moonTransits]) {
       expect(() => fn(t2, t1, { latitudeDeg: 91, longitudeDeg: 0 })).toThrow(RangeError);
       expect(() => fn(new Date(NaN), t1, VICTORIA)).toThrow(RangeError);
-      expect(() => fn(new Date('1949-12-31T00:00:00Z'), t1, VICTORIA)).toThrow(AlmanacOutOfRangeError);
+      expect(() => fn(new Date('1949-12-28T23:59:59.999Z'), t1, VICTORIA)).toThrow(AlmanacOutOfRangeError);
       expect(fn(t1, t1, VICTORIA)).toEqual([]);
       expect(fn(t2, t1, VICTORIA)).toEqual([]);
       const found = fn(t1, t2, VICTORIA);

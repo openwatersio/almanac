@@ -240,6 +240,16 @@ final class TransitsTests: XCTestCase {
         }
     }
 
+    func testFirstLunarTransitMillisecond() throws {
+        let start = utc("1949-12-29T00:00:00Z"), end = start.addingTimeInterval(1)
+        let site = try Observer(latitudeDeg: 0, longitudeDeg: -73.81030419974351)
+        let events = try moonTransits(from: start, to: end, observer: site)
+        XCTAssertEqual(events.map(\.time), [start])
+        XCTAssertEqual(events.map(\.kind), [.upper])
+        XCTAssertThrowsError(try moonTransits(from: start, to: start.addingTimeInterval(-0.001), observer: site))
+        XCTAssertThrowsError(try sunTransits(from: start, to: end, observer: site))
+    }
+
     func testTransitValidationAndWindow() throws {
         let t1 = utc("2026-08-28T00:00:00Z"), t2 = utc("2026-08-29T00:00:00Z")
         let fns: [(Date, Date, Observer) throws -> [TransitEvent]] = [
@@ -247,7 +257,7 @@ final class TransitsTests: XCTestCase {
         ]
         for fn in fns {
             XCTAssertThrowsError(try fn(Date(timeIntervalSince1970: .nan), t1, Self.victoria))
-            XCTAssertThrowsError(try fn(utc("1949-12-31T00:00:00Z"), t1, Self.victoria)) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
+            XCTAssertThrowsError(try fn(utc("1949-12-28T23:59:59Z"), t1, Self.victoria)) { XCTAssertEqual($0 as? AlmanacError, .outOfRange) }
             XCTAssertEqual(try fn(t1, t1, Self.victoria).count, 0)
             XCTAssertEqual(try fn(t2, t1, Self.victoria).count, 0)
             let found = try fn(t1, t2, Self.victoria)

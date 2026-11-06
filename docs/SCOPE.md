@@ -24,7 +24,7 @@ Almanac provides the same offline Sun, Moon, planet, and fixed-star calculations
 - Every value the Solar Swift library computes; the [Solar migration guide](migrating-from-solar.md) maps each Solar property to Almanac.
 - A shared fixture and parity corpus for all three ports, plus a TypeScript/Swift performance regression harness.
 
-The supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Instants outside it raise a typed error.
+The default supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. `moonTransits` windows can begin on 1949-12-29 at 00:00 UTC. Inputs outside each operation’s interval raise a typed error.
 
 ## Boundaries
 
