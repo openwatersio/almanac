@@ -97,6 +97,8 @@ const specs = [
   { name: "sun-airless-twilight-polar-may", params: site("10", "4", "2026-05-16", "2026-05-18", "1m", POLAR, "AIRLESS") },
   { name: "sun-airless-twilight-polar-dec", params: site("10", "4", "2026-12-20", "2026-12-22", "1m", POLAR, "AIRLESS") },
   // Local apparent hour angle (quantity 42) for upper and lower transits.
+  { name: "moon-hour-angle-greenwich-1949-dec29", params: site("301", "42", "1949-12-29", "1949-12-31", "1m", { lat: 51.4769, lon: 0 }, "AIRLESS") },
+  { name: "moon-hour-angle-greenwich-1949-dec31", params: site("301", "42", "1949-12-31", "1950-01-02", "1m", { lat: 51.4769, lon: 0 }, "AIRLESS") },
   { name: "sun-hour-angle-vic", params: site("10", "42", "2026-03-20", "2026-03-22", "1m", VIC, "AIRLESS") },
   { name: "moon-hour-angle-vic", params: site("301", "42", "2026-03-20", "2026-03-22", "1m", VIC, "AIRLESS") },
   { name: "sun-hour-angle-s88", params: site("10", "42", "2026-09-10", "2026-09-12", "1m", S88, "AIRLESS") },

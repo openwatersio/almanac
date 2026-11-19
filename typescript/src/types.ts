@@ -10,17 +10,21 @@ export class AlmanacOutOfRangeError extends RangeError {
 }
 export const SUPPORTED_MIN = Date.UTC(1950, 0, 1);
 export const SUPPORTED_MAX = Date.UTC(2101, 0, 1);
+export const MOON_TRANSIT_MIN = Date.UTC(1949, 11, 29);
+
 /** Point in time: [min, max). */
-export function assertSupported(d: Date): void {
+export function assertSupported(d: Date, minimum = SUPPORTED_MIN): void {
   const t = d.getTime();
   if (!Number.isFinite(t)) throw new RangeError('invalid Date');   // validation, not out-of-range
-  if (t < SUPPORTED_MIN || t >= SUPPORTED_MAX) throw new AlmanacOutOfRangeError();
+  if (t < minimum || t >= SUPPORTED_MAX) throw new AlmanacOutOfRangeError(
+    `time outside supported interval ${new Date(minimum).toISOString()} ≤ t < 2101-01-01T00:00Z`);
 }
 /** Window END: [min, max] — the exact full-range window [min, max) is legal. */
-export function assertSupportedWindowEnd(d: Date): void {
+export function assertSupportedWindowEnd(d: Date, minimum = SUPPORTED_MIN): void {
   const t = d.getTime();
   if (!Number.isFinite(t)) throw new RangeError('invalid Date');
-  if (t < SUPPORTED_MIN || t > SUPPORTED_MAX) throw new AlmanacOutOfRangeError();
+  if (t < minimum || t > SUPPORTED_MAX) throw new AlmanacOutOfRangeError(
+    `window end outside supported interval ${new Date(minimum).toISOString()} ≤ t ≤ 2101-01-01T00:00Z`);
 }
 /** Cross-port rule: all instants are integer epoch ms (JS Dates already are). */
 export function assertObserver(o: Observer): void {

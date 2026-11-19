@@ -10,7 +10,7 @@ Three implementations, one behavior:
 - `fixtures/` — the shared test corpus (JPL Horizons, USNO, Espenak) all three suites
   must pass; the contract that keeps the ports identical
 
-Supported interval: 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z; results outside it raise a typed error. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
+The default interval is 1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z. The lower bound for `moonTransits` is 1949-12-29T00:00Z. All instants are UT1-accurate, while unknown future DUT1 is outside the civil-UTC accuracy promise. See the [public contract](docs/CONTRACT.md#time-and-supported-interval) for the time model.
 
 - Contract: [`docs/CONTRACT.md`](docs/CONTRACT.md), including coordinates, public behavior, accuracy, and fixture evidence.
 - Scope: [`docs/SCOPE.md`](docs/SCOPE.md), including supported behavior and deliberate boundaries.
@@ -166,7 +166,7 @@ const crossings = sunEvents(today, tomorrow, viewer, eyeHeightM);
 Requires a Swift 6 or newer toolchain.
 
 ```swift
-.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.12.2")
+.package(url: "https://github.com/openwatersio/almanac.git", exact: "0.13.0")
 ```
 
 ```swift
@@ -231,7 +231,7 @@ val minutes = equationOfTime(today)
 
 ### Golden hour, transits, and the Moon's tilt
 
-`sunAltitudeEvents` finds the Sun's center crossing any altitude, with the twilight convention, so `6` gives golden hour and `-6` civil twilight. `sunTransits` and `moonTransits` give each body's highest (`upper`) and lowest (`lower`) meridian crossings. `moonOrientation` turns the Moon's disc: subtracting the parallactic angle from the bright-limb angle gives the bright limb's direction from the zenith.
+`sunAltitudeEvents` finds the Sun's center crossing any altitude, with the twilight convention, so `6` gives golden hour and `-6` civil twilight. `moonTransits` windows can begin on 1949-12-29 at 00:00 UTC. `sunTransits` and `moonTransits` give each body's highest (`upper`) and lowest (`lower`) meridian crossings. `moonOrientation` turns the Moon's disc: subtracting the parallactic angle from the bright-limb angle gives the bright limb's direction from the zenith.
 
 ```ts
 import { sunAltitudeEvents, sunTransits, moonTransits, moonOrientation } from '@openwaters/almanac';

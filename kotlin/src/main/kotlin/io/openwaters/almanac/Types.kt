@@ -35,12 +35,14 @@ internal fun normalized(time: Instant): Instant {
     return Instant.ofEpochMilli(ms)
 }
 
-internal fun assertSupported(time: Instant) {
+internal val MOON_TRANSIT_MIN = Instant.parse("1949-12-29T00:00:00Z").toEpochMilli()
+
+internal fun assertSupported(time: Instant, minimum: Long = SUPPORTED_MIN) {
     val ms = normalized(time).toEpochMilli()
-    if (ms < SUPPORTED_MIN || ms >= SUPPORTED_MAX) throw AlmanacOutOfRangeException()
+    if (ms < minimum || ms >= SUPPORTED_MAX) throw AlmanacOutOfRangeException("time outside supported interval ${Instant.ofEpochMilli(minimum)} ≤ t < 2101-01-01T00:00Z")
 }
 
-internal fun assertSupportedWindowEnd(time: Instant) {
+internal fun assertSupportedWindowEnd(time: Instant, minimum: Long = SUPPORTED_MIN) {
     val ms = normalized(time).toEpochMilli()
-    if (ms < SUPPORTED_MIN || ms > SUPPORTED_MAX) throw AlmanacOutOfRangeException()
+    if (ms < minimum || ms > SUPPORTED_MAX) throw AlmanacOutOfRangeException("window end outside supported interval ${Instant.ofEpochMilli(minimum)} ≤ t ≤ 2101-01-01T00:00Z")
 }

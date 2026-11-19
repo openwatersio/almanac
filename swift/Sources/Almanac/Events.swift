@@ -476,7 +476,7 @@ private func searchAltitudeEvents<K>(
     endUt: Double,
     haRateDegPerDay: Double,
     cycleDays: Double,
-    flatCycle: Bool
+    flatCycle: Bool, minimumUt: Double = minUt
 ) throws -> [(time: Date, kind: K)] {
     let halfWidthDays = flatCycle ? cycleDays / 2 : extremumHalfWidthDays
     var found: [(ut: Double, kind: K)] = []
@@ -487,7 +487,7 @@ private func searchAltitudeEvents<K>(
 
     // The chain's first point need not be an extremum: between any instant and
     // the next extremum after it the altitude is already monotonic.
-    var s0 = sample(clampUt(startUt - cycleDays))
+    var s0 = sample(max(minimumUt, startUt - cycleDays))
     let firstMax = nextHourAngle(sample, s0.ut, 0, haRateDegPerDay)
     let firstMin = nextHourAngle(sample, s0.ut, 180, haRateDegPerDay)
     var nextIsMax = firstMax <= firstMin
@@ -666,17 +666,18 @@ public func sunTransits(from startUtc: Date, to endUtc: Date, observer: Observer
  * sorted ascending, from the topocentric hour angle, so parallax is included,
  * whether or not the Moon is above the horizon.
  */
+// Windows begin as early as 1949-12-29 UTC. Seed one millisecond earlier to include a crossing rounded to midnight.
 public func moonTransits(from startUtc: Date, to endUtc: Date, observer: Observer) throws -> [TransitEvent] {
     let startUtc = try normalized(startUtc)
     let endUtc = try normalized(endUtc)
-    try assertSupported(startUtc)
-    try assertSupportedWindowEnd(endUtc)
+    try assertSupported(startUtc, minimum: moonTransitMin)
+    try assertSupportedWindowEnd(endUtc, minimum: moonTransitMin)
     if startUtc >= endUtc { return [] }
     let raw = try searchAltitudeEvents(
         sample: moonSampler(observer, 0), levels: [LevelSpec<TransitEventKind>](), transitKind: .upper, lowerTransitKind: .lower,
         startUt: utDays(startUtc), endUt: utDays(endUtc),
         haRateDegPerDay: moonHaRateDegPerDay, cycleDays: moonCycleDays,
-        flatCycle: flatCycle(observer)
+        flatCycle: flatCycle(observer), minimumUt: utDays(moonTransitMin.addingTimeInterval(-0.001))
     )
     return raw.map { TransitEvent(time: $0.time, kind: $0.kind) }
 }

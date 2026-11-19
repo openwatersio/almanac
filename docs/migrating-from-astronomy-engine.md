@@ -1,6 +1,6 @@
 # Migrating from Astronomy Engine
 
-Almanac translates the astronomy models it uses from [Astronomy Engine](https://github.com/cosinekitty/astronomy) at a pinned commit. It exposes task-level calls with matching TypeScript, Swift, and Kotlin behavior: observer positions, altitude crossings, phases, and eclipses. Its supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. Astronomy Engine accepts dates outside that interval and has features outside Almanac's scope; check the [comparison](comparison.md#astronomy-engine) before replacing a dependency.
+Almanac translates the astronomy models it uses from [Astronomy Engine](https://github.com/cosinekitty/astronomy) at a pinned commit. It exposes task-level calls with matching TypeScript, Swift, and Kotlin behavior: observer positions, altitude crossings, phases, and eclipses. Its default interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`. The lower bound for `moonTransits` is 1949-12-29T00:00Z. Astronomy Engine accepts dates outside that interval and has features outside Almanac's scope; check the [comparison](comparison.md#astronomy-engine) before replacing a dependency.
 
 The examples below run in `typescript/test/astronomy-engine-migration.test.ts`, `swift/Tests/AlmanacTests/AstronomyEngineMigrationTests.swift`, and Kotlin's `AstronomyEngineMigrationTest.kt`. Position and Moon-state examples are checked against pinned Astronomy Engine 2.1.19 references. Search and visibility examples use known event dates already covered by Almanac's external fixtures.
 

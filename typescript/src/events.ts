@@ -24,7 +24,7 @@
 
 import {
     Observer, type Planet, assertObserver, assertPlanet, assertSupported, assertSupportedWindowEnd,
-    SUPPORTED_MIN, SUPPORTED_MAX
+    SUPPORTED_MIN, MOON_TRANSIT_MIN, SUPPORTED_MAX
 } from './types.js';
 import { dateFromUt, ttDaysFromUt, utDays } from './time.js';
 import { DEG2RAD, KM_PER_AU, RAD2DEG } from './nutation.js';
@@ -466,7 +466,7 @@ function searchAltitudeEvents<K extends string>(
     endUt: number,
     haRateDegPerDay: number,
     cycleDays: number,
-    flatCycle: boolean
+    flatCycle: boolean, minUt = MIN_UT
 ): { time: Date; kind: K }[] {
     const extremumHalfWidthDays = flatCycle ? cycleDays / 2 : EXTREMUM_HALF_WIDTH_DAYS;
     const found: { ut: number; kind: K }[] = [];
@@ -477,7 +477,7 @@ function searchAltitudeEvents<K extends string>(
 
     // The chain's first point need not be an extremum: between any instant and
     // the next extremum after it the altitude is already monotonic.
-    let s0 = sample(clampUt(startUt - cycleDays));
+    let s0 = sample(Math.max(minUt, startUt - cycleDays));
     const firstMax = nextHourAngle(sample, s0.ut, 0, haRateDegPerDay);
     const firstMin = nextHourAngle(sample, s0.ut, 180, haRateDegPerDay);
     let nextIsMax = firstMax <= firstMin;
@@ -638,15 +638,16 @@ export function sunTransits(startUtc: Date, endUtc: Date, observer: Observer): T
  * `[startUtc, endUtc)`, sorted ascending, from the topocentric hour angle, so
  * parallax is included, whether or not the Moon is above the horizon.
  */
+// Windows begin as early as 1949-12-29 UTC. Seed one millisecond earlier to include a crossing rounded to midnight.
 export function moonTransits(startUtc: Date, endUtc: Date, observer: Observer): TransitEvent[] {
-    assertSupported(startUtc);
-    assertSupportedWindowEnd(endUtc);
+    assertSupported(startUtc, MOON_TRANSIT_MIN);
+    assertSupportedWindowEnd(endUtc, MOON_TRANSIT_MIN);
     assertObserver(observer);
     if (startUtc.getTime() >= endUtc.getTime()) return [];
     return searchAltitudeEvents<TransitEventKind>(
         moonSampler(observer, 0), [], 'upper', 'lower',
         utDays(startUtc), utDays(endUtc),
-        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer)
+        MOON_HA_RATE_DEG_PER_DAY, MOON_CYCLE_DAYS, flatCycle(observer), utDays(new Date(MOON_TRANSIT_MIN - 1))
     );
 }
 
