@@ -84,17 +84,38 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
-        with: { distribution: temurin, java-version: 17 }
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            25
+      - name: Configure JDK 17 toolchain discovery
+        run: |
+          mkdir -p "$HOME/.gradle"
+          echo 'org.gradle.java.installations.fromEnv=JAVA_HOME_17_X64,JAVA_HOME_17_ARM64' >> "$HOME/.gradle/gradle.properties"
       - uses: gradle/actions/setup-gradle@v6
+      - name: Check Gradle daemon JVM
+        run: |
+          mkdir -p "$HOME/.gradle/init.d"
+          cp check-gradle-jvm.init.gradle "$HOME/.gradle/init.d/check-gradle-jvm.init.gradle"
+          echo EXPECTED_GRADLE_JAVA=25 >> "$GITHUB_ENV"
       - run: ./gradlew test jacocoTestReport jacocoTestCoverageVerification
       - run: ./gradlew -p smoke run
+      - name: Test source consumer with Gradle on JDK 17
+        run: |
+          export JAVA_HOME="${JAVA_HOME_17_X64:-${JAVA_HOME_17_ARM64:?JDK 17 not installed}}"
+          export EXPECTED_GRADLE_JAVA=17
+          mv build/reports build/reports-jdk25
+          mv build/test-results build/test-results-jdk25
+          ./gradlew -Pkotlin.compiler.execution.strategy=in-process test jacocoTestReport jacocoTestCoverageVerification --rerun-tasks
+          ./gradlew -Pkotlin.compiler.execution.strategy=in-process -p smoke run --rerun-tasks
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: kotlin-reports
           path: |
-            kotlin/build/reports
-            kotlin/build/test-results
+            kotlin/build/reports*
+            kotlin/build/test-results*
   # Slackwater's watch app links Almanac. Apple Watch hardware is arm64_32, where
   # Swift's Int is 32 bits, so the device slice is the one that can break; the
   # simulator slice is what the app's own CI compiles against. Compile-only: the

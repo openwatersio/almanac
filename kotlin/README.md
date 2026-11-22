@@ -2,7 +2,7 @@
 
 Native Kotlin/JVM implementation of the [Almanac contract](../docs/CONTRACT.md): every astronomy function and angle conversion, the same immutable result fields, and the shared JPL Horizons, USNO, NASA/Espenak, and cross-port parity fixtures.
 
-The library uses `java.time.Instant`, Kotlin 2.2.0, JDK 17 to build, and JVM 8 bytecode. Android consumers need minSdk 26. Runtime dependencies are the Kotlin standard library and platform APIs; there are no runtime data files, network calls, or JavaScript engine. Android device validation is pending.
+The library uses `java.time.Instant`, Kotlin 2.4.21, a JDK 17 compilation toolchain, and JVM 8 bytecode. Android consumers need minSdk 26. Runtime dependencies are the Kotlin standard library and platform APIs; there are no runtime data files, network calls, or JavaScript engine. Android device validation is pending.
 
 ## Consume from source
 
@@ -55,7 +55,7 @@ Invalid arguments throw `IllegalArgumentException`; unsupported instants or an e
 
 ## Verify
 
-From `kotlin/`, with JDK 17 available:
+From `kotlin/`, install JDK 17 for the compilation toolchain. Gradle can run on JDK 17 or JDK 25; CI uses JDK 25 and also checks the source consumer on JDK 17. If Gradle cannot discover JDK 17, set `org.gradle.java.installations.paths` to its installation directory in `~/.gradle/gradle.properties`:
 
 ```bash
 ./gradlew test jacocoTestReport jacocoTestCoverageVerification
