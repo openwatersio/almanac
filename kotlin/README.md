@@ -55,7 +55,7 @@ Invalid arguments throw `IllegalArgumentException`; unsupported instants or an e
 
 ## Verify
 
-From `kotlin/`, install JDK 17 for the compilation toolchain. Gradle can run on JDK 17 or JDK 25; CI uses JDK 25 and also checks the source consumer on JDK 17. If Gradle cannot discover JDK 17, configure `org.gradle.java.installations.paths` to its installation directory:
+From `kotlin/`, install JDK 17 for the compilation toolchain. Gradle can run on JDK 17 or JDK 25; CI uses JDK 25 and also checks the source consumer on JDK 17. If Gradle cannot discover JDK 17, set `org.gradle.java.installations.paths` to its installation directory in `~/.gradle/gradle.properties`:
 
 ```bash
 ./gradlew test jacocoTestReport jacocoTestCoverageVerification

@@ -1,0 +1,6 @@
+gradle.settingsEvaluated {
+    def expected = System.getenv("EXPECTED_GRADLE_JAVA")
+    if (!expected || JavaVersion.current().majorVersion != expected) {
+        throw new GradleException("Expected Gradle daemon JDK ${expected}, got ${JavaVersion.current()}")
+    }
+}
