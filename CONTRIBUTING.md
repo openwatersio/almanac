@@ -2,6 +2,8 @@
 
 Almanac is a three-port library with one behavior implemented by hand in TypeScript, Swift, and Kotlin. The [public contract](docs/CONTRACT.md) defines that behavior, and the fixture corpus is the authority all three ports answer to. Read the contract before changing public behavior.
 
+Every change follows the org-wide [rigor rules](https://github.com/openwatersio/.github/blob/main/docs/agents/rigor.md). The first of them: when something fails or looks wrong, find the cause and fix it there instead of working around it.
+
 ## Repository status
 
 Almanac follows the Open Waters Tier 3 repository baseline for a maintained public utility. Tier 3 requires pull requests and the `typescript`, `swift`, `kotlin`, and `fixtures` status checks, with no approving review required. Almanac is listed in the organization profile because external Swift and npm consumers use it; that profile listing is a visibility exception rather than a recorded tier promotion. Promotion to another tier requires an explicit organization decision.
