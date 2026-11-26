@@ -20,6 +20,11 @@ public class AlmanacOutOfRangeException(message: String = "time outside supporte
 internal val SUPPORTED_MIN: Long = Instant.parse("1950-01-01T00:00:00Z").toEpochMilli()
 internal val SUPPORTED_MAX: Long = Instant.parse("2101-01-01T00:00:00Z").toEpochMilli()
 
+/** Inclusive start of the default supported interval; moonTransits starts three days earlier. */
+public val defaultSupportedStart: Instant = Instant.ofEpochMilli(SUPPORTED_MIN)
+/** Exclusive end of the default supported interval; a search window may end here. */
+public val defaultSupportedEnd: Instant = Instant.ofEpochMilli(SUPPORTED_MAX)
+
 internal fun assertPlanet(planet: Planet, earthAllowed: Boolean = false) {
     require(earthAllowed || planet != Planet.EARTH) { "Earth has no Earth-based planetary direction" }
 }

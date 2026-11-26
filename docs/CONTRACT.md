@@ -25,7 +25,7 @@ API instants are JavaScript `Date`, Foundation `Date`, or Java `Instant` values 
 
 Terrestrial Time is calculated as `TT = UT1 + Delta-T` using the Espenak–Meeus polynomials. Delta-T is projected beyond the present, while sources such as JPL Horizons may freeze or use another projection. Coarse position fixtures therefore compare the models in TT so the fixture checks astronomy rather than disagreement between time projections.
 
-The default supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the intersection of the external fixture evidence. The Greenwich Horizons fixtures extend the lower bound for `moonTransits` to 1949-12-29 at 00:00 UTC. Inputs outside an operation’s interval return the typed out-of-range outcome. Widening the interval requires external boundary fixtures first.
+The default supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`, the intersection of the external fixture evidence. The Greenwich Horizons fixtures extend the lower bound for `moonTransits` to 1949-12-29 at 00:00 UTC. The public default bounds are `DEFAULT_SUPPORTED_START` and `DEFAULT_SUPPORTED_END` (epoch milliseconds) in TypeScript, and `defaultSupportedStart` and `defaultSupportedEnd` (`Date` in Swift, `Instant` in Kotlin). The start is inclusive and the end is exclusive for instants; a half-open search window may use the end as its endpoint. Inputs outside an operation’s interval return the typed out-of-range outcome. Widening the interval requires external boundary fixtures first.
 
 ## Coordinates and physical conventions
 
@@ -57,8 +57,9 @@ The default supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`,
 
 The functions have the same names and semantics in all three ports. TypeScript returns objects, Swift returns structs, and Kotlin returns immutable data classes. Kotlin top-level functions live in `io.openwaters.almanac`; function names, parameter order, and result fields match the table below. Numeric astronomy values use `Double`, epoch milliseconds use `Long`, nullable contacts use `Instant?`, and kind enums use uppercase members whose `toString()` is the contract string. `solarEclipseCentralLine` accepts `stepSeconds: Int = 60`. All time arguments and results are UTC-shaped instants.
 
-| Function | Arguments | Result |
+| Symbol | Arguments | Result |
 | --- | --- | --- |
+| `DEFAULT_SUPPORTED_START`, `DEFAULT_SUPPORTED_END` | None | Default inclusive start and exclusive end in TypeScript epoch milliseconds; Swift and Kotlin expose `defaultSupportedStart` and `defaultSupportedEnd` as native instants. |
 | `degreesToRadians(degrees)` | Finite angle in degrees | Angle in radians; preserves sign and full turns without wrapping. |
 | `radiansToDegrees(radians)` | Finite angle in radians | Angle in degrees; preserves sign and full turns without wrapping. Conversion overflow raises a validation error. |
 | `horizonDip(observer, heightAboveGroundM)` | Observer and eye height above the unobstructed surface | Signed apparent horizon altitude in degrees from the horizontal plane, including Earth shape and terrestrial refraction; zero at ground level and negative when elevated. Height is in `[0, 10000]` meters and ground elevation (`elevationM - heightAboveGroundM`) in `[-500, 10000]` meters. |

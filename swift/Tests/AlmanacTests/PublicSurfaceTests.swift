@@ -7,6 +7,15 @@ import Almanac
 /// an assertion about behaviour (that's every other test file's job).
 /// Extend this file as later tasks add to the public API.
 final class PublicSurfaceTests: XCTestCase {
+    func testDefaultSupportedInterval() throws {
+        XCTAssertEqual(defaultSupportedStart, Date(timeIntervalSince1970: -631_152_000))
+        XCTAssertEqual(defaultSupportedEnd, Date(timeIntervalSince1970: 4_133_980_800))
+        XCTAssertNoThrow(try sunPosition(defaultSupportedStart))
+        XCTAssertThrowsError(try sunPosition(defaultSupportedStart.addingTimeInterval(-0.001)))
+        XCTAssertNoThrow(try sunPosition(defaultSupportedEnd.addingTimeInterval(-0.001)))
+        XCTAssertThrowsError(try sunPosition(defaultSupportedEnd))
+    }
+
     func testAngleConversions() throws {
         XCTAssertEqual(try degreesToRadians(180), Double.pi)
         XCTAssertEqual(try radiansToDegrees(Double.pi), 180)

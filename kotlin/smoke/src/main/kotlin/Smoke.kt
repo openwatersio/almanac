@@ -2,6 +2,12 @@ import io.openwaters.almanac.*
 import java.time.Instant
 
 fun main() {
+    check(defaultSupportedStart == Instant.ofEpochSecond(-631_152_000))
+    check(defaultSupportedEnd == Instant.ofEpochSecond(4_133_980_800))
+    check(sunPosition(defaultSupportedStart).distanceAu > 0)
+    check(runCatching { sunPosition(defaultSupportedStart.minusMillis(1)) }.exceptionOrNull() is AlmanacOutOfRangeException)
+    check(sunPosition(defaultSupportedEnd.minusMillis(1)).distanceAu > 0)
+    check(runCatching { sunPosition(defaultSupportedEnd) }.exceptionOrNull() is AlmanacOutOfRangeException)
     check(degreesToRadians(180.0) == kotlin.math.PI)
     check(radiansToDegrees(kotlin.math.PI) == 180.0)
     check(Observer(48.4284, -123.3656).elevationM == 0.0)
