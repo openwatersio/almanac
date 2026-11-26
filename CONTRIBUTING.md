@@ -6,7 +6,7 @@ Every change follows the org-wide [rigor rules](https://github.com/openwatersio/
 
 ## Repository status
 
-Almanac follows the Open Waters Tier 3 repository baseline for a maintained public utility. Tier 3 requires pull requests and the `typescript`, `swift`, `kotlin`, and `fixtures` status checks, with no approving review required. Almanac is listed in the organization profile because external Swift and npm consumers use it; that profile listing is a visibility exception rather than a recorded tier promotion. Promotion to another tier requires an explicit organization decision.
+Almanac follows the Open Waters Tier 3 repository baseline for a maintained public utility. Pull requests require the `typescript`, `swift`, `kotlin`, `fixtures`, and `Verify Actions lockfile` status checks, with no approving review required. Almanac is listed in the organization profile because external Swift and npm consumers use it; that profile listing is a visibility exception rather than a recorded tier promotion. Promotion to another tier requires an explicit organization decision.
 
 The shared organization guidance is in the [repository standards](https://github.com/openwatersio/.github/blob/main/REPOSITORY_STANDARDS.md), [agent instructions](https://github.com/openwatersio/.github/blob/main/docs/agents/agent-instructions.md), [npm release conventions](https://github.com/openwatersio/.github/blob/main/docs/agents/npm-releases.md), and [writing conventions](https://github.com/openwatersio/.github/blob/main/docs/agents/writing-style.md).
 
@@ -21,6 +21,7 @@ The shared organization guidance is in the [repository standards](https://github
 - `Package.swift` is the root manifest used by Git URL SwiftPM consumers.
 - `.github/workflows/ci.yml` runs pull request and main-branch checks.
 - `.github/workflows/release.yml` tests, smoke-tests, and publishes tagged releases.
+- `.github/workflows/actions.lock` locks Actions dependencies; `verify-actions-lock.yml` checks it. Run `gh actions-lock` after adding, removing, or renaming a workflow or changing an action reference, and commit the generated lockfile with the workflow changes. Install it with `gh extension install github/gh-actions-lock`; Dependabot updates entries for action version bumps in onboarded workflows.
 
 ## Documentation
 
