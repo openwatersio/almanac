@@ -5,7 +5,7 @@ jobs:
   tag-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - name: assert tag matches package.json version
         run: |
           pkg_version="$(node -p "require('./typescript/package.json').version")"
@@ -17,16 +17,16 @@ jobs:
   fixtures:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with: { node-version-file: mise.toml }
       - run: node fixtures/generate/derive.mjs --check
   typescript:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with: { node-version-file: mise.toml }
       - run: npm ci
       - run: npm run build
@@ -35,14 +35,14 @@ jobs:
   swift:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - run: swift test -c release
   kotlin:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: kotlin } }
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-java@v6.3.0
         with:
           distribution: temurin
           java-version: |
@@ -52,7 +52,7 @@ jobs:
         run: |
           mkdir -p "$HOME/.gradle"
           echo 'org.gradle.java.installations.fromEnv=JAVA_HOME_17_X64,JAVA_HOME_17_ARM64' >> "$HOME/.gradle/gradle.properties"
-      - uses: gradle/actions/setup-gradle@v6
+      - uses: gradle/actions/setup-gradle@v6.4.1
       - name: Check Gradle daemon JVM
         run: |
           mkdir -p "$HOME/.gradle/init.d"
@@ -68,7 +68,7 @@ jobs:
           mv build/test-results build/test-results-jdk25
           ./gradlew -Pkotlin.compiler.execution.strategy=in-process test jacocoTestReport jacocoTestCoverageVerification --rerun-tasks
           ./gradlew -Pkotlin.compiler.execution.strategy=in-process -p smoke run --rerun-tasks
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:
           name: kotlin-reports
@@ -110,8 +110,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: typescript } }
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with: { node-version-file: .github/mise.toml }
       - run: npm ci
       - run: npm pack
@@ -126,11 +126,11 @@ jobs:
           done
       - name: Test packed ESM and CommonJS loading on Node 24
         run: node ../.github/scripts/smoke-npm.mjs ./*.tgz
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7.1.0
         with: { node-version: '22.12.0' }
       - name: Test packed ESM and CommonJS loading on Node 22.12
         run: node ../.github/scripts/smoke-npm.mjs ./*.tgz
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: almanac-npm-tarball
           path: typescript/*.tgz
@@ -141,11 +141,11 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with: { node-version-file: .github/mise.toml }
       - run: npm install -g npm@latest   # trusted publishing needs npm >= 11.5.1
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v8.0.2
         with:
           name: almanac-npm-tarball
       - run: npm publish ./*.tgz --provenance --access public
