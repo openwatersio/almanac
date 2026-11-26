@@ -38,6 +38,11 @@ func assertSupportedWindowEnd(_ d: Date, minimum: Date = supportedMin) throws {
 let supportedMin = Date(timeIntervalSince1970: -631_152_000)
 let supportedMax = Date(timeIntervalSince1970: 4_133_980_800)
 
+/// Inclusive start of the default supported interval; moonTransits starts three days earlier.
+public let defaultSupportedStart: Date = supportedMin
+/// Exclusive end of the default supported interval; a search window may end here.
+public let defaultSupportedEnd: Date = supportedMax
+
 func assertSupported(_ d: Date, minimum: Date = supportedMin) throws {
     guard d.timeIntervalSince1970.isFinite else { throw AlmanacError.invalidArgument("non-finite Date") }
     guard d >= minimum, d < supportedMax else { throw AlmanacError.outOfRange }

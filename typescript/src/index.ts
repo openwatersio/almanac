@@ -5,6 +5,10 @@ export type { HeliocentricPosition, PlanetPosition, PlanetIllumination } from '.
 export { planetHeliocentricPosition, planetPosition, planetAltAz, planetIllumination } from './planets.js';
 export { horizonDip } from './horizon.js';
 export { AlmanacOutOfRangeError } from './types.js';
+/** Inclusive default start, as epoch milliseconds; moonTransits starts three days earlier. */
+export { SUPPORTED_MIN as DEFAULT_SUPPORTED_START } from './types.js';
+/** Exclusive default end, as epoch milliseconds; a search window may end here. */
+export { SUPPORTED_MAX as DEFAULT_SUPPORTED_END } from './types.js';
 export type { SunPosition, MoonPosition, StarPosition } from './positions.js';
 export { sunPosition, moonPosition, starPosition, equationOfTime } from './positions.js';
 export type { SeasonKind, SeasonEvent } from './seasons.js';

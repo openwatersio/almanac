@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { DEFAULT_SUPPORTED_START, DEFAULT_SUPPORTED_END, sunPosition } from '../src/index.js';
 import { assertSupported, assertSupportedWindowEnd, assertObserver, AlmanacOutOfRangeError, SUPPORTED_MIN, SUPPORTED_MAX } from '../src/types.js';
 
 describe('interval guard', () => {
@@ -24,4 +25,13 @@ describe('observer validation', () => {
     expect(() => assertObserver({ latitudeDeg: 0, longitudeDeg: 0, elevationM: 10001 })).toThrow(RangeError);
     expect(() => assertObserver({ latitudeDeg: 48.7621, longitudeDeg: -123.052 })).not.toThrow();
   });
+});
+
+it('exports the default half-open interval used by public operations', () => {
+  expect(DEFAULT_SUPPORTED_START).toBe(-631_152_000_000);
+  expect(DEFAULT_SUPPORTED_END).toBe(4_133_980_800_000);
+  expect(() => sunPosition(new Date(DEFAULT_SUPPORTED_START))).not.toThrow();
+  expect(() => sunPosition(new Date(DEFAULT_SUPPORTED_START - 1))).toThrow(AlmanacOutOfRangeError);
+  expect(() => sunPosition(new Date(DEFAULT_SUPPORTED_END - 1))).not.toThrow();
+  expect(() => sunPosition(new Date(DEFAULT_SUPPORTED_END))).toThrow(AlmanacOutOfRangeError);
 });
