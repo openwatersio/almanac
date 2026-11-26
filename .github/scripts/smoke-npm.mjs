@@ -11,6 +11,8 @@ try {
   writeFileSync(join(consumer, 'package.json'), '{"private":true}\n');
   execFileSync('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', tarball], { cwd: consumer, stdio: 'inherit' });
   const check = `
+    assert.equal(almanac.DEFAULT_SUPPORTED_START, -631_152_000_000);
+    assert.equal(almanac.DEFAULT_SUPPORTED_END, 4_133_980_800_000);
     const date = new Date('2026-06-21T12:00:00Z');
     const observer = { latitudeDeg: 60.17, longitudeDeg: 24.94 };
     assert.equal(almanac.sunIsUp(date, observer), true);
