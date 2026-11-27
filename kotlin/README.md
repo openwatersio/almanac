@@ -65,4 +65,4 @@ From `kotlin/`, install JDK 17 for the compilation toolchain. Gradle can run on 
 
 JaCoCo requires 100% handwritten LINE coverage. Only coefficient declarations in `MoonTables.kt` and `PlanetModels.kt` are excluded; integrity tests compare every copied value to TypeScript by IEEE-754 bits and source order. Parity recomputes all 13 corpus families, writes and reads temporary JSON, and compares exact structures with at most five scaled units or one 100 ms quantum. External fixtures retain their existing physical tolerances.
 
-The JAR includes MIT `LICENSE` and upstream `NOTICE`. Kotlin benchmarking and Maven publishing are deferred; the existing performance harness continues to cover TypeScript and Swift.
+The JAR includes MIT `LICENSE` and upstream `NOTICE`. The [shared benchmark harness](../CONTRIBUTING.md#performance) measures Kotlin/JVM on JDK 17.

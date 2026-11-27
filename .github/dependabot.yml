@@ -18,6 +18,7 @@ updates:
     directories:
       - /kotlin
       - /kotlin/smoke
+      - /benchmarks/kotlin
     schedule:
       interval: weekly
     # Major upgrades need a coordinated toolchain and Android compatibility review.

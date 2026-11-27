@@ -62,4 +62,4 @@ Footprints for npm packages are minified and gzipped bundles: each package insta
 
 ## Kotlin and Android
 
-Almanac provides every function as native Kotlin, with the same shared fixtures and parity tolerances as TypeScript and Swift. The source Gradle library targets JVM 8 and uses `java.time.Instant`; Android requires minSdk 26. See [Kotlin installation](../kotlin/README.md). Kotlin has no published Maven artifact or benchmark runner yet, and JVM verification does not establish Android device performance.
+Almanac provides every function as native Kotlin, with the same shared fixtures and parity tolerances as TypeScript and Swift. The source Gradle library targets JVM 8 and uses `java.time.Instant`; Android requires minSdk 26. See [Kotlin installation](../kotlin/README.md). Kotlin is available as a Gradle source dependency. The [shared benchmark harness](../CONTRIBUTING.md#performance) measures Kotlin on JDK 17. Android device timings depend on the device and runtime.

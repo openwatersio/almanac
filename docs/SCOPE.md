@@ -37,4 +37,4 @@ The default supported interval is `1950-01-01T00:00Z ≤ t < 2101-01-01T00:00Z`.
 - The library does not extrapolate outside the supported interval because the series truncations and Delta-T model do not support reliable results there.
 - Migrations from astronomy implementations in consumer applications are tracked in those repositories and do not block Almanac releases.
 
-Kotlin/JVM targets JVM 8 and Android minSdk 26 with `java.time.Instant`. It is consumed from source through Gradle; Maven publication, Kotlin benchmarks, and Android device validation are deferred.
+Kotlin/JVM targets JVM 8 and Android minSdk 26 with `java.time.Instant`. It is consumed from source through Gradle. The [performance harness](../CONTRIBUTING.md#performance) measures Kotlin on JDK 17. Maven publication and Android device validation are deferred.

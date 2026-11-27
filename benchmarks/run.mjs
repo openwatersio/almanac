@@ -2,12 +2,12 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { arch, cpus, hostname, platform, release, tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
-import { compare, validate } from './compare.mjs';
+import { benchmarkPorts, compare, validate } from './compare.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const bench = join(root, 'benchmarks');
@@ -20,10 +20,13 @@ const { values } = parseArgs({ options: {
     help: { type: 'boolean', short: 'h' },
 } });
 if (values.help) {
-    console.log('Usage: node benchmarks/run.mjs [--base git-ref] [--port typescript|swift|both] [--output directory] [--threshold percent] [--skip name-regex]');
+    console.log('Usage: node benchmarks/run.mjs [--base git-ref] [--port typescript|swift|kotlin|both|all] [--output directory] [--threshold percent] [--skip name-regex]');
     process.exit(0);
 }
-assert.ok(['typescript', 'swift', 'both'].includes(values.port), 'Unknown port');
+const ports = new Map(benchmarkPorts.map((port) => [port, [port]]));
+ports.set('both', ['typescript', 'swift']);
+ports.set('all', benchmarkPorts);
+assert.ok(ports.has(values.port), 'Unknown port');
 const threshold = Number(values.threshold);
 assert.ok(values.threshold.trim() && Number.isFinite(threshold) && threshold >= 0, 'Invalid threshold percentage');
 const suite = JSON.parse(readFileSync(join(bench, 'cases.json')));
@@ -52,7 +55,9 @@ mkdirSync(output, { recursive: true });
 const temp = mkdtempSync(join(tmpdir(), 'almanac-bench-'));
 const baseline = join(temp, 'source');
 const hash = createHash('sha256');
-for (const path of ['cases.json', 'typescript.mjs', 'swift/main.swift', 'Package.swift', 'run.mjs', 'compare.mjs']) {
+const kotlinHarness = ['build.gradle.kts', 'settings.gradle.kts', 'src/main/kotlin/Benchmark.kt'];
+for (const path of ['cases.json', 'typescript.mjs', 'swift/main.swift', 'Package.swift', 'run.mjs', 'compare.mjs',
+    ...kotlinHarness.map((path) => 'kotlin/' + path)]) {
     hash.update(path).update(readFileSync(join(bench, path)));
 }
 const harness = hash.digest('hex');
@@ -74,11 +79,15 @@ try {
     mkdirSync(baseline);
     build('git', ['archive', '--format=tar', '--output=' + join(temp, 'base.tar'), baseRevision]);
     build('tar', ['-xf', join(temp, 'base.tar'), '-C', baseline]);
-    for (const port of values.port === 'both' ? ['typescript', 'swift'] : [values.port]) {
+    for (const port of ports.get(values.port)) {
         const compiler = join(root, 'typescript/node_modules/typescript/bin/tsc');
+        const java = process.env.JAVA_HOME ? join(process.env.JAVA_HOME, 'bin/java') : 'java';
         const runtime = port === 'typescript'
             ? process.version + '; TypeScript ' + capture(process.execPath, [compiler, '--version'])
-            : capture('swift', ['--version']);
+            : port === 'kotlin' ? capture(java, ['--version']) : capture('swift', ['--version']);
+        if (port === 'kotlin') {
+            assert.match(runtime, /^(?:openjdk|java) 17(?:[.\s+-]|$)/, 'Kotlin benchmarks require JDK 17');
+        }
         const commands = {};
         // Build BOTH revisions before timing either one.
         for (const [label, source] of [['base', baseline], ['candidate', root]]) {
@@ -86,6 +95,16 @@ try {
             if (port === 'typescript') {
                 build(process.execPath, [compiler, '-p', join(source, 'typescript/tsconfig.json')]);
                 commands[label] = [process.execPath, [join(bench, 'typescript.mjs'), join(source, 'typescript/dist/index.js')]];
+            } else if (port === 'kotlin') {
+                assert.ok(existsSync(join(source, 'kotlin/src/main/kotlin')),
+                    'Kotlin benchmarking requires a base with the Kotlin/JVM port');
+                const project = join(temp, label + '-kotlin');
+                for (const path of kotlinHarness) {
+                    cpSync(join(bench, 'kotlin', path), join(project, path));
+                }
+                build(join(root, 'kotlin/gradlew'), ['--no-daemon', '--project-dir', project, 'installDist',
+                    '-Pkotlin.compiler.execution.strategy=in-process', '-PalmanacSource=' + source]);
+                commands[label] = [join(project, 'build/install/almanac-benchmarks/bin/almanac-benchmarks'), [join(bench, 'cases.json')]];
             } else {
                 const env = { ...process.env, ALMANAC_SOURCE: source };
                 const args = ['build', '-c', 'release', '--package-path', bench, '--scratch-path', join(temp, label + '-swift')];

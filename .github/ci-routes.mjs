@@ -11,7 +11,7 @@ export function suites(paths, event = 'pull_request') {
         if (path.startsWith('typescript/')) result.typescript = true;
         if (path.startsWith('swift/')) result.swift = true;
         if (path.startsWith('kotlin/')) result.kotlin = true;
-        if (path.startsWith('benchmarks/')) result.typescript = result.swift = true;
+        if (path.startsWith('benchmarks/')) result.typescript = result.swift = result.kotlin = true;
     }
     if (event !== 'pull_request') return { typescript: true, swift: true, kotlin: true };
     return result;
