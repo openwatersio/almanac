@@ -7,8 +7,8 @@ import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { compare } from './compare.mjs';
 
-const report = (samplesMs) => ({
-    port: 'typescript', harness: 'same-workloads',
+const report = (samplesMs, port = 'typescript') => ({
+    port, harness: 'same-workloads',
     environment: { runtime: 'node 22', platform: 'linux', arch: 'x64', cpu: 'test CPU' },
     results: [{ name: 'eclipse walk', iterations: 10, checksum: 42, samplesMs }],
 });
@@ -57,10 +57,10 @@ test('CLI returns a failure status for a regression or invalid input', () => {
     try {
         const base = join(dir, 'base.json');
         const candidate = join(dir, 'candidate.json');
-        writeFileSync(base, JSON.stringify(report([10, 10, 10, 10, 10, 10, 10])));
+        writeFileSync(base, JSON.stringify(report([10, 10, 10, 10, 10, 10, 10], 'kotlin')));
         const run = (...extra) => spawnSync(process.execPath,
             [fileURLToPath(new URL('./compare.mjs', import.meta.url)), base, candidate, ...extra], { encoding: 'utf8' });
-        writeFileSync(candidate, JSON.stringify(report([13, 13, 13, 13, 13, 13, 13])));
+        writeFileSync(candidate, JSON.stringify(report([13, 13, 13, 13, 13, 13, 13], 'kotlin')));
         const slower = run();
         assert.equal(slower.status, 1);
         assert.match(slower.stdout, /REGRESSION/);

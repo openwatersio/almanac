@@ -22,13 +22,7 @@ Algorithms translated from [Astronomy Engine](https://github.com/cosinekitty/ast
 
 ## Performance
 
-Almanac includes a shared performance harness for TypeScript and Swift: **34 workloads**
-cover positions, a 228-hour sky track, short/year/polar event windows, full-range
-moon phases, next/previous/range lunar, solar, and global solar eclipse searches,
-including empty windows, solar obscuration over a 228-hour track, and the central
-line of the 2024-04-08 eclipse, five-planet sky tracks, planetary rise/set, a
-year of golden-hour crossings and Sun and Moon transits, and a 228-hour Moon
-orientation track.
+Almanac benchmarks TypeScript, Swift, and Kotlin/JVM against the same 39 workloads. They cover positions and sky tracks for the Sun, Moon, planets, and stars, as well as rise and set, transits, lunar phases, seasonal events, and eclipse searches.
 
 Event searches find altitude extrema with Brent's method and altitude crossings
 with a cosine-seeded secant solver, each root proven inside a half-second
@@ -52,15 +46,20 @@ Reproduce the comparison locally from the repository root with mise 2026.9.11 or
 ```bash
 mise install
 mise exec -- npm ci --prefix typescript
-mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^(global|planets|suncalc)/'
+mise exec -- node benchmarks/run.mjs --base v0.4.1 --skip '^(global|planets|suncalc|cycles|stars)/'
 ```
 
-The `--skip` pattern leaves out global eclipse, planetary, and SunCalc-parity workloads absent from that base. Use `--skip '^(solar|global|planets|suncalc)/'` when the base predates 0.4.0, which is when the solar eclipse workloads arrived. For a base that lacks only the SunCalc-parity APIs, use `--skip '^suncalc/'`.
+The `--skip` pattern leaves out workloads whose APIs are absent from v0.4.1. See [the harness guide](CONTRIBUTING.md#performance) for other baselines.
 
-CI runs the harness on code changes and fails on **median regressions over 20%**.
-Results include timing tables, raw samples, checksums, and revision/toolchain
-metadata. See [the harness guide](CONTRIBUTING.md#performance) for choosing a
-baseline, running one port, and inspecting reports.
+Run the Kotlin benchmarks from the repository root with the Node and JDK 17 versions in `mise.toml`:
+
+```bash
+mise exec -- node benchmarks/run.mjs --port kotlin --base origin/main
+```
+
+Use `--port all` to run all three ports. Kotlin requires a baseline with the Kotlin/JVM APIs used by the workloads.
+
+CI runs the same workloads and fails on **median regressions over 20%** for each port. Results include timing tables, raw samples, checksums, and revision and toolchain metadata. See [the harness guide](CONTRIBUTING.md#performance) for choosing a baseline and inspecting reports.
 
 Event searches scale with window length. Run a full 151-year sweep in a worker or
 background task; use shorter windows for interactive queries.
@@ -213,7 +212,7 @@ print(try equationOfTime(today))   // sundial minus clock, minutes
 
 ### Kotlin/JVM and Android
 
-The Kotlin library provides the same functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Maven publication and a Kotlin benchmark runner are deferred; consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
+The Kotlin library provides the same functions and result fields, using `java.time.Instant` and immutable data classes. It targets JVM 8 and Android minSdk 26, builds with JDK 17, and has no runtime dependencies beyond the Kotlin standard library and platform APIs. Consume the source at a reviewed Git SHA as described in [`kotlin/README.md`](kotlin/README.md).
 
 ```kotlin
 import io.openwaters.almanac.*

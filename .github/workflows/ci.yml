@@ -145,6 +145,11 @@ jobs:
         with: { node-version-file: mise.toml }
       - if: env.PORT == 'typescript'
         run: npm ci --prefix typescript
+      - uses: actions/setup-java@v6.3.0
+        if: env.PORT == 'kotlin'
+        with: { distribution: temurin, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v6.4.1
+        if: env.PORT == 'kotlin'
       - run: node --test benchmarks/compare.test.mjs
       - name: Compare base and candidate on the same runner
         env:
@@ -189,4 +194,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env: { PORT: swift }
+    steps: *performance-steps
+  performance-kotlin:
+    name: performance (kotlin, ubuntu-latest)
+    needs: changes
+    if: needs.changes.outputs.kotlin == 'true'
+    permissions: { contents: read }
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env: { PORT: kotlin }
     steps: *performance-steps

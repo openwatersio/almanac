@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+export const benchmarkPorts = ['typescript', 'swift', 'kotlin'];
+
 export function median(values) {
     const sorted = [...values].sort((a, b) => a - b);
     const middle = Math.floor(sorted.length / 2);
@@ -10,7 +12,7 @@ export function median(values) {
 }
 
 export function validate(report) {
-    assert.ok(['typescript', 'swift'].includes(report.port), 'Unknown port');
+    assert.ok(benchmarkPorts.includes(report.port), 'Unknown port');
     assert.ok(typeof report.harness === 'string' && report.harness.length > 0 && report.environment, 'Missing harness/environment metadata');
     for (const key of ['runtime', 'platform', 'arch', 'cpu']) {
         assert.ok(typeof report.environment[key] === 'string' && report.environment[key].length > 0, 'Missing environment metadata: ' + key);
