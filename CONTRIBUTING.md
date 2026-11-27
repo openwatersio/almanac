@@ -27,6 +27,15 @@ The shared organization guidance is in the [repository standards](https://github
 
 Keep lasting documentation in the repository: the public contract, supported scope, usage, and contributor guidance. Proposed work belongs in GitHub issues or pull requests. Plans, specs, task briefs, and spike output are temporary working documents; keep them in ignored `.superpowers/`. Before a release, remove any committed planning documents and promote decisions that describe shipped behavior into the relevant living document. A merged plan or spec is not evidence that behavior ships.
 
+## Public update checklist
+
+Review these locations in every change series that affects supported languages, public APIs, installation, releases, or performance. Update each affected location and link any companion pull request before merging.
+
+- **Implementations and checks:** cover TypeScript, Swift, and Kotlin/JVM. Update the public exports and API tests, Kotlin Gradle smoke consumer, and shared fixtures as applicable. For performance changes, check the shared workload definitions, each runner, and CI routing and reports.
+- **Repository docs:** update the root README, the [Kotlin installation guide](kotlin/README.md), and any affected contract, scope, comparison, migration, or recipe pages in [docs](docs/). Check package and version examples for each language.
+- **Website:** review the [Sky landing page source](https://github.com/openwatersio/openwaters.io/blob/main/website/src/pages/sky/index.astro) for the headline, feature and benchmark copy, usage and installation examples, page description, and structured language metadata. Update any affected Sky demo pages and verify the [published page](https://openwaters.io/sky/) after deployment.
+- **GitHub:** keep the repository About description and language topics current when port support changes. For releases, check the release notes and the installation references readers use to get that version.
+
 ## Cross-port contract
 
 - Every behavior change lands in all three ports in the same change series. TypeScript leads, and Swift and Kotlin follow function by function with the same structure and operation order. The parity corpus compares the implementations near exactly at about `1e-5°`.
